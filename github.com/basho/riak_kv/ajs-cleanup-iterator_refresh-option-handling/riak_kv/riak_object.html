@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_object (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_object</h1>
+<h2 class="modsummary">container for Riak data and metadata.</h2>
+<div class="description">
+<p>container for Riak data and metadata</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-binary_version">binary_version() = v0 | v1</h3></div>
+    <div class="type"><h3 id="type-bucket">bucket() = binary() | {binary(), binary()}</h3></div>
+    <div class="type"><h3 id="type-index_op">index_op() = add | remove</h3></div>
+    <div class="type"><h3 id="type-index_value">index_value() = integer() | binary()</h3></div>
+    <div class="type"><h3 id="type-key">key() = binary()</h3></div>
+    <div class="type"><h3 id="type-riak_object">riak_object()</h3></div>
+    <div class="type"><h3 id="type-value">value() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Bucket::bucket(), Key::key(), Value::value()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p>Constructor for new riak objects.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(Bucket::bucket(), Key::key(), Value::value(), C::string() | dict() | no_initial_metadata) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p>Constructor for new riak objects with an initial content-type.</p>
+</div></div>
+<div class="function">
+<h3 id="is_robject/1">is_robject(R_object) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ensure_robject/1">ensure_robject(Obj::any()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p>Ensure the incoming term is a riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1">equal(Obj1::riak_object(), Obj2::riak_object()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Deep (expensive) comparison of Riak objects.</p>
+</div></div>
+<div class="function">
+<h3 id="ancestors/1">ancestors(Objects::[riak_object()]) -&gt; [riak_object()]</h3>
+
+
+<div class="description">
+
+<p> Given a list of riak_object()s, return the objects that are pure
+        ancestors of other objects in the list, if any.  The changes in the
+        objects returned by this function are guaranteed to be reflected in
+        the other objects in Objects, and can safely be discarded from the list
+        without losing data.</p>
+</div></div>
+<div class="function">
+<h3 id="strict_descendant/1">strict_descendant(O1::riak_object(), O2::riak_object()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>returns true if the <code>riak_object()</code> at <code>O1</code> is a strict
+  descendant of that at <code>O2</code>. This means that the first object
+  causally dominates the second.</p>
+<p><em>See also:</em> <a href="vclock.html#dominates/2" class="seealso">vclock:dominates/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="reconcile/1">reconcile(Objects::[riak_object()], AllowMultiple::boolean()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> Reconcile a list of riak objects.  If AllowMultiple is true,
+        the riak_object returned may contain multiple values if Objects
+        contains sibling versions (objects that could not be syntactically
+        merged).   If AllowMultiple is false, the riak_object returned will
+        contain the value of the most-recently-updated object, as per the
+        X-Riak-Last-Modified header.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(OldObject::riak_object(), NewObject::riak_object()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p>Merge the contents and vclocks of OldObject and NewObject.
+        Note: This function calls apply_updates on NewObject.
+        Depending on whether DVV is enabled or not, then may merge
+        dropping dotted and dominated siblings, otherwise keeps all
+        unique sibling values. NOTE: as well as being a Syntactic
+        merge, this is also now a semantic merge for CRDTs.  Only
+        call with concurrent objects. Use <code>syntactic_merge/2</code> if one
+        object may strictly dominate another.</p>
+</div></div>
+<div class="function">
+<h3 id="apply_updates/1">apply_updates(Object::riak_object()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> Promote pending updates (made with the update_value() and
+        update_metadata() calls) to this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="bucket/1">bucket(R_object::riak_object()) -&gt; bucket()</h3>
+
+
+<div class="description">
+
+<p>Return the containing bucket for this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="bucket_only/1">bucket_only(R_object::riak_object()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the containing bucket for this riak_object without any type
+  information, if present.</p>
+</div></div>
+<div class="function">
+<h3 id="type/1">type(R_object::riak_object()) -&gt; binary() | undefined</h3>
+
+
+<div class="description">
+
+<p>Return the containing bucket-type for this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="key/1">key(R_object::riak_object()) -&gt; key()</h3>
+
+
+<div class="description">
+
+<p> Return the key for this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="vclock/1">vclock(R_object::riak_object()) -&gt; vclock() (see module vclock)</h3>
+
+
+<div class="description">
+
+<p> Return the vector clock for this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="value_count/1">value_count(R_object::riak_object()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p> Return the number of values (siblings) of this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="get_contents/1">get_contents(R_object::riak_object()) -&gt; [{dict(), value()}]</h3>
+
+
+<div class="description">
+
+<p> Return the contents (a list of {metadata, value} tuples) for
+        this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="get_metadata/1">get_metadata(O::riak_object()) -&gt; dict()</h3>
+
+
+<div class="description">
+
+<p> Assert that this riak_object has no siblings and return its associated
+        metadata.  This function will fail with a badmatch error if the
+        object has siblings (value_count() &gt; 1).</p>
+</div></div>
+<div class="function">
+<h3 id="get_metadatas/1">get_metadatas(R_object::riak_object()) -&gt; [dict()]</h3>
+
+
+<div class="description">
+
+<p> Return a list of the metadata values for this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="get_values/1">get_values(R_object::riak_object()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p> Return a list of object values for this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1">get_value(Object::riak_object()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p> Assert that this riak_object has no siblings and return its associated
+        value.  This function will fail with a badmatch error if the object
+        has siblings (value_count() &gt; 1).</p>
+</div></div>
+<div class="function">
+<h3 id="hash/1">hash(Obj::riak_object()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>calculates the hash of a riak object</p>
+</div></div>
+<div class="function">
+<h3 id="update_metadata/1">update_metadata(Object::riak_object(), M::dict()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> Set the updated metadata of an object to M.</p>
+</div></div>
+<div class="function">
+<h3 id="update_value/1">update_value(Object::riak_object(), V::value()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> Set the updated value of an object to V</p>
+</div></div>
+<div class="function">
+<h3 id="get_update_metadata/1">get_update_metadata(R_object::riak_object()) -&gt; dict()</h3>
+
+
+<div class="description">
+
+<p> Return the updated metadata of this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="get_update_value/1">get_update_value(R_object::riak_object()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p> Return the updated value of this riak_object.</p>
+</div></div>
+<div class="function">
+<h3 id="set_vclock/1">set_vclock(Object::riak_object(), VClock::vclock() (see module vclock)) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> INTERNAL USE ONLY.  Set the vclock of riak_object O to V.</p>
+</div></div>
+<div class="function">
+<h3 id="increment_vclock/1">increment_vclock(Object::riak_object(), ClientId::vclock_node() (see module vclock)) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> Increment the entry for ClientId in O's vclock.</p>
+</div></div>
+<div class="function">
+<h3 id="increment_vclock/1-1">increment_vclock(Object::riak_object(), ClientId::vclock_node() (see module vclock), Timestamp::timestamp() (see module vclock)) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> Increment the entry for ClientId in O's vclock.</p>
+</div></div>
+<div class="function">
+<h3 id="index_specs/1">index_specs(Obj::riak_object()) -&gt; [{index_op(), binary(), index_value()}]</h3>
+
+
+<div class="description">
+
+<p>Prepare a list of index specifications
+  to pass to the backend. This function is for
+  the case where there is no existing object
+  stored for a key and therefore no existing
+  index data.</p>
+</div></div>
+<div class="function">
+<h3 id="diff_index_specs/1">diff_index_specs(Obj::riak_object(), OldObj::riak_object()) -&gt; [{index_op(), binary(), index_value()}]</h3>
+
+
+<div class="description">
+
+<p>Prepare a list of index specifications to pass to the
+  backend. If the object passed as the first parameter does not have
+  siblings, the function will assemble specs to replace all of its
+  indexes with the indexes specified in the object passed as the
+  second parameter. If there are siblings only the unique new
+  indexes are added.</p>
+</div></div>
+<div class="function">
+<h3 id="diff_index_data/1">diff_index_data(OldIndexes::[{binary(), index_value()}], AllIndexes::[{binary(), index_value()}]) -&gt; [{index_op(), binary(), index_value()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="index_data/1">index_data(Obj::riak_object()) -&gt; [{binary(), index_value()}]</h3>
+
+
+<div class="description">
+
+<p>Get a list of {Index, Value} tuples from the
+  metadata of an object.</p>
+</div></div>
+<div class="function">
+<h3 id="set_contents/1">set_contents(Object::riak_object(), MVs::[{dict(), value()}]) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p> INTERNAL USE ONLY.  Set the contents of riak_object to the
+        {Metadata, Value} pairs in MVs. Normal clients should use the
+        set_update_[value|metadata]() + apply_updates() method for changing
+        object contents.</p>
+</div></div>
+<div class="function">
+<h3 id="vclock_header/1">vclock_header(Doc::riak_object()) -&gt; {Name::string(), Value::string()}</h3>
+
+
+<div class="description">
+
+<p>Transform the Erlang representation of the document's vclock
+       into something suitable for an HTTP header</p>
+</div></div>
+<div class="function">
+<h3 id="to_json/1">to_json(Obj::riak_object()) -&gt; {struct, [any()]}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>use <code>riak_object_json:encode</code> directly</p>
+
+<p>Converts a riak_object into its JSON equivalent</p>
+</div></div>
+<div class="function">
+<h3 id="from_json/1">from_json(JsonObj) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use <code>riak_object_json:decode</code> now.</p>
+ </div></div>
+<div class="function">
+<h3 id="update/1">update(LWW::boolean(), LocalObj::riak_object(), NewObj::riak_object(), Actor::vclock_node() (see module vclock), TimeStamp::timestamp() (see module vclock)) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p>a Put merge. Update a stored riak_object with the value from a
+  new riak_object that has been put. Must be serialised by the
+  <code>Actor</code> provided.</p>
+</div></div>
+<div class="function">
+<h3 id="syntactic_merge/1">syntactic_merge(CurrentObject::riak_object(), NewObject::riak_object()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="approximate_size/1">approximate_size(Vsn::binary_version(), Obj::riak_object()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get an approximation of object size by adding together the bucket, key,
+  vectorclock, and all of the siblings. This is more complex than
+  calling term_to_binary/1, but it should be easier on memory,
+  especially for objects with large values.</p>
+</div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(X1::binary_version(), RObj::riak_object()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Convert riak object to binary form</p>
+</div></div>
+<div class="function">
+<h3 id="to_binary_version/1">to_binary_version(Vsn::binary_version(), B::bucket(), K::key(), Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>convert a binary encoded riak object to a different
+  encoding version. If the binary is already in the desired
+  encoding this is a no-op</p>
+</div></div>
+<div class="function">
+<h3 id="binary_version/1">binary_version(X1::binary()) -&gt; binary_version()</h3>
+
+
+<div class="description">
+
+<p>return the binary version the riak object binary is encoded in</p>
+</div></div>
+<div class="function">
+<h3 id="from_binary/1">from_binary(B::bucket(), K::key(), ObjTerm::binary()) -&gt; riak_object()</h3>
+
+
+<div class="description">
+
+<p>Convert binary object to riak object</p>
+</div></div>
+<div class="function">
+<h3 id="update_last_modified/1">update_last_modified(RObj) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vclock_encoding_method/0">vclock_encoding_method() -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_vclock/1">encode_vclock(VClock) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_vclock/1-1">encode_vclock(Method::atom(), VClock::vclock() (see module vclock)) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode_vclock/1">decode_vclock(EncodedVClock::binary()) -&gt; vclock() (see module vclock)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode_vclock/1-1">decode_vclock(Method::atom(), VClock::term()) -&gt; vclock() (see module vclock)</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

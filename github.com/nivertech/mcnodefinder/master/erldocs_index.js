@@ -1,0 +1,1 @@
+var index = [['app','mcnodefinder','mcnodefinder','[application]'],['mod','mcnodefinder','nodefinder_mc_app','Nodefinder service.'],['fun','mcnodefinder','nodefinder_mc_app:discover/0','Initiate a discovery request.']];

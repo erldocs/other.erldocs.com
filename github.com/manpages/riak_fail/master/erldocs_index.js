@@ -1,0 +1,1 @@
+var index = [['app','riak_fail','riak_fail','[application]'],['mod','riak_fail','fail',[]],['mod','riak_fail','fail_app',[]],['mod','riak_fail','fail_sup',[]],['fun','riak_fail','fail:ping/0',[]],['fun','riak_fail','fail_app:start/2',[]],['fun','riak_fail','fail_app:stop/1',[]],['fun','riak_fail','fail_sup:init/1',[]],['fun','riak_fail','fail_sup:start_link/0',[]]];

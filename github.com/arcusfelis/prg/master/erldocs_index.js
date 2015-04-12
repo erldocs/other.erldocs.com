@@ -1,0 +1,1 @@
+var index = [['app','prg','prg','[application]'],['mod','prg','prg',[]],['mod','prg','prg_real',[]],['fun','prg','prg:generate/1','Generates the list of the pseudorandom values.'],['fun','prg','prg:generate/1','Generates the pseudorandom value.'],['fun','prg','prg:take/1','Gets the list of elements.'],['fun','prg','prg_real:generate/5',[]]];

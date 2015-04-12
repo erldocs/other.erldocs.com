@@ -1,0 +1,1 @@
+var index = [['app','erlvjava','erlvjava','[application]'],['mod','erlvjava','first_example',[]],['mod','erlvjava','otp','.'],['fun','erlvjava','first_example:say_hello/1',[]],['fun','erlvjava','otp:greet/1',[]],['fun','erlvjava','otp:handle_call/3',[]],['fun','erlvjava','otp:init/1',[]],['fun','erlvjava','otp:start_link/0',[]]];

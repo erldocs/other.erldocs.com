@@ -1,0 +1,1 @@
+var index = [['app','wschat','wschat','[application]'],['mod','wschat','ws_chat_app',[]],['mod','wschat','ws_chat_sup',[]],['fun','wschat','ws_chat_app:start/2',[]],['fun','wschat','ws_chat_app:stop/1',[]],['fun','wschat','ws_chat_sup:init/1',[]],['fun','wschat','ws_chat_sup:start_link/0',[]]];

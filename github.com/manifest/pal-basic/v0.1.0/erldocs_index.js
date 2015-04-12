@@ -1,0 +1,1 @@
+var index = [['app','pal-basic','pal-basic','[application]'],['mod','pal-basic','pal_basic',[]],['fun','pal-basic','pal_basic:authenticate/3',[]],['fun','pal-basic','pal_basic:credentials/1',[]],['fun','pal-basic','pal_basic:init/1',[]]];

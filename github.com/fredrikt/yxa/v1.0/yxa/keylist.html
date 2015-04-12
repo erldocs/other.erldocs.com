@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>keylist (yxa) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>keylist</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-keyelem">keyelem() = #keyelem{}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="fetch/2">fetch(Key, List) -&gt; [string()]</h3>
+
+<ul class="type">
+<li><code>Key = string() | atom()</code></li><li><code>List = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    return the contents of the header that matches Key</p>
+</div></div>
+<div class="function">
+<h3 id="appendlist/2">appendlist(Keylist, List) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>KeyList = #keylist{}</code></li><li><code>List = [{Name, Item}] | {Key, Name, Item}</code></li></ul>
+<div class="description">
+
+<p>    do one append/2 for each entry in List</p>
+</div></div>
+<div class="function">
+<h3 id="from_list/1">from_list(List) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>List = [{Name, Key, Item}]</code></li></ul>
+<div class="description">
+
+<p>    create an empty keylist and add the List elements with
+           append/2</p>
+</div></div>
+<div class="function">
+<h3 id="append/2">append(X1::Data, Keylist::List) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>Data = {Name, NewValueList} | {Name, Key, NewValueList}</code></li><li><code>Name = string()</code></li><li><code>Key = atom() | list()</code></li><li><code>NewValueList = list()</code></li><li><code>List = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Add NewValueList to tail of element (#keyelem.item) in
+           List (or create new entry if Key is unknown).</p>
+</div></div>
+<div class="function">
+<h3 id="prepend/3">prepend(X1::{Name, NewValueList}, List) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>Name = string()</code></li><li><code>NewValueList = list()</code></li><li><code>List = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Add NewValueList to head of element (#keyelem.item) in
+           List (or create new entry if Key is unknown). Note : This
+           function does not accept atom() form because if there is
+           no header, one will be created and then we have to have a
+           string() variant of it anyways.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/2">delete(Name, Keylist) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>Name = string() | atom()</code></li><li><code>Keylist = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    remove an entry from keylist record() (#keylist.list)</p>
+</div></div>
+<div class="function">
+<h3 id="deletefirstvalue/2">deletefirstvalue(Name, Keylist::List) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>Name = string() | atom()</code></li><li><code>List = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    remove the first entry from a element (#keyelem.item) in
+           keylist record() (#keylist.list)</p>
+</div></div>
+<div class="function">
+<h3 id="set/3">set(Name, Valuelist, Keylist::List) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>Nakme = string()</code></li><li><code>ValueList = [string()]</code></li><li><code>List = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    replace all items in E#keyelem.item where Key matches key
+           in E</p>
+</div></div>
+<div class="function">
+<h3 id="copy/2">copy(Keylist, Names::Keys) -&gt; #keylist{}</h3>
+
+<ul class="type">
+<li><code>Keylist = [#keyelem{}]</code></li><li><code>Keys = [string()]</code></li></ul>
+<div class="description">
+
+<p>    return Keylist only containing the fields in Keys Note :
+           use of atom() as keys (for well known keys) should
+           improve patternmatch speed. When matching a E#keyelem.key
+           against Key in the alternative solution below, it may
+           also be worth using one of the OTP set modules so that
+           the member check becomes O(log N) instead of O(N).</p>
+</div></div>
+<div class="function">
+<h3 id="map/2">map(Func, Keylist) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>Func = function()</code></li><li><code>Keylist = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    apply Func to all elements in Keylist (#keylist.list)</p>
+</div></div>
+<div class="function">
+<h3 id="normalize/1">normalize(Name::Key) -&gt; string() | atom()</h3>
+
+<ul class="type">
+<li><code>Key = string()</code></li></ul>
+<div class="description">
+
+<p>    Convert header key to a standard format - either an atom
+           for well known headers, or a lowercased string. We don't
+           do list_to_atom() because that way it would be possible
+           to exhaust our atom() space by sending us SIP requests
+           with made-up headers.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

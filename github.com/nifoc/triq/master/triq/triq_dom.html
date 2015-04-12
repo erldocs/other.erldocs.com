@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>triq_dom (triq) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>triq_dom</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-box">box(T) = #'@box'{dom=domain(T), value=T}</h3></div>
+    <div class="type"><h3 id="type-domain">domain(T)</h3></div>
+    <div class="type"><h3 id="type-domrec">domrec(T) = {'@', atom() | tuple(), pick_fun(T), shrink_fun(T), boolean()}</h3></div>
+    <div class="type"><h3 id="type-pick_fun">pick_fun(T)</h3></div>
+    <div class="type"><h3 id="type-shrink_fun">shrink_fun(T)</h3></div>
+    <div class="type"><h3 id="type-uchar">uchar() = 0..55295 | 57344..1114111</h3></div>
+    <div class="type"><h3 id="type-uchars">uchars() = <a href="unicode.html#type-unicode_characters" class="seealso">unicode:unicode_characters()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="pick/1">pick(Dom::domain(T), SampleSize::pos_integer()) -&gt; {domain(T), T}</h3>
+
+
+<div class="description">
+
+<p>The heart of the random structure generator; pick a value from the
+  domain.
+    Returns a pair of <code>{domain(T), T}</code> where the first component describes
+    the structure of the picked value.</p>
+</div></div>
+<div class="function">
+<h3 id="shrink/1">shrink(Domain::domain(T), Value::T) -&gt; {domain(T), T}</h3>
+
+
+<div class="description">
+
+<p>The shrinking step function used internally in Triq.</p>
+ 
+  <p>Performs one single step of shrinking.  If unsuccessful,  
+i.e. value cound not be shrunk, the output is equal to the input.</p>
+ 
+  <p>Takes a <code>Domain</code> and a <code>Value</code> from said domain, and shrinks
+  the value within the constraints of the domain.  The result is
+  a tuple of a (possibly smaller) output domain, and the
+  shrunken value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="list/1">list(ElemDom::domain(T)) -&gt; domain([T])</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the domain of lists of the argument.
+  For example, <code>list(int())</code> yields the domain of lists of integers.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="tuple/1">tuple(ElemDom::domain(ElemType::any())) -&gt; domain(tuple(ElemType))</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="int/0">int() -&gt; domain(integer())</h3>
+
+
+<div class="description">
+
+<p>The domain of integers.</p>
+</div></div>
+<div class="function">
+<h3 id="int/1">int(Max) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="int/2">int(Min, Max) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="byte/0">byte() -&gt; domrec(integer())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="non_neg_integer/0">non_neg_integer() -&gt; domain(non_neg_integer())</h3>
+
+
+<div class="description">
+
+<p>The domain of non-negative integers.</p>
+</div></div>
+<div class="function">
+<h3 id="pos_integer/0">pos_integer() -&gt; domain(pos_integer())</h3>
+
+
+<div class="description">
+
+<p>The domain of positive integers.</p>
+</div></div>
+<div class="function">
+<h3 id="real/0">real() -&gt; domain(float())</h3>
+
+
+<div class="description">
+
+<p>The domain of floats.</p>
+</div></div>
+<div class="function">
+<h3 id="bool/0">bool() -&gt; domain(true | false)</h3>
+
+
+<div class="description">
+
+<p>The domain of booleans.  Shrinks to false.</p>
+</div></div>
+<div class="function">
+<h3 id="char/0">char() -&gt; domrec(32..126)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="binary/0">binary() -&gt; domrec(binary())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="binary/1">binary(Size::non_neg_integer()) -&gt; domrec(binary())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="atom/0">atom() -&gt; domrec(atom())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="atom/1">atom(Size::non_neg_integer()) -&gt; domrec(atom())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vector/2">vector(Size, ElemDom) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="non_empty/1">non_empty(@) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="any/0">any() -&gt; domain(any())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="oneof/1">oneof(DomList::[domain(T)]) -&gt; domain(T)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="frequency/1">frequency(GenList) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Choose domain from list [{Weight, Domain}, ...]</p>
+</div></div>
+<div class="function">
+<h3 id="return/1">return(Value::Type) -&gt; domain(Type)</h3>
+
+
+<div class="description">
+
+<p>Returns the domain containing exactly <code>Value</code>.
+  Triq uses internally records of type <code>@</code>; and so to avoid
+  interpretation of such values you can wrap it with this.  This would
+  be the case if you have constants in your domains contain the atom <code>@</code>.
+  I.e., the following would break because Triq tries to interpret the <code>@</code>:
+ </p><pre class="sh_erlang">?FORALL(X, [int(), {'@', 4}],
+    [IntVal, {'@', 4}] = X
+ )</pre><p>
+ To fix it, do like this:
+ </p><pre class="sh_erlang">?FORALL(X, [int(), return({'@', 4})],
+    [IntVal, {'@', 4}] = X
+ )</pre>
+</div></div>
+<div class="function">
+<h3 id="sized/1">sized(Fun::(integer()) -&gt; domain(T)) -&gt; domain(T)</h3>
+
+
+<div class="description">
+
+<p>Support function for the ?SIZED macro.</p>
+</div></div>
+<div class="function">
+<h3 id="resize/2">resize(Sz, Dom) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="choose/1">choose(M::integer(), N::integer()) -&gt; domrec(integer())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="elements/1">elements(L::[any()]) -&gt; domain(any())</h3>
+
+
+<div class="description">
+
+<p>Generates a member of the list <code>L</code>.  Shrinks towards the first element
+  of the list.</p>
+</div></div>
+<div class="function">
+<h3 id="shrink_without_duplicates/1">shrink_without_duplicates(Dom) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sample/1">sample(Dom::domain(T)) -&gt; [T]</h3>
+
+
+<div class="description">
+
+<p>
+  Generate a sample of output values from a generator.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="seal/1">seal(Dom::domain(T)) -&gt; domain(box(T))</h3>
+
+
+<div class="description">
+
+<p>Get the domain of boxes of T</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(@box::box(T)) -&gt; domain(T)</h3>
+
+
+<div class="description">
+
+<p>Open a box, yielding a domain which always generates the same value.</p>
+</div></div>
+<div class="function">
+<h3 id="peek/1">peek(@box::box(T)) -&gt; T</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sampleshrink/1">sampleshrink(Domain::domain(any())) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Print a value generated by <code>Domain</code>, followed by a sample of shrinkings.  
+For each line of successive output, it prints up to five samples of  
+shrinking.  The first value on each like is used as the target for the next  
+round of shrinking.</p>
+ 
+  <pre class="sh_erlang"> 1&gt; sampleshrink(list(int())).
+ [-2,-8,2]
+ [[-1,-8,2],[0,-8,2],[-1,-7,2],[-2,-8,1],[-1,-8,1]]
+ [[0,-8,2],[0,-6,1],[-1,-7,2],[0,-7,2]]
+ [[0,-8,0],[0,-7,0],[0,-7,2],[0,-8,1],[0,-5,2],[0,-7,1]]
+ [[0,-7,0],[0,-5,0]]
+ [[0,-5,0],[0,-6,0]]
+ [[0,-4,0],[0,-3,0]]
+ [[0,-2,0],[0,-3,0],[0,-1,0]]
+ [[0,-1,0]]
+ [[0,0,0]]
+ [[0,0]]
+ [[0]]
+ [[]]
+ ok</pre>
+</div></div>
+<div class="function">
+<h3 id="domain/1">domain(Name::any(), PickFun::pick_fun(T), ShrinkFun::shrink_fun(T)) -&gt; domain(T)</h3>
+
+
+<div class="description">
+
+<p>Create custom domain.  
+This function allows you to create a custom domain with it's own  
+shrinking logic.  For instance, the even numbers can be specified thus:</p>
+ 
+  <pre class="sh_erlang">even() -&gt;
+     domain(even,
+       fun(Self,Size) -&gt;
+             Value = (random:uniform(Size) * 2) div 2,
+             {Self, Value}
+       end,
+       fun(Self,Value) when Value&gt;0 -&gt;
+             {Self, Value-2};
+          (Self,_,0) -&gt;
+             {0, 0}
+       end).</pre>
+ 
+  <p>The domain itself (<code>Self</code> in the above code) is passed as the first argument  
+to each invocation of both the picking and the shrinking functions.</p>
+ 
+  <p>Both the picking and the shrinking function must return a 2-tuple of
+  the domain of the resulting value, and the value itself.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="unicode_char/0">unicode_char() -&gt; domrec(uchar())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unicode_string/0">unicode_string() -&gt; domrec([uchar()])</h3>
+
+
+<div class="description">
+
+<p>Generate a list of unicode code points.</p>
+</div></div>
+<div class="function">
+<h3 id="unicode_string/1">unicode_string(Size::non_neg_integer()) -&gt; domrec([uchar()])</h3>
+
+
+<div class="description">
+
+<p>Generate a list of unicode code points of length <code>Size</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="unicode_binary/0">unicode_binary() -&gt; domrec(binary())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unicode_binary/1">unicode_binary(Size::Size | Encoding) -&gt; domrec(binary())</h3>
+
+<ul class="type">
+<li><code>Size = non_neg_integer()</code></li><li><code>Encoding = encoding() (see module unicode)</code></li></ul>
+<div class="description">
+
+<p>Generate an unicode binary binary.</p>
+</div></div>
+<div class="function">
+<h3 id="unicode_binary/2">unicode_binary(Size, Encoding) -&gt; domrec(binary())</h3>
+
+<ul class="type">
+<li><code>Size = non_neg_integer() | undefined</code></li><li><code>Encoding = encoding() (see module unicode)</code></li></ul>
+<div class="description">
+
+<p>Generate an unicode binary.</p>
+</div></div>
+<div class="function">
+<h3 id="unicode_characters/0">unicode_characters() -&gt; domrec(uchars())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unicode_characters/1">unicode_characters(Encoding) -&gt; domrec(uchars())</h3>
+
+<ul class="type">
+<li><code>Encoding = encoding() (see module unicode)</code></li></ul>
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

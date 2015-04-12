@@ -1,0 +1,1 @@
+var index = [['app','erlytrans','erlytrans','[application]'],['mod','erlytrans','erlytrans',[]],['fun','erlytrans','erlytrans:translate/4',[]]];

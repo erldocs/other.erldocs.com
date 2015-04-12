@@ -1,0 +1,1 @@
+var index = [['app','learnyousomeerlang.com','learnyousomeerlang.com','[application]'],['mod','learnyousomeerlang.com','recursion',[]],['fun','learnyousomeerlang.com','recursion:lenient_zip/2',[]],['fun','learnyousomeerlang.com','recursion:zip/2',[]]];

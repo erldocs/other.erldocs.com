@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nqueue (nq) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nqueue</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-error">error() = any()</h3></div>
+    <div class="type"><h3 id="type-last_sync">last_sync() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{integer() >= 0, integer() >= 0, integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-message">message() = any()</h3></div>
+    <div class="type"><h3 id="type-meta">meta() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-queue_size" class="seealso">queue_size()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-meta_dirty" class="seealso">meta_dirty()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-read_frag_index" class="seealso">read_frag_index()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-read_frag_recno" class="seealso">read_frag_recno()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-read_frag_size" class="seealso">read_frag_size()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-read_frag" class="seealso">read_frag()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-read_frag_dirty" class="seealso">read_frag_dirty()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-write_frag_index" class="seealso">write_frag_index()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-write_frag_size" class="seealso">write_frag_size()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-write_frag" class="seealso">write_frag()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-write_frag_dirty" class="seealso">write_frag_dirty()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-last_sync" class="seealso">last_sync()</a>}</h3></div>
+    <div class="type"><h3 id="type-meta_dirty">meta_dirty() = boolean()</h3></div>
+    <div class="type"><h3 id="type-proc_args">proc_args() = any()</h3></div>
+    <div class="type"><h3 id="type-proc_fun">proc_fun() = fun((<a href="#type-queue_name" class="seealso">queue_name()</a>, <a href="#type-message" class="seealso">message()</a>, <a href="#type-proc_args" class="seealso">proc_args()</a>) -> ok)</h3></div>
+    <div class="type"><h3 id="type-queue_name">queue_name() = string()</h3></div>
+    <div class="type"><h3 id="type-queue_size">queue_size() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-read_frag">read_frag() = [binary()]</h3></div>
+    <div class="type"><h3 id="type-read_frag_dirty">read_frag_dirty() = boolean()</h3></div>
+    <div class="type"><h3 id="type-read_frag_index">read_frag_index() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-read_frag_recno">read_frag_recno() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-read_frag_size">read_frag_size() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-write_frag">write_frag() = [binary()]</h3></div>
+    <div class="type"><h3 id="type-write_frag_dirty">write_frag_dirty() = boolean()</h3></div>
+    <div class="type"><h3 id="type-write_frag_index">write_frag_index() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-write_frag_size">write_frag_size() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(QName::queue_name()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Wrapper for start_link(queue_name(), options()).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="enq/1">enq(QName::queue_name(), Msg::message()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Enqueue a message.<br />
+  Insert a message at the back of the queue.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="deq/1">deq(QName::queue_name()) -&gt; {ok, message()} | {error, empty} | error()</h3>
+
+
+<div class="description">
+
+<p>Dequeue a message.<br />
+  Remove a message from the front of the queue.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="deq/1-1">deq(QName::queue_name(), Fun::proc_fun(), Args::proc_args()) -&gt; {ok, message()} | {error, empty} | error()</h3>
+
+
+<div class="description">
+
+<p>Dequeue a message with a fun.<br />
+  Remove a message from the front of the queue by evaluating proc_fun().<br />
+  The message is removed from the queue only if proc_fun() returns ok.<br /><br />
+  <em>NOTE:</em>The queue will block while proc_fun() is called.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="peek/1">peek(QName::queue_name()) -&gt; {ok, message()} | {error, empty} | error()</h3>
+
+
+<div class="description">
+
+<p>Peek at front of queue<br />
+  Look at the message at the fron of the queue.</p>
+</div></div>
+<div class="function">
+<h3 id="purge/1">purge(QName::queue_name()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Clear the queue.<br />
+  This will remove all messages from the queue.</p>
+</div></div>
+<div class="function">
+<h3 id="get_meta/1">get_meta(QName::queue_name()) -&gt; {ok, meta()}</h3>
+
+
+<div class="description">
+
+<p>Retrun the queue's meta information.<br />
+  This is mainly used for debugging / integrating new storage mods.</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1">sync(QName::queue_name()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Sync cache and meta.<br /></p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(QName::queue_name()) -&gt; queue_size()</h3>
+
+
+<div class="description">
+
+<p>Return the queue's size, i.e. how many messages<br /></p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(QName::queue_name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Subscribe for events.<br /><br />
+  The calling process will be subscribed to receiving notifications on the queue.<br /><br />
+  Notifications will be sent from the queue in the following fashion:<br /><br /> pid() ! ready_notification()</p>
+</div></div>
+<div class="function">
+<h3 id="unsubscribe/1">unsubscribe(QName::queue_name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unsubscribe for events.<br /><br />
+  The calling process will be unsubscribed from receiving notifications on the queue.<br /></p>
+</div></div>
+<div class="function">
+<h3 id="subscriber_count/1">subscriber_count(QName::queue_name()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of subscribers on the queue.<br /><br /></p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

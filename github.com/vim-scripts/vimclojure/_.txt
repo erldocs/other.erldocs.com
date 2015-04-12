@@ -1,0 +1,28 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/vim-scripts/vimclojure'  2>&1`
+>>> [repo] 1 branches, 13 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/3887395675/meta.txt"
+ :: Processing https://github.com/vim-scripts/vimclojure	{rev,tag,"1.3.0","a479150a071ec38e98a3bdfd2f91f2c6b4db82d4"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/3887395675/vimclojure-tag-1.3.0/vimclojure"
+$ infinity  `curl --fail --silent --show-error --location --output '1.3.0.zip' 'https://github.com/vim-scripts/vimclojure/archive/1.3.0.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/3887395675/vimclojure-tag-1.3.0/vimclojure"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/3887395675/vimclojure-tag-1.3.0/vimclojure"
+$ 5000  `find 'vimclojure-1.3.0' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `vimclojure-1.3.0': No such file or directory"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,92}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,238}]},
+         {eo_core,main_,11,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
+         {gen_escript__escript__1427__565489__767955,seq_gen,3,
+             [{file,"./gen.escript"},{line,47}]},
+         {escript,run,2,[{file,"escript.erl"},{line,752}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `vimclojure-1.3.0'"},{": No such file or directory"}]}}

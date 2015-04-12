@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rules (game) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rules</h1>
+<h2 class="modsummary">  
+rules implements abstract game rules.</h2>
+<div class="description">
+<p>  
+rules implements abstract game rules. The module relies  
+on a separate module (name is supplied to process) to implement  
+the specific rules, furtheron called the 'rule implementation'.</p>
+ 
+  <p>a <code>#rule</code> is a strategy-like record,  
+that has a name, an arity, a detector function and an actor function.  
+The detector function receives a Map and an arity-tuple of orders and  
+has to return true if the actor function needs to run. By convention,  
+a detector function should run side effect free.</p>
+ 
+  <p>The detector function receives a Map and the tuple that made the detector
+  function return true. It's responsibility is to enforce the rule it
+  implements.
+  For this, it transforms the _whole_ orders list by returning a
+  [tuple()]
+  legal tuples are:
+   </p><pre class="sh_erlang">{add, Order}</pre><p> - adds an order to the orders list
+   </p><pre class="sh_erlang">{remove, Order}</pre><p> - removes an order from the orders list
+   </p><pre class="sh_erlang">{reply, ErlangTerm}</pre><p> - <code>ErlangTerm</code> will end up in the return value of
+                           <a href="rules.html#process/4" class="seealso">rules:process/4</a> - this can be used to                           
+request user actions like retreat orders.</p>
+ 
+  <p>the <code>arity</code> field has a special case, if it is set to <code>all_orders</code>, then  
+the detector/actor will be called with the whole order-list as argument.  
+This can be used to handle units that received no orders, for instance.</p>
+ 
+  <p>The expected signature of the detector/actor funs depends on the arity as
+  well:
+  </p><pre class="sh_erlang">
+  arity = 0 --&gt; spec: actor_and_detector(Map, {})
+  arity = 1 --&gt; spec: actor_and_detector(Map, {Order})
+  arity = 2 --&gt; spec: actor_and_detector(Map, {Order})
+  arity = all_units --&gt; spec: actor_and_detector(Map, [Order])</pre>
+ 
+  <p>the rule engine will receive the <code>[#rule]</code> from the rule implementation  
+by calling it's create/2 function with the game type and game phase as  
+arguments.</p>
+ 
+  <p>The rule engine will apply the rules from the rule implementation until there
+  are no changes to the order list any more.
+  After that, the remaining order list will be executed by calling
+  the rule implementation's <code>do_process/2</code> function.
+  This function receives the Map and an order and executes this order through
+  applying sideeffectful operations to the map.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-order">order() = tuple()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="process/1">process(Phase::any(), Map::#{}, RULES_MOD::atom(), Orders::[order()]) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+
+<p>
+  processes a list of orders according to the rules and returns the messages
+  the <code>RULES_MOD</code> left.</p>
+</div></div></div>
+
+<authors>
+
+<aname>stephan.brandauer@gmail.com</aname>
+<email>stephan.brandauer@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

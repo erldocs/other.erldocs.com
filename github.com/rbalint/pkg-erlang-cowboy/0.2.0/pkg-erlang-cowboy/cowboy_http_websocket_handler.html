@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cowboy_http_websocket_handler (pkg-erlang-cowboy) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cowboy_http_websocket_handler</h1>
+<h2 class="modsummary">Handler for HTTP WebSocket requests.</h2>
+<div class="description">
+<p>Handler for HTTP WebSocket requests.</p>
+ 
+  <p>WebSocket handlers must implement four callbacks: <em>websocket_init/3</em>,
+  <em>websocket_handle/3</em>, <em>websocket_info/3</em> and
+  <em>websocket_terminate/3</em>. These callbacks will only be called if the
+  connection is upgraded to WebSocket in the HTTP handler's <em>init/3</em>
+  callback. They are then called in that order, although
+  <em>websocket_handle/3</em> will be called for each packet received,
+  and <em>websocket_info</em> for each message received.</p>
+ 
+  <p><em>websocket_init/3</em> is meant for initialization. It receives  
+information about the transport and protocol used, along with the handler  
+options from the dispatch list. You can define a request-wide state here.  
+If you are going to want to compact the request, you should probably do it  
+here.</p>
+ 
+  <p><em>websocket_handle/3</em> receives the data from the socket. It can reply
+  something, do nothing or close the connection. You can choose to hibernate
+  the process by returning <em>hibernate</em> to save memory and CPU.</p>
+ 
+  <p><em>websocket_info/3</em> receives messages sent to the process. It has
+  the same reply format as <em>websocket_handle/3</em> described above. Note
+  that unlike in a <em>gen_server</em>, when <em>websocket_info/3</em>  
+replies something, it is always to the socket, not to the process that  
+originated the message.</p>
+ 
+  <p><em>websocket_terminate/3</em> is meant for cleaning up. It also receives
+  the request and the state previously defined, along with a reason for
+  termination.</p></div>
+
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

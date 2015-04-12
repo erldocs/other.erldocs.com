@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_api_pb_service (riak_api) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_api_pb_service</h1>
+<h2 class="modsummary">Encapsulates the behaviour and registration of  
+application-specific interfaces exposed over the Protocol Buffers  
+API.</h2>
+<div class="description">
+<p>Encapsulates the behaviour and registration of  
+application-specific interfaces exposed over the Protocol Buffers  
+API. Service modules should implement the behaviour, and the host  
+applications should register them on startup like so:</p>
+ 
+  <pre class="sh_erlang">
+    %% Register a single range of message codes to the foo service
+    ok = riak_api_pb_service:register(foo, 101, 102),
+ 
+    %% Register multiple services at once
+    ok = riak_api_pb_service:register([{bar, 200, 210},
+                                       {baz, 211, 214}]).
+  </pre>
+ 
+  <p>On shutdown, host applications should deregister services they
+  registered on startup. The same arguments as were sent to
+  <code>register/1,2,3</code> are valid arguments to <code>deregister/1,2,3</code>.</p>
+ 
+  <pre class="sh_erlang">
+     %% Deregister all my services
+     ok = riak_api_pb_service:deregister([{foo, 101, 102},
+                                          {bar, 200, 210},
+                                          {baz, 211, 214}]).
+  </pre>
+ 
+  <p><em><marker id="Behaviour_Callbacks">Behaviour Callbacks</marker></em></p>
+ 
+  <p>Service modules must export five callbacks:</p>
+ 
+  <pre class="sh_erlang">  init() -&gt;
+      State.
+ 
+      State = term()</pre>
+ 
+  <p>The <code>init/0</code> callback is called to create any state that the  
+service may need to operate. The return value of this callback will  
+be passed to the service in other callbacks.</p>
+ 
+  <pre class="sh_erlang">  decode(Code, Message) -&gt;
+      {ok, DecodedMessage} |
+      {ok, DecodedMessage, PermAndTarget} |
+      {error, Reason}.
+ 
+      Code = non_neg_integer()
+      Message = binary()
+      DecodedMessage = Reason = term()
+      PermAndTarget = perm_and_target()</pre>
+ 
+  <p>The <code>decode/2</code> callback is handed a message code and wire message
+  that is registered to this service and should decode it into an
+  Erlang term that can be handled by the <code>process/2</code> callback. If the
+  message does not decode properly, it should return an <code>error</code> tuple
+  with an appropriate reason. The decoded message may optionally
+  include a permission and target tuple used by the security system
+  to restrict access to the operation.  Most services will simply
+  delegate encoding to the <code>riak_pb</code> application.</p>
+ 
+  <pre class="sh_erlang">  encode(Message) -&gt;
+      {ok, EncodedMessage} |
+      Error.
+ 
+      Message = Error = term()
+      EncodedMessage = iodata()</pre>
+ 
+  <p>The <code>encode/1</code> callback is given an Erlang term that is a reply
+  message to a client and should encode that message as <code>iodata</code>,
+  including an appropriate message code on the head. Any return value
+  other than <code>{ok, iodata()}</code> will be interpreted as an error. Again,
+  most services will simply delegate encoding to the <code>riak_pb</code>  
+application.</p>
+ 
+  <pre class="sh_erlang">  process(Message, State) -&gt;
+      {reply, ReplyMessage, NewState} |
+      {reply, {stream, ReqId}, NewState} |
+      {error, Error, NewState}.
+ 
+      Message = State = ReqId = ReplyMessage = NewState = term()
+      Error = iodata() | {format, term()} | {format, io:format(), [term()]}</pre>
+ 
+  <p>The <code>process/2</code> callback is where the work of servicing a client
+  request is done. The return value of the <code>decode/2</code> callback will
+  be passed as <code>Message</code> and the last value of the service state as
+  <code>State</code> (as returned from <code>init/0</code> or a previous invocation of
+  <code>process/2</code> or <code>process_stream/3</code>). The callback should return
+  3-tuples, any of which include the modified service state as the
+  last entry. The first form is a simple reply in which a single
+  message is returned to the client (passing through <code>encode/1</code> along
+  the way). The second form moves the service into streaming mode,
+  using the returned <code>ReqId</code> (see <code>process_stream/3</code>).</p>
+ 
+  <p>The third form replies with an error to the client, the second
+  entry (<code>Error</code>) becoming the <code>errmsg</code> field of the <code>rpberrorresp</code>
+  message. If it is iodata, it will be passed verbatim to the client.
+  If it is the <code>format</code> 2-tuple, it will be formatted with the "~p"
+  format string before being sent to the client. If it is the
+  <code>format</code> 3-tuple, the list of terms will be formatted against the  
+format string before being sent to the client.</p>
+ 
+  <pre class="sh_erlang">  process_stream(Message, ReqId, State) -&gt;
+      {reply, Reply, NewState} |
+      {ignore, NewState} |
+      {done, Reply, NewState} |
+      {done, NewState} |
+      {error, Error, NewState}.
+ 
+      Message = ReqId = State = NewState = term()
+      Reply = [ term() ] | term()
+      Error = iodata() | {format, term()} | {format, io:format(), [term()]}</pre>
+ 
+  <p>The <code>process_stream/3</code> callback is invoked when the socket/server
+  process receives a message from another Erlang process while in
+  streaming mode. The passed <code>ReqId</code> is the value returned from
+  <code>process/2</code> when streaming mode was started, and is usually used to
+  identify or ignore incoming messages from other processes. Like
+  <code>process/2</code>, the state of the service is passed as the last  
+argument.</p>
+ 
+  <p>As with <code>process/2</code>, the last entry of all return-value tuples
+  should be the updated state of the service. Also, similarly to
+  <code>process/2</code>, a <code>reply</code> tuple will result in sending a normal
+  message to the client. When <code>Reply</code> is a list, this will be
+  interpreted as sending multiple messages to the client in one pass.
+  Error tuples have similar semantics to <code>process/2</code>, but will also
+  cause the service to exit streaming mode. The <code>ignore</code> tuple will
+  cause the server to do nothing. The <code>done</code> tuples have the same
+  semantics as <code>reply</code> (including multi-message replies) and <code>ignore</code>
+  but signal a normal end of the streaming operation.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-registration">registration() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Service :: module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MinCode :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxCode :: integer() >= 1}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="register/1">register(List::[registration()]) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Registers a number of services at once.</p>
+<p><em>See also:</em> <a href="#register/3" class="seealso">register/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1-1">register(Module::module(), Code::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Registers a service module for a given message code.</p>
+<p><em>See also:</em> <a href="#register/3" class="seealso">register/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1-2">register(Module::module(), MinCode::pos_integer(), MaxCode::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Registers a service module for a given range of message
+  codes. The service module must implement the behaviour and be able
+  to decode and process messages for the given range of message
+  codes.  Service modules should be registered before the riak_api
+  application starts.</p>
+</div></div>
+<div class="function">
+<h3 id="deregister/1">deregister(List::[registration()]) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Removes the registration of a number of services modules at
+  once.</p>
+<p><em>See also:</em> <a href="#deregister/3" class="seealso">deregister/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="deregister/1-1">deregister(Module::module(), Code::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Removes the registration of a previously-registered service
+  module. Inputs will be validated such that the registered module
+  must match the one being removed.</p>
+</div></div>
+<div class="function">
+<h3 id="deregister/1-2">deregister(Module::module(), MinCode::pos_integer(), MaxCode::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Removes the registration of a previously-registered service
+  module.</p>
+<p><em>See also:</em> <a href="#deregister/2" class="seealso">deregister/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="swap/1">swap(NewModule::module(), MinCode::pos_integer(), MaxCode::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Perform an atomic swap of current module to <code>NewModule</code> for
+  the given code range.  The code range must exactly match an
+  existing range.  Otherwise an error is returned.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','avz','avz','[application]'],['mod','avz','avz_app',[]],['mod','avz','avz_sup',[]],['mod','avz','avz_validator',[]],['fun','avz','avz_app:start/2',[]],['fun','avz','avz_app:stop/1',[]],['fun','avz','avz_sup:init/1',[]],['fun','avz','avz_sup:start_link/0',[]],['fun','avz','avz_validator:is_email/1',[]]];

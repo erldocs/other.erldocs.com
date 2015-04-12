@@ -1,0 +1,1 @@
+var index = [['app','gopherl','gopherl','[application]'],['mod','gopherl','gopherl',[]],['fun','gopherl','gopherl:list_menu/0',[]],['fun','gopherl','gopherl:listen/1',[]],['fun','gopherl','gopherl:parse_menu_mine/2',[]],['fun','gopherl','gopherl:start/1',[]]];

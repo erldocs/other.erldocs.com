@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>usagi (usagi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>usagi</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-channel">channel() = atom() | pid()</h3></div>
+    <div class="type"><h3 id="type-event">event() = binary()</h3></div>
+    <div class="type"><h3 id="type-exchange">exchange() = binary()</h3></div>
+    <div class="type"><h3 id="type-r_queue">r_queue() = binary() | {binary(), integer()}</h3></div>
+    <div class="type"><h3 id="type-rabbit">rabbit() = atom()</h3></div>
+    <div class="type"><h3 id="type-routing_key">routing_key() = binary()</h3></div>
+    <div class="type"><h3 id="type-whynot">whynot() = ok | {error, term()}</h3></div>
+    <div class="type"><h3 id="type-whynot">whynot() = ok | {error, term()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>start usagi application.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>stop usagi application.</p>
+</div></div>
+<div class="function">
+<h3 id="new_channel/1">new_channel(Name::channel()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>start a new channel on default rabbit connection</p>
+</div></div>
+<div class="function">
+<h3 id="new_channel/1-1">new_channel(Rabbit::rabbit(), Name::channel()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>start a new channel on a rabbit connection</p>
+</div></div>
+<div class="function">
+<h3 id="start_exchange/1">start_exchange(Channel::channel(), Name::exchange(), Type::binary()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>start an exchange</p>
+</div></div>
+<div class="function">
+<h3 id="start_queue/1">start_queue(Channel::channel(), Queue::r_queue()) -&gt; whynot({binary(), integer(), integer()})</h3>
+
+
+<div class="description">
+
+<p>start a queue</p>
+</div></div>
+<div class="function">
+<h3 id="delete_exchange/1">delete_exchange(Channel::channel(), Name::exchange()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>delete an queue</p>
+</div></div>
+<div class="function">
+<h3 id="delete_queue/1">delete_queue(Channel::channel(), Queue::r_queue()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>delete a queue</p>
+</div></div>
+<div class="function">
+<h3 id="publish/1">publish(Channel::channel(), Exchange::exchange(), Key::routing_key(), Event::event()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>publish a message</p>
+</div></div>
+<div class="function">
+<h3 id="bind_exchange/1">bind_exchange(Channel::channel(), Source::exchange(), Destination::exchange(), Key::routing_key()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>bind <code>Source</code> exchange to <code>Destination</code> exchange</p>
+</div></div>
+<div class="function">
+<h3 id="bind_queue/1">bind_queue(Channel::channel(), Exchange::exchange(), Queue::exchange(), Key::routing_key()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>bind <code>Queue</code> to <code>Exchange</code> with <code>Key</code> as routing key</p>
+</div></div>
+<div class="function">
+<h3 id="consume_queue/1">consume_queue(Channel::channel(), Queue::r_queue(), Receiver::pid()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Set <code>Receiver</code> as a consumer to <code>Queue</code></p>
+</div></div>
+<div class="function">
+<h3 id="consume_queue/1-1">consume_queue(Channel::channel(), Queue::r_queue(), Receiver::pid(), NoAck::boolean()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Set <code>Receiver</code> as a consumer to <code>Queue</code>, also set <code>noack</code> option</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_consume/1">cancel_consume(Channel::channel(), Tag::binary()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Cancel consuming with <code>Tag</code></p>
+</div></div>
+<div class="function">
+<h3 id="ack/1">ack(Channel::channel(), Tag::binary()) -&gt; whynot()</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#ack/3" class="seealso">ack/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="ack/1-1">ack(Channel::channel(), Tag::binary(), Multi::boolean()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Ack messages by delivery tag</p>
+</div></div>
+<div class="function">
+<h3 id="reject/1">reject(Channel::channel(), Tag::binary()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Reject message by delivery tag</p>
+</div></div>
+<div class="function">
+<h3 id="discard/1">discard(Channel::channel(), Tag::binary()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Discard message by delivery tag</p>
+</div></div>
+<div class="function">
+<h3 id="get_msg/1">get_msg(Channel::channel(), Queue::binary()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Get messges from queue</p>
+</div></div>
+<div class="function">
+<h3 id="get_msg/1-1">get_msg(Channel::channel(), Queue::binary(), NoAck::boolean()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Get messges from queue, optionally setting noack option</p>
+</div></div>
+<div class="function">
+<h3 id="close_channel/1">close_channel(Channel::channel()) -&gt; whynot()</h3>
+
+
+<div class="description">
+
+<p>Close a channel</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

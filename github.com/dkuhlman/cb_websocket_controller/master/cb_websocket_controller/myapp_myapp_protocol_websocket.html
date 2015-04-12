@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>myapp_myapp_protocol_websocket (cb_websocket_controller) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>myapp_myapp_protocol_websocket</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+<p>myapp_myapp_protocol_websocket implements the websocket service for realtime update   
+with the ChicagoBoss MVC Web Framwork.</p>
+  
+   <p>This is a template for the ChicagoBoss Websocket support.  You   
+can copy, rename, and modify this template in order to implement   
+your Websocket service.</p>
+  
+   <p>Powered by ChicagoBoss  <url href="http://www.chicagoboss.org">http://www.chicagoboss.org</url>.</p>
+  
+   You can use the following to generate docs from this module:
+   <pre class="sh_erlang">       edoc:files(["mymodule.erl"], [{pretty_printer, erl_pp}])</pre>
+  
+   Here is a sample of JavaScript/jQuery code that you might use
+   for the client: <pre class="sh_erlang">   ----------------------- JavaScript -------------------------------
+   &lt;script src="/static/welcome/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
+  
+   &lt;script type="text/javascript"&gt;
+  
+   $(document).ready(function() {
+  
+       // Create a WebSocket object.
+       wsc = new WebSocket(
+           "ws://localhost:8081/websocket/myapp_protocol",
+           "myapp_protocol");
+  
+       // Send message to server.
+       $("#websocket1").click(function(event) {
+           var value = $("#search2").val();
+           if (value == "") {
+               alert("Must enter tag search string.");
+               return false;
+           }
+           obj1 = [value, value];
+           alert('sending - obj1: ' + obj1);
+           wsc.send(JSON.stringify(obj1));
+       })
+  
+       // Receive message from server.
+       wsc.onmessage = function(event) {
+           var data = event.data;
+           alert("(onmessage) 1. event: " + event + "  data: " + event.data);
+           var content = JSON.parse(data);
+           alert('(onmessage) 2. content: ' + content);
+       }
+  
+   });
+  
+   &lt;/script&gt;
+   ------------------- End JavaScript -------------------------------</pre>
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; {ok, NewState::#state{}}</h3>
+
+
+<div class="description">
+
+<p>
+  Initiatialize the server.
+  Usually, this means creating and returning the record "state".</p>
+</div></div>
+<div class="function">
+<h3 id="handle_join/1">handle_join(ServiceURL::string(), WebSocket::pid(), SessionId::string(), State::#state{}) -&gt; {reply, Reply, NewState::#state{}} | {reply, Reply, NewState::#state{}, Timeout} | {noreply, NewState::#state{}} | {noreply, NewState::#state{}, Timeout} | {stop, Reason, Reply, NewState::#state{}} | {stop, Reason, NewState::#state{}}</h3>
+
+
+<div class="description">
+
+<p>
+  Handle a client joining this service.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_close/1">handle_close(ServiceURL::string(), WebSocket::pid(), SessionId::string(), State::#state{}) -&gt; {reply, Reply, NewState::#state{}} | {reply, Reply, NewState::#state{}, Timeout} | {noreply, NewState::#state{}} | {noreply, NewState::#state{}, Timeout} | {stop, Reason, Reply, NewState::#state{}} | {stop, Reason, NewState::#state{}}</h3>
+
+
+<div class="description">
+
+<p>
+  Handle a client leaving this service.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_incoming/1">handle_incoming(ServiceURL::string(), WebSocket::pid(), SessionId::string(), Message::string(), State::#state{}) -&gt; {noreply, NewState::#state{}} | {noreply, NewState::#state{}, Timeout::integer()} | {stop, Reason::string(), NewState::#state{}}</h3>
+
+
+<div class="description">
+
+<p>
+  Handle an incoming message to this service.
+  Often, but not always, this means sending a response back to
+  the client with something like this:
+  </p><pre class="sh_erlang">      WebSocketId ! MyContent</pre><p>
+  Consider using <code>mochijson:encode/1</code> (which is built in to ChicagoBoss)
+  to format complex data message content.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::string(), State::#state{}) -&gt; {noreply, NewState::#state{}} | {noreply, NewState::#state{}, Timeout::integer()} | {stop, Reason::string(), NewState::#state{}}</h3>
+
+
+<div class="description">
+
+<p>
+  Handle an informational message sent to the underlying gen_server process.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::string(), State::#state{}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Perform any cleanup before shutting down the service.</p>
+</div></div></div>
+
+<authors>
+
+<aname>My Name</aname>
+<email>my_address@someplace.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

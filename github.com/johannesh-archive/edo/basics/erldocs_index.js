@@ -1,0 +1,1 @@
+var index = [['app','edo','edo','[application]'],['mod','edo','edo',[]],['fun','edo','edo:start/0',[]],['fun','edo','edo:start/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','beermath','beermath','[application]'],['mod','beermath','beermath',[]],['fun','beermath','beermath:c2f/1',[]],['fun','beermath','beermath:f2c/1',[]],['fun','beermath','beermath:gravity_correction/1',[]],['fun','beermath','beermath:litres2gallons/1',[]],['fun','beermath','beermath:malt_bill/3',[]]];

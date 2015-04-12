@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>emup (emup) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>emup</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-api_result">api_result() = [tuple()]</h3></div>
+    <div class="type"><h3 id="type-em_event">em_event() = #em_event{}</h3></div>
+    <div class="type"><h3 id="type-em_group">em_group() = #em_group{}</h3></div>
+    <div class="type"><h3 id="type-em_location">em_location() = #em_location{}</h3></div>
+    <div class="type"><h3 id="type-em_person">em_person() = #em_person{}</h3></div>
+    <div class="type"><h3 id="type-em_raw_object">em_raw_object() = [tuple()]</h3></div>
+    <div class="type"><h3 id="type-em_venue">em_venue() = #em_venue{}</h3></div>
+    <div class="type"><h3 id="type-group_container">group_container() = [<a href="#type-group_container_element" class="seealso">group_container_element()</a>]</h3></div>
+    <div class="type"><h3 id="type-group_container_element">group_container_element() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{name | group | members,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary() | <a href="#type-em_group" class="seealso">em_group()</a> | [<a href="#type-em_person" class="seealso">em_person()</a>]}</h3></div>
+    <div class="type"><h3 id="type-ldate">ldate() = {<a href="#type-sdate" class="seealso">sdate()</a>, {integer(), integer(), integer()}}</h3></div>
+    <div class="type"><h3 id="type-sdate">sdate() = {integer(), integer(), integer()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Key::string()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Initiates the application with a Meetup.com API key</p>
+</div></div>
+<div class="function">
+<h3 id="fix_location/1">fix_location(Event::em_raw_object()) -&gt; em_raw_object()</h3>
+
+
+<div class="description">
+
+<p>Replaces undefined event locations (typically because one
+  hasn't been announced yet) with location information pulled from
+  the group itself (e.g., the Berlin Ruby meetup will typically take
+  place in Berlin).</p>
+</div></div>
+<div class="function">
+<h3 id="event_search/1">event_search(Topic::string()) -&gt; [em_raw_object()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of events from a global search for Topic</p>
+</div></div>
+<div class="function">
+<h3 id="all_results/2">all_results(X1::{ok, api_result()}) -&gt; [em_raw_object()]</h3>
+
+
+<div class="description">
+
+<p>Leverage emup_api:next_page() to pull down all results</p>
+</div></div>
+<div class="function">
+<h3 id="member_events/1">member_events(StartDate::ldate(), EndDate::ldate(), MemberID::string()) -&gt; [em_raw_object()]</h3>
+
+
+<div class="description">
+
+<p>Return upcoming events for groups to which the given member ID
+  has joined, between the specified dates.</p>
+</div></div>
+<div class="function">
+<h3 id="member_events/1-1">member_events(StartDate::ldate(), EndDate::ldate()) -&gt; [em_raw_object()]</h3>
+
+
+<div class="description">
+
+<p>Return upcoming events for the authenticating member between
+  the specified dates.</p>
+</div></div>
+<div class="function">
+<h3 id="check_date/1">check_date(Groups::[em_group()], Events::[em_event()], Date::sdate()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Given a list of groups, a list of events, and a date, print any
+  events that land on that date.</p>
+</div></div>
+<div class="function">
+<h3 id="filter_events_by_date/1">filter_events_by_date(Events::[em_raw_object()], StartDate::ldate(), EndDate::ldate()) -&gt; [em_event()]</h3>
+
+
+<div class="description">
+
+<p>Given a list of events and two dates, return all events
+  (converted to records) that fall between those dates (inclusive).</p>
+</div></div>
+<div class="function">
+<h3 id="local_groups/1">local_groups(Category::integer(), City::string()) -&gt; [em_raw_object()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of groups for any given city.</p>
+ 
+  <p>Category is an integer from Meetup's API; emup_api:categories() will provide the list.  
+34 is tech. Dates should be local to the city.</p>
+ 
+  <p>This is very, very slow on multiple pages to avoid getting our API credentials blocked.</p>
+</div></div>
+<div class="function">
+<h3 id="local_events/1">local_events(Groups::[em_raw_object()]) -&gt; [em_raw_object()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of events pulled from a list of groups.</p>
+ 
+  <p>This is very, very slow for any significant list of groups.</p>
+</div></div>
+<div class="function">
+<h3 id="render_events/1">render_events(Topic::string(), Renderer::(em_raw_object()) -&gt; string()) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of strings representing upcoming events with the
+  specified topic.</p>
+</div></div>
+<div class="function">
+<h3 id="render_event/1">render_event(Event::em_raw_object(), Renderer::(em_raw_object()) -&gt; string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Return a string representing an individual event.</p>
+</div></div>
+<div class="function">
+<h3 id="event_topic_filter/1">event_topic_filter(Event::em_raw_object(), Topic::string() | binary(), Options::list()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Search an event for strings in the group name, description,  
+URL, or event name. Meetup's event search will return events when  
+the group's keyword includes the topic, which is generally not what  
+we want.</p>
+ 
+  <p>See find_regex/2 for the list of supported Options.</p>
+</div></div>
+<div class="function">
+<h3 id="event_upcoming_filter/1">event_upcoming_filter(Event::em_raw_object()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Determine whether an event's status is "upcoming". To the best
+  of my knowledge, Meetup's API always only returns upcoming events.</p>
+</div></div>
+<div class="function">
+<h3 id="location_to_record/1">location_to_record(Location::undefined | em_raw_object()) -&gt; undefined | em_location()</h3>
+
+
+<div class="description">
+
+<p>Convert a JSON location object to a record.</p>
+</div></div>
+<div class="function">
+<h3 id="venue_to_record/1">venue_to_record(Venue::undefined | em_raw_object()) -&gt; undefined | em_venue()</h3>
+
+
+<div class="description">
+
+<p>Convert a JSON venue object to a record.</p>
+</div></div>
+<div class="function">
+<h3 id="event_to_record/1">event_to_record(Event::undefined | em_raw_object()) -&gt; undefined | em_event()</h3>
+
+
+<div class="description">
+
+<p>Convert a JSON event object to a record.</p>
+ 
+  <p>An event doesn't always have a venue, but it always has a group, so  
+we embed group name and id into the record, but stash the venue in  
+a nested record.</p>
+ 
+  <p>We create a location record based on venue if it is defined, group if
+  venue isn't.</p>
+</div></div>
+<div class="function">
+<h3 id="organizer_to_record/1">organizer_to_record(Person::undefined | em_raw_object()) -&gt; undefined | em_person()</h3>
+
+
+<div class="description">
+
+<p>Convert a JSON organizer object to a record.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="person_to_record/1">person_to_record(Person::undefined | em_raw_object()) -&gt; undefined | em_person()</h3>
+
+
+<div class="description">
+
+<p>Convert a JSON person object to a record.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_to_record/1">group_to_record(Group::em_raw_object()) -&gt; em_group()</h3>
+
+
+<div class="description">
+
+<p>Convert a JSON group object to a record.</p>
+</div></div>
+<div class="function">
+<h3 id="event_rsvps/2">event_rsvps(X1::event_id, EventId::string()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of "yes" RSVPs for an event.</p>
+</div></div>
+<div class="function">
+<h3 id="render_group_details/1">render_group_details(Groups::[[tuple()]], RenderGroup::(em_group()) -&gt; ok, RenderPerson::(em_person()) -&gt; ok) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Invoke renderer on group + member detail when provided a list</p>
+</div></div>
+<div class="function">
+<h3 id="group_record_to_string/1">group_record_to_string(Group::em_group()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Convert group record to string</p>
+</div></div>
+<div class="function">
+<h3 id="group_details/1">group_details(Search::string()) -&gt; [group_container()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of groups + members for a given search string.</p>
+</div></div>
+<div class="function">
+<h3 id="group_details/2">group_details(X1::group_id, GroupId::string()) -&gt; group_container()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="member_list/1">member_list(Group) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="timestamp/1">timestamp(Seconds) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="timestamp/2">timestamp(X1, Seconds) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="simple_event_renderer/2">simple_event_renderer(X1, Em_event) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="simple_event_renderer/1">simple_event_renderer(Em_event) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="csv_event_renderer/1">csv_event_renderer(Em_event) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="group_detail_to_csv/2">group_detail_to_csv(GroupId, Filename) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>John Daily</aname>
+<email>jd@epep.us</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/opscode/mixer'  2>&1`
+>>> [repo] 3 branches, 1 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/2800201680/meta.txt"
+ :: Processing https://github.com/opscode/mixer	{rev,tag,"0.1.1","58ded93d5c47675899d8e5e1589270f340ea66c5"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/2800201680/mixer-tag-0.1.1/mixer"
+$ infinity  `curl --fail --silent --show-error --location --output '0.1.1.zip' 'https://github.com/opscode/mixer/archive/0.1.1.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "curl: (7) Failed to connect to github.com port 443: Connection timed out"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,85}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,238}]},
+         {eo_core,main_,11,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
+         {gen_escript__escript__1427__324242__518175,seq_gen,3,
+             [{file,"./gen.escript"},{line,47}]},
+         {escript,run,2,[{file,"escript.erl"},{line,752}]}]
+{throw,{sh,fetch_curl,error,7,
+           [{"curl: (7) Failed to connect to github.com port 443: Connection timed out"}]}}

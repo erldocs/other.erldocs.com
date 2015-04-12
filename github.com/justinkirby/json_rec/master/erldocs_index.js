@@ -1,0 +1,1 @@
+var index = [['app','json_rec','json_rec','[application]'],['mod','json_rec','json_rec','   Assuming a record  of -record(simple, {one, tw'],['mod','json_rec','json_rec_model',[]],['fun','json_rec','json_rec:to_json/1',[]],['fun','json_rec','json_rec:to_rec/3','  Take the result from mochijson2:decode/1 and tr'],['fun','json_rec','json_rec_model:behaviour_info/1',[]]];

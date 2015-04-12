@@ -1,0 +1,1 @@
+var index = [['app','erlang_fractal','erlang_fractal','[application]'],['mod','erlang_fractal','fractal','.'],['mod','erlang_fractal','fractal_smp','.'],['fun','erlang_fractal','fractal:main/0',[]],['fun','erlang_fractal','fractal_smp:main/0',[]]];

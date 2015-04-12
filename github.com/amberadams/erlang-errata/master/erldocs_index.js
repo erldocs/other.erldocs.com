@@ -1,0 +1,1 @@
+var index = [['app','erlang-errata','erlang-errata','[application]'],['mod','erlang-errata','hello_world_verbose',[]],['fun','erlang-errata','hello_world_verbose:start/0',[]]];

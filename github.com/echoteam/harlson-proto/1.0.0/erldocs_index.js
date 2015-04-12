@@ -1,0 +1,1 @@
+var index = [['app','harlson-proto','harlson-proto','[application]'],['mod','harlson-proto','harlson_proto',[]],['fun','harlson-proto','harlson_proto:decode/1',[]],['fun','harlson-proto','harlson_proto:encode/1',[]]];

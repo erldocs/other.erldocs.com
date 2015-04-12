@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nksip_parse (nksip) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nksip_parse</h1>
+<h2 class="modsummary">SIP message parsing functions.</h2>
+<div class="description">
+<p>SIP message parsing functions</p>
+ 
+  <p>This module implements several functions to parse sip requests, responses
+  headers, uris, vias, etc.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-msg_class">msg_class() = {req, <a href="nksip.html#type-method" class="seealso">nksip:method()</a>, binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {resp, <a href="nksip.html#type-response_code" class="seealso">nksip:response_code()</a>, binary()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="method/1">method(Method::binary() | atom() | string()) -&gt; method() (see module nksip) | binary()</h3>
+
+
+<div class="description">
+
+<p>Parses any <code>term()</code> into a valid <code>nksip:method()</code>. If recognized it will be an
+  <code>atom</code>, or a <code>binary</code> if not.</p>
+</div></div>
+<div class="function">
+<h3 id="aors/1">aors(Term::user_uri() (see module nksip) | [user_uri() (see module nksip)]) -&gt; [aor() (see module nksip)]</h3>
+
+
+<div class="description">
+
+<p>Parses all AORs found in <code>Term</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="uris/1">uris(Term::user_uri() (see module nksip) | [user_uri() (see module nksip)]) -&gt; [uri() (see module nksip)] | error</h3>
+
+
+<div class="description">
+
+<p>Parses all URIs found in <code>Term</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="vias/1">vias(Term::binary() | string() | [binary() | string()]) -&gt; [via() (see module nksip)] | error</h3>
+
+
+<div class="description">
+
+<p>Extracts all <code>via()</code> found in <code>Term</code></p>
+</div></div>
+<div class="function">
+<h3 id="tokens/1">tokens(Term::binary() | string() | [binary() | string()]) -&gt; [token() (see module nksip)] | error</h3>
+
+
+<div class="description">
+
+<p>Gets a list of <code>tokens()</code> from <code>Term</code></p>
+</div></div>
+<div class="function">
+<h3 id="integers/1">integers(Term::binary() | string() | [binary() | string()]) -&gt; [integer()] | error</h3>
+
+
+<div class="description">
+
+<p>Gets a list of <code>integer()</code> from <code>Term</code></p>
+</div></div>
+<div class="function">
+<h3 id="dates/1">dates(Term::binary() | string() | [binary() | string()]) -&gt; [datetime() (see module calendar)] | error</h3>
+
+
+<div class="description">
+
+<p>Gets a list of <code>calendar:datetime()</code> from <code>Term</code></p>
+</div></div>
+<div class="function">
+<h3 id="extract_uri_routes/1">extract_uri_routes(Uri::#uri{disp=binary(), scheme=scheme() (see module nksip), user=binary(), pass=binary(), domain=binary(), port=port_number() (see module inet), opts=proplist() (see module nksip_lib), headers=[binary() | header() (see module nksip)], ext_opts=proplist() (see module nksip_lib), ext_headers=[binary() | header() (see module nksip)]}) -&gt; {[#uri{disp=binary(), scheme=scheme() (see module nksip), user=binary(), pass=binary(), domain=binary(), port=port_number() (see module inet), opts=proplist() (see module nksip_lib), headers=[binary() | header() (see module nksip)], ext_opts=proplist() (see module nksip_lib), ext_headers=[binary() | header() (see module nksip)]}], #uri{disp=binary(), scheme=scheme() (see module nksip), user=binary(), pass=binary(), domain=binary(), port=port_number() (see module inet), opts=proplist() (see module nksip_lib), headers=[binary() | header() (see module nksip)], ext_opts=proplist() (see module nksip_lib), ext_headers=[binary() | header() (see module nksip)]}} | error</h3>
+
+
+<div class="description">
+
+<p>Extracts the headers from a uri</p>
+</div></div>
+<div class="function">
+<h3 id="session_expires/1">session_expires(SipMsg::request() (see module nksip) | response() (see module nksip)) -&gt; {ok, integer(), uac | uas | undefined} | undefined | invalid</h3>
+
+
+<div class="description">
+
+<p>Parses a Session-Expires header in a request or response</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

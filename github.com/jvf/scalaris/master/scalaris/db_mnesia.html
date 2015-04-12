@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>db_mnesia (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>db_mnesia</h1>
+<h2 class="modsummary">   DB back-end using mnesia.</h2>
+<div class="description">
+<p>   DB back-end using mnesia.
+          Two keys K and L are considered equal if K == L yields true.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-db">db() = atom()</h3></div>
+    <div class="type"><h3 id="type-entry">entry() = <a href="db_backend_beh.html#type-entry" class="seealso">db_backend_beh:entry()</a></h3></div>
+    <div class="type"><h3 id="type-key">key() = <a href="db_backend_beh.html#type-key" class="seealso">db_backend_beh:key()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="traverse_table_and_show/1">traverse_table_and_show(Table_name::nonempty_string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>traverse table and print content</p>
+</div></div>
+<div class="function">
+<h3 id="mnesia_tables_of/1">mnesia_tables_of(Pid::pid()) -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Return all the tables owned by PidGroup</p>
+</div></div>
+<div class="function">
+<h3 id="delete_mnesia_tables/1">delete_mnesia_tables(Tail::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close recursivly all mnesia tables in List</p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(DBName::nonempty_string()) -&gt; db()</h3>
+
+
+<div class="description">
+
+<p>Creates new DB handle named DBName.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(DBName::nonempty_string(), Options::[term()]) -&gt; db()</h3>
+
+
+<div class="description">
+
+<p>Creates new DB handle named DBName with possibility to pass Options.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(DBName::atom() | nonempty_string()) -&gt; db()</h3>
+
+
+<div class="description">
+
+<p>Open a previously existing database assuming the database has been
+       restored by the start of the mnesia application.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(DBName::db()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Closes the DB named DBName</p>
+</div></div>
+<div class="function">
+<h3 id="close_and_delete/1">close_and_delete(DBName::db()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Closes and deletes the DB named DBName</p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(DBName::db(), Entry::entry() | [Entries::entry()]) -&gt; db()</h3>
+
+
+<div class="description">
+
+<p>Saves arbitrary tuple Entry or list of tuples Entries
+       in DB DBName and returns the new DB.
+       The key is expected to be the first element of Entry.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(DBName::db(), Key::key()) -&gt; entry() | {}</h3>
+
+
+<div class="description">
+
+<p>Returns the entry that corresponds to Key or {} if no such tuple exists.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(DBName::db(), Key::key()) -&gt; db()</h3>
+
+
+<div class="description">
+
+<p>Deletes the tuple saved under Key and returns the new DB.
+       If such a tuple does not exists nothing is changed.</p>
+</div></div>
+<div class="function">
+<h3 id="get_name/1">get_name(DB::db()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of the DB specified in new/1.</p>
+</div></div>
+<div class="function">
+<h3 id="get_load/1">get_load(DB::db()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the current load (i.e. number of stored tuples) of the DB.</p>
+</div></div>
+<div class="function">
+<h3 id="foldl/1">foldl(DB::db(), Fun::(Key::key(), AccIn::A) -&gt; AccOut::A, Acc0::A) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>Is equivalent to ets:foldl(Fun, Acc0, DB).</p>
+</div></div>
+<div class="function">
+<h3 id="foldl/1-1">foldl(DB::db(), Fun::(Key::key(), AccIn::A) -&gt; AccOut::A, Acc0::A, Interval::interval() (see module db_backend_beh)) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>foldl/4 iterates over DB and applies Fun(Entry, AccIn) to every element
+       encountered in Interval. On the first call AccIn == Acc0. The iteration
+       only apply Fun to the elements inside the Interval.</p>
+</div></div>
+<div class="function">
+<h3 id="foldl/1-2">foldl(DB::db(), Fun::(Key::key(), A) -&gt; A, A, Interval::interval() (see module db_backend_beh), MaxNum::non_neg_integer()) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>foldl/5 iterates over DB and applies Fun(Entry, AccIn) to every element
+       encountered in Interval. On the first call AccIn == Acc0. The iteration
+       stops as soon as MaxNum elements have been encountered.</p>
+</div></div>
+<div class="function">
+<h3 id="foldr/1">foldr(DB::db(), Fun::(Key::key(), AccIn::A) -&gt; AccOut::A, Acc0::A) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>Is equivalent to foldr(Fun, Acc0, DB).</p>
+</div></div>
+<div class="function">
+<h3 id="foldr/1-1">foldr(DB::db(), Fun::(Key::key(), AccIn::A) -&gt; AccOut::A, Acc0::A, Interval::interval() (see module db_backend_beh)) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>Is equivalent to foldr(DB, Fun, Acc0, Interval, get_load(DB)).</p>
+</div></div>
+<div class="function">
+<h3 id="foldr/1-2">foldr(DB::db(), Fun::(Key::key(), AccIn::A) -&gt; AccOut::A, Acc0::A, Interval::interval() (see module db_backend_beh), MaxNum::non_neg_integer()) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>Behaves like foldl/5 with the difference that it starts at the end of
+       Interval and iterates towards the start of Interval.</p>
+</div></div>
+<div class="function">
+<h3 id="tab2list/1">tab2list(Table_name::db()) -&gt; [Entries::entry()]</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Tanguy Racinet</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

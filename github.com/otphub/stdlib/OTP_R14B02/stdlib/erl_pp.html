@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erl_pp (stdlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+  
+  <h1>erl_pp</h1>
+  <h2 class="modsummary">The Erlang Pretty Printer</h2>
+  <div class="description">
+    <p>The functions in this module are used to generate
+      aesthetically attractive representations of abstract
+      forms, which are suitable for printing. All functions return (possibly deep)
+      lists of characters and generate an error if the form is wrong.</p>
+    <p>All functions can have an optional argument which specifies a hook
+      that is called if an attempt is made to print an unknown form.</p>
+  </div>
+  <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+    <div class="function">
+      <h3 id="form/1">form(Form) -&gt; DeepCharList</h3>
+      <h3 id="form/2">form(Form, HookFunction) -&gt; DeepCharList</h3>
+      
+      <ul class="type">
+        <li><code>Form = term()</code></li>
+        <li><code>HookFunction = see separate description below.</code></li>
+        <li><code>DeepCharList = [char()|DeepCharList]</code></li>
+      </ul>
+      <div class="description">
+        <p>Pretty prints a 
+          <code>Form</code> which is an abstract form of a type which is
+          returned by <code>erl_parse:parse_form</code>.</p>
+      </div>
+    </div>
+    <div class="function">
+      <h3 id="attribute/1">attribute(Attribute) -&gt; DeepCharList</h3>
+      <h3 id="attribute/2">attribute(Attribute, HookFunction) -&gt; DeepCharList</h3>
+      
+      <ul class="type">
+        <li><code>Attribute = term()</code></li>
+        <li><code>HookFunction = see separate description below.</code></li>
+        <li><code>DeepCharList = [char()|DeepCharList]</code></li>
+      </ul>
+      <div class="description">
+        <p>The same as <code>form</code>, but only for the attribute
+          <code>Attribute</code>.</p>
+      </div>
+    </div>
+    <div class="function">
+      <h3 id="function/1">function(Function) -&gt; DeepCharList</h3>
+      <h3 id="function/2">function(Function, HookFunction) -&gt; DeepCharList</h3>
+      
+      <ul class="type">
+        <li><code>Function = term()</code></li>
+        <li><code>HookFunction = see separate description below.</code></li>
+        <li><code>DeepCharList = [char()|DeepCharList]</code></li>
+      </ul>
+      <div class="description">
+        <p>The same as <code>form</code>, but only for the function
+          <code>Function</code>.</p>
+      </div>
+    </div>
+    <div class="function">
+      <h3 id="guard/1">guard(Guard) -&gt; DeepCharList</h3>
+      <h3 id="guard/2">guard(Guard, HookFunction) -&gt; DeepCharList</h3>
+      
+      <ul class="type">
+        <li><code>Form = term()</code></li>
+        <li><code>HookFunction = see separate description below.</code></li>
+        <li><code>DeepCharList = [char()|DeepCharList]</code></li>
+      </ul>
+      <div class="description">
+        <p>The same as <code>form</code>, but only for the guard test
+          <code>Guard</code>.</p>
+      </div>
+    </div>
+    <div class="function">
+      <h3 id="exprs/1">exprs(Expressions) -&gt; DeepCharList</h3>
+      <h3 id="exprs/2">exprs(Expressions, HookFunction) -&gt; DeepCharList</h3>
+      <h3 id="exprs/3">exprs(Expressions, Indent, HookFunction) -&gt; DeepCharList</h3>
+      
+      <ul class="type">
+        <li><code>Expressions = term()</code></li>
+        <li><code>HookFunction = see separate description below.</code></li>
+        <li><code>Indent = integer()</code></li>
+        <li><code>DeepCharList = [char()|DeepCharList]</code></li>
+      </ul>
+      <div class="description">
+        <p>The same as <code>form</code>, but only for the sequence of
+          expressions in <code>Expressions</code>.</p>
+      </div>
+    </div>
+    <div class="function">
+      <h3 id="expr/1">expr(Expression) -&gt; DeepCharList</h3>
+      <h3 id="expr/2">expr(Expression, HookFunction) -&gt; DeepCharList</h3>
+      <h3 id="expr/3">expr(Expression, Indent, HookFunction) -&gt; DeepCharList</h3>
+      <h3 id="expr/4">expr(Expression, Indent, Precedence, HookFunction) -&gt;-&gt; DeepCharList</h3>
+      
+      <ul class="type">
+        <li><code>Expression = term()</code></li>
+        <li><code>HookFunction = see separate description below.</code></li>
+        <li><code>Indent = integer()</code></li>
+        <li><code>Precedence = </code></li>
+        <li><code>DeepCharList = [char()|DeepCharList]</code></li>
+      </ul>
+      <div class="description">
+        <p>This function prints one expression. It is useful for implementing hooks (see below).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h4>Unknown Expression Hooks</h4>
+    <p>The optional argument <code>HookFunction</code>, shown in the functions described above,  defines a function which is called when an unknown form occurs where there
+      should be a valid expression. It can have the following formats:</p>
+    <taglist>
+      <dt><code>Function</code></dt>
+      <item>
+        <p>The hook function is called by:</p>
+        <pre class="sh_erlang">
+Function(Expr, 
+         CurrentIndentation,
+         CurrentPrecedence,
+         HookFunction)        </pre>
+      </item>
+      <dt><code>none</code></dt>
+      <item>
+        <p>There is no hook function</p>
+      </item>
+    </taglist>
+    <p>The called hook function should return a (possibly deep) list
+      of characters. <code>expr/4</code> is useful in a hook.
+      </p>
+    <p>If <code>CurrentIndentation</code> is negative, there will be no line
+      breaks and only a space is used as a separator.</p>
+  </div>
+
+  <div class="section">
+    <h4>Bugs</h4>
+    <p>It should be possible to have hook functions for unknown forms
+      at places other than expressions.</p>
+  </div>
+
+  <div class="section">
+    <h4>See Also</h4>
+    <p><a href="io.html" class="seealso">io(3)</a>,
+      <a href="erl_parse.html" class="seealso">erl_parse(3)</a>,
+      <a href="erl_eval.html" class="seealso">erl_eval(3)</a></p>
+  </div>
+
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

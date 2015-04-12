@@ -1,0 +1,1 @@
+var index = [['app','erlang-game-of-life','erlang-game-of-life','[application]'],['mod','erlang-game-of-life','create_image',[]],['mod','erlang-game-of-life','game_of_life',[]]];

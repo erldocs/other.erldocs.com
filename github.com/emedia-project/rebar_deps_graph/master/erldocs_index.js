@@ -1,0 +1,1 @@
+var index = [['app','rebar_deps_graph','rebar_deps_graph','[application]'],['mod','rebar_deps_graph','deps_graph_plugin',[]],['fun','rebar_deps_graph','deps_graph_plugin:graph-deps/2',[]]];

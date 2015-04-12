@@ -1,0 +1,1 @@
+var index = [['app','statroll','statroll','[application]'],['mod','statroll','statroll',[]],['fun','statroll','statroll:get_max/1',[]],['fun','statroll','statroll:get_mean/1',[]],['fun','statroll','statroll:get_min/1',[]],['fun','statroll','statroll:new/0',[]],['fun','statroll','statroll:new/1',[]],['fun','statroll','statroll:update/1',[]]];

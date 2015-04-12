@@ -1,0 +1,1 @@
+var index = [['app','gpb-bindings','gpb-bindings','[application]'],['mod','gpb-bindings','gpb_bind',[]],['fun','gpb-bindings','gpb_bind:file/2',[]]];

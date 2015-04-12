@@ -1,0 +1,1 @@
+var index = [['app','ejabberd-auth-mongodb-djangouser','ejabberd-auth-mongodb-djangouser','[application]'],['mod','ejabberd-auth-mongodb-djangouser','sha1',[]],['fun','ejabberd-auth-mongodb-djangouser','sha1:binstring/1',[]],['fun','ejabberd-auth-mongodb-djangouser','sha1:hexstring/1',[]]];

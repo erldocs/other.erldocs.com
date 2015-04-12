@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erjik_lib (erjik) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erjik_lib</h1>
+<h2 class="modsummary">Library module.</h2>
+<div class="description">
+<p>Library module</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-administrative_offset">administrative_offset() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Sign :: -1 | 1, Hours :: 0..14, Minutes :: 0 | 30 | 45}</h3></div>
+    <div class="type"><h3 id="type-ip4_range">ip4_range() = {<a href="inet.html#type-ip4_address" class="seealso">inet:ip4_address()</a>, <a href="inet.html#type-ip4_address" class="seealso">inet:ip4_address()</a>}</h3></div>
+    <div class="type"><h3 id="type-ip6_range">ip6_range() = {<a href="inet.html#type-ip6_address" class="seealso">inet:ip6_address()</a>, <a href="inet.html#type-ip6_address" class="seealso">inet:ip6_address()</a>}</h3></div>
+    <div class="type"><h3 id="type-ip_pool">ip_pool() = [<a href="#type-ip_pool_item" class="seealso">ip_pool_item()</a>]</h3></div>
+    <div class="type"><h3 id="type-ip_pool_item">ip_pool_item() = any | none | <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a> | <a href="#type-ip_range" class="seealso">ip_range()</a></h3></div>
+    <div class="type"><h3 id="type-ip_range">ip_range() = <a href="#type-ip4_range" class="seealso">ip4_range()</a> | <a href="#type-ip6_range" class="seealso">ip6_range()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="challenge/2">challenge(Fun, List) -&gt; {ok, B} | undefined</h3>
+
+<ul class="type">
+<li><code>Fun = (A) -&gt; B</code></li><li><code>List = [A]</code></li><li><code>A = term()</code></li><li><code>B = term()</code></li></ul>
+<div class="description">
+
+<p>Like lists:map/2, but:
+       </p><list>
+       <item>spawns each fun in separate process;</item>
+       <item>returns only result of first successfully finished fun
+          (rest of processes spawned will be killed).</item>
+       </list><p>
+       If supplied list is empty or no functions finished normally,
+       it will return 'undefined' atom.
+       Example:
+       </p><list>
+       <item><p>challenge(fun(T) -&gt; timer:sleep(T), T end, [2000, 1000, 3000])
+           will return {ok, 1000};</p></item>
+       <item><p>challenge(fun(_) -&gt; exit(oops) end, [1, 2, 3, 4])
+           will return 'undefined'.</p></item>
+       </list>
+</div></div>
+<div class="function">
+<h3 id="pmap/2">pmap(Fun, List::List1) -&gt; List2</h3>
+
+<ul class="type">
+<li><code>Fun = (A) -&gt; B</code></li><li><code>List1 = [A]</code></li><li><code>List2 = [B]</code></li><li><code>A = term()</code></li><li><code>B = term()</code></li></ul>
+<div class="description">
+
+<p>Like lists:map/2, but each fun will be applied in parallel.
+       Results order will be preserved.</p>
+</div></div>
+<div class="function">
+<h3 id="read_mime_types/1">read_mime_types(Filename) -&gt; {ok, List} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Filename = string()</code></li><li><code>List = [{MimeType, Extensions}]</code></li><li><code>MimeType = string()</code></li><li><code>Extensions = [string()]</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Reads and parses mime types file.</p>
+</div></div>
+<div class="function">
+<h3 id="split_by_len/2">split_by_len(List, Len) -&gt; ListOfLists</h3>
+
+<ul class="type">
+<li><code>List = list()</code></li><li><code>Len = integer()</code></li><li><code>ListOfLists = list()</code></li></ul>
+<div class="description">
+
+<p>Splits apart List to chunks of Len length.</p>
+</div></div>
+<div class="function">
+<h3 id="is_string/1">is_string(Term::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if supplied term is plain ASCII text.</p>
+</div></div>
+<div class="function">
+<h3 id="uniq/1">uniq(Tail::List) -&gt; NewList</h3>
+
+<ul class="type">
+<li><code>List = list()</code></li><li><code>NewList = list()</code></li></ul>
+<div class="description">
+
+<p>Removes all duplicate elements from List except first.
+       Elements order will be preserved.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/2">strip(String, Characters) -&gt; StrippedString</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Characters = string()</code></li><li><code>StrippedString = string()</code></li></ul>
+<div class="description">
+
+<p>Removes Characters from beginning and ending of String.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_atom/2">list_to_atom(String, Tail::Atoms) -&gt; {ok, Atom} | error</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Atoms = [atom()]</code></li><li><code>Atom = atom()</code></li></ul>
+<div class="description">
+
+<p>"Converts" string to atom only if result atom contained
+       in list, supplied as second argument.</p>
+</div></div>
+<div class="function">
+<h3 id="split_lines/1">split_lines(String) -&gt; Lines</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Lines = [Line]</code></li><li><code>Line = string()</code></li></ul>
+<div class="description">
+
+<p>Splits text to lines. Result lines will be stripped
+       of newline characters.</p>
+</div></div>
+<div class="function">
+<h3 id="split_to_key_value/1">split_to_key_value(String) -&gt; {Key, Value}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Key = string()</code></li><li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>Splits line to key and value. First token separated from
+       others with space characters, will be returned as key in
+       lower case (so, keys are case insensitive); rest of
+       line will be returned as value. Character case of value
+       string will be preserved.</p>
+</div></div>
+<div class="function">
+<h3 id="preparse_config/1">preparse_config(String) -&gt; List</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>List = [MeaningLine]</code></li><li><code>MeaningLine = {LineNo, Key, Value}</code></li><li><code>LineNo = integer()</code></li><li><code>Key = string()</code></li><li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>Makes preparse of key-value configuration file.</p>
+</div></div>
+<div class="function">
+<h3 id="preparse_config/2">preparse_config(String, Options) -&gt; List</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Options = [Option]</code></li><li><code>Option = {comment_chars, CharList}</code></li><li><code>CharList = string()</code></li><li><code>List = [MeaningLine]</code></li><li><code>MeaningLine = {LineNo, Key, Value}</code></li><li><code>LineNo = integer()</code></li><li><code>Key = string()</code></li><li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>Makes preparse of key-value configuration file.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_uri/1">parse_uri(URI) -&gt; {ok, List} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>URI = string()</code></li><li><code>List = [Element]</code></li><li><code>Element = {proto, Proto} | {username, string()} | {hostname, Hostname} | {port, integer()} | {request, string()}</code></li><li><code>Proto = http | https | ftp</code></li><li><code>Hostname = string() | ip_address() (see module inet)</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Parses URI to components.</p>
+</div></div>
+<div class="function">
+<h3 id="is_ip/1">is_ip(Term::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if supplied term is valid IP address.</p>
+</div></div>
+<div class="function">
+<h3 id="is_ip4/1">is_ip4(X1::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if supplied term is valid IPv4 address.</p>
+</div></div>
+<div class="function">
+<h3 id="is_ip6/1">is_ip6(X1::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if supplied term is valid IPv6 address.</p>
+</div></div>
+<div class="function">
+<h3 id="is_same_ip_type/2">is_same_ip_type(IP1, IP2) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>IP1 = ip_address() (see module inet)</code></li><li><code>IP2 = ip_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Return true if both IP adresses specified is
+       of same type (IPv4 or IPv6).</p>
+</div></div>
+<div class="function">
+<h3 id="ip_family/1">ip_family(IP) -&gt; Family</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>Family = address_family() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Returns IP family type for supplied IP address.</p>
+</div></div>
+<div class="function">
+<h3 id="is_ip_range/1">is_ip_range(X1::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if supplied term is valid IP range.</p>
+</div></div>
+<div class="function">
+<h3 id="is_in_ip_range/2">is_in_ip_range(IP, X2::IpRange) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>IpRange = ip_range()</code></li></ul>
+<div class="description">
+
+<p>Return true if supplied IP range contains IP specified
+       as first argument.</p>
+</div></div>
+<div class="function">
+<h3 id="cidr_to_ip_range/2">cidr_to_ip_range(IP, Prefix) -&gt; ip_range()</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>Prefix = integer()</code></li></ul>
+<div class="description">
+
+<p>Makes IP range from CIDR supplied.</p>
+</div></div>
+<div class="function">
+<h3 id="ip_add/2">ip_add(IP, Number) -&gt; NewIP</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>Number = integer()</code></li><li><code>NewIP = ip_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Adds number to IP address.</p>
+</div></div>
+<div class="function">
+<h3 id="ip_to_binary/1">ip_to_binary(IP) -&gt; Binary</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>Binary = binary()</code></li></ul>
+<div class="description">
+
+<p>Converts IP to binary.</p>
+</div></div>
+<div class="function">
+<h3 id="binary_to_ip/1">binary_to_ip(Binary) -&gt; IP</h3>
+
+<ul class="type">
+<li><code>Binary = binary()</code></li><li><code>IP = ip_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Converts binary to IP address.</p>
+</div></div>
+<div class="function">
+<h3 id="ip_to_integer/1">ip_to_integer(IP::ip_address() (see module inet)) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Converts IP address to integer.</p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_ip4/1">integer_to_ip4(Integer::integer()) -&gt; ip4_address() (see module inet)</h3>
+
+
+<div class="description">
+
+<p>Converts integer to IPv4 address.</p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_ip6/1">integer_to_ip6(Integer::integer()) -&gt; ip6_address() (see module inet)</h3>
+
+
+<div class="description">
+
+<p>Converts integer to IPv6 address.</p>
+</div></div>
+<div class="function">
+<h3 id="is_ip_pool/1">is_ip_pool(List::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns true if supplied term is of type ip_pool().</p>
+</div></div>
+<div class="function">
+<h3 id="is_in_ip_pool/2">is_in_ip_pool(IP, IpPool) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>IpPool = ip_pool()</code></li></ul>
+<div class="description">
+
+<p>Returns true if supplied pool contains IP specified
+       as first argument.</p>
+</div></div>
+<div class="function">
+<h3 id="flatten_ip_pool/1">flatten_ip_pool(IpPool) -&gt; NewIpPool</h3>
+
+<ul class="type">
+<li><code>IpPool = ip_pool()</code></li><li><code>NewIpPool = ip_pool()</code></li></ul>
+<div class="description">
+
+<p>Flattens IP pool.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_ip/1">list_to_ip(String) -&gt; {ok, IP} | error</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>IP = ip_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Convert IP address from text to Erlang representation.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_ip4/1">list_to_ip4(String) -&gt; {ok, IP} | error</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>IP = ip4_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Convert IPv4 address from text to Erlang representation.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_ip6/1">list_to_ip6(String) -&gt; {ok, IP} | error</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>IP = ip6_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Convert IPv6 address from text to Erlang representation.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_cidr/1">list_to_cidr(String) -&gt; {ok, IP, PrefixLen} | error</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>IP = ip_address() (see module inet)</code></li><li><code>PrefixLen = integer()</code></li></ul>
+<div class="description">
+
+<p>Converts CIDR notation to Erlang representation.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_ip_range/1">list_to_ip_range(String) -&gt; {ok, {MinIP, MaxIP}} | error</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>MinIP = ip_address() (see module inet)</code></li><li><code>MaxIP = ip_address() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Parses string representation of IP range.
+       Source data can be one of these forms:
+           "IP/PrefixLength";
+           "MinIP MaxIP", separated by spaces, hyphen or coma;
+           "IP".</p>
+</div></div>
+<div class="function">
+<h3 id="ip_to_list/1">ip_to_list(IP) -&gt; String</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Converts IP address in Erlang representation to text.</p>
+</div></div>
+<div class="function">
+<h3 id="socket_to_list/1">socket_to_list(X1::Socket) -&gt; String</h3>
+
+<ul class="type">
+<li><code>Socket = {IP, Port}</code></li><li><code>IP = ip_address() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li><li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Converts IP address and port number to text.</p>
+</div></div>
+<div class="function">
+<h3 id="socket_to_list/2">socket_to_list(IP, Port) -&gt; String</h3>
+
+<ul class="type">
+<li><code>IP = ip_address() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li><li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Converts IP address and port number to text.</p>
+</div></div>
+<div class="function">
+<h3 id="ip_range_to_list/1">ip_range_to_list(X1::IpRange) -&gt; string()</h3>
+
+<ul class="type">
+<li><code>IpRange = ip_range()</code></li></ul>
+<div class="description">
+
+<p>Formats IP range as text.</p>
+</div></div>
+<div class="function">
+<h3 id="ip_pool_to_list/1">ip_pool_to_list(IpPool) -&gt; string()</h3>
+
+<ul class="type">
+<li><code>IpPool = ip_pool()</code></li></ul>
+<div class="description">
+
+<p>Formats IP pool as text.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/1">timestamp(Time::timestamp()) -&gt; io_list()</h3>
+
+
+<div class="description">
+
+<p>Formats time as text.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/1-1">timestamp(Timestamp::timestamp(), X2::administrative_offset()) -&gt; io_list()</h3>
+
+
+<div class="description">
+
+<p>Formats time as text with specified time offset.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Aleksey Morarash</aname>
+<email>aleksey.morarash@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

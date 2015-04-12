@@ -1,0 +1,1 @@
+var index = [['app','rebar_inheritable_deps','rebar_inheritable_deps','[application]'],['mod','rebar_inheritable_deps','rebar_inheritable_deps','Rebar Dependency Inheritance Plugin  ------------'],['fun','rebar_inheritable_deps','rebar_inheritable_deps:preprocess/2',[]]];

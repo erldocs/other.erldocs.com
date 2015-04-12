@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_t_sup (etorrent) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_t_sup</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-ip">ip() = {integer(), integer(), integer(), integer()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(File::string(), Local_PeerId::binary(), Id::integer()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start up the supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="get_pid/1">get_pid(Pid::pid(), Name::atom()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Return the Child pid of a given supervisor, identified by Name.
+ </p><p><emph>Assumption:</emph> The Name exists, or this function crashes</p>
+</div></div>
+<div class="function">
+<h3 id="add_tracker/1">add_tracker(Pid::pid(), URL::string(), InfoHash::binary(), Local_Peer_Id::binary(), TorrentId::integer()) -&gt; {ok, pid()} | {ok, pid(), term()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Add the tracker process to the supervisor
+ </p><p>We do this after-the-fact as we like to make sure how complete the torrent
+ is before telling the tracker we are serving it. In fact, we can't accurately
+ report the "left" part to the tracker if it is not the case.</p>
+</div></div>
+<div class="function">
+<h3 id="add_peer/1">add_peer(Pid::pid(), PeerId::binary(), InfoHash::binary(), TorrentId::integer(), X5::{ip(), integer()}, Socket::port()) -&gt; {ok, pid(), pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Add a peer to the torrent peer pool.
+ </p><p>In general, this is a simple call-through function, which hinges on the
+ peer_pools add_peer/7 function. It is just cleaner to call through this
+ supervisor, as it has the knowledge about the peer pool pid.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

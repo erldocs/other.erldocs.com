@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>client_lowe (ns_erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>client_lowe</h1>
+<h2 class="modsummary">This is the client module for Needham-Schroeder-Lowe Protocol.</h2>
+<div class="description">
+<p>This is the client module for Needham-Schroeder-Lowe Protocol.
+  Client module is the one which simulates Alice and Bob as clients in a communication. It will receive start signal from the driver process and start a negotiation with the Target specified by the driver. This is the version that client will send itself in the 6th message so that it can prevent man-in-the-middle attack.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Spawn a client_lowe process and return the pid.</p>
+</div></div>
+<div class="function">
+<h3 id="gen_nonce/0">gen_nonce() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Generate a random nonce.</p>
+</div></div>
+<div class="function">
+<h3 id="decrypt_server/1">decrypt_server(Server::pid(), Msg::binary()) -&gt; tuple()</h3>
+
+
+<div class="description">
+
+<p>Decrypt the message from server.
+  It will get the keys from the key_table and decrypt the binary message from the server. It will parse the decrypted message as a tuple and return.</p>
+</div></div>
+<div class="function">
+<h3 id="encrypt/2">encrypt(Key::RSA_PublicKey, Msg::tuple()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encrypt the message using specified key.
+  Usually it will use other clients' public key to encrypt the message and send to other clients. It will accept a tuple and encrypt it into binary.</p>
+</div></div>
+<div class="function">
+<h3 id="decrypt/2">decrypt(Key::RSA_PrivateKey, Msg::binary()) -&gt; tuple()</h3>
+
+
+<div class="description">
+
+<p>Decrypt the message from other clients.
+  It will use the private key and decrypt the message from other clients. It will parse the decrypted message as a tuple and return.</p>
+</div></div>
+<div class="function">
+<h3 id="loop/0">loop() -&gt; none()</h3>
+
+
+<div class="description">
+
+<p>Loop to keep receiving messages.
+  </p><pre class="sh_erlang"> 		Suppose Alice initiates a session with Bob.
+ 		{start, Target, Server}-&gt;
+ 			Start message from driver.
+ 		{replyPk, Server, Msg}-&gt;
+ 			Alice receive the Kpb requested, and try to initiate a session with Bob.
+ 		{comm_req, Msg}-&gt;
+ 			Receive the encrypted session request and get the Public Key of Alice.
+ 		{replyPk_2, Server, Msg}-&gt;
+ 			Only the one which is Bob will receive this, it will get the Kpa from server.
+ 			Also send the nonce as a part of the message. To prevent man-in-the-middle attack,
+ 			it will add itself into the encrypted message.
+ 		{nonces, Msg}-&gt;
+ 			Alice receives Na, Nb and B, then reply Bob with a Nb encrypted using Kpb.
+ 		{verified, Msg}-&gt;
+ 			Bob receives the Nb from Alice, and checks whether it's the correct one.
+ 			If yes then session is created. Then send a message to driver to annonce the end.</pre>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

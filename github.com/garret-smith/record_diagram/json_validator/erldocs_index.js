@@ -1,0 +1,1 @@
+var index = [['app','record_diagram','record_diagram','[application]'],['mod','record_diagram','rd_extract_types',[]],['mod','record_diagram','record_diagram',[]],['fun','record_diagram','rd_extract_types:from_epp/1',[]],['fun','record_diagram','rd_extract_types:from_file/1',[]],['fun','record_diagram','record_diagram:main/1',[]]];

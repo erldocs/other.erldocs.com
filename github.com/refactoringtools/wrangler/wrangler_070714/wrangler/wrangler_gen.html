@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wrangler_gen (wrangler) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wrangler_gen</h1>
+<h2 class="modsummary">This module specifies a suite of refactoring command generators.</h2>
+<div class="description">
+<p>This module specifies a suite of refactoring command generators.
+  The command generators provided by this modules are used for scripting
+  composite refactorings. For details on how to script composite
+  refactorings, see <url href="gen_composite_refac.html">Gen_Composite_Refac</url></p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-dir">dir() = string()</h3></div>
+    <div class="type"><h3 id="type-elementary_refac">elementary_refac() = {refac_, atom(), term()}</h3></div>
+    <div class="type"><h3 id="type-fa">fa() = fun(({FunName :: atom(), Arity :: integer()}) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), integer()}</h3></div>
+    <div class="type"><h3 id="type-file_filter">file_filter() = {file, fun((File :: <a href="#type-filename" class="seealso">filename()</a>) -> boolean())}</h3></div>
+    <div class="type"><h3 id="type-filename">filename() = string()</h3></div>
+    <div class="type"><h3 id="type-generator">generator() = {lazy_gen, function()}</h3></div>
+    <div class="type"><h3 id="type-lazy_refac">lazy_refac() = {<a href="#type-elementary_refac" class="seealso">elementary_refac()</a>, <a href="#type-generator" class="seealso">generator()</a>}</h3></div>
+    <div class="type"><h3 id="type-mod_or_file">mod_or_file() = <a href="#type-file_filter" class="seealso">file_filter()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-module_filter" class="seealso">module_filter()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-filename" class="seealso">filename()</a></h3></div>
+    <div class="type"><h3 id="type-module_filter">module_filter() = {module, fun((Mod :: atom()) -&gt; boolean())}</h3></div>
+    <div class="type"><h3 id="type-pos">pos() = {integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-search_paths">search_paths() = [<a href="#type-filename" class="seealso">filename()</a> | <a href="#type-dir" class="seealso">dir()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="rename_fun/1">rename_fun(ModOrFile::mod_or_file(), Fa::fa(), NewFunName::{generator, ({M::atom(), FA::{atom(), integer()}}) -&gt; atom()} | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}}) -&gt; string()} | atom(), Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for renaming function names.</p>
+</div></div>
+<div class="function">
+<h3 id="rename_mod/1">rename_mod(ModOrFile::mod_or_file(), NewModName::{generator, (M::atom() | filename()) -&gt; string()} | {user_input, Prompt::(M::atom()) -&gt; string()} | string(), Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for renaming module names.</p>
+</div></div>
+<div class="function">
+<h3 id="rename_var/1">rename_var(ModOrFile::mod_or_file(), FA::fa(), OldVarName::(VarName::atom()) -&gt; boolean() | atom(), NewVarName::{generator, ({M::atom(), FA::{atom(), integer()}, V::atom()}) -&gt; atom()} | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}, V::atom()}) -&gt; string()} | atom(), Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for renaming variable names.</p>
+</div></div>
+<div class="function">
+<h3 id="move_fun/1">move_fun(SrcModOrFile::mod_or_file(), Fa::fa(), TagertModOrFile::mod_or_file() | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}}) -&gt; string()}, Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for moving functions from one module to another.</p>
+</div></div>
+<div class="function">
+<h3 id="gen_fun/1">gen_fun(ModOrFile::mod_or_file(), FA::fa(), ExprStr::string(), NewParName::{user_input, Prompt::({M::atom(), FA::{atom(), integer()}, ExprStr::string()}) -&gt; string()} | atom() | string(), Lazy::boolean(), SearchPaths::search_paths(), GenOrder::textual | bu | td) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for function generalisation.</p>
+</div></div>
+<div class="function">
+<h3 id="fold_expr/1">fold_expr(CurModOrFile::mod_or_file(), ModOrFile::mod_or_file(), FA::fa(), ClauseIndex::integer(), Lazy::boolean(), SearhPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for folding expressions against a function definition.</p>
+</div></div>
+<div class="function">
+<h3 id="unfold_fun_app/1">unfold_fun_app(ModOrFile::mod_or_file(), FA::fa(), MFAorPos::(mfa()) -&gt; boolean() | mfa() | pos(), Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for unfolding a function application.</p>
+</div></div>
+<div class="function">
+<h3 id="swap_args/1">swap_args(ModOrFile::mod_or_file(), FA::fa(), Index1::integer() | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}}) -&gt; string()}, Index2::integer() | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}}) -&gt; string()}, Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for for swapping function arguments.</p>
+</div></div>
+<div class="function">
+<h3 id="tuple_args/1">tuple_args(ModOrFile::mod_or_file(), FA::fa(), Index1::integer() | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}}) -&gt; string()}, Index2::integer() | {user_input, Prompt::({M::atom(), FA::{atom(), integer()}}) -&gt; string()}, Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for tupling function arguments.</p>
+</div></div>
+<div class="function">
+<h3 id="add_to_export/1">add_to_export(ModOrFile::mod_or_file(), Fa::fa(), Lazy::boolean(), SearchPaths::search_paths()) -&gt; [elementary_refac()] | lazy_refac()</h3>
+
+
+<div class="description">
+
+<p>Command generator for adding function names to the export list of a module.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

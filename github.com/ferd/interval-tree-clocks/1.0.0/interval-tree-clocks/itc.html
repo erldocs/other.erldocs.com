@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>itc (interval-tree-clocks) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>itc</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-event">event() = integer() >= 0<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Base :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Left :: <a href="#type-event" class="seealso">event()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Right :: <a href="#type-event" class="seealso">event()</a>}</h3></div>
+    <div class="type"><h3 id="type-id">id() = integer() >= 0 | {Left :: <a href="#type-id" class="seealso">id()</a>, Right :: <a href="#type-id" class="seealso">id()</a>}</h3></div>
+    <div class="type"><h3 id="type-tree">tree() = {<a href="#type-id" class="seealso">id()</a>, <a href="#type-event" class="seealso">event()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="seed/0">seed() -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Initial seed.</p>
+</div></div>
+<div class="function">
+<h3 id="join/1">join(X1::tree(), X2::tree()) -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Merge two forked trees</p>
+</div></div>
+<div class="function">
+<h3 id="fork/1">fork(X1::tree()) -&gt; {tree(), tree()}</h3>
+
+
+<div class="description">
+
+<p>Split an Id into two related ones. This is used when you want
+  to add a new replica to the entire set.</p>
+</div></div>
+<div class="function">
+<h3 id="peek/1">peek(X1::tree()) -&gt; ReadOnly::tree()</h3>
+
+
+<div class="description">
+
+<p>Special case of a fork that creates an anonymous tree with  
+events to transmit causal information without registering new events,  
+meaning it should be used for replication.</p>
+ 
+  <p>Because the peek fork returns an anonymous tree and the original tree
+  itself, the function only returns the modified one.</p>
+</div></div>
+<div class="function">
+<h3 id="event/1">event(X1::tree()) -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Adds a new event to the event component, i.e. marking that an item
+  has been written to or updated.</p>
+</div></div>
+<div class="function">
+<h3 id="leq/1">leq(X1::tree(), X2::tree()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>compares events from two trees to figure out if
+  the first one is smaller than or equal to the second one.</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1">encode(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/1">decode(B) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="len/1">len(D) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="str/1">str(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

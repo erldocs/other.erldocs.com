@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pooler (pooler) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pooler</h1>
+<h2 class="modsummary">This is the main interface to the pooler application.</h2>
+<div class="description">
+<p>This is the main interface to the pooler application</p>
+ 
+  <p>To integrate with your application, you probably want to call
+  application:start(pooler) after having specified appropriate
+  configuration for the pooler application (either via a config file
+  or appropriate calls to the application module to set the
+  application's config).
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-time_spec">time_spec() = {integer() >= 0, <a href="#type-time_unit" class="seealso">time_unit()</a>}</h3></div>
+    <div class="type"><h3 id="type-time_unit">time_unit() = min | sec | ms | mu</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Pool) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="manual_start/0">manual_start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_pool/1">new_pool(PoolConfig) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start a new pool described by the proplist <code>PoolConfig</code>. The  
+following keys are required in the proplist:</p>
+ 
+  <taglist>
+  <dt><code>name</code></dt>
+  <item><p>An atom giving the name of the pool.</p></item>
+  <dt><code>init_count</code></dt>
+  <item><p>Number of members to add to the pool at start. When the pool is
+  started, <code>init_count</code> members will be started in parallel.</p></item>
+  <dt><code>max_count</code></dt>
+  <item><p>Maximum number of members in the pool.</p></item>
+  <dt><code>start_mfa</code></dt>
+  <item><p>A tuple of the form <code>{Mod, Fun, Args}</code> describing how to start
+  new pool members.</p></item>
+  </taglist>
+ 
+  <p>In addition, you can specify any of the following optional  
+configuration options:</p>
+ 
+  <taglist>
+  <dt><code>group</code></dt>
+  <item><p>An atom giving the name of the group this pool belongs
+  to. Pools sharing a common <code>group</code> value can be accessed using
+  <a href="#take_group_member/1" class="seealso">take_group_member/1</a> and <a href="#return_group_member/2" class="seealso">return_group_member/2</a>.</p></item>
+  <dt><code>cull_interval</code></dt>
+  <item><p>Time between checks for stale pool members. Specified as
+  <code>{Time, Unit}</code> where <code>Time</code> is a non-negative integer and <code>Unit</code>
+  is one of <code>min</code>, <code>sec</code>, <code>ms</code>, or <code>mu</code>. The default value of <code>{0,
+  min}</code> disables stale member checking. When <code>Time</code> is greater than
+  zero, a message will be sent to the pool at the configured interval
+  to trigger the removal of members that have not been accessed in
+  <code>max_age</code> time units.</p></item>
+  <dt><code>max_age</code></dt>
+  <item><p>Members idle longer than <code>max_age</code> time units are removed from
+  the pool when stale checking is enabled via
+  <code>cull_interval</code>. Culling of idle members will never reduce the pool
+  below <code>init_count</code>. The value is specified as <code>{Time, Unit}</code>. Note
+  that timers are not set on individual pool members and may remain
+  in the pool beyond the configured <code>max_age</code> value since members are
+  only removed on the interval configured via <code>cull_interval</code>.</p></item>
+  </taglist>
+</div></div>
+<div class="function">
+<h3 id="rm_pool/1">rm_pool(PoolName) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Terminate the named pool.</p>
+</div></div>
+<div class="function">
+<h3 id="accept_member/1">accept_member(PoolName::atom() | pid(), MemberPid::pid() | {noproc, term()}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>For INTERNAL use. Adds <code>MemberPid</code> to the pool.</p>
+</div></div>
+<div class="function">
+<h3 id="take_member/1">take_member(PoolName::atom() | pid()) -&gt; pid() | error_no_members</h3>
+
+
+<div class="description">
+
+<p>Obtain exclusive access to a member from <code>PoolName</code>.</p>
+ 
+  <p>If no free members are available, 'error_no_members' is returned.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="take_group_member/1">take_group_member(GroupName::atom()) -&gt; pid() | error_no_members | {error_no_group, atom()}</h3>
+
+
+<div class="description">
+
+<p>Take a member from a randomly selected member of the group
+  <code>GroupName</code>. Returns <code>MemberPid</code> or <code>error_no_members</code>.  If no
+  members are available in the randomly chosen pool, all other pools
+  in the group are tried in order.</p>
+</div></div>
+<div class="function">
+<h3 id="return_group_member/1">return_group_member(GroupName::atom(), MemberPid::pid() | error_no_members) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Return a member that was taken from the group
+  <code>GroupName</code>. This is a convenience function for
+  <code>return_group_member/3</code> with <code>Status</code> of <code>ok</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="return_group_member/1-1">return_group_member(GroupName::atom(), MemberPid::pid() | error_no_members, Status::ok | fail) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Return a member that was taken from the group <code>GroupName</code>. If
+  <code>Status</code> is <code>ok</code> the member is returned to the pool from which is
+  came. If <code>Status</code> is <code>fail</code> the member will be terminated and a new
+  member added to the appropriate pool.</p>
+</div></div>
+<div class="function">
+<h3 id="return_member/1">return_member(PoolName::atom() | pid(), Pid::pid() | error_no_members, Status::ok | fail) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Return a member to the pool so it can be reused.</p>
+ 
+  <p>If <code>Status</code> is 'ok', the member is returned to the pool.  If
+  <code>Status</code> is 'fail', the member is destroyed and a new member is
+  added to the pool in its place.</p>
+</div></div>
+<div class="function">
+<h3 id="return_member/1-1">return_member(PoolName::atom() | pid(), Pid::pid() | error_no_members) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Return a member to the pool so it can be reused.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="pool_stats/1">pool_stats(PoolName::atom() | pid()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+
+<p>Obtain runtime state info for all pools.</p>
+ 
+  <p>Format of the return value is subject to change.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Pool::#pool{name=undefined | atom(), group=undefined | atom(), max_count=non_neg_integer(), init_count=non_neg_integer(), start_mfa=undefined | {atom(), atom(), [term()]}, free_pids=[pid()], in_use_count=non_neg_integer(), free_count=non_neg_integer(), add_member_retry=non_neg_integer(), cull_interval=time_spec(), max_age=time_spec(), member_sup=undefined | atom() | pid(), starter_sup=undefined | atom() | pid(), all_members=dict(), consumer_to_pid=dict(), starting_members=[{reference(), timestamp() (see module erlang)}], metrics_mod=atom()}) -&gt; {ok, #pool{name=undefined | atom(), group=undefined | atom(), max_count=non_neg_integer(), init_count=non_neg_integer(), start_mfa=undefined | {atom(), atom(), [term()]}, free_pids=[pid()], in_use_count=non_neg_integer(), free_count=non_neg_integer(), add_member_retry=non_neg_integer(), cull_interval=time_spec(), max_age=time_spec(), member_sup=undefined | atom() | pid(), starter_sup=undefined | atom() | pid(), all_members=dict(), consumer_to_pid=dict(), starting_members=[{reference(), timestamp() (see module erlang)}], metrics_mod=atom()}, 0}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, Pool) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Msg::term(), Pool::term()) -&gt; {noreply, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::term(), Pool::term()) -&gt; {noreply, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), State::term()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVsn::term(), State::term(), Extra::term()) -&gt; {ok, term()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Seth Falcon</aname>
+<email>seth@userprimary.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

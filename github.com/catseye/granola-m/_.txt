@@ -1,0 +1,29 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/catseye/granola-m'  2>&1`
+>>> [repo] 1 branches, 2 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/2113827431/meta.txt"
+ :: Processing https://github.com/catseye/granola-m	{rev,tag,"rel_1_0_2002_0314","a75748f88157f2fb8a68fe6cbfcb17887562230c"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/2113827431/granola-m-tag-rel_1_0_2002_0314/granola-m"
+$ infinity  `curl --fail --silent --show-error --location --output 'rel_1_0_2002_0314.zip' 'https://github.com/catseye/granola-m/archive/rel_1_0_2002_0314.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/2113827431/granola-m-tag-rel_1_0_2002_0314/granola-m"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/2113827431/granola-m-tag-rel_1_0_2002_0314/granola-m"
+$ 5000  `find 'granola-m-rel_1_0_2002_0314' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `granola-m-rel_1_0_2002_0314': No such file or directory"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,92}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,238}]},
+         {eo_core,main_,11,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
+         {gen_escript__escript__1427__137280__786502,seq_gen,3,
+             [{file,"./gen.escript"},{line,47}]},
+         {escript,run,2,[{file,"escript.erl"},{line,752}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `granola-m-rel_1_0_2002_0314'"},
+            {": No such file or directory"}]}}

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>co_api (canopen) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>co_api</h1>
+<h2 class="modsummary">     
+CANopen node interface.</h2>
+<div class="description">
+<p>     
+CANopen node interface.</p>
+  
+   File    : co_api.erl <br />
+   Created: 10 Jan 2008 by Tony Rogvall</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-nmt_role">nmt_role() = slave | master | autonomous</h3></div>
+    <div class="type"><h3 id="type-node_id">node_id() = {nodeid, ShortNodeId :: integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {xnodeid, ExtNodeId :: integer()}</h3></div>
+    <div class="type"><h3 id="type-node_identity">node_identity() = <a href="#type-node_id" class="seealso">node_id()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {name, NodeName :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pid()</h3></div>
+    <div class="type"><h3 id="type-obj_dict">obj_dict() = none | default | saved | string()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {use_serial_as_xnodeid, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {nodeid, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {xnodeid, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vendor, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {product, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {revision, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {nmt_role, <a href="#type-nmt_role" class="seealso">nmt_role()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {supervision, <a href="#type-supervision" class="seealso">supervision()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {inact_timeout, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {dict, <a href="#type-obj_dict" class="seealso">obj_dict()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {time_stamp, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sdo_timeout, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {blk_timeout, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pst, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {max_blksize, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {use_crc, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {readbufsize, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {load_ratio, float()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atomic_limit, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {tpdo_cache_limit, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {debug, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {linked, boolean()}</h3></div>
+    <div class="type"><h3 id="type-supervision">supervision() = node_guard | heartbeat | none</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Serial::integer(), Option::[Option::option()]) -&gt; {ok, Pid::pid()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>  
+Description: Starts the CANOpen node.</p>
+ 
+  <p>Options (default values given if applicale):
+           {use_serial_as_xnodeid, boolean()} - create extended node id from
+                                       serial number.<br />
+           {nodeid, integer()}       - node id, range: 1 - 16#7e.<br />
+           {xnodeid, integer()}      - extended node id, range: 1 - 16#ffffff.<br />
+           {time_stamp,  timeout()}  - ( 60000 ) in msec. <br />
+           {nmt_role, nmt_role()}        - ( autonomous ) slave/master/autonomous
+           {supervision, node_guard | heartbeat | none}   - ( none )
+           {inact_timeout, timeout()} - (infinity) in sec. <br />
+                                       timeout for sending inactive event
+                                       when can bus has been inactive. <br /></p>
+ 
+             <p>Dictionary option           
+{dict, none | default | saved | string()} - ( saved )                                       
+Controls wich dict that will be loaded                                       
+at start.                                       
+default means the dictionary included                                       
+in the delivery.                                       
+saved means the dictonary last saved by the                                       
+save/0 function. If none exist default will                                       
+be used.</p>
+ 
+             <p>SDO transfer options
+           {sdo_timeout, timeout()}  - ( 1000 ) in msec. <br />
+           {blk_timeout, timeout()}  - ( 500 ) in msec. <br />
+           {pst, integer()}          - ( 16 ) protocol switch limit.<br />
+           {max_blksize, integer()}  - ( 74 = 518 bytes) <br />
+           {use_crc, boolean()}      - (true) use crc for block. <br />
+           {readbufsize, integer()}  - (1024) size of buf when reading from app. <br />
+           {load_ratio, float()}     - (0.5) ratio when time to fill read_buf. <br />
+           {atomic_limit, integer()} - (1024) limit to size of atomic variable. <br /></p>
+ 
+             <p>TPDO options
+           {tpdo_cache_limit, integer()} - (512) limits number of cached tpdo values
+                                       for an index.<br />
+           {tpdo_restart_limit, integer()} - (10) limits number of restart attempts for
+                                       tpdo processes.<br /></p>
+ 
+             <p>Testing
+           {debug, boolean()}        - Enable/Disable trace output.<br />
+           {linked, boolean()}       - Start process linked (default) or not. <br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Identity::node_identity()) -&gt; ok | {error, Reason::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Stops the CANOpen node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="alive/1">alive(Identity::node_identity()) -&gt; Reply::boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  Checks if the co_node is alive.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_option/1">get_option(Identity::node_identity(), Option::atom()) -&gt; {Option::atom(), Value::term()} | {error, Reason::string()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets value of option variable. (For testing)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_option/1">set_option(Identity::node_identity(), Option::atom(), NewValue::term()) -&gt; ok | {error, Reason::string()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets value of option variable. (For testing)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="load_dict/1">load_dict(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Loads the last saved dict.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="load_dict/1-1">load_dict(Identity::node_identity(), File::string()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Loads a new Object Dictionary from File.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="save_dict/1">save_dict(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Saves the Object Dictionary to a default file.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="save_dict/1-1">save_dict(Identity::node_identity(), File::string()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Saves the Object Dictionary to a file.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach/1">attach(Identity::node_identity()) -&gt; {ok, DictRef::term()} | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Attches the calling process to the CANnode idenified by Identity.
+  In return a dictionary reference is given so that the application
+  can store its object in it if it wants, using the co_dict API.</p>
+</div></div>
+<div class="function">
+<h3 id="detach/1">detach(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Detaches the calling process from the CANnode idenified by Identity.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(Identity::node_identity(), Index::integer() | [Index::integer()]) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Adds a subscription to changes of the Dictionary Object in position Index.<br />
+  Index can also be a range [Index1 - Index2].
+ </p>
+</div></div>
+<div class="function">
+<h3 id="unsubscribe/1">unsubscribe(Identity::node_identity(), Index::integer() | [Index::integer()]) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Removes a subscription to changes of the Dictionary Object in position Index.<br />
+  Index can also be a range [Index1 - Index2].
+ </p>
+</div></div>
+<div class="function">
+<h3 id="extended_notify_subscribe/1">extended_notify_subscribe(Identity::node_identity(), Index::integer() | [Index::integer()]) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Adds a subscription to changes of the Dictionary Object in position Index.<br />
+  Index can also be a range [Index1 - Index2].
+ </p>
+</div></div>
+<div class="function">
+<h3 id="extended_notify_unsubscribe/1">extended_notify_unsubscribe(Identity::node_identity(), Index::integer() | [Index::integer()]) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Removes a subscription to changes of the Dictionary Object in position Index.<br />
+  Index can also be a range [Index1 - Index2].
+ </p>
+</div></div>
+<div class="function">
+<h3 id="inactive_event_subscribe/1">inactive_event_subscribe(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Adds a subscription to event when can bus has been inactive.</p>
+</div></div>
+<div class="function">
+<h3 id="inactive_event_unsubscribe/1">inactive_event_unsubscribe(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Removes a subscription to event when can bus has been inactive.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="my_subscriptions/1">my_subscriptions(Identity::node_identity(), Pid::pid()) -&gt; [Index::integer()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Indexes for which the application idenified by Pid
+  has subscriptions.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="my_subscriptions/1-1">my_subscriptions(Identity) -&gt; [Index] | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Indexes for which the calling process has subscriptions.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="all_subscribers/1">all_subscribers(Identity) -&gt; [Pid] | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Pids of all applications that subscribes to any Index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="all_subscribers/1-1">all_subscribers(Identity::node_identity(), Ix::integer()) -&gt; [Pid::pid()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Pids of all applications that subscribes to Index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reserve/1">reserve(Identity::node_identity(), Index::integer(), Module::atom()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Adds a reservation to an index.
+  Module:index_specification will be called if needed.
+  Index can also be a range {Index1, Index2}.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="unreserve/1">unreserve(Identity::node_identity(), Index::integer()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Removes a reservation to changes of the Dictionary Object in position Index.
+  Index can also be a range {Index1, Index2}.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="my_reservations/1">my_reservations(Identity::node_identity(), Pid::pid()) -&gt; [Index::integer()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Indexes for which Pid has reservations.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="my_reservations/1-1">my_reservations(Identity::node_identity()) -&gt; [Index::integer()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Indexes for which the calling process has reservations.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="all_reservers/1">all_reservers(Identity::node_identity()) -&gt; [Pid::pid()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Pids that has reserved any index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reserver/1">reserver(Identity::node_identity(), Ix::integer()) -&gt; [Pid::pid()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Pid that has reserved index if any.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="object_event/1">object_event(Identity::node_identity(), Index::{Ix::integer(), Si::integer()}) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Tells the co_node that an object has been updated so that any
+  subscribers can be informed. Called by co_sdo_srv_fsm.erl and
+  co_sdo_cli_fsm.erl.</p>
+</div></div>
+<div class="function">
+<h3 id="session_over/1">session_over(Identity::node_identity(), Reason::normal | atom()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Tells the co_node that a session has finished and should be removed
+  from the sdo_list. Called by co_sdo_srv_fsm.erl and
+  co_sdo_cli_fsm.erl.</p>
+</div></div>
+<div class="function">
+<h3 id="pdo_event/1">pdo_event(CoNode::pid() | integer(), CobId::integer()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Tells the co_node that a PDO should be transmitted.</p>
+</div></div>
+<div class="function">
+<h3 id="dam_mpdo_event/1">dam_mpdo_event(CoNode::pid() | integer(), CobId::integer(), DestinationNode::integer() | broadcast) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Tells the co_node that an DAM-MPDO should be transmitted.</p>
+</div></div>
+<div class="function">
+<h3 id="add_object/1">add_object(Identity::node_identity(), Dict::term(), Object::#dict_object{}, Dict_entry::[Entry::#dict_entry{}]) -&gt; ok | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>
+  Add a new object to a dictionary.
+  Addition is done in calling partys context but an object_event is also sent
+  to the node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_entry/1">add_entry(Identity::node_identity(), Dict::term(), Entry::#dict_entry{}) -&gt; ok | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>
+  Add a new entry to a dictionary.
+  Addition is done in calling partys context but an object_event is also sent
+  to the node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_object/1">delete_object(Identity::node_identity(), Dict::term(), Ix::integer()) -&gt; ok | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>
+  Delete existing object in dictionary.
+  Deletion is done in calling partys context but an object_event is also sent
+  to the node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_entry/1">delete_entry(Identity::node_identity(), Dict::term(), Index::integer() | {integer(), integer()}) -&gt; ok | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>
+  Delete existing entry in dictionary.
+  Deletion is done in calling partys context but an object_event is also sent
+  to the node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_value/1">set_value(Identity::node_identity(), Dict::term(), Index::{Ix::integer(), Si::integer()} | integer(), Value::term()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets {Ix, Si} to Value.</p>
+</div></div>
+<div class="function">
+<h3 id="set_data/1">set_data(Identity::node_identity(), Dict::term(), Index::{Ix::integer(), Si::integer()} | integer(), Data::binary()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets {Ix, Si} to Data.</p>
+</div></div>
+<div class="function">
+<h3 id="value/1">value(Identity::node_identity(), Dict::term(), Index::{Ix::integer(), Si::integer()} | integer()) -&gt; {ok, Value::term()} | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets Value for Index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="data/1">data(Identity::node_identity(), Dict::term(), Index::{Ix::integer(), Si::integer()} | integer()) -&gt; {ok, Data::term()} | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets Data for Index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_error/1">set_error(Identity::node_identity(), Error::integer(), Code::integer()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Set error condition and send emergency frame.</p>
+</div></div>
+<div class="function">
+<h3 id="add_object/1-1">add_object(Identity::node_identity(), Object::#dict_object{}, Dict_entry::[Entry::#dict_entry{}]) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Adds Object to the CoNode internal Object dictionary.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_entry/1-1">add_entry(Identity::node_identity(), Entry::#dict_entry{}) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Adds Entry to the CoNode internal Object dictionary.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_entry/1">get_entry(Identity::node_identity(), Index::{Ix::integer(), Si::integer()}) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets the Entry at Index in Object dictionary.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_object/1">get_object(Identity::node_identity(), Ix::integer()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets the Object at Index in Object dictionary.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_value/1-1">set_value(Identity::node_identity(), Index::{Ix::integer(), Si::integer()} | integer(), Value::term()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets {Ix, Si} to Value.</p>
+</div></div>
+<div class="function">
+<h3 id="set_data/1-1">set_data(Identity::node_identity(), Index::{Ix::integer(), Si::integer()} | integer(), Data::binary()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets {Ix, Si} to Data.</p>
+</div></div>
+<div class="function">
+<h3 id="value/1-1">value(Identity::node_identity(), Index::{Ix::integer(), Si::integer()} | integer()) -&gt; Value::term() | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets Value for Index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="data/1-1">data(Identity::node_identity(), Index::{Ix::integer(), Si::integer()} | integer()) -&gt; Data::term() | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets Data for Index.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="store/1">store(Identity::node_identity(), NodeId::{TypeOfNid::nodeid | xnodeid, Nid::integer()}, Ix::integer(), Si::integer(), TransferMode::block | segment, Term::{data, binary()} | {value, Value::term(), Type::integer() | atom()} | {app, Pid::pid(), Module::atom()}, TimeOut::timeout() | default) -&gt; ok | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Starts a store session to store Value at Index:Si on remote node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="fetch/1">fetch(Identity::node_identity(), NodeId::{TypeOfNid::nodeid | xnodeid, Nid::integer()}, Ix::integer(), Si::integer(), TransferMode::block | segment, Term::data | {app, Pid::pid(), Module::atom()} | {value, Type::integer() | atom()}, TimeOut::timeout() | default) -&gt; ok | {ok, Data::binary()} | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Starts a fetch session to fetch Value at Ix:Si on remote node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="dump/1">dump(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Dumps data to standard output.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="dump/1-1">dump(Identity::node_identity(), Qualifier::all | no_dict) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Dumps data to standard output.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="loop_data/1">loop_data(Identity::node_identity()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Dumps loop data to standard output.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="state/1">state(Identity::node_identity()) -&gt; State::atom() | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets the co_nodes state.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="state/1-1">state(Identity::node_identity(), State::operational | preoperational | stopped) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets the co_node's state.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="dict/1">dict(Identity::node_identity()) -&gt; Dict::dict() | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Gets the co_node's dict
+ </p>
+</div></div>
+<div class="function">
+<h3 id="tpdo_set/1">tpdo_set(Identity::node_identity(), Index::{Ix::integer(), Si::integer()} | integer(), Data::binary() | {Value::term(), Type::term()}, Mode::append | overwrite) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Cache {Ix, Si} Data or encoded Value truncated to 64 bits.</p>
+</div></div>
+<div class="function">
+<h3 id="notify/1">notify(CobId::integer(), Ix::integer(), Value::term()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Send notification. <br />
+  SubIndex is set to 0.<br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="notify/1-1">notify(CobId::integer(), Ix::integer(), Si::integer(), Data::binary()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Send notification. <br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="notify/2">notify(X1::{TypeOfNid::nodeid | xnodeid, Nid::integer()}, Func::atom(), Ix::integer(), Si::integer(), Data::binary()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Send notification. <br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="notify_from/1">notify_from(NodeIdentity::node_identity(), CobId::integer(), Ix::integer(), Si::integer(), Data::binary()) -&gt; ok | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Send notification but not to (own) Node. <br />
+  Note that there are two possible ways of using this function:
+  Either with NodeIdentity and CobId OR with NodeIdentity of a type
+  holding the NodeId (short or extended) and the FunctionCode.<br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="rpdo_mapping/1">rpdo_mapping(Offset::integer(), TpdoCtx::#tpdo_ctx{}) -&gt; Map::term() | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get the RPDO mapping. <br />
+  Executing in calling process context.<br /></p>
+</div></div>
+<div class="function">
+<h3 id="tpdo_mapping/1">tpdo_mapping(Offset::integer(), TpdoCtx::#tpdo_ctx{}) -&gt; Map::term() | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get the TPDO mapping. <br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="tpdo_data/1">tpdo_data(Index::{integer(), integer()}, TpdoCtx::#tpdo_ctx{}) -&gt; {ok, Data::binary()} | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get the value for Index from either tpdo_cache, dict or app. <br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="subscribers/1">subscribers(Tab::atom() | integer(), Ix::integer()) -&gt; [Pid::pid()] | {error, Error::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get all subscribers in Tab for Index. <br />
+  Executing in calling process context.<br />
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reserver_with_module/1">reserver_with_module(Tab::atom() | integer(), Ix::integer()) -&gt; {Pid::pid() | dead, Mod::atom()} | []</h3>
+
+
+<div class="description">
+
+<p>
+  Get the reserver in Tab for Ix if any. <br />
+  Executing in calling process context.<br />
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Tony Rogvall</aname>
+<email>tony@rogvall.se</email>
+<aname>Malotte W Lönne</aname>
+<email>malotte@malotte.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

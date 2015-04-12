@@ -1,0 +1,1 @@
+var index = [['app','erl_serv','erl_serv','[application]'],['mod','erl_serv','serv_app',[]],['mod','erl_serv','serv_sup',[]],['fun','erl_serv','serv_app:start/2',[]],['fun','erl_serv','serv_app:stop/1',[]],['fun','erl_serv','serv_sup:init/1',[]],['fun','erl_serv','serv_sup:start_link/0',[]]];

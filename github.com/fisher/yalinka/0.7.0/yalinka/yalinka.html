@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>yalinka (yalinka) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>yalinka</h1>
+<h2 class="modsummary">
+        main API file.</h2>
+<div class="description">
+<p>
+        main API file</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-point">point() = [float()] | {float()}</h3></div>
+    <div class="type"><h3 id="type-tag">tag() = integer()</h3></div>
+    <div class="type"><h3 id="type-tnode">tnode() = {Tag :: <a href="#type-tag" class="seealso">tag()</a>, Point :: <a href="#type-point" class="seealso">point()</a>}</h3></div>
+    <div class="type"><h3 id="type-tref">tref() = reference()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Points::[tnode()]) -&gt; {ok, Tree::tref()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>create new k-d tree object</p>
+</div></div>
+<div class="function">
+<h3 id="search/1">search(Tree::tref(), Point::point()) -&gt; {Tag::tag(), Distance::float()}</h3>
+
+
+<div class="description">
+
+<p>search for nearest point in the Tree to the given Point</p>
+</div></div>
+<div class="function">
+<h3 id="search/1-1">search(Tree::tref(), Point::point(), N::integer()) -&gt; [{Idx::integer(), Distance::float()}]</h3>
+
+
+<div class="description">
+
+<p>find first N nearest points.</p>
+<p><em>See also:</em> <a href="#search/2" class="seealso">search/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(Tree::tref()) -&gt; {ok, Size::integer()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>return the quantity of a nodes in the Tree</p>
+</div></div>
+<div class="function">
+<h3 id="gettree/1">gettree(Tree::tref()) -&gt; {ok, Term::[tnode()]} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>export the Tree into erlang Term</p>
+</div></div>
+<div class="function">
+<h3 id="dimension/1">dimension(Tree::tref()) -&gt; {ok, Dimension::integer()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>return the space dimension (arity of the point in space) for
+      the given Tree</p>
+</div></div>
+<div class="function">
+<h3 id="store/1">store(Tree::tref(), Filename::string()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>store the given Tree into specified File</p>
+</div></div>
+<div class="function">
+<h3 id="load/1">load(Filename::string()) -&gt; {ok, Tree::tref()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>load the Tree from specified Filename, previously stored with store/2.</p>
+</div></div>
+<div class="function">
+<h3 id="is_ready/1">is_ready(Tree::tref()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>return true if Tree is ready for queries, false otherwise.
+     If this function returns false it means the Tree needs to be
+     reindexed, for example, after the call to add/2 or the process
+     of reindexing is currently ongoing in background and we need to
+     wait until it will be done. Until then the search/2 queries is
+     unable to perform.</p>
+</div></div>
+<div class="function">
+<h3 id="add/1">add(TreeRef::tref(), Points::[tnode()] | tnode()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>append the new node(s) to the tree end.</p>
+ 
+       <p>NB: the add/2 call leaves the Tree in unindexed state.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Serge A. Ribalchenko</aname>
+<email>fisher@heim.in.ua</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

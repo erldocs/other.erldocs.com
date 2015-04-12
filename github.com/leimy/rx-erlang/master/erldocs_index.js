@@ -1,0 +1,1 @@
+var index = [['app','rx-erlang','rx-erlang','[application]'],['mod','rx-erlang','rx_app',[]],['mod','rx-erlang','rx_sup','.'],['fun','rx-erlang','rx_app:start/2',[]],['fun','rx-erlang','rx_app:stop/1',[]],['fun','rx-erlang','rx_sup:start/0',[]],['fun','rx-erlang','rx_sup:start_in_shell_for_testing/0',[]],['fun','rx-erlang','rx_sup:start_link/0','  Starts the supervisor.']];

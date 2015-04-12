@@ -1,0 +1,1 @@
+var index = [['app','cldr_parser','cldr_parser','[application]'],['mod','cldr_parser','cldr_parser',[]],['fun','cldr_parser','cldr_parser:fetch/1',[]]];

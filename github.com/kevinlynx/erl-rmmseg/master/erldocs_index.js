@@ -1,0 +1,1 @@
+var index = [['app','erl-rmmseg','erl-rmmseg','[application]'],['mod','erl-rmmseg','rmmseg',[]],['fun','erl-rmmseg','rmmseg:init/0',[]],['fun','erl-rmmseg','rmmseg:load_dicts/0',[]],['fun','erl-rmmseg','rmmseg:load_dicts/2',[]],['fun','erl-rmmseg','rmmseg:seg/1',[]],['fun','erl-rmmseg','rmmseg:seg_space/1',[]]];

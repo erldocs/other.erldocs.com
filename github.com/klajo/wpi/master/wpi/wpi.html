@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wpi (wpi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wpi</h1>
+<h2 class="modsummary">   
+An Erlang NIF for the WiringPi library for the Raspberry Pi.</h2>
+<div class="description">
+<p>   
+An Erlang NIF for the WiringPi library for the Raspberry Pi</p>
+  
+   <p>This application is an Erlang wrapper around the
+   <url href="http://wiringpi.com/">WiringPi</url> library which is a Raspberry Pi   
+dialect of the Wiring library for Arduino. wpi makes it possible   
+to read from and write to GPIO pins, write to LCDs, shift bits in   
+and out or control other devices over serial interfaces or SPI and   
+all this from a Raspberry Pi running Erlang.</p>
+  
+   The functions in this API follows the WiringPi
+   <url href="http://wiringpi.com/pins/">pin numbering scheme</url>.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-wpi_baud">wpi_baud() = integer()</h3></div>
+    <div class="type"><h3 id="type-wpi_bit_order">wpi_bit_order() = 0..1 | lsb_first | msb_first</h3></div>
+    <div class="type"><h3 id="type-wpi_digital_value">wpi_digital_value() = 0..1</h3></div>
+    <div class="type"><h3 id="type-wpi_lcd_handle">wpi_lcd_handle()</h3></div>
+    <div class="type"><h3 id="type-wpi_pin_mode">wpi_pin_mode() = 0..2 | input | output | pwm_output</h3></div>
+    <div class="type"><h3 id="type-wpi_pin_number">wpi_pin_number() = integer()</h3></div>
+    <div class="type"><h3 id="type-wpi_pud_mode">wpi_pud_mode() = 0..2 | off | down | up</h3></div>
+    <div class="type"><h3 id="type-wpi_pwm_value">wpi_pwm_value() = 0..1023</h3></div>
+    <div class="type"><h3 id="type-wpi_serial_handle">wpi_serial_handle()</h3></div>
+    <div class="type"><h3 id="type-wpi_spi_channel">wpi_spi_channel() = 0..1</h3></div>
+    <div class="type"><h3 id="type-wpi_uint8">wpi_uint8() = 0..255</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="setup/0">setup() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>This initialises wiringPi and assumes that the calling program  
+is going to be using the wiringPi pin numbering scheme. This is a  
+simplified numbering scheme which provides a mapping from virtual  
+pin numbers 0 through 16 to the real underlying Broadcom GPIO pin  
+numbers. See the pins page on the wiringPi web page for a table  
+which maps the wiringPi pin number to the Broadcom GPIO pin number  
+to the physical location on the edge connector.</p>
+ 
+  <p>This function needs to be called with root privileges.</p>
+</div></div>
+<div class="function">
+<h3 id="setup_gpio/0">setup_gpio() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>This is identical to <a href="#setup/0" class="seealso">setup/0</a>, however it allows the  
+calling programs to use the Broadcom GPIO pin numbers directly with  
+no re-mapping.</p>
+ 
+  <p>As for <a href="#setup/0" class="seealso">setup/0</a>, this function needs to be called with root
+  privileges, and note that some pins are different from revision 1
+  to revision 2 boards.</p>
+</div></div>
+<div class="function">
+<h3 id="setup_phys/0">setup_phys() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Identical to <a href="#setup/0" class="seealso">setup/0</a>, however it allows the calling  
+programs to use the physical pin numbers on the P1 connector only.</p>
+ 
+  <p>As for <a href="#setup/0" class="seealso">setup/0</a>, this function needs to be called with root
+  priviliges.</p>
+</div></div>
+<div class="function">
+<h3 id="setup_sys/0">setup_sys() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>This initialises wiringPi but uses the /sys/class/gpio
+  interface rather than accessing the hardware directly. This can be
+  called as a non-root user provided the GPIO pins have been exported
+  before-hand using the gpio program. Pin numbering in this mode is
+  the native Broadcom GPIO numbers - the same as <a href="#setup_gpio/0" class="seealso">setup_gpio/0</a>  
+above, so be aware of the differences between Rev 1 and Rev 2  
+boards.</p>
+ 
+  <p>Note: In this mode you can only use the pins which have been
+  exported via the /sys/class/gpio interface before you run your
+  program. You can do this in a separate shell-script, or by using
+  the <a href="wpi_gpio.html" class="seealso">wpi_gpio</a> module.</p>
+ 
+  <p>Also note that some functions have no effect when using this mode
+  as they're not currently possible to action unless called with root
+  privileges (although you can use <a href="wpi_gpio.html" class="seealso">wpi_gpio</a> to set/change
+  modes if needed).</p>
+</div></div>
+<div class="function">
+<h3 id="pin_mode/1">pin_mode(Pin::wpi_pin_number(), Mode::wpi_pin_mode()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the mode of a pin to either input, output, or PWM
+  output. Note that only WiringPi pin 1 (GPIO 18) supports PWM output.</p>
+<p><em>See also:</em> <a href="wpi.html#soft_pwm_write/2" class="seealso">wpi:soft_pwm_write/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="digital_write/1">digital_write(Pin::wpi_pin_number(), Value::wpi_digital_value()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Write the value high or low (1 or 0) to the given pin which
+  must have been previously set as an output.</p>
+</div></div>
+<div class="function">
+<h3 id="pwm_write/1">pwm_write(Pin::wpi_pin_number(), Value::wpi_pwm_value()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Write the value to the PWM register for the given pin. The
+  value must be between 0 and 1024. (Again, note that only pin 1
+  supports PWM).</p>
+<p><em>See also:</em> <a href="wpi.html#soft_pwm_write/2" class="seealso">wpi:soft_pwm_write/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="digital_read/1">digital_read(Pin::wpi_pin_number()) -&gt; wpi_digital_value()</h3>
+
+
+<div class="description">
+
+<p>Return the value read from the given pin. It will be high or low
+  (1 or 0) depending on the logic level at the pin.</p>
+</div></div>
+<div class="function">
+<h3 id="pull_up_dn_control/1">pull_up_dn_control(Pin::wpi_pin_number(), Mode::wpi_pud_mode()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the pull-up or pull-down resistor mode on the given pin,
+  which should be set as an input. Unlike the Arduino, the BCM2835
+  has both pull-up an down internal resistors. The parameter pud
+  should be; <code>off</code> (no pull up/down), <code>down</code> (pull to ground) or
+  <code>up</code> (pull to 3.3v)</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_init/1">lcd_init(NumRows::integer(), NumCols::integer(), RsPin::wpi_pin_number(), EPin::wpi_pin_number(), D0Pin::wpi_pin_number(), D1Pin::wpi_pin_number(), D2Pin::wpi_pin_number(), D3Pin::wpi_pin_number()) -&gt; wpi_lcd_handle()</h3>
+
+
+<div class="description">
+
+<p>Initialize an LCD in 4-bit mode.</p>
+<p><em>See also:</em> <a href="wpi.html#lcd_init/12" class="seealso">wpi:lcd_init/12</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_init/1-1">lcd_init(NumRows::integer(), NumCols::integer(), RsPin::wpi_pin_number(), EPin::wpi_pin_number(), D0Pin::wpi_pin_number(), D1Pin::wpi_pin_number(), D2Pin::wpi_pin_number(), D3Pin::wpi_pin_number(), D4Pin::wpi_pin_number(), D5Pin::wpi_pin_number(), D6Pin::wpi_pin_number(), D7Pin::wpi_pin_number()) -&gt; wpi_lcd_handle()</h3>
+
+
+<div class="description">
+
+<p>Initialize an LCD in 8-bit mode.</p>
+ 
+  <p>NumRows and NumCols are the rows and columns on the display  
+(e.g. 2, 16 or 4, 20). The RsPin and EPin represent the pin numbers  
+of the display's RS pin and Strobe (E) pin. The parameters D0Pin  
+through D7Pin are the pin numbers of the 8 data pins connected from  
+the Pi to the display. There are two versions of this function, one  
+which shall be used if the display is used in 4-bit mode, the other  
+in 8-bit mode.</p>
+ 
+  <p>The return value is the handle to be used for all subsequent
+  calls to the LCD functions when dealing with that LCD, or -1 to
+  indicate a fault (usually incorrect parameters).</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_home/1">lcd_home(Handle::wpi_lcd_handle()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the cursor to the home (upper left corner)
+  position of the LCD.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_clear/1">lcd_clear(Handle::wpi_lcd_handle()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Clear the contents of the LCD.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_position/1">lcd_position(Handle::wpi_lcd_handle(), X::integer(), Y::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the cursor position for subsequent text entry. The upper
+  left corner is 0, 0.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_put_char/1">lcd_put_char(Handle::wpi_lcd_handle(), Char::0..255) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Write a single ASCII character to the LCD.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_puts/1">lcd_puts(Handle::wpi_lcd_handle(), String::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Write a string to the LCD.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_printf/1">lcd_printf(Handle::wpi_lcd_handle(), Format::string(), Args::[any()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Not supported.</p>
+<p><em>See also:</em> <a href="wpi.html#lcd_format/3" class="seealso">wpi:lcd_format/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="lcd_format/1">lcd_format(Handle::wpi_lcd_handle(), Format::string(), Args::[any()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Format data and write to the LCD. This is a more erlangy
+  version of lcd_printf/3 and follows the same formatting rules as io:format/2.</p>
+</div></div>
+<div class="function">
+<h3 id="shift_in/1">shift_in(DataPin::wpi_pin_number(), ClockPin::wpi_pin_number(), Order::wpi_bit_order()) -&gt; wpi_uint8()</h3>
+
+
+<div class="description">
+
+<p>Shift an 8-bit data value in with the data appearing on the
+  DataPin and the clock being sent out on the ClockPin. Order is either
+  <code>lsb_first</code> or <code>msb_first</code>. The data is sampled after the ClockPin goes
+  high. (So ClockPin high, sample data, ClockPin low, repeat for 8 bits) The
+  8-bit value is returned by the function.</p>
+</div></div>
+<div class="function">
+<h3 id="shift_out/1">shift_out(DataPin::wpi_pin_number(), ClockPin::wpi_pin_number(), Order::wpi_bit_order(), Value::wpi_uint8()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Shift an 8-bit data value out with the data being sent out on
+  DataPin and the clock being sent out on the ClockPin. Order is
+  either <code>lsb_first</code> or <code>msb_first</code>. Data is clocked out on the
+  rising or falling edge - ie. DataPin is set, then ClockPin is taken
+  high then low - repeated for the 8 bits.</p>
+</div></div>
+<div class="function">
+<h3 id="soft_pwm_create/1">soft_pwm_create(Pin::wpi_pin_number(), InitValue::integer(), Range::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Create a software controlled PWM pin. You can use any GPIO
+  pin. If the Range is 100, then the value can be anything from 0
+  (off) to 100 (fully on) for the given pin.</p>
+</div></div>
+<div class="function">
+<h3 id="soft_pwm_write/1">soft_pwm_write(Pin::wpi_pin_number(), Value::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Update the PWM value on the given pin. The value is checked to
+  be in-range and pins that haven't previously been initialised via
+  soft_pwm_create will be silently ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_open/1">serial_open(Device::string(), Baud::wpi_baud()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Open and initialize the serial device and set the baud
+  rate. It sets the port into raw mode (character at a time and no
+  translations), and sets the read timeout to 10 seconds. The return
+  value is the file descriptor or -1 for any error, in which case
+  errno will be set as appropriate.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_close/1">serial_close(Handle::wpi_serial_handle()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close the device identified by the given handle.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_flush/1">serial_flush(Handle::wpi_serial_handle()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Discard all data received, or waiting to be sent to the given device.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_put_char/1">serial_put_char(Handle::wpi_serial_handle(), Char::0..255) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send the single byte to the serial device identified by the
+  given handle.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_puts/1">serial_puts(Handle::wpi_serial_handle(), String::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send the string to the serial device identified by the given handle.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_printf/1">serial_printf(Handle::wpi_serial_handle(), Format::string(), Args::[any()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Not supported.</p>
+<p><em>See also:</em> <a href="wpi.html#serial_format/3" class="seealso">wpi:serial_format/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_format/1">serial_format(Handle::wpi_serial_handle(), Format::string(), Args::[any()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Format data and write to the serial device identified by the
+  given handle. This is a more erlangy version of lcd_printf/3 and
+  follows the same formatting rules as io:format/2.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_data_avail/1">serial_data_avail(Handle::wpi_serial_handle()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of characters available for reading.</p>
+</div></div>
+<div class="function">
+<h3 id="serial_get_char/1">serial_get_char(Handle::wpi_serial_handle()) -&gt; 0..255</h3>
+
+
+<div class="description">
+
+<p>Return the next character available on the serial device.</p>
+ 
+  <p>Warning: This call will block for up to 10 seconds if no data is
+  available. This has the effect that the emulator will be blocked
+  (for up to 10s!) and no other process may run (unless there are
+  more cores/schedulers available). From wiringSerial.c:
+  </p><pre class="sh_erlang">     options.c_cc [VTIME] = 100 ;        // Ten seconds (100 deciseconds)</pre><p>
+  Todo: Fix the above warning.</p>
+</div></div>
+<div class="function">
+<h3 id="spi_get_fd/1">spi_get_fd(Channel::wpi_spi_channel()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return the file-descriptor for the given SPI channel.</p>
+</div></div>
+<div class="function">
+<h3 id="spi_data_rw/1">spi_data_rw(Channel::wpi_spi_channel(), WriteData::binary()) -&gt; {ok, binary()} | {error, {failed_to_read_write_data, integer()}}</h3>
+
+
+<div class="description">
+
+<p>Write and read a block of data over the SPI bus.</p>
+</div></div>
+<div class="function">
+<h3 id="spi_setup/1">spi_setup(Channel::wpi_spi_channel(), Speed::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Open and set up the SPI device. See Gordon's
+  <a href="../https///projects.drogon.html#net/understanding-spi-on-the-raspberry-pi/" class="seealso">Understanding SPI on the Raspberry Pi</a> for more information.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

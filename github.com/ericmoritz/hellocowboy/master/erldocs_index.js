@@ -1,0 +1,1 @@
+var index = [['app','hellocowboy','hellocowboy','[application]'],['mod','hellocowboy','hello_world',[]],['mod','hellocowboy','toppage_handler','Hello world handler.'],['fun','hellocowboy','hello_world:start/0',[]],['fun','hellocowboy','toppage_handler:handle/2',[]],['fun','hellocowboy','toppage_handler:init/3',[]],['fun','hellocowboy','toppage_handler:terminate/3',[]]];

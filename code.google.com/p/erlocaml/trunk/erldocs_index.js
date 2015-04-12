@@ -1,0 +1,1 @@
+var index = [['app','erlocaml','erlocaml','[application]'],['mod','erlocaml','datagen',[]],['mod','erlocaml','ex_wc',[]],['fun','erlocaml','datagen:doit/0',[]]];

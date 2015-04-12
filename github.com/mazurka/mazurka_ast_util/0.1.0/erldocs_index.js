@@ -1,0 +1,1 @@
+var index = [['app','mazurka_ast_util','mazurka_ast_util','[application]'],['mod','mazurka_ast_util','mazurka_ast_util',[]],['fun','mazurka_ast_util','mazurka_ast_util:pass/2',[]],['fun','mazurka_ast_util','mazurka_ast_util:pass/3',[]]];

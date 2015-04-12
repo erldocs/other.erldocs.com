@@ -1,0 +1,1 @@
+var index = [['app','erlade','erlade','[application]'],['mod','erlade','jade_utils',[]],['fun','erlade','jade_utils:read_lines_from_file/3',[]]];

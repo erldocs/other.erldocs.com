@@ -1,0 +1,1 @@
+var index = [['app','libtest','libtest','[application]'],['mod','libtest','libtest','Libtest API - provides high level API to underlyin'],['fun','libtest','libtest:ct_load_trace_configuration/2',[]],['fun','libtest','libtest:load_trace_configuration/2',[]],['fun','libtest','libtest:unload_trace_configuration/1',[]]];

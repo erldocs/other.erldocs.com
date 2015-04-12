@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>property_file (property_file) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>property_file</h1>
+<h2 class="modsummary">property_file is a configuration file parser.</h2>
+<div class="description">
+<p>property_file is a configuration file parser.</p>
+ 
+  <p>It supports two popular configuration formats - Apache and C-like,
+  property substitution and file inclusion. It works with Unix, DOS and
+  Mac files. Both formats are line-oriented, declaration may be
+  continued at next line with <em>'\'</em> before new line.</p>
+ 
+  <p>Property substitution may be used in quoted and unquoted string
+  values. If property doesn't exists or its value is not a string, empty
+  string is silently substituted. Syntax - <code>${property_name}</code>.
+  </p>
+ 
+  <p><em>C-like Grammar</em>
+  </p><pre class="sh_erlang">
+  config := decls
+ 
+  decls := decl*
+ 
+  decl := bool_decl
+       |  simple_decl
+       |  struct_decl
+       |  include_decl
+ 
+ 
+  bool_decl := property_name : {property_name, true}
+            |  property_name = bool : {property_name, bool}
+  			
+  bool := 'true' | 'false' | 'yes' | 'no'
+ 
+  simple_decl := property_name '=' simple_value+
+              : {property_name, [simple_value+]}
+ 
+  struct_decl := property_name property_attr* '{' decl* '}'
+              : {property_name, [property_attr], [decl]}
+ 
+  property_attr := simple_value
+ 
+  include_decl := '$INCLUDE' string
+ 
+  simple_value := string
+               |  integer
+               |  float
+               |  ipv4_address
+               |  ipv4_netmask
+ 
+  property_name := squoted_string
+                | atom_string
+ 
+  string := unquoted_string
+         |  "double quoted string"
+         |  'single quoted string'
+  </pre>
+ 
+  <p><em>apache-like Grammar</em>
+  </p><pre class="sh_erlang">
+  config := decls
+ 
+  decls := decl*
+ 
+  decl := bool_decl
+       |  simple_decl
+       |  struct_decl
+       |  include_decl
+ 
+ 
+  bool_decl := property_name : {property_name, true}
+            |  property_name = bool : {property_name, bool}
+            |  property_name bool : {property_name, bool}
+  			
+  bool := 'true' | 'false' | 'yes' | 'no'
+ 
+  simple_decl := property_name '=' simple_value+
+              |  property_name simple_value+
+              : {property_name, [simple_value+]}
+ 
+  struct_decl := '&lt;'property_name property_attr* '&gt;' decl* '&lt;'/property_name'&gt;'
+              : {property_name, [property_attr], [decl]}
+ 
+  property_attr := simple_value
+ 
+  include_decl := 'Include' string
+ 
+  simple_value := string
+               |  integer
+               |  float
+               |  ipv4_address
+               |  ipv4_netmask
+ 
+  property_name := squoted_string
+                | atom_string
+ 
+  string := unquoted_string
+         |  "double quoted string"
+         |  'single quoted string'
+ 
+  ipv4_netmask := ipv4 '/' ipv4        : {ipv4, bitmask}
+               | ipv4 '/' integer_mask : {ipv4, bitmask}
+ 
+  integer_mask =&lt; 32
+ 
+  </pre><p>
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse/1">parse(FileName::string(), Mode::mode()) -&gt; Result | Error</h3>
+
+
+<div class="description">
+
+<p>The same as <code>parse/3</code> but with empty initial environment
+ </p>
+<p><em>See also:</em> <a href="#parse/3" class="seealso">parse/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="parse/1-1">parse(FileName::string(), Mode::mode(), Env::env_list()) -&gt; Result | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Result = list()</code></li><li><code>apache | clike</code></li><li><code>[{Key, Value}]</code></li><li><code>Key = atom()</code></li><li><code>Value = string()</code></li><li><code>Error = term()</code></li></ul>
+<div class="description">
+
+<p>Parse file and return result or error. Error can be formatted
+  with <code>format_error/1</code>. Env is a list of parameters which
+  can be substituted in properties values.</p>
+</div></div>
+<div class="function">
+<h3 id="format_error/1">format_error(Error::term()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Format error returned by <code>parse/3</code></p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

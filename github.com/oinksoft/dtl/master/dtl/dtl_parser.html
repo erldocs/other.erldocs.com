@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>dtl_parser (dtl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>dtl_parser</h1>
+<h2 class="modsummary">Template parsing functions.</h2>
+<div class="description">
+<p>Template parsing functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-parser">parser()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Tokens::[token() (see module dtl_lexer)]) -&gt; parser()</h3>
+
+
+<div class="description">
+
+<p>Creates a new, empty parser.</p>
+</div></div>
+<div class="function">
+<h3 id="add_library/1">add_library(Parser::parser(), Mod::module()) -&gt; parser()</h3>
+
+
+<div class="description">
+
+<p>Adds a library's tags and filters to the parser.</p>
+</div></div>
+<div class="function">
+<h3 id="parse/1">parse(Parse::parser()) -&gt; {ok, [tnode() (see module dtl_node)], parser()} | {error, atom()}</h3>
+
+
+<div class="description">
+
+<p>Parses all tokens within the provided parser, returning the
+       resulting nodelist. See parse/2 for errors.</p>
+</div></div>
+<div class="function">
+<h3 id="parse/1-1">parse(Parser::parser(), Until::[atom()]) -&gt; {ok, [tnode() (see module dtl_node)], parser()} | {error, atom()}</h3>
+
+
+<div class="description">
+
+<p>Parses all tokens within the provided parser until a block tag       
+token named in the second parameter is encountered.</p>
+ 
+       <p>Errors:</p>
+ 
+       <p>unclosed_block_tag: If the second parameter is non-empty and           
+none of the candidate block tags are ever encountered.</p>
+ 
+       <p>empty_block_tag: If the parser encounters a block tag with no           
+contents.</p>
+ 
+       <p>{unknown_tag, Name}: If an unregistered block tag is encountered.</p>
+</div></div>
+<div class="function">
+<h3 id="skip_past/1">skip_past(Parser::parser(), Until::atom()) -&gt; parser() | {error, {unclosed_block_tag, atom()}}</h3>
+
+
+<div class="description">
+
+<p>Discard all tokens until the specified token is found.</p>
+</div></div>
+<div class="function">
+<h3 id="split_token/1">split_token(Src::binary()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Splits a block tag template token into its constituent parts,
+       splitting on all whitespace not contained in a "" pair.</p>
+</div></div>
+<div class="function">
+<h3 id="find_filter/1">find_filter(Parser::parser(), Name::name() (see module dtl_library)) -&gt; {ok, filter_fun() (see module dtl_filter)} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Searches the parser's filter collection for a filter with the
+       provided name.</p>
+</div></div>
+<div class="function">
+<h3 id="find_tag/1">find_tag(Parser::parser(), Name::name() (see module dtl_library)) -&gt; {ok, tag_spec() (see module dtl_library)} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Search the parser's tag collection for a tag with the provided
+       name.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_first_token/1">delete_first_token(Parser) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Remove the first token from a parser's token list. Use this to
+       remove a token you just parsed up to with parse/2 when you want
+       to discard that token.</p>
+</div></div>
+<div class="function">
+<h3 id="blocks/1">blocks(Parser::parser()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Fetch the block name tracker.</p>
+</div></div>
+<div class="function">
+<h3 id="set_blocks/1">set_blocks(Parser::parser(), Blocks::[binary()]) -&gt; parser()</h3>
+
+
+<div class="description">
+
+<p>Update the block name tracker.</p>
+</div></div>
+<div class="function">
+<h3 id="next_token/1">next_token(Parser::parser()) -&gt; {token() (see module dtl_lexer), parser()}</h3>
+
+
+<div class="description">
+
+<p>Returns the parser's next token to process, and the parser
+       without this token.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

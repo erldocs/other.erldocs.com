@@ -1,0 +1,1 @@
+var index = [['app','die_couchdb','die_couchdb','[application]'],['mod','die_couchdb','die_couchdb_app',[]],['mod','die_couchdb','die_couchdb_sup',[]],['fun','die_couchdb','die_couchdb_app:start/2',[]],['fun','die_couchdb','die_couchdb_app:stop/1',[]],['fun','die_couchdb','die_couchdb_sup:init/1',[]],['fun','die_couchdb','die_couchdb_sup:start_link/0',[]]];

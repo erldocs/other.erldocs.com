@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_udp_tracker_mgr (etorrent_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_udp_tracker_mgr</h1>
+<h2 class="modsummary">Handle the UDP tracker protocol.</h2>
+<div class="description">
+<p>Handle the UDP tracker protocol.
+  </p><p>This module is a central module to UDP tracker requests (BEP-15
+  support). It provides an interface that torrents can use to query
+  the UDP tracker with. The call is currently blocking, so the other
+  process is not going to do anything while waiting for a
+  response. The default timeout-i-give-up-time is 60 seconds.</p>
+  <p>Apart from serving as the main entry point, this module also
+  implements a Manager gen_server which is used to manage the current
+  outstanding requests, their types and which processes are
+  responsible for the different requests. Data is ETS-stored and
+  monitors are used to clean up.</p>
+  <p>The granularity is one process per request-event. The
+  event-processes are defined in the module etorrent_udp_tracker. It
+  is easier to handle timeout and such in a separate process rather
+  than keep centrally track of it.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start the Manager process</p>
+</div></div>
+<div class="function">
+<h3 id="announce/2">announce(Tr, PL) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Announce as announce(Tr, PL, Timeout) with 60 sec timeout.</p>
+</div></div>
+<div class="function">
+<h3 id="announce/3">announce(X1, PropList, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Announce to the tracker.
+    </p><p>PL contains the announce data, Tr is a {IP, Port} tracker
+    pair, and Timeout is the timeout.</p>
+    <p>The will block the caller</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jesper Louis Andersen</aname>
+<email>jesper.louis.andersen@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

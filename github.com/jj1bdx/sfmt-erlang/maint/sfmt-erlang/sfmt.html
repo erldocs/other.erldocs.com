@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sfmt (sfmt-erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sfmt</h1>
+<h2 class="modsummary">SIMD-oriented Fast Mersenne Twister (SFMT).</h2>
+<div class="description">
+<p>SIMD-oriented Fast Mersenne Twister (SFMT).
+  The module provides skeleton functions for the NIFs
+  and the interface functions.
+  The module defines a PRNG of period ((2^19937) - 1).</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-intstate">intstate() = binary()</h3></div>
+    <div class="type"><h3 id="type-ran_sfmt">ran_sfmt() = {integer() >= 0, <a href="#type-intstate" class="seealso">intstate()</a>}</h3></div>
+    <div class="type"><h3 id="type-randlist">randlist() = [integer()]</h3></div>
+    <div class="type"><h3 id="type-w128">w128() = [integer()]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="gen_rand_all/1">gen_rand_all(Intstate::intstate()) -&gt; intstate()</h3>
+
+
+<div class="description">
+
+<p>filling the internal state array with SFMT PRNG.</p>
+ 
+  <p>Recursion algorithm for gen_rand_all and gen_rand_list32:</p>
+ 
+  <pre class="sh_erlang">
+  a[]: output array (of S w128() elements)
+  i[]: internal state (of N w128() elements)
+  (For gen_rand_all, S =:= N)
+  (For gen_rand_list32, S &gt;= N)
+  r(a, b, c, d): do_recursion/4 function (of 4 w128() arguments)
+  (The indexes are in C notation ([0 ... J-1] for J elements))
+ 
+  a[0] = r(i[0], i[POS1],   i[N-2], i[N-1]);
+  a[1] = r(i[1], i[POS1+1], i[N-1], a[0]);
+  a[2] = r(i[2], i[POS1+2], a[0],   a[1]);
+  ...
+  a[(N-POS1)-1] = r(i[(N-POS1)-1], i[N-1], a[(N-POS1)-3], a[(N-POS1)-2]);
+  a[(N-POS1)]   = r(i[(N-POS1)],   a[0],   a[(N-POS1)-2], a[(N-POS1)-1]);
+  a[(N-POS1)+1] = r(i[(N-POS1)+1], a[1],   a[(N-POS1)-1], a[(N-POS1)]);
+  ...
+  a[N-1] = r(i[N-1], a[POS1-1], a[N-3], a[N-2]);
+  % assignments from here only applicable to gen_rand_list32
+  a[N]   = r(a[0],   a[POS1],   a[N-2], a[N-1]);
+  a[N+1] = r(a[1],   a[POS1+1], a[N-1], a[N]);
+  ...
+  a[X]   = r(a[X-N], a[X-(N-POS1)], a[X-1], a[X-2]);
+  ...
+  a[S-1] = r(a[(S-N)-1], a[S-(N-POS1)-1], a[S-2], a[S-3]);
+ 
+  Use the last N w128() elements of a[]
+  for the new internal state ni[],
+  i.e.,
+  ni[0] = a[S-N], ni[1] = a[S-N+1], ... ni[N-1] = a[S-1].
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="gen_rand_list32/1">gen_rand_list32(Size::integer(), Intstate::intstate()) -&gt; {[integer()], intstate()}</h3>
+
+
+<div class="description">
+
+<p>generating the 32-bit integer list of PRNG,
+       where length of the list is Size
+       with the updated internal state.</p>
+</div></div>
+<div class="function">
+<h3 id="gen_rand_list_float/1">gen_rand_list_float(Size::integer(), Intstate::intstate()) -&gt; {[float()], intstate()}</h3>
+
+
+<div class="description">
+
+<p>generating a list of uniform floats of [0.0, 1.0]
+       where length of the list is Size
+       with the updated internal state.</p>
+</div></div>
+<div class="function">
+<h3 id="get_idstring/0">get_idstring() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>returns SFMT identification string.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="get_min_array_size32/0">get_min_array_size32() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>returns array size of internal state.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="get_lib_refc/0">get_lib_refc() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>returns NIF library reference count.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="init_gen_rand/1">init_gen_rand(Seed::integer()) -&gt; intstate()</h3>
+
+
+<div class="description">
+
+<p>generates an internal state from an integer seed.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="init_by_list32/1">init_by_list32(Seedlist::[integer()]) -&gt; intstate()</h3>
+
+
+<div class="description">
+
+<p>generates an internal state from a list of 32-bit integers.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="randlist_to_intstate/1">randlist_to_intstate(Randlist::randlist()) -&gt; intstate()</h3>
+
+
+<div class="description">
+
+<p>converts a valid internal state from a list of N32 32-bit integers.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="intstate_to_randlist/1">intstate_to_randlist(Intstate::intstate()) -&gt; randlist()</h3>
+
+
+<div class="description">
+
+<p>converts an internal state table to a list of N32 32-bit integers.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="intstate_to_randlist_float/1">intstate_to_randlist_float(Intstate::intstate()) -&gt; [float()]</h3>
+
+
+<div class="description">
+
+<p>converts an internal state table to a list of [0.0, 1.0] float.
+  (Note: NIFnized)</p>
+</div></div>
+<div class="function">
+<h3 id="intstate_to_list_max/1">intstate_to_list_max(Max::integer(), Intstate::intstate()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>converts an internal state table to a list of N32 32-bit integers,  
+where each list member is in the range between [0, (Max - 1)].  
+(Note: NIFnized)</p>
+ 
+  <p>To ensure the equal probability of generation for each integer value between [0, (Max - 1)],
+  the list of integers are generated by the following algorithm:
+  </p><list>
+  <item><p>The internal state is first converted to the corresponding list L, of 32-bit integers;</p></item>
+  <item><p>Determine a value P where Max is in the range of [2 ^ (P - 1), 2 ^ P];</p></item>
+  <item><p>Each member of the source list L is right-shifted by P bits;</p></item>
+  <item><p>then only the members of the list L which are less than Max are filtered into the returned list.</p></item>
+  </list><p>
+  Note: the number of the list members is <em>smaller or equal</em> to N32 (624).</p>
+</div></div>
+<div class="function">
+<h3 id="gen_rand32/1">gen_rand32(RS::ran_sfmt() | intstate()) -&gt; {integer(), ran_sfmt()}</h3>
+
+
+<div class="description">
+
+<p>generates a 32-bit random number from the given ran_sfmt().
+  (Note: once nifnized, but the speed of list-based code is faster)</p>
+</div></div>
+<div class="function">
+<h3 id="gen_rand32_max/1">gen_rand32_max(Max::integer(), RS::{[integer()], intstate()} | intstate()) -&gt; {integer(), {[integer()], intstate()}}</h3>
+
+
+<div class="description">
+
+<p>generates a 32-bit random number from the given ran_sfmt() or intstate()
+  where the 1st argument is Max and the range is [0, (Max - 1)].</p>
+</div></div>
+<div class="function">
+<h3 id="gen_rand_float/1">gen_rand_float(RS::ran_sfmt() | intstate()) -&gt; {float(), ran_sfmt()}</h3>
+
+
+<div class="description">
+
+<p>generates a float random number from the given ran_sfmt() or intstate()
+  where the range is [0.0, 1.0].
+  (Note: once nifnized, but the speed of list-based code is faster)</p>
+</div></div>
+<div class="function">
+<h3 id="seed0/0">seed0() -&gt; ran_sfmt()</h3>
+
+
+<div class="description">
+
+<p>Returns the default internal state.</p>
+</div></div>
+<div class="function">
+<h3 id="seed/0">seed() -&gt; ran_sfmt()</h3>
+
+
+<div class="description">
+
+<p>Initialize the process dictionary with seed0/0.</p>
+</div></div>
+<div class="function">
+<h3 id="seed/1">seed(N::integer() | [integer()] | {integer(), integer(), integer()}) -&gt; ran_sfmt()</h3>
+
+
+<div class="description">
+
+<p>Puts the seed computed from the given integer
+       as a single-element list by init_by_list32/1
+       and puts the internal state into the process dictionary
+       and initializes the random number list with the internal state
+       and returns the old internal state.</p>
+</div></div>
+<div class="function">
+<h3 id="seed/1-1">seed(A1::integer(), A2::integer(), A3::integer()) -&gt; ran_sfmt()</h3>
+
+
+<div class="description">
+
+<p>Puts the seed computed from given three integers
+       and puts the internal state into the process dictionary
+       and initializes the random number list with the internal state
+       and returns the old internal state.</p>
+</div></div>
+<div class="function">
+<h3 id="uniform/0">uniform() -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Returns a uniformly-distributed float random number X
+       where X is in the range of [0.0, 1.0]
+       and updates the internal state in the process dictionary.</p>
+</div></div>
+<div class="function">
+<h3 id="uniform/1">uniform(N::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns a uniformly-distributed integer random number X
+       where X is in the range of [1..N]
+       and updates the internal state in the process dictionary.</p>
+</div></div>
+<div class="function">
+<h3 id="uniform_s/1">uniform_s(RS::ran_sfmt()) -&gt; {float(), ran_sfmt()}</h3>
+
+
+<div class="description">
+
+<p>With a given state,
+       Returns a uniformly-distributed float random number X
+       and a new state
+       where X is in the range of [0.0, 1.0].</p>
+</div></div>
+<div class="function">
+<h3 id="uniform_s/1-1">uniform_s(N::integer(), RS::ran_sfmt()) -&gt; {integer(), ran_sfmt()}</h3>
+
+
+<div class="description">
+
+<p>Returns a uniformly-distributed integer random number X
+       and a new state
+       where X is in the range of [1..N].</p>
+</div></div></div>
+
+<authors>
+
+<aname>Kenji Rikitake</aname>
+<email>kenji.rikitake@acm.org</email>
+<aname>Mutsuo Saito</aname>
+<email> </email>
+<aname>Makoto Matsumoto</aname>
+<email> </email>
+<aname>Dan Gudmundsson</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

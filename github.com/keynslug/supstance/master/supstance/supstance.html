@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>supstance (supstance) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>supstance</h1>
+<h2 class="modsummary">Simplified child specifications generation and prevalidation.</h2>
+<div class="description">
+<p>Simplified child specifications generation and prevalidation.
+  Module implements a set of self-descriptive routines which do:
+  <ll>
+  <item>make up valid supervisor childspecs based on three arguments only;</item>
+  <item>prevalidate childspecs been made thus throwing informative exceptions if something is wrong.</item>
+  </ll></p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="permanent/3">permanent(Specification, RegistrationType, Options) -&gt; child_spec() (see module supervisor)</h3>
+
+<ul class="type">
+<li><code>Specification = atom() | {term(), atom()} | {term(), atom(), atom()}</code></li><li><code>RegistrationType = none | local | global</code></li><li><code>Options = inherit | global | term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <code>childspec(permanent, Specification, RegistrationType, Options)</code>.</p>
+<p><em>See also:</em> <a href="#childspec/4" class="seealso">childspec/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="transient/3">transient(Specification, RegistrationType, Options) -&gt; child_spec() (see module supervisor)</h3>
+
+<ul class="type">
+<li><code>Specification = atom() | {term(), atom()} | {term(), atom(), atom()}</code></li><li><code>RegistrationType = none | local | global</code></li><li><code>Options = inherit | global | term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <code>childspec(transient, Specification, RegistrationType, Options)</code>.</p>
+<p><em>See also:</em> <a href="#childspec/4" class="seealso">childspec/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="temporary/3">temporary(Specification, RegistrationType, Options) -&gt; child_spec() (see module supervisor)</h3>
+
+<ul class="type">
+<li><code>Specification = atom() | {term(), atom()} | {term(), atom(), atom()}</code></li><li><code>RegistrationType = none | local | global</code></li><li><code>Options = inherit | global | term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <code>childspec(temporary, Specification, RegistrationType, Options)</code>.</p>
+<p><em>See also:</em> <a href="#childspec/4" class="seealso">childspec/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="supervisor/3">supervisor(Specification, RegistrationType, Options) -&gt; child_spec() (see module supervisor)</h3>
+
+<ul class="type">
+<li><code>Specification = atom() | {term(), atom()} | {term(), atom(), atom()}</code></li><li><code>RegistrationType = none | local | global</code></li><li><code>Options = inherit | global | term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <code>childspec(supervisor, Specification, RegistrationType, Options)</code>.</p>
+<p><em>See also:</em> <a href="#childspec/4" class="seealso">childspec/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="childspec/4">childspec(Role, Specification, RegistrationType, Options) -&gt; child_spec() (see module supervisor)</h3>
+
+<ul class="type">
+<li><code>Role = permanent | transient | temporary | supervisor</code></li><li><code>Specification = atom() | {term(), atom()} | {term(), atom(), atom()}</code></li><li><code>RegistrationType = none | local | global</code></li><li><code>Options = inherit | global | term()</code></li></ul>
+<div class="description">
+
+<p>Creates and prevalidates child specification to be fed into supervisor.</p>
+ 
+  <p>The <code>Role</code> denotes child lifetime, designation and importance. They are briefly correspond
+  with ones described in <code>supervisor</code> documentation. The rule of thumb is as follows:
+  <ll>
+  <item>if you want longterm service which should live all the time around then <code>permanent</code> is your choice.</item>
+  <item>if you want process to take out some work and surely complete it in the right way then <code>transient</code> is your choice.</item>
+  <item>if you want process to fulfill some work with no guarantee of completion then <code>temporary</code> is your choice.</item>
+  <item>and if you are nesting another supervisor then <code>supervisor</code> is your choice.</item>
+  </ll></p>
+ 
+  <p>The <code>Specification</code> tells what to start actually. If it is single atom <code>Module</code> then childspec named <code>Module</code> will
+  start process calling <code>Module:start_link</code>. If it is <code>{Name, Module}</code> then childspec with name <code>Name</code> will start a
+  process through <code>Module:start_link</code>. And finally if one is {Name, Module, Entry}' then childspec with name <code>Name</code> again
+  will start a process by a call to <code>Module:Entry</code>.</p>
+ 
+  <p>The <code>RegistrationType</code> points how to register child process. Local processes visible on the node where they has been
+  started. Global processes on the other hand visible on the every node connected to the one where they has been started.
+  You may pass <code>none</code> denoting no registration is required. The last one is the case for self-contained  processes  
+and services usually.</p>
+ 
+  <p>If <code>RegistrationType</code> is <code>local</code> or <code>global</code> then <code>Module</code> entry point (usually <code>start_link</code>) should take two arguments:
+  <code>Name</code>, <code>Options</code>. Otherwise is should be freely fed with only <code>Options</code> argument.</p>
+ 
+  <p>Through <code>Options</code> you may pass <code>global</code>, <code>inherit</code> or arbitrary term which shall fall through into module entry point
+  with no additional processing. In the case you pass <code>global</code> then all environment variables corresponding to the calling
+  application in the form of property list will fall into module entry point. In the case you pass <code>inherit</code> there then  
+only subset of environment variables corresponding to the name of a child shall fall through that way.</p>
+ 
+  <p>This is done through calls to <code>options/1</code> actually.</p>
+<p><em>See also:</em> <a href="#options/1" class="seealso">options/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="options/1">options(Whose) -&gt; proplist() (see module proplists)</h3>
+
+<ul class="type">
+<li><code>Whose = {inherit, atom()} | global</code></li></ul>
+<div class="description">
+
+<p>Retrieves a set of options based on application environment variables.</p>
+ 
+  <p>If <code>Whose</code> is <code>global</code> whole set of application environment variables is  
+returned assuming it is valid property list.</p>
+ 
+  <p>If <code>Whose</code> is <code>{inherit, Name}</code> a subset of application environment variables is
+  returned. Assuming last one is valid property list the value of the property under
+  <code>Name</code> returned. If such property is not defined empty list returned.</p>
+ 
+  <p>These routines are intentionally used by <code>supstance</code> itself.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

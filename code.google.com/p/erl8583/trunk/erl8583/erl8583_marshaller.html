@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erl8583_marshaller (erl8583) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erl8583_marshaller</h1>
+<h2 class="modsummary">This module provides functions for marshalling and unmarshalling       
+ISO 8583 messages into various encodings.</h2>
+<div class="description">
+<p>This module provides functions for marshalling and unmarshalling       
+ISO 8583 messages into various encodings. To marshal or unmarshal       
+a message, one must supply a list of options that specify       
+modules that can be called to marshal or unmarshal the MTI, the       
+bitmap, the message fields and, optionally, modules that should be       
+invoked before (un)marshalling starts (e.g. to strip wrapping from       
+a marshalled message) and after (un)marshalling ends (e.g. to wrap a       
+marshalled message with some padding).</p>
+ 
+       <p>Optionally, this marshaller can be passed a callback handler that       
+specifies how messages are to be encoded (e.g. the 1987, 1993 or       
+2003 specification or a proprietary specification). If no specific       
+encoding rules are passed, the version indicated by the MTI is       
+used.</p>
+ 
+       <p>A module can also be specified that reorders the data elements prior
+       to marshalling a field. By default, data elements are packed in increasing
+       order of field ID. In some cases though, the default ordering might not be appropriate;
+       for example, one might want to marshal the tertiary bitmap field (field 65)
+       immediately after the secondary bitmap field.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bcd">bcd() = [byte()]</h3></div>
+    <div class="type"><h3 id="type-field_encoding">field_encoding() = {n | b | an | ans | x_n | ns | z, fixed | llvar | lllvar, max_length()}</h3></div>
+    <div class="type"><h3 id="type-iso8583field_value">iso8583field_value() = utf8() | binary() | iso8583message()</h3></div>
+    <div class="type"><h3 id="type-iso8583message">iso8583message() = #iso8583_message{}</h3></div>
+    <div class="type"><h3 id="type-marshal_handler">marshal_handler() = {bitmap_marshaller, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {field_marshaller, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {mti_marshaller, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {init_marshaller, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {end_marshaller, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {field_arranger, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {encoding_rules, module()}</h3></div>
+    <div class="type"><h3 id="type-max_length">max_length() = integer()</h3></div>
+    <div class="type"><h3 id="type-utf8">utf8() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="marshal/1">marshal(Message::iso8583message(), MarshalHandlers::[marshal_handler()]) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Marshals an ISO 8583 message into a byte sequence.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="unmarshal/1">unmarshal(Marshalled::[byte()], MarshalHandlers::[marshal_handler()]) -&gt; iso8583message()</h3>
+
+
+<div class="description">
+
+<p>Unmarshals a byte sequence into an ISO 8583 message.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>CA Meijer</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

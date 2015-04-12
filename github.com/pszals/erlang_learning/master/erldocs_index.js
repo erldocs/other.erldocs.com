@@ -1,0 +1,1 @@
+var index = [['app','erlang_learning','erlang_learning','[application]'],['mod','erlang_learning','fizzbuzz',[]],['fun','erlang_learning','fizzbuzz:run/0',[]]];

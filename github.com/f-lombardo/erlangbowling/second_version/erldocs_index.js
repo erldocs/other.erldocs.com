@@ -1,0 +1,1 @@
+var index = [['app','erlangbowling','erlangbowling','[application]'],['mod','erlangbowling','bowling',[]],['mod','erlangbowling','gabriele_bowling',[]],['fun','erlangbowling','bowling:score/1',[]],['fun','erlangbowling','gabriele_bowling:score/1',[]]];

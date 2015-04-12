@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>hc_timer (httpcluster) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>hc_timer</h1>
+<h2 class="modsummary">Interface module for all cluster timer needs.</h2>
+<div class="description">
+<p>Interface module for all cluster timer needs. Manipulate a timer
+        and timers container using this API. Use <a href="#empty/0" class="seealso">empty/0</a> to
+        generate an empty container as a starting point.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-timer">timer()</h3></div>
+    <div class="type"><h3 id="type-timers">timers()</h3></div>
+    <div class="type"><h3 id="type-type">type() = secondary_disc | primary_disc | ping | ping_retry</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping_routine_timer/2">ping_routine_timer(Ident, Time) -&gt; Timer</h3>
+
+<ul class="type">
+<li><code>Ident = term()</code></li><li><code>Time = pos_integer()</code></li><li><code>Timer = timer()</code></li></ul>
+<div class="description">
+
+<p>Create a new <code>?PING_ROUTINE</code> timer.</p>
+</div></div>
+<div class="function">
+<h3 id="ping_retry_timer/3">ping_retry_timer(Ident, Time, RetryRef) -&gt; Timer</h3>
+
+<ul class="type">
+<li><code>Ident = term()</code></li><li><code>Time = pos_integer()</code></li><li><code>RetryRef = term()</code></li><li><code>Timer = timer()</code></li></ul>
+<div class="description">
+
+<p>Create a new <code>?PING_RETRY</code> timer. <code>RetryRef</code> is the reference
+       of the previous ping attempt to be retried.</p>
+</div></div>
+<div class="function">
+<h3 id="empty/0">empty() -&gt; Empty</h3>
+
+<ul class="type">
+<li><code>Empty = timers()</code></li></ul>
+<div class="description">
+
+<p>Return an empty timer list.</p>
+</div></div>
+<div class="function">
+<h3 id="prim_disc_on/4">prim_disc_on(Ident, TTD, Details, Timers1) -&gt; Timers2</h3>
+
+<ul class="type">
+<li><code>Ident = term()</code></li><li><code>TTD = pos_integer()</code></li><li><code>Details = term()</code></li><li><code>Timers1 = timers()</code></li><li><code>Timers2 = timers()</code></li></ul>
+<div class="description">
+
+<p>Add a new <code>?TTD_PRIM_DISC</code> timer to <code>Timers</code>
+       if it doesn't already exist.</p>
+</div></div>
+<div class="function">
+<h3 id="sec_disc_on/3">sec_disc_on(Ident, TTD, Timers1) -&gt; Timers2</h3>
+
+<ul class="type">
+<li><code>Ident = term()</code></li><li><code>TTD = pos_integer()</code></li><li><code>Timers1 = timers()</code></li><li><code>Timers2 = timers()</code></li></ul>
+<div class="description">
+
+<p>Add a new <code>?TTD_SEC_DISC</code> timer to <code>Timers</code> if it doesn't already exist.
+       Otherwise, send a refresh signal to it, possibly with a new <code>TTD</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="sec_disc_off/2">sec_disc_off(Ident, Timers1) -&gt; Timers2</h3>
+
+<ul class="type">
+<li><code>Ident = term()</code></li><li><code>Timers1 = timers()</code></li><li><code>Timers2 = timers()</code></li></ul>
+<div class="description">
+
+<p>Stop and delete a <code>?TTD_SEC_DISC</code> timer from <code>Timers</code> if it is there.</p>
+</div></div>
+<div class="function">
+<h3 id="all_off/1">all_off(Timers) -&gt; Empty</h3>
+
+<ul class="type">
+<li><code>Timers = timers()</code></li><li><code>Empty = timers()</code></li></ul>
+<div class="description">
+
+<p>Stops all timers in the timers container. Then returns an
+       empty container.</p>
+</div></div>
+<div class="function">
+<h3 id="del_if_exists/2">del_if_exists(Timer, Timers) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Timer = timer()</code></li><li><code>Timers = timers()</code></li><li><code>Result = {boolean(), timers()}</code></li></ul>
+<div class="description">
+
+<p>Merely delete a timer from the list if it is there.
+       It will not be turned off explicitly. Return value includes a boolean
+       for whether the timer was actually deleted or not.</p>
+</div></div>
+<div class="function">
+<h3 id="is_equal/2">is_equal(Timer1, Timer2) -&gt; IsEqual</h3>
+
+<ul class="type">
+<li><code>Timer1 = timer()</code></li><li><code>Timer2 = timer()</code></li><li><code>IsEqual = boolean()</code></li></ul>
+<div class="description">
+
+<p>Compare 2 timers. They are equal if their identifiers and types
+       are the same.</p>
+</div></div>
+<div class="function">
+<h3 id="ident/1">ident(Timer) -&gt; Ident</h3>
+
+<ul class="type">
+<li><code>Timer = timer()</code></li><li><code>Ident = term()</code></li></ul>
+<div class="description">
+
+<p>Get the identifier given with the timer.</p>
+</div></div>
+<div class="function">
+<h3 id="type/1">type(Timer) -&gt; Type</h3>
+
+<ul class="type">
+<li><code>Timer = timer()</code></li><li><code>Type = type()</code></li></ul>
+<div class="description">
+
+<p>Get the type of the timer.</p>
+</div></div>
+<div class="function">
+<h3 id="details/1">details(Timer) -&gt; Details</h3>
+
+<ul class="type">
+<li><code>Timer = timer()</code></li><li><code>Details = term()</code></li></ul>
+<div class="description">
+
+<p>Get the details given with the timer.</p>
+</div></div></div>
+
+<authors>
+
+<aname>nollieheel</aname>
+<email>iskitingbords@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

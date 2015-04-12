@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>hc_evt (httpcluster) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>hc_evt</h1>
+<h2 class="modsummary">Interface module for network events and messages.</h2>
+<div class="description">
+<p>Interface module for network events and messages.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-err_reason">err_reason() = atom()</h3></div>
+    <div class="type"><h3 id="type-evt">evt()</h3></div>
+    <div class="type"><h3 id="type-evt_err">evt_err()</h3></div>
+    <div class="type"><h3 id="type-evt_raw">evt_raw()</h3></div>
+    <div class="type"><h3 id="type-id">id() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-node_msg">node_msg()</h3></div>
+    <div class="type"><h3 id="type-node_ping">node_ping()</h3></div>
+    <div class="type"><h3 id="type-node_pong">node_pong()</h3></div>
+    <div class="type"><h3 id="type-node_reply">node_reply()</h3></div>
+    <div class="type"><h3 id="type-type">type() = string()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="type_orgname/1">type_orgname(Evt) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="type_reason/1">type_reason(Evt_err) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_raw/3">new_raw(EvtName, Type, Node) -&gt; Raw</h3>
+
+<ul class="type">
+<li><code>EvtName = string()</code></li><li><code>Type = type()</code></li><li><code>Node = cnode() (see module hc_node)</code></li><li><code>Raw = evt_raw()</code></li></ul>
+<div class="description">
+
+<p>Create a new <a href="#type-evt_raw" class="seealso">evt_raw()</a>. <code>EvtName</code> is a local dedup identifier
+       for the raw evt. <code>Node</code> is an <a href="hc_node.html#type-cnode" class="seealso">hc_node:cnode()</a> that contains
+       the <em>new</em> values for the source node in relation to the evt type.</p>
+ 
+       <p>Three built-in event types are:
+       </p><taglist>
+       <dt><code>"node_up"</code></dt>
+       <item><p>Turns the node's connection to true. Also sets new values
+       (overwrite) for the node Name, Attribs, Priority, and/or TTD.</p></item>
+ 
+       <dt><code>"node_down"</code></dt>
+       <item><p>Turns the node's connection to false.</p></item>
+ 
+       <dt><code>"node_edit"</code></dt>
+       <item><p>Modifies the values for node Name, Priority, and/or TTD.</p></item>
+       </taglist>
+ 
+       <p>Custom event types will modify the node's <code>Attribs</code> value.</p>
+</div></div>
+<div class="function">
+<h3 id="new_evt_from_raw/5">new_evt_from_raw(Id, Time, OrgName, NewNode, Raw) -&gt; Evt</h3>
+
+<ul class="type">
+<li><code>Id = id()</code></li><li><code>Time = non_neg_integer()</code></li><li><code>OrgName = undefined | name() (see module hc_node)</code></li><li><code>NewNode = cnode() (see module hc_node)</code></li><li><code>Raw = evt_raw()</code></li><li><code>Evt = evt()</code></li></ul>
+<div class="description">
+
+<p>Create an <a href="#type-evt" class="seealso">evt()</a> based on an <a href="#type-evt_raw" class="seealso">evt_raw()</a>. This would mean
+       the <a href="#type-evt_raw" class="seealso">evt_raw()</a> was successfully processed by the primary node       
+and is ready to be integrated into the cluster.</p>
+ 
+       <p>Arguments are:
+       </p><taglist>
+       <dt><code>Id</code></dt>
+       <item><p>Primary-node-generated value that determines evt execution
+       order.</p></item>
+ 
+       <dt><code>Time</code></dt>
+       <item><p>When the evt has been processed.</p></item>
+ 
+       <dt><code>OrgName</code></dt>
+       <item><p>The original name of the cluster node affected by the evt.
+       This is important during <code>?EVT_NODE_EDIT</code> events where the node's
+       name can be modified.</p></item>
+ 
+       <dt><code>NewNode</code></dt>
+       <item><p>The cluster node containing the new and validated values
+       of the subject node.</p></item>
+ 
+       <dt><code>Raw</code></dt>
+       <item><p>The <a href="#type-evt_raw" class="seealso">evt_raw()</a> this evt is based from.</p></item>
+       </taglist>
+</div></div>
+<div class="function">
+<h3 id="new_evt_err_from_raw/4">new_evt_err_from_raw(Id, Time, Reason, Raw) -&gt; Err</h3>
+
+<ul class="type">
+<li><code>Id = id()</code></li><li><code>Time = non_neg_integer()</code></li><li><code>Reason = err_reason()</code></li><li><code>Raw = evt_raw()</code></li><li><code>Err = evt_err()</code></li></ul>
+<div class="description">
+
+<p>Create an <a href="#type-evt_err" class="seealso">evt_err()</a> based on an <a href="#type-evt_raw" class="seealso">evt_raw()</a>. This
+       should be used if processing the <a href="#type-evt_raw" class="seealso">evt_raw()</a> failed with one       
+of the following reasons:</p>
+ 
+       <taglist>
+       <dt><code>?EVT_ERR_DOWN</code></dt>
+       <item><p>Any event type other than <code>?EVT_NODE_UP</code> was attempted on a
+       disconnected node.</p></item>
+ 
+       <dt><code>?EVT_ERR_UP</code></dt>
+       <item><p>An <code>?EVT_NODE_UP</code> was attempted on an already connected node.</p></item>
+ 
+       <dt><code>?EVT_ERR_NOT_FOUND</code></dt>
+       <item><p>Any event type other than <code>?EVT_NODE_UP</code> was attempted on a
+       non-existent node.</p></item>
+ 
+       <dt><code>?EVT_ERR_ALREADY_EXISTS</code></dt>
+       <item><p>An event of type <code>?EVT_NODE_UP</code> or <code>?EVT_NODE_EDIT</code> failed
+       because another connected node of the same name already exists.</p></item>
+       </taglist>
+ 
+       <p>The arguments of this function are as follows:
+       </p><taglist>
+       <dt><code>Id</code></dt>
+       <item><p>Primary-node-generated value that determines evt_err order.</p></item>
+ 
+       <dt><code>Time</code></dt>
+       <item><p>When the evt_err has been processed.</p></item>
+ 
+       <dt><code>Reason</code></dt>
+       <item><p>See the possible error reasons above.</p></item>
+ 
+       <dt><code>Raw</code></dt>
+       <item><p>The <a href="#type-evt_raw" class="seealso">evt_raw()</a> this evt_err is based from.</p></item>
+       </taglist>
+</div></div>
+<div class="function">
+<h3 id="new_node_ping/5">new_node_ping(Id, From, To, Raw, Sync) -&gt; NodePing</h3>
+
+<ul class="type">
+<li><code>Id = string()</code></li><li><code>From = name() (see module hc_node)</code></li><li><code>To = name() (see module hc_node)</code></li><li><code>Raw = undefined | evt_raw()</code></li><li><code>Sync = boolean()</code></li><li><code>NodePing = node_ping()</code></li></ul>
+<div class="description">
+
+<p>Create a new <a href="#type-node_ping" class="seealso">node_ping()</a> value. <code>Id</code> is an arbitrary string
+       that may be used to match with the reply. <code>Raw</code> is an optional
+       <a href="#type-evt_raw" class="seealso">evt_raw()</a>, and <code>Sync</code> is a flag to include the most recent
+       nodes list in the response.</p>
+</div></div>
+<div class="function">
+<h3 id="id/1">id(Evt) -&gt; Id</h3>
+
+<ul class="type">
+<li><code>Evt = evt() | evt_err()</code></li><li><code>Id = id()</code></li></ul>
+<div class="description">
+
+<p>Get the id of either <a href="#type-evt" class="seealso">evt()</a> or <a href="#type-evt_err" class="seealso">evt_err()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="name/1">name(Evt) -&gt; Name</h3>
+
+<ul class="type">
+<li><code>Evt = evt_raw() | evt() | evt_err()</code></li><li><code>Name = string()</code></li></ul>
+<div class="description">
+
+<p>Get the name of <a href="#type-evt_raw" class="seealso">evt_raw()</a>, <a href="#type-evt" class="seealso">evt()</a>, or <a href="#type-evt_err" class="seealso">evt_err()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="type/1">type(Evt) -&gt; Type</h3>
+
+<ul class="type">
+<li><code>Evt = evt_raw() | evt() | evt_err()</code></li><li><code>Type = type()</code></li></ul>
+<div class="description">
+
+<p>Get the type of <a href="#type-evt_raw" class="seealso">evt_raw()</a>, <a href="#type-evt" class="seealso">evt()</a>, or <a href="#type-evt_err" class="seealso">evt_err()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="org_name/1">org_name(Evt) -&gt; OrgName</h3>
+
+<ul class="type">
+<li><code>Evt = evt()</code></li><li><code>OrgName = undefined | name() (see module hc_node)</code></li></ul>
+<div class="description">
+
+<p>Get the original name of the event's subject node.</p>
+</div></div>
+<div class="function">
+<h3 id="cnode/1">cnode(Evt) -&gt; Cnode</h3>
+
+<ul class="type">
+<li><code>Evt = evt_raw() | evt()</code></li><li><code>Cnode = cnode() (see module hc_node)</code></li></ul>
+<div class="description">
+
+<p>Get the node value of either an <a href="#type-evt_raw" class="seealso">evt_raw()</a> or <a href="#type-evt" class="seealso">evt()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="node_com_source/1">node_com_source(NodeCom) -&gt; From</h3>
+
+<ul class="type">
+<li><code>NodeCom = node_ping() | node_pong() | node_reply()</code></li><li><code>From = name() (see module hc_node)</code></li></ul>
+<div class="description">
+
+<p>Get the <code>from</code> value of a node communication.</p>
+</div></div>
+<div class="function">
+<h3 id="node_com_destination/1">node_com_destination(NodeCom) -&gt; To</h3>
+
+<ul class="type">
+<li><code>NodeCom = node_ping()</code></li><li><code>To = name() (see module hc_node)</code></li></ul>
+<div class="description">
+
+<p>Get the <code>to</code> value of a node communication.</p>
+</div></div>
+<div class="function">
+<h3 id="node_ping_raw/1">node_ping_raw(NodePing) -&gt; Raw</h3>
+
+<ul class="type">
+<li><code>NodePing = node_ping()</code></li><li><code>Raw = undefined | evt_raw()</code></li></ul>
+<div class="description">
+
+<p>Get the raw event in a <a href="#type-node_ping" class="seealso">node_ping()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="node_pong_evt/1">node_pong_evt(NodePong) -&gt; Evt</h3>
+
+<ul class="type">
+<li><code>NodePong = node_pong()</code></li><li><code>Evt = undefined | evt() | evt_err()</code></li></ul>
+<div class="description">
+
+<p>Get the <code>evt</code> value of a <a href="#type-node_pong" class="seealso">node_pong()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="node_pong_nodes/1">node_pong_nodes(NodePong) -&gt; Nodes</h3>
+
+<ul class="type">
+<li><code>NodePong = node_pong()</code></li><li><code>Nodes = undefined | cnodes() (see module hc_node)</code></li></ul>
+<div class="description">
+
+<p>Get the <code>nodes</code> value of a <a href="#type-node_pong" class="seealso">node_pong()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="node_reply_val/1">node_reply_val(NodeReply) -&gt; Val</h3>
+
+<ul class="type">
+<li><code>NodeReply = node_reply()</code></li><li><code>Val = term()</code></li></ul>
+<div class="description">
+
+<p>Get the <code>val</code> value of a <a href="#type-node_reply" class="seealso">node_reply()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="truncate_evts/1">truncate_evts(Evts) -&gt; Evts1</h3>
+
+<ul class="type">
+<li><code>Evts = [evt() | evt_err()]</code></li><li><code>Evts1 = [evt() | evt_err()]</code></li></ul>
+<div class="description">
+
+<p>Shorten an events list according to app var <code>evts_history_len</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_evt/1">is_evt(EvtOrErr) -&gt; IsEvt</h3>
+
+<ul class="type">
+<li><code>EvtOrErr = evt() | evt_err()</code></li><li><code>IsEvt = boolean()</code></li></ul>
+<div class="description">
+
+<p>Check if something is either an evt or an evt_err.</p>
+</div></div>
+<div class="function">
+<h3 id="is_node_pong/1">is_node_pong(NodeCom) -&gt; IsNodePong</h3>
+
+<ul class="type">
+<li><code>NodeCom = node_pong() | node_reply()</code></li><li><code>IsNodePong = boolean()</code></li></ul>
+<div class="description">
+
+<p>Check if something is either a node_pong or node_reply.</p>
+</div></div></div>
+
+<authors>
+
+<aname>nollieheel</aname>
+<email>iskitingbords@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

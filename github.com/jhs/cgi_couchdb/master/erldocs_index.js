@@ -1,0 +1,1 @@
+var index = [['app','cgi_couchdb','cgi_couchdb','[application]'],['mod','cgi_couchdb','cgi_couchdb_app',[]],['mod','cgi_couchdb','cgi_couchdb_sup',[]],['fun','cgi_couchdb','cgi_couchdb_app:start/2',[]],['fun','cgi_couchdb','cgi_couchdb_app:stop/1',[]],['fun','cgi_couchdb','cgi_couchdb_sup:init/1',[]],['fun','cgi_couchdb','cgi_couchdb_sup:start_link/0',[]]];

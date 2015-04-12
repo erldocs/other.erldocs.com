@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>prim_file (kernel) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>prim_file</h1>
+<h2 class="modsummary">		  
+The bridge between 9p layer and file server.</h2>
+<div class="description">
+<p>		  
+The bridge between 9p layer and file server. The module translates file		  
+operations into 9p requests handling multiple 9p mounts. The module		  
+interface is the same as prim_file module of Erlang/OTP. The		  
+implementation is completely different.</p>
+  
+  		The Port parameter passed to some API functions is always ignored.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-at">at() = integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {bof, Offset :: integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {cur, Offset :: integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {eof, Offset :: integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bof<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| cur<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| eof</h3></div>
+    <div class="type"><h3 id="type-file_info_option">file_info_option() = {time, local}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {time, universal}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {time, posix}</h3></div>
+    <div class="type"><h3 id="type-mode">mode() = read<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| write<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| append<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| exclusive<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {delayed_write, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| delayed_write<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {read_ahead, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| read_ahead<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| compressed</h3></div>
+    <div class="type"><h3 id="type-name">name() = list() | binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open/1">open(File::name(), Modes::[mode()]) -&gt; {ok, #file_descriptor{module=undefined | module(), data=undefined | term()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Opens a file.</p>
+ 
+  <p>Modes delayed_write, read_ahead, and compressed are ignored.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(Port::term(), File::name(), ModeList::[mode()]) -&gt; {ok, #file_descriptor{module=undefined | module(), data=undefined | term()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Opens a file. Port is ignored.</p>
+<p><em>See also:</em> <a href="#open/2" class="seealso">open/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-2">open(PortOpts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Opens a port for subsequent API calls. Noop.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Closes a file descriptor.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}, N::integer()) -&gt; {ok, binary() | list()} | eof | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads maximum of N bytes from the file descriptor.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}, Data::binary()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Write data to the file descriptor.</p>
+</div></div>
+<div class="function">
+<h3 id="read_file/1">read_file(Port::term(), File::name()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads entire contents of a named file.</p>
+<p><em>See also:</em> <a href="#read_file/1" class="seealso">read_file/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_file/1-1">read_file(File::name()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads entire contents of a named file.</p>
+</div></div>
+<div class="function">
+<h3 id="write_file/1">write_file(File::name(), Data::binary()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Replaces contents of the named file with Data.</p>
+</div></div>
+<div class="function">
+<h3 id="get_cwd/0">get_cwd() -&gt; {ok, string()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves the current working directory.</p>
+</div></div>
+<div class="function">
+<h3 id="get_cwd/1">get_cwd(X1::string()) -&gt; {ok, string()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves the current working directory.</p>
+<p><em>See also:</em> <a href="#get_cwd/0" class="seealso">get_cwd/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_cwd/1-1">get_cwd(X1::term(), X2::string()) -&gt; {ok, string()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves the current working directory.</p>
+<p><em>See also:</em> <a href="#get_cwd/0" class="seealso">get_cwd/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_cwd/1">set_cwd(X1::term(), Dir::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Sets the current working directory.</p>
+<p><em>See also:</em> <a href="#set_cwd/1" class="seealso">set_cwd/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_cwd/1-1">set_cwd(Dir::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Sets the current working directory.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Port::term(), File::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Attempts to delete the named file.</p>
+<p><em>See also:</em> <a href="#delete/1" class="seealso">delete/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(File::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Attempts to delete the named file.</p>
+</div></div>
+<div class="function">
+<h3 id="make_dir/1">make_dir(Port::term(), Dir::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Creates a named directory.</p>
+<p><em>See also:</em> <a href="#make_dir/1" class="seealso">make_dir/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_dir/1-1">make_dir(Dir::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Creates a named directory.</p>
+</div></div>
+<div class="function">
+<h3 id="del_dir/1">del_dir(Port::term(), Dir::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Attempts to remove the named directory.</p>
+<p><em>See also:</em> <a href="#del_dir/1" class="seealso">del_dir/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="del_dir/1-1">del_dir(Dir::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Attempts to remove the named directory.</p>
+</div></div>
+<div class="function">
+<h3 id="altname/1">altname(X1::term(), Dir::name()) -&gt; {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Arcane name mangling. Unsupported.</p>
+<p><em>See also:</em> <a href="#altname/1" class="seealso">altname/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="altname/1-1">altname(Dir::name()) -&gt; {error, enotsup}</h3>
+
+
+<div class="description">
+
+<p>Arcane name mangling. Unsupported.</p>
+</div></div>
+<div class="function">
+<h3 id="list_dir/1">list_dir(X1::term(), Dir::name()) -&gt; {ok, [string()]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Gets the listing of the directory.</p>
+<p><em>See also:</em> <a href="#list_dir/1" class="seealso">list_dir/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="list_dir/1-1">list_dir(Dir::name()) -&gt; {ok, [string()]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Gets the listing of the directory.</p>
+</div></div>
+<div class="function">
+<h3 id="read_link_info/1">read_link_info(File::name()) -&gt; {ok, #file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a file info NOT following symlinks.</p>
+<p><em>See also:</em> <a href="#read_link_info/3" class="seealso">read_link_info/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_link_info/1-1">read_link_info(Port::term(), File::name()) -&gt; {ok, #file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a file info NOT following symlinks.</p>
+<p><em>See also:</em> <a href="#read_link_info/3" class="seealso">read_link_info/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_link_info/1-2">read_link_info(Port::term(), File::name(), X3::[file_info_option()]) -&gt; {ok, #file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a file info NOT following symlinks.</p>
+<p><em>See also:</em> <a href="#read_link_info/3" class="seealso">read_link_info/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_file_info/1">read_file_info(File::name()) -&gt; {ok, #file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}} | {errorm_}</h3>
+
+
+<div class="description">
+
+<p>Reads a file info following symlinks.</p>
+<p><em>See also:</em> <a href="#read_file_info/3" class="seealso">read_file_info/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_file_info/1-1">read_file_info(Port::term(), File::name()) -&gt; {ok, #file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a file info following symlinks.</p>
+<p><em>See also:</em> <a href="#read_file_info/3" class="seealso">read_file_info/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_file_info/1-2">read_file_info(Port::term(), File::name(), X3::[file_info_option()]) -&gt; {ok, #file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a file info following symlinks.</p>
+</div></div>
+<div class="function">
+<h3 id="write_file_info/1">write_file_info(File::name(), File_info::#file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Update the file information of the named file.</p>
+<p><em>See also:</em> <a href="#write_file_info/4" class="seealso">write_file_info/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write_file_info/1-1">write_file_info(Port::term(), File::name(), File_info::#file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Update the file information of the named file.</p>
+<p><em>See also:</em> <a href="#write_file_info/4" class="seealso">write_file_info/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write_file_info/1-2">write_file_info(Port::term(), File::name(), File_info::#file_info{size=undefined | non_neg_integer(), type=undefined | device | directory | other | regular | symlink, access=undefined | read | write | read_write | none, atime=undefined | date_time() (see module file) | integer(), mtime=undefined | date_time() (see module file) | integer(), ctime=undefined | date_time() (see module file) | integer(), mode=undefined | integer(), links=undefined | non_neg_integer(), major_device=undefined | integer(), minor_device=undefined | integer(), inode=undefined | integer(), uid=undefined | integer(), gid=undefined | integer()}, X4::[file_info_option()]) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Update the file information of the named file.</p>
+</div></div>
+<div class="function">
+<h3 id="rename/1">rename(Port::term(), Src::name(), Dst::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Renames/moves a filesystem object.</p>
+<p><em>See also:</em> <a href="#rename/2" class="seealso">rename/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="rename/1-1">rename(Src::name(), Dst::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Renames/moves a filesystem object.</p>
+<p><em>See also:</em> <a href="#rename/2" class="seealso">rename/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_link/1">make_link(Port::term(), Existing::name(), New::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Creates a hard link.</p>
+<p><em>See also:</em> <a href="#make_link/2" class="seealso">make_link/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_link/1-1">make_link(Src::name(), Dst::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Creates a hard link.</p>
+</div></div>
+<div class="function">
+<h3 id="make_symlink/1">make_symlink(Port::term(), Target::name(), File::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Creates a symbolink link.</p>
+<p><em>See also:</em> <a href="#make_symlink/2" class="seealso">make_symlink/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_symlink/1-1">make_symlink(Target::name(), File::name()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Creates a symbolink link.</p>
+</div></div>
+<div class="function">
+<h3 id="read_link/1">read_link(Port::term(), File::name()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Resolves a symbolic link.</p>
+<p><em>See also:</em> <a href="#read_link/1" class="seealso">read_link/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_link/1-1">read_link(File::name()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Resolves a symbolic link.</p>
+</div></div>
+<div class="function">
+<h3 id="position/1">position(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}, At::at()) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Moves the current position of the file descriptor.</p>
+</div></div>
+<div class="function">
+<h3 id="truncate/1">truncate(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Truncates the file at the current position.</p>
+</div></div>
+<div class="function">
+<h3 id="sendfile/10">sendfile(Fd, Sock, Offs, Bytes, ChunkSz, X6, X7, X8, X9, X10) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sync/1">sync(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Sync.</p>
+</div></div>
+<div class="function">
+<h3 id="datasync/1">datasync(File_descriptor::#file_descriptor{module=undefined | module(), data=undefined | term()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Data sync.</p>
+</div></div>
+<div class="function">
+<h3 id="advise/1">advise(File_descriptor::term(), X2::term(), X3::term(), Advise::term()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Advise.</p>
+</div></div>
+<div class="function">
+<h3 id="pwrite/2">pwrite(File_descriptor, LocBytes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pwrite/3">pwrite(File_descriptor, At, Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pread/2">pread(File_descriptor, LocNums) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pread/3">pread(File_descriptor, At, N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="copy/3">copy(File_descriptor, X2, Length) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read_line/1">read_line(File_descriptor) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ipread_s32bu_p32bu/3">ipread_s32bu_p32bu(File, Pos, Infinity) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Port) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Maxim Kharchenko</aname>
+<email>mk@cloudozer.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','simhash','simhash','[application]'],['mod','simhash','simhash',[]],['fun','simhash','simhash:closest/1',[]],['fun','simhash','simhash:distance/1',[]],['fun','simhash','simhash:hash/1',[]]];

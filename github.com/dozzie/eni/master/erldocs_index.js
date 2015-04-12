@@ -1,0 +1,1 @@
+var index = [['app','eni','eni','[application]'],['mod','eni','eni','     INI-like config loader.'],['fun','eni','eni:file/1','Load configuration from file.'],['fun','eni','eni:string/1','Load configuration from string.']];

@@ -1,0 +1,1 @@
+var index = [['app','spu','spu','[application]'],['mod','spu','spu0_compiler','     SPU0 compiler.'],['fun','spu','spu0_compiler:compile/1','    Compiles a .spu0 file.'],['fun','spu','spu0_compiler:compile/1','    Compiles a .spu0 file.']];

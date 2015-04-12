@@ -1,0 +1,1 @@
+var index = [['app','lager_syslog','lager_syslog','[application]'],['mod','lager_syslog','lager_syslog_backend','Syslog backend for lager.'],['fun','lager_syslog','lager_syslog_backend:config_to_id/1',[]]];

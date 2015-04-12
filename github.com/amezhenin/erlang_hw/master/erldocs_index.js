@@ -1,0 +1,1 @@
+var index = [['app','erlang_hw','erlang_hw','[application]'],['mod','erlang_hw','word_count',[]],['mod','erlang_hw','yet_again',[]],['fun','erlang_hw','word_count:charcount/1',[]],['fun','erlang_hw','word_count:wordcount/1',[]],['fun','erlang_hw','yet_again:another_factorial/1',[]],['fun','erlang_hw','yet_again:another_fib/1',[]]];

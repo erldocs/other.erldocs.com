@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erbi_connection (erbi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erbi_connection</h1>
+<h2 class="modsummary">
+  Functions for manipulating erbi connection state, and db convenience functions.</h2>
+<div class="description">
+<p>
+  Functions for manipulating erbi connection state, and db convenience functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-erbi_bind_value">erbi_bind_value() = <a href="#type-erbi_bind_value_typed" class="seealso">erbi_bind_value_typed()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-erbi_bind_value_untyped" class="seealso">erbi_bind_value_untyped()</a></h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value">erbi_bind_value() = <a href="#type-erbi_bind_value_typed" class="seealso">erbi_bind_value_typed()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-erbi_bind_value_untyped" class="seealso">erbi_bind_value_untyped()</a></h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_named">erbi_bind_value_named() = <a href="#type-erbi_bind_value_named_typed" class="seealso">erbi_bind_value_named_typed()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-erbi_bind_value_named_untyped" class="seealso">erbi_bind_value_named_untyped()</a></h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_named">erbi_bind_value_named() = <a href="#type-erbi_bind_value_named_typed" class="seealso">erbi_bind_value_named_typed()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-erbi_bind_value_named_untyped" class="seealso">erbi_bind_value_named_untyped()</a></h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_named_typed">erbi_bind_value_named_typed() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-erbi_identifier" class="seealso">erbi_identifier()</a>, <a href="#type-erbi_value_type" class="seealso">erbi_value_type()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_named_typed">erbi_bind_value_named_typed() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-erbi_identifier" class="seealso">erbi_identifier()</a>, <a href="#type-erbi_value_type" class="seealso">erbi_value_type()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_named_untyped">erbi_bind_value_named_untyped() = {<a href="#type-erbi_identifier" class="seealso">erbi_identifier()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_named_untyped">erbi_bind_value_named_untyped() = {<a href="#type-erbi_identifier" class="seealso">erbi_identifier()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_typed">erbi_bind_value_typed() = {<a href="#type-erbi_value_type" class="seealso">erbi_value_type()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_typed">erbi_bind_value_typed() = {<a href="#type-erbi_value_type" class="seealso">erbi_value_type()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_untyped">erbi_bind_value_untyped() = any()</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_value_untyped">erbi_bind_value_untyped() = any()</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_values">erbi_bind_values() = [<a href="#type-erbi_bind_value" class="seealso">erbi_bind_value()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-erbi_bind_value_named" class="seealso">erbi_bind_value_named()</a>]</h3></div>
+    <div class="type"><h3 id="type-erbi_bind_values">erbi_bind_values() = [<a href="#type-erbi_bind_value" class="seealso">erbi_bind_value()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-erbi_bind_value_named" class="seealso">erbi_bind_value_named()</a>]</h3></div>
+    <div class="type"><h3 id="type-erbi_connection">erbi_connection() = {erbi_connection, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_connection">erbi_connection() = {erbi_connection, any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_identifier">erbi_identifier() = atom() | string() | binary()</h3></div>
+    <div class="type"><h3 id="type-erbi_identifier">erbi_identifier() = atom() | string() | binary()</h3></div>
+    <div class="type"><h3 id="type-erbi_row_count">erbi_row_count() = unknown | integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-erbi_row_count">erbi_row_count() = unknown | integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-erbi_statement">erbi_statement() = {erbi_statement, any(), any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_statement">erbi_statement() = {erbi_statement, any(), any()}</h3></div>
+    <div class="type"><h3 id="type-erbi_value_type">erbi_value_type() = atom()</h3></div>
+    <div class="type"><h3 id="type-erbi_value_type">erbi_value_type() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="prepare/1">prepare(Connection::erbi_connection(), Query::any()) -&gt; {ok, erbi_statement()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Prepare query/statement for execution.</p>
+ 
+  <p>Parses statement and returns a handle which can be used to execute and retrieve rows.</p>
+</div></div>
+<div class="function">
+<h3 id="prepare_cached/1">prepare_cached(Connection::erbi_connection(), Query::any()) -&gt; {ok, erbi_statement()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Prepare with cacheing.</p>
+ 
+  <p>This function is the same as prepare/2 except if the statement has been previously
+  prepared on this connection, a cached statement handle may be returned.</p>
+</div></div>
+<div class="function">
+<h3 id="do/1">do(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, erbi_row_count()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute statement which does not return data.</p>
+ 
+  <p>Returns count of records affected.</p>
+</div></div>
+<div class="function">
+<h3 id="do/1-1">do(Connection::erbi_connection(), Query::any()) -&gt; {ok, erbi_row_count()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>
+ 
+  Same as do(Connection,Query,[])</p>
+</div></div>
+<div class="function">
+<h3 id="selectall_list/1">selectall_list(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, [[any()]]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute query with bind values and return all records as lists.</p>
+ 
+  <p>Results are returned as a list of lists.  Each list contains the values,
+  in order for that row. This is a convenience method, equivalent to:
+  </p><pre class="sh_erlang">
+  Stmt = Connection:prepare( Query ),
+  Result = Stmt:fetchall_list( BindValues ),
+  Stmt:finish(),
+  Result
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="selectall_list/1-1">selectall_list(Connection::erbi_connection(), Query::any()) -&gt; {ok, [[any()]]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute and return lists.</p>
+ 
+  <p>See selectall_list/3 for details.</p>
+</div></div>
+<div class="function">
+<h3 id="selectall_proplist/1">selectall_proplist(Connection::erbi_connection(), Query::any()) -&gt; {ok, [[{atom(), any()}]]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute and return proplists.</p>
+ 
+  <p>See selectall_proplist/3.</p>
+</div></div>
+<div class="function">
+<h3 id="selectall_proplist/1-1">selectall_proplist(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, [[{atom(), any()}]]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute query with bind values and return all records as proplists.</p>
+ 
+  <p>Each returned record is a proplist; otherwise same as selectall_list/3.</p>
+</div></div>
+<div class="function">
+<h3 id="selectall_dict/1">selectall_dict(Connection::erbi_connection(), Query::any()) -&gt; {ok, [dict()]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute and return dicts</p>
+ 
+  <p>See selectall_dict/3.</p>
+</div></div>
+<div class="function">
+<h3 id="selectall_dict/1-1">selectall_dict(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, [dict()]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute query with bind values and return all records as dicts.</p>
+ 
+  <p>Each record is returned as a dictionary created by the standard "dict" module.
+  See selectall_list/3 for more information.</p>
+</div></div>
+<div class="function">
+<h3 id="selectrow_list/1">selectrow_list(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, [any()]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Execute Query and return one record.
+  Query is closed and remaining data discarded.
+    Connection
+    Query   - Query to execute
+    BindValues  - [Optional] parameters.</p>
+</div></div>
+<div class="function">
+<h3 id="selectrow_list/1-1">selectrow_list(Connection::erbi_connection(), Query::any()) -&gt; {ok, [any()]} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="selectrow_proplist/1">selectrow_proplist(Connection::erbi_connection(), Query::any()) -&gt; {ok, [{atom(), any()}]} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="selectrow_proplist/1-1">selectrow_proplist(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, [{atom(), any()}]} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="selectrow_dict/1">selectrow_dict(Connection::erbi_connection(), Query::any()) -&gt; {ok, dict()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="selectrow_dict/1-1">selectrow_dict(Connection::erbi_connection(), Query::any(), BindValues::erbi_bind_values()) -&gt; {ok, dict()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="begin_work/1">begin_work(Connection::erbi_connection()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Begins a transaction, or adds a save-point.
+    Connection
+    SavePoint  - [optional] name of Save-point</p>
+</div></div>
+<div class="function">
+<h3 id="begin_work/1-1">begin_work(Connection::erbi_connection(), SavePoint::erbi_identifier()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit/1">commit(Connection::erbi_connection()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Completes the current transaction; all changes are written to the database.
+    Connection</p>
+</div></div>
+<div class="function">
+<h3 id="rollback/1">rollback(Connection::erbi_connection()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Undoes all changes made during the transaction.
+  If savepoint is given, undoes changes after that savepoint.
+    Connection
+    SavePoint  - [optional]</p>
+</div></div>
+<div class="function">
+<h3 id="rollback/1-1">rollback(Connection::erbi_connection(), SavePoint::erbi_identifier()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="disconnect/1">disconnect(Connection::erbi_connection()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Close database connection</p>
+</div></div>
+<div class="function">
+<h3 id="driver_call/1">driver_call(Connection::erbi_connection(), Function::atom(), Args::[any()]) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Call arbitrary driver function</p>
+ 
+  <p>This function calls an arbitrary function in the driver module.
+  Similar to <a href="erbi.html#call_driver/3" class="seealso">erbi:call_driver/3</a> and <url href="/home/pete/wefwefwef/docs/other/7500265361/repo/driver_reset/.xml/erbi/./erbi_statement.xml#call_driver-3">erbi_statement:call_driver/3</url>,  
+this version prepends the driver's connection object to the argument list you supply,  
+and allows the driver to update its state information.</p>
+ 
+  <p>See the documentation for your driver for what functions are available
+  and how to use them.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

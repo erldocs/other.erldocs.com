@@ -1,0 +1,1 @@
+var index = [['app','hodor','hodor','[application]'],['mod','hodor','logstasherl_app',[]],['mod','hodor','logstasherl_sup',[]],['fun','hodor','logstasherl_app:start/2',[]],['fun','hodor','logstasherl_app:stop/1',[]],['fun','hodor','logstasherl_sup:init/1',[]],['fun','hodor','logstasherl_sup:start_link/0',[]]];

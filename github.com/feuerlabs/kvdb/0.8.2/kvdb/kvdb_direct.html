@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>kvdb_direct (kvdb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>kvdb_direct</h1>
+<h2 class="modsummary">   
+Key-value database frontend.</h2>
+<div class="description">
+<p>   
+Key-value database frontend</p>
+  
+   <p>Kvdb is a key-value database library, supporting different backends   
+(currently: sqlite3 and leveldb), and a number of different table types.</p>
+  
+   <p>Feature overview:</p>
+  
+   <p>- Multiple logical tables per database</p>
+  
+   <p>- Persistent ordered-set semantics</p>
+  
+   <p>- <code>{Key, Value}</code> or <code>{Key, Attributes, Value}</code> structure (per-table)</p>
+  
+   <p>- Table types: set (normal) or queue (FIFO, LIFO or keyed FIFO or LIFO)</p>
+  
+   <p>- Attributes can be indexed</p>
+  
+   <p>- Schema-based validation (per-database) with update triggers</p>
+  
+   <p>- Prefix matching</p>
+  
+   <p>- ETS-style select() operations</p>
+  
+   - Configurable encoding schemes (raw, sext or term_to_binary)
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-attr_name">attr_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-attr_value">attr_value() = any()</h3></div>
+    <div class="type"><h3 id="type-attrs">attrs() = [{atom(), any()}]</h3></div>
+    <div class="type"><h3 id="type-db_ref">db_ref() = #kvdb_ref{}</h3></div>
+    <div class="type"><h3 id="type-increment">increment() = integer()</h3></div>
+    <div class="type"><h3 id="type-key">key() = any()</h3></div>
+    <div class="type"><h3 id="type-object">object() = {<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>} | {<a href="#type-key" class="seealso">key()</a>, <a href="#type-attrs" class="seealso">attrs()</a>, <a href="#type-value" class="seealso">value()</a>}</h3></div>
+    <div class="type"><h3 id="type-queue_name">queue_name() = any()</h3></div>
+    <div class="type"><h3 id="type-status">status() = active | inactive | blocking</h3></div>
+    <div class="type"><h3 id="type-table">table() = atom() | binary()</h3></div>
+    <div class="type"><h3 id="type-value">value() = any()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="info/1">info(Kvdb_ref::db_ref(), Item0::attr_name()) -&gt; undefined | attr_value()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dump_tables/1">dump_tables(Kvdb_ref::db_ref()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent to <a href="#dump_tables/1" class="seealso">dump_tables/1</a></p>
+</div></div>
+<div class="function">
+<h3 id="add_table/3">add_table(Kvdb_ref, Table0, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent to <a href="#add_table/3" class="seealso">add_table/3</a></p>
+</div></div>
+<div class="function">
+<h3 id="delete_table/1">delete_table(Db::db_ref(), Table::table()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>low-level equivalent to <a href="#delete_table/2" class="seealso">delete_table/2</a></p>
+</div></div>
+<div class="function">
+<h3 id="list_tables/1">list_tables(Kvdb_ref::db_ref()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Lists the tables defined in the database</p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(Db::db_ref(), Table::table(), Obj::object()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent to <a href="#put/3" class="seealso">put/3</a></p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Db::db_ref(), Table::table(), Key::any()) -&gt; {ok, object()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent of <a href="#get/3" class="seealso">get/3</a></p>
+</div></div>
+<div class="function">
+<h3 id="get_attrs/4">get_attrs(Kvdb_ref, Table0, Key, As) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="index_get/1">index_get(Kvdb_ref::db_ref(), Table0::table(), _IxName::any(), _IxVal::any()) -&gt; [object()] | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent of <a href="#index_get/4" class="seealso">index_get/4</a></p>
+</div></div>
+<div class="function">
+<h3 id="index_keys/4">index_keys(Kvdb_ref, Table0, IxName, IxVal) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent of <a href="#index_keys/4" class="seealso">index_keys/4</a></p>
+</div></div>
+<div class="function">
+<h3 id="update_counter/1">update_counter(Db::db_ref(), Table::table(), Key::binary(), Incr::increment()) -&gt; integer() | binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="push/1">push(Db::db_ref(), Table::table(), Obj::object()) -&gt; {ok, ActualKey::any()} | {error, any()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#push/4" class="seealso">push(Db, Table, &lt;&lt;&gt;&gt;, Obj)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="push/1-1">push(Db::db_ref(), Table::table(), Q::any(), Obj::object()) -&gt; {ok, ActualKey::any()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent of <a href="#push/4" class="seealso">push/4</a></p>
+</div></div>
+<div class="function">
+<h3 id="pop/1">pop(Db::db_ref(), Table::table()) -&gt; {ok, object()} | done | {error, any()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#pop/3" class="seealso">pop(Db, Table, &lt;&lt;&gt;&gt;)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop/1-1">pop(Db::db_ref(), Table::table(), Q::queue_name()) -&gt; {ok, object()} | done | blocked | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Low-level equivalent of <a href="#pop/3" class="seealso">pop/3</a></p>
+</div></div>
+<div class="function">
+<h3 id="prel_pop/1">prel_pop(Db::db_ref(), Table::table()) -&gt; {ok, object(), binary()} | done | blocked | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prel_pop/1-1">prel_pop(Db::db_ref(), Table::table(), Q::queue_name()) -&gt; {ok, object(), binary()} | done | blocked | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract/2">extract(Kvdb_ref::#kvdb_ref{}, Table::table(), Key::#q_key{}) -&gt; {ok, object()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mark_queue_object/2">mark_queue_object(Kvdb_ref::#kvdb_ref{}, Table::table(), Key::#q_key{}, St::active | blocking | inactive) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_queue/2">list_queue(Kvdb_ref::#kvdb_ref{}, Table::table(), Q::queue_name()) -&gt; [object()] | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_queue/2-1">list_queue(Kvdb_ref::#kvdb_ref{}, Table::table(), Q::queue_name(), _Fltr::(active | inactive | blocking, #q_key{}, tuple()) -&gt; keep | keep_raw | skip | stop | {keep, tuple()}, _HeedBlock::boolean(), _Limit::integer() | infinity) -&gt; [object()] | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_queue_empty/2">is_queue_empty(Kvdb_ref::#kvdb_ref{}, Table0::table(), _Q::queue_name()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="first_queue/2">first_queue(Kvdb_ref::#kvdb_ref{}, Table0::table()) -&gt; {ok, queue_name()} | done</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next_queue/2">next_queue(Kvdb_ref::#kvdb_ref{}, Table0::table(), _Q::queue_name()) -&gt; {ok, any()} | done</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_insert/2">queue_insert(Kvdb_ref::#kvdb_ref{}, Table0::table(), Q_key::#q_key{}, St::status(), Obj::object()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_delete/2">queue_delete(Kvdb_ref::#kvdb_ref{}, Table0::table(), Q_key::#q_key{}) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_read/2">queue_read(Kvdb_ref::#kvdb_ref{}, Table0::table(), Q_key::#q_key{}) -&gt; {ok, status(), object()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1">delete(Db::db_ref(), Table::table(), Key::binary()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="first/1">first(Db::db_ref(), Table::table()) -&gt; {ok, Key::binary()} | {ok, Key::binary(), Value::binary()} | done</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="last/1">last(Db::db_ref(), Table::table()) -&gt; {ok, Key::binary()} | {ok, Key::binary(), Value::binary()} | done</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next/1">next(Db::db_ref(), Table::table(), FromKey::binary()) -&gt; {ok, Key::binary()} | {ok, Key::binary(), Value::binary()} | done</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prev/1">prev(Db::db_ref(), Table::table(), FromKey::binary()) -&gt; {ok, Key::binary()} | {ok, Key::binary(), Value::binary()} | done</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prefix_match/4">prefix_match(Kvdb_ref, Table0, Prefix, Limit) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prefix_match_rel/5">prefix_match_rel(Kvdb_ref, Table0, Prefix, Start, Limit) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/4">select(Kvdb_ref, Table0, MatchSpec, Limit) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Ulf Wiger</aname>
+<email>ulf@feuerlabs.com</email>
+<aname>Tony Rogvall</aname>
+<email>tony@rogvall.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

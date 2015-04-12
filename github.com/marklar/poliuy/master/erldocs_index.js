@@ -1,0 +1,1 @@
+var index = [['app','poliuy','poliuy','[application]'],['mod','poliuy','split_ints',[]],['mod','poliuy','sum0',[]],['mod','poliuy','zero_sum',[]],['fun','poliuy','split_ints:pos_neg_ints/1',[]],['fun','poliuy','sum0:has_zero_sum/1',[]],['fun','poliuy','sum0:start/0',[]],['fun','poliuy','zero_sum:has_zero_sum/1',[]],['fun','poliuy','zero_sum:start/0',[]]];

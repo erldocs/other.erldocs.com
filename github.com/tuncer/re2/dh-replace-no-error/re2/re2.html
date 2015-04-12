@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>re2 (re2) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>re2</h1>
+<h2 class="modsummary">Erlang NIF bindings for the
+  re2 regex library.</h2>
+<div class="description">
+<p>Erlang NIF bindings for the
+  <a href="../https///code.google.html#com/p/re2/" class="seealso">re2</a> regex library</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-compile_error">compile_error() = {error, {atom(), string(), string()}}</h3></div>
+    <div class="type"><h3 id="type-compile_option">compile_option() = caseless | {max_mem, integer() &gt;= 0}</h3></div>
+    <div class="type"><h3 id="type-compile_result">compile_result() = {ok, <a href="#type-compiled_regex" class="seealso">compiled_regex()</a>} | <a href="#type-compile_error" class="seealso">compile_error()</a></h3></div>
+    <div class="type"><h3 id="type-compiled_regex">compiled_regex() = any()</h3></div>
+    <div class="type"><h3 id="type-match_option">match_option() = caseless<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {offset, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {capture, <a href="#type-value_spec" class="seealso">value_spec()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {capture, <a href="#type-value_spec" class="seealso">value_spec()</a>, <a href="#type-value_spec_type" class="seealso">value_spec_type()</a>}</h3></div>
+    <div class="type"><h3 id="type-match_result">match_result() = match<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| nomatch<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {match, list()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, atom()}</h3></div>
+    <div class="type"><h3 id="type-regex">regex() = <a href="#type-uncompiled_regex" class="seealso">uncompiled_regex()</a> | <a href="#type-compiled_regex" class="seealso">compiled_regex()</a></h3></div>
+    <div class="type"><h3 id="type-replace_option">replace_option() = global</h3></div>
+    <div class="type"><h3 id="type-replace_result">replace_result() = binary() | {error, atom()}</h3></div>
+    <div class="type"><h3 id="type-replacement">replacement() = iodata()</h3></div>
+    <div class="type"><h3 id="type-subject">subject() = iodata()</h3></div>
+    <div class="type"><h3 id="type-uncompiled_regex">uncompiled_regex() = iodata()</h3></div>
+    <div class="type"><h3 id="type-value_id">value_id() = integer() &gt;= 0 | string() | atom()</h3></div>
+    <div class="type"><h3 id="type-value_spec">value_spec() = all<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| all_but_first<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| first<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| none<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-value_id" class="seealso">value_id()</a>]</h3></div>
+    <div class="type"><h3 id="type-value_spec_type">value_spec_type() = index | binary</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="compile/1">compile(X1::uncompiled_regex()) -&gt; compile_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compile/1-1">compile(X1::uncompiled_regex(), X2::[compile_option()]) -&gt; compile_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match/1">match(X1::subject(), X2::regex()) -&gt; match_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match/1-1">match(X1::subject(), X2::regex(), X3::[match_option()]) -&gt; match_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="replace/1">replace(X1::subject(), X2::regex(), X3::replacement()) -&gt; replace_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="replace/1-1">replace(X1::subject(), X2::regex(), X3::replacement(), X4::[replace_option()]) -&gt; replace_result()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

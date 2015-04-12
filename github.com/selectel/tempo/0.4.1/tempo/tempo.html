@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>tempo (tempo) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>tempo</h1>
+<h2 class="modsummary">NIF-based date and time parsing and formatting for Erlang.</h2>
+<div class="description">
+<p>NIF-based date and time parsing and formatting for Erlang.   
+This module implements an interface to strptime/strftime with   
+appropriate handling of Erlang datetime formats.</p>
+  
+   <p>All exported functions in this module can throw <code>badarg</code> if   
+malformed input is provided.</p>
+  
+   <p>A <em>Type</em> argument, accepted by some of the exported functions   
+should be one of the following:</p>
+  
+   <pre class="sh_erlang">   | Type     | Description                                        |
+   |----------+----------------------------------------------------|
+   | unix     | UNIX timestamp, a positive integer denoting number |
+   |          | of seconds since 1 Jan 1970.                       |
+   | now      | @see erlang:now/0                                  |
+   | datetime | @see calendar:datetime/0                           |</pre>
+  
+   <p>A <em>Format</em> argument to any of the exported functions is
+   either a <code>binary()</code> with strptime/strftime compatible tokens or   
+one of the following atoms: iso8601, rfc1123, rfc2822. In the latter   
+case a predefined format will be used.</p>
+  
+   <p>*A note about 32-bit systems*</p>
+  
+   Functions of "format" family can return "{error, time_overflow}" if
+   the underlying 32-bit value overflows. This is presumably possible only
+   on 32-bit systems. Minimum datetime for such systems is
+   <code>{{1901,12,13},{20,45,52}}</code> and maximum is <code>{{2038,1,19},{3,14,7}}</code>.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-datetime_type">datetime_type() = unix | now | datetime</h3></div>
+    <div class="type"><h3 id="type-datetime_value">datetime_value() = <a href="#type-unix_timestamp" class="seealso">unix_timestamp()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="calendar.html#type-datetime" class="seealso">calendar:datetime()</a></h3></div>
+    <div class="type"><h3 id="type-format">format() = binary() | iso8601 | rfc1123 | rfc2822</h3></div>
+    <div class="type"><h3 id="type-unix_timestamp">unix_timestamp() = float()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse/1">parse(Format::format(), X2::{datetime_type(), binary()}) -&gt; {ok, datetime_value()} | {error, format_mismatch}</h3>
+
+
+<div class="description">
+
+<p>Parses {Type, Binary} tuple according to provided format, returns
+       ok/error tuples with datetime in format that depends on atom Type.</p>
+</div></div>
+<div class="function">
+<h3 id="parse/1-1">parse(Format::format(), Bin::binary(), Type::datetime_type()) -&gt; {ok, datetime_value()} | {error, format_mismatch}</h3>
+
+
+<div class="description">
+
+<p>Parses Binary according to Format and returns ok/error tuple with
+       datetime in format that depends on atom Type.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_unix/1">parse_unix(Format::format(), Bin::binary()) -&gt; {ok, unix_timestamp()} | {error, format_mismatch}</h3>
+
+
+<div class="description">
+
+<p>Helper function similar to <a href="#parse/3" class="seealso">parse/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_now/1">parse_now(Format::format(), Bin::binary()) -&gt; {ok, timestamp() (see module erlang)} | {error, format_mismatch}</h3>
+
+
+<div class="description">
+
+<p>Helper function similar to <a href="#parse/3" class="seealso">parse/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_datetime/1">parse_datetime(Format::format(), Bin::binary()) -&gt; {ok, datetime() (see module calendar)} | {error, format_mismatch}</h3>
+
+
+<div class="description">
+
+<p>Helper function similar to <a href="#parse/3" class="seealso">parse/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="format/1">format(Format::format(), X2::{datetime_type(), datetime_value()}) -&gt; {ok, binary()} | {error, invalid_time} | {error, time_overflow}</h3>
+
+
+<div class="description">
+
+<p>Formats {Type, Datetime} tuple according to Format. The way in which
+       Datetime will be handled depends on Type.</p>
+</div></div>
+<div class="function">
+<h3 id="format/1-1">format(Format::format(), Datetime::datetime_value(), Type::datetime_type()) -&gt; {ok, binary()} | {error, invalid_time} | {error, time_overflow}</h3>
+
+
+<div class="description">
+
+<p>Formats Datetime according to Format. The way in which
+       Datetime will be handled depends on Type.</p>
+</div></div>
+<div class="function">
+<h3 id="format_unix/1">format_unix(Format::format(), Timestamp::unix_timestamp()) -&gt; {ok, binary()} | {error, invalid_time} | {error, time_overflow}</h3>
+
+
+<div class="description">
+
+<p>Helper function similar to <a href="#format/3" class="seealso">format/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="format_now/1">format_now(Format::format(), X2::timestamp() (see module erlang)) -&gt; {ok, binary()} | {error, invalid_time} | {error, time_overflow}</h3>
+
+
+<div class="description">
+
+<p>Helper function similar to <a href="#format/3" class="seealso">format/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="format_datetime/1">format_datetime(Format::format(), Datetime::datetime() (see module calendar)) -&gt; {ok, binary()} | {error, invalid_time} | {error, time_overflow}</h3>
+
+
+<div class="description">
+
+<p>Helper function similar to <a href="#format/3" class="seealso">format/3</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Dmitry Groshev</aname>
+<email>groshev@selectel.ru</email>
+<aname>Sergey Levedev</aname>
+<email>lebedev@selectel.ru</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

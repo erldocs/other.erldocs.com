@@ -1,0 +1,1 @@
+var index = [['app','privdir','privdir','[application]'],['mod','privdir','privdir',[]],['fun','privdir','privdir:get/1',[]]];

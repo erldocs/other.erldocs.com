@@ -1,0 +1,1 @@
+var index = [['app','erlang_learning','erlang_learning','[application]'],['mod','erlang_learning','msg_ring','   练习4-2：进程环:.'],['fun','erlang_learning','msg_ring:create/1',[]],['fun','erlang_learning','msg_ring:go/0',[]],['fun','erlang_learning','msg_ring:loop/1',[]]];

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>platformer_resource_common (platformer-old) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>platformer_resource_common</h1>
+<h2 class="modsummary">Userid resource.</h2>
+<div class="description">
+<p>Userid resource.</p>
+ 
+  <p>This module contains functions used by different Webmachine-based
+  Platformer resources.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_propagation_envelope/0">new_propagation_envelope() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="valid_propagation_envelope/1">valid_propagation_envelope(ReqData::wm_reqdata(), Explain::bool(), AllowNone::bool()) -&gt; {bool(), {string(), integer(), string()}, wm_reqdata()} | {bool(), wm_reqdata()}</h3>
+
+
+<div class="description">
+
+<p>Validates a webmachine <code>#wm_reqdata()</code> term for a Platformer query:
+   Ensure that either:
+   </p><list>
+     <item><p>There is a valid X-Platformer-Memo-Token request header, AND</p></item>
+     <item><p>There is a valid X-Platformer-Memo-Priority request header</p></item>
+   </list><p>
+  OR: Neither of these headers is present.
+  Returns true|false if valid and wm_reqdata() object -- if <code>Explain</code> is
+  true, the wm_reqdata() will carry messages about missing/invalid headers, otherwise it
+  is the original object passed in.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="valid_propagation_envelope/1-1">valid_propagation_envelope(ReqData) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Same as <a href="#valid_propagation_envelope/2" class="seealso">valid_propagation_envelope/2</a>, just assumes
+  <code>true</code> for <code>Explain</code> and <code>AllowNone</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="support_preflight/1">support_preflight(AllowedHeaders::list(), ReqData::wm_reqdata()) -&gt; wm_reqdata()</h3>
+
+
+<div class="description">
+
+<p>Compares headers in a <code>#wm_reqdata()</code> term with the
+  allowed <code>AllowedHeaders</code>, and inserts a helpful message
+  in the response body.  This is specifically for use in an
+  <code>options()</code> implementation by a webmachine resource.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="postprocess_rd/1">postprocess_rd(ReqData::wm_reqdata()) -&gt; wm_reqdata()</h3>
+
+
+<div class="description">
+
+<p>Process a webmachine #wm_reqdata() term in some standard ways:
+   </p><list>
+     <item><p>Check for an <code>X-Platformer-Memo-Source</code> request header and add the specified server</p></item>
+     <item><p>Add the response header <code>Access-Control-Allow-Origin: *</code></p></item>
+   </list><p>
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Noel Bush</aname>
+<email>noel@platformer.org</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

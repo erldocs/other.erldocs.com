@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nksip_sipapp (nksip) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nksip_sipapp</h1>
+<h2 class="modsummary">SipApp callback behaviour and callbacks default implementation.</h2>
+<div class="description">
+<p>SipApp callback behaviour and callbacks default implementation.</p>
+ 
+  <p>All of the available functions you can implement in your callback module are described  
+here, along with the default implementation of each one.</p>
+ 
+  <p>Every SipApp must define a callback module, using this module's behaviour.
+  This behaviour works in a very similar way to any standard Erlang <code>gen_server</code>'s
+  callback module, but only <a href="#init/1" class="seealso">init/1</a> is mandatory.</p>
+ 
+  <p>Depending on the phase of the request processing, different functions will be called.
+  Some of these calls expect an answer from the SipApp to continue the processing,
+  and some others are called to inform the SipApp about a specific event and don't
+  expect any answer. As in <code>gen_server</code>, the current SipApp state (created in the call
+  to <code>init/1</code>) will be sent in every call, and can be updated by the SipApp  
+implementation in every function return.</p>
+ 
+  <p>Except for <code>init/1</code>, all defined functions belong
+  to one of two groups: <i>expected answer</i> functions and
+  <i>no expected answer</i> functions.</p>
+ 
+  <p>The supported return values for <i>expected answer functions</i> are:
+  </p><pre class="sh_erlang">    call_reply() ::
+        {noreply, State} | {noreply, State, Timeout} |
+        {reply, Reply, State} | {reply, Reply, State, Timeout} |
+        {stop, Reason, State} | {stop, Reason, Reply, State}
+        when State :: term(), Timeout :: infinity | non_neg_integer(), Reason :: term()</pre>
+ 
+  <p>The function is expected to return <code>State</code> as new SipApp user's state and a <code>Reply</code>,
+  whose meaning is specific to each function and it is described bellow.
+  If a <code>Timeout</code> is defined the SipApp process will receive a <code>timeout</code> message
+  after the indicated milliseconds period (you must implement <a href="#handle_info/2" class="seealso">handle_info/2</a>
+  to receive it).
+  If the function returns <code>stop</code> the SipApp will be stopped.
+  If the function does not want to return a reply just know, it must return
+  <code>{noreply, State}</code> and call <a href="nksip.html#reply/2" class="seealso">nksip:reply/2</a> later on,  
+possibly from a different spawned process.</p>
+ 
+  <p>The supported return values for <i>no expected answer functions</i> are:
+  </p><pre class="sh_erlang">    call_noreply() ::
+        {noreply, State} | {noreply, State, Timeout} |
+        {stop, Reason, State}
+        when State :: term(), Timeout :: infinity | non_neg_integer(), Reason :: term()</pre>
+ 
+  <p>Some of the callback functions allow the SipApp to send a response back
+  to the calling party. See the available responses in <a href="nksip_reply.html" class="seealso">nksip_reply</a>.</p>
+ 
+  <p>The usual call order is the following:
+  </p><list>
+   <item>When starting the SipApp, <a href="#init/1" class="seealso"><code>init/1</code></a> is called to initialize the
+       application state.</item>
+   <item>When a request is received having an <i>Authorization</i> or
+       <i>Proxy-Authorization</i> header, <a href="#get_user_pass/4" class="seealso"><code>get_user_pass/4</code></a> is called to check
+       the user's password.</item>
+   <item>NkSIP calls <a href="#authorize/4" class="seealso"><code>authorize/4</code></a> to check is the request should be
+       authorized.</item>
+   <item>If authorized, it calls <a href="#route/6" class="seealso"><code>route/6</code></a> to decide what to do with the
+       request: reply, route or process locally.</item>
+   <item>If the request is going to be processed locally, <a href="#invite/4" class="seealso"><code>invite/4</code></a>,
+       <a href="#options/3" class="seealso"><code>options/3</code></a>, <a href="#register/3" class="seealso"><code>register/3</code></a> or <a href="#bye/4" class="seealso"><code>bye/4</code></a> are called,
+       and the user must send a reply.
+       If the request is a <i>CANCEL</i>, <a href="#cancel/3" class="seealso"><code>cancel/3</code></a> is called and the
+       user must decide to cancel or not the request.</item>
+   <item>After sending a successful response to an <i>INVITE</i> request,
+       the other party will send an <i>ACK</i> and <a href="#ack/4" class="seealso"><code>ack/4</code></a> will be called.</item>
+   <item>If the request creates or modifies a dialog and/or a SDP session,
+       <a href="#dialog_update/3" class="seealso"><code>dialog_update/3</code></a> and/or <a href="#session_update/3" class="seealso"><code>session_update/3</code></a> are called.</item>
+   <item>If the remote party sends an in-dialog invite (a <i>reINVITE</i>),
+       NkSIP will call <a href="#reinvite/4" class="seealso"><code>reinvite/4</code></a>.</item>
+   <item>If the user has set up an automatic ping or registration,
+       <a href="#ping_update/3" class="seealso"><code>ping_update/3</code></a> or <a href="#register_update/3" class="seealso"><code>register_update/3</code></a> are called on each
+       status change.</item>
+   <item>When the SipApp is stopped, <a href="#terminate/2" class="seealso"><code>terminate/2</code></a> is called.</item>
+  </list>
+ 
+ 
+  <p>It is <em>very important</em> to notice that, as in using normal <code>gen_server</code>,  
+there is a single SipApp core process, so you must not spend a long time in any of  
+the callback functions. If you do so, new requests arriving at your SipApp will be  
+blocked and the other party will start to send retransmissions. As no transaction  
+has been created yet, NkSIP will see them as new requests that will be also blocked,  
+and so on.</p>
+ 
+  <p>If the expected processing time of any of your callback functions is high
+  (more than a few milliseconds), you must spawn a new process, return <code>{noreply, ...}</code>
+  and do any time-consuming work there. If the called function spawning the process is
+  in the expected answer group, it must call <a href="nksip.html#reply/2" class="seealso">nksip:reply/2</a> from the spawned  
+process when a reply is available.  
+Launching new processes in Erlang is a very cheap operation,  
+so in case of doubt follow this recommendation.</p>
+ 
+  <p>Many of the callback functions receive a <code>RequesId</code> (<a href="nksip_request.html#type-id" class="seealso">nksip_request:id()</a>)
+  object as first parameter, representing a pointer to the actual request. You can
+  use the helper funcions in <a href="nksip_request.html" class="seealso">nksip_request</a> to extract any information from it.
+  Some other functions receive a <code>DialogId</code> (<a href="nksip_dialog.html#type-id" class="seealso">nksip_dialog:id()</a>) object,
+  representing a pointer to an established dialog.
+  Use <a href="nksip_dialog.html" class="seealso">nksip_dialog</a> functions to extract information from it.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-call_noreply">call_noreply() = {noreply, State::term()} | {noreply, State::term(), Timeout::timeout()} | {stop, Reason::term(), State::term()}</h3></div>
+    <div class="type"><h3 id="type-call_reply">call_reply(RetType) = {reply, Reply::RetType, State::term()} | {reply, Reply::RetType, State::term(), Timeout::timeout()} | {noreply, State::term()} | {noreply, State::term(), Timeout::timeout()} | {stop, Reason::term(), Reply::RetType, State::term()} | {stop, Reason::term(), State::term()}</h3></div>
+    <div class="type"><h3 id="type-from">from() = term()</h3></div>
+    <div class="type"><h3 id="type-init_return">init_return() = {ok, State::term()} | {ok, State::term(), Timeout::timeout()} | {stop, Reason::term()}</h3></div>
+    <div class="type"><h3 id="type-route_reply">route_reply() = proxy | {proxy, ruri | uri_set() (see module nksip)} | {proxy, ruri | uri_set() (see module nksip), proplist() (see module nksip_lib)} | process | {process, proplist() (see module nksip_lib)} | {response, sipresponse() (see module nksip)} | {response, sipresponse() (see module nksip), proplist() (see module nksip_lib)}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; init_return()</h3>
+
+
+<div class="description">
+
+<p>SipApp initialization.
+  This callback function is called when the SipApp is launched using
+  <a href="nksip.html#start/4" class="seealso">nksip:start/4</a>.
+  If <code>{ok, State}</code> or <code>{ok, State, Timeout}</code> is returned the SipApp is started with
+  this initial state. If a <code>Timeout</code> is provided (in milliseconds) a
+  <code>timeout</code> message will be sent to the process
+  (you will need to implement <a href="#handle_info/2" class="seealso">handle_info/2</a> to receive it).
+  If <code>{stop, Reason}</code> is returned the SipApp will not start.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), State::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Called when the SipApp is stopped.</p>
+</div></div>
+<div class="function">
+<h3 id="get_user_pass/1">get_user_pass(User::binary(), Realm::binary(), From::from(), State::term()) -&gt; call_reply(true | false | binary())</h3>
+
+
+<div class="description">
+
+<p>Called to check a user password for a realm.
+  When a request is received containing a <code>Authorization</code> or <code>Proxy-Authorization</code>
+  header, this function is called by NkSIP including the header's <code>User</code> and <code>Realm</code>,  
+to check if the authorization data in the header corresponds to the user's password.</p>
+ 
+  <p>You should normally reply with the user's password (if you have it for this user
+  and realm). NkSIP will use the password and the digest information in the header
+  to check if it is valid, offering this information in the call to
+  <a href="#authorize/4" class="seealso">authorize/4</a>.</p>
+ 
+  <p>You can also reply <code>true</code> if you want to accept any request from this user
+  without checking any password, or <code>false</code> if you don't have a password for this user  
+or want her blocked.</p>
+ 
+  <p>If you don't want to store <i>clear-text</i> passwords of your users,
+  you can use <a href="nksip_auth.html#make_ha1/3" class="seealso">nksip_auth:make_ha1/3</a> to generate a <i>hash</i> of the password  
+for an user and a realm, and store only this hash instead of the real password.  
+Later on you can reply here with the hash instead of the real password.</p>
+ 
+  <p>If you don't define this function, NkSIP will reply with password <code>&lt;&lt;&gt;&gt;</code>
+  if user is <code>anonymous</code>, and <code>false</code> for any other user.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="authorize/2">authorize(AuthList, ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(ok | authenticate | proxy_authenticate | forbidden)</h3>
+
+<ul class="type">
+<li><code>AuthList = [dialog | register | {{digest, Realm::binary}, boolean()}]</code></li></ul>
+<div class="description">
+
+<p>Called for every incoming request to be authorized or not.</p>
+ 
+  <p>If <code>ok</code> is replied the request is authorized and the
+  request processing continues. If <code>authenticate</code> is replied, the request will be
+  rejected (statelessly) with a 401 <i>Unauthorized</i>.
+  The other party will usually send the request again, this time with an
+  <code>Authorization</code> header. If you reply <code>proxy_authenticate</code>, it is rejected
+  with a 407 <i>Proxy Authentication Rejected</i> response and the other party
+  will include a <code>Proxy-Authorization</code> header.</p>
+ 
+  <p>You can use the tags included in <code>AuthList</code> in order to decide to authenticate
+  or not the request.  AuthList includes the following tags:
+  </p><list>
+     <item><p><code>dialog</code>: the request is in-dialog and coming from the same ip and port
+         than the last request for an existing dialog.</p></item>
+     <item><p><code>register</code>: the request comes from the same ip, port and transport of a
+         currently valid registration (and the method is not <i>REGISTER</i>).</p></item>
+     <item><p><code>{{digest, Realm}, true}</code>: there is at least one valid user authenticated
+         (has a correct password) with this Realm.</p></item>
+     <item><p><code>{{digest, Realm}, false}</code>: there is at least one user offering an
+         authentication header for this Realm, but all of them
+         have failed the authentication (no password was valid). </p></item>
+  </list>
+ 
+  <p>You will usually want to combine these strategies. Typically you will first
+  check using SIP digest authentication, and, in case of faillure, you can use
+  previous registration and/or dialog authentication.
+  If you don't define this function all requests will be authenticated.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="route/1">route(Scheme::scheme() (see module nksip), User::binary(), Domain::binary(), ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(route_reply())</h3>
+
+
+<div class="description">
+
+<p>This function is called by NkSIP for every new request, to check if it must be
+  proxied, processed locally or replied immediately. For convenience, the scheme, user
+  and domain parts of the <i>Request-Uri</i> are included.</p>
+ 
+  <p>If we want to <em>act as a proxy</em> and route the request, and we are not responsible
+  for <code>Domain</code> we must return <code>proxy</code> or <code>{proxy, ruri, ProxyOpts}</code>.
+  We must not return an <code>UriSet</code> in this case.
+  NkSIP will then make additional checks to the request (like inspecting the
+  <code>Proxy-Require</code> header) and will route it statefully to the same <code>Request-URI</code>  
+contained in the request.</p>
+ 
+  <p>If we are the resposible proxy for <code>Domain</code> we can provide a new list
+  of URIs to route the request to. NkSIP will use <em>serial and/or
+  parallel forking</em> depending on the format of <code>UriSet</code>.
+  If <code>UriSet</code> is a simple Erlang array of binaries representing uris, NkSIP will try
+  each one serially. If any of the elements of the arrary is in turn a new array
+  of binaries, it will fork them in parallel.
+  For example, for  </p><pre class="sh_erlang">  [ &lt;&lt;"sip:aaa"&gt;&gt;, [&lt;&lt;"sip:bbb"&gt;&gt;, &lt;&lt;"sip:ccc"&gt;&gt;], &lt;&lt;"sip:ddd"&gt;&gt;]</pre><p>
+  NkSIP will first forward the request to <code>aaa</code>. If it does not receive a successful
+  (2xx) response, it will try <code>bbb</code> and <code>cccc</code> in parallel.
+  If no 2xx is received again, <code>ddd</code> will be tried. See <a href="nksip_registrar.html" class="seealso">nksip_registrar</a>
+  to find out how to get the registered contacts for this <code>Request-Uri</code>.</p>
+ 
+  <p>Available options for <code>ProxyOpts</code> are:
+  </p><list>
+   <item><p><code>stateless</code>: Use it if you want to proxy the request <i>statelessly</i>.
+        Only one URL is allowed in <code>UriSet</code> in this case.</p></item>
+   <item><p><code>record_route</code>: NkSIP will insert a <i>Record-Route</i> header before sending
+       the request, so that following request inside the dialog will be routed
+       to this proxy.</p></item>
+   <item><p><code>follow_redirects</code>: If any 3xx response is received, the received contacts
+       will be inserted in the list of uris to try.</p></item>
+   <item><p><code>{route_set, nksip:user_uri()}</code>:
+       NkSIP will insert theses routes as <i>Route</i> headers
+       in the request, before any other existing <code>Route</code> header.
+       The request would then be sent to the first <i>Route</i>.</p></item>
+   <item><p><code>{headers, [nksip:header()]}</code>:
+       Inserts these headers before any existing header.</p></item>
+   <item><p><code>remove_routes</code>: Removes any previous <i>Route</i> header in the request.
+       A proxy should not usually do this. Use it with care.</p></item>
+   <item><p><code>remove_headers</code>: Remove previous non-vital headers in the request.
+       You can use modify the headers and include them with using <code>{headers, Headers}</code>.
+       A proxy should not usually do this. Use it with care.</p></item>
+  </list>
+ 
+  <p>If we want to <em>act as an endpoint or B2BUA</em> and answer to the request
+  from this SipApp, we must return <code>process</code> or <code>{process, ProcessOpts}</code>.
+  NkSIP will then make additional checks to the request (like inspecting
+  <code>Require</code> header), start a new transaction and call the function corresponding
+  to the method in the request (like <code>invite/3</code>, <code>options/3</code>, etc.)</p>
+ 
+  <p>Available options for <code>ProcessOpts</code> are:
+  </p><list>
+   <item><p><code>stateless</code>: Use it if you want to process this request <i>statelessly</i>.
+        No transaction will be started.</p></item>
+  <item><p><code>{headers, [nksip:header()]}</code>:
+      Insert these headers before any existing header, before calling the next
+      callback function.</p></item>
+  </list>
+ 
+  <p>We can also <em>send a reply immediately</em>, replying <code>{response, Response}</code>,
+  <code>{response, Response, ResponseOpts}</code> or simply <code>Response</code>. See <a href="nksip_reply.html" class="seealso">nksip_reply</a>
+  to find the recognized response values. The typical reason to reply a response here
+  is to send <em>redirect</em> or an error like <code>not_found</code>, <code>ambiguous</code>,
+  <code>method_not_allowed</code> or any other. If the form <code>{response, Response}</code> or
+  <code>{response, Response, ResponseOpts}</code> is used the response is sent statefully,
+  and a new transaction will be started, unless <code>stateless</code> is present in <code>ResponseOpts</code>.
+  If simply <code>Response</code> is used no transaction will be started.
+  The only recognized option in <code>ResponseOpts</code> is <code>stateless</code>.</p>
+ 
+  <p>If route/3 is not defined the default reply would be <code>process</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="invite/1">invite(DialogId::id() (see module nksip_dialog), ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(sipreply() (see module nksip))</h3>
+
+
+<div class="description">
+
+<p>This function is called by NkSIP to process a new INVITE request as an endpoint.
+  Before replying a final response, you will usually call
+  <a href="nksip_request.html#provisional_reply/2" class="seealso">nksip_request:provisional_reply/2</a> to send a provisional response like
+  <code>ringing</code> (which would send a 180 <i>Ringing</i> reply).</p>
+ 
+  <p>If a quick response (like <code>busy</code>) is not going to be sent immediately
+  (which is typical for INVITE requests, as the user would normally need to accept
+  the call) you must return <code>{noreply, NewState}</code> and spawn a new process,
+  calling <a href="nksip.html#reply/2" class="seealso">nksip:reply/2</a> from the new process, in order to avoid  
+blocking the SipApp process.</p>
+ 
+  <p>You can access the body of the request by calling <a href="nksip_request.html#body/1" class="seealso">nksip_request:body/1</a>.
+  INVITE requests will usually have a SDP body. If this is the case, and the
+  <code>Content-Type</code> header contains <code>application/sdp</code>, NkSIP will decode the SDP and
+  <code>nksip_request:body/1</code> will return a <a href="nksip_sdp.html#type-sdp" class="seealso">nksip_sdp:sdp()</a> object you can manage
+  with the functions in <a href="nksip_sdp.html" class="seealso">nksip_sdp</a>.
+  If it is not recognized it would return a binary, or <code>&lt;&lt;&gt;&gt;</code> if it is missing.</p>
+ 
+  <p>You must then answer the request. The possible responses are defined in
+  <a href="nksip_reply.html" class="seealso">nksip_reply</a>.
+  If a successful (2xx) response is sent, you should include a new generated SDP body
+  in the response. A new dialog will then start.
+  The remote party should then send an ACK request immediately.
+  If none is received, NkSIP will automatically stop the dialog.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reinvite/1">reinvite(DialogId::id() (see module nksip_dialog), ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(sipreply() (see module nksip))</h3>
+
+
+<div class="description">
+
+<p>This function is called when a new in-dialog INVITE request is received.
+  The guidelines in <a href="#invite/4" class="seealso">invite/4</a> are valid, but you shouldn't send provisional  
+responses, but a final response inmediatly.</p>
+ 
+  <p>If the dialog's target or the SDP session parameters are updated by the request or
+  its response, <a href="#dialog_update/3" class="seealso">dialog_update/3</a> and/or <a href="#session_update/3" class="seealso">session_update/3</a> would be
+  called.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cancel/1">cancel(ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(true | false)</h3>
+
+
+<div class="description">
+
+<p>Called when a valid CANCEL request is received.
+  When a CANCEL request is received by NkSIP, it will check if it belongs to an
+  existing INVITE transaction. If not, a 481 <i>Call/Transaction does not exist</i>  
+will be automatically replied.</p>
+ 
+  <p>If it belongs to an existing INVITE transaction, this callback function will be called.
+  If <code>true</code> is replied, NkSIP will cancel the ongoing invite transaction sending a
+  487 <i>Request Terminated</i> (this is the same effect as if the <code>invite/3</code>
+  callback replies with <code>request_terminated</code>). If <code>false</code> is returned, the INVITE
+  transaction is not affected. In both cases, a 200 <i>OK</i> response  
+will be replied to the CANCEL request.</p>
+ 
+  <p>You won't usually need to implement this function, as the default response is <code>true</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ack/1">ack(DialogId::id() (see module nksip_dialog), ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(ok)</h3>
+
+
+<div class="description">
+
+<p>Called when a valid ACK request is received.</p>
+ 
+  <p>This function is called by NkSIP when a new valid in-dialog ACK request has to
+  be processed locally.
+  You should extract all needed information from the request and return <code>ok</code>.
+  You don't usually need to implement this callback. One possible reason to do it is
+  to receive the SDP body from the other party in case it was not present in the INVITE
+  (you can also get it from the <a href="#session_update/3" class="seealso">session_update/3</a> callback).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bye/1">bye(DialogId::id() (see module nksip_dialog), ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(sipreply() (see module nksip))</h3>
+
+
+<div class="description">
+
+<p>Called when a valid BYE request is received.
+  When a BYE request is received, NkSIP will automatically response 481
+  <i>Call/Transaction does not exist</i> if it doesn't belong to a current dialog.
+  If it does, NkSIP stops the dialog and this callback functions is called.
+  You won't usually need to implement this function, but in case you do, you
+  should reply <code>ok</code> to send a 200 response back.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="options/1">options(ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(sipreply() (see module nksip))</h3>
+
+
+<div class="description">
+
+<p>Called when a OPTIONS request is received.
+  This function is called by NkSIP to process a new incoming OPTIONS request as
+  an endpoint. If not defined, NkSIP will reply with a 200 <i>OK</i> response,
+  including automatically generated <code>Allow</code>, <code>Accept</code> and <code>Supported</code> headers.</p>
+ 
+  <p>NkSIP will not send any body in its automatic response. This is ok for proxies.
+  If you are implementing an endpoint or B2BUA, you should implement this function
+  and include in your response a SDP body representing your supported list of codecs,
+  and also <code>Allow</code>, <code>Accept</code> and <code>Supported</code> headers.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="register/1">register(ReqId::id() (see module nksip_request), From::from(), State::term()) -&gt; call_reply(sipreply() (see module nksip))</h3>
+
+
+<div class="description">
+
+<p>This function is called by NkSIP to process a new incoming REGISTER request.
+  If it is not defined, but <code>registrar</code> option was present in the SipApp's
+  startup config, NkSIP will process the request.
+  It will check if <i>From</i> and <i>To</i> headers contains the same URI
+  (it not, a 400 <i>Bad Request</i> response will be sent) and, if the request is valid,
+  it will call <a href="nksip_registrar.html#request/1" class="seealso">nksip_registrar:request/1</a> to proceed with the registration.
+  See <a href="nksip_registrar.html" class="seealso">nksip_registrar</a> for other possible response codes defined in the SIP  
+standard registration process.</p>
+ 
+  <p>If this function is not defined, and no <code>registrar</code> option is found,
+  a 405 <i>Method not allowed</i> would be replied.</p>
+ 
+  <p>You should define this function in case you are implementing a registrar server
+  and need a specific REGISTER processing
+  (for example to add some headers to the response).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="dialog_update/1">dialog_update(DialogId::id() (see module nksip_dialog), DialogStatus, State::term()) -&gt; call_noreply()</h3>
+
+<ul class="type">
+<li><code>DialogStatus = start | target_update | {stop, stop_reason() (see module nksip_dialog)}</code></li></ul>
+<div class="description">
+
+<p>Called when a dialog has changed its state.</p>
+ 
+  <p>A new dialog will be created when you send an INVITE request
+  (using <a href="nksip_uac.html#invite/3" class="seealso">nksip_uac:invite/3</a>) and a successful (101-299) response is received,
+  or after an INVITE is received and the call to <code>invite/3</code> callback replies
+  with a successful response. If the response is provisional (101-199) the dialog
+  will be marked as temporary or <i>early</i>, waiting for the final response  
+to be confirmed or deleted.</p>
+ 
+  <p>The dialog is destroyed when a valid in-dialog BYE request is sent or received
+  (and for many other reasons, see <a href="nksip_dialog.html#type-stop_reason" class="seealso">nksip_dialog:stop_reason()</a>).</p>
+ 
+  <p>Once the dialog is established, some in-dialog methods (like INVITE) can update the
+  <code>target</code> of the dialog.</p>
+ 
+  <p>NkSIP will call this function every time a dialog is created, its target is updated
+  or it is destroyed.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="session_update/1">session_update(DialogId::id() (see module nksip_dialog), SessionStatus, State::term()) -&gt; call_noreply()</h3>
+
+<ul class="type">
+<li><code>SessionStatus = {start, Local, Remote} | {update, Local, Remote} | stop</code></li><li><code>Local = sdp() (see module nksip_sdp)</code></li><li><code>Remote = sdp() (see module nksip_sdp)</code></li></ul>
+<div class="description">
+
+<p>Called when a dialog has updated its SDP session parameters.
+  When NkSIP detects that, inside an existing dialog, both parties have agreed on
+  a specific SDP defined session, it will call this function.
+  You can use the functions in <a href="nksip_sdp.html" class="seealso">nksip_sdp</a> to process the SDP data.</p>
+ 
+  <p>This function will be also called after each new successful SDP negotiation.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ping_update/1">ping_update(PingId::term(), OK::boolean(), State::term()) -&gt; call_noreply()</h3>
+
+
+<div class="description">
+
+<p>Called when the status of an automatic ping configuration changes.
+  See <a href="nksip_sipapp_auto.html#start_ping/5" class="seealso">nksip_sipapp_auto:start_ping/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="register_update/1">register_update(RegId::term(), OK::boolean(), State::term()) -&gt; call_noreply()</h3>
+
+
+<div class="description">
+
+<p>Called when the status of an automatic registration configuration changes.
+  See <a href="nksip_sipapp_auto.html#start_register/5" class="seealso">nksip_sipapp_auto:start_register/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/1">handle_call(Msg::term(), From::from(), State::term()) -&gt; call_reply(any())</h3>
+
+
+<div class="description">
+
+<p>Called when a direct call to the SippApp process is made using
+  <a href="nksip.html#call/2" class="seealso">nksip:call/2</a> or <a href="nksip.html#call/3" class="seealso">nksip:call/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Msg::term(), State::term()) -&gt; call_noreply()</h3>
+
+
+<div class="description">
+
+<p>Called when a direct cast to the SippApp process is made using
+  <a href="nksip.html#cast/2" class="seealso">nksip:cast/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Msg::term(), State::term()) -&gt; call_noreply()</h3>
+
+
+<div class="description">
+
+<p>Called when the SipApp process receives an unknown message</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

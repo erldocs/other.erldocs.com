@@ -1,0 +1,1 @@
+var index = [['app','igel','igel','[application]'],['mod','igel','igel_app','.'],['mod','igel','igel_sup','.'],['fun','igel','igel_app:start/2',[]],['fun','igel','igel_app:stop/1',[]],['fun','igel','igel_sup:init/1',[]],['fun','igel','igel_sup:start_link/0',[]]];

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>na_bw_list (number_analysis) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>na_bw_list</h1>
+<h2 class="modsummary">Provides a Black/White list checker for dialled numbers.</h2>
+<div class="description">
+<p>Provides a Black/White list checker for dialled numbers</p>
+  
+   <p>bw_list provides functions to create lists of phone numbers which should be   
+barred or allowed and to check whether a dialled number matches. Numbers are   
+checked on a digit by digit basis until either a match is made, a match is   
+definitely not made, or no more digits are left. Each new list which is created   
+is implemented using a single Mnesia table which may be replicated on a number   
+of Erlang Nodes.</p>
+  
+   <p>Within each new table multiple lists of numbers may be built indexed by two   
+further groupings called Ref and Name. Functions are provided to create new   
+tables, add lists within a table, add entries to lists within the table,   
+retrieve all lists contained in a table, retrieve all the phone numbers   
+associated with a Ref/Name within a table, as well as looking up and   
+deleting entries.</p>
+  
+   This module was posted on the erlang-questions mailing list
+   <url href="http://www.erlang.org/ml-archive/erlang-questions/200401/msg00009.html">http://www.erlang.org/ml-archive/erlang-questions/200401/msg00009.html</url>
+   by Sean Hinde.
+   <em><marker id="Database_Design">Database Design</marker></em>
+   bw_list use 1 fixed mnesia table
+   <list>
+   <item><p>bw_lists</p></item>
+   </list>
+   And one table for each black/white list class defined.
+   <list>
+   <item><p>"list_name"</p></item>
+   </list>
+  
+   <em><marker id="bw_lists">bw_lists</marker></em>
+   Stores definition of bw_lists
+   
+     
+       <em>Record Name</em>
+       <a href="#type-bw_lists" class="seealso">bw_lists()</a>
+     <br />
+     
+       <em>Table Type</em>
+       set
+     <br />
+     
+       <em>Indexes</em>
+       none
+     <br />
+   
+  
+   <em><marker id="list">list</marker></em>
+   Stores bw_lists
+   
+     
+       <em>Record Name</em>
+       <a href="#type-number_analyser" class="seealso">number_analyser()</a>
+     <br />
+     
+       <em>Table Type</em>
+       set
+     <br />
+     
+       <em>Indexes</em>
+       none
+     <br />
+   </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bw_lists">bw_lists() = #bw_lists{list_id=Key, username=UserName, timestamp=Timestamp}</h3></div>
+    <div class="type"><h3 id="type-number_analyser">number_analyser() = #number_analyser{num=Key, res=Result}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Type) -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#new/2" class="seealso">new(Type, [node()])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2">new(Type, Nodes) -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function creates a new table called Type where type must be an
+  atom. e.g. Type could be black, to contain all black lists for an application.
+  If a list of node names are specified, the table is replicated on all those
+  nodes, otherwise the table is created on the local node only.</p>
+</div></div>
+<div class="function">
+<h3 id="add_list/4">add_list(Type, Ref, Name, UserName) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function adds a new list to the table Type which will be
+  referenced by Ref and Name. This must be done before any numbers can be
+  added to the table for this Ref/Name.</p>
+</div></div>
+<div class="function">
+<h3 id="all_lists/2">all_lists(Type, Ref) -&gt; [{Name, Ref}] | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function retrieves an erlang list of {Name, Ref} for all Lists
+  in table Type with reference Ref.</p>
+</div></div>
+<div class="function">
+<h3 id="check/4">check(Type, Ref, Name, Numberlist) -&gt; Result | no_match</h3>
+
+
+<div class="description">
+
+<p>This function looks up a telephone number in the form
+  [0,1,8,1,2,1,4,2,4,1,3] digit by digit. If for example [0,1,8,1] is an
+  entry in the referenced List, this function will return the value stored
+  against [0,1,8,1]. If no match is found returns no_match.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/5">delete(T, Ref, Name, UserName, NumList) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function attempts to delete the entry referenced. If Numberlist is
+  a prefix of a number already in the table this command is rejected with
+  Reason trying_to_delete_sublist.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_list/3">delete_list(T, Ref, Name) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function attempts to delete all entries in table Type referenced
+  by Ref.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/6">insert(T, Ref, Name, UserName, NumberList, Value) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function attempts to insert the number Numberlist (given as list
+  e.g [0,1,8,1]) into table Type, List Ref, Name. The List Ref/Name must have
+  been created using add_list/3 beforehand. Future matches against this number
+  by the check function will return the result Value.</p>
+</div></div>
+<div class="function">
+<h3 id="list_info/3">list_info(T, Ref, Name) -&gt; {User, TimeStamp} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Gives information about the specified list.</p>
+</div></div>
+<div class="function">
+<h3 id="print_all/3">print_all(T::Type, Ref, Name) -&gt; Result | exit()</h3>
+
+
+<div class="description">
+
+<p>This function returns an erlang list of all the Numberlists in the
+  bw_list referenced as printable ascii strings e.g. ["0181","0171"].</p>
+</div></div>
+<div class="function">
+<h3 id="debug_print/3">debug_print(T::Type, Ref, Name) -&gt; Result | exit()</h3>
+
+
+<div class="description">
+
+<p>This function returns an erlang list of all the Numberlists in the
+  bw_list. The difference from the print_all/3 function is that this function
+  prints all of the intermediate entries in the search tree and the results
+  from the analysis. Entries are also returned as integer lists rather than
+  strings.</p>
+</div></div>
+<div class="function">
+<h3 id="mnesia_table/0">mnesia_table() -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+
+<p>Creates the table on the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="mnesia_table/1">mnesia_table(Nodes) -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function is a one off requirement to set up the list management
+  mnesia table. If a list of node names is given as argument the table is
+  replicated on the given nodes.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Claes Wikstrom</aname>
+<email>klacke@erix.eicsson.se</email>
+<aname>Sean Hinde</aname>
+<email>sean.hinde@gmail.com</email>
+<aname>Anders Nygren</aname>
+<email>anders.nygren@txm.com.mx</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

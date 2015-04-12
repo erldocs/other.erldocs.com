@@ -1,0 +1,1 @@
+var index = [['app','myutility','myutility','[application]'],['mod','myutility','boolean',[]],['fun','myutility','boolean:b_and/2',[]],['fun','myutility','boolean:b_nand/2',[]],['fun','myutility','boolean:b_not/1',[]],['fun','myutility','boolean:b_or/2',[]]];

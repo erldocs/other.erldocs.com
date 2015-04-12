@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>deck36_amqp_setup (deck36_amqp_client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>deck36_amqp_setup</h1>
+<h2 class="modsummary">Setup server.</h2>
+<div class="description">
+<p>Setup server.</p>
+ 
+  <p>To see how to use this, see:  
+* start_link/1 and type start_opts()  
+* stop/1</p>
+ 
+  <p>You should always properly shut down the setup using stop/1 or
+  you might end up with errors from amqp_client and tear down will
+  not take place.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-server_ref">server_ref() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-start_opt">start_opt() = {connection, <a href="deck36_amqp_util.html#type-connection_def" class="seealso">deck36_amqp_util:connection_def()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {queue, <a href="deck36_amqp_util.html#type-queue_def" class="seealso">deck36_amqp_util:queue_def()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {exchange, <a href="deck36_amqp_util.html#type-exchange_def" class="seealso">deck36_amqp_util:exchange_def()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {binding, <a href="deck36_amqp_util.html#type-binding_def" class="seealso">deck36_amqp_util:binding_def()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {teardown_on_stop, [<a href="#type-teardown_opt" class="seealso">teardown_opt()</a>]}</h3></div>
+    <div class="type"><h3 id="type-start_opts">start_opts() = [<a href="#type-start_opt" class="seealso">start_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-teardown_opt">teardown_opt() = all<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bindings<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| queues<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| exchanges<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="deck36_amqp_util.html#type-definition" class="seealso">deck36_amqp_util:definition()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Opts::start_opts()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, pid()} | ignore | {error, Error}</code></li><li><code>Error = {already_started, pid()} | term()</code></li></ul>
+<div class="description">
+
+<p>Start unnamed, linked setup server.</p>
+ 
+  <p>Will declare entities to the broker according to given options.
+  See type start_opt() or test/ct/config/ct.config.template for further
+  information.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Ref::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop server</p>
+ 
+  <p>Will tear down entities it has declared according to the
+  teardown_on_stop start option. See README.md for further information.</p>
+</div></div>
+<div class="function">
+<h3 id="info/1">info(Ref::pid()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get information about setup identified by Ref</p>
+</div></div>
+<div class="function">
+<h3 id="declare/1">declare(Ref::server_ref(), Def) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Def = definition() (see module deck36_amqp_util) | [definition() (see module deck36_amqp_util)]</code></li></ul>
+<div class="description">
+
+<p>Declare queues, exchanges or bindings dynamically.</p>
+ 
+  <p>Will be torn down on stop according to teardown_on_stop option</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Ref::server_ref(), Defs) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Defs = Def | [Def]</code></li><li><code>Def = definition() (see module deck36_amqp_util) | delete_definition() (see module deck36_amqp_util)</code></li></ul>
+<div class="description">
+
+<p>Delete queue, exchange or binding.</p>
+ 
+  <p>Definitions will only be deleted if the setup declared this unless
+  they are given in form of a delete declaration.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, State} | {ok, State, Timeout} | {ok, State, hibernate} | {stop, Reason::term()} | ignore</code></li><li><code>State = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:init-1">gen_server:init/1</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/1">handle_call(Request::term(), From::{pid(), Tag::term()}, State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {reply, Reply, NewState} | {reply, Reply, NewState, Timeout} | {reply, Reply, NewState, hibernate} | {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason, Reply, NewState} | {stop, Reason, NewState}</code></li><li><code>Reply = term()</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_call-3">gen_server:handle_call/3</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Request::term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_cast-2">gen_server:handle_cast/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::timeout | term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_info-2">gen_server:handle_info/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State::term()) -&gt; Any::term()</h3>
+
+<ul class="type">
+<li><code>Reason = normal | shutdown | {shutdown, term()} | term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:terminate-2">gen_server:terminate/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="code_change/2">code_change(OldVsn, State::term(), Extra::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, NewState::term()} | {error, Reason::term()}</code></li><li><code>OldVsn = Vsn | {down, Vsn}</code></li><li><code>Vsn = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:code_change-3">gen_server:code_change/3</url></p>
+</div></div></div>
+
+<authors>
+
+<aname>Bjoern Kortuemm (@uuid0)</aname>
+<email>bjoern.kortuemm@deck36.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

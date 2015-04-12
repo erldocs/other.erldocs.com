@@ -1,0 +1,1 @@
+var index = [['app','etoml','etoml','[application]'],['mod','etoml','etoml','TOML language parser.'],['fun','etoml','etoml:parse/1','Parses a TOML (https://github.com/mojombo/toml) bi'],['fun','etoml','etoml:parse2/1','Parses a TOML (https://github.com/mojombo/toml) bi']];

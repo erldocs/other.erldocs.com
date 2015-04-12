@@ -1,0 +1,1 @@
+var index = [['app','string_tree','string_tree','[application]'],['mod','string_tree','string_tree',[]],['fun','string_tree','string_tree:add/2',[]],['fun','string_tree','string_tree:format/1',[]],['fun','string_tree','string_tree:parse/1',[]]];

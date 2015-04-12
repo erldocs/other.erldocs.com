@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>synapse (synapse) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>synapse</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-event">event() = atom()</h3></div>
+    <div class="type"><h3 id="type-learner_backend">learner_backend() = statechum</h3></div>
+    <div class="type"><h3 id="type-learner_metainfo">learner_metainfo() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#learner_metainfo{module = undefined | atom()}</h3></div>
+    <div class="type"><h3 id="type-state">state() = atom()</h3></div>
+    <div class="type"><h3 id="type-statemachine">statemachine() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#statemachine{states = undefined | [<a href="#type-state" class="seealso">state()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transitions = undefined | [<a href="#type-transition" class="seealso">transition()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial_state = undefined | <a href="#type-state" class="seealso">state()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alphabet = undefined | [<a href="#type-event" class="seealso">event()</a>]}</h3></div>
+    <div class="type"><h3 id="type-statemachinedifference">statemachinedifference() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#statemachinedifference{added_transitions = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-transition" class="seealso">transition()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deleted_transitions = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-transition" class="seealso">transition()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;added_states = undefined | [<a href="#type-state" class="seealso">state()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deleted_states = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-state" class="seealso">state()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name_mapping = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [{<a href="#type-state" class="seealso">state()</a>, <a href="#type-state" class="seealso">state()</a>}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial_state = undefined | <a href="#type-state" class="seealso">state()</a>}</h3></div>
+    <div class="type"><h3 id="type-trace">trace() = [<a href="#type-event" class="seealso">event()</a>]</h3></div>
+    <div class="type"><h3 id="type-transition">transition() = {<a href="#type-state" class="seealso">state()</a>, <a href="#type-event" class="seealso">event()</a>, <a href="#type-state" class="seealso">state()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_traces/1">get_traces(EventSource::() -&gt; event(), TraceEnd::(event()) -&gt; false | include | exclude) -&gt; [trace()]</h3>
+
+
+<div class="description">
+
+<p>Get events from an event source and split into traces, using the supplied TraceEnd function.</p>
+</div></div>
+<div class="function">
+<h3 id="get_live_traces/1">get_live_traces(EventSource::() -&gt; event(), TraceEnd::(event()) -&gt; false | include | exclude) -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Register a trace receiver server that will direct new {trace, Trace} messages to the calling process as traces are detected.
+  This is used for tracing continous systems, such as network traffic. The trace server is spawned with the specified event source function and trace end
+  identifier function. It collates events until TraceEnd identifies the end of a trace, then the calling process is informed and it continues
+  monitoring the event source.</p>
+</div></div>
+<div class="function">
+<h3 id="learn_erlang/1">learn_erlang(Module::atom()) -&gt; statemachine()</h3>
+
+
+<div class="description">
+
+<p>Learn from an Erlang module.</p>
+ 
+  <p>This extracts the module interface, generates an initial set of random traces, and then
+  proceeds with active learning, using the StateChum ErlangOracle.</p>
+</div></div>
+<div class="function">
+<h3 id="learn/1">learn(Traces::[trace()], MetaInfo::learner_metainfo()) -&gt; statemachine()</h3>
+
+
+<div class="description">
+
+<p>Learn from a set of traces, using the default learner backend.</p>
+</div></div>
+<div class="function">
+<h3 id="learn/1-1">learn(Learner::learner_backend(), Traces::[trace()], MetaInfo::learner_metainfo()) -&gt; statemachine()</h3>
+
+
+<div class="description">
+
+<p>Learn from a set of traces, using the specified learner backend.</p>
+</div></div>
+<div class="function">
+<h3 id="passive_learn/1">passive_learn(Traces::[trace()]) -&gt; statemachine()</h3>
+
+
+<div class="description">
+
+<p>Learn from a set of traces, without queries,
+  using the default learner backend and the default meta_info.</p>
+</div></div>
+<div class="function">
+<h3 id="passive_learn/1-1">passive_learn(Traces::[trace()], MetaInfo::learner_metainfo()) -&gt; statemachine()</h3>
+
+
+<div class="description">
+
+<p>Learn from a set of traces, without queries,
+  using the default learner backend.</p>
+</div></div>
+<div class="function">
+<h3 id="passive_learn/1-2">passive_learn(Learner::learner_backend(), Traces::[trace()], MetaInfo::learner_metainfo()) -&gt; statemachine()</h3>
+
+
+<div class="description">
+
+<p>Learn from a set of traces, without queries.</p>
+</div></div>
+<div class="function">
+<h3 id="diff/1">diff(SM1::statemachine(), SM2::statemachine(), MetaInfo::learner_metainfo()) -&gt; statemachinedifference()</h3>
+
+
+<div class="description">
+
+<p>Determine the difference between two state machines.</p>
+</div></div>
+<div class="function">
+<h3 id="diff/1-1">diff(Learner::learner_backend(), SM1::statemachine(), SM2::statemachine(), MetaInfo::learner_metainfo()) -&gt; statemachinedifference()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="visualise/1">visualise(SM::statemachine()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="visualise/1-1">visualise(SM::statemachine(), MetaInfo::learner_metainfo(), WindowName::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="visualise/1-2">visualise(Learner::learner_backend(), SM::statemachine(), MetaInfo::learner_metainfo(), WindowName::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="visualise_diff/1">visualise_diff(Orig::statemachine(), Diff::statemachinedifference()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="visualise_diff/1-1">visualise_diff(Orig::statemachine(), Diff::statemachinedifference(), MetaInfo::learner_metainfo(), WindowName::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="visualise_diff/1-2">visualise_diff(Learner::learner_backend(), Orig::statemachine(), Diff::statemachinedifference(), MetaInfo::learner_metainfo(), WindowName::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="conf_server/1">conf_server(Conf) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_config/1">get_config(Key) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="load_config/1">load_config(File) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="supported_learners/0">supported_learners() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

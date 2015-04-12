@@ -1,0 +1,1 @@
+var index = [['app','eretrie','eretrie','[application]'],['mod','eretrie','retrie',[]],['fun','eretrie','retrie:encode/1','Encode regex.'],['fun','eretrie','retrie:match/2','match string with retrie.'],['fun','eretrie','retrie:merge/2','merge 2 retrie.'],['fun','eretrie','retrie:reduce/1','Reduce regex trie.']];

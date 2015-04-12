@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_io (etorrent) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_io</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bcode">bcode() = integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-bcode" class="seealso">bcode()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [{string(), <a href="#type-bcode" class="seealso">bcode()</a>}]</h3></div>
+    <div class="type"><h3 id="type-chunk_bin">chunk_bin() = binary()</h3></div>
+    <div class="type"><h3 id="type-chunk_len">chunk_len() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-chunk_offset">chunk_offset() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-file_path">file_path() = string()</h3></div>
+    <div class="type"><h3 id="type-piece_bin">piece_bin() = binary()</h3></div>
+    <div class="type"><h3 id="type-piece_index">piece_index() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-torrent_id">torrent_id() = integer()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(TorrentID::torrent_id(), Torrent::bcode()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read_piece/1">read_piece(TorrentID::torrent_id(), Piece::piece_index()) -&gt; {ok, piece_bin()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read a piece into memory from disc.</p>
+</div></div>
+<div class="function">
+<h3 id="read_chunk/1">read_chunk(TorrentID::torrent_id(), Piece::piece_index(), Offset::chunk_offset(), Length::chunk_len()) -&gt; {ok, chunk_bin()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read a chunk from a piece by reading each of the file
+  blocks that make up the chunk and concatenating them.</p>
+</div></div>
+<div class="function">
+<h3 id="write_chunk/1">write_chunk(TorrentID::torrent_id(), Piece::piece_index(), Offset::chunk_offset(), Chunk::chunk_bin()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Write a chunk to a piece by writing parts of the block
+  to each file that the block occurs in.</p>
+</div></div>
+<div class="function">
+<h3 id="file_paths/1">file_paths(T) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="register_directory/1">register_directory(TorrentID::torrent_id()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>
+  Register the current process as the directory server for
+  the given torrent.</p>
+</div></div>
+<div class="function">
+<h3 id="register_file_server/1">register_file_server(TorrentID::torrent_id(), Path::file_path()) -&gt; true</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lookup_directory/1">lookup_directory(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>
+  Lookup the process id of the directory server responsible
+  for the given torrent. If there is no such server registered
+  this function will crash.</p>
+</div></div>
+<div class="function">
+<h3 id="await_directory/1">await_directory(TorrentID::torrent_id()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>
+  Wait for the directory server for this torrent to appear
+  in the process registry.</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_file_server/1">lookup_file_server(TorrentID::torrent_id(), Path::file_path()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>
+  Lookup the process id of the file server responsible for
+  performing IO operations on this path. If there is no such
+  server registered this function will crash.</p>
+</div></div>
+<div class="function">
+<h3 id="register_open_file/1">register_open_file(TorrentID::torrent_id(), Path::file_path()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>
+  Register the current process as a file server as being
+  in a state where it is ready to perform IO operations
+  on behalf of clients.</p>
+</div></div>
+<div class="function">
+<h3 id="unregister_open_file/1">unregister_open_file(TorrentID::torrent_id(), Path::file_path()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>
+  Register that the current process is a file server that
+  is not in a state where it can (successfully) perform
+  IO operations on behalf of clients.</p>
+</div></div>
+<div class="function">
+<h3 id="await_open_file/1">await_open_file(TorrentID::torrent_id(), Path::file_path()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>
+  Wait for the file server responsible for the given file
+  to enter a state where it is able to perform IO operations.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, X2, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(X1, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(X1, X2, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mlapi_cache (mlapi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mlapi_cache</h1>
+<h2 class="modsummary">Dynamic cache of MercadoLibre API responses stored in Mnesia that
+        mirrors the functions exported in the mlapi module.</h2>
+<div class="description">
+<p>Dynamic cache of MercadoLibre API responses stored in Mnesia that
+        mirrors the functions exported in the mlapi module.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-last_update">last_update() = <a href="#type-timestamp" class="seealso">timestamp()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_access_token">mlapi_access_token() = binary() | string()</h3></div>
+    <div class="type"><h3 id="type-mlapi_application_id">mlapi_application_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_card_issuer_id">mlapi_card_issuer_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_catalog_product_arg">mlapi_catalog_product_arg() = {domain, <a href="#type-mlapi_domain_id" class="seealso">mlapi_domain_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {offset, <a href="#type-mlapi_offset" class="seealso">mlapi_offset()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {limit, <a href="#type-mlapi_limit" class="seealso">mlapi_limit()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_catalog_product_id">mlapi_catalog_product_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_category_id">mlapi_category_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_city_id">mlapi_city_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_country_id">mlapi_country_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_credit_level_id">mlapi_credit_level_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_currency_conversion_arg">mlapi_currency_conversion_arg() = {from, <a href="#type-mlapi_currency_id" class="seealso">mlapi_currency_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {to, <a href="#type-mlapi_currency_id" class="seealso">mlapi_currency_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {date, <a href="calendar.html#type-datetime" class="seealso">calendar:datetime()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_currency_id">mlapi_currency_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_domain_id">mlapi_domain_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_feedback_status_id">mlapi_feedback_status_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mlapi_id">mlapi_id() = binary() | string()</h3></div>
+    <div class="type"><h3 id="type-mlapi_ip_address">mlapi_ip_address() = binary() | string()</h3></div>
+    <div class="type"><h3 id="type-mlapi_item_id">mlapi_item_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_limit">mlapi_limit() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-mlapi_listing_exposure_id">mlapi_listing_exposure_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mlapi_listing_price_arg">mlapi_listing_price_arg() = {price, float()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {listing_type_id,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-mlapi_listing_type_id" class="seealso">mlapi_listing_type_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {quantity, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {category_id, <a href="#type-mlapi_category_id" class="seealso">mlapi_category_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {currency_id, <a href="#type-mlapi_currency_id" class="seealso">mlapi_currency_id()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_listing_type_id">mlapi_listing_type_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mlapi_offset">mlapi_offset() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-mlapi_order_arg">mlapi_order_arg() = {access_token, <a href="#type-mlapi_access_token" class="seealso">mlapi_access_token()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {feedback_status,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-mlapi_feedback_status_id" class="seealso">mlapi_feedback_status_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {limit, <a href="#type-mlapi_limit" class="seealso">mlapi_limit()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {offset, <a href="#type-mlapi_offset" class="seealso">mlapi_offset()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {payment_status, <a href="#type-mlapi_payment_status_id" class="seealso">mlapi_payment_status_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {seller, <a href="#type-mlapi_user_id" class="seealso">mlapi_user_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {shipping_status,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-mlapi_shipping_status_id" class="seealso">mlapi_shipping_status_id()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_order_id">mlapi_order_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_payment_method_id">mlapi_payment_method_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_payment_status_id">mlapi_payment_status_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mlapi_payment_type_id">mlapi_payment_type_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_picture_id">mlapi_picture_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_query">mlapi_query() = binary() | string()</h3></div>
+    <div class="type"><h3 id="type-mlapi_question_arg">mlapi_question_arg() = {item, <a href="#type-mlapi_item_id" class="seealso">mlapi_item_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {period, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {status, <a href="#type-mlapi_question_status_id" class="seealso">mlapi_question_status_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {from, <a href="#type-mlapi_user_id" class="seealso">mlapi_user_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {seller, <a href="#type-mlapi_user_id" class="seealso">mlapi_user_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {access_token, <a href="#type-mlapi_access_token" class="seealso">mlapi_access_token()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_question_id">mlapi_question_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_question_status_id">mlapi_question_status_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mlapi_sale_arg">mlapi_sale_arg() = {access_token, <a href="#type-mlapi_access_token" class="seealso">mlapi_access_token()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {offset, <a href="#type-mlapi_offset" class="seealso">mlapi_offset()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {limit, <a href="#type-mlapi_limit" class="seealso">mlapi_limit()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_sale_id">mlapi_sale_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_search_arg">mlapi_search_arg() = {nickname, <a href="#type-mlapi_user_nickname" class="seealso">mlapi_user_nickname()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {seller_id, <a href="#type-mlapi_user_id" class="seealso">mlapi_user_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {category, <a href="#type-mlapi_category_id" class="seealso">mlapi_category_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sort, <a href="#type-mlapi_sort_key" class="seealso">mlapi_sort_key()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {q, <a href="#type-mlapi_query" class="seealso">mlapi_query()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {offset, <a href="#type-mlapi_offset" class="seealso">mlapi_offset()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {limit, <a href="#type-mlapi_limit" class="seealso">mlapi_limit()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_shipping_status_id">mlapi_shipping_status_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mlapi_site_id">mlapi_site_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_sort_key">mlapi_sort_key() = binary() | string()</h3></div>
+    <div class="type"><h3 id="type-mlapi_state_id">mlapi_state_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-mlapi_trend_arg">mlapi_trend_arg() = {category, <a href="#type-mlapi_category_id" class="seealso">mlapi_category_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {limit, <a href="#type-mlapi_limit" class="seealso">mlapi_limit()</a>}</h3></div>
+    <div class="type"><h3 id="type-mlapi_user_id">mlapi_user_id() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a> | integer()</h3></div>
+    <div class="type"><h3 id="type-mlapi_user_nickname">mlapi_user_nickname() = <a href="#type-mlapi_id" class="seealso">mlapi_id()</a></h3></div>
+    <div class="type"><h3 id="type-table">table() = atom()</h3></div>
+    <div class="type"><h3 id="type-table_version">table_version() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-time_to_live">time_to_live() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-timestamp">timestamp() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; ok | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Nodes::[node()]) -&gt; ok | no_return()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_metatable/1">init_metatable(Nodes::[node()]) -&gt; ok | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_table/1">init_table(Table::table(), Nodes::[node()]) -&gt; ok | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_tables/1">create_tables(Nodes::[node()]) -&gt; ok | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_metatable/1">create_metatable(Nodes::[node()]) -&gt; ok | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_table/1">create_table(Table::table(), Nodes::[node()]) -&gt; ok | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upgrade_metatable/0">upgrade_metatable() -&gt; {atomic, ok} | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upgrade_table/1">upgrade_table(Table::table()) -&gt; {atomic, ok} | {aborted, Reason::any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="tables/0">tables() -&gt; [#table_info{table=undefined | table(), version=undefined | table_version(), time_to_live=undefined | time_to_live()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="table_info/1">table_info(Table::table()) -&gt; {table_version(), time_to_live()} | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="table_version/1">table_version(Table::table()) -&gt; table_version()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="table_time_to_live/1">table_time_to_live(Table::table()) -&gt; time_to_live()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="last_update_to_datetime/1">last_update_to_datetime(LastUpdate::last_update()) -&gt; datetime() (see module calendar)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="applications/0">applications() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="applications/1">applications(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="application/1">application(ApplicationId::mlapi_application_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="application/1-1">application(ApplicationId::mlapi_application_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="catalog_products/1">catalog_products(SiteId::mlapi_site_id(), Filter::[mlapi_catalog_product_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="catalog_products/1-1">catalog_products(SiteId::mlapi_site_id(), Filter::[mlapi_catalog_product_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="catalog_product/1">catalog_product(SiteId::mlapi_site_id(), CatalogProductId::mlapi_catalog_product_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="catalog_product/1-1">catalog_product(SiteId::mlapi_site_id(), CatalogProductId::mlapi_catalog_product_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sites/0">sites() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sites/1">sites(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="site/1">site(SiteId::mlapi_site_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="site/1-1">site(SiteId::mlapi_site_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="countries/0">countries() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="countries/1">countries(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="country/1">country(CountryId::mlapi_country_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="country/1-1">country(CountryId::mlapi_country_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="state/1">state(StateId::mlapi_state_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="state/1-1">state(StateId::mlapi_state_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="city/1">city(CityId::mlapi_city_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="city/1-1">city(CityId::mlapi_city_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="currencies/0">currencies() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="currencies/1">currencies(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="currency/1">currency(CurrencyId::mlapi_currency_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="currency/1-1">currency(CurrencyId::mlapi_currency_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="currency_conversion/1">currency_conversion(Filter::[mlapi_currency_conversion_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="currency_conversion/1-1">currency_conversion(Filter::[mlapi_currency_conversion_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_exposures/1">listing_exposures(SiteId::mlapi_site_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_exposures/1-1">listing_exposures(SiteId::mlapi_site_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_exposure/1">listing_exposure(SiteId::mlapi_site_id(), ListingExposureId::mlapi_listing_exposure_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_exposure/1-1">listing_exposure(SiteId::mlapi_site_id(), ListingExposureId::mlapi_listing_exposure_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_prices/1">listing_prices(SiteId::mlapi_site_id(), Filter::[mlapi_listing_price_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_prices/1-1">listing_prices(SiteId::mlapi_site_id(), Filter::[mlapi_listing_price_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_types/1">listing_types(SiteId::mlapi_site_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listing_types/1-1">listing_types(SiteId::mlapi_site_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_types/0">payment_types() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_types/1">payment_types(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_type/1">payment_type(PaymentTypeId::mlapi_payment_type_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_type/1-1">payment_type(PaymentTypeId::mlapi_payment_type_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_methods/1">payment_methods(SiteId::mlapi_site_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_methods/1-1">payment_methods(SiteId::mlapi_site_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_method/1">payment_method(SiteId::mlapi_site_id(), PaymentMethodId::mlapi_payment_method_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="payment_method/1-1">payment_method(SiteId::mlapi_site_id(), PaymentMethodId::mlapi_payment_method_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="card_issuers/1">card_issuers(SiteId::mlapi_site_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="card_issuers/1-1">card_issuers(SiteId::mlapi_site_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="card_issuer/1">card_issuer(SiteId::mlapi_site_id(), CardIssuerId::mlapi_card_issuer_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="card_issuer/1-1">card_issuer(SiteId::mlapi_site_id(), CardIssuerId::mlapi_card_issuer_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="credit_level/1">credit_level(CreditLevelId::mlapi_credit_level_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="credit_level/1-1">credit_level(CreditLevelId::mlapi_credit_level_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="category/1">category(CategoryId::mlapi_category_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="category/1-1">category(CategoryId::mlapi_category_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="domains/0">domains() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="domains/1">domains(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="domain/1">domain(DomainId::mlapi_domain_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="domain/1-1">domain(DomainId::mlapi_domain_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user/1">user(UserId::mlapi_user_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user/1-1">user(UserId::mlapi_user_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="users/1">users(UserIds::[mlapi_user_id()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="users/1-1">users(UserIds::[mlapi_user_id()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_by_nickname/1">user_by_nickname(Nickname::mlapi_user_nickname()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_by_nickname/1-1">user_by_nickname(Nickname::mlapi_user_nickname(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="item/1">item(ItemId::mlapi_item_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="item/1-1">item(ItemId::mlapi_item_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="items/1">items(ItemIds::[mlapi_item_id()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="items/1-1">items(ItemIds::[mlapi_item_id()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="picture/1">picture(PictureId::mlapi_picture_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="picture/1-1">picture(PictureId::mlapi_picture_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="question/1">question(QuestionId::mlapi_question_id()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="question/1-1">question(QuestionId::mlapi_question_id(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="questions/1">questions(Filter::[mlapi_question_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="questions/1-1">questions(Filter::[mlapi_question_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="trends/1">trends(SiteId::mlapi_site_id(), Filter::[mlapi_trend_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="trends/1-1">trends(SiteId::mlapi_site_id(), Filter::[mlapi_trend_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="local_geolocation/0">local_geolocation() -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="local_geolocation/1">local_geolocation(Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="geolocation/1">geolocation(IpAddr::mlapi_ip_address()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="geolocation/1-1">geolocation(IpAddr::mlapi_ip_address(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="search/1">search(SiteId::mlapi_site_id(), Filter::[mlapi_search_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="search/1-1">search(SiteId::mlapi_site_id(), Filter::[mlapi_search_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_archived_sales/1">my_archived_sales(AccessToken::mlapi_access_token(), Filter::[mlapi_sale_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_archived_sales/1-1">my_archived_sales(AccessToken::mlapi_access_token(), Filter::[mlapi_sale_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_active_sales/1">my_active_sales(AccessToken::mlapi_access_token(), Filter::[mlapi_sale_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_active_sales/1-1">my_active_sales(AccessToken::mlapi_access_token(), Filter::[mlapi_sale_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_orders/1">my_orders(Args::[mlapi_order_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_orders/1-1">my_orders(Args::[mlapi_order_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_archived_orders/1">my_archived_orders(Args::[mlapi_order_arg()]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_archived_orders/1-1">my_archived_orders(Args::[mlapi_order_arg()], Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_order/1">my_order(OrderId::mlapi_order_id(), AccessToken::mlapi_access_token()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_order/1-1">my_order(OrderId::mlapi_order_id(), AccessToken::mlapi_access_token(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_sale/1">my_sale(SaleId::mlapi_sale_id(), AccessToken::mlapi_access_token()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_sale/1-1">my_sale(SaleId::mlapi_sale_id(), AccessToken::mlapi_access_token(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_user/1">my_user(AccessToken::mlapi_access_token()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="my_user/1-1">my_user(AccessToken::mlapi_access_token(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_listing_types/1">user_listing_types(UserId::mlapi_user_id(), AccessToken::mlapi_access_token()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_listing_types/1-1">user_listing_types(UserId::mlapi_user_id(), AccessToken::mlapi_access_token(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_items/1">user_items(UserId::mlapi_user_id(), AccessToken::mlapi_access_token()) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_items/1-1">user_items(UserId::mlapi_user_id(), AccessToken::mlapi_access_token(), Options::[option() (see module mlapi)]) -&gt; response() (see module mlapi)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="current_time_in_gregorian_seconds/0">current_time_in_gregorian_seconds() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Juan Jose Comellas</aname>
+<email>juanjo@comellas.org</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

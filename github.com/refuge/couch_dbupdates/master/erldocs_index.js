@@ -1,0 +1,1 @@
+var index = [['app','couch_dbupdates','couch_dbupdates','[application]'],['mod','couch_dbupdates','couch_dbupdates',[]],['fun','couch_dbupdates','couch_dbupdates:handle_dbupdates/3',[]]];

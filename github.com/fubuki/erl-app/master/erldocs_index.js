@@ -1,0 +1,1 @@
+var index = [['app','erl-app','erl-app','[application]'],['mod','erl-app','erlapp_app',[]],['mod','erl-app','erlapp_sup',[]],['fun','erl-app','erlapp_app:start/2',[]],['fun','erl-app','erlapp_app:stop/1',[]],['fun','erl-app','erlapp_sup:init/1',[]],['fun','erl-app','erlapp_sup:start_link/0',[]]];

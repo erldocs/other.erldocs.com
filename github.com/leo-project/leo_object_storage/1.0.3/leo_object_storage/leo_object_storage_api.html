@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_object_storage_api (leo_object_storage) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_object_storage_api</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-del_flag">del_flag() = 1 | 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(ObjectStorageInfo::list()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Create object-storage processes
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(AddrIdAndKey::tuple(), Object_1::#object_1{method=any(), key=binary(), addr_id=integer(), data=binary(), meta=binary(), ksize=pos_integer(), dsize=pos_integer(), msize=pos_integer(), csize=pos_integer(), cnumber=pos_integer(), cindex=pos_integer(), offset=pos_integer(), clock=pos_integer(), timestamp=pos_integer(), checksum=pos_integer(), ring_hash=pos_integer(), req_id=pos_integer(), cluster_id=string(), num_of_replicas=pos_integer(), ver=pos_integer(), del=del_flag()}) -&gt; {ok, integer()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Insert an object into the object-storage</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(AddrIdAndKey::tuple()) -&gt; {ok, list()} | not_found | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve an object and a metadata from the object-storage
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get/1-1">get(AddrIdAndKey::tuple(), StartPos::integer(), EndPos::integer()) -&gt; {ok, #metadata_1{key=binary(), addr_id=pos_integer(), ksize=pos_integer(), dsize=pos_integer(), msize=pos_integer(), csize=pos_integer(), cnumber=pos_integer(), cindex=pos_integer(), offset=pos_integer(), clock=pos_integer(), timestamp=pos_integer(), checksum=pos_integer(), ring_hash=pos_integer(), cluster_id=undefined | atom(), num_of_replicas=pos_integer(), ver=pos_integer(), del=del_flag()}, #object_1{method=any(), key=binary(), addr_id=integer(), data=binary(), meta=binary(), ksize=pos_integer(), dsize=pos_integer(), msize=pos_integer(), csize=pos_integer(), cnumber=pos_integer(), cindex=pos_integer(), offset=pos_integer(), clock=pos_integer(), timestamp=pos_integer(), checksum=pos_integer(), ring_hash=pos_integer(), req_id=pos_integer(), cluster_id=string(), num_of_replicas=pos_integer(), ver=pos_integer(), del=del_flag()}} | not_found | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1">delete(AddrIdAndKey::tuple(), Object_1::#object_1{method=any(), key=binary(), addr_id=integer(), data=binary(), meta=binary(), ksize=pos_integer(), dsize=pos_integer(), msize=pos_integer(), csize=pos_integer(), cnumber=pos_integer(), cindex=pos_integer(), offset=pos_integer(), clock=pos_integer(), timestamp=pos_integer(), checksum=pos_integer(), ring_hash=pos_integer(), req_id=pos_integer(), cluster_id=string(), num_of_replicas=pos_integer(), ver=pos_integer(), del=del_flag()}) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Remove an object from the object-storage
+ </p>
+</div></div>
+<div class="function">
+<h3 id="head/1">head(AddrIdAndKey::tuple()) -&gt; {ok, metadata} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a metadata from the object-storage
+ </p>
+</div></div>
+<div class="function">
+<h3 id="head_with_calc_md5/1">head_with_calc_md5(AddrIdAndKey::tuple(), MD5Context::any()) -&gt; {ok, metadata, any()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a metada/data from backend_db/object-storage
+       AND calc MD5 based on the body data
+ </p>
+</div></div>
+<div class="function">
+<h3 id="fetch_by_addr_id/1">fetch_by_addr_id(AddrId::integer(), Fun::function()) -&gt; {ok, list()} | not_found</h3>
+
+
+<div class="description">
+
+<p>Fetch objects by ring-address-id
+ </p>
+</div></div>
+<div class="function">
+<h3 id="fetch_by_addr_id/3">fetch_by_addr_id(AddrId, Fun, MaxKeys) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fetch_by_key/1">fetch_by_key(Key::binary(), Fun::function()) -&gt; {ok, list()} | not_found</h3>
+
+
+<div class="description">
+
+<p>Fetch objects by key (object-name)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="fetch_by_key/1-1">fetch_by_key(Key::binary(), Fun::function(), MaxKeys::pos_integer() | undefined) -&gt; {ok, list()} | not_found</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="store/1">store(Metadata_1::#metadata_1{key=binary(), addr_id=pos_integer(), ksize=pos_integer(), dsize=pos_integer(), msize=pos_integer(), csize=pos_integer(), cnumber=pos_integer(), cindex=pos_integer(), offset=pos_integer(), clock=pos_integer(), timestamp=pos_integer(), checksum=pos_integer(), ring_hash=pos_integer(), cluster_id=undefined | atom(), num_of_replicas=pos_integer(), ver=pos_integer(), del=del_flag()}, Bin::binary()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Store metadata and data
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stats/0">stats() -&gt; {ok, list()} | not_found</h3>
+
+
+<div class="description">
+
+<p>Retrieve the storage stats
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_incorrect_data/1">add_incorrect_data(Bin::binary()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Add incorrect datas on debug purpose
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_object_storage_pid_first/0">get_object_storage_pid_first() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>for debug purpose</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','sheriff','sheriff','[application]'],['mod','sheriff','sheriff',[]],['fun','sheriff','sheriff:build_type/3',[]],['fun','sheriff','sheriff:check/1','Return whether a value matches an Erlang type.'],['fun','sheriff','sheriff:parse_transform/2',[]]];

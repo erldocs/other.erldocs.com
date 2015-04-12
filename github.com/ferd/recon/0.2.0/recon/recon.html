@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>recon (recon) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>recon</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-proc_attrs">proc_attrs() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Attr :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Name :: atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {current_function, mfa()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {initial_call, mfa()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="info/3">info(N, N, N) -&gt; [{atom(), [{atom(), term()}]}, ...]</h3>
+
+<ul class="type">
+<li><code>N = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <code>info(&lt;A.B.C&gt;)</code> where <code>A</code>, <code>B</code>, and <code>C</code> are integers part
+  of a pid</p>
+</div></div>
+<div class="function">
+<h3 id="info/1">info(Name) -&gt; [{Type, [{Key, Value}]}, ...]</h3>
+
+<ul class="type">
+<li><code>Name = pid() | atom() | string() | {global, term()} | {via, module(), term()}</code></li><li><code>Type = meta | signals | location | memory | work</code></li><li><code>Key = registered_name | dictionary | group_leader | status | links | monitors | monitored_by | trap_exit | initial_call | current_stacktrace | memory | message_queue_len | heap_size | total_heap_size | garbage_collection | reductions</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Allows to be similar to <code>erlang:process_info/1</code>, but excludes fields
+  such as the mailbox, which have a tendency to grow and be unsafe when called
+  in production systems. Also includes a few more fields than what is usually
+  given (<code>monitors</code>, <code>monitored_by</code>, etc.), and separates the fields in a more  
+readable format based on the type of information contained.</p>
+ 
+  <p>Moreover, it will fetch and read information on local processes that were
+  registered locally (an atom), globally (<code>{global, Name}</code>), or through
+  another registry supported in the <code>{via, Module, Name}</code> syntax (must have a
+  <code>Module:whereis_name/1</code> function). Pids can also be passed in as a string
+  (<code>"&lt;0.39.0&gt;"</code>) and will be converted to be used.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_count/2">proc_count(AttributeName, Num) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>AttributeName = atom()</code></li><li><code>Num = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Fetches a given attribute from all processes and returns
+  the biggest <code>Num</code> consumers.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_window/3">proc_window(AttributeName, Num, Milliseconds) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>AttributeName = atom()</code></li><li><code>Num = non_neg_integer()</code></li><li><code>Milliseconds = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Fetches a given attribute from all processes and returns  
+the biggest entries, over a sliding time window.</p>
+ 
+  <p>This function is particularly useful when processes on the node  
+are mostly short-lived, usually too short to inspect through other  
+tools, in order to figure out what kind of processes are eating  
+through a lot resources on a given node.</p>
+ 
+  <p>It is important to see this function as a snapshot over a sliding  
+window. A program's timeline during sampling might look like this:</p>
+ 
+   <p><code>--w---- [Sample1] ---x-------------y----- [Sample2] ---z---&gt;</code></p>
+ 
+  <p>Some processes will live between <code>w</code> and die at <code>x</code>, some between <code>y</code> and
+  <code>z</code>, and some between <code>x</code> and <code>y</code>. These samples will not be too significant
+  as they're incomplete. If the majority of your processes run between a time
+  interval <code>x</code>...<code>y</code> (in absolute terms), you should make sure that your
+  sampling time is smaller than this so that for many processes, their
+  lifetime spans the equivalent of <code>w</code> and <code>z</code>. Not doing this can skew the  
+results: long-lived processes, that have 10 times the time to accumulate  
+data (say reductions) will look like bottlenecks when they're not one.</p>
+ 
+  <p>Warning: this function depends on data gathered at two snapshots, and then
+  building a dictionary with entries to differentiate them. This can take a
+  heavy toll on memory when you have many dozens of thousands of processes.</p>
+</div></div>
+<div class="function">
+<h3 id="bin_leak/1">bin_leak(N::pos_integer()) -&gt; [proc_attrs()]</h3>
+
+
+<div class="description">
+
+<p>Refc binaries can be leaking when barely-busy processes route them
+  around and do little else, or when extremely busy processes reach a stable
+  amount of memory allocated and do the vast majority of their work with refc
+  binaries. When this happens, it may take a very long while before references
+  get deallocated and refc binaries get to be garbage collected, leading to
+  Out Of Memory crashes.
+  This function fetches the number of refc binary references in each process
+  of the node, garbage collects them, and compares the resulting number of
+  references in each of them. The function then returns the <code>N</code> processes  
+that freed the biggest amount of binaries, potentially highlighting leaks.</p>
+ 
+  <p>See <url href="http://www.erlang.org/doc/efficiency_guide/binaryhandling.html#id65722">The efficiency guide</url>
+  for more details on refc binaries</p>
+</div></div>
+<div class="function">
+<h3 id="node_stats_print/2">node_stats_print(Repeat, Interval) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Repeat = non_neg_integer()</code></li><li><code>Interval = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Shorthand for <code>node_stats(N, Interval, fun(X,_) -&gt; io:format("~p~n",[X]) end, nostate)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="node_stats_list/2">node_stats_list(Repeat, Interval) -&gt; [Stats]</h3>
+
+<ul class="type">
+<li><code>Repeat = non_neg_integer()</code></li><li><code>Interval = pos_integer()</code></li><li><code>Stats = {[Absolutes::{atom(), term()}], [Increments::{atom(), term()}]}</code></li></ul>
+<div class="description">
+
+<p>Shorthand for <code>node_stats(N, Interval, fun(X,Acc) -&gt; [X|Acc] end, [])</code>
+  with the results reversed to be in the right temporal order.</p>
+</div></div>
+<div class="function">
+<h3 id="node_stats/4">node_stats(N, Interval, FoldFun, Acc) -&gt; Acc</h3>
+
+<ul class="type">
+<li><code>N = non_neg_integer()</code></li><li><code>Interval = pos_integer()</code></li><li><code>FoldFun = (Stats, Acc) -&gt; Acc</code></li><li><code>Acc = term()</code></li><li><code>Stats = {[Absolutes::{atom(), term()}], [Increments::{atom(), term()}]}</code></li></ul>
+<div class="description">
+
+<p>Gathers statistics <code>N</code> time, waiting <code>Interval</code> milliseconds between
+  each run, and accumulates results using a folding function <code>FoldFun</code>.  
+The function will gather statistics in two forms: Absolutes and Increments.</p>
+ 
+  <p>Absolutes are values that keep changing with time, and are useful to know  
+about as a datapoint: process count, size of the run queue, error_logger  
+queue length, and the memory of the node (total, processes, atoms, binaries,  
+and ets tables).</p>
+ 
+  <p>Increments are values that are mostly useful when compared to a previous
+  one to have an idea what they're doing, because otherwise they'd never
+  stop increasing: bytes in and out of the node, number of garbage colelctor
+  runs, words of memory that were garbage collected, and the global reductions
+  count for the node.</p>
+</div></div>
+<div class="function">
+<h3 id="get_state/1">get_state(Name) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Name = pid() | atom() | {global, term()} | {via, module(), term()}</code></li></ul>
+<div class="description">
+
+<p>Fetch the internal state of an OTP process.
+  Calls <code>sys:get_state/1</code> directly in R16B01+, and fetches
+  it dynamically on older versions of OTP.</p>
+</div></div>
+<div class="function">
+<h3 id="remote_load/1">remote_load(Mod::module()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>remote_load(nodes(), Mod)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="remote_load/2">remote_load(Nodes, Mod::module()) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Nodes = [node(), ...] | node()</code></li></ul>
+<div class="description">
+
+<p>Loads one or more modules remotely, in a diskless manner.  Allows to
+  share code loaded locally with a remote node that doesn't have it</p>
+</div></div>
+<div class="function">
+<h3 id="source/1">source(Module::module()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>Obtain the source code of a module compiled with <code>debug_info</code>.
+  The returned list sadly does not allow to format the types and typed
+  records the way they look in the original module, but instead goes to
+  an intermediary form used in the AST. They will still be placed
+  in the right module attributes, however.</p>
+</div></div>
+<div class="function">
+<h3 id="tcp/0">tcp() -&gt; [port()]</h3>
+
+
+<div class="description">
+
+<p>returns a list of all TCP ports (the data type) open on the node.</p>
+</div></div>
+<div class="function">
+<h3 id="udp/0">udp() -&gt; [port()]</h3>
+
+
+<div class="description">
+
+<p>returns a list of all UDP ports (the data type) open on the node.</p>
+</div></div>
+<div class="function">
+<h3 id="sctp/0">sctp() -&gt; [port()]</h3>
+
+
+<div class="description">
+
+<p>returns a list of all SCTP ports (the data type) open on the node.</p>
+</div></div>
+<div class="function">
+<h3 id="files/0">files() -&gt; [port()]</h3>
+
+
+<div class="description">
+
+<p>returns a list of all file handles open on the node.</p>
+</div></div>
+<div class="function">
+<h3 id="port_types/0">port_types() -&gt; [{pos_integer(), Type::string()}]</h3>
+
+
+<div class="description">
+
+<p>Shows a list of all different ports on the node with their respective
+  types.</p>
+</div></div>
+<div class="function">
+<h3 id="rpc/1">rpc(Fun::() -&gt; term()) -&gt; {[Success::term()], [Fail::term()]}</h3>
+
+
+<div class="description">
+
+<p>Shorthand for <code>rpc([node()|nodes()], Fun)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="rpc/1-1">rpc(Nodes::node() | [node(), ...], Fun::() -&gt; term()) -&gt; {[Success::term()], [Fail::term()]}</h3>
+
+
+<div class="description">
+
+<p>Shorthand for <code>rpc(Nodes, Fun, infinity)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="rpc/1-2">rpc(Nodes::node() | [node(), ...], Fun::() -&gt; term(), Timeout::timeout()) -&gt; {[Success::term()], [Fail::term()]}</h3>
+
+
+<div class="description">
+
+<p>Runs an arbitrary fun (of arity 0) over one or more nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="named_rpc/1">named_rpc(Fun::() -&gt; term()) -&gt; {[Success::term()], [Fail::term()]}</h3>
+
+
+<div class="description">
+
+<p>Shorthand for <code>named_rpc([node()|nodes()], Fun)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="named_rpc/1-1">named_rpc(Nodes::node() | [node(), ...], Fun::() -&gt; term()) -&gt; {[Success::term()], [Fail::term()]}</h3>
+
+
+<div class="description">
+
+<p>Shorthand for <code>named_rpc(Nodes, Fun, infinity)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="named_rpc/1-2">named_rpc(Nodes::node() | [node(), ...], Fun::() -&gt; term(), Timeout::timeout()) -&gt; {[Success::term()], [Fail::term()]}</h3>
+
+
+<div class="description">
+
+<p>Runs an arbitrary fun (of arity 0) over one or more nodes, and returns the
+  name of the node that computed a given result along with it, in a tuple.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

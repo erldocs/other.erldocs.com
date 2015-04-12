@@ -1,0 +1,1 @@
+var index = [['app','ebins','ebins','[application]'],['mod','ebins','bins',[]],['fun','ebins','bins:start/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','rebar_alt_deps','rebar_alt_deps','[application]'],['mod','rebar_alt_deps','rebar_alt_deps',[]],['fun','rebar_alt_deps','rebar_alt_deps:install-deps/2',[]],['fun','rebar_alt_deps','rebar_alt_deps:post_install-deps/2',[]]];

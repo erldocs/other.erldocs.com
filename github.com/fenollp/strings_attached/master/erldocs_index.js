@@ -1,0 +1,1 @@
+var index = [['app','strings_attached','strings_attached','[application]'],['mod','strings_attached','strings_attached',[]],['fun','strings_attached','strings_attached:my_func/0',[]]];

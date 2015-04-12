@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rberl_server (rberl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rberl_server</h1>
+<h2 class="modsummary">Persistent server for parsed Java Resource Bundles.</h2>
+<div class="description">
+<p>Persistent server for parsed Java Resource Bundles</p>
+ 
+  <p>This module provides a gen_server that persists parsed Java Resource Bundles</p>
+ 
+  <p>For this version the server creates an ets table named rberl_server and stores all values there</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="load/1">load(Dir::string(), FileName::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Load all BaseName*.properties files in a directory
+  </p><pre class="sh_erlang">
+    &gt;rberl_server:load("./../examples/", "lang").
+     some_value
+  </pre><p>
+  Directory name must end in a trailing slash.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reload/0">reload() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Reload all previously loaded files/strings</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Key::string(), Locale::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Get Value for specified Key and specified Locale
+  </p><pre class="sh_erlang">
+    &gt;rberl_server:get("a key", "ru_RU").
+     some_value
+  </pre><p>
+ 
+  The values are searched in top-down manner from the "outmost" locale. That is,
+  for <c lang="Erlang">get("a key", "ru_RU_UNIX")</c> the server will look
+  for keys in the following locales, in order:
+  </p><list>
+    <item><p>ru_RU_UNIX</p></item>
+    <item><p>ru_RU</p></item>
+    <item><p>ru</p></item>
+    <item><p>(keys for no locale)</p></item>
+  </list><p>
+ 
+  Locales are stored according the *.properties files. That is, if you call
+  </p><pre class="sh_erlang">
+    rberl_server:load("./../examples/", "lang").
+  </pre><p>
+  and the example directory contains the following files:
+  </p><pre class="sh_erlang">
+    lang.properties
+    lang_ru.properties
+    lang_ru_RU.properties
+    lang_ru_RU_UNIX.properties
+    lang_tr.properties
+    lang_tr_TR.properties
+  </pre><p>
+  then the following locales will be available:
+  </p><pre class="sh_erlang">
+    (no locale)
+    ru
+    ru_RU
+    ru_RU_UNIX
+    tr
+    tr_TR
+  </pre><p>
+ 
+  When no value can be found, the key is returned
+ </p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVersion, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+<div class="section"><h4>See also</h4><p><a href="rberl.html" class="seealso">rberl</a></p></div>
+<authors>
+
+<aname>Dmitrii Dimandt</aname>
+<email>dmitrii@dmitriid.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

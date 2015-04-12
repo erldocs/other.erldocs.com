@@ -1,0 +1,1 @@
+var index = [['app','erlang-chat','erlang-chat','[application]'],['mod','erlang-chat','chat_client',[]],['mod','erlang-chat','message_router',[]]];

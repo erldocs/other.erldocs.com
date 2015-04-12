@@ -1,0 +1,28 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/weirdbird/magicsquare'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/8015062673/meta.txt"
+ :: Processing https://github.com/weirdbird/magicsquare	{rev,branch,"master","fdfd819c856ab1812f19637d8d67d1e6bb9a36a2"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/8015062673/magicsquare-branch-master/magicsquare"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/weirdbird/magicsquare/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/8015062673/magicsquare-branch-master/magicsquare"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/8015062673/magicsquare-branch-master/magicsquare"
+$ 5000  `find 'magicsquare-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `magicsquare-master': No such file or directory"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,92}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,238}]},
+         {eo_core,main_,11,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
+         {gen_escript__escript__1427__565489__767955,seq_gen,3,
+             [{file,"./gen.escript"},{line,47}]},
+         {escript,run,2,[{file,"escript.erl"},{line,752}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `magicsquare-master': No such file or directory"}]}}

@@ -1,0 +1,1 @@
+var index = [['app','cocompile','cocompile','[application]'],['mod','cocompile','cocompile_app',[]],['mod','cocompile','cocompile_sup',[]],['fun','cocompile','cocompile_app:start/2',[]],['fun','cocompile','cocompile_app:stop/1',[]],['fun','cocompile','cocompile_sup:init/1',[]],['fun','cocompile','cocompile_sup:start_link/0',[]]];

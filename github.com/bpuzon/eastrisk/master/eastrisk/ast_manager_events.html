@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ast_manager_events (eastrisk) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ast_manager_events</h1>
+<h2 class="modsummary">
+   Event manager for the Asterisk Manager Interface.</h2>
+<div class="description">
+<p>
+   Event manager for the Asterisk Manager Interface.
+   </p><p>
+   If the manager server of the eastrisk application is running, it is
+   possible to use this event manager to receive Manager events.
+   </p>
+   <p>
+   The registered module must be a gen_event where <code>handle_event/2</code>
+   will be called as <code>Callback:handle_event(Event, State)</code>.
+   State is an arbitrary term returned by <code>Callback:init/1</code>,
+   which is called once when the callback is registered.
+   The return value of the <code>handle_event/2</code> must conform to the
+   specification of gen_event(3).
+   </p>
+   <p>
+   An event looks like:<br /><br />
+   <code>{Type, Record}</code><br />
+   </p><list>
+       <item><p><code>Type = atom()</code></p></item>
+       <item><p><code>Record = record()</code></p></item>
+   </list><p>
+   </p>
+   <em>Events</em>
+   <em>'Alarm'</em>
+   -record(alarm, {
+       privilege,        % [atom()]
+       alarm,            % string()
+       channel           % integer()
+   }).
+   <em>'AlarmClear'</em>
+   -record(alarm, {
+   }).
+   <em>'LogChannel'</em>
+   <pre class="sh_erlang">
+   -record(log,
+   {
+       privilege,        % [atom()]
+       channel,          % string()
+       enabled,          % bool()
+       reason            % string()
+   }).
+   </pre>
+   <em>'DNDState'</em>
+   <pre class="sh_erlang">
+   -record(dnd_state,
+   {
+       privilege,        % [atom()]
+       channel,          % string()
+       status            % enabled | disabled
+   }).
+   </pre>
+   <em>'Join'</em>
+   <pre class="sh_erlang">
+   -record(queue_entry,
+   {
+       privilege,      % [atom()]
+       queue,          % string()
+       position,       % integer()
+       channel,        % string()
+       caller_id,      % string()
+       caller_id_name, % string()
+       wait,           % integer()
+       count           % integer()
+   }).
+   </pre>
+   <em>'Leave'</em>
+   <pre class="sh_erlang">
+   -record(queue_entry, {
+       privilege,      % [atom()]
+       queue,          % string()
+       position,       % integer()
+       channel,        % string()
+       caller_id,      % string()
+       caller_id_name, % string()
+       wait,           % integer()
+       count           % integer()
+   }).
+   </pre>
+   <em>'Registry'</em>
+   <pre class="sh_erlang">
+   -record(registry,
+   {
+   }).
+   </pre>
+   <em>'Hold'</em>
+   <pre class="sh_erlang">
+   -record(hold,
+   {
+   }).
+   </pre>
+   <em>'Unhold'</em>
+   <pre class="sh_erlang">
+   -record(hold,
+   {
+   }).
+   </pre>
+   <em>'Hangup'</em>
+   <pre class="sh_erlang">
+   -record(hangup,
+   {
+       privilege,         % [atom()]
+       channel,           % string()
+       cause,             % integer()
+       cause_txt,         % string()
+       unique_id          % string()
+   }).
+   </pre>
+  
+   <em>'Link'</em>
+   <pre class="sh_erlang">
+   -record(link,
+   {
+       privilege,         % [atom()]
+       channel_1,         % string()
+       channel_2,         % string()
+       unique_id_1,       % string()
+       unique_id_2,       % string()
+       caller_id_1,       % string()
+       caller_id_2        % string()
+   }).
+   </pre>
+  
+   <em>'Unlink'</em>
+   <pre class="sh_erlang">
+   -record(link,
+   {
+       privilege,         % [atom()]
+       channel_1,         % string()
+       channel_2,         % string()
+       unique_id_1,       % string()
+       unique_id_2,       % string()
+       caller_id_1,       % string()
+       caller_id_2        % string()
+   }).
+   </pre>
+  
+   <em>'Newexten'</em>
+   <pre class="sh_erlang">
+   -record(exten,
+   {
+       privilege,         % [atom()]
+       channel,           % string()
+       context,           % string()
+       exten,             % string()
+       priority,          % string()
+       application,       % string()
+       app_data,          % string()
+       unique_id          % string()
+   }).
+   </pre>
+  
+   <em>'Newstate'</em>
+   <pre class="sh_erlang">
+   -record(ast_state,
+   {
+       privilege,         % [atom()]
+       channel,           % string()
+       state,             % atom()
+       caller_id,         % string()
+       caller_id_name,    % string()
+       unique_id          % string()
+   }).
+   </pre>
+  
+   <em>'Newchannel'</em>
+   <pre class="sh_erlang">
+   -record(channel,
+   {
+       privilege,         % [atom()]
+       channel,           % string()
+       state,             % atom()
+       caller_id,         % string()
+       caller_id_name,    % string()
+       unique_id          % string()
+   }).
+   </pre>
+  
+   <em>'Newcallerid'</em>
+   <pre class="sh_erlang">
+   -record(caller_id,
+   {
+      privilege,         % [atom()]
+      channel,           % string()
+      caller_id,         % string()
+      caller_id_name,    % string()
+      unique_id,         % string()
+      cid_calling_pres   % integer()
+   }).
+   </pre>
+  
+   <em>'QueueMemberPaused'</em>
+   <pre class="sh_erlang">
+   -record(queue_member,
+   {
+       privilege,   % [atom()]
+       queue,       % string()
+       location,    % string()
+       membership,  % string()
+       penalty,     % integer()
+       calls_taken, % integer()
+       last_call,   % integer()
+       status,      % integer()
+       paused       % bool()
+   }).
+   </pre>
+  
+   <em>'QueueMemberAdded'</em>
+   <pre class="sh_erlang">
+   -record(queue_member,
+   {
+       privilege,   % [atom()]
+       queue,       % string()
+       location,    % string()
+       membership,  % string()
+       penalty,     % integer()
+       calls_taken, % integer()
+       last_call,   % integer()
+       status,      % integer()
+       paused       % bool()
+   }).
+   </pre>
+  
+   <em>'QueueMemberRemoved'</em>
+   <pre class="sh_erlang">
+   -record(queue_member,
+   {
+       privilege,   % [atom()]
+       queue,       % string()
+       location,    % string()
+       membership,  % string()
+       penalty,     % integer()
+       calls_taken, % integer()
+       last_call,   % integer()
+       status,      % integer()
+       paused       % bool()
+   }).
+   </pre>
+  
+   <em>'ParkedCallTimeOut'</em>
+   <pre class="sh_erlang">
+   -record(park_call,
+   {
+       privilege,     % [atom()]
+       exten,         % string()
+       channel,       % string()
+       from,          % string()
+       timeout,       % integer()
+       caller_id,     % string()
+       caller_id_name % string()
+   }).
+   </pre>
+  
+   <em>'ParkedCallGiveUp'</em>
+   <pre class="sh_erlang">
+   -record(park_call,
+   {
+       privilege,     % [atom()]
+       exten,         % string()
+       channel,       % string()
+       from,          % string()
+       timeout,       % integer()
+       caller_id,     % string()
+       caller_id_name % string()
+   }).
+   </pre>
+  
+   <em>'Agentcallbacklogoff'</em>
+   <pre class="sh_erlang">
+   -record(agent_event,
+   {
+       privilege,         % [atom()]
+       agent_id,          % integer()
+       login_chan,        % string()
+       login_time         % integer()
+   }).
+   </pre>
+  
+   <em>'Agentcallbacklogin'</em>
+   <pre class="sh_erlang">
+   -record(agent_event,
+   {
+       privilege,         % [atom()]
+       agent_id,          % integer()
+       login_chan,        % string()
+       login_time         % integer()
+   }).
+   </pre>
+  
+   <em>'Dial'</em>
+   <pre class="sh_erlang">
+   -record(call,
+   {
+       privilege,         % [atom()]
+       source,            % string()
+       destination,       % string()
+       caller_id,         % string()
+       caller_id_name,    % string()
+       src_unique_id,     % string()
+       dest_unique_id     % string()
+   }).
+   </pre>
+  
+   <em>'Reload'</em>
+   <pre class="sh_erlang">
+   -record(reload,
+   {
+       privilege,         % [atom()]
+       message            % string()
+   }).
+   </pre>
+  
+   <em>'QueueMemberStatus'</em>
+   <pre class="sh_erlang">
+   -record(queue_member,
+   {
+       privilege,         % [atom()]
+       queue,             % string()
+       location,          % string()
+       membership,        % string()
+       penalty,           % integer()
+       calls_taken,       % integer()
+       last_call,         % integer()
+       status,            % integer()
+       paused             % bool()
+   }).
+   </pre>
+  
+   <p>
+   See gen_event(3).
+   </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add_manager_handler/1">add_manager_handler(Module::atom(), Args::term()) -&gt; ok | {'EXIT', Reason} | term()</h3>
+
+
+<div class="description">
+
+<p>
+  Adds an event handler to the event manager.
+  See gen_event(3).</p>
+</div></div>
+<div class="function">
+<h3 id="delete_manager_handler/1">delete_manager_handler(Module::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+  Removes an event handler for the event manager.
+  The returned term is whatever is returned by <em>Module</em>:terminate/2.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Oscar Hellström</aname>
+<email>oscar@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

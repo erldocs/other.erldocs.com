@@ -1,0 +1,1 @@
+var index = [['app','erlang-robot','erlang-robot','[application]'],['mod','erlang-robot','robot',[]],['fun','erlang-robot','robot:move_forward/0',[]],['fun','erlang-robot','robot:out_gate/1',[]],['fun','erlang-robot','robot:read_ir/0',[]],['fun','erlang-robot','robot:read_replies/1',[]],['fun','erlang-robot','robot:sleep_infinite/0',[]],['fun','erlang-robot','robot:start/1',[]]];

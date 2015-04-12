@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ex_buyer (erlang_exchange) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ex_buyer</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Id::integer(), Amount::integer(), Price::float()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>the ex_buyer module represents buyers on the erlang_exchange.        
+Every buy request becomes a ex_buyer process that subscribes to sell        
+intentions on a gproc event using the pub/sub module gproc_ps.        
+All deals are done with a three-way handshake, where either the buyer or the        
+seller is the initiating part.</p>
+  
+        <p>Seller initiated buys:        
+A new buyer publishes an intention to buy that matches the previously        
+published intention by a seller.        
+The seller reacts to the published intetion by sending a sell_offer to the        
+buyer stating how many shares at what price he is willing to sell.        
+The buyer then responds with a sell_offer_response stating how many he wants        
+to buy from that seller. A zero amount is possible and means no deal.        
+When the seller receives the sell_offer_response he closes off the deal on        
+his side and responds with a sell_complete message to the buyer, who can        
+then close the deal on his side.</p>
+  
+        <p>Buyer initiated buys:        
+A new seller publishes an intetion to sell that matches the previously        
+published intetion by a buyer.        
+The buyer reacts to the published intetion by sending a buy_offer to the        
+seller stating how many shares he is willing to buy at the sellers price.        
+The seller responds with a buy_offer_response stating how many he will sell.        
+The buyer then closes the deal on his side and send a buy_complete message        
+to the seller, who can then close the deal on his side</p>
+  
+        Offers:
+        Once an offer has been made it is not off the table before a response has
+        been recevied.
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Id) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status/1">status(Id) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="buy_offer_response/3">buy_offer_response(Id, Ref, Amount) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sell_offer/5">sell_offer(Id, SellerId, Ref, SellAmount, SellPrice) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sell_complete/2">sell_complete(Id, Ref) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(X1, State, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

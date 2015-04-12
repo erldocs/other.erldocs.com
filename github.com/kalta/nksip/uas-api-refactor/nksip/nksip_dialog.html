@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nksip_dialog (nksip) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nksip_dialog</h1>
+<h2 class="modsummary">User Dialog Management Module.</h2>
+<div class="description">
+<p>User Dialog Management Module.
+  This module implements several utility functions related to dialogs.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-field">field() = dialog_id<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| app_id<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| call_id<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| created<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| updated<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local_seq<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| remote_seq<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local_uri<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| parsed_local_uri<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| remote_uri<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| parsed_remote_uri<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local_target<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| parsed_local_target<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| remote_target<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| parsed_remote_target<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| route_set<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| parsed_route_set<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| from_tag<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| to_tag<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invite_status<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invite_answered<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invite_local_sdp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invite_remote_sdp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invite_timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| subscriptions</h3></div>
+    <div class="type"><h3 id="type-id">id() = binary()</h3></div>
+    <div class="type"><h3 id="type-invite_status">invite_status() = init<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| proceeding_uac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| proceeding_uas<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| accepted_uac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| accepted_uas<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| confirmed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bye</h3></div>
+    <div class="type"><h3 id="type-spec">spec() = <a href="#type-id" class="seealso">id()</a> | <a href="nksip.html#type-id" class="seealso">nksip:id()</a></h3></div>
+    <div class="type"><h3 id="type-stop_reason">stop_reason() = <a href="nksip.html#type-response_code" class="seealso">nksip:response_code()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| caller_bye<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| callee_bye<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| forced<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| busy<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| cancelled<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| service_unavailable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| declined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ack_timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| no_events</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="field/1">field(AppId::app_id() (see module nksip), DialogSpec::spec(), Field::field()) -&gt; term() | error</h3>
+
+
+<div class="description">
+
+<p>Gets specific information from the dialog indicated by <code>DialogSpec</code>.  
+The available fields are:</p>
+ 
+  
+       <em>Field</em><em>Type</em><em>Description</em><br />
+       
+           <code>app_id</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-app_id">nksip:app_id()</url>
+           SipApp that created the dialog
+       <br />
+       
+           <code>call_id</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-call_id">nksip:call_id()</url>
+           Call-ID
+       <br />
+       
+           <code>created</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip_lib.xml#type-timestamp">nksip_lib:timestamp()</url>
+           Creation timestamp
+       <br />
+       
+           <code>updated</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip_lib.xml#type-timestamp">nksip_lib:timestamp()</url>
+           Last update timestamp
+       <br />
+       
+           <code>local_seq</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-cseq">nksip:cseq()</url>
+           Local CSeq number
+       <br />
+       
+           <code>remote_seq</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-cseq">nksip:cseq()</url>
+           Remote CSeq number
+       <br />
+       
+           <code>local_uri</code>
+           <code>binary()</code>
+           Local URI
+       <br />
+       
+           <code>parsed_local_uri</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-uri">nksip:uri()</url>
+           Local URI
+       <br />
+       
+           <code>remote_uri</code>
+           <code>binary()</code>
+           Remote URI
+       <br />
+       
+           <code>parsed_remote_uri</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-uri">nksip:uri()</url>
+           Remote URI
+       <br />
+       
+           <code>local_target</code>
+           <code>binary()</code>
+           Local Target URI
+       <br />
+       
+           <code>parsed_local_target</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-uri">nksip:uri()</url>
+           Local Target URI
+       <br />
+       
+           <code>remote_target</code>
+           <code>binary()</code>
+           Remote Target URI
+       <br />
+       
+           <code>parsed_remote_target</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-uri">nksip:uri()</url>
+           Remote Target URI
+       <br />
+       
+           <code>early</code>
+           <code>boolean()</code>
+           Early dialog (no final response yet)
+       <br />
+       
+           <code>secure</code>
+           <code>boolean()</code>
+           Secure (sips) dialog
+       <br />
+       
+           <code>route_set</code>
+           <code>[binary()]</code>
+           Route Set
+       <br />
+       
+           <code>parsed_route_set</code>
+           <code>[</code><url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-uri">nksip:uri()</url><code>]</code>
+           Route Set
+       <br />
+       
+           <code>invite_answered</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip_lib.xml#type-timestamp">nksip_lib:timestamp()</url><code>|undefined</code>
+           Answer (first 2xx response) timestamp
+       <br />
+       
+           <code>invite_status</code>
+           <a href="#type-status" class="seealso">status()</a>
+           Current dialog's INVITE status
+       <br />
+       
+           <code>invite_local_sdp</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-sdp">nksip:sdp()</url><code>|undefined</code>
+           Current local SDP
+       <br />
+       
+           <code>invite_remote_sdp</code>
+           <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-sdp">nksip:sdp()</url><code>|undefined</code>
+           Current remote SDP
+       <br />
+       
+           <code>invite_timeout</code>
+           <code>integer()</code>
+           Seconds to expire current state
+       <br />
+       
+           <code>subscriptions</code>
+           <code>[nksip_subscription:id()]</code>
+           Lists all active subscriptions
+       <br />
+  
+</div></div>
+<div class="function">
+<h3 id="field/1-1">field(D::dialog() (see module nksip), Field::field()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Extracts a specific field from a #dialog structure</p>
+</div></div>
+<div class="function">
+<h3 id="fields/1">fields(AppId::app_id() (see module nksip), DialogSpec::spec(), Fields::[field()]) -&gt; [{atom(), term()}] | error</h3>
+
+
+<div class="description">
+
+<p>Gets a number of fields from the <code>Request</code> as described in <a href="#field/2" class="seealso">field/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="class_id/2">class_id(Class::uac | uas, Sipmsg::request() (see module nksip) | response() (see module nksip)) -&gt; id()</h3>
+
+
+<div class="description">
+
+<p>Calculates a <i>dialog's id</i> from a <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-request">nksip:request()</url> or
+  <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-response">nksip:response()</url> and a endpoint class.
+  Dialog ids are calculated as a hash over <i>Call-ID</i>, <i>From</i> tag
+  and <i>To</i> Tag. Dialog ids with same From and To are different
+  for different endpoint classes.</p>
+</div></div>
+<div class="function">
+<h3 id="id/1">id(AppId::app_id() (see module nksip), DialogId::id() | id() (see module nksip)) -&gt; id()</h3>
+
+
+<div class="description">
+
+<p>Calculates a <i>dialog's id</i> from a <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/uas-api-refactor/.xml/nksip/./nksip.xml#type-id">nksip:id()</url>.</p>
+</div></div>
+<div class="function">
+<h3 id="call_id/1">call_id(X1::spec()) -&gt; call_id() (see module nksip)</h3>
+
+
+<div class="description">
+
+<p>Gets the calls's id of a dialog</p>
+</div></div>
+<div class="function">
+<h3 id="get_dialog/1">get_dialog(AppId::app_id() (see module nksip), DialogSpec::spec()) -&gt; dialog() (see module nksip) | error</h3>
+
+
+<div class="description">
+
+<p>Gets a full dialog record.</p>
+</div></div>
+<div class="function">
+<h3 id="get_all/0">get_all() -&gt; [{app_id() (see module nksip), id()}]</h3>
+
+
+<div class="description">
+
+<p>Gets all started dialog ids.</p>
+</div></div>
+<div class="function">
+<h3 id="get_all/1">get_all(AppId::app_id() (see module nksip), CallId::call_id() (see module nksip)) -&gt; [id()]</h3>
+
+
+<div class="description">
+
+<p>Finds all existing dialogs having a <code>Call-ID</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="bye_all/0">bye_all() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends an in-dialog BYE to all existing dialogs.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(AppId::app_id() (see module nksip), DialogSpec::spec()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops an existing dialog (remove it from memory).</p>
+</div></div>
+<div class="function">
+<h3 id="stop_all/0">stop_all() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops (deletes) all current dialogs.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

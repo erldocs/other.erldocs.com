@@ -1,0 +1,1 @@
+var index = [['app','learnmesomeerlang','learnmesomeerlang','[application]'],['mod','learnmesomeerlang','udpsrv',[]],['fun','learnmesomeerlang','udpsrv:init/1',[]],['fun','learnmesomeerlang','udpsrv:server/1',[]]];

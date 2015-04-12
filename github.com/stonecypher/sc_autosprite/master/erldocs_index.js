@@ -1,0 +1,1 @@
+var index = [['app','sc_autosprite','sc_autosprite','[application]'],['mod','sc_autosprite','sc_autosprite',[]],['fun','sc_autosprite','sc_autosprite:layout/1',[]]];

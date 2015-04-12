@@ -1,0 +1,1 @@
+var index = [['app','eurl_codec','eurl_codec','[application]'],['mod','eurl_codec','eurl','Performs url (de|en)coding as well as html entity '],['fun','eurl_codec','eurl:decode/1',[]],['fun','eurl_codec','eurl:decode/2',[]],['fun','eurl_codec','eurl:entity_decode/1',[]],['fun','eurl_codec','eurl:entity_decode/2',[]],['fun','eurl_codec','eurl:percent_decode/1',[]]];

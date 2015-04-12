@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erfb_utils (erfb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erfb_utils</h1>
+<h2 class="modsummary">RFB Utility Functions.</h2>
+<div class="description">
+<p>RFB Utility Functions</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-async_state_result">async_state_result() = {next_state, atom(), term()} | {next_state, atom(), term(), integer() | infinity} | {stop, term(), term()}</h3></div>
+    <div class="type"><h3 id="type-client_event">client_event() = #client_connected{} | #listener_disconnected{} | #client_disconnected{} | #set_pixel_format{} | #set_encodings{} | #update_request{} | #key{} | #pointer{} | #client_cut_text{} | #unknown_message{}</h3></div>
+    <div class="type"><h3 id="type-fsmref">fsmref() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-ip">ip() = string() | {integer(), integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-security_kind">security_kind() = none | {vnc, Password::binary()}</h3></div>
+    <div class="type"><h3 id="type-server_event">server_event() = #server_connected{} | #server_disconnected{} | #set_colour_map_entries{} | #rfbupdate{} | #bell{} | #server_cut_text{} | #unknown_message{}</h3></div>
+    <div class="type"><h3 id="type-sync_state_result">sync_state_result() = {next_state, atom(), term()} | {next_state, atom(), term(), integer() | infinity} | {reply, any(), atom(), term()} | {reply, any(), atom(), term(), integer() | infinity} | {stop, term(), any(), term()} | {stop, term(), term()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_full_string/1">get_full_string(String::binary(), S::port()) -&gt; {Result::binary(), Rest::binary()}</h3>
+
+
+<div class="description">
+
+<p> Gets the complete string from its prefix and the socket.
+        The first 32 bits in RFB prtocol strings tell the length of the string.  This function reads
+        all the bytes it needs from the socket until the string is complete and returns any extra
+        byte read if there were enough bytes already in the stream</p>
+</div></div>
+<div class="function">
+<h3 id="complete/1">complete(Prefix::binary(), FullLength::integer(), Socket::port()) -&gt; binary() | timeout</h3>
+
+
+<div class="description">
+
+<p> Completes Prefix until it gets FullLength bytes from the Socket.
+        <em>Note:</em> This function *must* be always invoked with a pasive socket</p>
+</div></div>
+<div class="function">
+<h3 id="complete/1-1">complete(Prefix::binary(), FullLength::integer(), Socket::port(), TrhowException::boolean()) -&gt; binary() | timeout</h3>
+
+
+<div class="description">
+
+<p> Completes Prefix until it gets FullLength bytes from the Socket.
+        If it takes more than 5 seconds, and ThrowException is true, throws a
+        timeout exception, otherwise returns <code>timeout</code>
+        <em>Note:</em> This function *must* be always invoked with a pasive socket</p>
+</div></div>
+<div class="function">
+<h3 id="build_string/1">build_string(String::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p> Converts a binary string into an RFB string: <code> &lt;&lt;Length:4/integer-unit:8, String/binary&gt;&gt; </code></p>
+</div></div>
+<div class="function">
+<h3 id="pf_to_binary/1">pf_to_binary(Pixel_format::#pixel_format{}) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p> Converts a <code>#pixel_format{}</code> record into its binary form</p>
+</div></div>
+<div class="function">
+<h3 id="floor/1">floor(X::float()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p> Returns the floor (next smallest integer) of <code>X</code></p>
+</div></div>
+<div class="function">
+<h3 id="ceiling/1">ceiling(X::float()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p> Returns the ceiling (next bigest integer) of <code>X</code></p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/0">timestamp() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p> Returns the current timestamp in POSIX usecs</p>
+</div></div>
+<div class="function">
+<h3 id="default_pixel_format/1">default_pixel_format(X1::integer()) -&gt; #pixel_format{}</h3>
+
+
+<div class="description">
+
+<p> Returns a #pixel_format that matches the received Bits Per Pixel
+        These pixel formats are taken from those used by Chicken of the VNC</p>
+</div></div>
+<div class="function">
+<h3 id="tcp_send/1">tcp_send(Socket::port(), Message::binary(), State::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p> Sends a message through TCP socket or fails gracefully
+        (in a gen_fsm fashion)</p>
+</div></div></div>
+
+<authors>
+
+<aname>Fernando Benavides</aname>
+<email>fbenavides@novamens.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

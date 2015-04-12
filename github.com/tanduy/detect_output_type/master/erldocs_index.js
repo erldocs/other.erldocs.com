@@ -1,0 +1,1 @@
+var index = [['app','detect_output_type','detect_output_type','[application]'],['mod','detect_output_type','detect',[]],['fun','detect_output_type','detect:detect/0',[]],['fun','detect_output_type','detect:init/0',[]]];

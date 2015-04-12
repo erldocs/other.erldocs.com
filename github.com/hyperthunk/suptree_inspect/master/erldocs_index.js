@@ -1,0 +1,1 @@
+var index = [['app','suptree_inspect','suptree_inspect','[application]'],['mod','suptree_inspect','suptree_inspect',[]],['fun','suptree_inspect','suptree_inspect:inspect/1',[]],['fun','suptree_inspect','suptree_inspect:main/1',[]]];

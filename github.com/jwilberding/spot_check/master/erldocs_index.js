@@ -1,0 +1,1 @@
+var index = [['app','spot_check','spot_check','[application]'],['mod','spot_check','spot_check',[]],['fun','spot_check','spot_check:avg/1',[]],['fun','spot_check','spot_check:start/0',[]],['fun','spot_check','spot_check:std_dev/1',[]]];

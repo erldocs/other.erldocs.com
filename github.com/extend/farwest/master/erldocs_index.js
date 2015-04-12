@@ -1,0 +1,1 @@
+var index = [['app','farwest','farwest','[application]'],['mod','farwest','farwest_app',[]],['mod','farwest','farwest_sup',[]],['fun','farwest','farwest_app:start/2',[]],['fun','farwest','farwest_app:stop/1',[]],['fun','farwest','farwest_sup:init/1',[]],['fun','farwest','farwest_sup:start_link/0',[]]];

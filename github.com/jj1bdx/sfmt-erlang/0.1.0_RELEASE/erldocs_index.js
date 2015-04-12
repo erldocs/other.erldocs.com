@@ -1,0 +1,1 @@
+var index = [['app','sfmt-erlang','sfmt-erlang','[application]'],['mod','sfmt-erlang','sfmt_test',[]],['fun','sfmt-erlang','sfmt_test:test/0',[]]];

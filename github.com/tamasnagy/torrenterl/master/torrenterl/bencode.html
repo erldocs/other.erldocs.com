@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bencode (torrenterl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bencode</h1>
+<h2 class="modsummary">Module implementing bencode format encoding and decoding
+   See decode/1 and encode/1 functions.</h2>
+<div class="description">
+<p>Module implementing bencode format encoding and decoding
+   See <a href="#decode/1" class="seealso">decode/1</a> and <a href="#encode/1" class="seealso">encode/1</a> functions.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="decode_file/1">decode_file(File::Path) -&gt; Data</h3>
+
+<ul class="type">
+<li><code>Path = string()</code></li><li><code>Data = binary | integer() | list()</code></li></ul>
+<div class="description">
+
+<p>Decodes bencoded file.
+  Reads up file content and calls <a href="#decode/1" class="seealso">decode/1</a> on it.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1">decode(BencodedBin::BencBin) -&gt; Data</h3>
+
+<ul class="type">
+<li><code>BencBin = binary()</code></li><li><code>Data = binary() | integer() | list()</code></li></ul>
+<div class="description">
+
+<p>Decodes bencoded data.
+  Bencoding is a way to specify and organize data in a terse format.
+  It supports the following types: byte strings, integers, lists,
+  and dictionaries. Full definition of each type can be found on:
+  <code>http://wiki.theory.org/BitTorrentSpecification</code></p>
+ 
+  <p>The bencoded data types are mapped to erlang data types the following way:</p>
+ 
+  <p>BString -&gt; String in binary format (<code>&lt;&lt;"4:alma"&gt;&gt;</code> -&gt; <code>&lt;&lt;"alma"&gt;&gt;</code>)</p>
+ 
+  <p>BInteger -&gt; Integer (<code>&lt;&lt;"i42e"&gt;&gt;</code> -&gt; <code>42</code> )</p>
+ 
+  <p>BList -&gt; List (<code>&lt;&lt;"l4:almai3e"&gt;&gt;</code> -&gt; <code>[&lt;&lt;"alma"&gt;&gt;, 3]</code>)</p>
+ 
+  <p>BDictionary -&gt; List of 2-tuples
+   (<code>&lt;&lt;"d4:almai42e3:foo3:bare"&gt;&gt;</code> -&gt;
+    <code>[{&lt;&lt;"alma"&gt;&gt;, 42}, {&lt;&lt;"foo"&gt;&gt;, &lt;&lt;"bar"&gt;&gt;}]</code>)</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1">encode(Data) -&gt; BencBin</h3>
+
+<ul class="type">
+<li><code>Data = binary() | integer() | list()</code></li><li><code>BencBin = binary()</code></li></ul>
+<div class="description">
+
+<p>Encodes data to bencoded format.
+  For more information on the bencoded format go to <a href="#decode/1" class="seealso">decode/1</a>.</p>
+ 
+  <p>Note: In case of Dictionaries (list of 2-tuples) the elements are reordered
+  to adhere to the specification. Which states that keys have to be ordered in
+  increasing order by comparing their binary representations.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Tamas Nagy</aname>
+<email>tamas@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

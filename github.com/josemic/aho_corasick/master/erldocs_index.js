@@ -1,0 +1,1 @@
+var index = [['app','aho_corasick','aho_corasick','[application]'],['mod','aho_corasick','aho_corasick',[]],['fun','aho_corasick','aho_corasick:match/2',[]],['fun','aho_corasick','aho_corasick:match_tree/2',[]],['fun','aho_corasick','aho_corasick:tree/1',[]]];

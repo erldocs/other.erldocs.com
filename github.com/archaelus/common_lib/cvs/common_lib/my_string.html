@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>my_string (common_lib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>my_string</h1>
+<h2 class="modsummary">My string library.</h2>
+<div class="description">
+<p>My string library.</p>
+  
+   <p>Additional functions for string processing.</p>
+  
+  
+   <em>Changes 0.1 -&gt; 0.2</em>
+  
+   <p>[18 Feb 2004]</p>
+  
+   <list>
+     <item><p>Functions <a href="#is_dec/1" class="seealso">is_dec/1</a> and <a href="#is_hex/1" class="seealso">
+       is_hex/1</a> added.</p></item>
+     <item><p>Functions <a href="#is_atime/1" class="seealso">is_atime/1</a> and
+       <a href="#is_rtime/1" class="seealso">is_rtime/1</a> added.
+     </p></item>
+   </list>
+  
+  
+   <em>Changes 0.2 -&gt; 1.0</em>
+  
+   <p>[17 Mar 2004]</p>
+  
+   <list>
+     <item><p>Added the function <a href="#normalize/1" class="seealso">normalize/1</a>.</p></item>
+   </list>
+  
+   <p>[11 Jun 2004]</p>
+  
+   <list>
+     <item><p>Added the function <a href="#join/2" class="seealso">join/2</a>.  Written by
+       Per Hedeland.
+     </p></item>
+   </list>
+  
+   <em>Changes 1.0 -&gt; 1.1</em>
+  
+   <p>[31 Jan 2005]</p>
+  
+   <list>
+     <item><p>Functions <a href="#aiequal/2" class="seealso">aiequal/2</a> and
+     <a href="#aiequal/6" class="seealso">aiequal/6</a> added.</p></item>
+   </list>
+  
+   <p>[1 Mar 2005]</p>
+  
+   <list>
+     <item><p><code>RestOfString</code> is left stripped in <a href="#chop_token/2" class="seealso">
+       chop_token/2</a>.</p></item>
+   </list>
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="aequal/2">aequal(String::String1, Pattern) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>String1 = string()</code></li><li><code>Pattern = string()</code></li><li><code>Result = true | approximate | false</code></li></ul>
+<div class="description">
+
+<p>Approximate matching of strings.  Returns <code>true</code> if
+  <code>String1</code> is equal to <code>Pattern</code> allowing 1 error  
+(substitution, insertion, deletion or transposition).</p>
+ 
+  <p><code>&gt; my_string:aequal("hello", "helo").<br />
+  approximate
+  </code></p>
+ 
+<p><em>See also:</em> <a href="#aequal/6" class="seealso">aequal/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="aequal/6">aequal(String, Pattern, S::Subs, I::Ins, D::Dels, T::Trans) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Pattern = string()</code></li><li><code>Subs = int()</code></li><li><code>Ins = int()</code></li><li><code>Dels = int()</code></li><li><code>Trans = int()</code></li><li><code>Result = true | approximate | false</code></li></ul>
+<div class="description">
+
+<p>Approximate matching of strings.  Returns <code>true</code> if
+  <code>String</code> is equal to <code>Pattern</code> allowing
+  <code>Subs</code> substitution errors, <code>Ins</code> insertion errors,
+  <code>Dels</code> deletion errors and <code>Trans</code> transposition
+  errors.
+ </p>
+<p><em>See also:</em> <a href="#aequal/2" class="seealso">aequal/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="aiequal/2">aiequal(String::String1, Pattern) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>String1 = string()</code></li><li><code>Pattern = string()</code></li><li><code>Result = true | approximate | false</code></li></ul>
+<div class="description">
+
+<p>Approximate matching of strings.  Case insensitive version of
+  <a href="#aequal/2" class="seealso">aequal/2</a>.  Returns <code>true</code> if <code>String1</code>
+  is equal to <code>Pattern</code> allowing 1 error (substitution, insertion,  
+deletion or transposition).</p>
+ 
+  <p><code>&gt; my_string:aequal("heLLo", "helo").<br />
+  approximate
+  </code></p>
+ 
+<p><em>See also:</em> <a href="#aequal/2" class="seealso">aequal/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="aiequal/6">aiequal(String, Pattern, S::Subs, I::Ins, D::Dels, T::Trans) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Pattern = string()</code></li><li><code>Subs = int()</code></li><li><code>Ins = int()</code></li><li><code>Dels = int()</code></li><li><code>Trans = int()</code></li><li><code>Result = true | approximate | false</code></li></ul>
+<div class="description">
+
+<p>Approximate matching of strings.  Case insensitive version of
+  <a href="#aequal/6" class="seealso">aequal/6</a>.  Returns <code>true</code> if
+  <code>String</code> is equal to <code>Pattern</code> allowing
+  <code>Subs</code> substitution errors, <code>Ins</code> insertion errors,
+  <code>Dels</code> deletion errors and <code>Trans</code> transposition
+  errors.
+ </p>
+<p><em>See also:</em> <a href="#aequal/6" class="seealso">aequal/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="chop_token/2">chop_token(String, SeparatorList) -&gt; {Token, RestOfString}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>SeparatorList = string()</code></li><li><code>Token = string()</code></li><li><code>RestOfString = string()</code></li></ul>
+<div class="description">
+
+<p>Gets the first token in <code>String</code>, separated by the
+  characters in <code>SeparatorList</code>.</p>
+ 
+  <p><code>RestOfString</code> is left stripped, all leading characters in
+  <code>SeparatorList</code> are removed from it.</p>
+ 
+<p><em>See also:</em> <a href="#chop_tokens/3" class="seealso">chop_tokens/3</a>, <a href="string.html#sub_word/2" class="seealso">string:sub_word/2</a>, <a href="string.html#tokens/2" class="seealso">string:tokens/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="chop_tokens/3">chop_tokens(String, N, SeparatorList) -&gt; {Tokens, RestOfString}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>SeparatorList = string()</code></li><li><code>RestOfString = string()</code></li><li><code>Tokens = [string()]</code></li><li><code>N = int()</code></li></ul>
+<div class="description">
+
+<p>Gets the first <code>N</code> tokens in <code>String</code>, separated
+  by the characters in <code>SeparatorList</code>.  If there are less than
+  <code>N</code> tokens the tuple <code>{AvailableTokens, "" }</code> is
+  returned.
+ </p>
+<p><em>See also:</em> <a href="#chop_token/2" class="seealso">chop_token/2</a>, <a href="string.html#sub_word/2" class="seealso">string:sub_word/2</a>, <a href="string.html#tokens/2" class="seealso">string:tokens/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_dec/1">is_dec(Rest::String) -&gt; bool()</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Checks if String is a sequence of decimal digits, every character  
+belongs to [$0, $1, $2, $3, $4, $5, $6, $7, $8, $9].</p>
+ 
+  <p>If <code>String</code> is empty, <code>true</code> is returned.</p>
+ 
+<p><em>See also:</em> <a href="#is_hex/1" class="seealso">is_hex/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_hex/1">is_hex(Rest::String) -&gt; bool()</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Checks if String is a sequence of hexadecimal digits, every character  
+belongs to [$0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $A, $B, $C, $D, $E, $F,  
+$a, $b, $c, $d, $e, $f].</p>
+ 
+  <p>If <code>String</code> is empty, <code>true</code> is returned.</p>
+ 
+<p><em>See also:</em> <a href="#is_dec/1" class="seealso">is_dec/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_atime/1">is_atime(String) -&gt; bool()</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Checks if <code>String</code> is a representacion of an absolute time  
+value, given in the format "YYMMDDhhmmsstnnp".  Where</p>
+ 
+  <taglist>
+    <dt>YY</dt><item><p>00 - 99</p></item>
+    <dt>MM</dt><item><p>01 - 12</p></item>
+    <dt>DD</dt><item><p>01 - 31</p></item>
+    <dt>hh</dt><item><p>00 - 23</p></item>
+    <dt>mm</dt><item><p>00 - 59</p></item>
+    <dt>ss</dt><item><p>00 - 59</p></item>
+    <dt>t</dt><item><p>0 - 9</p></item>
+    <dt>nn</dt><item><p>00 - 48</p></item>
+    <dt>p</dt><item><p>+ | -</p></item>
+  </taglist>
+ 
+  <p>If <code>String</code> is empty, <code>true</code> is returned.</p>
+ 
+<p><em>See also:</em> <a href="#is_rtime/1" class="seealso">is_rtime/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_rtime/1">is_rtime(String) -&gt; bool()</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>Checks if <code>String</code> is a representacion of a relative time value,  
+given in the format "YYMMDDhhmmsstnnp".  Where</p>
+ 
+  <taglist>
+    <dt>YY</dt><item><p>00 - 99</p></item>
+    <dt>MM</dt><item><p>01 - 12</p></item>
+    <dt>DD</dt><item><p>01 - 31</p></item>
+    <dt>hh</dt><item><p>00 - 23</p></item>
+    <dt>mm</dt><item><p>00 - 59</p></item>
+    <dt>ss</dt><item><p>00 - 59</p></item>
+    <dt>t</dt><item><p>0</p></item>
+    <dt>nn</dt><item><p>00</p></item>
+    <dt>p</dt><item><p>R</p></item>
+  </taglist>
+ 
+  <p>If <code>String</code> is empty, <code>true</code> is returned.</p>
+ 
+<p><em>See also:</em> <a href="#is_atime/1" class="seealso">is_atime/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="join/2">join(List, Sep) -&gt; String</h3>
+
+<ul class="type">
+<li><code>List = [Token]</code></li><li><code>Token = string()</code></li><li><code>Sep = string()</code></li><li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>The opposite of <code>string:tokens/2</code> (sort of).</p>
+ 
+  <p>Written by Per Hedeland at <url href="http://www.erlang.org/ml-archive/erlang-questions/">erlang-questions</url>.</p>
+</div></div>
+<div class="function">
+<h3 id="lowercase/1">lowercase(String) -&gt; LString</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>LString = string()</code></li></ul>
+<div class="description">
+
+<p>Returns a new <code>LString</code> where every letter is in lowercase.
+ </p>
+<p><em>See also:</em> <a href="#uppercase/1" class="seealso">uppercase/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="normalize/1">normalize(String) -&gt; NString</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>NString = string()</code></li></ul>
+<div class="description">
+
+<p>Returns a new <code>NString</code> where spaces are normalized.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_token/2">pop_token(String, SeparatorList) -&gt; {Token, RestOfString}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>SeparatorList = string()</code></li><li><code>Token = string()</code></li><li><code>RestOfString = string()</code></li></ul>
+<div class="description">
+
+<p>Gets the last token in <code>String</code>, separated by the
+  characters in <code>SeparatorList</code>.
+ </p>
+<p><em>See also:</em> <a href="#chop_token/2" class="seealso">chop_token/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_tokens/3">pop_tokens(String, N, SeparatorList) -&gt; {Tokens, RestOfString}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>SeparatorList = string()</code></li><li><code>RestOfString = string()</code></li><li><code>Tokens = [string()]</code></li><li><code>N = int()</code></li></ul>
+<div class="description">
+
+<p>Gets the last <code>N</code> tokens in <code>String</code>, separated
+  by the characters in <code>SeparatorList</code>.  If there are less than
+  <code>N</code> tokens the tuple <code>{AvailableTokens, "" }</code> is
+  returned.
+ </p>
+<p><em>See also:</em> <a href="#chop_tokens/2" class="seealso">chop_tokens/2</a>, <a href="#pop_token/2" class="seealso">pop_token/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="replace_chars/3">replace_chars(String::String1, Characters, Char) -&gt; String2</h3>
+
+<ul class="type">
+<li><code>String1 = string()</code></li><li><code>String2 = string()</code></li><li><code>Characters = string()</code></li><li><code>Char = char()</code></li></ul>
+<div class="description">
+
+<p>Replaces on <code>String1</code> every character in
+  <code>Characters</code> list by <code>Char</code>.</p>
+ 
+  <p><code>&gt; replace_chars("hello_world.", "_.", $ ).
+  <br />"hello world "
+  </code></p>
+</div></div>
+<div class="function">
+<h3 id="split_by_word/2">split_by_word(String, N::Number) -&gt; {Prefix, Suffix}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Prefix = string()</code></li><li><code>Suffix = string()</code></li><li><code>Number = int()</code></li></ul>
+<div class="description">
+
+<p>Splits a <code>String</code> into two parts by a given word.
+  <code>Prefix</code> contains <code>Number</code> words and
+  <code>Suffix</code> the rest of the string.  Words are separated by blanks.
+  <br /><br />
+  <code>String == Prefix ++ Suffix</code></p>
+</div></div>
+<div class="function">
+<h3 id="strip/2">strip(String, SeparatorList) -&gt; Stripped</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="/home/pete/wefwefwef/docs/other/6277864303/repo/cvs/.xml/common_lib/./my_string.xml.html#strip/3" class="seealso">my_string:strip(String, both, SeparatorList)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/3">strip(String, X2::Direction, SeparatorList) -&gt; Stripped</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Stripped = string()</code></li><li><code>Direcction = left | right | both</code></li><li><code>SeparatorList = string()</code></li></ul>
+<div class="description">
+
+<p>Returns a string, where leading and/or trailling characters in
+  <code>SeparatorList</code> have been removed.  <code>Direction</code> can
+  be <code>left</code>, <code>right</code> or <code>both</code> and indicates
+  from which direction characters are to be removed.  The function strip/2 is
+  equivalent to strip(String, both, SeparatorList).
+ </p>
+<p><em>See also:</em> <a href="string.html#strip/1" class="seealso">string:strip/1</a>, <a href="string.html#strip/2" class="seealso">string:strip/2</a>, <a href="string.html#strip/3" class="seealso">string:strip/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="uppercase/1">uppercase(String) -&gt; UString</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>UString = string()</code></li></ul>
+<div class="description">
+
+<p>Returns a new <code>UString</code> where every letter is in uppercase.
+ </p>
+<p><em>See also:</em> <a href="#lowercase/1" class="seealso">lowercase/1</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Enrique Marcote Peña</aname>
+<email>mpquique_at_users.sourceforge.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang-github-api','erlang-github-api','[application]'],['mod','erlang-github-api','github',[]],['mod','erlang-github-api','utils',[]],['fun','erlang-github-api','github:init/0',[]],['fun','erlang-github-api','utils:clean_quotes/1',[]]];

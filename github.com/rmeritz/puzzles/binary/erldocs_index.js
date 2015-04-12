@@ -1,0 +1,1 @@
+var index = [['app','puzzles','puzzles','[application]'],['mod','puzzles','sqrt',[]],['mod','puzzles','water_level',[]],['fun','puzzles','sqrt:sqrt/1',[]],['fun','puzzles','sqrt:sqrt_binary/1',[]],['fun','puzzles','water_level:water_level/1',[]]];

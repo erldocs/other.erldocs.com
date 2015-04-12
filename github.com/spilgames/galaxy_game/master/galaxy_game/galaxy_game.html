@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>galaxy_game (galaxy_game) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>galaxy_game</h1>
+<h2 class="modsummary">  
+Implementation module for the galactic battle simulator.</h2>
+<div class="description">
+<p>  
+Implementation module for the galactic battle simulator.  
+The following example shows the expected behavior of the simulator:</p>
+ 
+  <p>Planets=[mercury,uranus,venus, earth]  
+Shields=[mercury,uranus]  
+Alliances=[{mercury, uranus}, {venus, earth}]  
+Actions=[{nuclear,mercury},{laser,venus}, {laser, uranus}]</p>
+ 
+  <p>ExpectedSurvivors = [uranus]  
+In order to produce this expected results, the following calls will be tested:  
+* ok = setup_universe(Planets, Shields, Alliances)  
+* [uranus] = simulate_attack(Planets, Actions)  
+* ok = teardown_universe(Planets)</p>
+ 
+  <p>All the 3 calls will be tested in order to check they produce the expected
+  side effects (setup_universe/3 creates a process per planet, etc)</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-alliance">alliance() = {<a href="#type-planet" class="seealso">planet()</a>, <a href="#type-planet" class="seealso">planet()</a>}</h3></div>
+    <div class="type"><h3 id="type-attack">attack() = {laser | nuclear, <a href="#type-planet" class="seealso">planet()</a>}</h3></div>
+    <div class="type"><h3 id="type-planet">planet() = atom()</h3></div>
+    <div class="type"><h3 id="type-shield">shield() = <a href="#type-planet" class="seealso">planet()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="setup_universe/1">setup_universe(Planets::[planet()], Shields::[shield()], Alliances::[alliance()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set up a universe described by the input.
+  The imput is asumed to be minimal and non redundant (i.e. if there is an
+  alliance {a, b} there won't be an alliance {b, a}).
+  Once this function returns, the universe is expected to be fully ready,
+  shields, alliances and all.</p>
+</div></div>
+<div class="function">
+<h3 id="teardown_universe/1">teardown_universe(Planets::[planet()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Clean up a universe simulation.
+  This function will only be called after calling setup_universe/3 with the
+  same set of planets.
+  Once this function returns, all the processes spawned by the simulation
+  should be gone.</p>
+</div></div>
+<div class="function">
+<h3 id="simulate_attack/1">simulate_attack(Planets::[planet()], Actions::[attack()]) -&gt; Survivors::[planet()]</h3>
+
+
+<div class="description">
+
+<p>Simulate an attack.
+  This function will only be called after setting up a universe with the same
+  set of planets.
+  It returns the list of planets that have survived the attack</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

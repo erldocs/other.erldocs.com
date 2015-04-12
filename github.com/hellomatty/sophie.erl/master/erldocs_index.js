@@ -1,0 +1,1 @@
+var index = [['app','sophie.erl','sophie.erl','[application]'],['mod','sophie.erl','sophie',[]],['fun','sophie.erl','sophie:start/1',[]]];

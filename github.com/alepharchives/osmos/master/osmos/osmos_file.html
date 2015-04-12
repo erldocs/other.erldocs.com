@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>osmos_file (osmos) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>osmos_file</h1>
+<h2 class="modsummary">A sorted file of key-value records, supporting searching,  
+iteration, and merging.</h2>
+<div class="description">
+<p>A sorted file of key-value records, supporting searching,  
+iteration, and merging.</p>
+ 
+  <p>An osmos file is built by calling build/4 with a table format and  
+a sorted stream of records. The records are converted to binary by  
+calling the to_binary functions from the table format's key and  
+value formats, and then written to disk in order. Finally, an  
+index is constructed to allow efficient searching.</p>
+ 
+  <p>Because the keys are written in order, they are prefix-compressed  
+to save space and i/o bandwidth. Many common key formats benefit from  
+prefix-compression, such as lexically sorted NUL-terminated strings,  
+sorted big-endian integers, and even most Erlang terms sorted by term  
+order and in external term format (integers over 32 bits are one  
+notable exception).</p>
+ 
+  <p>After the file has been built, it can be opened for reading using
+  open/2. Because the physical file is opened in raw mode, each process
+  reading a given file must open its own handle.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="build/1">build(Path::string(), Format::#osmos_table_format{}, StreamNext::Stream, StreamState::any()) -&gt; {ok, FinalStreamState}</h3>
+
+<ul class="type">
+<li><code>Stream = (State) -&gt; {ok, Key::binary(), Value::binary(), NewState} | {eof, FinalState}</code></li></ul>
+<div class="description">
+
+<p>Build a searchable file at Path with the given Format and
+  BlockSize bytes per block, from the given sorted stream of records.
+  Return the final stream state (for any necessary cleanup etc.).</p>
+</div></div>
+<div class="function">
+<h3 id="open/2">open(Format::#osmos_table_format{}, Path::string()) -&gt; osmos_file()</h3>
+
+
+<div class="description">
+
+<p>Open a file in the given Format at the given Path.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(File::osmos_file()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close the given File.</p>
+</div></div>
+<div class="function">
+<h3 id="path/1">path(File::osmos_file()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Return the path of the given open File.</p>
+</div></div>
+<div class="function">
+<h3 id="total_entries/1">total_entries(File::osmos_file()) -&gt; int()</h3>
+
+
+<div class="description">
+
+<p>Return the number of key-value records in the given open File.</p>
+</div></div>
+<div class="function">
+<h3 id="search/1">search(File::osmos_file(), Key::any()) -&gt; {ok, Value} | not_found</h3>
+
+
+<div class="description">
+
+<p>Search for the given Key in the given open File, and return the
+  corresponding Value, or not_found if there is no record with the
+  given key.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_file/1">iter_file(Iter::iter()) -&gt; osmos_file()</h3>
+
+
+<div class="description">
+
+<p>Return the open file handle for the given iterator.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_key/1">iter_key(Iter::iter()) -&gt; Key</h3>
+
+
+<div class="description">
+
+<p>Return the key from the current record of the given iterator.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_value/1">iter_value(Iter::iter()) -&gt; Value</h3>
+
+
+<div class="description">
+
+<p>Return the value from the current record of the given iterator.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_next/1">iter_next(Iter::iter()) -&gt; iter()</h3>
+
+
+<div class="description">
+
+<p>Advance the given iterator to the next record.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_begin/1">iter_begin(File::osmos_file()) -&gt; iter()</h3>
+
+
+<div class="description">
+
+<p>Return an iterator pointing to the first (least) key in the given
+  open file.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_end/1">iter_end(X1::File) -&gt; iter()</h3>
+
+
+<div class="description">
+
+<p>Return an iterator pointing to the end of the file (immediately
+  after the greatest key in the file). This iterator cannot be
+  dereferenced with iter_value.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_lower_bound/1">iter_lower_bound(File::osmos_file(), Key::Less) -&gt; iter()</h3>
+
+<ul class="type">
+<li><code>Less = (Key::any()) -&gt; bool() | any()</code></li></ul>
+<div class="description">
+
+<p>Return an iterator pointing to the least element in the file  
+which is in the (possibly open) interval bounded below by the given  
+function Less, or iter_end() if every key is below the desired interval.</p>
+ 
+  <p>Less should return true if the given Key is less than any key in the
+  desired interval, or false otherwise. It must also be consistent with
+  the file format's ordering, so the following implications hold:
+  </p><list>
+    <item>(Less (K2) and KeyLess (K1, K2)) implies Less (K1)</item>
+    <item>(not Less (K1) and KeyLess (K1, K2)) implies not Less (K2)</item>
+  </list><p>  
+where KeyLess is the format's key_less function.</p>
+ 
+  <p>If Less is not a function, it is taken to be the least key in the
+  desired interval, i.e., the iterator will point to the first key in the
+  file not less than the given key, or iter_end() if every key is less
+  than the given key. This is equivalent to passing a function:
+  </p><pre class="sh_erlang">
+  fun (K) -&gt;
+    KeyLess (K, Key)
+  end
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="iter_less/1">iter_less(Iter::iter(), X2::iter()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Return true if the first iterator is positioned before the
+  second iterator.</p>
+</div></div>
+<div class="function">
+<h3 id="iter_stream_next/1">iter_stream_next(Iter) -&gt; {ok, Key, Value, NewIter} | {eof, FinalIter}</h3>
+
+
+<div class="description">
+
+<p>Convert an iterator to a stream. Return a function suitable for
+  use as the StreamNext argument to build/4.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(FileA::osmos_file(), FileB::osmos_file(), Path::string(), Format::#osmos_table_format{}, Merge) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Merge = (Key::any(), ValueA::any(), ValueB::any()) -&gt; any()</code></li></ul>
+<div class="description">
+
+<p>Merge two open files into a new file at Path, using the given
+  Merge function to merge entries with the same key.</p>
+</div></div>
+<div class="function">
+<h3 id="merge_delete/1">merge_delete(FileA::osmos_file(), FileB::osmos_file(), Path::string(), Format::#osmos_table_format{}, Merge, Delete) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Merge = (Key::any(), ValueA::any(), ValueB::any()) -&gt; any()</code></li><li><code>Delete = (Key::any(), Value::any()) -&gt; bool()</code></li></ul>
+<div class="description">
+
+<p>Merge two open files into a new file at Path, using the given
+  Merge function to merge entries with the same key. Entries (after
+  merging, if applicable) for which Delete returns true will be omitted
+  from the output file.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

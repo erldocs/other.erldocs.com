@@ -1,0 +1,1 @@
+var index = [['app','cloudi_service_echo','cloudi_service_echo','[application]'],['mod','cloudi_service_echo','echo_protocol',[]],['fun','cloudi_service_echo','echo_protocol:init/4',[]],['fun','cloudi_service_echo','echo_protocol:start_link/4',[]]];

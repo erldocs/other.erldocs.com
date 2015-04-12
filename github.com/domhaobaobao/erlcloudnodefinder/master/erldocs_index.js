@@ -1,0 +1,1 @@
+var index = [['app','erlcloudnodefinder','erlcloudnodefinder','[application]'],['mod','erlcloudnodefinder','erlcloudnodefinder','ec2-describe-instances based nodefinder service.'],['fun','erlcloudnodefinder','erlcloudnodefinder:discover/0','Initiate a discovery request.']];

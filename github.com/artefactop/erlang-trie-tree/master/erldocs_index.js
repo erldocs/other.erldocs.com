@@ -1,0 +1,1 @@
+var index = [['app','erlang-trie-tree','erlang-trie-tree','[application]'],['mod','erlang-trie-tree','trie',[]],['fun','erlang-trie-tree','trie:new/0',[]],['fun','erlang-trie-tree','trie:next/2',[]],['fun','erlang-trie-tree','trie:store/3',[]],['fun','erlang-trie-tree','trie:value/2',[]]];

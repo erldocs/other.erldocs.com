@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>libsnarl (libsnarl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>libsnarl</h1>
+<h2 class="modsummary">This module provides a remote interface to the snarl server.</h2>
+<div class="description">
+<p>This module provides a remote interface to the snarl server.</p>
+  
+   The functions exported are mostly remote calls using gproc to
+   identify the Server.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-auth">auth() = system | user() | cached_auth()</h3></div>
+    <div class="type"><h3 id="type-cached_auth">cached_auth() = {user(), permissions()}</h3></div>
+    <div class="type"><h3 id="type-group">group() = uuid()</h3></div>
+    <div class="type"><h3 id="type-ip">ip() = integer() | binary() | atom()</h3></div>
+    <div class="type"><h3 id="type-name">name() = binary()</h3></div>
+    <div class="type"><h3 id="type-network">network() = {Network::integer(), FirstFree::integer(), NetMask::integer(), Gateway::integer()}</h3></div>
+    <div class="type"><h3 id="type-permission">permission() = atom() | binary()</h3></div>
+    <div class="type"><h3 id="type-permissions">permissions() = [permission()]</h3></div>
+    <div class="type"><h3 id="type-user">user() = uuid()</h3></div>
+    <div class="type"><h3 id="type-uuid">uuid() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="auth/1">auth(Name::binary(), Pass::binary()) -&gt; user()</h3>
+
+
+<div class="description">
+
+<p>Authenticates a user.</p>
+ 
+  <p>This fuction is used to retrieve an authentication token (User)
+  based a username and password.</p>
+</div></div>
+<div class="function">
+<h3 id="user_add/1">user_add(Auth::auth(), Name::binary(), Pass::binary()) -&gt; user()</h3>
+
+
+<div class="description">
+
+<p>Adds a new user.</p>
+ 
+  <p>Adds a new user from a given password and username, returns
+  the new users User. This also grants the created user basic
+  permissions to handle itself.</p>
+</div></div>
+<div class="function">
+<h3 id="user_passwd/1">user_passwd(Auth::auth(), User::auth(), Pass::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the password for an existing user.</p>
+</div></div>
+<div class="function">
+<h3 id="user_delete/1">user_delete(Auth::auth(), User::auth()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes a user.</p>
+</div></div>
+<div class="function">
+<h3 id="user_list/1">user_list(Auth::auth()) -&gt; [user()]</h3>
+
+
+<div class="description">
+
+<p>Lists all uses.</p>
+</div></div>
+<div class="function">
+<h3 id="user_get/1">user_get(Auth::auth(), Name::binary()) -&gt; user()</h3>
+
+
+<div class="description">
+
+<p>Retrieves a user.</p>
+ 
+  <p>This function retrieves a user bypassing the authentication,
+  it is meant primarily for admin/system internal use mosty.</p>
+</div></div>
+<div class="function">
+<h3 id="user_name/1">user_name(Auth::auth(), User::auth()) -&gt; Name::binary()</h3>
+
+
+<div class="description">
+
+<p>Retrieves a users name.</p>
+</div></div>
+<div class="function">
+<h3 id="user_permissions/1">user_permissions(Auth::auth(), User::auth()) -&gt; Permissions::permissions()</h3>
+
+
+<div class="description">
+
+<p>Retrives the uesrs <em>full</em> permissions.</p>
+ 
+  <p>This function fetches all the permissions a user has, this
+  <em>includes</em> the ones delegated from groups the user is part of.</p>
+</div></div>
+<div class="function">
+<h3 id="user_own_permissions/1">user_own_permissions(Auth::auth(), User::auth()) -&gt; Permissions::permissions()</h3>
+
+
+<div class="description">
+
+<p>Retrives the uesrs <em>own</em> permissions.</p>
+ 
+  <p>This function fetches the users own permissions, this does <em>not
+  includes</em> the ones delegated from groups the user is part of.</p>
+</div></div>
+<div class="function">
+<h3 id="user_groups/1">user_groups(Auth::auth(), User::auth()) -&gt; [group()]</h3>
+
+
+<div class="description">
+
+<p>Retrives the uesrs groups.</p>
+</div></div>
+<div class="function">
+<h3 id="user_cache/1">user_cache(Auth::auth(), User::auth()) -&gt; cached_auth()</h3>
+
+
+<div class="description">
+
+<p>Creates a cached version of the users permissions.</p>
+ 
+  <p>This function is used to prefetch the permissions of a user, it is
+  supposed to be used to improve performance and minimize calls to
+  the snarl server. With a cached auth all permission checks done by
+  <em>allowed</em> can be performed localy in the process.</p>
+</div></div>
+<div class="function">
+<h3 id="allowed/1">allowed(Auth::auth(), User::auth(), Perm::permission()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Checks the users permissions</p>
+ 
+  <p>This is the core funcion of this library, it performs matches on
+  the users permission to test if he is allowed to perform a certin
+  action.
+  it has a three step handeling of validationg the permissions:
+  1) the <em>system</em> user is always allowed to perform an action.
+  2) cached users are validated locally without a call to snarl.
+  3) The users permissions are validated remotely on the snarl server.</p>
+</div></div>
+<div class="function">
+<h3 id="user_add_to_group/1">user_add_to_group(Auth::auth(), User::auth(), Group::group()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds the user to a group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="user_delete_from_group/1">user_delete_from_group(Auth::auth(), User::auth(), Group::group()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes the user to a group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="user_grant/1">user_grant(Auth::auth(), User::auth(), Perm::permission()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Grants the user a permission
+ </p>
+</div></div>
+<div class="function">
+<h3 id="user_revoke/1">user_revoke(Auth::auth(), User::auth(), Perm::permission()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Revokes a permission from a user
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_add/1">group_add(Auth::auth(), Name::binary()) -&gt; group()</h3>
+
+
+<div class="description">
+
+<p>Creates a new group.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_delete/1">group_delete(Auth::auth(), Group::group()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes a group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_get/1">group_get(Auth::auth(), Name::binary()) -&gt; group()</h3>
+
+
+<div class="description">
+
+<p>Retrievs the group from it's name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_users/1">group_users(Auth::auth(), Group::group()) -&gt; [user()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of users in a group.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_list/1">group_list(Auth::auth()) -&gt; [group()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all visible groups.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_name/1">group_name(Auth::auth(), Group::group()) -&gt; Name::binary()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of a group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_permissions/1">group_permissions(Auth::auth(), Group::group()) -&gt; permissions()</h3>
+
+
+<div class="description">
+
+<p>Retrieves the permissions of a group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_grant/1">group_grant(Auth::auth(), Group::group(), Perm::permission()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Grants a permission to a group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_revoke/1">group_revoke(Auth::auth(), Group::group(), Perm::permission()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Revokes the permission from the group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_add_user/1">group_add_user(Auth::auth(), Group::group(), User::auth()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds a user to the group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="group_delete_user/1">group_delete_user(Auth::auth(), Group::group(), User::auth()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes a user from the group
+ </p>
+</div></div>
+<div class="function">
+<h3 id="option_list/1">option_list(Auth::auth(), Category::binary()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Lists all options in a category.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="option_get/1">option_get(Auth::auth(), Category::binary(), Name::binary()) -&gt; Value::binary()</h3>
+
+
+<div class="description">
+
+<p>Retrievs an option from a category
+ </p>
+</div></div>
+<div class="function">
+<h3 id="option_delete/1">option_delete(Auth::auth(), Category::binary(), Name::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes the option from the category
+ </p>
+</div></div>
+<div class="function">
+<h3 id="option_set/1">option_set(Auth::auth(), Category::binary(), Name::binary(), Value::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the option.</p>
+ 
+  <p>Value can be any kind of erlang term.</p>
+</div></div>
+<div class="function">
+<h3 id="network_add/1">network_add(Auth::auth(), Name::binary(), First::ip(), Netmask::ip(), Gateway::ip()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates a new IP range.</p>
+ 
+  <p>This command creats a new IP range, the IP first must not be the
+  network IP, if it is not, the IP range will recognize every IP
+  between the first IP of the network and the IP passed as first as
+  reserved and never be assigned to a virtual machine.</p>
+</div></div>
+<div class="function">
+<h3 id="network_delete/1">network_delete(Auth::auth(), Name::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes a network rage.</p>
+ 
+  <p>The IP addresses handed out from this network are not affected!</p>
+</div></div>
+<div class="function">
+<h3 id="network_get/1">network_get(Auth::auth(), Name::binary()) -&gt; network()</h3>
+
+
+<div class="description">
+
+<p>Fetches all details about a network.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="network_get_net/1">network_get_net(Auth::auth(), Name::binary()) -&gt; NetworkIP::integer()</h3>
+
+
+<div class="description">
+
+<p>Fetches the network IP.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="network_get_mask/1">network_get_mask(Auth::auth(), Name::binary()) -&gt; Netmask::integer()</h3>
+
+
+<div class="description">
+
+<p>Fetches the netmask.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="network_get_gateway/1">network_get_gateway(Auth::auth(), Name::binary()) -&gt; Gateway::integer()</h3>
+
+
+<div class="description">
+
+<p>Fetches the gateway.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="network_get_ip/1">network_get_ip(Auth::auth(), Name::binary()) -&gt; IP::integer()</h3>
+
+
+<div class="description">
+
+<p>Requests a IP.</p>
+ 
+  <p>This command will reserve an IP, this means this function will not
+  return the same result twice without freeing the ip again.
+  The IP is first retrieved from recently freed IP's then takes the
+  first free IP from the network.</p>
+</div></div>
+<div class="function">
+<h3 id="network_release_ip/1">network_release_ip(Auth::auth(), Name::binary(), IP::ip()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Frees an IP that was previousely reserved.</p>
+ 
+  <p>IP's that once were reserved via the network_get_ip/2 function
+  must be freed before they can be reused. This function does exactly
+  that, free the IP passed and retuns it to the pool.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_ip/1">parse_ip(IP::list() | binary()) -&gt; IP::integer()</h3>
+
+
+<div class="description">
+
+<p>Parses the string representation of a IP.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ip_to_str/1">ip_to_str(IP::integer()) -&gt; IP::binary()</h3>
+
+
+<div class="description">
+
+<p>Formats an integer IP into the string representation.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Heinz N. Gies</aname>
+<email>heinz@licenser.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

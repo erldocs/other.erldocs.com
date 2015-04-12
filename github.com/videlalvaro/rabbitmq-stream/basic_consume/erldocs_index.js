@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-stream','rabbitmq-stream','[application]'],['mod','rabbitmq-stream','rabbit_stream_app',[]],['fun','rabbitmq-stream','rabbit_stream_app:init/1',[]],['fun','rabbitmq-stream','rabbit_stream_app:start/2',[]],['fun','rabbitmq-stream','rabbit_stream_app:stop/1',[]]];

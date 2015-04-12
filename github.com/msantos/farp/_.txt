@@ -1,0 +1,41 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/msantos/farp'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/2800001192/meta.txt"
+ :: Processing https://github.com/msantos/farp	{rev,branch,"master","1c2d07371ba745d9e2254ed9baf460e8f6157af6"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/msantos/farp/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp"
+$ 5000  `find 'farp-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["herp","pkt","procket"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/2800001192/repo/master
+Building farp
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp/src/farp.erl"
+Generating XML for application farp "/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master/farp" -> "/home/pete/wefwefwef/docs/other/2800001192/repo/master/.xml/farp"
+Generated farp XMLs: ["/home/pete/wefwefwef/docs/other/2800001192/repo/master/.xml/farp/farp.xml"]
+Generating HTML - farp "/home/pete/wefwefwef/docs/other/2800001192/repo/master/.xml/farp/farp.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/2800001192/repo/master/.xml/farp/farp.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/2800001192/repo/master/.xml/specs_farp.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/2800001192/farp-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/2800001192/farp'  2>&1`

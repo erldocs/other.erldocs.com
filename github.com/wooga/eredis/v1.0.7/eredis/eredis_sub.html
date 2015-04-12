@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eredis_sub (eredis) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eredis_sub</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-channel">channel() = binary()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {host, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {port, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {database, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {password, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {reconnect_sleep, <a href="#type-reconnect_sleep" class="seealso">reconnect_sleep()</a>}</h3></div>
+    <div class="type"><h3 id="type-reconnect_sleep">reconnect_sleep() = no_reconnect | integer()</h3></div>
+    <div class="type"><h3 id="type-server_args">server_args() = [<a href="#type-option" class="seealso">option()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/3">start_link(Host, Port, Password) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/6">start_link(Host, Port, Password, ReconnectSleep, MaxQueueSize, QueueBehaviour) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Args::server_args()) -&gt; {ok, Pid::pid()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p> Callback for starting from poolboy</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="controlling_process/1">controlling_process(Client::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p> Make the calling process the controlling process. The  
+controlling process received pubsub-related messages, of which  
+there are three kinds. In each message, the pid refers to the  
+eredis client process.</p>
+ 
+    <p>{message, Channel::binary(), Message::binary(), pid()}      
+This is sent for each pubsub message received by the client.</p>
+ 
+    <p>{pmessage, Pattern::binary(), Channel::binary(), Message::binary(), pid()}      
+This is sent for each pattern pubsub message received by the client.</p>
+ 
+    <p>{dropped, NumMessages::integer(), pid()}      
+If the queue reaches the max size as specified in start_link      
+and the behaviour is to drop messages, this message is sent when      
+the queue is flushed.</p>
+ 
+    <p>{subscribed, Channel::binary(), pid()}      
+When using eredis_sub:subscribe(pid()), this message will be      
+sent for each channel Redis aknowledges the subscription. The      
+opposite, 'unsubscribed' is sent when Redis aknowledges removal      
+of a subscription.</p>
+ 
+    <p>{eredis_disconnected, pid()}      
+This is sent when the eredis client is disconnected from redis.</p>
+ 
+    <p>{eredis_connected, pid()}      
+This is sent when the eredis client reconnects to redis after      
+an existing connection was disconnected.</p>
+ 
+  <p>Any message of the form {message, _, _, _} must be acknowledged
+  before any subsequent message of the same form is sent. This
+  prevents the controlling process from being overrun with redis
+  pubsub messages. See ack_message/1.</p>
+</div></div>
+<div class="function">
+<h3 id="controlling_process/1-1">controlling_process(Client::pid(), Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p> Make the given process (pid) the controlling process.</p>
+</div></div>
+<div class="function">
+<h3 id="controlling_process/3">controlling_process(Client, Pid, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p> Make the given process (pid) the controlling process subscriber
+  with the given Timeout.</p>
+</div></div>
+<div class="function">
+<h3 id="ack_message/1">ack_message(Client::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p> acknowledge the receipt of a pubsub message. each pubsub
+  message must be acknowledged before the next one is received</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(Client::pid(), Channels::[channel()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p> Subscribe to the given channels. Returns immediately. The
+  result will be delivered to the controlling process as any other
+  message. Delivers {subscribed, Channel::binary(), pid()}</p>
+</div></div>
+<div class="function">
+<h3 id="psubscribe/1">psubscribe(Client::pid(), Channels::[channel()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p> Pattern subscribe to the given channels. Returns immediately. The
+  result will be delivered to the controlling process as any other
+  message. Delivers {subscribed, Channel::binary(), pid()}</p>
+</div></div>
+<div class="function">
+<h3 id="unsubscribe/2">unsubscribe(Client, Channels) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="punsubscribe/2">punsubscribe(Client, Channels) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="channels/1">channels(Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p> Returns the channels the given client is currently
+  subscribing to. Note: this list is based on the channels at startup
+  and any channel added during runtime. It might not immediately
+  reflect the channels Redis thinks the client is subscribed to.</p>
+</div></div>
+<div class="function">
+<h3 id="receiver/1">receiver(Sub) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sub_example/0">sub_example() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="psub_example/0">psub_example() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pub_example/0">pub_example() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ppub_example/0">ppub_example() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

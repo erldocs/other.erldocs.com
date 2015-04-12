@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wpart_lang (wparts) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wpart_lang</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="handle_call/1">handle_call(E) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Generates the translation of the element with given key.
+  </p><p>First step to support i18n in our project is to edit <i>config/project.conf</i> file.
+  It should contain at least one config tuple:<br />
+  <i>{language_files, [Files]}.</i><br />
+  where Files = [{Lang, File}, Files] | _<br />
+  Lang = two-letter shortcut for language (e.g. en for English) and <br />
+  File = path to the translation file.<br />
+  Second step is to declare the default language by placing such a tuple inside the config file:<br />
+  <i>{default_language, Lang}.</i><br /></p>
+  <p>Language discovery is performed in given order:<br />
+  </p><list><item><p>it is searched under session:lang key in e_dict</p></item>
+  <item><p>got from conf file (from the default language)</p></item>
+  <item><p>eventually English language is selected</p></item></list>
+  <p>The translation file entries should be in the following format:<br />
+  <i>{Key, Translation}.</i><br />
+  Where key is either a single string, or a tuple of strings.
+  The difference is when no translation for given key is found, e_lang
+  returns the key itself in case when key is a string,
+  or "no_translation_found" otherwise.</p>
+  <p>Wpart should look like:<br />
+  <i>&lt;wpart:lang key=Key/&gt;</i><br />
+  If Key contains ":", it is split by it, and the result tokens creates
+  a key tuple (e.g. key="this:is:a:test" becomes a key tuple: <br />
+  <i>{"this", "is", "a", "test"}</i>). Otherwise the string is the key.</p>
+  <p>If we want to place some translations in record definitions
+  (in description parameter), it's value should be in format:<br />
+  <i>{key, Key}</i><br />
+  where Key is the same key as in wpart:lang.</p>
+</div></div>
+<div class="function">
+<h3 id="get_lang/0">get_lang() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_lang_list/0">get_lang_list() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_translation/1">get_translation(KeyAttr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Michal Ptaszek</aname>
+<email>info@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

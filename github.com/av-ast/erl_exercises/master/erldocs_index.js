@@ -1,0 +1,1 @@
+var index = [['app','erl_exercises','erl_exercises','[application]'],['mod','erl_exercises','echop',[]],['fun','erl_exercises','echop:print/1',[]],['fun','erl_exercises','echop:start/0',[]],['fun','erl_exercises','echop:stop/0',[]]];

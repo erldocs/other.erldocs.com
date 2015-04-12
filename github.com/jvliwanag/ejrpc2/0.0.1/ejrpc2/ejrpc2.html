@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ejrpc2 (ejrpc2) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ejrpc2</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-rpc_args">rpc_args() = [any()] | {params, [{binary(), any()}]}</h3></div>
+    <div class="type"><h3 id="type-rpc_errcode">rpc_errcode() = integer()</h3></div>
+    <div class="type"><h3 id="type-rpc_errdata">rpc_errdata() = any()</h3></div>
+    <div class="type"><h3 id="type-rpc_errmsg">rpc_errmsg() = binary()</h3></div>
+    <div class="type"><h3 id="type-rpc_id">rpc_id() = null | binary() | integer()</h3></div>
+    <div class="type"><h3 id="type-rpc_method">rpc_method() = binary()</h3></div>
+    <div class="type"><h3 id="type-rpc_mod">rpc_mod() = atom() | {atom, [<a href="#type-rpc_mod_opt" class="seealso">rpc_mod_opt()</a>]}</h3></div>
+    <div class="type"><h3 id="type-rpc_mod_opt">rpc_mod_opt() = {prefix, binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {prefix, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| prefix</h3></div>
+    <div class="type"><h3 id="type-rpc_parse_err">rpc_parse_err() = parse_error | invalid_request</h3></div>
+    <div class="type"><h3 id="type-rpc_req">rpc_req() = <a href="#type-rpc_req_rpc" class="seealso">rpc_req_rpc()</a> | <a href="#type-rpc_req_notif" class="seealso">rpc_req_notif()</a></h3></div>
+    <div class="type"><h3 id="type-rpc_req_notif">rpc_req_notif() = {notif, <a href="#type-rpc_method" class="seealso">rpc_method()</a>, <a href="#type-rpc_args" class="seealso">rpc_args()</a>}</h3></div>
+    <div class="type"><h3 id="type-rpc_req_opts">rpc_req_opts() = [<a href="#type-rpc_req_opts" class="seealso">rpc_req_opts()</a>]</h3></div>
+    <div class="type"><h3 id="type-rpc_req_rpc">rpc_req_rpc() = {rpc, <a href="#type-rpc_id" class="seealso">rpc_id()</a>, <a href="#type-rpc_method" class="seealso">rpc_method()</a>, <a href="#type-rpc_args" class="seealso">rpc_args()</a>}</h3></div>
+    <div class="type"><h3 id="type-rpc_resp">rpc_resp() = {ok, <a href="#type-rpc_id" class="seealso">rpc_id()</a>, <a href="#type-rpc_result" class="seealso">rpc_result()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-rpc_id" class="seealso">rpc_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-rpc_errcode" class="seealso">rpc_errcode()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-rpc_errmsg" class="seealso">rpc_errmsg()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-rpc_errdata" class="seealso">rpc_errdata()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, <a href="#type-rpc_id" class="seealso">rpc_id()</a>, <a href="#type-rpc_errcode" class="seealso">rpc_errcode()</a>, <a href="#type-rpc_errmsg" class="seealso">rpc_errmsg()</a>}</h3></div>
+    <div class="type"><h3 id="type-rpc_result">rpc_result() = any()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="decode_request/1">decode_request(Bin::binary()) -&gt; rpc_req() | {error, rpc_parse_err()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_response/1">encode_response(X1::rpc_resp()) -&gt; {ok, iolist()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_req/1">handle_req(Mod::rpc_mod() | [rpc_mod()], Bin::binary()) -&gt; {ok, iolist()} | ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_req/1-1">handle_req(Mod::rpc_mod() | [rpc_mod()], Bin::binary(), Opts::rpc_req_opts()) -&gt; {ok, iolist()} | ok</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>katja_vmstats_metrics (katja_vmstats) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>katja_vmstats_metrics</h1>
+<h2 class="modsummary">The katja_vmstats_metrics module implements all available metrics.</h2>
+<div class="description">
+<p>The <code>katja_vmstats_metrics</code> module implements all available metrics.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="all_message_queues/0">all_message_queues() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the (summed) size of all message queues at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="context_switches/0">context_switches() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total number of context switches since the system started.</p>
+</div></div>
+<div class="function">
+<h3 id="error_logger_message_queue/0">error_logger_message_queue() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the size of the <code>error_logger</code> message queue at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="ets_count/0">ets_count() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of ETS tables currently existing at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="ets_limit/0">ets_limit() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the maximum number of ETS tables allowed.<br />
+      On older R16 releases <code>ets_limit</code> falls back to reading the <code>ERL_MAX_ETS_TABLES</code> environment variable or defaults to 1400.</p>
+</div></div>
+<div class="function">
+<h3 id="ets_utilization/0">ets_utilization() -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Returns the ETS table utilization (number between 0 and 1) at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="exact_reductions_last_call/0">exact_reductions_last_call() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the exact number of reductions performed since the last call to this function.<br />
+      Using this method and <a href="#exact_reductions_total/0" class="seealso">exact_reductions_total/0</a> at the same time will cause weird/wrong results.<br />
+      This method is more expensive than <a href="#reductions_last_call/0" class="seealso">reductions_last_call/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="exact_reductions_total/0">exact_reductions_total() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the exact total number of reductions performed at he local node.<br />
+      Using this method and <a href="#exact_reductions_last_call/0" class="seealso">exact_reductions_last_call/0</a> at the same time will cause weird/wrong results.<br />
+      This method is more expensive than <a href="#reductions_total/0" class="seealso">reductions_total/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="garbage_collection_runs/0">garbage_collection_runs() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total number of garbage collector runs.</p>
+</div></div>
+<div class="function">
+<h3 id="garbage_collection_words_reclaimed/0">garbage_collection_words_reclaimed() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total number of words reclaimed by the garbage collector.</p>
+</div></div>
+<div class="function">
+<h3 id="heap_size/1">heap_size(Pid::atom() | pid()) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the size in words of youngest heap generation of the process.
+      This generation currently include the stack of the process.<br />
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div>
+<div class="function">
+<h3 id="io_in/0">io_in() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total number of bytes received through ports.</p>
+</div></div>
+<div class="function">
+<h3 id="io_out/0">io_out() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total number of bytes output to ports.</p>
+</div></div>
+<div class="function">
+<h3 id="links/1">links(Pid::atom() | pid()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of processes or ports to which the process has a link.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div>
+<div class="function">
+<h3 id="loaded_modules/0">loaded_modules() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of currently loaded modules at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_atoms/0">memory_atoms() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The total amount of memory currently used for atoms.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_binaries/0">memory_binaries() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The total amount of memory currently used for binaries.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_ets/0">memory_ets() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The total amount of memory currently used for ETS tables.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_process/1">memory_process(Pid::atom() | pid()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Size of the process in bytes. This includes call stack, heap and internal structures.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_processes/0">memory_processes() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The total amount of memory currently used by the Erlang processes.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_system/0">memory_system() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The total amount of memory currently allocated by the emulator that is not directly related to any Erlang process.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_total/0">memory_total() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The total amount of memory currently allocated.</p>
+</div></div>
+<div class="function">
+<h3 id="message_queue/1">message_queue(Pid::atom() | pid()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the size of the message queue of the process identified by <code>Pid</code>.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div>
+<div class="function">
+<h3 id="monitors/1">monitors(Pid::atom() | pid()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of monitors that are active for the process.
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div>
+<div class="function">
+<h3 id="port_count/0">port_count() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of ports currently existing at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="port_limit/0">port_limit() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the maximum number of simultaneously existing ports at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="port_utilization/0">port_utilization() -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Returns the port utilization (number between 0 and 1) at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="process_count/0">process_count() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of processes currently existing at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="process_limit/0">process_limit() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the maximum number of simultaneously existing processes at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="process_utilization/0">process_utilization() -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Returns the process utilization (number between 0 and 1) at the local node.</p>
+</div></div>
+<div class="function">
+<h3 id="reductions_last_call/0">reductions_last_call() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of reductions (minus reductions performed in current time slices
+      of currently scheduled processes) performed since the last call to this function.<br />
+      Using this method and <a href="#reductions_total/0" class="seealso">reductions_total/0</a> at the same time will cause weird/wrong results.</p>
+</div></div>
+<div class="function">
+<h3 id="reductions_process/1">reductions_process(Pid::atom() | pid()) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of reductions executed by the process.<br />
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div>
+<div class="function">
+<h3 id="reductions_total/0">reductions_total() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total number of reductions (minus reductions performed in current time slices
+      of currently scheduled processes) performed at he local node.<br />
+      Using this method and <a href="#reductions_last_call/0" class="seealso">reductions_last_call/0</a> at the same time will cause weird/wrong results.</p>
+</div></div>
+<div class="function">
+<h3 id="registered_processes/0">registered_processes() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the numer of registered processes.</p>
+</div></div>
+<div class="function">
+<h3 id="run_queue/0">run_queue() -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the total length of the run queues, that is, the number of processes that are ready to run on all available run queues.</p>
+</div></div>
+<div class="function">
+<h3 id="stack_size/1">stack_size(Pid::atom() | pid()) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the stack size of the process in words.<br />
+      If <code>Pid</code> is an <code>atom()</code>, it will assume that it's the name of a registered process.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Daniel Kempkens</aname>
+<email>daniel@kempkens.io</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

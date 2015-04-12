@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lb_active_directories (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lb_active_directories</h1>
+<h2 class="modsummary">Implementation of a modified version of the paper below.</h2>
+<div class="description">
+<p>Implementation of a modified version of the paper below. This implementation       
+doesn't use virtual servers but can still benefit from the load balancing       
+algorithm's attributes, respectively the load directories and the emergency       
+transfer of load.</p>
+ 
+       <p>Many-to-Many scheme</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-dht_message">dht_message() = {lb_active, request_load, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {lb_active,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;before_jump,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HeavyNode :: <a href="lb_info.html#type-lb_info" class="seealso">lb_info:lb_info()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LightNode :: <a href="lb_info.html#type-lb_info" class="seealso">lb_info:lb_info()</a>}</h3></div>
+    <div class="type"><h3 id="type-directory_name">directory_name() = string()</h3></div>
+    <div class="type"><h3 id="type-message">message() = {publish_trigger}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {post_load, <a href="lb_info.html#type-lb_info" class="seealso">lb_info:lb_info()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {directory_trigger}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_state_response, <a href="intervals.html#type-interval" class="seealso">intervals:interval()</a>}</h3></div>
+    <div class="type"><h3 id="type-reassign">reassign() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#reassign{light = <a href="lb_info.html#type-lb_info" class="seealso">lb_info:lb_info()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heavy = <a href="lb_info.html#type-lb_info" class="seealso">lb_info:lb_info()</a>}</h3></div>
+    <div class="type"><h3 id="type-schedule">schedule() = [<a href="#type-reassign" class="seealso">reassign()</a>]</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{my_dirs = [<a href="#type-directory_name" class="seealso">directory_name()</a>], schedule = <a href="#type-schedule" class="seealso">schedule()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_msg/1">handle_msg(Msg::message(), State::state()) -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_dht_msg/1">handle_dht_msg(Msg::dht_message(), DhtState::state() (see module dht_node_state)) -&gt; state() (see module dht_node_state)</h3>
+
+
+<div class="description">
+
+<p>Load balancing messages received by the dht node.</p>
+</div></div>
+<div class="function">
+<h3 id="get_web_debug_kv/1">get_web_debug_kv(State::state()) -&gt; [{string(), string()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Maximilian Michels</aname>
+<email>michels@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

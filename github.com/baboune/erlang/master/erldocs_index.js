@@ -1,0 +1,1 @@
+var index = [['app','erlang','erlang','[application]'],['mod','erlang','anagram',[]],['mod','erlang','myalgo',[]],['mod','erlang','mymaths',[]],['fun','erlang','anagram:anagram/1',[]],['fun','erlang','myalgo:qsort/1',[]],['fun','erlang','myalgo:qsort_opt/1',[]],['fun','erlang','mymaths:multiply/2',[]],['fun','erlang','mymaths:pythag/1',[]]];

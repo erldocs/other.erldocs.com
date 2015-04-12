@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>yaws_rss (yaws) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>yaws_rss</h1>
+<h2 class="modsummary">A Yaws RSS feed interface.</h2>
+<div class="description">
+<p>A Yaws RSS feed interface.
+  </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-db">db()</h3></div>
+    <div class="type"><h3 id="type-ioList">ioList()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/1">open(App::atom()) -&gt; {ok, DB::db()} | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>See <a href="#open/2" class="seealso">open/2</a></p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(App::atom(), Opts::list()) -&gt; {ok, DB::db()} | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Open a RSS database.
+        Per default <em>dets</em> is used as database,
+        but by using the <em>db_mod</em> option it is
+        possible to use your own database.<br />
+        These are the options:
+        </p><taglist>
+  
+        <dt>{db_mod, Module}</dt>
+        <item><p>If specified, the following functions will be
+        called:</p><list>
+        <item><p>Module:open(Opts)</p></item>
+        <item><p>Module:insert(App,Tag,Title,Link,Desc,Creator,GregSec)</p></item>
+        <item><p>Module:retrieve(App,Tag) -&gt; {Title, Link, Desc, Creator, GregSecs}</p></item>
+        <item><p>Module:close(DbName)</p></item></list><p>
+        This means that the default DB won't be used, and
+        no expiration handling will be done. Only the producing of
+        XML will thus be done. Also, the whole <em>Opts</em> will be
+        passed un-interpreted to the other DB module.</p></item>
+  
+        <dt>{db_dir, Dir}</dt>
+        <item><p>Specifies the directory where the database will be created.
+        Default is: /tmp</p></item>
+  
+        <dt>{expire, Expire}</dt>
+        <item><p>Specifies what method to use to expire items. Possible values
+        are: <em>false</em>, <em>days</em>, meaning
+        never expire, expire after a number of days.
+        Default is to never expire items.</p></item>
+  
+        <dt>{days, Number}</dt>
+        <item><p>Specifies the number of days befor an item is expired.
+        Default is 7 days.</p></item>
+  
+        <dt>{rm_exp, Bool}</dt>
+        <item><p>Specifies if expired items should be removed from
+        the database. Default is to not remove any items.</p></item>
+  
+        <dt>{max, Number}</dt>
+        <item><p>Specifies the maximum number of items that should
+        be stored in the database. The default in <em>infinite</em></p></item>
+        </taglist>
+        <p>If no database exist, a new will be created.
+        The returned database handle is to be used with <a href="#close/1" class="seealso">close/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="close/0">close() -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Close the RSS database.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(DbMod::atom(), DbName::atom()) -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Close the user provided RSS database.
+        A call to; <em>DbMod:close(DbName)</em> will be made.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1">insert(App::atom(), Tag::atom(), Title::string(), Link::string(), Desc::string()) -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Insert an RSS item into the <em>{App,Tag}</em> RSS feed.
+        An application (App) can maintain several feeds each
+        one refered to with a symbolic name (Tag).
+        <em>Link</em> should be a URL pointing to the item.
+        </p><p>In case another database backend is used, the
+        <em>Tag</em> has the format: <em>{DbModule, OpaqueTag}</em>
+        where <em>DbModule</em> is the database backend module
+        to be called, and <em>OpaqueTag</em> the Tag that is
+        used in <em>DbModule:insert(Tag, ...)</em></p>
+</div></div>
+<div class="function">
+<h3 id="insert/1-1">insert(App::atom(), Tag::atom(), Title::string(), Link::string(), Desc::string(), Creator::string()) -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Works as <a href="#insert/5" class="seealso">insert/5</a> but takes an extra argument
+        <em>Creator</em> which may contains an identification
+        of who created the item.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1-2">insert(App::atom(), Tag::atom(), Title::string(), Link::string(), Desc::string(), Creator::string(), GregSecs::integer()) -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Works as <a href="#insert/6" class="seealso">insert/6</a> but takes an extra argument
+        <em>GregSecs</em> which is the creation time of the item
+        in Gregorian Seconds.</p>
+</div></div>
+<div class="function">
+<h3 id="retrieve/1">retrieve(App::atom(), Tag::atom()) -&gt; {ok, RSSContent::iolist()} | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve the <em>RSScontent</em> (in XML and all...)
+        to be delivered to a RSS client.
+        </p><p>In case another database backend is used, the
+        <em>Tag</em> has the format: <em>{DbModule, OpaqueTag}</em>
+        where <em>DbModule</em> is the database backend module
+        to be called, and <em>OpaqueTag</em> the Tag that is
+        used in <em>DbModule:retrieve(Tag)</em> which must return
+        a list of tuples: <em>{Title, Link, Desc, Creator, GregSecs}</em></p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="t_setup/0">t_setup() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="t_exp/0">t_exp() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="t_xopen/0">t_xopen() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Torbjorn Tornkvist</aname>
+<email>tobbe@tornkvist.org</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

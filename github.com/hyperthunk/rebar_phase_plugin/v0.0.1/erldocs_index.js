@@ -1,0 +1,1 @@
+var index = [['app','rebar_phase_plugin','rebar_phase_plugin','[application]'],['mod','rebar_phase_plugin','rebar_phase_plugin',[]],['fun','rebar_phase_plugin','rebar_phase_plugin:execute_command/4',[]],['fun','rebar_phase_plugin','rebar_phase_plugin:preprocess/2',[]]];

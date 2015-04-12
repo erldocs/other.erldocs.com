@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gettext_validate (gettext) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gettext_validate</h1>
+<h2 class="modsummary">Use this module to validate po files returned by translators.</h2>
+<div class="description">
+<p>Use this module to validate po files returned by translators. This  
+validator assumes the po file to be valid (parsable without errors by  
+gettext/poEdit/GNU po file tools). Its use is to check for errors  
+introduced by translators in the msgstr part in the po file; this is done  
+by supplying checker callback module names to the validate(...) function.</p>
+ 
+  <p>A number of default checkers that should work on most texts can check
+  for:
+  </p><list>
+  <item><p>incorrect STXT argument usage</p></item>
+  <item><p>incorrect whitespace at front/tail of text</p></item>
+  <item><p>missing translations</p></item>
+  <item><p>incorrect punctuation at the end of texts</p></item>
+  <item><p>changes in HTML structure, tag names and attributes used</p></item>
+  <item><p>inconsistent usage of case at begining of text</p></item>
+  </list>
+ 
+  <p>A checker must implement
+  </p><pre class="sh_erlang">     ignore_entry_type() -&gt; atom().</pre><p>  
+Returns the typename to use in the ignore file.</p>
+ 
+  <pre class="sh_erlang">     heading() -&gt; string().</pre><p>  
+Returns a short text used as heading when listing errors/warnings for  
+this checker.</p>
+ 
+  <pre class="sh_erlang">     check({OriginalFormatStr::string(), TranslatedFormatStr::string()},
+           Ignores, Acc::[acc()]) -&gt; UpdatedAcc::[acc()]</pre><p>
+  Returns an updated accumulator <code>UpdatedAcc</code> after checking
+  <code>OriginalFormatStr</code> against <code>TranslatedFormatStr</code>. One or more entries
+  must be added to the head of <code>Acc</code> if problems are found. <code>Ignores</code>
+  contains an ETS table reference used by <code>gettext_validate:do_ignore(...)</code>  
+to check if the error/warning should be reported - this filtering should  
+be done after the check, so that the code crashes if the checker is  
+broken - ignore files could otherwise hide broken checks.</p>
+ 
+  <p>Each acc() must be of the format:
+ </p><pre class="sh_erlang">    {alert_level(),
+     ErrorMsg::string(),
+     Pairs::{Name::atom(), Info::term()} ....}</pre><p>
+  where <code>alert_level()</code> is either <code>'ERROR'</code>, indicating an error that
+  may cause a crash (e.g., in STXT) or generate invalid output, or <code>'Warning'</code>, indicating a possible problem. <code>Pairs</code> contain check
+  specific error information - usually at least the msgid and msgstr, so
+  that they can be found in a po file and fixed.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-output">output() = [{{heading, string()}, {ignore_type, atom()}, {po_file_path, string()}, {ignore_file_path, string()}, CheckRes::[acc()]}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="validate_q/1">validate_q(PoFilePath) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate_q/2">validate_q(PoFilePath, IgnoreFilePath) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate_qf/2">validate_qf(PoFilePath, SaveFile) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate_qf/3">validate_qf(PoFilePath, IgnoreFilePath, SaveFile) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate/1">validate(PoFilePath::string(), IgnoreFilePath::[] | string(), Opts::[{Key, Val}]) -&gt; ok | output()</h3>
+
+
+<div class="description">
+
+<p> Takes a valid (parsable) po file and checks that there are no        
+inconsistencies between the msgid and msgstr texts.</p>
+ 
+        <p>The function prints a result listing.</p>
+ 
+        <p><code>PoFilePath</code>     - the po file check</p>
+ 
+        <p><code>IgnoreFilePath</code> - a optional file that can be used to specify                           
+{CheckType, MsgId, MsgStr} combinations that should                           
+not be reported as a errors/warnings - false                           
+positives.                           
+Each (language) po file should usualy have one such                           
+ignore file.</p>
+ 
+        <p><code>Opts:</code>
+ </p><pre class="sh_erlang">     {to_file, SaveLocation} - force output to file rather than shell
+     {checkers, ModuleNames} - checkers to use, ModuleNames = [atom()]
+     {end_user, Format}      - output format:
+              human    - print readable text (default) to shell, file, ...
+              computer - fuction returns output() to describe
+                         the check results - this is useful for automated
+                         po file validation</pre>
+</div></div>
+<div class="function">
+<h3 id="default_opts/0">default_opts() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="do_ignore/4">do_ignore(Ignores, Key, Bad, Acc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Håkan Stenholm</aname>
+<email>hokan@kreditor.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

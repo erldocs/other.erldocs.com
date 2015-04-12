@@ -1,0 +1,1 @@
+var index = [['app','fp_retreat_erlang','fp_retreat_erlang','[application]'],['mod','fp_retreat_erlang','game_of_life',[]],['fun','fp_retreat_erlang','game_of_life:start/0',[]],['fun','fp_retreat_erlang','game_of_life:start/2',[]]];

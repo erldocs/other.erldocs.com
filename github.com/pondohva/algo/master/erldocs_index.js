@@ -1,0 +1,1 @@
+var index = [['app','algo','algo','[application]'],['mod','algo','sort',[]],['fun','algo','sort:bsearch/2',[]],['fun','algo','sort:equal_to_sum/2',[]],['fun','algo','sort:insertsort/1',[]],['fun','algo','sort:invers/1',[]],['fun','algo','sort:mergesort/1',[]]];

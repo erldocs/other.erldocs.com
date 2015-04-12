@@ -1,0 +1,1 @@
+var index = [['app','beerenthusiasts','beerenthusiasts','[application]'],['mod','beerenthusiasts','beerenthusiasts_app',[]],['fun','beerenthusiasts','beerenthusiasts_app:request/1',[]],['fun','beerenthusiasts','beerenthusiasts_app:route/1',[]],['fun','beerenthusiasts','beerenthusiasts_app:start/2',[]],['fun','beerenthusiasts','beerenthusiasts_app:stop/1',[]]];

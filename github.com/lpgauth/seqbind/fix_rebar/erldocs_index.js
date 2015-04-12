@@ -1,0 +1,1 @@
+var index = [['app','seqbind','seqbind','[application]'],['mod','seqbind','seqbind',[]],['fun','seqbind','seqbind:i/3',[]],['fun','seqbind','seqbind:parse_transform/2',[]]];

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_progress (etorrent_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_progress</h1>
+<h2 class="modsummary">Chunk manager of a torrent.</h2>
+<div class="description">
+<p>Chunk manager of a torrent.
+  </p><p>This module implement a manager of chunks for the etorrent
+  application. When we download from multiple peers, each peer will have
+  different pieces. Say for instance that A has pieces [1,2] while B has
+  [1,3]. In this case, we can download 2 from A, 3 from B and 1 from
+  either of them.</p>
+  <p>The bittorrent protocol, however, does not transfer
+  pieces. Instead it transfers slices of pieces, 16 Kilobytes in size
+  -- mostly to battle the problem that no other message would be able
+  to get through otherwise. We call these slices for "chunks" and it
+  is the responsibility of the chunk_mgr to keep track of chunks that
+  has not been downloaded yet.</p>
+  <p>A chunk must only be downloaded from one peer at a time in order
+  not to waste bandwidth. Thus we keep track of which peer got a
+  chunk at any given time. If the peer dies, a monitor() keeps track
+  of him, so we can give back all pieces.</p>
+  <p>We systematically select pieces for chunking and then serve
+  chunks to peers. We have the invariant chunked ==
+  someone-is-downloading (almost always, there is an exception if a
+  peer is the only one with a piece and that peer dies). The goal is
+  to "close" a piece as fast as possible when it is chunked by
+  downloading all remaining chunks on it. This in turn will trigger a
+  HAVE message to all peers and we can begin serving that piece to others.</p>
+  <p>The selection criteria is this:
+  </p><list>
+    <item><p>A peer asks for N chunks. See first if there are chunks among
+  the already chunked pieces that can be used for that peer.</p></item>
+    <item><p>If we exhaust all chunk attempts either because none are
+  eligible or all are assigned, we try to find a new piece to chunkify.</p></item>
+    <item><p>If there is a piece we can chunkify, we use that to serve the
+  peer. If not, we report back to the peer if we are interested. We
+  are interested if there was interesting pieces, but the chunks are
+  currently on assignment to other peers. If no interesting pieces
+  are there, we report back we don't have any interest in the peer.</p></item>
+  </list>
+  <em>The endgame:</em>
+  <p>When there are only chunked pieces left (there are no pieces
+  left we haven't begun fetching), we enter <em>endgame mode</em> in
+  which we randomly shuffle the pieces and ask for the same chunks on
+  all peers. As soon as we get in a chunk, we aggressively CANCEL it
+  at all other places, hoping we waste as little bandwidth as
+  possible. Endgame mode in etorrent usually lasts some 10-30 seconds
+  on a torrent.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-chunk_len">chunk_len() = <a href="etorrent_types.html#type-chunk_len" class="seealso">etorrent_types:chunk_len()</a></h3></div>
+    <div class="type"><h3 id="type-piece_index">piece_index() = <a href="etorrent_types.html#type-piece_index" class="seealso">etorrent_types:piece_index()</a></h3></div>
+    <div class="type"><h3 id="type-serverarg">serverarg() = {torrentid, <a href="#type-torrent_id" class="seealso">torrent_id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {chunksize, <a href="#type-chunk_len" class="seealso">chunk_len()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {fetched, [<a href="#type-piece_index" class="seealso">piece_index()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {piecesizes, [{<a href="#type-piece_index" class="seealso">piece_index()</a>, <a href="#type-chunk_len" class="seealso">chunk_len()</a>}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {torrentpid, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {scarcitypid, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pendingpid, pid()}</h3></div>
+    <div class="type"><h3 id="type-torrent_id">torrent_id() = <a href="etorrent_types.html#type-torrent_id" class="seealso">etorrent_types:torrent_id()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="register_server/1">register_server(TorrentID::torrent_id()) -&gt; true</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unregister_server/1">unregister_server(TorrentID::torrent_id()) -&gt; true</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lookup_server/1">lookup_server(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="await_server/1">await_server(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Args::[serverarg()]) -&gt; {ok, pid()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Start a new torrent progress server</p>
+</div></div>
+<div class="function">
+<h3 id="mark_valid/1">mark_valid(Piece::pos_integer(), SrvPid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Mark a piece as completly stored to disk and validated.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(TorrentID::torrent_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Print chunk server statistics</p>
+</div></div>
+<div class="function">
+<h3 id="num_invalid/1">num_invalid(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of invalid pieces</p>
+</div></div>
+<div class="function">
+<h3 id="num_unassigned/1">num_unassigned(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of unassigned pieces</p>
+</div></div>
+<div class="function">
+<h3 id="num_begun/1">num_begun(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of begun pieces</p>
+</div></div>
+<div class="function">
+<h3 id="num_assigned/1">num_assigned(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of assigned pieces</p>
+</div></div>
+<div class="function">
+<h3 id="num_stored/1">num_stored(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of stored pieces</p>
+</div></div>
+<div class="function">
+<h3 id="num_valid/1">num_valid(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of validated pieces</p>
+</div></div>
+<div class="function">
+<h3 id="show_assigned/1">show_assigned(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="show_valid/1">show_valid(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_wishes/2">set_wishes(TorrentID, Wishes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_unwanted/2">set_unwanted(TorrentID, Wishes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stored_chunks/1">stored_chunks(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, X2, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Jesper Louis Andersen</aname>
+<email>jesper.louis.andersen@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

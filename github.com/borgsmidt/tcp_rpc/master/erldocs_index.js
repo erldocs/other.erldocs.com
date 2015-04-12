@@ -1,0 +1,1 @@
+var index = [['app','tcp_rpc','tcp_rpc','[application]'],['mod','tcp_rpc','tr_app',[]],['mod','tcp_rpc','tr_sup',[]],['fun','tcp_rpc','tr_app:start/2',[]],['fun','tcp_rpc','tr_app:stop/1',[]],['fun','tcp_rpc','tr_sup:init/1',[]],['fun','tcp_rpc','tr_sup:start_link/0',[]]];

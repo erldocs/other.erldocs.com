@@ -1,0 +1,28 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/eonblast/scalaxis'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/1994329994/meta.txt"
+ :: Processing https://github.com/eonblast/scalaxis	{rev,branch,"master","10287d11428e627dca8c41c818745763b9f7e8d4"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/1994329994/scalaxis-branch-master/scalaxis"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/eonblast/scalaxis/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/1994329994/scalaxis-branch-master/scalaxis"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/1994329994/scalaxis-branch-master/scalaxis"
+$ 5000  `find 'scalaxis-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `scalaxis-master': No such file or directory"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,92}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,238}]},
+         {eo_core,main_,11,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
+         {gen_escript__escript__1427__73500__860686,seq_gen,3,
+             [{file,"./gen.escript"},{line,47}]},
+         {escript,run,2,[{file,"escript.erl"},{line,752}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `scalaxis-master'"},{": No such file or directory"}]}}

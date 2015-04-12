@@ -1,0 +1,1 @@
+var index = [['app','wordpress','wordpress','[application]'],['mod','wordpress','main',[]],['mod','wordpress','my_double',[]],['fun','wordpress','main:start/0',[]],['fun','wordpress','my_double:double/1',[]]];

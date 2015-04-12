@@ -1,0 +1,1 @@
+var index = [['app','erlang-sd_notify','erlang-sd_notify','[application]'],['mod','erlang-sd_notify','sd_notify',[]],['fun','erlang-sd_notify','sd_notify:sd_notify/2',[]],['fun','erlang-sd_notify','sd_notify:sd_notifyf/3',[]]];

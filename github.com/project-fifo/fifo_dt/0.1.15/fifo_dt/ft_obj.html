@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ft_obj (fifo_dt) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ft_obj</h1>
+<h2 class="modsummary">A suite of functions that operate on the algebraic data type
+  ft_obj.</h2>
+<div class="description">
+<p>A suite of functions that operate on the algebraic data type
+  <code>ft_obj</code>.</p>
+ 
+  <p>TODO Possibly move type/record defs in there and use accessor funs  
+and opaque types.</p>
+ 
+  <p>Taken form https://github.com/Licenser/try-try-try/blob/master/2011/riak-core-conflict-resolution/rts/src/rts_obj.erl</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-any_obj">any_obj() = <a href="#type-ft_obj" class="seealso">ft_obj()</a> | <a href="#type-snarl_obj" class="seealso">snarl_obj()</a> | <a href="#type-sniffle_obj" class="seealso">sniffle_obj()</a></h3></div>
+    <div class="type"><h3 id="type-ft_obj">ft_obj() = #ft_obj{val = undefined | <a href="#type-obj_val" class="seealso">obj_val()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vclock = <a href="vclock.html#type-vclock" class="seealso">vclock:vclock()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| not_found</h3></div>
+    <div class="type"><h3 id="type-obj_val">obj_val() = term()</h3></div>
+    <div class="type"><h3 id="type-snarl_obj">snarl_obj() = #ft_obj{val = undefined | <a href="#type-obj_val" class="seealso">obj_val()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vclock = <a href="vclock.html#type-vclock" class="seealso">vclock:vclock()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| not_found</h3></div>
+    <div class="type"><h3 id="type-sniffle_obj">sniffle_obj() = #sniffle_obj{val = undefined | <a href="#type-obj_val" class="seealso">obj_val()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vclock = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="vclock.html#type-vclock" class="seealso">vclock:vclock()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| not_found</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; ft_obj()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/1">new(Value::obj_val(), Coordinator::atom()) -&gt; ft_obj()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ancestors/1">ancestors(Objs0::[any_obj()]) -&gt; [ft_obj()]</h3>
+
+
+<div class="description">
+
+<p>Given a list of <code>ft_obj()</code> return a list of all the
+  ancestors.  Ancestors are objects that all the other objects in the
+  list have descent from.</p>
+</div></div>
+<div class="function">
+<h3 id="children/1">children(ObjsIn) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Given a list of <code>ft_obj()</code> return a list of the children
+  objects.  Children are the descendants of all others objects.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1">equal(ObjA::any_obj(), ObjB::any_obj()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Predeicate to determine if <code>ObjA</code> and <code>ObjB</code> are equal.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1-1">equal(ObjA::any_obj()) -&gt; (ObjB::any_obj()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Closure around <code>equal/2</code> for use with HOFs (damn verbose
+  Erlang).</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(FSM::atom(), Objs::[any_obj()]) -&gt; ft_obj()</h3>
+
+
+<div class="description">
+
+<p>Merge the list of <code>Objs</code>, calling the appropriate reconcile
+  fun if there are siblings.</p>
+</div></div>
+<div class="function">
+<h3 id="unique/1">unique(Objs::[any_obj()]) -&gt; [ft_obj()]</h3>
+
+
+<div class="description">
+
+<p>Given a list of <code>Objs</code> return the list of uniques.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Val::obj_val(), Updater::node(), O::any_obj()) -&gt; ft_obj()</h3>
+
+
+<div class="description">
+
+<p>Given a <code>Val</code> update the <code>Obj</code>.  The <code>Updater</code> is the name of
+  the entity performing the update.</p>
+</div></div>
+<div class="function">
+<h3 id="val/1">val(O::any_obj()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vclock/1">vclock(O::any_obj()) -&gt; vclock() (see module vclock)</h3>
+
+
+<div class="description">
+
+<p>Given a vclock type <code>Obj</code> retrieve the vclock.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1-1">update(Ft_obj::any_obj()) -&gt; ft_obj()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_a/1">is_a(Ft_obj) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

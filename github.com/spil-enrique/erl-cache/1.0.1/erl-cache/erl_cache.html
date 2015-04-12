@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erl_cache (erl-cache) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erl_cache</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-cache_evict_opt">cache_evict_opt() = {wait_until_done, <a href="#type-wait_until_done" class="seealso">wait_until_done()</a>}</h3></div>
+    <div class="type"><h3 id="type-cache_get_opt">cache_get_opt() = {wait_for_refresh, <a href="#type-wait_for_refresh" class="seealso">wait_for_refresh()</a>}</h3></div>
+    <div class="type"><h3 id="type-cache_opts">cache_opts() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-cache_get_opt" class="seealso">cache_get_opt()</a> | <a href="#type-cache_set_opt" class="seealso">cache_set_opt()</a> | <a href="#type-cache_evict_opt" class="seealso">cache_evict_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-cache_set_opt">cache_set_opt() = {validity, <a href="#type-validity" class="seealso">validity()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {evict, <a href="#type-evict" class="seealso">evict()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {wait_until_done, <a href="#type-wait_until_done" class="seealso">wait_until_done()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {refresh_callback, <a href="#type-refresh_callback" class="seealso">refresh_callback()</a>}</h3></div>
+    <div class="type"><h3 id="type-cache_stat">cache_stat() = {memory, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {size, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {hit, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {evict, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stale, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {miss, integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-cache_stats">cache_stats() = [<a href="#type-cache_stat" class="seealso">cache_stat()</a>]</h3></div>
+    <div class="type"><h3 id="type-config_key">config_key() = validity<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| evict<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| refresh_callback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_refresh<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_until_done</h3></div>
+    <div class="type"><h3 id="type-evict">evict() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-invalid_opt_error">invalid_opt_error() = {invalid, <a href="#type-config_key" class="seealso">config_key()</a> | cache_name}</h3></div>
+    <div class="type"><h3 id="type-key">key() = term()</h3></div>
+    <div class="type"><h3 id="type-name">name() = atom()</h3></div>
+    <div class="type"><h3 id="type-refresh_callback">refresh_callback() = function() | mfa() | undefined</h3></div>
+    <div class="type"><h3 id="type-validity">validity() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-value">value() = term()</h3></div>
+    <div class="type"><h3 id="type-wait_for_refresh">wait_for_refresh() = boolean()</h3></div>
+    <div class="type"><h3 id="type-wait_until_done">wait_until_done() = boolean()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Convenience method to start the erl_cache application</p>
+</div></div>
+<div class="function">
+<h3 id="start_cache/1">start_cache(Name::name(), Opts::cache_opts()) -&gt; ok | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+
+<p>Starts a cache server with the given name and default options.
+  Returns a name in case the given name corresponds to a running cache server or any other process
+  in the system</p>
+</div></div>
+<div class="function">
+<h3 id="stop_cache/1">stop_cache(Name::name()) -&gt; ok | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+
+<p>Stops a cache server.
+  Returs an error if the given name does not correspond to a running cache server</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Name::name(), Key::key()) -&gt; {error, not_found} | {error, invalid_opt_error()} | {ok, value()}</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#get/3" class="seealso">get/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1-1">get(Name::name(), Key::key(), Opts::[cache_get_opt()]) -&gt; {error, not_found} | {error, invalid_opt_error()} | {ok, value()}</h3>
+
+
+<div class="description">
+
+<p>Gets the value associated with a given key in the cache signaled by the given name.</p>
+</div></div>
+<div class="function">
+<h3 id="get_stats/1">get_stats(Name::name()) -&gt; {ok, cache_stats()} | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves the stats associated with a cache instance</p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(Name::name(), Key::key(), Value::value()) -&gt; ok | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#set/4" class="seealso">set/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set/1-1">set(Name::name(), Key::key(), Value::value(), Opts::[cache_set_opt()]) -&gt; ok | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+
+<p>Sets a cache entry in a cache instance.
+  The options passed in this function call will overwrite the default ones for the cache instance
+  for any operation related to this specific key.</p>
+</div></div>
+<div class="function">
+<h3 id="evict/1">evict(Name::name(), Key::key()) -&gt; ok | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#evict/3" class="seealso">evict/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="evict/1-1">evict(Name::name(), Key::key(), Opts::[cache_evict_opt()]) -&gt; ok | {error, invalid_opt_error()}</h3>
+
+
+<div class="description">
+
+<p>Forces a cache entry to be evivted from the indicated cache instance</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

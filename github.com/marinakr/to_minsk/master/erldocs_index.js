@@ -1,0 +1,1 @@
+var index = [['app','to_minsk','to_minsk','[application]'],['mod','to_minsk','mnsk',[]]];

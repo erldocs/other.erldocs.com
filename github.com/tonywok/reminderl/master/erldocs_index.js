@@ -1,0 +1,1 @@
+var index = [['app','reminderl','reminderl','[application]'],['mod','reminderl','event',[]],['mod','reminderl','event_server',[]]];

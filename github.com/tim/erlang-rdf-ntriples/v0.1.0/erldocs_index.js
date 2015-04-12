@@ -1,0 +1,1 @@
+var index = [['app','erlang-rdf-ntriples','erlang-rdf-ntriples','[application]'],['mod','erlang-rdf-ntriples','rdf_ntriples',[]],['fun','erlang-rdf-ntriples','rdf_ntriples:decode/1',[]],['fun','erlang-rdf-ntriples','rdf_ntriples:decode/2',[]]];

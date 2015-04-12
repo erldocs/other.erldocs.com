@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>9p_auth (kernel) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>9p_auth</h1>
+<h2 class="modsummary">Authentication/authorization for 9p connections.</h2>
+<div class="description">
+<p>Authentication/authorization for 9p connections. The module implements
+   two auhtentication schemes: MUNGE and MUMBLE. Both schemes are based on a
+   pre-shared secrets. The module uses <code>auth:secret1()</code> and <code>auth:secret2()</code>
+   calls to retrieve the secrets. The definition of #munge{} and #mumble{}
+   records is given in 9p_auth.hrl.
+  </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="mumble/1">mumble(SessionKey) -&gt; Mumble</h3>
+
+<ul class="type">
+<li><code>SessionKey = binary()</code></li><li><code>Mumble = binary()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mumble/2">mumble(SessionKey, Extra) -&gt; Mumble</h3>
+
+<ul class="type">
+<li><code>SessionKey = binary()</code></li><li><code>Extra = binary()</code></li><li><code>Mumble = binary()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mumble/3">mumble(SessionKey, Extra, TTL) -&gt; Mumble</h3>
+
+<ul class="type">
+<li><code>SessionKey = binary()</code></li><li><code>Extra = binary()</code></li><li><code>TTL = integer</code></li><li><code>Mumble = binary()</code></li></ul>
+<div class="description">
+
+<p>Produce an authenticated MUMBLE message. The <code>SessionKey</code> identifies the
+  current session and is needed for session recovery when a transport
+  connection is reestablished. The <code>SessionKey</code> must be a binary of length
+  <em>8</em>. <code>Extra</code> is arbitrary data embedded into the MUMBLE message. Defaults
+  to <code>&lt;&lt;&gt;&gt;</code>. <code>TTL</code> is the number of seconds the message is valid after
+  encoding. Defaults to 0 (infinity).</p>
+</div></div>
+<div class="function">
+<h3 id="unmumble/1">unmumble(Message) -&gt; #mumble{} | invalid | not_authenticated | expired</h3>
+
+<ul class="type">
+<li><code>Message = binary()</code></li></ul>
+<div class="description">
+
+<p>Verifies and decodes a MUMBLE message. Returns <code>not_authenticated</code> if
+  the computed MAC does not match the one included with the message. A MUMBLE
+  message may contain an expiry time. Accordingly, <code>expired</code> may be returned by
+  the call. Uses <code>auth:secret1()</code> only.</p>
+</div></div>
+<div class="function">
+<h3 id="munge/2">munge(UnixUid, UnixGid) -&gt; Munge</h3>
+
+<ul class="type">
+<li><code>UnixUid = integer()</code></li><li><code>UnixGid = integer()</code></li><li><code>Munge = binary()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="munge/3">munge(UnixUid, UnixGid, Payload) -&gt; Munge</h3>
+
+<ul class="type">
+<li><code>UnixUid = integer()</code></li><li><code>UnixGid = integer()</code></li><li><code>Payload = binary()</code></li><li><code>Munge = binary()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="munge/4">munge(UnixUid, UnixGid, Payload, TTL) -&gt; Munge</h3>
+
+<ul class="type">
+<li><code>UnixUid = integer()</code></li><li><code>UnixGid = integer()</code></li><li><code>Payload = binary()</code></li><li><code>TTL = integer()</code></li><li><code>Munge = binary()</code></li></ul>
+<div class="description">
+
+<p>Encodes an authenticated MUNGE message. UnixUid and UnixGid are
+  credentials embedded into the message.</p>
+</div></div>
+<div class="function">
+<h3 id="unmunge/1">unmunge(Message) -&gt; #munge{} | invalid | not_authenticated | bad_padding | expired</h3>
+
+<ul class="type">
+<li><code>Message = binary()</code></li></ul>
+<div class="description">
+
+<p>Verifies and decodes a MUNGE message. Returns <code>not_authenticated</code> if the
+  computed Mac does not match. <code>bad_padding</code> may be returned if unencrypted
+  message does not follow PKCS#5 padding scheme. The implementation accepts only
+  MUNGE messages that use SHA-1 as a hash function and AES-CBC-128 as a cipher.
+  Uses both <code>auth:secret1()</code> and <code>auth:secret2()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="generate_session_key/0">generate_session_key() -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a random session key. The session key may be used for
+  recovering a session after a lost transport connection.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

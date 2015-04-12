@@ -1,0 +1,1 @@
+var index = [['app','ws2801','ws2801','[application]'],['mod','ws2801','ws2801_gpio',[]],['mod','ws2801','ws2801_spi',[]]];

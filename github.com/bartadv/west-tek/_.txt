@@ -1,0 +1,45 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/bartadv/west-tek'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/6511345808/meta.txt"
+ :: Processing https://github.com/bartadv/west-tek	{rev,branch,"master","ddfbe58b65a7d735a8b35732b2c65cd52bf73ad7"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/bartadv/west-tek/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek"
+$ 5000  `find 'west-tek-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["gproc","lager"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/6511345808/repo/master
+Building west-tek
+Generating XML for application west-tek "/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek" -> "/home/pete/wefwefwef/docs/other/6511345808/repo/master/.xml/west-tek"
+/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek/deps/gproc/patches/gen_leader/gen_leader.erl, in module header: at line 35: warning: redefining built-in type 'node'.
+/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek/deps/gproc/patches/kernel/application_master.erl: at line 27: can't find include file "application_master.hrl"
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek/deps/gproc/patches/kernel/application_master.erl': {'EXIT',
+                                                                                                                                                     error}.
+/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek/deps/lager/test/pr_nested_record_test.erl: at line 17: undefined macro 'assertEqual/2'
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master/west-tek/deps/lager/test/pr_nested_record_test.erl': {'EXIT',
+                                                                                                                                              error}.
+edoc: error in doclet 'edoc_doclet': {'EXIT',error}.
+Error generating west-tek XMLs. Using fallback ...
+No documentation was generated!
+Woot, finished in 0 Minutes 3 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/6511345808/west-tek-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/6511345808/west-tek'  2>&1`
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/6511345808/repo/master'  2>&1`

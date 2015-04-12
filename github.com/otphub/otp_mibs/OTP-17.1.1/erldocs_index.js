@@ -1,0 +1,1 @@
+var index = [['app','otp_mibs','otp_mibs','[application]'],['mod','otp_mibs','otp_mib','Handles the OTP-MIB'],['fun','otp_mibs','otp_mib:load/1','Load the OTP-MIB'],['fun','otp_mibs','otp_mib:unload/1','Unload the OTP-MIB']];

@@ -1,0 +1,37 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/dysinger/gutenberg'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/9269490869/meta.txt"
+ :: Processing https://github.com/dysinger/gutenberg	{rev,branch,"master","8a255311fee62f690d223d9da69c3ca8a698c037"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/dysinger/gutenberg/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg"
+$ 5000  `find 'gutenberg-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["lfe","protobuffs","riakc"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/9269490869/repo/master
+Building gutenberg
+Generating XML for application gutenberg "/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master/gutenberg" -> "/home/pete/wefwefwef/docs/other/9269490869/repo/master/.xml/gutenberg"
+Generated gutenberg XMLs: []
+No documentation was generated!
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9269490869/gutenberg-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9269490869/gutenberg'  2>&1`
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9269490869/repo/master'  2>&1`

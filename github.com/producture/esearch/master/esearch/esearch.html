@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>esearch (esearch) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>esearch</h1>
+<h2 class="modsummary">elasticsearch engine erlang interface.</h2>
+<div class="description">
+<p>elasticsearch engine erlang interface.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="index/6">index(Url, Index, Type, Docid, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>index document. if Docid == "", it will automatic generate ID.
+  Url: "http://localhost:9200/".<br />
+  Index: index.<br />
+  Type: type.<br />
+  Params: [{key, value}, ...].<br /></p>
+</div></div>
+<div class="function">
+<h3 id="exist/5">exist(Url, Index, Type, Docid, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>check typed JSON document exist
+  return true| false;</p>
+</div></div>
+<div class="function">
+<h3 id="delete/5">delete(Url, Index, Type, Docid, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>delete typed JSON document.
+  return ok| {error, Reason}.</p>
+</div></div>
+<div class="function">
+<h3 id="get/5">get(Url, Index, Type, Docid, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get typed JSON document.
+  set Json = [] to per get.</p>
+</div></div>
+<div class="function">
+<h3 id="multi_get/5">multi_get(Url, Index, Type, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update/6">update(Url, Index, Type, Docid, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>update update a document based on script provided.</p>
+</div></div>
+<div class="function">
+<h3 id="search_req_body/5">search_req_body(Url, Indexes, Types, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>search api - request body.
+  Indexes: [index, index, ...].
+  Types: [type, type, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="search_uri_req/4">search_uri_req(Url, Indexes, Types, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>search api - URI Request.
+  Indexes: [index, index, ...].
+  Types: [type, type, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="multi_search/5">multi_search(Url, Indexes, Types, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>multi search.
+  Indexes: [index, ...].
+  Types: [type, ...].
+  Json: [{Head, Body}, ...]</p>
+</div></div>
+<div class="function">
+<h3 id="percolate/5">percolate(Url, Index, PercolateName, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>register queries against an index, and then send percolate requests which include a doc, and geting back the queries that match on that doc out of the set of registed queries.</p>
+</div></div>
+<div class="function">
+<h3 id="percolate_doc/5">percolate_doc(Url, Index, Type, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>percolate document, get back matched queries.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_percolate/3">delete_percolate(Url, Index, PercolateName) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>delete percolator.</p>
+</div></div>
+<div class="function">
+<h3 id="bulk/5">bulk(Url, Index, Type, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>bulk.
+  Json: [{action_and_meta_data, document}, ...]</p>
+</div></div>
+<div class="function">
+<h3 id="count/5">count(Url, Indexes, Types, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>count query.
+  Indexes: [Index, ...].
+  Types: [Type, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="delete_by_query/4">delete_by_query(Url, Indexes, Types, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>delete by query.
+  Indexes: [index, ...].
+  Types: [type, ...].
+  Attension: this function doesn't support query body.</p>
+</div></div>
+<div class="function">
+<h3 id="more_like_this/5">more_like_this(Url, Index, Type, Docid, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>more like this.</p>
+</div></div>
+<div class="function">
+<h3 id="validate/5">validate(Url, Index, Type, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>validate a potentially expensive query</p>
+</div></div>
+<div class="function">
+<h3 id="explain/6">explain(Url, Index, Type, Docid, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>explain.
+  I didn't test this function!</p>
+</div></div>
+<div class="function">
+<h3 id="aliase_index/2">aliase_index(Url, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>aliase index</p>
+</div></div>
+<div class="function">
+<h3 id="create_index/4">create_index(Url, Index, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>create index</p>
+</div></div>
+<div class="function">
+<h3 id="delete_index/2">delete_index(Url, Index) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>delete index</p>
+</div></div>
+<div class="function">
+<h3 id="analyze/4">analyze(Url, Index, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>analyze on a text, and return the tokens breakdown of the text.</p>
+</div></div>
+<div class="function">
+<h3 id="open_index/2">open_index(Url, Index) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>open index</p>
+</div></div>
+<div class="function">
+<h3 id="close_index/2">close_index(Url, Index) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>close index</p>
+</div></div>
+<div class="function">
+<h3 id="get_settings/2">get_settings(Url, Index) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get setting</p>
+</div></div>
+<div class="function">
+<h3 id="update_settings/4">update_settings(Url, Index, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>update settings</p>
+</div></div>
+<div class="function">
+<h3 id="get_mapping/3">get_mapping(Url, Indexes, Types) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get mapping
+  Indexes: [index, ...].
+  Types: [type, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="put_mapping/5">put_mapping(Url, Indexes, Type, Params, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>put mapping.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="delete_mapping/3">delete_mapping(Url, Index, Type) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>delete mapping</p>
+</div></div>
+<div class="function">
+<h3 id="refresh/2">refresh(Url, Indexes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>refresh indexes.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="optimize/3">optimize(Url, Indexes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>optimize indexes.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="flush_and_fresh/2">flush_and_fresh(Url, Indexes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>flush.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="flush_and_nofresh/2">flush_and_nofresh(Url, Indexes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="snapshot/2">snapshot(Url, Indexes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>snapshot/ backup.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="template/3">template(Url, Tempname, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Index templates allow to define templates that will automatically be applied to new indices created.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_template/2">delete_template(Url, Tempname) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>delete template.</p>
+</div></div>
+<div class="function">
+<h3 id="get_template/2">get_template(Url, Tempname) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get template.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/3">stats(Url, Indexes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>stats provide statistics on different operations happening on an index
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="status/3">status(Url, Indexes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get a comprehensive status information of one or more indices.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="segments/2">segments(Url, Indexes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Provide low level segments information that a Lucene index (shard level) is built with.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="clear_cache/3">clear_cache(Url, Indexes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>clear cache.
+  Indexes: [index, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="health/3">health(Url, Indexes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>cluster health.</p>
+</div></div>
+<div class="function">
+<h3 id="state/2">state(Url, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>cluster state</p>
+</div></div>
+<div class="function">
+<h3 id="cluster_update_settings/2">cluster_update_settings(Url, Json) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>update cluster wide specific settings.</p>
+</div></div>
+<div class="function">
+<h3 id="get_cluster_settings/1">get_cluster_settings(Url) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get cluster settings.</p>
+</div></div>
+<div class="function">
+<h3 id="nodes_info/3">nodes_info(Url, Nodes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>nodes info.</p>
+</div></div>
+<div class="function">
+<h3 id="nodes_stats/3">nodes_stats(Url, Nodes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>nodes stats</p>
+</div></div>
+<div class="function">
+<h3 id="shutdown_nodes/3">shutdown_nodes(Url, Nodes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>shut nodes</p>
+</div></div>
+<div class="function">
+<h3 id="hot_threads/3">hot_threads(Url, Nodes, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get the current hot threads on each node in the cluster.</p>
+</div></div></div>
+
+<authors>
+
+<aname>liubin</aname>
+<email>tryanswer@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

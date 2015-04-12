@@ -1,0 +1,1 @@
+var index = [['app','bottleneck-buster','bottleneck-buster','[application]'],['mod','bottleneck-buster','myapp_app',[]],['mod','bottleneck-buster','myapp_sup',[]],['fun','bottleneck-buster','myapp_app:start/2',[]],['fun','bottleneck-buster','myapp_app:stop/1',[]],['fun','bottleneck-buster','myapp_sup:init/1',[]],['fun','bottleneck-buster','myapp_sup:start_link/0',[]]];

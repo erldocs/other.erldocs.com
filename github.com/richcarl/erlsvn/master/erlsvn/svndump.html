@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>svndump (erlsvn) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>svndump</h1>
+<h2 class="modsummary">Library for working with SVN dumpfiles.</h2>
+<div class="description">
+<p>Library for working with SVN dumpfiles. The main entry points are
+  the functions <a href="#filter/3" class="seealso">filter/3</a>, <a href="#fold/3" class="seealso">fold/3</a>, and <a href="#to_terms/1" class="seealso">to_terms/1</a>.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-range">range() = integer() | {integer(), integer()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="header_vsn/1">header_vsn(Header::atom()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Yields the minimum svndump version (1-3) for a header.</p>
+</div></div>
+<div class="function">
+<h3 id="header_default/1">header_default(Header::atom()) -&gt; integer() | atom() | binary()</h3>
+
+
+<div class="description">
+
+<p>Yields the default value for a header.</p>
+</div></div>
+<div class="function">
+<h3 id="header_type/1">header_type(Header::atom()) -&gt; atom | binary | boolean | integer</h3>
+
+
+<div class="description">
+
+<p>Yields the type of value for a header.</p>
+</div></div>
+<div class="function">
+<h3 id="header_name/1">header_name(Header::atom()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Yields the name for a header.</p>
+</div></div>
+<div class="function">
+<h3 id="scan_mergeinfo/1">scan_mergeinfo(Bin::binary()) -&gt; [{Path::binary(), [range()]}]</h3>
+
+
+<div class="description">
+
+<p>Extracts symbolic merge information from an <code>svn:mergeinfo</code>
+  property body.</p>
+</div></div>
+<div class="function">
+<h3 id="scan_records/1">scan_records(Bin::binary()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Extracts all svndump records from a binary.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/1">filter(Infile::string(), Fun::function(), State0::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Applies a filter function (really map/fold/filter) to all records of  
+an SVN dump file. The new file gets the name of the input file with the  
+suffix ".filtered".</p>
+ 
+  <p>The filter function gets a record and the current state, and should
+  return either <code>{true, NewState}</code> or<code>{true, NewRecord, NewState}</code> if the
+  (possibly modified) record should be kept, or <code>{false, NewState}</code> if the
+  record should be omitted from the output. <code>NewRecord</code> can also be a list
+  of records, typically for splitting or duplicating a change, creating
+  missing paths, and so on. The result of the call to <code>filter/3</code> is the
+  final state. If the filter function evaluates <code>put(dry_run, true)</code> while
+  handling the first record (this is always the <code>#version{}</code> record), no
+  output will be written.</p>
+</div></div>
+<div class="function">
+<h3 id="fold/1">fold(Infile::string(), Fun::function(), State0::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Applies a fold function to all records of an SVN dump file. The
+  fold function gets a record and the current state, and should return the
+  new state. The result of the call to <code>fold/3</code> is the final state.</p>
+</div></div>
+<div class="function">
+<h3 id="to_terms/1">to_terms(Infile::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Rewrites an SVN dump file to Erlang term format. The new file gets
+  the name of the input file with the suffix ".terms", and can be read
+  back using the Erlang standard library function file:consult().</p>
+</div></div>
+<div class="function">
+<h3 id="format_records/1">format_records(Rs::[term()]) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>Formats a list of records for output to an svndump file.</p>
+</div></div>
+<div class="function">
+<h3 id="join_path/1">join_path(Ps::Path) -&gt; binary()</h3>
+
+<ul class="type">
+<li><code>Path = binary() | [binary()]</code></li></ul>
+<div class="description">
+
+<p>Joins two paths, as represented by this module. Exported so that it
+  may be called from filter functions.</p>
+</div></div>
+<div class="function">
+<h3 id="normalize_ranges/1">normalize_ranges(Rs::[range()]) -&gt; [range()]</h3>
+
+
+<div class="description">
+
+<p>Ensures that <code>svn:mergeinfo</code> ranges is in the expected normal form.</p>
+</div></div>
+<div class="function">
+<h3 id="cache_bin/1">cache_bin(Bin0::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Ensures that the given binary is cached, and returns the cached
+  copy. Exported so that it may be called from filter functions.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Richard Carlsson</aname>
+<email>carlsson.richardc@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang-socks5','erlang-socks5','[application]'],['mod','erlang-socks5','socks5_auth',[]],['fun','erlang-socks5','socks5_auth:negotiate/2',[]]];

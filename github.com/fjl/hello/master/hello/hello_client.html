@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>hello_client (hello) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>hello_client</h1>
+<h2 class="modsummary">This module contains an RPC client.</h2>
+<div class="description">
+<p>This module contains an RPC client.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-client">client() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-error_code">error_code() = <a href="#type-standard_error" class="seealso">standard_error()</a> | integer()</h3></div>
+    <div class="type"><h3 id="type-generic_options">generic_options() = {protocol, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {notification_sink, <a href="#type-notification_sink" class="seealso">notification_sink()</a>}</h3></div>
+    <div class="type"><h3 id="type-method">method() = atom() | string() | binary()</h3></div>
+    <div class="type"><h3 id="type-notification_sink">notification_sink() = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pid()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fun((pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Method :: binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="hello_json.html#type-json_array" class="seealso">hello_json:json_array()</a> |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="hello_json.html#type-json_object" class="seealso">hello_json:json_object()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any())</h3></div>
+    <div class="type"><h3 id="type-options">options() = [<a href="#type-generic_options" class="seealso">generic_options()</a> | {atom(), any()}]</h3></div>
+    <div class="type"><h3 id="type-rpc_error">rpc_error() = timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {transport, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-error_code" class="seealso">error_code()</a>, binary()}</h3></div>
+    <div class="type"><h3 id="type-server_name">server_name() = {local, atom()} | {global, atom()}</h3></div>
+    <div class="type"><h3 id="type-standard_error">standard_error() = parse_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_request<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| method_not_found<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_params<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| internal_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| server_error</h3></div>
+    <div class="type"><h3 id="type-start_error">start_error() = {invalid_options, any()} | badscheme | badurl</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(URI::url() (see module hello), Options::options()) -&gt; {ok, pid()} | {error, start_error()}</h3>
+
+
+<div class="description">
+
+<p>create and link a client process.
+    The <code>Options</code> argument, a property list, configures the client. The list of
+    valid options depends on the transport that is used. The following options are supported
+    for all listeners:
+    </p><list style="list-style-type: none;">
+      <item><p>
+        <em>{protocol, module()}</em><br />
+        Selects the RPC protocol implementation. The default is <code>hello_proto_jsonrpc</code>.<br /><br />
+      </p></item>
+      <item><p>
+        <em>{notification_sink, function() | pid() | atom()}</em><br />
+        This option configures the handling of RPC notifications sent by the server.<br />
+        </p><list>
+          <item><p>
+            If a function is given, it will be called with 3 arguments for each notification.
+            The first argument is the pid of the client process, the second argument is the notification's
+            RPC method name (as a binary) and the third is the argument list. For protocols that
+            support named parameters, the third parameter can also be a value of type hello_json:json_object().
+          </p></item>
+          <item><p>
+            If the notification sink is the atom <code>undefined</code>, notifications are dropped.<br />
+            This is the default behaviour.
+          </p></item>
+          <item><p>
+            If the notification sink is a pid or any atom except <code>undefined</code>, notifications will be sent
+            as an Erlang message to the process with the given pid or to a named process with the given name.
+            Notification messages obey the following format:
+            </p><pre class="sh_erlang">{rpc_notification, Client::pid(), Method::binary(), Parameters}</pre><p>
+            As with notification sink functions, the Parameters are either sent as a list
+            or as a <code>hello_json:json_object()</code>.
+          </p></item>
+        </list><p>
+      </p></item>
+    </list>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(URI::url() (see module hello), Options::options()) -&gt; {ok, pid()} | {error, start_error()}</h3>
+
+
+<div class="description">
+
+<p>create a client process
+    For a description of the parameters, see <a href="#start_link/2" class="seealso">start_link/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Name::server_name(), URI::url() (see module hello), Options::options()) -&gt; {ok, pid()} | {error, start_error()}</h3>
+
+
+<div class="description">
+
+<p>create and link a named client client
+    For a description of the parameters, see <a href="#start_link/2" class="seealso">start_link/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(Name::server_name(), URI::url() (see module hello), Options::options()) -&gt; {ok, pid()} | {error, start_error()}</h3>
+
+
+<div class="description">
+
+<p>create a named client
+    For a description of the parameters, see <a href="#start_link/2" class="seealso">start_link/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Client::client()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>stop a running client</p>
+</div></div>
+<div class="function">
+<h3 id="start_supervised/1">start_supervised(URI::url() (see module hello), Options::options()) -&gt; {ok, pid()} | {error, start_error()}</h3>
+
+
+<div class="description">
+
+<p>create client that is supervised by hello
+    For a description of the parameters, see <a href="#start_link/2" class="seealso">start_link/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_supervised/1-1">start_supervised(Name::atom(), URI::url() (see module hello), Options::options()) -&gt; {ok, pid()} | {error, start_error()}</h3>
+
+
+<div class="description">
+
+<p>create a named client that is supervised by hello
+    This function is used to create a client as part of the hello supervisor tree.
+    It is intended to be used by applications that do not have supervisor trees
+    on their own, and for scripts.
+    For a description of the parameters, see <a href="#start_link/2" class="seealso">start_link/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_supervised/1">stop_supervised(Client::client()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>terminate a client process that is supervised by hello</p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Client::client(), Method::method(), ArgList::[value() (see module hello_json)]) -&gt; {ok, value() (see module hello_json)} | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Perform an RPC method call with positional parameters</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Client::client(), Method::method(), ArgList::[value() (see module hello_json)], Timeout::timeout()) -&gt; {ok, value() (see module hello_json)} | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Like <a href="#call/3" class="seealso">call/3</a>, but with a configurable timeout</p>
+</div></div>
+<div class="function">
+<h3 id="call_np/1">call_np(Client::client(), Method::method(), ArgProps::[{string(), value() (see module hello_json)}]) -&gt; {ok, value() (see module hello_json)} | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Perform an RPC method call with named parameters</p>
+</div></div>
+<div class="function">
+<h3 id="call_np/1-1">call_np(Client::client(), Method::method(), ArgProps::[{string(), value() (see module hello_json)}], Timeout::timeout()) -&gt; {ok, value() (see module hello_json)} | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Like <a href="#call_np/3" class="seealso">call_np/3</a>, but with a configurable timeout</p>
+</div></div>
+<div class="function">
+<h3 id="notification/1">notification(Client::client(), Method::method(), ArgList::[value() (see module hello_json)]) -&gt; ok | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Send an RPC notification
+    This function is deprecated and will be removed in hello 0.3. Use <a href="#notify/3" class="seealso">notify/3</a> instead.</p>
+</div></div>
+<div class="function">
+<h3 id="notify/1">notify(Client::client(), Method::method(), Parameters::[value() (see module hello_json)]) -&gt; ok | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Send an RPC notification with positional parameters</p>
+</div></div>
+<div class="function">
+<h3 id="notify/1-1">notify(Client::client(), Method::method(), Parameters::[value() (see module hello_json)], Timeout::timeout()) -&gt; ok | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Like <a href="#notify/3" class="seealso">notify/3</a>, but with a configurable timeout</p>
+</div></div>
+<div class="function">
+<h3 id="notify_np/1">notify_np(Client::client(), Method::method(), Parameters::[{string(), value() (see module hello_json)}]) -&gt; ok | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Send an RPC notification with named parameters</p>
+</div></div>
+<div class="function">
+<h3 id="notify_np/1-1">notify_np(Client::client(), Method::method(), Parameters::[{string(), value() (see module hello_json)}], Timeout::timeout()) -&gt; ok | {error, rpc_error()}</h3>
+
+
+<div class="description">
+
+<p>Like <a href="#notify_np/3" class="seealso">notify_np/3</a>, but with a configurable timeout</p>
+</div></div>
+<div class="function">
+<h3 id="batch_call/1">batch_call(Client::client(), Call::[Call]) -&gt; timeout | [{ok, value() (see module hello_json)} | {error, rpc_error()}]</h3>
+
+<ul class="type">
+<li><code>Call = {method(), json_object() (see module hello_json) | json_array() (see module hello_json)}</code></li></ul>
+<div class="description">
+
+<p>Send multiple RPC calls in one request.
+    The order of the results in the returned list matches the order of the
+    calls in the given Batch.</p>
+</div></div>
+<div class="function">
+<h3 id="batch_call/1-1">batch_call(Client::client(), Call::[Call], Timeout::timeout()) -&gt; {error, timeout} | [{ok, value() (see module hello_json)} | {error, rpc_error()}]</h3>
+
+<ul class="type">
+<li><code>Call = {method(), json_object() (see module hello_json) | json_array() (see module hello_json)}</code></li></ul>
+<div class="description">
+
+<p>Like <a href="#batch_call/2" class="seealso">batch_call/2</a>, but with a configurable timeout</p>
+</div></div>
+<div class="function">
+<h3 id="validate_options/1">validate_options(URL::url() (see module hello), Options::list()) -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>validate the options for a given client URL</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

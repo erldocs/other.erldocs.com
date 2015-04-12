@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>tablero (erlwars_ang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>tablero</h1>
+<h2 class="modsummary">
+   Este módulo implementa el tablero individual para un jugador de erlwars.</h2>
+<div class="description">
+<p>
+   Este módulo implementa el tablero individual para un jugador de erlwars. En este
+   tablero se ubican las naves del jugador. Cada posición del tablero admite 4 estados.
+   <em><marker id="Estados_de_las_celdas_del_tablero">Estados de las celdas del tablero</marker></em>
+   </p><list>
+   <item><p><em>?VACIO</em>: La celda del tablero está vacía y no alberga ninguna nave.</p></item>
+   <item><p><em>?NAVE</em>: La celda del tablero representa una nave del jugador que aún no ha sido abatida.</p></item>
+   <item><p><em>?NAVEALCANZADA</em>: La celda del tablero representa una nave del jugador que ha sido abatida.</p></item>
+   <item><p><em>?NAVE</em>: La celda del tablero representa una nave del jugador que aún no ha sido abatida.</p></item>
+   <item><p><em>?NAVE</em>: Otro jugador ha disparado a la posición, representada por la celda, pero no existía ninguna nave ubicada en ella.</p></item>
+   </list></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="posicionar_nave/1">tablero:posicionar_nave(Tablero::pid(), X::integer(), Y::integer()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función permite posicionar una nave en el tablero del jugador, pasado como parámetro, en las coordenadas (Y,X).
+   Para ello envía un mensaje con la información necesaria al tablero del jugador.
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   </p><list>
+   <item><p><em>ok</em>: Retorna siempre ?OK (predefinido al átomo ok).</p></item>
+   </list>
+</div></div>
+<div class="function">
+<h3 id="disparo/1">tablero:disparo(Tablero::pid(), X::integer(), Y::integer()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función permite disparar a una posición, en el tablero del jugador pasado como parámetro, en las coordenadas (Y,X).
+   Para ello envía un mensaje con la información necesaria al tablero del jugador.
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   Esta función retorna ?VACIO, ?NAVE, ?NAVEALCANZADA, ?DISPARADO o ?ERROR, en función del estado en el que se encuentre
+   el tablero del jugador.</p>
+</div></div>
+<div class="function">
+<h3 id="get_resultado/1">tablero:get_resultado(Tablero::pid(), X::integer(), Y::integer()) -&gt; {atom(), atom()} | atom()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función permite obtener el estado actual de una celda del tablero.
+   <em><marker id="Parámetros">Parámetros</marker></em>
+   </p><list>
+   <item><p><em>X,Y</em>: Coordenadas de la celda del tablero.</p></item>
+   <item><p><em>Tablero</em>: Pid del proceso tablero objetivo.</p></item>
+   </list><p>
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   Esta función retorna:
+   {ok,?VACIO}, {ok,?NAVE}, {ok,?NAVEALCANZADA}, {ok,?DISPARADO} o ?ERROR, en función del estado en el que se encuentre
+   la celda del tablero del jugador.</p>
+</div></div>
+<div class="function">
+<h3 id="get_posiciones/1">tablero:get_posiciones(Tablero::pid()) -&gt; dict()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función devuelve un diccionario con el estado de las posiciones del tablero pasado como parámetro.
+   <em><marker id="Parámetros">Parámetros</marker></em>
+   </p><list>
+   <item><p><em>Tablero</em>: Pid del proceso tablero objetivo.</p></item>
+   </list><p>
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   Un diccionario cuya clave es la tupla {X,Y} (coordenada de una celda del tablero) y cuyo valor es uno de
+   los estados en el que se puede encontrar la celda: ?VACIO, ?NAVE, ?NAVEALCANZADA, ?DISPARADO.</p>
+</div></div>
+<div class="function">
+<h3 id="estan_naves_posicionadas/1">tablero:estan_naves_posicionadas(Tablero::pid()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función permite saber si un jugador ha terminado de colocar sus naves en el tablero.
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   </p><list>
+   <item><p><em>true</em>: Si el jugador ha terminado de posicionar todas sus naves en el tablero.</p></item>
+   <item><p><em>false</em>: En caso contrario.</p></item>
+   </list>
+</div></div>
+<div class="function">
+<h3 id="todo_destruido/1">tablero:todo_destruido(Tablero::pid()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función permite saber si todas las naves de un determinado tablero han sido alcanzadas.
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   </p><list>
+   <item><p><em>true</em>: Si todas las naves han sido destruidas.</p></item>
+   <item><p><em>false</em>: En caso contrario.</p></item>
+   </list>
+</div></div>
+<div class="function">
+<h3 id="start_link/0">tablero:start_link() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>
+   Esta función crea un nuevo proceso tablero.
+   <em><marker id="Valor_de_retorno">Valor de retorno</marker></em>
+   </p><list>
+   <item><p><em>Pid</em>: El pid del nuevo proceso creado.</p></item>
+   </list>
+</div></div></div>
+
+<authors>
+
+<aname>Alejandro Pernas Pan</aname>
+<email>alejandro.pernas@udc.es</email>
+<aname>Laura Otero Méndez</aname>
+<email>inslom01@udc.es﻿</email>
+<aname>Javier Toja Alamancos</aname>
+<email>insjta00@udc.es﻿</email>
+<aname>Sergio Cores Acha</aname>
+<email>sergio.cores@udc.es</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

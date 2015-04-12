@@ -1,0 +1,1 @@
+var index = [['app','erlanglauncher','erlanglauncher','[application]'],['mod','erlanglauncher','hello_jinterface',[]],['fun','erlanglauncher','hello_jinterface:pong/0',[]],['fun','erlanglauncher','hello_jinterface:start/0',[]]];

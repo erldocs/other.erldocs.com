@@ -1,0 +1,1 @@
+var index = [['app','projecteuler-erlang','projecteuler-erlang','[application]'],['mod','projecteuler-erlang','fibonacciSum',[]],['mod','projecteuler-erlang','multiples',[]],['fun','projecteuler-erlang','fibonacciSum:getSum/0',[]],['fun','projecteuler-erlang','multiples:getSum/0',[]]];

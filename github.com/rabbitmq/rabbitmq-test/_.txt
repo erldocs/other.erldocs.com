@@ -1,0 +1,23 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/rabbitmq/rabbitmq-test'  2>&1`
+>>> [repo] 120 branches, 60 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/7966961789/meta.txt"
+ :: Processing https://github.com/rabbitmq/rabbitmq-test	{rev,tag,"rabbitmq_v1_4_0","1ad055d6146d9e936868e4cef7606d7ee2e5f5c1"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/7966961789/rabbitmq-test-tag-rabbitmq_v1_4_0/rabbitmq-test"
+$ infinity  `curl --fail --silent --show-error --location --output 'rabbitmq_v1_4_0.zip' 'https://github.com/rabbitmq/rabbitmq-test/archive/rabbitmq_v1_4_0.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "curl: (35) Unknown SSL protocol error in connection to github.com:443 "
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,85}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,238}]},
+         {eo_core,main_,11,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
+         {gen_escript__escript__1427__324242__518175,seq_gen,3,
+             [{file,"./gen.escript"},{line,47}]},
+         {escript,run,2,[{file,"escript.erl"},{line,752}]}]
+{throw,{sh,fetch_curl,error,35,
+           [{"curl: (35) Unknown SSL protocol "},
+            {"error in connection to github.com:443 "}]}}

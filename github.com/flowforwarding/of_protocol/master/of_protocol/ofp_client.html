@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ofp_client (of_protocol) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ofp_client</h1>
+<h2 class="modsummary">OpenFlow Wire Protocol client.</h2>
+<div class="description">
+<p>OpenFlow Wire Protocol client.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-controller_role">controller_role() = master | equal | slave</h3></div>
+    <div class="type"><h3 id="type-ofp_message">ofp_message() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ofp_message{version = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xid = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body = any()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/4">start_link(Tid, ResourceId, ControllerHandle, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Tid::tid() (see module ets), ResourceId::string(), ControllerHandle::{remote_peer, ip_address() (see module inet), port_number() (see module inet), Proto} | {socket, socket() (see module inet), Proto}, Opts::proplist() (see module proplists), Type::main | {aux, integer(), pid()}) -&gt; {ok, Pid::pid()} | ignore | {error, Error::term()}</h3>
+
+<ul class="type">
+<li><code>Proto = tcp | tls</code></li></ul>
+<div class="description">
+
+<p>Starts the client.</p>
+ 
+  <p>For more information on <code>ControllerHandle</code> see <a href="ofp_channel.html#open/4" class="seealso">ofp_channel:open/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="controlling_process/1">controlling_process(Pid::pid(), ControllingPid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Change the controlling process.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Pid::pid(), Message::ofp_message()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Send a message.
+  Valid messages include all the reply and async messages from all version of
+  the OpenFlow Protocol specification. Attempt so send any other message will
+  result in {error, {bad_message, Message :: ofp_message()}}.</p>
+</div></div>
+<div class="function">
+<h3 id="update_connection_config/1">update_connection_config(Pid::pid(), ConfigTuple::[ConfigTuple]) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ConfigTuple = {ip, ip_address() (see module inet)} | {protocol, tcp | tls} | {prort, port_number() (see module inet)} | {role, controller_role()}</code></li></ul>
+<div class="description">
+
+<p>Update the connection to the controller.</p>
+ 
+  <p>If the list of configuration tuples doesn't contain some value, the value will
+  be taken from the current configuration. For example, to change only the port
+  of a controller the client is expected to connect to (without changing the IP
+  address etc.), one needs to create the following configuration:
+  [{port, 6634}].</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop the client.</p>
+</div></div>
+<div class="function">
+<h3 id="get_controllers_state/1">get_controllers_state(SwitchId::integer()) -&gt; [#controller_status{resource_id=undefined | string(), role=undefined | controller_role(), controller_ip=undefined | string(), controller_port=undefined | integer(), local_ip=undefined | string(), local_port=undefined | integer(), protocol=undefined | atom(), connection_state=undefined | atom(), current_version=undefined | integer(), supported_versions=undefined | [integer()]}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_resource_ids/1">get_resource_ids(SwitchId) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_slave/1">make_slave(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Initializes the ofp_client.</p>
+ 
+  <p>The ofp_client can start in two different ways depending on the
+  <code>ControllerHandle</code>. If this variable is a tuple tagged with remote_peer
+  the client will attempt to connect to the controller. On the other hand,
+  if the variable is a tuple tagged with socket the client will assume that
+  the connection has already been established and move on to sending hello
+  message. For more information on <code>ControllerHandle</code> see
+  <a href="ofp_channel.html#open/4" class="seealso">ofp_channel:open/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Message, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVersion, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Erlang Solutions Ltd.</aname>
+<email>openflow@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

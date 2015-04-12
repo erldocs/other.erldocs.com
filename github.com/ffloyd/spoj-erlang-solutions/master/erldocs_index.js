@@ -1,0 +1,1 @@
+var index = [['app','spoj-erlang-solutions','spoj-erlang-solutions','[application]'],['mod','spoj-erlang-solutions','futil',[]]];

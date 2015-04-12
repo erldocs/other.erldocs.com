@@ -1,0 +1,1 @@
+var index = [['app','nspy','nspy','[application]'],['mod','nspy','nspy',[]],['fun','nspy','nspy:assert_message_not_received/2',[]],['fun','nspy','nspy:assert_message_received/2',[]],['fun','nspy','nspy:assert_message_received_n_times/3',[]],['fun','nspy','nspy:mock/0',[]],['fun','nspy','nspy:new/1',[]],['fun','nspy','nspy:spy/2',[]],['fun','nspy','nspy:wrapper/1',[]]];

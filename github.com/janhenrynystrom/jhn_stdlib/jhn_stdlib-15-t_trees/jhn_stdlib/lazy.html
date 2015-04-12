@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lazy (jhn_stdlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lazy</h1>
+<h2 class="modsummary">    
+A lazy lib.</h2>
+<div class="description">
+<p>    
+A lazy lib.</p>
+  
+   <p>This library provides a simple pull oriented interface towards different   
+data sources using a lazy data abstraction.</p>
+  
+   <p>The primary use case is the decoding of protocols where the sizes of parts   
+are not known until they have been completely decoded and one wishes to   
+decouple the handling of the data source and the protocol code.</p>
+  
+   <p>The user of the library provides a promise of data: a function that   
+given a timeout returns either a data or eol (end of lazy) within   
+the timespan given by the timeout. A promise can also have a state   
+in which case the initial state has to be provided with the function.   
+The stateful promise function must retun a tuple of {Data, NewState}.   
+If the timeout is eol is given the promise should return eol and any   
+resources, such as streams and sockets, should be deallocated.</p>
+  
+   <p>The library provides the functions create/1 and create/2 to create   
+lazy data structures given a promise. The structure can then be   
+applied to a timeout to generate a tuple of data and new lazy data   
+{Data, Lazy} or eol.</p>
+  
+   <p>Several utility functions are provided to construct new LazyData.</p>
+  
+   <p>One function is provided that creates an "empty" LazyData empty/0.</p>
+  
+   <p>Two functions to add a data to existing lazy data are provided:   
+prepend/2 and append/2 that adds the data before or after the lazy data   
+respectively.</p>
+  
+   <p>One function that combines lazy data is provided: concat/2.</p>
+  
+   <p>A number of utility funtions are provided, functioning both as simple   
+examples as well as convenience for basic uses:     
+list_to_data/1, iolist_to_data/1     
+tcp_to_data/2, tcp_to_data/3,tcp_to_data/4, tcp_socket_to_data/1     
+tcp_reconnect_to_data/3     
+file_to_data/2, file_stream_to_data/2</p>
+  
+   N.B. This library relies heavily on the construction of lambda functions
+        and for the sake of clearity and efficiency should be avoided if a
+        more direct approach, that does not suffer heavily from these very
+        drawback itself, exists.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-data">data/0</h3></div>
+    <div class="type"><h3 id="type-promise">promise/0</h3></div>
+    <div class="type"><h3 id="type-promise">promise/0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create/1">create(F::promise(Type)) -&gt; data(Type)</h3>
+
+
+<div class="description">
+
+<p>
+    Given a promise, lazy data is created.</p>
+</div></div>
+<div class="function">
+<h3 id="create/2">create(F::promise(Type, State), State) -&gt; data(Type)</h3>
+
+
+<div class="description">
+
+<p>
+    Given a promise and an initial state, stateful lazy data is created.</p>
+</div></div>
+<div class="function">
+<h3 id="empty/0">empty() -&gt; data(term())</h3>
+
+
+<div class="description">
+
+<p>
+    Creates an empty LazyData that just returns eol.</p>
+</div></div>
+<div class="function">
+<h3 id="prepend/2">prepend(Type, Lazy::data(Type)) -&gt; data(Type)</h3>
+
+
+<div class="description">
+
+<p>
+    Lazy data is constructed from data and lazy data where when cosumed
+    the data comes before any of the lazy data.</p>
+</div></div>
+<div class="function">
+<h3 id="append/2">append(Type, Lazy::data(Type)) -&gt; data(Type)</h3>
+
+
+<div class="description">
+
+<p>
+    Lazy data is constructed from data and lazy data where when cosumed
+    the data comes after all of the lazy data.</p>
+</div></div>
+<div class="function">
+<h3 id="concat/1">concat(Lazy1::data(Type), Lazy2::data(Type)) -&gt; data(Type)</h3>
+
+
+<div class="description">
+
+<p>
+    Lazy data is constructed from lazy data and lazy data where when cosumed
+    the LazyData1 comes before all the data of of the LazyData2.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_data/1">list_to_data(Type::[Type]) -&gt; data(Type)</h3>
+
+
+<div class="description">
+
+<p>
+    Lazy data is constructed from a list.</p>
+</div></div>
+<div class="function">
+<h3 id="iolist_to_data/1">iolist_to_data(List::iolist()) -&gt; data(binary())</h3>
+
+
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from an iolist.</p>
+</div></div>
+<div class="function">
+<h3 id="tcp_to_data/2">tcp_to_data(HostName, Port) -&gt; data(binary()) | {error, posix() (see module inet)}</h3>
+
+<ul class="type">
+<li><code>HostName = ip_address() (see module inet) | hostname() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the socket that opening a tcp connetion
+    to the host in binary mode with packet size 0. If an error occurs during
+    connection an error is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="tcp_to_data/3">tcp_to_data(HostName, Port, Timeout::timeout()) -&gt; data(binary()) | {error, posix() (see module inet)}</h3>
+
+<ul class="type">
+<li><code>HostName = ip_address() (see module inet) | hostname() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the socket that opening a tcp connetion
+    to the host in binary mode with packet size 0. If an error or timeout
+    occurs during connection an error is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="tcp_to_data/3-1">tcp_to_data(HostName, Port, Timeout::timeout(), OptionsIn::[connect_option() (see module gen_tcp)]) -&gt; data(binary()) | {error, posix() (see module inet)}</h3>
+
+<ul class="type">
+<li><code>HostName = ip_address() (see module inet) | hostname() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the socket that opening a tcp connetion
+    to the host in binary mode with packet size 0. If an error or timeout
+    occurs during connection an error is returned.
+    If the options provided are inconsistent with:
+    {packet, 0}, binary, {active, false}
+    unexpected and undefined behaviour will be the result.</p>
+</div></div>
+<div class="function">
+<h3 id="tcp_socket_to_data/1">tcp_socket_to_data(Socket::socket() (see module inet)) -&gt; data(binary())</h3>
+
+
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the socket, it is expected to be
+    connected to the host in binary mode with packet size 0.
+    On errors/closure reading from the socket results in the closure
+    and eol is returned. Timeout in reading gives an empty binary.</p>
+</div></div>
+<div class="function">
+<h3 id="tcp_reconnect_to_data/3">tcp_reconnect_to_data(HostName, Port, Timeout::timeout()) -&gt; data(binary())</h3>
+
+<ul class="type">
+<li><code>HostName = ip_address() (see module inet) | hostname() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the socket that opening a tcp connetion
+    to the host in binary mode with packet size 0. If an error occurs during
+    connection an error is returned. If the connection is closed it is
+    reconnected.</p>
+</div></div>
+<div class="function">
+<h3 id="file_to_data/1">file_to_data(Type::line | integer(), Name::filename() (see module file)) -&gt; data(binary()) | {error, posix() (see module file) | badarg | system_limit}</h3>
+
+
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the stream, when opening the file
+    in binary raw mode with read_ahead.
+    On errors reading from the stream results in the closure
+    and eol is returned.
+    The mode determines if the data is read linewise or in chunks of
+    Mode characters.</p>
+</div></div>
+<div class="function">
+<h3 id="file_stream_to_data/1">file_stream_to_data(ChunkSize::line | integer(), Stream::io_device() (see module file)) -&gt; data(binary())</h3>
+
+
+<div class="description">
+
+<p>
+    A Lazy binary is constructed from the stream, it is expected to be
+    opened in binary raw mode with read_ahead.
+    On errors reading from the stream results in the closure
+    and eol is returned.
+    The mode determines if the data is read linewise or in chunks of
+    Mode characters.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jan Henry Nystrom</aname>
+<email>JanHenryNystrom@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

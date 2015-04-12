@@ -1,0 +1,1 @@
+var index = [['app','my_redis_erlang','my_redis_erlang','[application]'],['mod','my_redis_erlang','redis_tcp',[]],['fun','my_redis_erlang','redis_tcp:do_recv/1',[]],['fun','my_redis_erlang','redis_tcp:start/0',[]]];

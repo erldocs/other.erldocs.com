@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>recon_lib (recon) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>recon_lib</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-diff">diff() = [<a href="recon.html#type-proc_attrs" class="seealso">recon:proc_attrs()</a> | <a href="recon.html#type-inet_attrs" class="seealso">recon:inet_attrs()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="sliding_window/1">sliding_window(First::diff(), Last::diff()) -&gt; diff()</h3>
+
+
+<div class="description">
+
+<p>Compare two samples and return a list based on some key. The type mentioned
+  for the structure is <code>diff()</code> (<code>{Key,Val,Other}</code>), which is compatible with
+  the <a href="recon.html#type-proc_attrs" class="seealso">recon:proc_attrs()</a> type.</p>
+</div></div>
+<div class="function">
+<h3 id="sample/1">sample(Ms::non_neg_integer(), Fun::() -&gt; term()) -&gt; {First::term(), Second::term()}</h3>
+
+
+<div class="description">
+
+<p>Runs a fun once, waits <code>Ms</code>, runs the fun again,
+  and returns both results.</p>
+</div></div>
+<div class="function">
+<h3 id="count/1">count(Terms::[term()]) -&gt; [{Count::integer(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Takes a list of terms, and counts how often each of
+  them appears in the list. The list returned is in no
+  particular order.</p>
+</div></div>
+<div class="function">
+<h3 id="port_list/1">port_list(Attr::atom()) -&gt; [{port(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all the open ports in the VM, coupled with
+  one of the properties desired from <code>erlang:port_info/1-2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="port_list/1-1">port_list(Attr::atom(), Val::term()) -&gt; [port()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all the open ports in the VM, but only
+  if the <code>Attr</code>'s resulting value matches <code>Val</code>. <code>Attr</code> must be
+  a property accepted by <code>erlang:port_info/2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_attrs/1">proc_attrs(AttrName::term()) -&gt; [proc_attrs() (see module recon)]</h3>
+
+
+<div class="description">
+
+<p>Returns the attributes (<a href="recon.html#type-proc_attrs" class="seealso">recon:proc_attrs()</a>) of
+  all processes of the node, except the caller.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_attrs/1-1">proc_attrs(AttrName::term(), Pid::pid()) -&gt; proc_attrs() (see module recon)</h3>
+
+
+<div class="description">
+
+<p>Returns the attributes of a given process. This form of attributes
+  is standard for most comparison functions for processes in recon.</p>
+</div></div>
+<div class="function">
+<h3 id="inet_attrs/1">inet_attrs(AttrName::term()) -&gt; [inet_attrs() (see module recon)]</h3>
+
+
+<div class="description">
+
+<p>Returns the attributes (<a href="recon.html#type-inet_attrs" class="seealso">recon:inet_attrs()</a>) of
+  all inet ports (UDP, SCTP, TCP) of the node.</p>
+</div></div>
+<div class="function">
+<h3 id="inet_attrs/2">inet_attrs(AttributeName, Port::port()) -&gt; inet_attrs() (see module recon)</h3>
+
+<ul class="type">
+<li><code>AttributeName = recv_cnt | recv_oct | send_cnt | send_oct | cnt | oct</code></li></ul>
+<div class="description">
+
+<p>Returns the attributes required for a given inet port (UDP,
+  SCTP, TCP). This form of attributes is standard for most comparison
+  functions for processes in recon.</p>
+</div></div>
+<div class="function">
+<h3 id="triple_to_pid/3">triple_to_pid(N, N, N) -&gt; pid()</h3>
+
+<ul class="type">
+<li><code>N = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Equivalent of <code>pid(X,Y,Z)</code> in the Erlang shell.</p>
+</div></div>
+<div class="function">
+<h3 id="time_map/5">time_map(N, Interval, Fun, State, MapFun) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>N = non_neg_integer()</code></li><li><code>Interval = pos_integer()</code></li><li><code>Fun = (State) -&gt; {term(), State}</code></li><li><code>State = term()</code></li><li><code>MapFun = (term()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>Calls a given function every <code>Interval</code> milliseconds and supports
+  a map-like interface (each result is modified and returned)</p>
+</div></div>
+<div class="function">
+<h3 id="time_fold/6">time_fold(N, Interval, Fun, State, FoldFun, Init) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>N = non_neg_integer()</code></li><li><code>Interval = pos_integer()</code></li><li><code>Fun = (State) -&gt; {term(), State}</code></li><li><code>State = term()</code></li><li><code>FoldFun = (term(), Init) -&gt; Init</code></li><li><code>Init = term()</code></li></ul>
+<div class="description">
+
+<p>Calls a given function every <code>Interval</code> milliseconds and supports
+  a fold-like interface (each result is modified and accumulated)</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

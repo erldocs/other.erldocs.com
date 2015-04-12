@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nakaz_typer (nakaz) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nakaz_typer</h1>
+<h2 class="modsummary">?? only works on section level:.</h2>
+<div class="description">
+<p>?? only works on <em>section</em> level:</p>
+  
+   <pre class="sh_erlang">   my_loger:                           # application level
+     file_backend:                     # section level
+       path: "/var/log/my_logger.log"
+       rotate_after: 1M
+  
+   my_http_server:
+     listener: {port: 4242}</pre>
+  
+   <p>So, in the example above, <code>my_loger</code> application has a single section,
+   named <code>file_backend</code>, which must have an <em>ensured</em> record   
+somewhere in the application source code:</p>
+  
+   <pre class="sh_erlang">   -module(my_loger).
+   -behaviour(application).
+  
+   -record(file_backend, {path :: binary(), rotate_after: binary()}).
+  
+   %% somewhere over the rainbow
+     nakaz:ensure(?MODULE, [#file_backend{}]).</pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-nakaz_typespec">nakaz_typespec() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Module :: module(), Type :: atom(), Args :: [any()]}</h3></div>
+    <div class="type"><h3 id="type-raw_config">raw_config() = [<a href="#type-raw_field" class="seealso">raw_field()</a>]</h3></div>
+    <div class="type"><h3 id="type-raw_field">raw_field() = {<a href="#type-raw_term" class="seealso">raw_term()</a>, <a href="#type-raw_position" class="seealso">raw_position()</a>}</h3></div>
+    <div class="type"><h3 id="type-raw_position">raw_position() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Line :: integer() >= 0, Column :: integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-raw_term">raw_term() = {atom(), <a href="#type-raw_field" class="seealso">raw_field()</a>} | binary()</h3></div>
+    <div class="type"><h3 id="type-record_">record_() = tuple()</h3></div>
+    <div class="type"><h3 id="type-record_error">record_error() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Type :: atom(), LineNo :: integer(), Module :: module()}</h3></div>
+    <div class="type"><h3 id="type-record_field_spec">record_field_spec() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{FieldName :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Typespec :: <a href="#type-nakaz_typespec" class="seealso">nakaz_typespec()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default :: any()}</h3></div>
+    <div class="type"><h3 id="type-record_spec">record_spec() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Name :: atom(), [<a href="#type-record_field_spec" class="seealso">record_field_spec()</a>] | <a href="#type-record_error" class="seealso">record_error()</a>}</h3></div>
+    <div class="type"><h3 id="type-record_specs">record_specs() = [<a href="#type-record_spec" class="seealso">record_spec()</a>]</h3></div>
+    <div class="type"><h3 id="type-typer_error">typer_error() = {missing, Name :: atom(), Section :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-raw_position" class="seealso">raw_position()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="type/1">type(Section::atom(), RawSectionConfig::raw_config(), RecordSpecs::record_specs()) -&gt; {ok, record_()} | {error, typer_error()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="type/1-1">type(Section::atom(), RawSectionConfig::raw_config(), RecordSpecs::record_specs(), NakazLoader::undefined | module()) -&gt; {ok, record_()} | {error, typer_error()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Sergei Levedev</aname>
+<email>superbobry@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

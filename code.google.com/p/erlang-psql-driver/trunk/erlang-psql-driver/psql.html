@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>psql (erlang-psql-driver) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>psql</h1>
+<h2 class="modsummary">Interface module for the PostgreSQL driver.</h2>
+<div class="description">
+<p>Interface module for the PostgreSQL driver</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-portal">portal() = string() | []</h3></div>
+    <div class="type"><h3 id="type-query">query() = string()</h3></div>
+    <div class="type"><h3 id="type-result">result() = [] | [{Command::binary(), Data::rows()}] | {sql_error, term()} | term()</h3></div>
+    <div class="type"><h3 id="type-row">row() = tuple() | binary()</h3></div>
+    <div class="type"><h3 id="type-rows">rows() = [row()] | []</h3></div>
+    <div class="type"><h3 id="type-sql_type">sql_type() = integer()</h3></div>
+    <div class="type"><h3 id="type-statement">statement() = string() | []</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/2">start(X1, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/1">connect(Pid::pid(), Host::string(), Usr::string(), Pwd::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Connect to database</p>
+</div></div>
+<div class="function">
+<h3 id="connect/1-1">connect(Pid::pid(), Host::string(), Port::integer(), Usr::string(), Pwd::string(), DB::string) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Connect to database</p>
+</div></div>
+<div class="function">
+<h3 id="allocate/0">allocate() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Allocate a connection from the pool</p>
+</div></div>
+<div class="function">
+<h3 id="free/0">free() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Free a connection back to the pool</p>
+</div></div>
+<div class="function">
+<h3 id="sql_query/1">sql_query(Pid::pid(), Query::query()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Simple sql query</p>
+</div></div>
+<div class="function">
+<h3 id="parse/1">parse(Pid::pid(), Name::statement(), Query::query(), Args::[sql_type()]) -&gt; {[], []}</h3>
+
+
+<div class="description">
+
+<p>Parse a sql query, can contain placeholders, i.e $N</p>
+</div></div>
+<div class="function">
+<h3 id="bind/1">bind(Pid::pid(), Portal::portal(), Statement::statement(), Args::[string()]) -&gt; {[], []}</h3>
+
+
+<div class="description">
+
+<p>Bind variables to placeholders. Variables must be strings</p>
+</div></div>
+<div class="function">
+<h3 id="describe/3">describe(Pid, Type::statement | portal, Name::statement() | portal()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Describes a resultset from a statement or a portal.</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1">execute(Pid::pid(), Portal::portal(), Size::integer()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Execute a portal returns at most Size rows</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1-1">execute(Pid::pid(), Portal::portal(), Size::integer(), Description::term()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Execute a portal returns at most Size rows converted to erlang terms.</p>
+</div></div>
+<div class="function">
+<h3 id="close/3">close(Pid, Type::statement | portal, Name::portal() | statement()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Closes a statement or portal</p>
+</div></div>
+<div class="function">
+<h3 id="transaction/1">transaction(Pid::pid()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Starts a transaction</p>
+</div></div>
+<div class="function">
+<h3 id="commit/1">commit(Pid::pid()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Commits a transaction</p>
+</div></div>
+<div class="function">
+<h3 id="rollback/1">rollback(Pid::pid()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Roll back a transaction</p>
+</div></div></div>
+
+<authors>
+
+<aname>Martin Carlson</aname>
+<email>martin@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

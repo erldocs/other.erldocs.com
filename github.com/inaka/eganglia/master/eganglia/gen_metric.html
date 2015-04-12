@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_metric (eganglia) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_metric</h1>
+<h2 class="modsummary">Generic metric server for the Ganglia Monitoring System.</h2>
+<div class="description">
+<p>Generic metric server for the Ganglia Monitoring System</p>
+  
+   The user module should export:
+  <list>
+     <item><pre class="sh_erlang">init(Args::term()) -&gt; init_result()</pre><p>
+       Opens and/or initializes the server.<br />
+     </p></item><item><pre class="sh_erlang">handle_metric(State::term()) -&gt; metric_result()</pre><p>
+       Called each time the metric should be collected<br />
+     </p></item><item><pre class="sh_erlang">handle_call(Msg::term(), State::term()) -&gt; call_result()</pre><p>
+       Called from <code>gen_metric:call/2</code><br />
+     </p></item><item><pre class="sh_erlang">handle_cast(Msg::term(), State::term()) -&gt; cast_result()</pre><p>
+       Called from <code>gen_metric:cast/2</code><br />
+     </p></item><item><pre class="sh_erlang">terminate(Reason :: term(), State) -&gt; _</pre><p>
+       Let the user module clean up. Always called when server terminates.<br />
+     </p></item>
+   </list>
+   Timeouts (expressed in milliseconds) are used everywhere to determine the next time the metric should be announced</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-call_result">call_result() = {reply, Reply :: term(), State :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stop,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reply :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State :: term()}</h3></div>
+    <div class="type"><h3 id="type-cast_result">cast_result() = {noreply, State :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stop, Reason :: term(), State :: term()}</h3></div>
+    <div class="type"><h3 id="type-init_result">init_result() = {ok, Title :: binary(), State :: term()}</h3></div>
+    <div class="type"><h3 id="type-metric_result">metric_result() = {ok, Value :: term(), State :: term()}</h3></div></div>
+
+
+<authors>
+
+<aname>Fernando Benavides</aname>
+<email>fernando.benavides@inakanetworks.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

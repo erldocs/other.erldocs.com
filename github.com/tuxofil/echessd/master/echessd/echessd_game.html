@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>echessd_game (echessd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>echessd_game</h1>
+<h2 class="modsummary">
+   Game management tools.</h2>
+<div class="description">
+<p>
+   Game management tools.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-board">board() = tuple()</h3></div>
+    <div class="type"><h3 id="type-chessman">chessman() = {<a href="#type-color" class="seealso">color()</a>, <a href="#type-chessman_type" class="seealso">chessman_type()</a>}</h3></div>
+    <div class="type"><h3 id="type-chessman_type">chessman_type() = p | r | h | b | q | k</h3></div>
+    <div class="type"><h3 id="type-color">color() = w | b</h3></div>
+    <div class="type"><h3 id="type-entry">entry() = <a href="#type-chessman" class="seealso">chessman()</a> | z</h3></div>
+    <div class="type"><h3 id="type-final_status">final_status() = <a href="#type-status" class="seealso">status()</a> | give_up | draw_agreement</h3></div>
+    <div class="type"><h3 id="type-gametype">gametype() = classic</h3></div>
+    <div class="type"><h3 id="type-history">history() = [<a href="#type-ply" class="seealso">ply()</a>]</h3></div>
+    <div class="type"><h3 id="type-id">id() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-info">info() = [<a href="#type-info_item" class="seealso">info_item()</a>]</h3></div>
+    <div class="type"><h3 id="type-info_item">info_item() = {type, <a href="#type-gametype" class="seealso">gametype()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {history, <a href="#type-history" class="seealso">history()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {created, <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {private, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {creator, <a href="echessd_user.html#type-name" class="seealso">echessd_user:name()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {users, [{<a href="echessd_user.html#type-name" class="seealso">echessd_user:name()</a>, <a href="#type-color" class="seealso">color()</a>}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {status, <a href="#type-status" class="seealso">status()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {winner, <a href="echessd_user.html#type-name" class="seealso">echessd_user:name()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {winner_color, <a href="#type-color" class="seealso">color()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {draw_request_from, <a href="echessd_user.html#type-name" class="seealso">echessd_user:name()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {acknowledged, boolean()}</h3></div>
+    <div class="type"><h3 id="type-ply">ply() = {<a href="#type-ply_coords" class="seealso">ply_coords()</a>, <a href="#type-ply_info" class="seealso">ply_info()</a>}</h3></div>
+    <div class="type"><h3 id="type-ply_coords">ply_coords() = nonempty_string()</h3></div>
+    <div class="type"><h3 id="type-ply_info">ply_info() = [<a href="#type-ply_info_item" class="seealso">ply_info_item()</a>]</h3></div>
+    <div class="type"><h3 id="type-ply_info_item">ply_info_item() = {time, GregorianSeconds :: integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {notation,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ChessNotation :: nonempty_string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {comment, Comment :: string()}</h3></div>
+    <div class="type"><h3 id="type-status">status() = alive | checkmate | draw_stalemate</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add/1">add(GameType::gametype(), Owner::name() (see module echessd_user), OwnerColor::color(), Opponent::name() (see module echessd_user), OtherProps::list()) -&gt; {ok, ID::id()} | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Create new game and store it in the database.
+  Return an ID of the created game in case of success.</p>
+</div></div>
+<div class="function">
+<h3 id="ack/1">ack(ID::id(), Username::name() (see module echessd_user)) -&gt; ok | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Acknowledge the game.</p>
+</div></div>
+<div class="function">
+<h3 id="deny/1">deny(ID::id(), Username::name() (see module echessd_user)) -&gt; ok | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Deny not confirmed game.</p>
+</div></div>
+<div class="function">
+<h3 id="ply/1">ply(ID::id(), User::name() (see module echessd_user), Ply::ply()) -&gt; ok | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Try to save user ply to the database. The ply will be
+  checked for correctness.</p>
+</div></div>
+<div class="function">
+<h3 id="hint/1">hint(GameType::gametype(), History::history()) -&gt; Plies::[ply_coords()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of all available moves.
+  The function used only for current move highlighting in
+  the user interface.</p>
+</div></div>
+<div class="function">
+<h3 id="give_up/1">give_up(ID::id(), Username::name() (see module echessd_user)) -&gt; ok | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Make user fail the game by giving up.</p>
+</div></div>
+<div class="function">
+<h3 id="request_draw/1">request_draw(ID::id(), Username::name() (see module echessd_user)) -&gt; ok | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Make request for a draw by agreement.</p>
+</div></div>
+<div class="function">
+<h3 id="getprops/1">getprops(ID::id()) -&gt; {ok, Info::info()} | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Fetch the game properties from the database.</p>
+</div></div>
+<div class="function">
+<h3 id="current_player/1">current_player(Info::info()) -&gt; {Username::name() (see module echessd_user), Color::color()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_players/1">get_players(Info::info()) -&gt; {CurrentPlayerName::name() (see module echessd_user), CurrentColor::color(), IdlePlayerName::name() (see module echessd_user), IdleColor::color()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="from_scratch/1">from_scratch(GameType::gametype(), History::history()) -&gt; {Board::board(), Captures::[chessman()], NextColor::color()}</h3>
+
+
+<div class="description">
+
+<p>Create a new board and make all moves from the given history.
+  Return the chess board and a list of all chessmen captured.</p>
+</div></div>
+<div class="function">
+<h3 id="transpose/1">transpose(GameType::gametype(), Board::board()) -&gt; TransposedBoard::board()</h3>
+
+
+<div class="description">
+
+<p>Turn the board at 180 degrees.</p>
+</div></div>
+<div class="function">
+<h3 id="get_watchers/1">get_watchers(Info::info()) -&gt; [Username::name() (see module echessd_user)]</h3>
+
+
+<div class="description">
+
+<p>Fetch watcher names for the game.</p>
+</div></div>
+<div class="function">
+<h3 id="get_opponent/1">get_opponent(Info::info(), Username::name() (see module echessd_user)) -&gt; Opponent::name() (see module echessd_user)</h3>
+
+
+<div class="description">
+
+<p>Fetch the opponent for the user.</p>
+</div></div>
+<div class="function">
+<h3 id="get_player_color/1">get_player_color(Info::info(), Username::name() (see module echessd_user)) -&gt; Color::color()</h3>
+
+
+<div class="description">
+
+<p>Fetch the color of the player.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Aleksey Morarash</aname>
+<email>aleksey.morarash@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

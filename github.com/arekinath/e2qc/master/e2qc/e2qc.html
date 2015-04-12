@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>e2qc (e2qc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>e2qc</h1>
+<h2 class="modsummary">e2qc public API.</h2>
+<div class="description">
+<p>e2qc public API</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-cache_stat">cache_stat() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{hits | misses | q1size | q2size | incrq_size,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: integer()}</h3></div>
+    <div class="type"><h3 id="type-max_size_setting">max_size_setting() = {size | max_size, Bytes :: integer()}</h3></div>
+    <div class="type"><h3 id="type-q1_size_setting">q1_size_setting() = {ratio, Ratio :: float()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {min_q1_size, Bytes :: integer()}</h3></div>
+    <div class="type"><h3 id="type-setting">setting() = <a href="#type-max_size_setting" class="seealso">max_size_setting()</a> | <a href="#type-q1_size_setting" class="seealso">q1_size_setting()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="cache/1">cache(Cache::atom(), Key::term(), ValFun::function()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Cache an operation using the given key.</p>
+ 
+  <p>ValFun is a zero-argument fun that computes some expensive operation
+  and returns any term. The call to cache/3 will return that term, either
+  by running the fun, or consulting the named Cache for Key.</p>
+</div></div>
+<div class="function">
+<h3 id="cache/1-1">cache(Cache::atom(), Key::term(), Lifetime::integer(), ValFun::function()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Cache an operation using the given key with a timeout.</p>
+ 
+  <p>As for e2qc:cache/3, but the Lifetime argument contains a number of seconds for
+  which this cache entry should remain valid. After Lifetime seconds have elapsed,
+  the entry is automatically evicted and will be recalculated if a miss occurs.</p>
+</div></div>
+<div class="function">
+<h3 id="evict/1">evict(Cache::atom(), Key::term()) -&gt; ok | notfound</h3>
+
+
+<div class="description">
+
+<p>Remove an entry from a cache.</p>
+</div></div>
+<div class="function">
+<h3 id="teardown/1">teardown(Cache::atom()) -&gt; ok | notfound</h3>
+
+
+<div class="description">
+
+<p>Tear-down a cache, destroying all entries and settings.</p>
+</div></div>
+<div class="function">
+<h3 id="setup/1">setup(Cache::atom(), Config::[setting()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Configure a cache with given settings.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(Cache::atom()) -&gt; [cache_stat()]</h3>
+
+
+<div class="description">
+
+<p>Gather some basic statistics about a cache.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Alex Wilson</aname>
+<email>alex@uq.edu.au</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

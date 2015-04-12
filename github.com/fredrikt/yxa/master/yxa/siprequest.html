@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>siprequest (yxa) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>siprequest</h1>
+<h2 class="modsummary">     Various functions related to SIP requests.</h2>
+<div class="description">
+<p>     Various functions related to SIP requests.
+  </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="fix_content_length/2">fix_content_length(Header, Body) -&gt; NewHeader</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>Body = string()</code></li><li><code>NewHeader = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Before sending out requests/responses, make sure the
+           Content-Length is correct (don't trust the length
+           computed by some previous hop). This is partly for
+           backwards compliance with RFC2543 UAC's who were not
+           required to include a Content-Length.</p>
+</div></div>
+<div class="function">
+<h3 id="process_route_header/2">process_route_header(Header, URI) -&gt; {ok, NewHeader, NewDestURI, NewRequestURI} | nomatch</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>URI = #sipurl{}</code></li><li><code>NewHeader = #keylist{}</code></li><li><code>NewDestURI = #sipurl{}</code></li><li><code>NewRequestURI = #sipurl{}</code></li></ul>
+<div class="description">
+
+<p>    Looks at the Route header. If it exists, we return a new
+           destination URL for this request, and if there was no
+           loose router flag in the new destination we append the
+           original Request-URI to the list of routes, to traverse
+           strict (RFC2543) proxys.</p>
+</div></div>
+<div class="function">
+<h3 id="stateless_route_proxy_request/1">stateless_route_proxy_request(Request) -&gt; {ok, Dst, NewRequest}</h3>
+
+<ul class="type">
+<li><code>Request = #request{}</code></li><li><code>Dst = #sipdst{}</code></li><li><code>NewRequest = #request{}</code></li></ul>
+<div class="description">
+
+<p>    Inspect a request that some YXA application has found it
+           should proxy statelessly. Figure out a single sipdst
+           destination for this request (sorry, stateless SIP does
+           not handle multiple destinations) and return that
+           destination plus a new request (the headers might change
+           if we have popped a Route header).</p>
+</div></div>
+<div class="function">
+<h3 id="check_proxy_request/1">check_proxy_request(Request) -&gt; {ok, NewHeader, ApproxMsgSize}</h3>
+
+<ul class="type">
+<li><code>Request = #request{}</code></li></ul>
+<div class="description">
+
+<p>    Prepares a request for proxying. Checks Max-Forwards, etc.
+           Not guaranteed to return, might throw a siperror if the
+           request should not be proxied.</p>
+</div></div>
+<div class="function">
+<h3 id="get_approximate_msgsize/1">get_approximate_msgsize(Request) -&gt; Size</h3>
+
+<ul class="type">
+<li><code>Request = #request{}</code></li><li><code>Size = integer()</code></li></ul>
+<div class="description">
+
+<p>    Approximate how big a request will be when we send it. We
+           must know this when determining if it is OK to send it to
+           a UDP destination or not.</p>
+</div></div>
+<div class="function">
+<h3 id="proxy_add_via/4">proxy_add_via(Header, OrigURI, Parameters, Proto) -&gt; NewHeader</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>OrigURI = #sipurl{}</code></li><li><code>Parameters = [string()]</code></li><li><code>Proto = tcp | tcp6 | udp | udp6 | tls | tls6</code></li><li><code>NewHeader = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Generate a Via header for this proxy and add it to Header</p>
+</div></div>
+<div class="function">
+<h3 id="make_base64_md5_token/1">make_base64_md5_token(In) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>In = term()</code></li></ul>
+<div class="description">
+
+<p>    Make md5 of input, base64 of that and RFC3261 token of the
+           result. Tokens are case-insensitive, so we lowercase the
+           ones we generate here to make them easier to read.</p>
+</div></div>
+<div class="function">
+<h3 id="generate_branch/0">generate_branch() -&gt; Branch</h3>
+
+<ul class="type">
+<li><code>Branch = string()</code></li></ul>
+<div class="description">
+
+<p>    Generate a branch that is 'unique across space and time'.</p>
+</div></div>
+<div class="function">
+<h3 id="make_answerheader/1">make_answerheader(Header) -&gt; NewHeader</h3>
+
+<ul class="type">
+<li><code>NewHeader = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Turn Request-Route header from a response into Route-
+           header to include in another request in the same dialog.</p>
+</div></div>
+<div class="function">
+<h3 id="get_loop_cookie/3">get_loop_cookie(Header, OrigURI, Proto) -&gt; Cookie</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>OrigURI = #sipurl{}</code></li><li><code>Proto = term()</code></li><li><code>Cookie = string()</code></li></ul>
+<div class="description">
+
+<p>    Generate a loop detection cookie, RFC3261 16.6 #8.</p>
+</div></div>
+<div class="function">
+<h3 id="myhostname/0">myhostname() -&gt; Hostname</h3>
+
+<ul class="type">
+<li><code>Hostname = string()</code></li></ul>
+<div class="description">
+
+<p>    Get my hostname (the first one in the list, or my IP
+           address if I have no list of configured hostnames).</p>
+</div></div>
+<div class="function">
+<h3 id="create_via/2">create_via(Proto, Parameters) -&gt; Via</h3>
+
+<ul class="type">
+<li><code>Proto = term()</code></li><li><code>Parameters = [string()]</code></li><li><code>Via = #via{}</code></li></ul>
+<div class="description">
+
+<p>    Create a Via for this proxy, given the protocol.</p>
+</div></div>
+<div class="function">
+<h3 id="add_record_route/2">add_record_route(URL, Header) -&gt; NewHeader</h3>
+
+<ul class="type">
+<li><code>URL = #sipurl{}</code></li><li><code>Header = #keylist{}</code></li><li><code>NewHeader = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Prepend a Record-Route header for this proxy, based on the
+           original Request-URI, to Header.</p>
+</div></div>
+<div class="function">
+<h3 id="add_record_route/4">add_record_route(Proto, Hostname, Port, Header) -&gt; NewHeader</h3>
+
+<ul class="type">
+<li><code>Proto = string()</code></li><li><code>Hostname = undefined | string()</code></li><li><code>Port = undefined | none | integer()</code></li><li><code>Header = #keylist{}</code></li><li><code>NewHeader = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Prepend a Record-Route header for Proto:Host:Port to the
+           Header keylist.</p>
+</div></div>
+<div class="function">
+<h3 id="construct_record_route/1">construct_record_route(Proto) -&gt; RRStr</h3>
+
+<ul class="type">
+<li><code>Proto = string()</code></li><li><code>RRStr = string()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#construct_record_route/3" class="seealso">construct_record_route(Proto, undefined, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="construct_record_route/3">construct_record_route(Proto, Hostname, Port) -&gt; RRStr</h3>
+
+<ul class="type">
+<li><code>Proto = string()</code></li><li><code>Hostname = string() | undefined</code></li><li><code>Port = integer() | undefined</code></li><li><code>RRStr = string()</code></li></ul>
+<div class="description">
+
+<p>    Construct a Record-Route header value for this proxy.</p>
+</div></div>
+<div class="function">
+<h3 id="standardcopy/2">standardcopy(Header, ExtraHeaders) -&gt; NewHeader</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>ExtraHeaders = #keylist{}</code></li><li><code>NewHeader = #keylist{}</code></li></ul>
+<div class="description">
+
+<p>    Copy the headers that are required for all responses (Via,
+           From, To, Call-Id, CSeq) plus any extra requested headers
+           from a source Header keylist and create a new keylist
+           based on these.</p>
+</div></div>
+<div class="function">
+<h3 id="send_auth_req/4">send_auth_req(Header, Socket, Auth, Stale) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>Socket = #sipsocket{} | none</code></li><li><code>Auth = {Realm, Nonce, Opaque}</code></li><li><code>Realm = string()</code></li><li><code>Nonce = string()</code></li><li><code>Opaque = string()</code></li><li><code>Stale = true | false</code></li></ul>
+<div class="description">
+
+<p>    Send a '401 Authentication Required' response.</p>
+</div></div>
+<div class="function">
+<h3 id="send_proxyauth_req/4">send_proxyauth_req(Header, Socket, Auth, Stale) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>Socket = #sipsocket{} | none</code></li><li><code>Auth = {Realm, Nonce, Opaque}</code></li><li><code>Realm = string()</code></li><li><code>Nonce = string()</code></li><li><code>Opaque = string()</code></li><li><code>Stale = true | false</code></li></ul>
+<div class="description">
+
+<p>    Send a '407 Proxy Authentication Required' response.</p>
+</div></div>
+<div class="function">
+<h3 id="send_redirect/3">send_redirect(Location, Header, Socket) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Location = #sipurl{} | string()</code></li><li><code>Header = #keylist{}</code></li><li><code>Socket = #sipsocket{} | none</code></li></ul>
+<div class="description">
+
+<p>    Send a '302 Moved Temporarily' response.</p>
+</div></div>
+<div class="function">
+<h3 id="send_notfound/2">send_notfound(Header, Socket) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>Socket = #sipsocket{} | none</code></li></ul>
+<div class="description">
+
+<p>    Send a '404 Not Found' response.</p>
+</div></div>
+<div class="function">
+<h3 id="send_notavail/2">send_notavail(Header, Socket) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>Socket = #sipsocket{} | none</code></li></ul>
+<div class="description">
+
+<p>    Send a '480 Temporarily Unavailable' response with a
+           Retry-After: 180 header.</p>
+</div></div>
+<div class="function">
+<h3 id="send_answer/3">send_answer(Header, Socket, Body) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Header = #keylist{}</code></li><li><code>Socket = #sipsocket{} | none</code></li><li><code>Body = string() | binary()</code></li></ul>
+<div class="description">
+
+<p>    Produce a standard '200 OK' response with Content-Type set
+           to 'application/sdp' (so Body better be an SDP).</p>
+</div></div>
+<div class="function">
+<h3 id="request_to_me/3">request_to_me(Request, YxaCtx, ExtraHeaders) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Request = #request{}</code></li><li><code>YxaCtx = #yxa_ctx{}</code></li><li><code>ExtraHeaders = [{Key, Value}]</code></li></ul>
+<div class="description">
+
+<p>    Produce a standard 200 OK response to an OPTIONS request
+           an YXA application received.</p>
+</div></div>
+<div class="function">
+<h3 id="make_response/7">make_response(Status, Reason, Body, ExtraHeaders, ViaParameters, SipSocket, Request) -&gt; Response</h3>
+
+<ul class="type">
+<li><code>Status = integer()</code></li><li><code>Reason = string()</code></li><li><code>Body = binary() | string()</code></li><li><code>ExtraHeaders = #keylist{}</code></li><li><code>ViaParameters = [string()]</code></li><li><code>SipSocket = #sipsocket{} | protocol(tcp | tcp6 | tls | tls6 | udp | udp6)</code></li><li><code>Request = #request{}</code></li><li><code>Response = #response{}</code></li></ul>
+<div class="description">
+
+<p>    Create a response given a request.</p>
+</div></div>
+<div class="function">
+<h3 id="binary_make_message/3">binary_make_message(BinLine1, Header, BinBody) -&gt; Msg</h3>
+
+<ul class="type">
+<li><code>BinLine1 = binary()</code></li><li><code>Header = #keylist{}</code></li><li><code>BinBody = binary()</code></li><li><code>Msg = binary()</code></li></ul>
+<div class="description">
+
+<p>    Create a binary representing the request/response, ready
+           to be sent out on the wire.</p>
+</div></div>
+<div class="function">
+<h3 id="set_request_body/2">set_request_body(Request, Body) -&gt; NewRequest</h3>
+
+<ul class="type">
+<li><code>Request = #request{}</code></li><li><code>Body = string() | binary()</code></li><li><code>NewRequest = #request{}</code></li></ul>
+<div class="description">
+
+<p>    Set the body of a request record.</p>
+</div></div>
+<div class="function">
+<h3 id="set_response_body/2">set_response_body(Response::Request, Body) -&gt; NewResponse</h3>
+
+<ul class="type">
+<li><code>Request = #request{}</code></li><li><code>Body = string() | binary()</code></li><li><code>NewResponse = #response{}</code></li></ul>
+<div class="description">
+
+<p>    Set the body of a request record, and calculate
+           Content-Length.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Magnus Ahltorp</aname>
+<email>ahltorp@nada.kth.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

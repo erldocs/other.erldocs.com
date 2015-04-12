@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nksip_registrar (nksip) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nksip_registrar</h1>
+<h2 class="modsummary">NkSIP Registrar Server.</h2>
+<div class="description">
+<p>NkSIP Registrar Server.</p>
+ 
+  <p>This module implements a full registrar implementation according to RFC3261.  
+Currently only RAM back-end storage is supported, so all registrations will be lost  
+in case of a NkSIP application restart.  
+Each started SipApp maintains its fully independent set of registrations.</p>
+ 
+  <p>When a new REGISTER request arrives at a SipApp, and if you order to <code>process</code>
+  the request in <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/100rel/.xml/nksip/./nksip_sipapp.xml#route-6">nksip_sipapp:route/6</url> callback, NkSIP will try to call
+  <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/100rel/.xml/nksip/./nksip_sipapp.xml#register-3">nksip_sipapp:register/3</url> callback if it is defined.
+  If it is not defined, but <code>registrar</code> option was present in the SipApp's
+  startup config, NkSIP will process the request automatically.
+  It will check if <code>From</code> and <code>To</code> headers differ, and call <a href="#request/1" class="seealso">request/1</a> if
+  everything is ok.
+  If you implement <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/100rel/.xml/nksip/./nksip_sipapp.xml#register-3">nksip_sipapp:register/3</url> to customize the registration
+  process you should call <a href="#request/1" class="seealso">request/1</a> directly.</p>
+ 
+  <p>Use <a href="#find/4" class="seealso">find/4</a> or <a href="#qfind/4" class="seealso">qfind/4</a> to search for a specific registration's
+  contacts, and <a href="#is_registered/1" class="seealso">is_registered/1</a> to check if the <code>Request-URI</code> of a
+  specific request is registered.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="find/1">find(AppId::app_id() (see module nksip), AOR::aor() (see module nksip)) -&gt; [uri() (see module nksip)]</h3>
+
+
+<div class="description">
+
+<p>Gets all current registered contacts for an AOR.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1-1">find(AppId::app_id() (see module nksip), Scheme::scheme() (see module nksip), User::binary(), Domain::binary()) -&gt; [uri() (see module nksip)]</h3>
+
+
+<div class="description">
+
+<p>Gets all current registered contacts for an AOR.</p>
+</div></div>
+<div class="function">
+<h3 id="qfind/1">qfind(AppId::app_id() (see module nksip), AOR::aor() (see module nksip)) -&gt; uri_set() (see module nksip)</h3>
+
+
+<div class="description">
+
+<p>Gets all current registered contacts for an AOR, aggregated on Q values.
+  You can use this function to generate a parallel and/o serial proxy request.</p>
+</div></div>
+<div class="function">
+<h3 id="qfind/1-1">qfind(AppId::app_id() (see module nksip), Scheme::scheme() (see module nksip), User::binary(), Domain::binary()) -&gt; uri_set() (see module nksip)</h3>
+
+
+<div class="description">
+
+<p>Gets all current registered contacts for an AOR, aggregated on Q values.
+  You can use this function to generate a parallel and/o serial proxy request.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(AppId::app_id() (see module nksip), Scheme::scheme() (see module nksip), User::binary(), Domain::binary()) -&gt; ok | not_found</h3>
+
+
+<div class="description">
+
+<p>Deletes all registered contacts for an AOR (<i>Address-Of-Record</i>).</p>
+</div></div>
+<div class="function">
+<h3 id="is_registered/1">is_registered(Req::request() (see module nksip)) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Finds if a request has a <i>From</i> that has been already registered
+  from the same transport, ip and port, or have a registered <i>Contact</i>
+  having the same received transport, ip and port.</p>
+</div></div>
+<div class="function">
+<h3 id="request/1">request(Request::request() (see module nksip)) -&gt; sipreply() (see module nksip)</h3>
+
+
+<div class="description">
+
+<p>Process a REGISTER request.
+  Can return:
+  </p><list>
+   <item><p><code>unsupported_uri_scheme</code>: if R-RUI scheme is not <code>sip</code> or <code>sips</code>.</p></item>
+   <item><p><code>invalid_request</code>: if the request is not valid for any reason.</p></item>
+   <item><p><code>interval_too_brief</code>: if <i>Expires</i> is lower than the minimum configured
+        registration time (defined in <code>registrar_min_time</code> global parameter).</p></item>
+  </list><p>
+ 
+  </p><p>If <i>Expires</i> is 0, the indicated <i>Contact</i> will be unregistered.
+  If <i>Contact</i> header is <code>*</code>, all previous contacts will be unregistered.</p>
+ 
+  <p>The requested <i>Contact</i> will replace a previous registration if it has
+  the same <code>reg-id</code> and <code>+sip_instace</code> values, or has the same transport scheme,  
+protocol, user, domain and port.</p>
+ 
+  <p>If the request is successful, a 200-code <code>nksip:sipreply()</code> is returned,
+  including one or more <i>Contact</i> headers (for all of the current registered
+  contacts), <i>Date</i> and <i>Allow</i> headers.</p>
+</div></div>
+<div class="function">
+<h3 id="clear/0">clear() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Clear all stored records for all SipApps.
+  Returns the number of deleted items.</p>
+</div></div>
+<div class="function">
+<h3 id="clear/1">clear(AppId::app_id() (see module nksip)) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Clear all stored records by a SipApp's core.
+  Returns the number of deleted items.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

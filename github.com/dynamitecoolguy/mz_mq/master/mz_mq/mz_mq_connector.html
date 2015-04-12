@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mz_mq_connector (mz_mq) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mz_mq_connector</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create_connection/1">create_connection(Amqp_params_network::#amqp_params_network{}) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>RabbitMQに接続します</p>
+</div></div>
+<div class="function">
+<h3 id="create_handle/1">create_handle(Connection::pid()) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>RabbitMQに接続します</p>
+</div></div>
+<div class="function">
+<h3 id="destroy_handle/1">destroy_handle(Mz_mq_handle::#mz_mq_handle{}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>RabbitMQとの接続を終了します</p>
+</div></div>
+<div class="function">
+<h3 id="declare/2">declare(Mz_mq_handle::#mz_mq_handle{}, Queue::binary()) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>RabbitMQにキューを準備します.
+       第一引数は、create_handleで作成したハンドル.
+       第二引数は、キューの識別子(binary)</p>
+</div></div>
+<div class="function">
+<h3 id="set_prefetch_count/2">set_prefetch_count(Mz_mq_handle::#mz_mq_handle{}, Size::integer()) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>RabbitMQの取得時のprefetch_countを指定します</p>
+</div></div>
+<div class="function">
+<h3 id="set_consumer/2">set_consumer(Mz_mq_handle::#mz_mq_handle{}, ConsumerPid::pid()) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>キューに値が積まれたときなどのメッセージを受けるプロセスを登録します.
+       たとえば、mz_mq_receiverでは、mz_mq_receiver:consume関数のspawnプロセスが登録されます.</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/2">subscribe(Mz_mq_handle::#mz_mq_handle{}, Queue::binary()) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>指定されたキューに対して、set_consumerで指定したプロセスにメッセージを出力することを
+       指示します。したがって、set_consumerを指定した後に、このメソッドを呼び出します.</p>
+</div></div>
+<div class="function">
+<h3 id="cast_message/2">cast_message(Mz_mq_handle::#mz_mq_handle{}, Queue::binary(), Message::binary()) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>メッセージを送信します。メッセージの結果を取得することはできません</p>
+</div></div>
+<div class="function">
+<h3 id="cast_message/2-1">cast_message(Mz_mq_handle::#mz_mq_handle{}, Queue::binary(), Message::binary(), Receiptor::{binary(), function() | undefined}) -&gt; #mz_mq_handle{}</h3>
+
+
+<div class="description">
+
+<p>メッセージを送信します。メッセージの結果は、mz_mq_waiting_roomで受け取ります.</p>
+</div></div></div>
+
+<authors>
+
+<aname>s.kodama</aname>
+<email>dynamitecoolguy@pfb.jp</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

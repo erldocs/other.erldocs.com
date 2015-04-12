@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>z_acl (zotonic_boilerplate) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>z_acl</h1>
+<h2 class="modsummary">Access control for Zotonic.</h2>
+<div class="description">
+<p>Access control for Zotonic.  Interfaces to modules implementing the ACL events.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="is_allowed/3">is_allowed(Action, Object, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if an action is allowed for the current actor.</p>
+</div></div>
+<div class="function">
+<h3 id="rsc_visible/2">rsc_visible(Id, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if the resource is visible for the current user</p>
+</div></div>
+<div class="function">
+<h3 id="rsc_prop_visible/3">rsc_prop_visible(Id, Property, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if a property of the resource is visible for the current user</p>
+</div></div>
+<div class="function">
+<h3 id="rsc_editable/2">rsc_editable(Id, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if the resource is editable by the current user</p>
+</div></div>
+<div class="function">
+<h3 id="rsc_deletable/2">rsc_deletable(Id, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if the resource is deletable by the current user</p>
+</div></div>
+<div class="function">
+<h3 id="rsc_update_check/3">rsc_update_check(Id, Props, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Filter the properties of an update.  This is before any escaping.</p>
+</div></div>
+<div class="function">
+<h3 id="set_visible_for/1">set_visible_for(VisibleFor::integer(), Context::context()) -&gt; context()</h3>
+
+
+<div class="description">
+
+<p>Set the acl fields of the context for the 'visible_for' setting.  Used when rendering scomps.</p>
+</div></div>
+<div class="function">
+<h3 id="can_see/1">can_see(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the max visible_for the current user can see</p>
+</div></div>
+<div class="function">
+<h3 id="args_to_visible_for/1">args_to_visible_for(Args::proplist()) -&gt; 0 | 1 | 2 | 3</h3>
+
+
+<div class="description">
+
+<p>Translate "visible_for" parameter to the appropriate visibility level.</p>
+</div></div>
+<div class="function">
+<h3 id="cache_key/1">cache_key(Context) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Return a term that can be used as the ACL part of cache key.</p>
+</div></div>
+<div class="function">
+<h3 id="user/1">user(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the id of the current user.</p>
+</div></div>
+<div class="function">
+<h3 id="sudo/2">sudo(F::FuncDef, Context::#context{}) -&gt; FuncResult</h3>
+
+
+<div class="description">
+
+<p>Call a function with admin privileges.</p>
+</div></div>
+<div class="function">
+<h3 id="sudo/1">sudo(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_admin/1">is_admin(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if the current user is the admin or a sudo action</p>
+</div></div>
+<div class="function">
+<h3 id="anondo/2">anondo(F::FuncDef, Context::#context{}) -&gt; FuncResult</h3>
+
+
+<div class="description">
+
+<p>Call a function as the anonymous user.</p>
+</div></div>
+<div class="function">
+<h3 id="anondo/1">anondo(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="logon/1">logon(Id::integer(), Context::#context{}) -&gt; #context{}</h3>
+
+
+<div class="description">
+
+<p>Log the user with the id on, fill the acl field of the context</p>
+</div></div>
+<div class="function">
+<h3 id="logoff/1">logoff(Context::#context{}) -&gt; #context{}</h3>
+
+
+<div class="description">
+
+<p>Log off, reset the acl field of the context</p>
+</div></div>
+<div class="function">
+<h3 id="wm_is_authorized/2">wm_is_authorized(Allowed, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convenience function, check if the current user has enough permissions, if not then
+  redirect to the logon page.</p>
+</div></div>
+<div class="function">
+<h3 id="wm_is_authorized/3">wm_is_authorized(ACLs, ReqData, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wm_is_authorized/4">wm_is_authorized(Action, Object, ReqData, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Marc Worrell</aname>
+<email>marc@worrell.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>statebox_riak (statebox_riak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>statebox_riak</h1>
+<h2 class="modsummary">Convenience library that makes it easier to use statebox with riak,
+       extracted from best practices in our code at Mochi.</h2>
+<div class="description">
+<p>Convenience library that makes it easier to use statebox with riak,
+       extracted from best practices in our code at Mochi.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = binary()</h3></div>
+    <div class="type"><h3 id="type-deserialize_fun">deserialize_fun() = fun((binary()) -> <a href="#type-statebox" class="seealso">statebox()</a>)</h3></div>
+    <div class="type"><h3 id="type-from_values_fun">from_values_fun() = fun(([<a href="#type-statebox" class="seealso">statebox()</a>]) -> <a href="#type-statebox" class="seealso">statebox()</a>)</h3></div>
+    <div class="type"><h3 id="type-get_fun">get_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="#type-bucket" class="seealso">bucket()</a>, <a href="#type-key" class="seealso">key()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ok, <a href="#type-riakc_obj" class="seealso">riakc_obj()</a>} | {error, notfound | term()})</h3></div>
+    <div class="type"><h3 id="type-key">key() = binary()</h3></div>
+    <div class="type"><h3 id="type-op">op() = <a href="statebox.html#type-op" class="seealso">statebox:op()</a></h3></div>
+    <div class="type"><h3 id="type-option">option() = {get, <a href="#type-get_fun" class="seealso">get_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {put, <a href="#type-put_fun" class="seealso">put_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {from_values, <a href="#type-from_values_fun" class="seealso">from_values_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {resolve_metadatas, <a href="#type-resolve_metadatas_fun" class="seealso">resolve_metadatas_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {max_queue, undefined | integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {expire_ms, undefined | <a href="statebox.html#type-timedelta" class="seealso">statebox:timedelta()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {serialize, <a href="#type-serialize_fun" class="seealso">serialize_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {deserialize, <a href="#type-deserialize_fun" class="seealso">deserialize_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {riakc_pb_socket, pid()}</h3></div>
+    <div class="type"><h3 id="type-put_fun">put_fun() = fun((<a href="#type-riakc_obj" class="seealso">riakc_obj()</a>) -> ok)</h3></div>
+    <div class="type"><h3 id="type-resolve_metadatas_fun">resolve_metadatas_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="#type-riakc_obj" class="seealso">riakc_obj()</a>, [term()]) -> <a href="#type-riakc_obj" class="seealso">riakc_obj()</a>)</h3></div>
+    <div class="type"><h3 id="type-riakc_obj">riakc_obj() = <a href="riakc_obj.html#type-riakc_obj" class="seealso">riakc_obj:riakc_obj()</a></h3></div>
+    <div class="type"><h3 id="type-serialize_fun">serialize_fun() = fun((<a href="#type-statebox" class="seealso">statebox()</a>) -> binary())</h3></div>
+    <div class="type"><h3 id="type-statebox">statebox() = <a href="statebox.html#type-statebox" class="seealso">statebox:statebox()</a></h3></div>
+    <div class="type"><h3 id="type-statebox_riak">statebox_riak()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Opts::[option()]) -&gt; statebox_riak()</h3>
+
+
+<div class="description">
+
+<p>Create a new <code>statebox_riak()</code> wrapper, has a number of
+       options for customizing the behavior. It is required to specify
+       get and put, which can be done directly or set with
+       riakc_pb_socket. Available options:
+       </p><taglist>
+           <dt><code>{riakc_pb_socket, pid()}</code></dt>
+           <item><p>Use the given riakc_pb_socket with default settings for
+               get and put.</p></item>
+           <dt><code>{get, get_fun()}</code></dt>
+           <item><p>Specify a custom <code>get(bucket(), key())</code> fun</p></item>
+           <dt><code>{put, put_fun()}</code></dt>
+           <item><p>Specify a custom <code>put(riakc_obj())</code> fun</p></item>
+           <dt><code>{max_queue, undefined | non_neg_integer()}</code></dt>
+           <item><p>Use <code>statebox:truncate/2</code> to ensure that at most
+               this many events are peristed</p></item>
+           <dt><code>{expire_ms, undefined | non_neg_integer()}</code></dt>
+           <item><p>Use <code>statebox:expire/2</code> to ensure that events older
+               than this many msec are not persisted</p></item>
+           <dt><code>{from_values, from_values_fun()}</code></dt>
+           <item><p>Override the default
+               <code>fun statebox_orddict:from_values/1</code></p></item>
+           <dt><code>{resolve_metadatas, resolve_metadatas_fun()}</code></dt>
+           <item><p>Override the default
+               <code>fun statebox_riak:choose_first_metadata/2</code></p></item>
+           <dt><code>{serialize, serialize_fun()}</code></dt>
+           <item><p>Override the default <code>term_to_binary/2</code>
+               based serialization</p></item>
+           <dt><code>{deserialize, deserialize_fun()}</code></dt>
+           <item><p>Override the default <code>fun binary_to_term/1</code>
+               deserialization</p></item>
+       </taglist>
+</div></div>
+<div class="function">
+<h3 id="get_pair/1">get_pair(Bucket::bucket(), Key::key(), S::statebox_riak()) -&gt; {riakc_obj(), statebox()}</h3>
+
+
+<div class="description">
+
+<p>Get a <code>{riakc_obj(), statebox()}</code> pair for the given
+       <code>bucket()</code> and <code>key()</code>. If not found, an
+       empty <code>riakc_obj()</code> (containing only the
+       <code>bucket()</code> and <code>key()</code>) and
+       new <code>statebox()</code> (using <code>from_values([])</code>)
+       will be returned.</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1">get_value(Bucket::bucket(), Key::key(), S::statebox_riak()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get the value inside the <code>statebox()</code> at
+       <code>bucket()</code> and <code>key()</code>. Convenient for
+       read-only operations.</p>
+</div></div>
+<div class="function">
+<h3 id="apply_bucket_ops/1">apply_bucket_ops(Bucket::bucket(), Rest::[{[key()], op()}], S::statebox_riak()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>For the given <code>[{[key()], op()}]</code> get each key,
+       apply the op() to the statebox at that key, and put it back
+       if the value changes.</p>
+</div></div>
+<div class="function">
+<h3 id="put_value/1">put_value(NewValue::statebox(), Obj::riakc_obj(), S::statebox_riak()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Update the value in Obj with NewValue and put it in riak.</p>
+</div></div>
+<div class="function">
+<h3 id="put_if_changed/1">put_if_changed(Old::statebox(), New::statebox(), Obj::riakc_obj(), S::statebox_riak()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p><code>put_value(New, Obj, S)</code> if the value inside the statebox
+       <code>New</code> differs from the value inside the statebox
+       <code>Old</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="choose_first_metadata/1">choose_first_metadata(Obj::riakc_obj(), Metadatas::[term()]) -&gt; riakc_obj()</h3>
+
+
+<div class="description">
+
+<p>If there are more than one given metadatas, update Obj with the
+       first. Otherwise, return Obj as-is.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

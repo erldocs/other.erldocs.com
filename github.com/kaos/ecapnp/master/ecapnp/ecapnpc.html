@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ecapnpc (ecapnp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ecapnpc</h1>
+<h2 class="modsummary">The Erlang Cap'n Proto Compiler plugin.</h2>
+<div class="description">
+<p>The Erlang Cap'n Proto Compiler plugin.</p>
+ 
+  <p>This module takes a <url href="http://kentonv.github.io/capnproto/otherlang.html#how_to_write_compiler_plugins">CodeGeneratorRequest</url>  
+message and compiles the requested schema files into Erlang header  
+files.</p>
+ 
+  <p>Thus, a <code>my_schema.capnp</code> will be compiled to
+  <code>my_schema.capnp.hrl</code>, implementing <code>my_schema/N</code> functions for
+  reading and writing Cap'n Proto messages using <code>my_schema</code>.</p>
+ 
+ 
+  <p><em><marker id="Schema_functions">Schema functions</marker></em></p>
+ 
+  <p>The schema functions implemented in a compiled schema header file are:
+  </p><taglist>
+    <dt><code>fun((root, schema_type(), message()) -&gt; {ok, object()})</code></dt>
+    <item><p>Get a reference to the root object in message.</p></item>
+ 
+    <dt><code>fun((root, schema_type()) -&gt; {ok, object()})</code></dt>
+    <item><p>Set root object type for a new message.</p></item>
+ 
+    <dt><code>fun((get, field_name(), object()) -&gt; field_value())</code></dt>
+    <item><p>Read object field value.</p></item>
+ 
+    <dt><code>fun((get, object()) -&gt; (field_name() | {field_name(), field_value()}))</code></dt>
+    <item><p>Read unnamed union value of object.</p></item>
+ 
+    <dt><code>fun((set, field_name(), field_value(), object()) -&gt; ok)</code></dt>
+    <item><p>Write value to object field.</p></item>
+ 
+    <dt><code>fun((set, {field_name(), field_value()} | field_name(), object()) -&gt; ok)</code></dt>
+    <item><p>Write unnamed union value.</p></item>
+ 
+    <dt><code>fun((to_struct, schema_type(), object()) -&gt; object())</code></dt>
+    <item><p>Type cast object to another struct type.</p></item>
+ 
+    <dt><code>fun((to_list, schema_type(), object()) -&gt; list())</code></dt>
+    <item><p>Type cast object to list.</p></item>
+ 
+    <dt><code>fun((to_text | to_data, object()) -&gt; binary())</code></dt>
+    <item><p>Type cast object to text or data.</p></item>
+ 
+    <dt><code>fun((schema) -&gt; schema())</code></dt>
+    <item><p>Get the compiled schema definition.</p></item>
+  </taglist>
+ 
+  <p>Where <code>fun</code> is named after the basename of the schema file (refer
+  to the <code>my_schema.capnp</code> example in the <a href="#Description" class="seealso">Description</a> section).</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-message">message() = <a href="ecapnp.html#type-message" class="seealso">ecapnp:message()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="compile_file/1">compile_file(FileName::name_all() (see module file)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Read a <code>CodeGeneratorRequest</code> message (unpacked) from
+  <code>FileName</code> and compile it.</p>
+</div></div>
+<div class="function">
+<h3 id="compile_data/1">compile_data(Data::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Compile the <code>CodeGeneratorRequest</code> message (unpacked) in
+  <code>Data</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="compile_message/1">compile_message(Message::message()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Compile the <code>CodeGeneratorRequest</code> message. The <code>Message</code>
+  argument holds the raw segments data to process, no futher
+  processing on the message itself will be carried out prior to the
+  compilation step.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Andreas Stenius</aname>
+<email>kaos@astekk.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

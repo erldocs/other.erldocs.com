@@ -1,0 +1,1 @@
+var index = [['app','c-nodes-example','c-nodes-example','[application]'],['mod','c-nodes-example','complex3',[]],['mod','c-nodes-example','complex4',[]],['fun','c-nodes-example','complex3:bar/1',[]],['fun','c-nodes-example','complex3:foo/1',[]],['fun','c-nodes-example','complex4:bar/1',[]],['fun','c-nodes-example','complex4:foo/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlscope','erlscope','[application]'],['mod','erlscope','erlscope',[]],['fun','erlscope','erlscope:main/0',[]]];

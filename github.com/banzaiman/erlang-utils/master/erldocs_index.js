@@ -1,0 +1,1 @@
+var index = [['app','erlang-utils','erlang-utils','[application]'],['mod','erlang-utils','nemes','Provides the Gamma function for real number R.'],['mod','erlang-utils','nemes_test',[]],['fun','erlang-utils','nemes:gamma/1','returns Gamma(r) for a real number r.'],['fun','erlang-utils','nemes_test:test/0',[]]];

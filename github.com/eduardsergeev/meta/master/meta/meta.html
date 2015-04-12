@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>meta (meta) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>meta</h1>
+<h2 class="modsummary">   
+Simple meta-programming for erlang.</h2>
+<div class="description">
+<p>   
+Simple meta-programming for erlang</p>
+  
+   Quasi-quotation-based, hygienic macros expanded in compile-time.
+   Based on parse_transform</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-dump_code">dump_code() = dump_code</h3></div>
+    <div class="type"><h3 id="type-dump_splices">dump_splices() = dump_splices</h3></div>
+    <div class="type"><h3 id="type-form">form() = <a href="erl_parse.html#type-abstract_form" class="seealso">erl_parse:abstract_form()</a></h3></div>
+    <div class="type"><h3 id="type-forms">forms() = <a href="#type-form" class="seealso">form()</a> | [<a href="#type-form" class="seealso">form()</a>]</h3></div>
+    <div class="type"><h3 id="type-info">info()</h3></div>
+    <div class="type"><h3 id="type-meta_option">meta_option() = <a href="#type-dump_code" class="seealso">dump_code()</a> | <a href="#type-dump_splices" class="seealso">dump_splices()</a></h3></div>
+    <div class="type"><h3 id="type-meta_options">meta_options() = [<a href="#type-meta_option" class="seealso">meta_option()</a>] | <a href="#type-meta_option" class="seealso">meta_option()</a></h3></div>
+    <div class="type"><h3 id="type-quote">quote/0</h3></div>
+    <div class="type"><h3 id="type-vars">vars() = gb_set()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="quote/1">quote(Expr) -&gt; quote(Expr)</h3>
+
+<ul class="type">
+<li><code>Expr = any()</code></li></ul>
+<div class="description">
+
+<p>  
+Meta-function which marks the scope of quotation.</p>
+ 
+  <p>Any valid Erlang expression which syntaxicaly can be passed to function
+  can be <code>quoted` using `meta:quote()</code>
+  The "argument" must be a single expression only.
+  Wrap several the expression into <code>begin .. end</code> block is necessary</p>
+ 
+  <p>Note: It is more convenient (concise) to use <code>?q/1</code> macro instead.</p>
+</div></div>
+<div class="function">
+<h3 id="splice/1">splice(QExpr::quote(Expr)) -&gt; Expr</h3>
+
+<ul class="type">
+<li><code>Expr = any()</code></li></ul>
+<div class="description">
+
+<p>  
+Meta-function which is marks the place of the splice of its "argument"</p>
+ 
+  <p>Upon meta-expansion this function is replaced with hygienic splice
+  of a given quote.
+  The argument must be a signle expression which evaluates to <code>quote()</code>.
+  This expression can use local or remote functions
+  (given that the module containing remote function is already compiled),
+  but it must not reference any variables in scope of the current function.
+  Wrap several the expression into <code>begin .. end</code> block is necessary.</p>
+ 
+  <p>Note: It is more convenient (concise) to use <code>?s/1</code> macro instead.</p>
+</div></div>
+<div class="function">
+<h3 id="ref/1">ref(Var) -&gt; quote(Var)</h3>
+
+<ul class="type">
+<li><code>Var = any()</code></li></ul>
+<div class="description">
+
+<p>  
+Meta-function which marks a quote-reference to a variable in scope</p>
+ 
+  <p>This meta-function similarily<code>?q/1</code> also creates <code>quote()</code>,  
+but the resulting quote is a reference to a given variable,  
+meaning that when this quote is spliced the name of the resulting variable  
+will be identical to the name of the referenced variable  
+(i.e. both variables will be hygienised to the same name if necessary)  
+Only a variable which already present in the current scope  
+must be used as an argument to this function.</p>
+ 
+  <p>Note: It is more convenient (concise) to use <code>?r/1</code> macro instead.</p>
+</div></div>
+<div class="function">
+<h3 id="verbatim/1">verbatim(Expr::form()) -&gt; quote(Expr)</h3>
+
+<ul class="type">
+<li><code>Expr = any()</code></li></ul>
+<div class="description">
+
+<p>  
+Meta-function which marks the conversion of a bare Erlang AST into quote</p>
+ 
+  <p>This meta-function similarily<code>?q/1</code> also creates <code>quote()</code>,
+  but it produces it via conversion of a valid <code>erl_syntax:syntaxTree()</code>
+  If <code>quote()</code> can be viewed as a monad,
+  <code>?v</code> is <code>return/0</code> function for that monad</p>
+ 
+  <p>Note: It is more convenient (concise) to use <code>?v/1</code> macro instead.</p>
+</div></div>
+<div class="function">
+<h3 id="extract/1">extract(Expr::quote(Expr)) -&gt; form()</h3>
+
+<ul class="type">
+<li><code>Expr = any()</code></li></ul>
+<div class="description">
+
+<p>  
+Meta-function which marks conversion of AST into quote</p>
+ 
+  <p>This meta-function "extract" <code>erl_syntax:syntaxTree()</code>
+  from a given <code>quote()</code>,
+  only to be subsequently wrapped back into <code>quote()</code> with <code>?v</code>.  
+This can be used to add transformation code which works on Erlang AST  
+which is handy for advanced scenarios.</p>
+ 
+  <p>The important property of <code>?v(?e())</code> transformation that the hygienic
+  nature of <code>?s(?q())</code> is preserved regardless of the transformations.
+  If <code>quote()</code> can be viewed as a monad,
+  <code>?v(?e(..))</code> pair is <code>bind/2</code> function for that monad</p>
+ 
+  <p>Note: It is more convenient (concise) to use <code>?e/1</code> macro instead.</p>
+</div></div>
+<div class="function">
+<h3 id="reify/0">reify() -&gt; info()</h3>
+
+
+<div class="description">
+
+<p>
+  Meta-function which produces <code>info()</code> upon meta-expansion</p>
+ 
+  <p>This meta-function is converted into instance of <code>info()</code> type
+  for the currently processing module
+  which can be used as an argument for other functions in <code>meta</code>
+  requiring <code>info()</code></p>
+</div></div>
+<div class="function">
+<h3 id="reify_type/2">reify_type(TypeRef, Info) -&gt; Def</h3>
+
+<ul class="type">
+<li><code>TypeRef = Record | Type | Fun</code></li><li><code>Record = {record, RecordName}</code></li><li><code>Type = {TypeName, TypeArgs}</code></li><li><code>TypeArgs = [TypeRef]</code></li><li><code>Fun = {'fun', FunName, Arity}</code></li><li><code>RecordName = atom()</code></li><li><code>TypeName = atom()</code></li><li><code>FunName = atom()</code></li><li><code>Arity = integer()</code></li><li><code>Info = info()</code></li><li><code>Def = form()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reify_attributes/2">reify_attributes(AttrName, Info) -&gt; Form</h3>
+
+<ul class="type">
+<li><code>AttrName = atom()</code></li><li><code>Info = info()</code></li><li><code>Form = form()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reify/2">reify(X1, Info) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/2">error(Module, Error) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/3">error(Module, Error, Arg) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="local_apply/1">local_apply(FunName::atom(), Args::[any()], Info::info()) -&gt; FunResult::any()</h3>
+
+
+<div class="description">
+
+<p>  
+Local meta-function application callable from external module</p>
+ 
+  <p>This function can be used to call a local
+  to the currently meta-expanding module function from external module
+  in splice.
+  Local function calls are normally handled by <code>?s/1</code> evaluation mechanism,
+  but should such function be called from some external module
+  the mechanism will fail since the "local" module is yet to be fully compiled
+  at this stage. However this helper function can be used for such call
+  if the <code>info()</code> structure from the "local" module being expanded  
+is availabe in the "external" module.</p>
+ 
+  <p>Note: This is "advanced" feature, for most cases <code>?s/1</code> evaluation  
+should be enough.</p>
+ 
+  <p>Note2: Not all types of arguments can be passed to <code>Args</code> -
+  the list is limited to types which can be handles by <a href="erl_syntax.html#abstract/1" class="seealso">erl_syntax:abstract/1</a>,
+  which means that quotes (<code>?q/1</code>) cannot be passed</p>
+</div></div>
+<div class="function">
+<h3 id="hygienize_var/3">hygienize_var(VarName, Vars, VarMaps) -&gt; {VarName, Vars, VarMaps}</h3>
+
+<ul class="type">
+<li><code>VarName = string()</code></li><li><code>Vars = gb_set()</code></li><li><code>VarMaps = dict()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_transform/2">parse_transform(Forms, Options) -&gt; Forms</h3>
+
+<ul class="type">
+<li><code>Forms = forms()</code></li><li><code>Options = [option() (see module compile)]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="format_error/1">format_error(X1::any()) -&gt; iolist()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Eduard Sergeev</aname>
+<email>eduard.sergeev@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','udp_client','udp_client','[application]'],['mod','udp_client','udp_client','UDP Client which waits for data and ansers with th'],['fun','udp_client','udp_client:receiver_loop/1',[]],['fun','udp_client','udp_client:send/1',[]],['fun','udp_client','udp_client:send/1',[]],['fun','udp_client','udp_client:start/1',[]],['fun','udp_client','udp_client:stop/1',[]]];

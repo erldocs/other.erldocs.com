@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erlaudio_drv (erlaudio) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erlaudio_drv</h1>
+<h2 class="modsummary">
+  This is a separate, private, less-supported API for interacting more directly
+  with the erlaudio nif.</h2>
+<div class="description">
+<p>
+  This is a separate, private, less-supported API for interacting more directly
+  with the erlaudio nif. It's less natural and a bit harder to use, and
+  functions directly invoke the nifs.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-api_type">api_type() = directsound<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| mme<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| asio<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| soundmanager<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| coreaudio<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| oss<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| alsa<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| al<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| beos<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wdmks<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| jack<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wasapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| audiosciencehpi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()</h3></div>
+    <div class="type"><h3 id="type-error">error() = not_initialized<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unanticipated_host_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_number_of_channels<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_sample_rate<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_device<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_flag<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sample_format_unsupported<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bad_device_combo<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| insufficient_memory<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| buffer_too_big<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| buffer_too_small<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| nocallback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| badcallback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| internal_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| device_unavailable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| incompatible_host_stream_info<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stream_stopped<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stream_not_stopped<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| input_overflowed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| output_underflowed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| no_hostapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_hostapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| noread_callback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| nowrite_callback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| output_only<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| input_only<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| incompatible_hostapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| badbuffer<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unknownerror</h3></div>
+    <div class="type"><h3 id="type-error">error() = not_initialized<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unanticipated_host_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_number_of_channels<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_sample_rate<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_device<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_flag<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sample_format_unsupported<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bad_device_combo<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| insufficient_memory<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| buffer_too_big<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| buffer_too_small<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| nocallback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| badcallback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| internal_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| device_unavailable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| incompatible_host_stream_info<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stream_stopped<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stream_not_stopped<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| input_overflowed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| output_underflowed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| no_hostapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_hostapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| noread_callback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| nowrite_callback<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| output_only<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| input_only<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| incompatible_hostapi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| badbuffer<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unknownerror</h3></div>
+    <div class="type"><h3 id="type-format">format() = float32 | int32 | int24 | int16 | int8 | uint8</h3></div>
+    <div class="type"><h3 id="type-format">format() = float32 | int32 | int24 | int16 | int8 | uint8</h3></div>
+    <div class="type"><h3 id="type-handle">handle() = <a href="erlaudio.html#type-handle" class="seealso">erlaudio:handle()</a></h3></div>
+    <div class="type"><h3 id="type-pa_error">pa_error() = {error, <a href="#type-error" class="seealso">error()</a>}</h3></div>
+    <div class="type"><h3 id="type-pa_error">pa_error() = {error, <a href="#type-error" class="seealso">error()</a>}</h3></div>
+    <div class="type"><h3 id="type-stream_option">stream_option() = noclip | nodither | nodropinput</h3></div>
+    <div class="type"><h3 id="type-stream_option">stream_option() = noclip | nodither | nodropinput</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_pa_version/0">get_pa_version() -&gt; {integer(), binary()}</h3>
+
+
+<div class="description">
+
+<p>Get the version info from portaudio</p>
+</div></div>
+<div class="function">
+<h3 id="get_default_hostapi_index/0">get_default_hostapi_index() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the default hostapi index</p>
+</div></div>
+<div class="function">
+<h3 id="get_device_index_from_hostapi/1">get_device_index_from_hostapi(HostApiIndex::integer(), HostApiDeviceIndex::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the device index from the hostapi</p>
+</div></div>
+<div class="function">
+<h3 id="get_hostapi_count/0">get_hostapi_count() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the total number of supported hostapi's</p>
+</div></div>
+<div class="function">
+<h3 id="get_hostapi_index_from_type/1">get_hostapi_index_from_type(Type::api_type()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the hostapi index from the type</p>
+</div></div>
+<div class="function">
+<h3 id="get_hostapi_info/1">get_hostapi_info(Index::integer()) -&gt; #erlaudio_hostapi_info{type=undefined | integer(), name=undefined | binary(), device_count=undefined | integer(), default_input_device=undefined | integer(), default_output_device=undefined | integer()}</h3>
+
+
+<div class="description">
+
+<p>Get the hostapi info by the hostapi index</p>
+</div></div>
+<div class="function">
+<h3 id="get_default_input_device_index/0">get_default_input_device_index() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the default output device's index</p>
+</div></div>
+<div class="function">
+<h3 id="get_default_output_device_index/0">get_default_output_device_index() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the default output device's index</p>
+</div></div>
+<div class="function">
+<h3 id="get_device/1">get_device(Index::integer()) -&gt; #erlaudio_device{index=integer(), name=binary(), host_api=integer(), max_input_channels=undefined | integer(), max_output_channels=undefined | integer(), default_low_input_latency=undefined | float(), default_low_output_latency=undefined | float(), default_high_input_latency=undefined | float(), default_high_output_latency=undefined | float(), default_sample_rate=undefined | float()}</h3>
+
+
+<div class="description">
+
+<p>Get the device by index</p>
+</div></div>
+<div class="function">
+<h3 id="get_device_count/0">get_device_count() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the number of devices</p>
+</div></div>
+<div class="function">
+<h3 id="stream_format_supported/1">stream_format_supported(Input::#erlaudio_device_params{index=undefined | integer(), channel_count=undefined | integer(), sample_format=undefined | format(), suggested_latency=undefined | float()} | null | undefined, Output::#erlaudio_device_params{index=undefined | integer(), channel_count=undefined | integer(), sample_format=undefined | format(), suggested_latency=undefined | float()} | null | undefined, SampleRate::float()) -&gt; ok | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Is this stream supported?</p>
+</div></div>
+<div class="function">
+<h3 id="stream_open/1">stream_open(Input::#erlaudio_device_params{index=undefined | integer(), channel_count=undefined | integer(), sample_format=undefined | format(), suggested_latency=undefined | float()} | null | undefined, Output::#erlaudio_device_params{index=undefined | integer(), channel_count=undefined | integer(), sample_format=undefined | format(), suggested_latency=undefined | float()} | null | undefined, SampleRate::float(), FramesPerBuffer::integer(), Flags::[stream_option()]) -&gt; {ok, handle()} | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Open a stream</p>
+</div></div>
+<div class="function">
+<h3 id="stream_start/1">stream_start(Ref::handle()) -&gt; ok | pa_error() | {error, threadfailed}</h3>
+
+
+<div class="description">
+
+<p>Stops the stream immediately</p>
+</div></div>
+<div class="function">
+<h3 id="stream_close/1">stream_close(Ref::handle()) -&gt; ok | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Stops the stream immediately, and closes the resource</p>
+</div></div>
+<div class="function">
+<h3 id="stream_stop/1">stream_stop(Ref::handle()) -&gt; ok | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Stops the stream, but blocks while the buffers empty</p>
+</div></div>
+<div class="function">
+<h3 id="stream_abort/1">stream_abort(Ref::handle()) -&gt; ok | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Stops the stream immediately</p>
+</div></div>
+<div class="function">
+<h3 id="stream_owner/1">stream_owner(Ref::handle()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Get the stream "owner", or where control messages go</p>
+</div></div>
+<div class="function">
+<h3 id="stream_owner/1-1">stream_owner(Ref::handle(), Pid::pid()) -&gt; ok | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Set the stream "owner", or where control messages go</p>
+</div></div>
+<div class="function">
+<h3 id="stream_reader/1">stream_reader(Ref::handle()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Get the stream "reader", or where pcmdata messages go</p>
+</div></div>
+<div class="function">
+<h3 id="stream_reader/1-1">stream_reader(Ref::handle(), Pid::pid()) -&gt; ok | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Set the stream "reader", or where pcmdata messages go</p>
+</div></div>
+<div class="function">
+<h3 id="stream_write/1">stream_write(Ref::handle(), Data::iodata()) -&gt; ok | {error, toobig | badbinsize}</h3>
+
+
+<div class="description">
+
+<p>Write stream data into our ringbuffer</p>
+</div></div>
+<div class="function">
+<h3 id="stream_info/1">stream_info(Ref::handle()) -&gt; #erlaudio_stream_info{input_latency=undefined | float(), output_latency=undefined | float(), sample_rate=undefined | float()}</h3>
+
+
+<div class="description">
+
+<p>Get stream info</p>
+</div></div>
+<div class="function">
+<h3 id="stream_is_stopped/1">stream_is_stopped(Ref::handle()) -&gt; boolean() | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Is the stream stopped?</p>
+</div></div>
+<div class="function">
+<h3 id="stream_is_active/1">stream_is_active(Ref::handle()) -&gt; boolean() | pa_error()</h3>
+
+
+<div class="description">
+
+<p>Is the stream active?</p>
+</div></div>
+<div class="function">
+<h3 id="stream_writebuffer_size/1">stream_writebuffer_size(Ref::handle()) -&gt; integer() | pa_error() | {error, notrunning}</h3>
+
+
+<div class="description">
+
+<p>Get information about the state of the write buffers.</p>
+</div></div>
+<div class="function">
+<h3 id="stream_write_available/1">stream_write_available(Ref::handle()) -&gt; {ok, RingBuffer::integer(), Internal::integer()} | pa_error() | {error, notrunning}</h3>
+
+
+<div class="description">
+
+<p>Get information about the state of the write buffers.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

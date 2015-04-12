@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-federation','rabbitmq-federation','[application]'],['mod','rabbitmq-federation','rabbit_federation_app',[]],['fun','rabbitmq-federation','rabbit_federation_app:init/1',[]],['fun','rabbitmq-federation','rabbit_federation_app:start/2',[]],['fun','rabbitmq-federation','rabbit_federation_app:stop/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','task3_1','task3_1','[application]'],['mod','task3_1','sum',[]],['fun','task3_1','sum:create/1',[]],['fun','task3_1','sum:reverse_create/1',[]],['fun','task3_1','sum:sum/1',[]],['fun','task3_1','sum:sum/2',[]]];

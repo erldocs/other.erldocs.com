@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mvar (mongodb-erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mvar</h1>
+<h2 class="modsummary">A mvar is a process that holds a value (its content) and provides exclusive access to it.</h2>
+<div class="description">
+<p>A mvar is a process that holds a value (its content) and provides exclusive access to it. When a mvar terminates it executes it given finalize procedure, which is needed for content that needs to clean up when terminating. When a mvar is created it executes its supplied initialize procedure, which creates the initial content from within the mvar process so if the initial content is another linked dependent process (such as a socket) it will terminate when the mvar terminates without the need for a finalizer. A mvar itself dependently links to its parent process (the process that created it) and thus terminates when its parent process terminates.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-finalizer">finalizer/0</h3></div>
+    <div class="type"><h3 id="type-initializer">initializer/0</h3></div>
+    <div class="type"><h3 id="type-modifier">modifier/0</h3></div>
+    <div class="type"><h3 id="type-mvar">mvar(term()) = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-reason">reason() = any()</h3></div>
+    <div class="type"><h3 id="type-state">state(A) = {A, finalizer(A)}</h3></div>
+    <div class="type"><h3 id="type-tag">tag() = any()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create/1">create(Initialize::initializer(A), Finalize::finalizer(A)) -&gt; mvar(A)</h3>
+
+
+<div class="description">
+
+<p>Create new mvar with initial content created from initializer (run within new mvar process so it owns it). Any throw in initializer will be caught and re-thrown in the calling process. Other exceptions will not be caught causing an exit signal to be sent to calling process. When the mvar terminates then given finalizer will be executed against current content. Any exception raised in finalizer (when terminating) will be sent as an exit signal to the parent (calling) process.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2">new(A, Finalize::finalizer(A)) -&gt; mvar(A)</h3>
+
+
+<div class="description">
+
+<p>Same as create/2 except initial value given directly</p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(A) -&gt; mvar(A)</h3>
+
+
+<div class="description">
+
+<p>Same as new/2 except no finalizer</p>
+</div></div>
+<div class="function">
+<h3 id="modify/1">modify(Var::mvar(A), Modify::modifier(A, B)) -&gt; B</h3>
+
+
+<div class="description">
+
+<p>Atomically modify content and return associated result. Any throw is caught and re-thrown in caller. Errors are not caught and will terminate var and send exit signal to parent.</p>
+</div></div>
+<div class="function">
+<h3 id="modify_/1">modify_(Var::mvar(A), Modify::(A) -&gt; A) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Same as modify but don't return anything</p>
+</div></div>
+<div class="function">
+<h3 id="with/1">with(Var::mvar(A), Act::(A) -&gt; B) -&gt; B</h3>
+
+
+<div class="description">
+
+<p>Execute Procedure with exclusive access to content but don't modify it.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(Var::mvar(A)) -&gt; A</h3>
+
+
+<div class="description">
+
+<p>Return content</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(Var::mvar(A), A) -&gt; A</h3>
+
+
+<div class="description">
+
+<p>Change content and return previous content</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Var::mvar(term())) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Terminate mvar. Its finalizer will be executed. Future accesses to this mvar will fail, although repeated termination is fine.</p>
+</div></div>
+<div class="function">
+<h3 id="is_terminated/1">is_terminated(Var::mvar(term())) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Has mvar been terminated?</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::{pid(), reference(), initializer(A), finalizer(A)}) -&gt; {ok, state(A)} | ignore</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1::{modify, modifier(A, B)}, From::{pid(), tag()}, State::state(A)) -&gt; {reply, {ok, B} | {throw, any()}, state(A)}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1-1">terminate(Reason::reason(), X2::state(term())) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Request, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Message, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

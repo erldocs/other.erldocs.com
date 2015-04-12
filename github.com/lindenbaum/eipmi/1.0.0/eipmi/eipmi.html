@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eipmi (eipmi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eipmi</h1>
+<h2 class="modsummary">
+   The main entry module of the eipmi application containing the application   
+callback as well as the top level supervisor.</h2>
+<div class="description">
+<p>
+   The main entry module of the <code>eipmi</code> application containing the application   
+callback as well as the top level supervisor.</p>
+  
+   This module provides capabilities to discover and use IPMI-capable devices.
+   The <a href="eipmi_session.html" class="seealso">eipmi_session</a> module provides a IPMI session implementation that
+   is able to send requests and receive responses implemented in the
+   <a href="eipmi_request.html" class="seealso">eipmi_request</a> and <a href="eipmi_response.html" class="seealso">eipmi_response</a> modules. Frontend API
+   functions using a combination of several requests to provide a certain
+   feature should be put here.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-device_info">device_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{device_id, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{device_revision, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{operation, normal | progress} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{firmware_version, string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ipmi_version, string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{device_support, [<a href="#type-device_support" class="seealso">device_support()</a>]} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{manufacturer_id, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{product_id, integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-device_support">device_support() = chassis<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bridge<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| event_generator<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| event_receiver<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fru_inventory<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sel<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sdr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sensor</h3></div>
+    <div class="type"><h3 id="type-fru_info">fru_info() = <a href="eipmi_fru.html#type-info" class="seealso">eipmi_fru:info()</a></h3></div>
+    <div class="type"><h3 id="type-fru_inventory">fru_inventory() = [<a href="#type-fru_info" class="seealso">fru_info()</a>]</h3></div>
+    <div class="type"><h3 id="type-network_statistics">network_statistics() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{ip_packets_received, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ip_header_errors, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ip_address_errors, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ip_fragmented_packets_received, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ip_packets_transmitted, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{udp_packets_received, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{udp_proxy_packets_received, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{udp_proxy_packets_dropped, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{rmcp_packets_received, integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-option">option() = {initial_outbound_seq_nr, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {keep_alive_retransmits, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {password, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {port, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {privilege, <a href="#type-privilege" class="seealso">privilege()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {rq_addr, 129..141}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {timeout, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {user, string()}</h3></div>
+    <div class="type"><h3 id="type-option_name">option_name() = initial_outbound_seq_nr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| keep_alive_retransmits<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| password<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| port<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| privilege<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| rq_addr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| user</h3></div>
+    <div class="type"><h3 id="type-picmg_address_info">picmg_address_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{mch_site_number, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ipmb_address, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{fru_id, 0..254} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{site_number, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{site_type, <a href="#type-picmg_site_type" class="seealso">picmg_site_type()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{carrier_number, integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-picmg_fru_control">picmg_fru_control() = cold_reset<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| warm_reset<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| graceful_reboot<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| diagnostic_interrupt<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| quiesce</h3></div>
+    <div class="type"><h3 id="type-picmg_properties">picmg_properties() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{picmg_extension, string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{max_fru_id, 0..254} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ipmc_fru_id, 0..254}]</h3></div>
+    <div class="type"><h3 id="type-picmg_site_type">picmg_site_type() = picmg_board<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| power_entry<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| shelf_fru_information<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| dedicated_shelf_management_controller<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fan_tray<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fan_filter_tray<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| alarm<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| amc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pmc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| rear_transition_module<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| mch<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| power_module</h3></div>
+    <div class="type"><h3 id="type-power_state">power_state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{system,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s0_g0, working} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s1, clocks_stopped} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s2, clocks_stopped} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s3, suspend_to_ram} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s4, suspend_to_disk} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s5_g2, soft_off} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s4_s5, soft_off} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{g3, mechanical_off} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s1_s2_s3, sleeping} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{g1, sleeping} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{s5, override} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legacy_on |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legacy_off |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unknown} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{device, d0 | d1 | d2 | d3 | unknown}]</h3></div>
+    <div class="type"><h3 id="type-privilege">privilege() = callback | user | operator | administrator</h3></div>
+    <div class="type"><h3 id="type-repository_info">repository_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{version, string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{entries, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{free_space, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{most_recent_addition, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{most_recent_erase, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{overflow, boolean()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{operations,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[delete | partial_add | reserve | get_allocation_info]}]</h3></div>
+    <div class="type"><h3 id="type-req_net_fn">req_net_fn() = 4 | 6 | 10 | 12 | 44</h3></div>
+    <div class="type"><h3 id="type-request">request() = {<a href="#type-req_net_fn" class="seealso">req_net_fn()</a>, Command :: 0..255}</h3></div>
+    <div class="type"><h3 id="type-resp_net_fn">resp_net_fn() = 5 | 7 | 11 | 13 | 45</h3></div>
+    <div class="type"><h3 id="type-response">response() = {<a href="#type-resp_net_fn" class="seealso">resp_net_fn()</a>, Command :: 0..255}</h3></div>
+    <div class="type"><h3 id="type-sdr">sdr() = <a href="eipmi_sdr.html#type-entry" class="seealso">eipmi_sdr:entry()</a></h3></div>
+    <div class="type"><h3 id="type-sdr_info">sdr_info() = <a href="#type-repository_info" class="seealso">repository_info()</a></h3></div>
+    <div class="type"><h3 id="type-sdr_repository">sdr_repository() = [<a href="#type-sdr" class="seealso">sdr()</a>]</h3></div>
+    <div class="type"><h3 id="type-sel_entry">sel_entry() = <a href="eipmi_sel.html#type-entry" class="seealso">eipmi_sel:entry()</a></h3></div>
+    <div class="type"><h3 id="type-sel_info">sel_info() = <a href="#type-repository_info" class="seealso">repository_info()</a></h3></div>
+    <div class="type"><h3 id="type-self_test">self_test() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{result,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self_tests_passed |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self_tests_not_implemented |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{corrupted_devices, [sel | sdr | fru | ipmb_signal_lines]},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{inaccessible_devices,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[sdr | fru | boot_firmware | optional_firmware]}} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{fatal_hardware_error, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{device_specific_error,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}}]</h3></div>
+    <div class="type"><h3 id="type-session">session() = {session, <a href="#type-target" class="seealso">target()</a>, reference()}</h3></div>
+    <div class="type"><h3 id="type-target">target() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a> | <a href="inet.html#type-hostname" class="seealso">inet:hostname()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/1">ping(IPAddress::ip_address() (see module inet) | hostname() (see module inet)) -&gt; pang | pong</h3>
+
+
+<div class="description">
+
+<p>
+  Pings a given host using RMCP ping. This can be done to check a device for
+  the IPMI capability before opening a session to it. Default receive timeout
+  is 5000 milliseconds. Returns <code>pong</code> if the pinged host supports IPMI,
+  <code>pang</code> otherwise.</p>
+<p><em>See also:</em> <a href="#ping/2" class="seealso">ping/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="ping/1-1">ping(IPAddress::ip_address() (see module inet) | hostname() (see module inet), Timeout::timeout()) -&gt; pang | pong</h3>
+
+
+<div class="description">
+
+<p>
+  Same as <a href="#ping/1" class="seealso">ping/1</a> but allows the specification of a custom receive
+  timeout value in milliseconds.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(IPAddress::ip_address() (see module inet) | hostname() (see module inet)) -&gt; {ok, session() (see module eipmi)} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Opens an IPMI session to a given host. With default parameters. Please note
+  that this will only work for IPMI targets supporting anonymous login. For all
+  other login types at least the <code>password</code> and maybe the <code>user</code> option will be  
+required.</p>
+ 
+  <p>The returned handle can be used to send requests to the target BMC using one
+  of the functions provided by this module (e.g. <a href="#raw/4" class="seealso">raw/4</a>) or close the
+  session using <a href="#close/1" class="seealso">close/1</a>.</p>
+<p><em>See also:</em> <a href="#close/1" class="seealso">close/1</a>, <a href="#open/2" class="seealso">open/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(IPAddress::ip_address() (see module inet) | hostname() (see module inet), Options::[option()]) -&gt; {ok, session() (see module eipmi)} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Same as <a href="#open/1" class="seealso">open/1</a> but allows the specification of the following custom
+  options:
+  </p><taglist>
+    <dt><code>{initial_outbound_seq_nr, non_neg_integer()}</code></dt>
+    <item><p>
+      The initial outbound sequence number that will be requested on the BMC,
+      default is <code>16#1337</code>.
+      </p>
+   </item>
+    <dt><code>{keep_alive_retransmits, non_neg_integer()}</code></dt>
+    <item><p>
+      The number of retransmits allowed for session keep_alive requests,
+      default is <code>2</code>.
+      </p>
+   </item>
+    <dt><code>{password, string() with length &lt;= 16bytes}</code></dt>
+    <item><p>
+      A password string used for authentication when anonymous login is not
+      available, default is <code>""</code>.
+      </p>
+    </item>
+    <dt><code>{port, inet:port_number()}</code></dt>
+    <item><p>
+      The RMCP port the far end is expecting incoming RMCP and IPMI packets,
+      default is <code>623</code>.
+      </p>
+    </item>
+    <dt><code>{privilege, callback | user | operator | administrator}</code></dt>
+    <item><p>
+      The requested privilege level for this session, default is
+      <code>administrator</code>.
+      </p>
+    </item>
+    <dt><code>{rq_addr, 16#81..16#8d}</code></dt>
+    <item><p>
+      The requestor address used in IPMI lan packages, the default value of
+      <code>16#81</code> should be suitable for all common cases.
+      </p>
+    </item>
+    <dt><code>{timeout, non_neg_integer()}</code></dt>
+    <item><p>
+      The timeout for IPMI requests, default is <code>1000ms</code>.
+      </p>
+    </item>
+    <dt><code>{user, string() with length &lt;= 16bytes}</code></dt>
+    <item><p>
+      A user name string used for authentication when neither anonymous nor
+      null user login are available, default is <code>""</code>.
+      </p>
+    </item>
+  </taglist>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Session::session() (see module eipmi)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Closes an IPMI session previously opened with <a href="#open/1" class="seealso">open/1</a> or
+  <a href="#open/2" class="seealso">open/2</a>. This will return <code>{error, no_session}</code> when the given
+  session is not active any more.</p>
+</div></div>
+<div class="function">
+<h3 id="get_device_id/1">get_device_id(Session::session()) -&gt; {ok, device_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get Device Id' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="cold_reset/1">cold_reset(Session::session()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Cold Reset' request using the provided session. This will
+  perform a power cycle of the connected device!</p>
+</div></div>
+<div class="function">
+<h3 id="warm_reset/1">warm_reset(Session::session()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Warm Reset' request using the provided session. This will
+  perform a reset of the connected device!</p>
+</div></div>
+<div class="function">
+<h3 id="get_self_test_results/1">get_self_test_results(Session::session()) -&gt; {ok, self_test()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get Self Test Results' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="get_acpi_power_state/1">get_acpi_power_state(Session::session()) -&gt; {ok, power_state()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get ACPI Power State' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="get_device_guid/1">get_device_guid(Session::session()) -&gt; {ok, [{guid, string()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get Device GUID' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="get_system_guid/1">get_system_guid(Session::session()) -&gt; {ok, [{guid, string()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get System GUID' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="set_session_privilege_level/1">set_session_privilege_level(Session::session(), Privilege::privilege()) -&gt; {ok, [{privilege, privilege()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Set Session Privilege Level' request using the provided
+  session. This can be used to change the increase/decrease the privilege level
+  of the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="read_fru/1">read_fru(Session::session(), FruId::0..254) -&gt; {ok, fru_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Return the FRU inventory data for a specific FRU id. The returned FRU
+  information is a property list that does only contain the available and
+  checksum error free fields of the inventory. If no FRU data is available for
+  a specific id the returned inventory data is the empty list.</p>
+</div></div>
+<div class="function">
+<h3 id="read_frus/1">read_frus(Session::session(), FruIds::[0..254]) -&gt; {ok, [fru_info()]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Basically the same than <a href="#read_fru/2" class="seealso">read_fru/2</a> but allows to read a list of FRU
+  ids.</p>
+<p><em>See also:</em> <a href="#read_fru/2" class="seealso">read_fru/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_fru_inventory/1">read_fru_inventory(Session::session(), SdrRepository::[entry() (see module eipmi_sdr)]) -&gt; {ok, fru_inventory()} | {error, [term()]}</h3>
+
+
+<div class="description">
+
+<p>
+  Return the FRU inventory data for all FRU represented by a FRU Device Locator
+  Record in the Sensor Data Record (SDR) Repository.</p>
+<p><em>See also:</em> <a href="#read_fru/2" class="seealso">read_fru/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_sdr/1">get_sdr(Session::session(), RecordId::non_neg_integer()) -&gt; {ok, sdr()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>  
+Return a specific record from the Sensor Data Record (SDR) Repository.</p>
+ 
+  <p>Reading of the SDR may fail (e.g. return <code>{error, term()}</code>) when the
+  reservation for SDR reading with non-zero offsets gets cancelled. This is not
+  a severe error. It is most likely that the SDR can be read successfully when
+  retried.</p>
+</div></div>
+<div class="function">
+<h3 id="get_sdr_repository/1">get_sdr_repository(Session::session()) -&gt; {ok, sdr_repository()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>  
+Return all records contained in the Sensor Data Record (SDR) Repository.  
+Please note that reading the complete SDR repository may take a significant  
+amount of time since there may be lots of sensor available.</p>
+ 
+  <p>Reading of the SDR may fail (e.g. return <code>{error, term()}</code>) when the
+  reservation for SDR reading with non-zero offsets gets cancelled. This is not
+  a severe error. It is most likely that the SDR can be read successfully when
+  retried.</p>
+</div></div>
+<div class="function">
+<h3 id="get_sdr_repository/1-1">get_sdr_repository(Session::session(), Previous::sdr_repository()) -&gt; {ok, sdr_repository()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Basically the same as <a href="#read_sdr_repository/1" class="seealso">read_sdr_repository/1</a> but the SDR will only be  
+read when there were changes compared to the given SDR repository (regarding)  
+modification timestamps. In case the SDR repository did not receive any  
+updates the given old SDR repository is returned.</p>
+ 
+  <p>Reading of the SDR may fail (e.g. return <code>{error, term()}</code>) when the
+  reservation for SDR reading with non-zero offsets gets cancelled. This is not
+  a severe error. It is most likely that the SDR can be read successfully when
+  retried.</p>
+</div></div>
+<div class="function">
+<h3 id="get_sdr_repository_info/1">get_sdr_repository_info(Session::session()) -&gt; {ok, sdr_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get SDR Repository Info' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="get_sel/1">get_sel(Session::session(), Clear::boolean()) -&gt; {ok, [sel_entry()]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>  
+Return all currently available entries from the System Event Log (SEL). The  
+returned SEL entries are property lists that do only contain the available  
+and checksum error free fields of the respective entry. Using the second  
+argument the SEL can optionally be cleared after reading.</p>
+ 
+  <p>Clearing the SEL may fail in rare cases when the reservation for SEL
+  clearance gets cancelled by the BMC. This will be ignored. However in this
+  case the following read may return duplicates of already read events.</p>
+</div></div>
+<div class="function">
+<h3 id="poll_sel/1">poll_sel(Session::session()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will start a dedicated server that polls the system event log using a
+  specific session every 500ms. When polling is enabled the SEL will
+  periodically be read and all events will be forwarded to the subscribed event
+  handlers registered with <a href="#add_handler/2" class="seealso">add_handler/2</a> or <a href="#add_sup_handler/3" class="seealso">add_sup_handler/3</a>.</p>
+ 
+  <p>The automatic polling can be stopped by shutting down or exiting the returned
+  process. The process will exit automatically when its corresponding session
+  is closed or has errors.</p>
+</div></div>
+<div class="function">
+<h3 id="poll_sel/1-1">poll_sel(Session::session(), Interval::non_neg_integer(), Clear::boolean()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Basically the same as <a href="#poll_sel/1" class="seealso">poll_sel/1</a> but allows the specification of the
+  <code>Interval</code> and <code>Clear</code> options. While <code>Interval</code> specifies the minimum
+  interval between two consecutive SEL reads the <code>Clear</code> flag indicates whether
+  the SEL should be cleared after a read.</p>
+</div></div>
+<div class="function">
+<h3 id="clear_sel/1">clear_sel(Session::session()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Clears all current records from the System Event Log (SEL).</p>
+</div></div>
+<div class="function">
+<h3 id="get_sel_info/1">get_sel_info(Session::session()) -&gt; {ok, sel_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get SEL Info' request using the provided session.</p>
+</div></div>
+<div class="function">
+<h3 id="get_ip_udp_rmcp_statistics/1">get_ip_udp_rmcp_statistics(Session::session(), Clear::boolean()) -&gt; {ok, network_statistics()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get IP/UDP/RMCP Statistics' request using the provided session.
+  The statistics can optionally be cleared.</p>
+</div></div>
+<div class="function">
+<h3 id="get_picmg_properties/1">get_picmg_properties(Session::session()) -&gt; {ok, picmg_properties()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a 'Get PICMG Properties' request using the provided session. This
+  will return the (current) highest used FRU Id and the supported PICMG
+  extension (amongst others).</p>
+</div></div>
+<div class="function">
+<h3 id="get_address_info/1">get_address_info(Session::session()) -&gt; {ok, picmg_address_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Get Address Info' request using the provided session.
+  This version will return addressing info of the implementing MCMC.</p>
+</div></div>
+<div class="function">
+<h3 id="get_address_info/1-1">get_address_info(Session::session(), FruId::0..254) -&gt; {ok, picmg_address_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Get Address Info' request using the provided session.
+  This version will return addressing info associated with the requested FRU.</p>
+</div></div>
+<div class="function">
+<h3 id="get_address_info/1-2">get_address_info(Session::session(), SiteType::0..254, SiteNumber::picmg_site_type()) -&gt; {ok, picmg_address_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Get Address Info' request using the provided session.
+  This version will return addressing info associated with the requested site.</p>
+</div></div>
+<div class="function">
+<h3 id="set_fru_activation_policy/1">set_fru_activation_policy(Session::session(), FruId::0..254, Flags::[{locked, boolean()} | {deactivation_locked, boolean()}]) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Set FRU Activation Policy' request using the provided
+  session. This can be used to lock FRUs from beeing deactivated or from
+  getting reactivated automatically.</p>
+</div></div>
+<div class="function">
+<h3 id="get_fru_activation_policy/1">get_fru_activation_policy(Session::session(), FruId::0..254) -&gt; {ok, [{locked, boolean()} | {deactivation_locked, boolean()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Get FRU Activation Policy' request using the provided
+  session.</p>
+</div></div>
+<div class="function">
+<h3 id="set_fru_activation/1">set_fru_activation(Session::session(), FruId::0..254, Activate::boolean()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Set FRU Activation' request using the provided session.
+  This will power up/down the requested FRU.</p>
+</div></div>
+<div class="function">
+<h3 id="fru_control/1">fru_control(Session::session(), FruId::0..254, Action::picmg_fru_control()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'FRU Control' request using the provided session. This can
+  be used to power cycle, reset, etc. the requested FRU.</p>
+</div></div>
+<div class="function">
+<h3 id="get_device_locator_record_id/1">get_device_locator_record_id(Session::session(), FruId::0..254) -&gt; {ok, [{record_id, non_neg_integer()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Will issue a PICMG 'Get Device Locator Record Id' request using the provided
+  session. This can be used to retrieve the record id of a 'FRU Device Locator
+  Record' for a specific FRU. Having this idea makes it possible to read this
+  record directly using <a href="#get_sdr/2" class="seealso">get_sdr/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="raw/1">raw(Session::session(), NetFn::req_net_fn(), Command::0..255, Properties::proplist() (see module proplists)) -&gt; ok | {ok, proplist() (see module proplists)} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Sends a raw IPMI command over a given session. DO NOT USE THIS unless you
+  really know what you're doing! The main purpose of this function is to test
+  implementations of new request/repsonse pairs.</p>
+</div></div>
+<div class="function">
+<h3 id="sel_to_sdr/1">sel_to_sdr(X1::sel_entry(), SdrRepository::sdr_repository()) -&gt; {ok, sdr()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Sensor Data Record (SDR) from the SDR repository associated with
+  an entry in the System Event Log (SEL), if any.</p>
+</div></div>
+<div class="function">
+<h3 id="sel_to_fru/1">sel_to_fru(SelEntry::sel_entry(), SdrRepository::sdr_repository()) -&gt; {ok, sdr()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the FRU Device Locator Record associated with an entry in the System
+  Event Log (SEL), if any.</p>
+</div></div>
+<div class="function">
+<h3 id="sel_to_fru/1-1">sel_to_fru(SelEntry::sel_entry(), SdrRepository::sdr_repository(), FruInventory::fru_inventory()) -&gt; {ok, fru_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the FRU inventory data associated with an entry in the System
+  Event Log (SEL), if any.</p>
+</div></div>
+<div class="function">
+<h3 id="sdr_to_fru/1">sdr_to_fru(X1::sdr(), SdrRepository::sdr_repository()) -&gt; {ok, sdr()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the FRU Device Locator Record associated with a specific sensor from
+  the Sensor Data Record (SDR) repository, if any.</p>
+</div></div>
+<div class="function">
+<h3 id="sdr_to_fru/1-1">sdr_to_fru(Sdr::sdr(), SdrRepository::sdr_repository(), FruInventory::fru_inventory()) -&gt; {ok, fru_info()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the FRU inventory data associated with a specific sensor from the
+  Sensor Data Record (SDR) repository, if any.</p>
+</div></div>
+<div class="function">
+<h3 id="add_handler/1">add_handler(Handler::module() | {module(), term()}, Args::term()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Registers/adds a handler for session related events. The handler module must
+  implement the <a href="gen_event.html" class="seealso">gen_event</a> behaviour. For more information on the
+  arguments <code>Handler</code> and <code>Args</code> refer to <a href="gen_event.html#add_handler/3" class="seealso">gen_event:add_handler/3</a>.
+  The event handling module should be prepared to receive the following events
+  on the <code>handle_event/2</code> callback:
+  </p><taglist>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        established}</code>
+    </dt>
+    <item><p>the session was successfully established and activated</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {closed, Reason :: term()}}</code>
+    </dt>
+    <item><p>the session was closed with the provided reason</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {decode_error, Reason :: term()}}</code>
+    </dt>
+    <item><p>a received packet could not be decoded</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {timeout, RqSeqNr :: 0..63}}</code>
+    </dt>
+    <item><p>the corresponding request timed out</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {unhandled, {call, term()}}}</code>
+    </dt>
+    <item><p>the session received an invalid <code>gen_server</code> call</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {unhandled, {cast, term()}}}</code>
+    </dt>
+    <item><p>the session received an invalid <code>gen_server</code> cast</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {unhandled, {info, term()}}}</code>
+    </dt>
+    <item><p>the session received an invalid message</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        {unhandled, {ipmi, {ok | error, term()}}}}</code>
+    </dt>
+    <item><p>the session received an IPMI response but no handler was found for it</p>
+    </item>
+    <dt>
+      <code>{ipmi,
+        Session :: session(),
+        Address :: inet:ip_address() | inet:hostname(),
+        SELEntry :: sel_entry()}</code>
+    </dt>
+    <item><p>
+        a SEL event forwarded through the automatic SEL polling mechanism
+      </p>
+    </item>
+  </taglist>
+</div></div>
+<div class="function">
+<h3 id="add_sup_handler/1">add_sup_handler(Handler::module() | {module(), term()}, Args::term()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Basically the same than <a href="#add_handler/2" class="seealso">add_handler/2</a> but with supervised
+  subscription as described by <a href="gen_event.html#add_sup_handler/3" class="seealso">gen_event:add_sup_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_handler/1">delete_handler(Handler::module() | {module(), term()}, Args::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+  Unregisters/removes a handler for session related events previously added
+  using <a href="#add_handler/2" class="seealso">add_handler/2</a> or <a href="#add_sup_handler/2" class="seealso">add_sup_handler/2</a>. For more
+  information refer to on the arguments <a href="gen_event.html#delete_handler/3" class="seealso">gen_event:delete_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/0">stats() -&gt; [{sessions, [session()]} | {handlers, [module() | {module(), term()}]}]</h3>
+
+
+<div class="description">
+
+<p>
+  Returns statistical information about the currently opened sessions and the
+  registered event handlers.</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; ok | {error, [term()]}</h3>
+
+
+<div class="description">
+
+<p>
+  Starts the <code>eipmi</code> applications along with all its depdendent applications.
+  This function is not intended for normal application startup in an erlang
+  release. It exists only for the purpose of instantly creating an <code>eipmi</code>
+  playground from the erlang shell.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

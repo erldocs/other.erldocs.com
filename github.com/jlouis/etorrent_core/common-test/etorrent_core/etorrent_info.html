@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_info (etorrent_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_info</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bcode">bcode() = <a href="etorrent_types.html#type-bcode" class="seealso">etorrent_types:bcode()</a></h3></div>
+    <div class="type"><h3 id="type-file_id">file_id() = <a href="etorrent_types.html#type-file_id" class="seealso">etorrent_types:file_id()</a></h3></div>
+    <div class="type"><h3 id="type-pieceset">pieceset() = <a href="etorrent_pieceset.html#type-t" class="seealso">etorrent_pieceset:t()</a></h3></div>
+    <div class="type"><h3 id="type-torrent_id">torrent_id() = <a href="etorrent_types.html#type-torrent_id" class="seealso">etorrent_types:torrent_id()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(TorrentID::torrent_id(), Torrent::bcode()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the File I/O Server</p>
+</div></div>
+<div class="function">
+<h3 id="register_server/1">register_server(TorrentID::torrent_id()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>
+  Register the current process as the directory server for
+  the given torrent.</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_server/1">lookup_server(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>
+  Lookup the process id of the directory server responsible
+  for the given torrent. If there is no such server registered
+  this function will crash.</p>
+</div></div>
+<div class="function">
+<h3 id="await_server/1">await_server(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>
+  Wait for the directory server for this torrent to appear
+  in the process registry.</p>
+</div></div>
+<div class="function">
+<h3 id="get_mask/1">get_mask(TorrentID::torrent_id(), FileID::file_id() | [file_id()]) -&gt; pieceset()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_mask/3">get_mask(TorrentID, FileID, IsGreedy) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Build a mask of the file in the torrent.</p>
+</div></div>
+<div class="function">
+<h3 id="get_mask/4">get_mask(TorrentID, FileID, PartStart, PartSize) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Build a mask of the part of the file in the torrent.</p>
+</div></div>
+<div class="function">
+<h3 id="mask_to_filelist/2">mask_to_filelist(TorrentID, Mask) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns ids of each file, all pieces of that are in the pieceset <code>Mask</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="mask_to_size/2">mask_to_size(TorrentID, Mask) -&gt; Size</h3>
+
+<ul class="type">
+<li><code>TorrentID = torrent_id()</code></li><li><code>Mask = pieceset()</code></li><li><code>Size = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Returns a size of the selected pieces in the pieceset in bytes.</p>
+</div></div>
+<div class="function">
+<h3 id="piece_size/1">piece_size(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="piece_size/2">piece_size(TorrentID, PieceNum) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chunk_size/1">chunk_size(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="piece_count/1">piece_count(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_private/1">is_private(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="file_position/2">file_position(TorrentID, FileID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="file_size/2">file_size(TorrentID, FileID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="magnet_link/1">magnet_link(TorrentID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="tree_children/1">tree_children(TorrentID::torrent_id(), FileID::file_id()) -&gt; [[{atom(), term()}]]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="file_diff/2">file_diff(TorrentID, FilePLs) -&gt; {FileDiffPLs, NewFilePLs}</h3>
+
+<ul class="type">
+<li><code>TorrentID = torrent_id()</code></li><li><code>FilePLs = [{term(), term()}]</code></li><li><code>NewFilePLs = [{term(), term()}]</code></li><li><code>FileDiffPLs = [{term(), term()}]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="minimize_filelist/2">minimize_filelist(TorrentID, FileIds) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Form minimal version of the filelist with the same pieceset.</p>
+</div></div>
+<div class="function">
+<h3 id="long_file_name/1">long_file_name(TorrentID::torrent_id(), FileID::file_id() | [file_id()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>This name is used in cascadae wish view.</p>
+</div></div>
+<div class="function">
+<h3 id="full_file_name/2">full_file_name(TorrentID, FileID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="file_name/2">file_name(TorrentID, FileID) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert FileID to relative file name.</p>
+</div></div>
+<div class="function">
+<h3 id="metadata_size/1">metadata_size(TorrentID::torrent_id()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_piece/2">get_piece(TorrentID, PieceNum) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Uvarov Michail</aname>
+<email>arcusfelis@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','hellow_erlang','hellow_erlang','[application]'],['mod','hellow_erlang','hlw','@todo Add description to hlw.'],['fun','hellow_erlang','hlw:hellow/0',[]]];

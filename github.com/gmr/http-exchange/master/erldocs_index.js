@@ -1,0 +1,1 @@
+var index = [['app','http-exchange','http-exchange','[application]'],['mod','http-exchange','rabbit_http_exchange_app',[]],['fun','http-exchange','rabbit_http_exchange_app:init/1',[]],['fun','http-exchange','rabbit_http_exchange_app:start/2',[]],['fun','http-exchange','rabbit_http_exchange_app:stop/1',[]]];

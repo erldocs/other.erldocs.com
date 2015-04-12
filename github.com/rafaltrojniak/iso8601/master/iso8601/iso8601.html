@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>iso8601 (iso8601) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>iso8601</h1>
+<h2 class="modsummary">
+   This application allows to parse and format date, time, intervals
+   and recurring intervals as described in ISO8601 standard.</h2>
+<div class="description">
+<p>
+   This application allows to parse and format date, time, intervals
+   and recurring intervals as described in ISO8601 standard</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-date_format">date_format() = calendar<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| calendar_extended<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| calendar_month<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| calendar_year<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| calendar_century<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ordinal<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ordinal_extended<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| weekday<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| weekday_extended<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| week<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| week_extended</h3></div>
+    <div class="type"><h3 id="type-time_difference">time_difference() = integer()</h3></div>
+    <div class="type"><h3 id="type-time_format">time_format() = general<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_extended<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_minute<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_minute_extended<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_hour<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_frac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_extended_frac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_minute_frac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_minute_extended_frac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| general_hour_frac</h3></div>
+    <div class="type"><h3 id="type-timezone_format">timezone_format() = utc | hour | minute | minute_extended</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse_date/1">parse_date(Date::binary() | nonempty_string()) -&gt; {Date::date() (see module calendar), Format::date_format()}</h3>
+
+
+<div class="description">
+
+<p>	Parses dates autodetecting one of formats specified in standard</p>
+ 
+  <p>This function Detects format of the date as specified in ISO 8601 standard section 4.1.
+  The autodetection is based on length, and position of separators ( like "-" )
+  or special characters ( like "W" )</p>
+</div></div>
+<div class="function">
+<h3 id="format_date/1">format_date(Date::date() (see module calendar)) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#format_date/2" class="seealso">format_date(Date, calendar)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="format_date/1-1">format_date(Date::date() (see module calendar), Type::date_format()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p> Formats date according to supplied format</p>
+</div></div>
+<div class="function">
+<h3 id="parse_time/1">parse_time(String::nonempty_string()) -&gt; {{Time::time() (see module calendar), MicroSec::non_neg_integer()}, Format::time_format()}</h3>
+
+
+<div class="description">
+
+<p>	Parses time in specified format</p>
+</div></div>
+<div class="function">
+<h3 id="format_time/1">format_time(Time::time() (see module calendar), Utime::non_neg_integer()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats time wigh general, or general_frac format</p>
+</div></div>
+<div class="function">
+<h3 id="format_time/1-1">format_time(Time::time() (see module calendar), Utime::non_neg_integer(), Format::time_format()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats time according to supplied format</p>
+</div></div>
+<div class="function">
+<h3 id="parse_localtime/1">parse_localtime(String::nonempty_string()) -&gt; {{Time::time() (see module calendar), MicroSec::non_neg_integer(), TD::time_difference()}, {TimeFormat::time_format(), TZFormat::timezone_format()}}</h3>
+
+
+<div class="description">
+
+<p>	Parses localtime (time with timezone)</p>
+</div></div>
+<div class="function">
+<h3 id="format_localtime/1">format_localtime(Time::time() (see module calendar), Utime::non_neg_integer(), TZ::integer()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats local time with default format</p>
+</div></div>
+<div class="function">
+<h3 id="format_localtime/1-1">format_localtime(Time::time() (see module calendar), Utime::non_neg_integer(), TZ::integer(), Format::time_format(), TZFormat::timezone_format()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats local time according to supplied format</p>
+</div></div>
+<div class="function">
+<h3 id="format_timezone/1">format_timezone(TZ::integer()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats timezone  with defualt format</p>
+</div></div>
+<div class="function">
+<h3 id="format_timezone/1-1">format_timezone(TZ::integer(), TZFormat::timezone_format()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats timeozne according to supplied format</p>
+</div></div>
+<div class="function">
+<h3 id="parse_datetime/1">parse_datetime(String::nonempty_string()) -&gt; {{Date::date() (see module calendar), Time::time() (see module calendar), MicroSec::non_neg_integer(), TD::time_difference()}, {DateFormat::date_format(), TimeFormat::time_format()}}</h3>
+
+
+<div class="description">
+
+<p>	Parses datetime with default format</p>
+</div></div>
+<div class="function">
+<h3 id="format_datetime/1">format_datetime(Date::date() (see module calendar), Time::time() (see module calendar), Utime::non_neg_integer()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats datetime with default format</p>
+</div></div>
+<div class="function">
+<h3 id="format_datetime/1-1">format_datetime(Date::date() (see module calendar), Time::time() (see module calendar), Utime::non_neg_integer(), DateFormat::date_format(), TimeFormat::time_format()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats datetime according to supplied format</p>
+</div></div>
+<div class="function">
+<h3 id="parse_localdatetime/1">parse_localdatetime(String::nonempty_string()) -&gt; {{Date::date() (see module calendar), Time::time() (see module calendar), MicroSec::non_neg_integer(), TD::time_difference()}, {DateFormat::date_format(), TimeFormat::time_format(), TZFormat::timezone_format()}}</h3>
+
+
+<div class="description">
+
+<p>	Parses local datetime</p>
+</div></div>
+<div class="function">
+<h3 id="format_localdatetime/1">format_localdatetime(Date::date() (see module calendar), Time::time() (see module calendar), Utime::non_neg_integer(), TZ::integer()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats local datetime using default format</p>
+</div></div>
+<div class="function">
+<h3 id="format_localdatetime/1-1">format_localdatetime(Date::date() (see module calendar), Time::time() (see module calendar), Utime::non_neg_integer(), TZ::integer(), DateFormat::date_format(), TimeFormat::time_format(), TZFormat::timezone_format()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>    Formats local datetime according to supplied format</p>
+</div></div></div>
+
+<authors>
+
+<aname>Rafał Trójniak</aname>
+<email>rafal@trojniak.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

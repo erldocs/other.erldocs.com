@@ -1,0 +1,1 @@
+var index = [['app','chi2','chi2','[application]'],['mod','chi2','chi2',[]],['fun','chi2','chi2:get_total/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','dikuchat','dikuchat','[application]'],['mod','dikuchat','dikuchat',[]],['fun','dikuchat','dikuchat:start_server/1',[]]];

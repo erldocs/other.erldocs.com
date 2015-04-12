@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lucene (lucene_server) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lucene</h1>
+<h2 class="modsummary">Lucene Interface.</h2>
+<div class="description">
+<p>Lucene Interface.
+   Use it to add/del/query documents</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-doc">doc() = [{<a href="#type-field_key" class="seealso">field_key()</a>, <a href="#type-field_value" class="seealso">field_value()</a>}, ...]</h3></div>
+    <div class="type"><h3 id="type-field_key">field_key() = atom() | binary() | string()</h3></div>
+    <div class="type"><h3 id="type-field_value">field_value() = number() | atom() | string() | <a href="#type-geo" class="seealso">geo()</a></h3></div>
+    <div class="type"><h3 id="type-geo">geo() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#geo{lat = undefined | float(), lng = undefined | float()}</h3></div>
+    <div class="type"><h3 id="type-metadata">metadata() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{page_token, <a href="#type-page_token" class="seealso">page_token()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{total_hits, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{first_hit, integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-page_token">page_token() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p> Starts a new monitor</p>
+</div></div>
+<div class="function">
+<h3 id="process/0">process() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Returns the pid of the lucene process</p>
+</div></div>
+<div class="function">
+<h3 id="match/1">match(Query::string(), PageSize::pos_integer()) -&gt; {[doc()], metadata()} | '$end_of_table'</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#match/3" class="seealso">match(Query, PageSize, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="match/1-1">match(Query::string(), PageSize::pos_integer(), SortFields::[atom()]) -&gt; {[doc()], metadata()} | '$end_of_table'</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#match/4" class="seealso">match(Query, PageSize, SortFields, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="match/1-2">match(Query::string(), PageSize::pos_integer(), SortFields::[atom()], Timeout::infinity | pos_integer()) -&gt; {[doc()], metadata()} | '$end_of_table'</h3>
+
+
+<div class="description">
+
+<p>Runs a query against the lucene server</p>
+</div></div>
+<div class="function">
+<h3 id="continue/1">continue(PageToken::page_token(), PageSize::pos_integer()) -&gt; {[string()], metadata()} | '$end_of_table'</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#continue/3" class="seealso">continue(PageToken, PageSize, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="continue/1-1">continue(PageToken::page_token(), PageSize::pos_integer(), Timeout::infinity | pos_integer()) -&gt; {[string()], metadata()} | '$end_of_table'</h3>
+
+
+<div class="description">
+
+<p>Continues a Query where it was left</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the java process</p>
+</div></div>
+<div class="function">
+<h3 id="clear/0">clear() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Clears the whole index.
+       <em>USE IT WITH CAUTION</em></p>
+</div></div>
+<div class="function">
+<h3 id="add/1">add(Docs::[doc()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Registers a list of docs</p>
+</div></div>
+<div class="function">
+<h3 id="del/1">del(Query::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes docs matching a certain query</p>
+</div></div></div>
+
+<authors>
+
+<aname>Fernando Benavides</aname>
+<email>elbrujohalcon@inaka.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

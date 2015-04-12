@@ -1,0 +1,1 @@
+var index = [['app','epoxy','epoxy','[application]'],['mod','epoxy','channel',[]],['mod','epoxy','epoxy',[]],['fun','epoxy','channel:pipe_channel/2',[]],['fun','epoxy','epoxy:start/2',[]],['fun','epoxy','epoxy:stop/1',[]]];

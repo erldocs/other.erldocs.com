@@ -1,0 +1,1 @@
+var index = [['app','erl-ini','erl-ini','[application]'],['mod','erl-ini','ini',[]],['fun','erl-ini','ini:get/2',[]],['fun','erl-ini','ini:get/3',[]],['fun','erl-ini','ini:read/1',[]],['fun','erl-ini','ini:set/3',[]],['fun','erl-ini','ini:set/4',[]],['fun','erl-ini','ini:write/2',[]]];

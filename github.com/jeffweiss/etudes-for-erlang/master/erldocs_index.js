@@ -1,0 +1,1 @@
+var index = [['app','etudes-for-erlang','etudes-for-erlang','[application]'],['mod','etudes-for-erlang','geom','sample solution to Études for Erlang 2-1.'],['fun','etudes-for-erlang','geom:area/1','Calculate area of rectange (or rhombus).']];

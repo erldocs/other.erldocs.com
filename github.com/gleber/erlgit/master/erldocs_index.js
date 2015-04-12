@@ -1,0 +1,1 @@
+var index = [['app','erlgit','erlgit','[application]'],['mod','erlgit','git_utils',[]],['fun','erlgit','git_utils:fformat/2',[]],['fun','erlgit','git_utils:join/2',[]],['fun','erlgit','git_utils:mkdir/1',[]],['fun','erlgit','git_utils:strip/1',[]]];

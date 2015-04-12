@@ -1,0 +1,1 @@
+var index = [['app','redis-benchmark','redis-benchmark','[application]'],['mod','redis-benchmark','server',[]],['fun','redis-benchmark','server:start/1',[]],['fun','redis-benchmark','server:worker/1',[]]];

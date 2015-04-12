@@ -1,0 +1,1 @@
+var index = [['app','erlang-dbus','erlang-dbus','[application]'],['mod','erlang-dbus','dbus_sup','      Top supervisor.'],['fun','erlang-dbus','dbus_sup:init/1',[]],['fun','erlang-dbus','dbus_sup:start_link/0','Start supervisor.']];

@@ -1,0 +1,1 @@
+var index = [['app','erlang-lex','erlang-lex','[application]'],['mod','erlang-lex','regexp_parse',[]],['fun','erlang-lex','regexp_parse:format_error/1',[]],['fun','erlang-lex','regexp_parse:string/1',[]]];

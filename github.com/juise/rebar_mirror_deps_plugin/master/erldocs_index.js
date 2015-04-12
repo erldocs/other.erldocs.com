@@ -1,0 +1,1 @@
+var index = [['app','rebar_mirror_deps_plugin','rebar_mirror_deps_plugin','[application]'],['mod','rebar_mirror_deps_plugin','rebar_mirror_deps_plugin',[]],['fun','rebar_mirror_deps_plugin','rebar_mirror_deps_plugin:post_get-deps/2',[]],['fun','rebar_mirror_deps_plugin','rebar_mirror_deps_plugin:pre_get-deps/2',[]]];

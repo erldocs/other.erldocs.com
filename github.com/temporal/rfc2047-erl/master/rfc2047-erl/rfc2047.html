@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rfc2047 (rfc2047-erl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rfc2047</h1>
+<h2 class="modsummary">   
+RFC2047 Decoder - a simple tool to decode strings conforming to   
+RFC2047 that can be found in e-mail headers and convert them to   
+unified UCS-4 (Unicode) representation.</h2>
+<div class="description">
+<p>   
+RFC2047 Decoder - a simple tool to decode strings conforming to   
+RFC2047 that can be found in e-mail headers and convert them to   
+unified UCS-4 (Unicode) representation.</p>
+  
+   <p>The <em>primary goal is to make this library interpret strings as close
+   to the way RFC2047 describes it as possible</em> - including those tricky   
+edge cases. Therefore, unless otherwise noted, every case when   
+this library interprets a string one way, and RFC2047 says   
+something else, it should be considered as a bug.</p>
+  
+   <p>This library uses <url href="http://github.com/Vagabond/erlang-iconv/">erlang-iconv</url>
+   for charset conversions. Therefore, you need to have it installed on
+   your system before using <code>RFC2047 Decoder</code>. Moreover, you should have
+   <code>iconv</code> started (ie. by calling <code>iconv:start/0</code>) before calling any   
+function from this library.</p>
+  
+   <p>All functions operate on header field body, passed as binary string.
+   Because some headers (called "structured fields" in RFC 2047) have additional
+   processing rules regarding encoded words, you should supply information whether
+   input should be decoded as <code>structured-field</code> or normal text. See decode/2 for details.</p>
+  
+   <p>The output of this library is a list (or ioList) of UCS-4 code points.</p>
+  
+   <em>Usage example</em>
+  
+   A typical <code>From:</code> header may contain a following address:
+   <code>From: =?ISO-8859-2?Q?Andr=E9?= Pirard &lt;PIRARD@vml.ulg.ac.be&gt;</code>.
+   Because <code>From:</code> is a <code>structured-field</code>, an example decoding process would look like:
+   <pre class="sh_erlang">   &gt; rfc2047:decode(&lt;&lt;"=?ISO-8859-2?Q?Andr=E9?= Pirard &lt;PIRARD@vml.ulg.ac.be&gt;"&gt;&gt;, structured_field).
+   "André Pirard &lt;PIRARD@vml.ulg.ac.be&gt;"</pre>
+  
+   For information whether a given header is <code>structured-field</code> or normal, see RFC 822.</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="decode/1">decode(Encoded::binary()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>     
+Returns a list of UCS-4 Code Points, with each number representing     
+a single code point.</p>
+  
+     Equivalent to: <code>decode(Encoded, normal)</code>.
+<p><em>See also:</em> <a href="#decode/2" class="seealso">decode/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(Encoded::binary(), Mode::atom()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>
+     Returns a list of UCS-4 Code Points, with each number representing
+     a single code point. <code>Encoded</code> should be a binary representing     
+text data following rules described in RFC2047. This function will     
+decode Q-encoded and B-encoded strings and unify all charsets     
+into single UCS-4 representation.</p>
+  
+     <code>Mode</code> should take one of two values:
+      <list>
+           <item><p><code>normal</code> - interpret input as normal text (like in <code>Subject</code> header)</p></item>
+           <item><p><code>structured_field</code> - interpret input as structured field, which can contain comments in parentheses.</p></item>
+      </list>
+</div></div>
+<div class="function">
+<h3 id="decode2iolist/1">decode2iolist(Encoded::binary()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>     
+Returns an iolist of UCS-4 Code Points, with each number representing     
+a single code point.</p>
+  
+     Equivalent to <code>decode2iolist(Encoded, normal)</code>.
+<p><em>See also:</em> <a href="#decode2iolist/2" class="seealso">decode2iolist/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="decode2iolist/1-1">decode2iolist(Encoded::binary(), Mode::atom()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>
+     Returns an iolist of UCS-4 Code Points, with each number representing
+     a single code point. <code>Encoded</code> should be a binary representing     
+text data following rules described in RFC2047. This function will     
+decode Q-encoded and B-encoded strings and unify all charsets     
+into single UCS-4 representation.</p>
+  
+     For description of <code>Mode</code> parameter and allowed values, see decode/2.
+<p><em>See also:</em> <a href="#decode/2" class="seealso">decode/2</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jacek Zlydach</aname>
+<email>jacek.zlydach@erlang-solutions.com</email>
+<aname>Krzysztof Goj</aname>
+<email>krzysztof.goj@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

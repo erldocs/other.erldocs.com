@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>proc_mobility (proc_mobility) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>proc_mobility</h1>
+<h2 class="modsummary">
+   Main module exporting API to process migration.</h2>
+<div class="description">
+<p>
+   Main module exporting API to process migration.
+   To use this mechanism functions from this module should be used.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-destination">destination() = node() | {tcp, binary(), integer()}</h3></div>
+    <div class="type"><h3 id="type-mproc_state">mproc_state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#mproc_state{name = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;code = list()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="migrate/1">migrate(PState::mproc_state(), Target::destination()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>sends process to given destination
+  Destination can be a node in erlang cluster
+  or node outside the cluster but with proc_mobility_tcp_server started</p>
+</div></div>
+<div class="function">
+<h3 id="started/1">started(Listener) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send/1">send(Proc::atom(), Msg::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Sends message to mobile process
+  Calling process location is transparent, it can be on the same node, other node in cluster
+  or outside the cluster if mobility mechanism is configured to work over plain TCP connections</p>
+</div></div>
+<div class="function">
+<h3 id="whereis_name/1">whereis_name(Proc::atom()) -&gt; pid() | unknown</h3>
+
+
+<div class="description">
+
+<p>Return pid of mobile process
+  It can be distributed process pid or process proxy pid if migrated outside Erlang cluster	</p>
+</div></div>
+<div class="function">
+<h3 id="register_name/1">register_name(Name::atom(), Pid::pid()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Registers given mobile process.
+  Has to be called by registering process 	</p>
+</div></div>
+<div class="function">
+<h3 id="unregister_name/1">unregister_name(Name::atom()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Unregister previously registered mobile process name</p>
+</div></div>
+<div class="function">
+<h3 id="get_tcp_server_port/0">get_tcp_server_port() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns current node TCP port number on which listens for migration requests outside cluster</p>
+</div></div></div>
+
+<authors>
+
+<aname>Michal Piotrowski</aname>
+<email>michalwski@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

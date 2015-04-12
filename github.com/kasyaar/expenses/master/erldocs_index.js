@@ -1,0 +1,1 @@
+var index = [['app','expenses','expenses','[application]'],['mod','expenses','expenses_app',[]],['mod','expenses','expenses_handler',[]],['mod','expenses','expenses_sup',[]],['fun','expenses','expenses_app:start/2',[]],['fun','expenses','expenses_app:stop/1',[]],['fun','expenses','expenses_sup:init/1',[]],['fun','expenses','expenses_sup:start_link/0',[]]];

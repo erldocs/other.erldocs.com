@@ -1,0 +1,1 @@
+var index = [['app','erpc','erpc','[application]'],['mod','erpc','erpc',[]],['mod','erpc','erpc_tests',[]],['fun','erpc','erpc:call/1',[]],['fun','erpc','erpc:call/1',[]],['fun','erpc','erpc:handle_call/3',[]],['fun','erpc','erpc:handle_call/4',[]]];

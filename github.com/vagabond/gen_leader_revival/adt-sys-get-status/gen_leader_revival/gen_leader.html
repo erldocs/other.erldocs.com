@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_leader (gen_leader_revival) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_leader</h1>
+<h2 class="modsummary">Leader election behavior.</h2>
+<div class="description">
+<p>Leader election behavior.
+   </p><p>This application implements a leader election behavior modeled after
+   gen_server. This behavior intends to make it reasonably
+   straightforward to implement a fully distributed server with
+   master-slave semantics.</p>
+   <p>The gen_leader behavior supports nearly everything that gen_server
+   does (some functions, such as multicall() and the internal timeout,
+   have been removed), and adds a few callbacks and API functions to
+   support leader election etc.</p>
+   <p>Also included is an example program, a global dictionary, based
+   on the modules gen_leader and dict. The callback implementing the
+   global dictionary is called 'test_cb', for no particularly logical
+   reason.</p>
+   <p><em>New version:</em> The internal leader election algorithm was faulty
+   and has been replaced with a new version based on a different leader
+   election algorithm. As a consequence of this the query functions
+   <code>alive</code> and <code>down</code> can no longer be provided.
+   The new algorithm also make use of an incarnation parameter, by
+   default written to disk in the function <code>incarnation</code>. This
+   implies that only one <code>gen_leader</code> per node is permitted, if
+   used in a diskless environment, <code>incarnation</code> must be adapted.
+   </p>
+   <p>
+   Modifications contributed by Serge Aleynikov:
+   </p><list>
+   <item>Added configurable startup options (see leader_options() type)</item>
+   <item>Implemented handle_DOWN/3 callback with propagation of the
+       leader's state via broadcast to all connected candidates.</item>
+   <item>Fixed population of the #election.down member so that down/1 query
+       can be used in the behavior's implementation</item>
+   <item>Rewrote implementation of the tau timer to prevent the leader
+       looping on the timer timeout event when all candidates are connected.</item>
+   </list><p>
+   </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bcast_type">bcast_type() = all | sender</h3></div>
+    <div class="type"><h3 id="type-caller_ref">caller_ref() = {pid(), reference()}</h3></div>
+    <div class="type"><h3 id="type-election">election()</h3></div>
+    <div class="type"><h3 id="type-name">name() = atom()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {workers, Workers :: [node()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vardir, Dir :: string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {bcast_type, Type :: <a href="#type-bcast_type" class="seealso">bcast_type()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {heartbeat, Seconds :: integer()}</h3></div>
+    <div class="type"><h3 id="type-options">options() = [<a href="#type-option" class="seealso">option()</a>]</h3></div>
+    <div class="type"><h3 id="type-server_ref">server_ref() = <a href="#type-name" class="seealso">name()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-name" class="seealso">name()</a>, node()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {global, <a href="#type-name" class="seealso">name()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pid()</h3></div>
+    <div class="type"><h3 id="type-start_ret">start_ret() = {ok, pid()} | {error, term()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Other::atom()) -&gt; undefined | [{atom(), arity()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(Name::atom(), CandidateNodes::[node()], OptArgs::options(), Mod::module(), Arg::term(), Options::list()) -&gt; start_ret()</h3>
+
+
+<div class="description">
+
+<p>Starts a gen_leader process without linking to the parent.</p>
+<p><em>See also:</em> <a href="#start_link/6" class="seealso">start_link/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Name::atom(), CandidateNodes::[node()], OptArgs::options(), Mod::module(), Arg::term(), Options::list()) -&gt; start_ret()</h3>
+
+
+<div class="description">
+
+<p>Starts a gen_leader process.
+  </p>
+   NameThe locally registered name of the process<br />
+   CandidateNodesThe names of nodes capable of assuming
+      a leadership role<br />
+   OptArgs
+       Optional arguments given to <code>gen_leader</code>.
+           <du>
+           <taglist>{workers, Workers}</taglist>
+           <item>The names of nodes that will be part of the "cluster",
+               but cannot ever assume a leadership role. Default: [].</item>
+           <taglist>{vardir, Dir}</taglist>
+           <item>Directory name used to store candidate's incarnation cookie.
+               Default: "."</item>
+           <taglist>{bcast_type, Type}</taglist>
+           <item>When <code>Type</code> is 'all' each election event (when a new
+               candidate becomes visible to the leader) will be broadcast
+               to all live candidate nodes.  Each candidate will get
+               a from_leader/3 callback. When <code>Type</code> is <code>sender</code>, only
+               the newly registered candidate will get the surrendered/3
+               callback. Default: <code>sender</code>.</item>
+           <taglist>{heartbeat, Seconds}</taglist>
+           <item>Heartbeat timeout value used to send ping messages to inactive
+               candidate nodes.</item>
+           </du>
+       <br />
+   ModThe name of the callback module<br />
+   ArgArgument passed on to <code>Mod:init/1</code><br />
+   OptionsSame as gen_server's Options<br />
+  <p>
+ 
+  </p><p>The list of candidates needs to be known from the start. Workers
+  could potentially be added at runtime, but no functionality to do
+  this is provided by this version.</p>
+</div></div>
+<div class="function">
+<h3 id="alive/1">alive(E::election()) -&gt; [node()]</h3>
+
+
+<div class="description">
+
+<p>Returns list of alive nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="down/1">down(Election::election()) -&gt; [node()]</h3>
+
+
+<div class="description">
+
+<p>Returns list of down nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="leader_node/1">leader_node(Election::election()) -&gt; node() | none</h3>
+
+
+<div class="description">
+
+<p>Returns the current leader node.</p>
+</div></div>
+<div class="function">
+<h3 id="candidates/1">candidates(Election::election()) -&gt; [node()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of known candidates.</p>
+</div></div>
+<div class="function">
+<h3 id="workers/1">workers(Election::election()) -&gt; [node()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of known workers.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Name::server_ref(), Request::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>gen_server:call/2</code>, but with a slightly
+  different exit reason if something goes wrong. This function calls
+  the <code>gen_leader</code> process exactly as if it were a gen_server
+  (which, for practical purposes, it is.)</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Name::server_ref(), Request::term(), Timeout::integer()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>gen_server:call/3</code>, but with a slightly
+  different exit reason if something goes wrong. This function calls
+  the <code>gen_leader</code> process exactly as if it were a gen_server
+  (which, for practical purposes, it is.)</p>
+</div></div>
+<div class="function">
+<h3 id="leader_call/1">leader_call(Name::server_ref(), Request::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Makes a call (similar to <code>gen_server:call/2</code>) to the
+  leader. The call is forwarded via the local gen_leader instance, if
+  that one isn't actually the leader. The client will exit if the
+  leader dies while the request is outstanding.
+  </p><p>This function uses <code>gen:call/3</code>, and is subject to the
+  same default timeout as e.g. <code>gen_server:call/2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="leader_call/1-1">leader_call(Name::server_ref(), Request::term(), Timeout::integer()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Makes a call (similar to <code>gen_server:call/3</code>) to the
+  leader. The call is forwarded via the local gen_leader instance, if
+  that one isn't actually the leader. The client will exit if the
+  leader dies while the request is outstanding.</p>
+</div></div>
+<div class="function">
+<h3 id="cast/1">cast(Name::server_ref(), Request::term()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <code>gen_server:cast / 2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="leader_cast/1">leader_cast(Name::server_ref(), Request::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>gen_server:cast/2</code> but will be forwarded to
+  the leader via the local gen_leader instance.</p>
+</div></div>
+<div class="function">
+<h3 id="reply/1">reply(From::caller_ref(), Reply::term()) -&gt; term()</h3>
+
+
+<div class="description">
+<p>Equivalent to <code>gen_server:reply / 2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="broadcast/3">broadcast(X1, ToNodes, E) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Hans Svensson</aname>
+<email>hanssv@chalmers.se</email>
+<aname>Thomas Arts</aname>
+<email>thomas.arts@ituniv.se</email>
+<aname>Ulf Wiger</aname>
+<email>ulf.wiger@ericsson.com</email>
+<aname>(contributor: Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

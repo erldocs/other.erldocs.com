@@ -1,0 +1,1 @@
+var index = [['app','quantifoocore','quantifoocore','[application]'],['mod','quantifoocore','qfoo_app',[]],['mod','quantifoocore','qfoo_sup',[]],['fun','quantifoocore','qfoo_app:start/2',[]],['fun','quantifoocore','qfoo_app:stop/1',[]],['fun','quantifoocore','qfoo_sup:init/1',[]],['fun','quantifoocore','qfoo_sup:start_link/0',[]]];

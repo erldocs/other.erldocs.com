@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>egtm_config (egtm) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>egtm_config</h1>
+<h2 class="modsummary">EGTM Configuration Manager.</h2>
+<div class="description">
+<p>EGTM Configuration Manager.  
+EGTM configuration is loaded from file that  
+may look like this one:</p>
+ 
+  <pre class="sh_erlang">  %% egtm core setup
+  {egtm, [
+ 
+    %% Defaults
+    {defaults, [
+ 
+      %% $Piece default delimiter
+      {piece_delim, "|"}
+    ]},
+ 
+    %% Mode of operation
+    %%   single (= use NIF directly),
+    %%   pool (= use multiple slave ErlVMs)
+    %% NOTE: pooling is 10times slower than 'single'
+    %% and is also disabled by default. To enable it,
+    %% you need to define EGTM_POOL_ENABLED macro
+    {mode, single},
+ 
+    %% Workers are slave ErlVMs with GT.M call-in NIF
+    {workers, [
+ 
+      %% Slave nodes to be autostarted
+      {nodes, [egtm1, egtm2, egtm3, egtm4]}
+    ]},
+ 
+    %% Functions that are for some (security) reason denied
+    %{deny, [kill, do, call, merge, xecute]}
+    {deny, []}
+    %,
+    %% String encoder/decoder functions
+    %{string_conversion, [
+    %  {encode, {egtm_string, erl2utf} },
+    %  {decode, {egtm_string, utf2erl} } ]}
+  ]}.
+ 
+  %% egtm metrics: histograms and counters
+  %% NOTE: if enabled, all egtm-core operations are slower!
+  {egtm_metrics, [{enabled, false}]}.</pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="param/1">param(Path::list()) -&gt; Result::any()</h3>
+
+
+<div class="description">
+
+<p>Get a config value from <code>priv/egtm.conf</code>.
+  Example: </p><pre class="sh_erlang">  egtm_config:param ([egtm, workers, nodes])</pre><p>
+  ...will return <code>[a,b,c,d]</code> from config file like this:
+  </p><pre class="sh_erlang">     {egtm, [{workers, [{nodes, [a,b,c,d]}]}]}</pre>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

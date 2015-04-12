@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>berk (berk) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>berk</h1>
+<h2 class="modsummary">A library for benchmarking Erlang code.</h2>
+<div class="description">
+<p>A library for benchmarking Erlang code.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-benchmark">benchmark() = fun(() -&gt; any())</h3></div>
+    <div class="type"><h3 id="type-controller">controller() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((Iterations :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seconds :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stats :: <a href="#type-proplist" class="seealso">proplist()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report :: fun((any()) -> any())) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop | {next, integer()} | {samples, integer()})</h3></div>
+    <div class="type"><h3 id="type-proplist">proplist() = [<a href="proplists.html#type-property" class="seealso">proplists:property()</a>]</h3></div>
+    <div class="type"><h3 id="type-runner">runner() = fun((integer()) -> <a href="#type-proplist" class="seealso">proplist()</a>)</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="test/0">test() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="berps/0">berps() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Computes BERPS (Bogus Erlang Reductions Per Second) for the machine.</p>
+</div></div>
+<div class="function">
+<h3 id="berps/1">berps(Verbose) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stats/1">stats(Ns::[number()]) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Computes statistics over lists of numbers. Yields a property list
+  with the following entries:
+  </p><list>
+    <item><p><code>{mean, number()}</code>: the arithmetic mean over all inputs</p></item>
+    <item><p><code>{meandev, number()}</code>: mean absolute deviation from the median</p></item>
+    <item><p><code>{data, [number()]}</code>: the input list itself</p></item>
+    <item><p><code>{max, number()}</code>: the largest input</p></item>
+    <item><p><code>{maxdev, number()}</code>: maximum absolute deviation from the mean</p></item>
+    <item><p><code>{meddev, number()}</code>: median absolute deviation from the median</p></item>
+    <item><p><code>{median, number()}</code>: the median of all inputs</p></item>
+    <item><p><code>{min, number()}</code>: the smallest input</p></item>
+    <item><p><code>{range, number()}</code>: the difference between the smallest and
+         largest inputs</p></item>
+    <item><p><code>{rel_meandev, number()}</code>: relative mean absolute deviation</p></item>
+    <item><p><code>{rel_maxdev, number()}</code>: relative maximum absolute deviation</p></item>
+    <item><p><code>{rel_meddev, number()}</code>: relative median absolute deviation</p></item>
+    <item><p><code>{rel_stddev, number()}</code>: relative standard deviation</p></item>
+    <item><p><code>{stddev, number()}</code>: standard deviation</p></item>
+    <item><p><code>{stderr, number()}</code>: standard error of the mean (SEM)</p></item>
+  </list><p>
+  A good measurement set should consist of at least 30 samples, and
+  preferably 50 if time allows, but more than 70 is generally overkill.</p>
+</div></div>
+<div class="function">
+<h3 id="runner/1">runner(F::benchmark()) -&gt; runner()</h3>
+
+
+<div class="description">
+
+<p>Creates a benchmark runner function, that runs the provided
+  benchmark for a given number of iterations. Measurements are performed
+  before the first iteration and after the last. The standard measurements
+  are: <code>{runtime, CPUTime}</code>, <code>{reductions, Reductions}</code>, <code>{gc_count,
+  Sweeps}</code>, and <code>{gc_words, WordsReclamed}</code>.</p>
+ 
+  <p>For additional measurements, the user can specify options <code>{before, fun
+  ((ets:tab()) -&gt; any())}</code> and <code>{after, fun ((ets:tab()) -&gt; any())}</code>. As
+  input, these functions get a reference to the ets table storing the
+  measurements, and their return values are discarded. Typically, the
+  before-function stores a base value for reading and the after-function
+  takes a new reading and updates the entry to hold the delta instead. They
+  should not modify the entries for the standard measurements.</p>
+</div></div>
+<div class="function">
+<h3 id="runner/1-1">runner(F::benchmark(), Options::proplist()) -&gt; runner()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="uniform/0">uniform() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="normal/0">normal() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="gather/1">gather(Runner::runner(), Control::controller(), Options::proplist()) -&gt; [proplist()]</h3>
+
+
+<div class="description">
+
+<p>Runs a benchmark runner function, gathering statistics incrementally  
+until a controlling function signals completion.</p>
+ 
+  <p>This executes <code>Runner</code> one or more times with different numbers of
+  iterations as input, and returns a list of the statistics for each
+  execution. Each time a new valid set of statistics for an execution gets
+  added, the given function <code>Control</code> is called to decide how to proceed.
+  If it returns <code>stop</code>, the gathering stops and returns the gathered
+  statistics. If it returns <code>{next, N::integer()}</code>, <code>Runner</code> will be
+  executed again using <code>N</code> iterations. If it returns <code>{samples,
+  S::integer()}</code>, the gathering is resumed for the current number of
+  iterations for <code>Runner</code> but with the number of samples changed to <code>S</code>.</p>
+ 
+  <p>This function adds some additional information to the statistics returned
+  by <code>Runner</code>, for each sample set:
+  </p><list>
+   <item><p><code>{iterations, integer()}</code>: number of iterations given to <code>Runner</code> to
+       produce the data</p></item>
+  </list>
+ 
+  <p>Options are:
+  </p><list>
+   <item><p><code>{samples, integer()}</code>: initial number of executions of <code>Runner</code>
+       for a data series using the same number of iterations as input</p></item>
+   <item><p><code>{timeout, number()}</code>: time limit for <code>Runner</code>, in seconds</p></item>
+   <item><p><code>{verbose, boolean()}</code>: progress reports</p></item>
+  </list>
+ 
+  <p>If the statistics for an execution of <code>Runner</code> is deemed as invalid, all
+  gathered statistics so far are discarded and gathering continues from a
+  blank slate. Statistics are considered invalid if runtimes are not at
+  least 20 times the clock resolution, or (unless there is only one sample)
+  if the difference between min and max is zero or the relative standard
+  deviation is greater than 50%.</p>
+</div></div>
+<div class="function">
+<h3 id="calibrate/0">calibrate() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="calibrate/1">calibrate(Verbose) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run_for/1">run_for(F) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run_for/2">run_for(F, Lim) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run/2">run(F, Iter) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read_rc/0">read_rc() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write_rc/1">write_rc(Ts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rndbyte/0">rndbyte() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rndbits/1">rndbits(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rndpbm/0">rndpbm() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="floats/1">floats(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ints/2">ints(N, M) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lin/2">lin(F, N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lin/3">lin(F, N, M) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lin/4">lin(F, N, M, D) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log/2">log(F, N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log/3">log(F, N, M) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log/4">log(F, N, M, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="linlin/3">linlin(F, N1, N2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="linlin/5">linlin(F, N1, M1, N2, M2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="linlin/7">linlin(F, N1, M1, D1, N2, M2, D2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="linlog/3">linlog(F, N1, N2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="linlog/5">linlog(F, N1, M1, N2, M2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="linlog/7">linlog(F, N1, M1, D, N2, M2, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loglog/3">loglog(F, N1, N2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loglog/5">loglog(F, N1, M1, N2, M2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loglog/7">loglog(F, N1, M1, K1, N2, M2, K2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Richard Carlsson</aname>
+<email>carlsson.richard@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

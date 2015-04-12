@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>safe_bunny (safe_bunny) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>safe_bunny</h1>
+<h2 class="modsummary">Main module.</h2>
+<div class="description">
+<p>Main module.</p>
+  
+   <p>Copyright 2012 Marcelo Gornstein &lt;marcelog@gmail.com&gt;</p>
+  
+   <p>Licensed under the Apache License, Version 2.0 (the "License");   
+you may not use this file except in compliance with the License.   
+You may obtain a copy of the License at</p>
+  
+       <p>http://www.apache.org/licenses/LICENSE-2.0</p>
+  
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-queue_fetch_result">queue_fetch_result() = {ok, {<a href="#type-queue_id" class="seealso">queue_id()</a>, <a href="#type-queue_payload" class="seealso">queue_payload()</a>}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| none<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| term()</h3></div>
+    <div class="type"><h3 id="type-queue_id">queue_id() = term()</h3></div>
+    <div class="type"><h3 id="type-queue_payload">queue_payload() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="queue/1">queue(Exchange::binary(), Key::binary(), Payload::binary()) -&gt; ok | term()</h3>
+
+
+<div class="description">
+
+<p>Will put an item into a backup queue, iterating the available
+  producers. Should fail only when all backends failed to save the message.</p>
+</div></div>
+<div class="function">
+<h3 id="deliver_safe/1">deliver_safe(Exchange::binary(), Key::binary(), Payload::binary()) -&gt; {reference(), pid()}</h3>
+
+
+<div class="description">
+
+<p>Tries MQ first, then local queuing system. Technically speaking it would
+  be safer to actually deliver directly to the local queuing backends instead
+  of trying the remote mq, but it could be accepted that if the mq system is
+  up 99.999% of the time, you might not want to hit your db (mysql, redis)
+  that much during normal operations.</p>
+</div></div>
+<div class="function">
+<h3 id="deliver_unsafe/1">deliver_unsafe(Exchange::binary(), Key::binary(), Payload::binary()) -&gt; {reference(), pid()}</h3>
+
+
+<div class="description">
+
+<p>Tries MQ. Confirmation is not required from the server, and messages will
+  not be saved in the fallback queues on failure.</p>
+</div></div>
+<div class="function">
+<h3 id="producer_module/1">producer_module(Name::atom()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the module name for the given producer backend module.</p>
+</div></div>
+<div class="function">
+<h3 id="consumer_module/1">consumer_module(Name::atom()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the module name for the given consumer backend module.</p>
+</div></div>
+<div class="function">
+<h3 id="deliver_task/1">deliver_task(Safe::boolean(), Exchange::binary(), Key::binary(), Payload::binary()) -&gt; ok | term()</h3>
+
+
+<div class="description">
+
+<p>Called by cxy tools, tries mq first, then queue backends.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_task/1">queue_task(Exchange::binary(), Key::binary(), Payload::binary()) -&gt; ok | term()</h3>
+
+
+<div class="description">
+
+<p>Will put an item into a backup queue, iterating the available
+  producers. Should fail only when all backends failed to save the message.</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Starts the application.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the application.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Marcelo Gornstein</aname>
+<email>marcelog@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

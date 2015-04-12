@@ -1,0 +1,1 @@
+var index = [['app','learn_erlang','learn_erlang','[application]'],['mod','learn_erlang','ctemplate',[]]];

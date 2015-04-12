@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jiak_resource (riak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jiak_resource</h1>
+<h2 class="modsummary">jiak_resource provides access to Jiak objects over HTTP.</h2>
+<div class="description">
+<p>jiak_resource provides access to Jiak objects over HTTP.
+       Resources are provided at URIs shaped like:
+         </p><pre class="sh_erlang">            http://host/JiakBase/Bucket/Key</pre><p>       
+That is, an object stored in the Riak bucket "Bucket" at key       
+"Key" would be available at the path Bucket/Key, relative to       
+jiak_resource's base path.</p>
+ 
+       <p>jiak_resource should be added to a Webmachine dispatch with
+       two lines, one for bucket-targetted requests, the other for
+       item-targetted requests:
+ </p><pre class="sh_erlang">
+       {[JiakBase,bucket], jiak_resource,
+        [{key_type, container}|Options]}.
+       {[JiakBase,bucket,key], jiak_resource,
+        [{key_type, item}|Options]}.
+ </pre>
+ 
+       <p>Dispatch Configuration Options:
+ </p><taglist><dt>  {jiak_name, string()}: (Required)
+ </dt><item><p>   base path for jiak_resource
+ </p></item><dt> {key_type, item|container}: (Required)
+ </dt><item><p>   set to 'item' when the request path targets a specific
+             object, or to 'container' when it targets a whole bucket
+ </p></item><dt> {riak_local, boolean()}: (Optional)
+ </dt><item><p>   set to 'true' to use jiak:local_client/0, otherwise
+             jiak:client_connect/3 will be used
+ </p></item><dt> {riak_ip, string()}: (Required if riak_local = false)
+ </dt><item><p>   IP of the riak cluster, passed to jiak:client_connect/3
+ </p></item><dt> {riak_port, integer()}: (Required if riak_local = false)
+ </dt><item><p>   Port of the riak cluster, passed to jiak:client_connect/3
+ </p></item><dt> {riak_cookie, atom()}: (Required if riak_local = false)
+ </dt><item><p>   Cookie of the riak cluster, passd to jiak:client_connect/3
+ </p></item></taglist>
+ 
+       <p>HTTP Query Parameters:
+ </p><taglist><dt>  schema
+ </dt><item><p>   allowed values: true (default), false
+             when GETting a bucket, set schema=false if you do not
+             want the schema included in the response
+ </p></item><dt> keys
+ </dt><item><p>   allowed values: true (default), false
+             when GETting a bucket, set keys=false if you do not want
+             the keylist included in the response
+ </p></item><dt> returnbody
+ </dt><item><p>   allowed values: true, false (default)
+             when PUTting or POSTing an object, set returnbody=true
+             if you want the response to included the updated object
+             (saves the roundtrip for a subsequent GET), the response
+             will be 204 No Content, otherwise
+ </p></item><dt> r
+ </dt><item><p>   specify the Riak R value for get operations
+ </p></item><dt> w
+ </dt><item><p>   specify the Riak W value for put operations
+ </p></item><dt> dw
+ </dt><item><p>   specify the Riak DW value for put operations
+ </p></item><dt> rw
+ </dt><item><p>   specify the Riak RW value for delete operations
+ </p></item></taglist>
+ 
+       <p>HTTP Usage:
+ </p><taglist><dt> GET /JiakBase/Bucket
+ </dt><item><p>  If the bucket is listable, returns a JSON object
+            of the form:
+            {
+             "schema":{
+                       "allowed_fields":["FieldName1","FieldName2",...],
+                       "required_fields":["FieldName1",...],
+                       "write_mask":["FieldName1",...],
+                       "read_mask":["FieldName1",...]
+                      },
+             "keys":["Key1","Key2",...]
+            }
+            Each element of the "schema" lists some fo the field names
+            defined for objects of the requested bucket.
+ </p><taglist><dt>     allowed_fields
+ </dt><item><p>      Objects may only include the fields listed here
+ </p></item><dt>    required_fields
+ </dt><item><p>      Objects must have fields listed here
+ </p></item><dt>    write_mask
+ </dt><item><p>      Clients may change only the fields listed here
+ </p></item><dt>    read_mask
+ </dt><item><p>      Clients will see only the contents of fields listed here
+ </p></item></taglist><p>
+ 
+ </p></item><dt> GET /JiakBase/Bucket/Key
+ </dt><item><p>   If the object exists, and access is permitted, returns             
+the object JSON-encoded</p>
+ 
+ </item><dt> PUT /JiakBase/Bucket/Key
+ </dt><item><p>   Store the object in the request body in the given Bucket at             
+the given Key.  The "bucket" and "key" fields in the object             
+must match the Bucket and Key components of the URI.</p>
+ 
+ </item><dt> POST /JiakBase/Bucket
+ </dt><item><p>   Store the object in the request body in the given Bucket at             
+a new, server-generated key.  Response will be empty (unless             
+returnbody=true is specified in the query parameters) with             
+the Location header set to the new object's URI.</p>
+ 
+ </item><dt> PUT /JiakBase/Bucket
+ </dt><item><p>   Create or update the schema for a bucket.  The request body
+             must be a JSON object of the form:
+             {"schema":{
+                       "allowed_fields":["FieldName1","FieldName2",...],
+                       "required_fields":["FieldName1",...],
+                       "write_mask":["FieldName1",...],
+                       "read_mask":["FieldName1",...]
+                      }
+             }
+ </p></item></taglist></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-context">context() = term()</h3></div>
+    <div class="type"><h3 id="type-diff">diff() = {object_diff(), links_diff()}</h3></div>
+    <div class="type"><h3 id="type-http_method">http_method() = 'HEAD' | 'GET' | 'POST' | 'PUT' | 'DELETE'</h3></div>
+    <div class="type"><h3 id="type-jiak_module">jiak_module() = atom() | {jiak_default, list()}</h3></div>
+    <div class="type"><h3 id="type-schema_type">schema_type() = allowed_fields | required_fields | read_mask | write_mask</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Props::proplist()) -&gt; {ok, context()}</h3>
+
+
+<div class="description">
+
+<p>Initialize this webmachine resource.  This function will
+       attempt to open a client to Riak, and will fail if it is
+       unable to do so.</p>
+</div></div>
+<div class="function">
+<h3 id="service_available/1">service_available(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {boolean, wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Ensure that a Jiak module for the requested bucket is available.
+       This function first checks for a compiled Erlang module with the
+       same name as the bucket.  If no module is found, the bucket
+       configuration metadata in the ring is used, and must contain
+       a valid Jiak schema.</p>
+</div></div>
+<div class="function">
+<h3 id="allowed_methods/1">allowed_methods(RD::wrq() (see module webmachine), Ctx0::context()) -&gt; {[http_method()], wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine the list of HTTP methods that can be used on this
+       resource.  Should be HEAD/GET/POST/PUT for buckets and
+       HEAD/GET/POST/PUT/DELETE for objects.
+       Exception: HEAD/GET is returned for an "unknown" bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="malformed_request/1">malformed_request(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {boolean(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether the request is propertly constructed.
+       GET is always properly constructed
+       PUT/POST is malformed if:
+         - request body is not a valid JSON object
+         - the object contains a link to a bucket that is
+           "unknown" (non-existent atom)
+       PUT is malformed if:
+         - the "bucket" field of the object does not match the
+           bucket component of the URI
+         - the "key" field of the object does not match the
+           key component of the URI
+         - when PUTing to a bucket schema, the schema is not of the
+           form described above.</p>
+</div></div>
+<div class="function">
+<h3 id="is_authorized/1">is_authorized(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {true | string(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether the request is authorized.  This function
+       calls through to the bucket's auth_ok/3 function.</p>
+</div></div>
+<div class="function">
+<h3 id="forbidden/1">forbidden(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {boolean(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>For an object GET/PUT/POST or a bucket POST, check to see
+       whether the write request violates the write mask of the
+       bucket.  For a bucket GET, check to see whether the keys of
+       the bucket are listable.  PUT requests to bucket schemas are
+       always accepted.</p>
+</div></div>
+<div class="function">
+<h3 id="encodings_provided/1">encodings_provided(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {[encoding()], wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the list of encodings this resource provides.
+       "identity" is provided for all methods, and "gzip" is
+       provided for GET as well</p>
+</div></div>
+<div class="function">
+<h3 id="resource_exists/1">resource_exists(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {boolean, wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether or not the resource exists.
+       This resource exists if the bucket is known or the object
+       was successfully fetched from Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="content_types_provided/1">content_types_provided(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {[ctype()], wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the list of content types this resource provides.
+       "application/json" and "text/plain" are both provided
+       for all requests.  "text/plain" is a "pretty-printed"
+       version of the "application/json" content.</p>
+</div></div>
+<div class="function">
+<h3 id="content_types_accepted/1">content_types_accepted(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {[ctype()], wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the list of content types accepted by this resource.
+       Only "application/json" is accepted.</p>
+</div></div>
+<div class="function">
+<h3 id="produce_body/1">produce_body(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {io_list(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the representation of this resource that will be
+       sent to the client.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_incoming/1">handle_incoming(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {true, wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Handle POST/PUT requests.  This is where the actual Riak-put
+       happens, as well as where the bucket's check_write,
+       effect_write, and after_write functions are called.</p>
+</div></div>
+<div class="function">
+<h3 id="post_is_create/1">post_is_create(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {true, wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>POST is always "create" here.  We'll make a path and
+       handle it as a PUT to that path.</p>
+</div></div>
+<div class="function">
+<h3 id="create_path/1">create_path(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {string(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Create a path for converting a POST request to a PUT.  The
+       returned path will be a fresh server-generated path in the
+       case of a POST to a bucket, or the path for the given object
+       in the case of a POST to a specific object.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_resource/1">delete_resource(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {boolean(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Delete the resource at the given Bucket and Key.</p>
+</div></div>
+<div class="function">
+<h3 id="generate_etag/1">generate_etag(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {string(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Generate an ETag for this resource.</p>
+</div></div>
+<div class="function">
+<h3 id="last_modified/1">last_modified(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {datetime(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the last-modified time for this resource.  Bucket keylists
+       are said to have been last-modified "now".</p>
+</div></div>
+<div class="function">
+<h3 id="expires/1">expires(ReqData::wrq() (see module webmachine), Context::context()) -&gt; {datetime(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the time at which a cache should expire its last fetch for
+       this resource.  This function calls through to the bucket's
+       expires_in_seconds/3 function.</p>
+</div></div>
+<div class="function">
+<h3 id="apply_read_mask/1">apply_read_mask(JiakObject::jiak_object()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Remove fields from the jiak object that are not in the
+       bucket's read mask.  Determines the module to use, then
+       calls apply_read_mask/2.</p>
+</div></div>
+<div class="function">
+<h3 id="pretty_print/1">pretty_print(RD1::wrq() (see module webmachine), C1::context()) -&gt; {string(), wrq() (see module webmachine), context()}</h3>
+
+
+<div class="description">
+
+<p>Format the respons JSON object is a "pretty-printed" style.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

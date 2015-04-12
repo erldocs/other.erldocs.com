@@ -1,0 +1,1 @@
+var index = [['app','matmult','matmult','[application]'],['mod','matmult','matmult',[]],['fun','matmult','matmult:choice/2',[]],['fun','matmult','matmult:choose/2',[]],['fun','matmult','matmult:data/1',[]],['fun','matmult','matmult:prod_set/2',[]],['fun','matmult','matmult:sum_set/1',[]]];

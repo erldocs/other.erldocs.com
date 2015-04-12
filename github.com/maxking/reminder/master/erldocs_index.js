@@ -1,0 +1,1 @@
+var index = [['app','reminder','reminder','[application]'],['mod','reminder','event',[]],['mod','reminder','evserv',[]],['mod','reminder','hotload',[]],['mod','reminder','sup',[]],['fun','reminder','hotload:server/1',[]],['fun','reminder','hotload:upgrade/1',[]]];

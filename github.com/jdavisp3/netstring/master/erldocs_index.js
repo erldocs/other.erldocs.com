@@ -1,0 +1,1 @@
+var index = [['app','netstring','netstring','[application]'],['mod','netstring','netstring',[]],['fun','netstring','netstring:current_length/1',[]],['fun','netstring','netstring:decode/1',[]],['fun','netstring','netstring:decode/1',[]],['fun','netstring','netstring:encode/1',[]],['fun','netstring','netstring:init/0',[]],['fun','netstring','netstring:remaining/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','dcache','dcache','[application]'],['mod','dcache','launcher',[]],['fun','dcache','launcher:start/0',[]]];

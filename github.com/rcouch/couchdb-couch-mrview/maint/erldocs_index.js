@@ -1,0 +1,1 @@
+var index = [['app','couchdb-couch-mrview','couchdb-couch-mrview','[application]'],['mod','couchdb-couch-mrview','couch_mrview_changes',[]],['mod','couchdb-couch-mrview','couch_mrview_test_util',[]],['fun','couchdb-couch-mrview','couch_mrview_changes:handle_changes/1','function returning changes in a streaming fashion ']];

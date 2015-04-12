@@ -1,0 +1,1 @@
+var index = [['app','judy-nif-cpp','judy-nif-cpp','[application]'],['mod','judy-nif-cpp','judy',[]],['fun','judy-nif-cpp','judy:get/2',[]],['fun','judy-nif-cpp','judy:insert/3',[]],['fun','judy-nif-cpp','judy:mget/2',[]],['fun','judy-nif-cpp','judy:new/0',[]],['fun','judy-nif-cpp','judy:remove/2',[]],['fun','judy-nif-cpp','judy:size/1',[]]];

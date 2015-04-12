@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>petrinet (gen_pn) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>petrinet</h1>
+<h2 class="modsummary">A simple petri net model.</h2>
+<div class="description">
+<p>A simple petri net model. This model is primarily intended for use withing the gen_pn module. It can however be used  
+independently, in much the same way as gen_pn uses it.</p>
+ 
+  <p>The petrinet does not keep track of user code to be invoked in the event of a transition firing. Instead it provides
+  user code with information about what transition would fire next under a given graph/marking combination. The user code,
+  such as gen_pn, can then determine how and when the user code was to be invoked.
+  <em><marker id="Usage">Usage</marker></em>
+  Construct the fully-formed petri net like so:
+  </p><pre class="sh_erlang">     	Places = [
+  			  #place{name=p1, initial_marking=1},
+  			  #place{name=p2, initial_marking=1},
+  			  #place{name=p3, initial_marking=1},
+  			  #place{name=p4, initial_marking=0}],
+  	Transitions = [#transition{name=t1}],
+  	Name = blah,
+  	{PN, M} = petrinet:new(Name,
+  	                    Places,
+  	                    Transitions,
+  	                       [{t1, in, [
+  	                           #arc{place = p1},
+  	                           #arc{place = p2},
+  	                           #arc{place = p3}]},
+  	                        {t1, out, [
+  	                           #arc{place = p4}]}])</pre>
+ 
+  <p>The net is ready for immediate use:
+  	</p><pre class="sh_erlang">      FireList = petrinet:get_fire_list(PN3, M),
+  	?assertMatch([{t1, [{p1, 0}, {p2, 0}, {p3, 0}, {p4, 1}]}], FireList).</pre><p>
+  this demonstrates that <code>get_fire_list</code> works out what the enabled transition <code>T</code> with the highest priority would be
+  it then calculates what the marking would be transformed into if <code>T</code> fired. It is then up to the user
+  code to dtermine whether to accept the transformed Marking. The issue is that if user code throws and error, the PN
+  is perfectly able to return to the original marking before <code>T</code> fired.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Name::atom()) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>Construct a new (empty) petri net. Use this when you wish to iteratively add places transitions and arcs after the net is constructed.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(Name::atom(), Places::[#place{}], Transitions::[#transition{}]) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>Construct a new Petri Net with supplied places and transitions (but no arcs).
+  Places is a lists of <code>#place{}</code> and Transitions is a list of <code>#transition{}</code>.
+  Construct the disconnected petri net like so:
+  </p><pre class="sh_erlang">     new2_test()-&gt;
+  		petrinet:new{
+ 			name=my_petri_net,
+ 			places = [#place{name=p1},#place{name=p2},#place{name=p3}],
+ 			transitions = [#transition{name=t1}.</pre><p>
+ 
+  The result is a tuple with the constructed petri net, plus a marking based on the places supplied.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-2">new(Name::atom(), Places::[#place{}], Transitions::[#transition{}], Arcs::[{TranLabel::atom(), Type::in | out, Arcs::[#arc{}]}]) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>Construct a new Petri Net with supplied places and transitions and arcs.
+  Places is a lists of <code>#place{}</code> and Transitions is a list of <code>#transition{}</code>, Arcs is a list .
+  Construct the fully-formed petri net like so:
+  </p><pre class="sh_erlang">     	Places = [
+  			  #place{name=p1, initial_marking=1},
+  			  #place{name=p2, initial_marking=1},
+  			  #place{name=p3, initial_marking=1},
+  			  #place{name=p4, initial_marking=0}],
+  	Transitions = [#transition{name=t1}],
+  	Name = blah,
+  	{PN, M} = petrinet:new(Name,
+  	                    Places,
+  	                    Transitions,
+  	                       [{t1, in, [
+  	                           #arc{place = p1},
+  	                           #arc{place = p2},
+  	                           #arc{place = p3}]},
+  	                        {t1, out, [
+  	                           #arc{place = p4}]}])</pre><p>
+ 
+  The net is ready for immediate use.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_places/2">add_places(Places::[#place{}], PN::#petri_net{}) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>add a list of places to an existing petri net</p>
+</div></div>
+<div class="function">
+<h3 id="add_arc/2">add_arc(PetriNet::#petri_net{}, TransitionLabel::atom(), Arc::#arc{}, Type::in | out) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>create an arc of type Type (in or out) between the transition with label TransitionLabel
+  and the place labelled PlaceLabel. Use defaults for all other settings</p>
+</div></div>
+<div class="function">
+<h3 id="add_arcs/2">add_arcs(PN::#petri_net{}, Arcs::[{TranLabel::atom(), Type::in | out, Arcs::[#arc{}]}]) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_arcs/2-1">add_arcs(PN::#petri_net{}, TransitionLabel::atom(), Arcs::[#arc{}], Type::in | out) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>add a list of arcs to an existing petri net</p>
+</div></div>
+<div class="function">
+<h3 id="get_arcs/2">get_arcs(PN::#petri_net{}, TransitionLabel::atom(), Type::in | out) -&gt; [{atom(), #arc{}}]</h3>
+
+
+<div class="description">
+
+<p>get arcs into or out of a given transition of a petri net</p>
+</div></div>
+<div class="function">
+<h3 id="add_transitions/2">add_transitions(Transitions::[#transition{}], PN::#petri_net{}) -&gt; #petri_net{}</h3>
+
+
+<div class="description">
+
+<p>add a list of transitions to an existing petri net</p>
+</div></div>
+<div class="function">
+<h3 id="inarc_exists/1">inarc_exists(TranLabel::atom(), PN::#petri_net{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>tests whether an entry exists for a given transition in the list of inarcs (list of adj_lists)</p>
+</div></div>
+<div class="function">
+<h3 id="outarc_exists/1">outarc_exists(TranLabel::atom(), PN::#petri_net{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>tests whether an entry exists for a given transition in the list of outarcs (list of adj_lists)</p>
+</div></div>
+<div class="function">
+<h3 id="get_markings_for_transition/1">get_markings_for_transition(TransitionLabel::atom(), PN::#petri_net{}, M::[{atom(), integer()}]) -&gt; [{atom(), integer(), integer(), boolean(), boolean()}]</h3>
+
+
+<div class="description">
+
+<p>finds the incoming arcs into a transition and finds the associated places,
+  their number of tokens, and whether they are inhibitor links or not</p>
+</div></div>
+<div class="function">
+<h3 id="transition_is_enabled/1">transition_is_enabled(T::atom(), PN::#petri_net{}, M::[{atom(), integer()}]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>tests whether all arcs into a given transition qualify (i.e. are either from places
+  that have more tokens than needed or have no tokens but are inhibitors)</p>
+</div></div>
+<div class="function">
+<h3 id="enabled_transitions/2">enabled_transitions(PN::#petri_net{}, M::[{atom(), integer()}]) -&gt; [#transition{}]</h3>
+
+
+<div class="description">
+
+<p>retrieves the list of all transitions that are enabled on the petri net for the given marking</p>
+</div></div>
+<div class="function">
+<h3 id="new_marking/1">new_marking(Places::[#place{}]) -&gt; [{atom(), integer()}]</h3>
+
+
+<div class="description">
+
+<p>constructs a new marking list</p>
+</div></div>
+<div class="function">
+<h3 id="signal/2">signal(PlaceLabel, M) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_signal/3">set_signal(PlaceLabel, Tokens, M) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_next_transition_to_fire/2">get_next_transition_to_fire(PN::#petri_net{}, M::[{atom(), integer()}]) -&gt; {atom(), [{atom(), integer()}]} | non_live</h3>
+
+
+<div class="description">
+
+<p>get the next transition to fire, and the resulting marking after firing has been performed.</p>
+</div></div>
+<div class="function">
+<h3 id="calculate_effect_on_marking/1">calculate_effect_on_marking(TransitionLabel::atom(), PN::#petri_net{}, M::[{atom(), integer()}]) -&gt; [{atom(), integer()}]</h3>
+
+
+<div class="description">
+
+<p>Calculate what the next marking will be if a transition is fired.</p>
+ 
+  <list>
+  <item><p>1. foreach arc <code>a</code> going into the transition</p></item>
+  <item><p>if <code>!a.inhibitor</code> then</p></item>
+  <list><item><p>M1 = M[a.name].tokens - M[a.name].weight</p></item></list>
+  <item><p>foreach arc 'b' leaving the transition</p></item>
+  <list><item><p>M2 = M1[a.name].tokens + M1[a.name].weight</p></item></list>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="adjust_marking/1">adjust_marking(M::[{atom(), integer()}], Pl::atom(), Delta::integer()) -&gt; [{atom(), integer()}]</h3>
+
+
+<div class="description">
+
+<p>Adjust a marking for a given place with its old value plus some difference (Delta).</p>
+</div></div>
+<div class="function">
+<h3 id="get_fire_list/2">get_fire_list(PN::#petri_net{}, M::[{atom(), integer()}]) -&gt; [{atom(), [{atom(), integer()}]}]</h3>
+
+
+<div class="description">
+
+<p>Gets the next transition that will fire, plus the marking that will result after the transition fires.</p>
+</div></div>
+<div class="function">
+<h3 id="get_fire_list/2-1">get_fire_list(PN::#petri_net{}, M::[{atom(), integer()}], C::integer()) -&gt; [{atom(), [{atom(), integer()}]}]</h3>
+
+
+<div class="description">
+
+<p>calculates what the next sequence of transition activations will be, and their associated markings.
+  C is a counter of how many transitions to look forward.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Andrew Matthews</aname>
+<email>matthews.andrew@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

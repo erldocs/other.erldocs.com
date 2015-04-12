@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wtpl (wpart) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wtpl</h1>
+<h2 class="modsummary">Template engine main module.</h2>
+<div class="description">
+<p>Template engine main module.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="build_template/1">build_template(E::tuple()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>The same as build_template(E, []).</p>
+<p><em>See also:</em> <a href="#build_template/2" class="seealso">build_template/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="build_template/1-1">build_template(Filename::string() | tuple(), Contents::list()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Main template system function.
+  </p><p>There are three types of wtpl tags:<br />
+  </p><list><item><p><em>&lt;wtpl:parent path=Path&gt;</em>
+  - this tag declares, which template file is the
+  parent of current one. Path attribute points the
+  place, where the parent file is stored.</p></item>
+  <item><p><em>&lt;wtpl:include name=Name&gt;</em> -
+  include tag declares the slot: a place where
+  the content should be inserted to. Include tag
+  creates something like a hole in the template
+   - which should be filled up with corresponding
+  wtpl:content content</p></item>
+  <item><p><em>&lt;wtpl:content name=Name&gt;</em> -
+  content tag surrounds the content, which should
+  be inserted in place of the corresponding wtpl:include
+  tag</p></item></list>
+  <p>There are two ways to expand wtpl tag:<br />
+  </p><list><item><p>place it in your template file and make
+  e_mod_* render it</p></item>
+  <item><p>expand it in controller - by pointing the .tpl file and
+  providing the list of content tuples. </p></item></list><p>
+  When you want to expand the tag you should always remember
+  about the limitation of one root element of the XHTML
+  structre (you can e.g. iterate on each child or
+  simply surround all the childs with div tag).</p>
+  <p>For example, when you want to create some
+  kind of site you can do it in this way:<br />
+  </p><list><item><p>Create base file (the scaffold): which will
+  define the standard look of your site. E.g.: <br />
+  </p><pre class="sh_erlang">&lt;html&gt;
+   &lt;body&gt;
+     Some sort of header     &lt;wtpl:include name="slot1"/&gt;
+ 
+     &lt;wtpl:include name="slot2"/&gt;
+   &lt;/body&gt;
+ &lt;/html&gt;</pre><p>Let's name it "main.html"<br /></p></item>
+  <item><p>Then create the proxy file (of course you can skip this point or
+  repeat it as long as you want):
+  </p><pre class="sh_erlang"> &lt;wtpl:parent path="main.html"&gt;
+   &lt;wtpl:content name="slot1"&gt;
+     &lt;h1&gt;This is the first slot&lt;/h1&gt;
+     &lt;wtpl:include name="slot3"/&gt;
+   &lt;/wtpl:content&gt;
+ &lt;/wtpl:parent&gt;
+  </pre><p>And name it "proxy.tpl".<br />
+  Now, when we want to render proxy.tpl, wtpl engine will find each
+  occurence of wtpl:content tag, load main.html (because of the
+  path attribute) and try to fill all the includes with contents he has.
+  So he will fill slot1, but during the filling, he will create new
+  include: slot3 as well.<br /></p></item>
+  <item><p>So now we have to create the last file:
+  </p><pre class="sh_erlang"> &lt;wtpl:parent path="proxy.tpl"&gt;
+   &lt;wtpl:content name="slot2"&gt;
+     &lt;h2&gt;This is the second slot&lt;/h2&gt;
+   &lt;/wtpl:content&gt;
+   &lt;wtpl:content name="slot3"&gt;
+     &lt;h3&gt;This is the third slot&lt;/h3&gt;
+   &lt;/wtpl:content&gt;
+ &lt;/wtpl:parent&gt;
+  </pre><p>
+  This final file will fill the slot2 from main.html and slot3 from
+  proxy.html.
+  </p></item>
+  </list><p>
+  <br /></p>
+</div></div></div>
+
+<authors>
+
+<aname>Michal Ptaszek</aname>
+<email>michal.ptaszek@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

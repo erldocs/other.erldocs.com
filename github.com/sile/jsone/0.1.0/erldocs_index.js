@@ -1,0 +1,1 @@
+var index = [['app','jsone','jsone','[application]'],['mod','jsone','jsone','JSON decoding/encoding module.'],['fun','jsone','jsone:decode/1','JSONバイナリをデコードする.'],['fun','jsone','jsone:encode/1','JSON値をiodata形式にエンコードする.']];

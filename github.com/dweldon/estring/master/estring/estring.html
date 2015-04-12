@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>estring (estring) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>estring</h1>
+<h2 class="modsummary">estring is a string manipulation library.</h2>
+<div class="description">
+<p>estring is a string manipulation library.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="begins_with/1">begins_with(String::string(), SubString::string()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>String</code> begins with <code>SubString</code>,
+  and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; estring:begins_with("fancy pants", "fancy").
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="contains/1">contains(String::string(), SubString::string()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>String</code> contains <code>SubString</code>, and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; estring:contains("los angeles", "angel").
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="edit_distance/1">edit_distance(String1::string(), String2::string()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the damerau-levenshtein edit distance between <code>String1</code> and
+  <code>String2</code>. Note the comparison is case sensitive.
+  </p><pre class="sh_erlang">  &gt; estring:edit_distance("theater", "theatre").
+  1</pre>
+</div></div>
+<div class="function">
+<h3 id="edit_distance/1-1">edit_distance(String1::string(), String2::string(), IgnoreCase::bool()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the damerau-levenshtein edit distance between <code>String1</code> and
+  <code>String2</code>. The comparison is case insensitive if <code>IgnoreCase</code> is <code>true</code>.
+  </p><pre class="sh_erlang">  &gt; estring:edit_distance("receive", "RECIEVE", true).
+  1
+  &gt; estring:edit_distance("Cats", "cast", false).
+  2</pre>
+</div></div>
+<div class="function">
+<h3 id="ends_with/1">ends_with(String::string(), SubString::string()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>String</code> ends with <code>SubString</code>, and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; estring:ends_with("fancy pants", "pants").
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="format/1">format(Format::string(), Data::list()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Shortcut for <code>lists:flatten(io_lib:format(Format, Data))</code>.
+  </p><pre class="sh_erlang">  &gt; estring:format("~w bottles of ~s on the wall", [99, "beer"]).
+  "99 bottles of beer on the wall"</pre>
+</div></div>
+<div class="function">
+<h3 id="is_integer/1">is_integer(String::string()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>String</code> is a string representation of an integer,
+  and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; estring:is_integer("35").
+  true
+  &gt; estring:is_integer("35.4").
+  false</pre>
+</div></div>
+<div class="function">
+<h3 id="random/1">random(N::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns a random alphanumeric string of length <code>N</code>.
+  </p><pre class="sh_erlang">  &gt; estring:random(32).
+  "LzahJub1KOMS0U66mdXHtHyMMXIdxv1t"</pre>
+</div></div>
+<div class="function">
+<h3 id="rot13/1">rot13(String::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Applies the rot13 substitution cipher to <code>String</code>.
+  </p><pre class="sh_erlang">  &gt; estring:rot13("The Quick Brown Fox Jumps Over The Lazy Dog.").
+  "Gur Dhvpx Oebja Sbk Whzcf Bire Gur Ynml Qbt."</pre>
+</div></div>
+<div class="function">
+<h3 id="similarity/1">similarity(Source::string(), Target::string()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Returns a score between 0 and 1, representing how similar <code>Source</code> is to
+  <code>Target</code> based on the edit distance and normalized by the length of <code>Target</code>.
+  Note the order of <code>Source</code> and <code>Target</code> matters, and the comparison is case
+  sensitive.
+  </p><pre class="sh_erlang">  &gt; estring:similarity("yahoo", "boohoo").
+  0.5
+  &gt; estring:similarity("boohoo", "yahoo").
+  0.4</pre>
+</div></div>
+<div class="function">
+<h3 id="similarity/1-1">similarity(Source::string(), Target::string(), IgnoreCase::bool()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Returns a score between 0 and 1, representing how similar <code>Source</code> is to
+  <code>Target</code> based on the edit distance and normalized by the length of <code>Target</code>.
+  Note the order of <code>Source</code> and <code>Target</code> matters. The comparison is case
+  insensitive if <code>IgnoreCase</code> is <code>true</code>.
+  </p><pre class="sh_erlang">  &gt; estring:similarity("linux", "Linux", true).
+  1.0</pre>
+</div></div>
+<div class="function">
+<h3 id="similarity/1-2">similarity(Source::string(), Target::string(), IgnoreCase::bool(), LowerLimit::float()) -&gt; {ok, float()} | {error, limit_reached}</h3>
+
+
+<div class="description">
+
+<p>Returns a score between 0 and 1, representing how similar <code>Source</code> is to
+  <code>Target</code> based on the edit distance and normalized by the length of <code>Target</code>.
+  Note the order of <code>Source</code> and <code>Target</code> matters. The comparison is case
+  insensitive if <code>IgnoreCase</code> is <code>true</code>. A simple heuristic is used
+  to estimate the upper bound for similarity between <code>Source</code> and <code>Target</code>.
+  If the estimate is less than <code>LowerLimit</code>, then <code>{error, limit_reached}</code> is
+  returned immediately. otherwise <code>{ok, float()}</code> or <code>{error, limit_reached}</code>
+  is returned based on a call to <a href="#similarity/3" class="seealso">similarity/3</a>.
+  </p><pre class="sh_erlang">  &gt; estring:similarity("linux", "microsoft", false, 0.5).
+  {error,limit_reached}</pre>
+</div></div>
+<div class="function">
+<h3 id="squeeze/1">squeeze(String::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Shortcut for <code>estring:squeeze(String, " ")</code>.
+  </p><pre class="sh_erlang">  &gt; estring:squeeze("i need   a  squeeze!").
+  "i need a squeeze!"</pre>
+</div></div>
+<div class="function">
+<h3 id="squeeze/1-1">squeeze(String::string(), Char::char()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns a string where runs of <code>Char</code> are replaced with a single <code>Char</code>.
+  </p><pre class="sh_erlang">  &gt; estring:squeeze("the cow says moooo", $o).
+  "the cow says mo"
+  &gt; estring:squeeze("the cow says moooo", "o").
+  "the cow says mo"</pre>
+</div></div>
+<div class="function">
+<h3 id="strip/1">strip(String::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns a string where leading and trailing whitespace (<code>" ",\n\t\f\r</code>)
+  has been removed. Note that <code>string:strip/1</code> only removes spaces.
+  </p><pre class="sh_erlang">  &gt; estring:strip("\t  clean me   \r\n").
+  "clean me"</pre>
+</div></div>
+<div class="function">
+<h3 id="strip_split/1">strip_split(String::string(), SeparatorString::string()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Shortcut for
+  <code>re:split(estring:strip(String), SeparatorString, [{return, list}])</code>. This is
+  intended for parsing input like csv files.
+  </p><pre class="sh_erlang">  &gt; estring:strip_split("first&gt;,&lt;second&gt;,&lt;third\r\n", "&gt;,&lt;").
+  ["first","second","third"]</pre>
+</div></div></div>
+
+<authors>
+
+<aname>David Weldon</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

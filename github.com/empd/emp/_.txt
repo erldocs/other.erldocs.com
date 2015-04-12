@@ -1,0 +1,52 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/empd/emp'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/5540797404/meta.txt"
+ :: Processing https://github.com/empd/emp	{rev,branch,"master","0efa5815ac4977e3759a623629de1639b4f8c4e3"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/empd/emp/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp"
+$ 5000  `find 'emp-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["ejson","emp_baseplugins","empd","empdb","emplog",
+                    "emp_tcpi","erlzmq","mochiweb","syslog"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/5540797404/repo/master
+Building emp
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp_sup.erl"
+Generating XML for application emp "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp" -> "/home/pete/wefwefwef/docs/other/5540797404/repo/master/.xml/emp"
+/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp.erl, function start/2: at line 55: `-quote ended unexpectedly at line 55
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp.erl': {'EXIT',
+                                                                                                      error}.
+edoc: error in doclet 'edoc_doclet': {'EXIT',error}.
+Error generating emp XMLs. Using fallback ...
+Generating XML emp - emp "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp.erl" -> "/home/pete/wefwefwef/docs/other/5540797404/repo/master/.xml/emp/emp.xml"
+/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp.erl, function start/2: at line 55: `-quote ended unexpectedly at line 55
+Error generating XML ("/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp.erl"): {'EXIT',
+                                                                                                        error}
+Generating XML emp - emp_sup "/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master/emp/src/emp_sup.erl" -> "/home/pete/wefwefwef/docs/other/5540797404/repo/master/.xml/emp/emp_sup.xml"
+Generating HTML - emp_sup "/home/pete/wefwefwef/docs/other/5540797404/repo/master/.xml/emp/emp_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/5540797404/repo/master/.xml/emp/emp_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/5540797404/repo/master/.xml/specs_emp_sup.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5540797404/emp-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5540797404/emp'  2>&1`

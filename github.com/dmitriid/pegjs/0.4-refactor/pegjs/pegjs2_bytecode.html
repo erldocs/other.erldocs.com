@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pegjs2_bytecode (pegjs) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pegjs2_bytecode</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+<p>Generates bytecode.</p>
+  
+   <p>Instructions   
+============</p>
+  
+   <p>Stack Manipulation   
+------------------</p>
+  
+    <p>[0] PUSH c</p>
+  
+          <p>stack.push(consts[c]);</p>
+  
+   <p>[26] PUSH_UNDEFINED</p>
+  
+          <p>stack.push(undefined);</p>
+  
+   <p>[27] PUSH_NULL</p>
+  
+          <p>stack.push(null);</p>
+  
+   <p>[28] PUSH_FAILED</p>
+  
+          <p>stack.push(FAILED);</p>
+  
+   <p>[29] PUSH_EMPTY_ARRAY</p>
+  
+          <p>stack.push([]);</p>
+  
+    <p>[1] PUSH_CURR_POS</p>
+  
+          <p>stack.push(currPos);</p>
+  
+    <p>[2] POP</p>
+  
+          <p>stack.pop();</p>
+  
+    <p>[3] POP_CURR_POS</p>
+  
+          <p>currPos = stack.pop();</p>
+  
+    <p>[4] POP_N n</p>
+  
+          <p>stack.pop(n);</p>
+  
+    <p>[5] NIP</p>
+  
+          <p>value = stack.pop();          
+stack.pop();          
+stack.push(value);</p>
+  
+    <p>[6] APPEND</p>
+  
+          <p>value = stack.pop();          
+array = stack.pop();          
+array.push(value);          
+stack.push(array);</p>
+  
+    <p>[7] WRAP n</p>
+  
+          <p>stack.push(stack.pop(n));</p>
+  
+    <p>[8] TEXT</p>
+  
+          <p>stack.push(input.substring(stack.pop(), currPos));</p>
+  
+   <p>Conditions and Loops   
+--------------------</p>
+  
+    <p>[9] IF t, f</p>
+  
+          <p>if (stack.top()) {            
+interpret(ip + 3, ip + 3 + t);          
+} else {            
+interpret(ip + 3 + t, ip + 3 + t + f);          
+}</p>
+  
+   <p>[10] IF_ERROR t, f</p>
+  
+          <p>if (stack.top() === FAILED) {            
+interpret(ip + 3, ip + 3 + t);          
+} else {            
+interpret(ip + 3 + t, ip + 3 + t + f);          
+}</p>
+  
+   <p>[11] IF_NOT_ERROR t, f</p>
+  
+          <p>if (stack.top() !== FAILED) {            
+interpret(ip + 3, ip + 3 + t);          
+} else {            
+interpret(ip + 3 + t, ip + 3 + t + f);          
+}</p>
+  
+   <p>[12] WHILE_NOT_ERROR b</p>
+  
+          <p>while(stack.top() !== FAILED) {            
+interpret(ip + 2, ip + 2 + b);          
+}</p>
+  
+   <p>Matching   
+--------</p>
+  
+   <p>[13] MATCH_ANY a, f, ...</p>
+  
+          <p>if (input.length &gt; currPos) {            
+interpret(ip + 3, ip + 3 + a);          
+} else {            
+interpret(ip + 3 + a, ip + 3 + a + f);          
+}</p>
+  
+   <p>[14] MATCH_STRING s, a, f, ...</p>
+  
+          <p>if (input.substr(currPos, consts[s].length) === consts[s]) {            
+interpret(ip + 4, ip + 4 + a);          
+} else {            
+interpret(ip + 4 + a, ip + 4 + a + f);          
+}</p>
+  
+   <p>[15] MATCH_STRING_IC s, a, f, ...</p>
+  
+          <p>if (input.substr(currPos, consts[s].length).toLowerCase() === consts[s]) {            
+interpret(ip + 4, ip + 4 + a);          
+} else {            
+interpret(ip + 4 + a, ip + 4 + a + f);          
+}</p>
+  
+   <p>[16] MATCH_REGEXP r, a, f, ...</p>
+  
+          <p>if (consts[r].test(input.charAt(currPos))) {            
+interpret(ip + 4, ip + 4 + a);          
+} else {            
+interpret(ip + 4 + a, ip + 4 + a + f);          
+}</p>
+  
+   <p>[17] ACCEPT_N n</p>
+  
+          <p>stack.push(input.substring(currPos, n));          
+currPos += n;</p>
+  
+   <p>[18] ACCEPT_STRING s</p>
+  
+          <p>stack.push(consts[s]);          
+currPos += consts[s].length;</p>
+  
+   <p>[19] FAIL e</p>
+  
+          <p>stack.push(FAILED);          
+fail(consts[e]);</p>
+  
+   <p>Calls   
+-----</p>
+  
+   <p>[20] REPORT_SAVED_POS p</p>
+  
+          <p>reportedPos = stack[p];</p>
+  
+   <p>[21] REPORT_CURR_POS</p>
+  
+          <p>reportedPos = currPos;</p>
+  
+   <p>[22] CALL f, n, pc, p1, p2, ..., pN</p>
+  
+          <p>value = consts[f](stack[p1], ..., stack[pN]);          
+stack.pop(n);          
+stack.push(value);</p>
+  
+   <p>Rules   
+-----</p>
+  
+   <p>[23] RULE r</p>
+  
+          <p>stack.push(parseRule(r));</p>
+  
+   <p>Failure Reporting   
+-----------------</p>
+  
+   <p>[24] SILENT_FAILS_ON</p>
+  
+          <p>silentFails++;</p>
+  
+   <p>[25] SILENT_FAILS_OFF</p>
+  
+          silentFails--;
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="generate/1">generate(Analysis::#analysis{}) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Dmitrii Dimandt</aname>
+<email>dmitrii@dmitriid.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

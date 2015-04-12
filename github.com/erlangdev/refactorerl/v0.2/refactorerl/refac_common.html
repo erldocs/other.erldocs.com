@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>refac_common (refactorerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>refac_common</h1>
+<h2 class="modsummary">This is a package with various useful library functions for the
+       refactorings.</h2>
+<div class="description">
+<p>This is a package with various useful library functions for the
+       refactorings.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_module_id/1">get_module_id(File::string()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the module's id, if exists. Otherwise throws exception.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  File : Path of the module.</pre>
+</div></div>
+<div class="function">
+<h3 id="find_the_function/1">find_the_function(MId::integer(), NodeandType::[{integer(), integer()}]) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the function's module id and id from the pointed usage.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  NodeandType : The pointed location's id and type.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_id_from_pos/1">get_id_from_pos(MId::integer(), Line::integer(), Col::integer(), Type::atom()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the id of the pointed location.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  Line : The pointed line in the code.
+  Col : The pointed column in the code.
+  Type : The pointed element's expected type.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_function_definition/1">get_function_definition(MId::integer(), NodeandType::[{integer(), integer()}]) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the function's module id and id from the pointed usage.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  NodeandType : The pointed location's id and type.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="warnings/0">warnings() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Checks for unsupported function calls, which can cause problems after
+  a refactoring.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_inner_scope/1">get_inner_scope(MId::integer(), ScopeId::integer()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the ScopeId scope's inner scopes.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  ScopeId : A scope in a funtion.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="produce_inner_scopes/1">produce_inner_scopes(MId::integer(), ScopeIds::[{integer()}]) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the ScopeIds scopes' inner scopes. Populates the scope list  
+until it does not change.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  ScopeIds : Scopes in a funtion.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_patternIdBody/1">get_patternIdBody(MId::integer(), BId::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the expression's root which result will be the variables value.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  BId : Binding occurrance of a variable.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="local_preorder_var/1">local_preorder_var(MId::integer(), BodyId::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the given subtree's variables.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  BodyId : The root of a subtree.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="check_var/1">check_var(MId::integer(), Tree::integer()) -&gt; {integer(), integer(), string()} | ok</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the node's data if it's a variable. Otherwise ok.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  Tree : Id of a node.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="preorder/1">preorder(MId::integer(), Tree::integer(), F::function()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>  
+Traverses the Tree in preorder mode and  
+calls F function for all elements in the tree.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  Tree : Id of a node.
+  F : A function which will be called for every node in the tree.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_scope_type/1">get_scope_type(MId::integer(), ScopeId::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the scopes type.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  ScopeId : A scope in a function.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_fun_calls/1">get_fun_calls(MId::integer(), FunId::integer()) -&gt; {CallData, CallData, CallData, CallData, CallData}</h3>
+
+<ul class="type">
+<li><code>CallData = [{integer(), integer(), integer()}]</code></li></ul>
+<div class="description">
+
+<p>  
+Returns the calls of a function seperated into list by type.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  FunId : Id of a function.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="find_expression_root_id/1">find_expression_root_id(MId::integer(), NodeId::integer(), FromId::integer(), ToId::integer()) -&gt; {Found, PathFromRootClause, ExprId}</h3>
+
+<ul class="type">
+<li><code>Found = atom()</code></li><li><code>PathFromRootClause = [integer()]</code></li><li><code>ExprId = integer() | {integer(), integer()}</code></li></ul>
+<div class="description">
+
+<p>  
+Returns the root of the expression and the path to it from the root.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  NodeId : Id of the actual node.
+  FromId : Id to search from.
+  ToId : Id to search to.</pre><p>
+  Result description:</p><pre class="sh_erlang">
+  Found : Result of the search.
+                 Possible values: not_found, found_expr, found_body,
+                                  found_first, found_last.
+  PathFromRootClause : Ids from the root to the expression.
+  ExprId : Id of the expression,
+                  or the first and last id of the expressions. </pre>
+</div></div>
+<div class="function">
+<h3 id="get_variables/1">get_variables(MId::integer(), NodeId::integer(), WithRoot::atom()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the variables below the node and the node itself.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  NodeId : Id of the actual node.
+  WithRoot : Include the root node (with_root) or not (without_root).
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_subtrees/1">get_subtrees(MId::integer(), NodeId::integer(), WithRoot::atom()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>  
+Returns all the nodes below the node and the node itself.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  NodeId : Id of the actual node.
+  WithRoot : Include the root node (with_root) or not (without_root).
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_data/1">get_data(MId::integer(), FunName::string(), Arity::integer()) -&gt; {[integer()], [{string(), integer()}], [{string(), string(), integer()}], [integer()]}</h3>
+
+
+<div class="description">
+
+<p>  
+Returns data about the function, and about the surrounding functions.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  FunName : The name of the function.
+  Arity : The arity of the function.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_clause_body_nodes/1">get_clause_body_nodes(MId::integer(), RootClause::integer()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>  
+Returns all of the nodes in the body of the clause.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  RootClause : Id of the clause containing the expressions.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_lowest_id/1">get_lowest_id(MId::integer(), Ids::[Ids::integer()]) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>  
+Returns the leaf node in the syntax tree from the listed ones.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  Ids : Ids that are present in the syntax tree.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_sideeffects/1">get_sideeffects(MId::integer(), RootClause::integer(), ExprOccurrences::[integer()]) -&gt; [{Parent, Id, ErrorMessage}]</h3>
+
+<ul class="type">
+<li><code>Parent = integer()</code></li><li><code>Id = integer()</code></li><li><code>ErrorMessage = atom()</code></li></ul>
+<div class="description">
+
+<p>  
+Returns which occurrences have sideeffects, which are inside a   
+list head, list body, generator pattern, clause guard, clause    
+pattern, macro.</p>
+ 
+  <p>Parameter description:</p><pre class="sh_erlang">
+  MId : Id of the module.
+  RootClause : Id of the clause containing the expressions.
+  ExprOccurrences : List of all the expression occurrences.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="get_sideeffects_by_parent/3">get_sideeffects_by_parent(MId, ExprOccurrences, Parent) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Robert Kitlei</aname>
+<email>kitlei@elte.hu</email>
+<aname>Tamas Nagy</aname>
+<email>lestat@elte.hu</email>
+<aname>Aniko Vig</aname>
+<email>viganiko@inf.elte.hu</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

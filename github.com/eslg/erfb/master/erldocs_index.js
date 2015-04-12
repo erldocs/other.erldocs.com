@@ -1,0 +1,1 @@
+var index = [['app','erfb','erfb','[application]'],['mod','erfb','erfb_encoding','Encoding Behaviour.'],['fun','erfb','erfb_encoding:behaviour_info/1',' Behaviour information.']];

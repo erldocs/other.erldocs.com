@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>json (erlang-json) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>json</h1>
+<h2 class="modsummary">This is a json encode/decode library for erlang.</h2>
+<div class="description">
+<p>This is a json encode/decode library for erlang.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-binary_text">binary_text() = <a href="unicode.html#type-unicode_binary" class="seealso">unicode:unicode_binary()</a></h3></div>
+    <div class="type"><h3 id="type-decode_error">decode_error() = term()</h3></div>
+    <div class="type"><h3 id="type-decode_option">decode_option() = allow_comments<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {allow_comments, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {key_decode,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;existent_atom |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[existent_atom | binary | ignore]}</h3></div>
+    <div class="type"><h3 id="type-decode_options">decode_options() = [<a href="#type-decode_option" class="seealso">decode_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-encode_error">encode_error() = term()</h3></div>
+    <div class="type"><h3 id="type-json_array">json_array() = <a href="#type-json_array_t" class="seealso">json_array_t</a>(<a href="#type-value" class="seealso">value()</a>)</h3></div>
+    <div class="type"><h3 id="type-json_array_t">json_array_t(T) = [T]</h3></div>
+    <div class="type"><h3 id="type-json_number">json_number() = integer() | float()</h3></div>
+    <div class="type"><h3 id="type-json_object">json_object() = <a href="#type-json_object_t" class="seealso">json_object_t</a>([{<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>}])</h3></div>
+    <div class="type"><h3 id="type-json_object_t">json_object_t(Pairs) = {Pairs}</h3></div>
+    <div class="type"><h3 id="type-json_primary">json_primary() = <a href="#type-json_string" class="seealso">json_string()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_number" class="seealso">json_number()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| null</h3></div>
+    <div class="type"><h3 id="type-json_string">json_string() = <a href="unicode.html#type-unicode_binary" class="seealso">unicode:unicode_binary()</a></h3></div>
+    <div class="type"><h3 id="type-key">key() = <a href="#type-json_string" class="seealso">json_string()</a> | atom()</h3></div>
+    <div class="type"><h3 id="type-text">text() = <a href="unicode.html#type-chardata" class="seealso">unicode:chardata()</a></h3></div>
+    <div class="type"><h3 id="type-value">value() = <a href="#type-json_primary" class="seealso">json_primary()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_object_t" class="seealso">json_object_t</a>([{<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>}])<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_array_t" class="seealso">json_array_t</a>(<a href="#type-value" class="seealso">value()</a>)</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="decode/1">decode(JsonText::text()) -&gt; {ok, value()} | {error, decode_error()}</h3>
+
+
+<div class="description">
+
+<p>decode json text into erlang term.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(JsonText::text(), Options::decode_options()) -&gt; {ok, value()} | {error, decode_error()}</h3>
+
+
+<div class="description">
+
+<p>decode json text into erlang term.</p>
+ 
+  <p>Followins options are acceptable::</p>
+ 
+  <taglist>
+  <tag id="allow_comments">allow_comments</tag>
+  <item /><tag id="allow_comments.2">{allow_comments, boolean()}</tag>
+  <item><p>
+  Allow JavaScript style comment in json text.
+  Default is false.
+  </p></item>
+  <tag id="key_decode">{key_decode, existent_atom | binary | [existent_atom | binary | ignore]}</tag>
+  <item><p>
+  Type of decoded key of json object.
+  Valid parameter is one of followings::
+  binary, existent_atom, [existent_atom, binary].
+  Default is binary.
+  </p></item>
+  </taglist>
+</div></div>
+<div class="function">
+<h3 id="encode/1">encode(JsonTerm::value()) -&gt; {ok, binary_text()} | {error, encode_error()}</h3>
+
+
+<div class="description">
+
+<p>encode erlang term into json text.</p>
+</div></div></div>
+
+<authors>
+
+<aname>YAMASHINA Hio</aname>
+<email>hio@hio.jp</email>
+<aname>Paul J. Davis</aname>
+<email>paul.joseph.davis@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

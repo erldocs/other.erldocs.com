@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>utp_buffer (erlang-utp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>utp_buffer</h1>
+<h2 class="modsummary">Low level packet buffer management.</h2>
+<div class="description">
+<p>Low level packet buffer management.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-message">message() = send_ack</h3></div>
+    <div class="type"><h3 id="type-messages">messages() = [<a href="#type-message" class="seealso">message()</a>]</h3></div>
+    <div class="type"><h3 id="type-pkt">pkt() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pkt_wrap{packet = undefined | <a href="utp_proto.html#type-packet" class="seealso">utp_proto:packet()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transmissions = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;send_time = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;need_resend = boolean()}</h3></div>
+    <div class="type"><h3 id="type-quota">quota() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#send_quota{send_quota = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_send_quota = undefined | integer()}</h3></div>
+    <div class="type"><h3 id="type-t">t()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="mk/1">mk(OptRecv) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_counters/3">init_counters(Buffer, SeqNo, NextExpected) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_seqno/2">init_seqno(Buffer, SeqNo) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_ackno/2">init_ackno(Buffer, NextExpected) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mk_random_seq_no/0">mk_random_seq_no() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send_ack/2">send_ack(Network, Buffer) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Toss out an ACK packet on the Socket.</p>
+</div></div>
+<div class="function">
+<h3 id="send_fin/2">send_fin(Network, Buf) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Toss out a FIN packet on the Socket.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_packet/4">handle_packet(State, Packet, PktWindow, PacketBuffer) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Handle an incoming Packet
+  We proceed to handle an incoming packet by first seeing if it has
+  payload we are interested in, and if that payload advances our
+  buffers in any way. Then, afterwards, we handle the AckNo and
+  Advertised window of the packet to eventually send out more on the
+  socket towards the other end.</p>
+</div></div>
+<div class="function">
+<h3 id="fill_window/3">fill_window(Network, ProcQueue, PktBuf) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Fill up the Window with packets in the outgoing direction</p>
+</div></div>
+<div class="function">
+<h3 id="retransmit_packet/2">retransmit_packet(PktBuf, Network) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="advertised_window/1">advertised_window(Buffer) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Calculate the advertised window to use</p>
+</div></div>
+<div class="function">
+<h3 id="buffer_putback/2">buffer_putback(B, Buffer) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="buffer_dequeue/1">buffer_dequeue(Buffer) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_rtt/1">extract_rtt(Packets) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_payload_size/1">extract_payload_size(Packets) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="view_zerowindow_reopen/2">view_zerowindow_reopen(Old, New) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="draining_receive/2">draining_receive(L, PktBuf) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

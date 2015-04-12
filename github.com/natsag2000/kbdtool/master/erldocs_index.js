@@ -1,0 +1,1 @@
+var index = [['app','kbdtool','kbdtool','[application]'],['mod','kbdtool','kbd_analyse',[]],['fun','kbdtool','kbd_analyse:main/1',[]]];

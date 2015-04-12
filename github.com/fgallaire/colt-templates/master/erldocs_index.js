@@ -1,0 +1,1 @@
+var index = [['app','colt-templates','colt-templates','[application]'],['mod','colt-templates','coltapp_index_http_controller','index HTTP controller.'],['fun','colt-templates','coltapp_index_http_controller:handle/2',[]],['fun','colt-templates','coltapp_index_http_controller:init/3',[]],['fun','colt-templates','coltapp_index_http_controller:terminate/3',[]]];

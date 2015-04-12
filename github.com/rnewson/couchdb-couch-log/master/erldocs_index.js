@@ -1,0 +1,1 @@
+var index = [['app','couchdb-couch-log','couchdb-couch-log','[application]'],['mod','couchdb-couch-log','couch_log',[]],['fun','couchdb-couch-log','couch_log:log/3',[]]];

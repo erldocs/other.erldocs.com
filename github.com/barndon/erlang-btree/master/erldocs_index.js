@@ -1,0 +1,1 @@
+var index = [['app','erlang-btree','erlang-btree','[application]'],['mod','erlang-btree','btree',[]],['fun','erlang-btree','btree:insert/2',[]],['fun','erlang-btree','btree:new/1',[]],['fun','erlang-btree','btree:search/2',[]]];

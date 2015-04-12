@@ -1,0 +1,1 @@
+var index = [['app','rjsonrpc2','rjsonrpc2','[application]'],['mod','rjsonrpc2','rjsonrpc2','Restricted implementation of the JSONRPC 2.0 spec'],['fun','rjsonrpc2','rjsonrpc2:construct_response/2',[]],['fun','rjsonrpc2','rjsonrpc2:decode/2',[]],['fun','rjsonrpc2','rjsonrpc2:encode/2',[]]];

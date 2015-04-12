@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>chash (riak_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>chash</h1>
+<h2 class="modsummary">A consistent hashing implementation.</h2>
+<div class="description">
+<p>A consistent hashing implementation.  The space described by the ring
+       coincides with SHA-1 hashes, and so any two keys producing the same
+       SHA-1 hash are considered identical within the ring.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-chash_node">chash_node() = term()</h3></div>
+    <div class="type"><h3 id="type-index">index() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="fresh/1">fresh(NumPartitions::integer(), SeedNode::chash_node()) -&gt; chash()</h3>
+
+
+<div class="description">
+
+<p>Create a brand new ring.  The size and seednode are specified;
+      initially all partitions are owned by the seednode.  If NumPartitions
+      is not much larger than the intended eventual number of
+       participating nodes, then performance will suffer.</p>
+</div></div>
+<div class="function">
+<h3 id="lookup/1">lookup(IndexAsInt::integer(), CHash::chash()) -&gt; chash_node()</h3>
+
+
+<div class="description">
+
+<p>Find the Node that owns the partition identified by IndexAsInt.</p>
+</div></div>
+<div class="function">
+<h3 id="contains_name/1">contains_name(Name::chash_node(), CHash::chash()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Return true if named Node owns any partitions in the ring, else false.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(IndexAsInt::integer(), Name::chash_node(), CHash::chash()) -&gt; chash()</h3>
+
+
+<div class="description">
+
+<p>Make the partition beginning at IndexAsInt owned by Name'd node.</p>
+</div></div>
+<div class="function">
+<h3 id="successors/1">successors(Index::index(), CHash::chash()) -&gt; [NodeEntry]</h3>
+
+
+<div class="description">
+
+<p>Given an object key, return all NodeEntries in order starting at Index.</p>
+</div></div>
+<div class="function">
+<h3 id="successors/1-1">successors(Index::index(), CHash::chash(), N::integer()) -&gt; [NodeEntry]</h3>
+
+
+<div class="description">
+
+<p>Given an object key, return the next N NodeEntries in order
+      starting at Index.</p>
+</div></div>
+<div class="function">
+<h3 id="predecessors/1">predecessors(Index::index(), CHash::chash()) -&gt; [NodeEntry]</h3>
+
+
+<div class="description">
+
+<p>Given an object key, return all NodeEntries in reverse order
+      starting at Index.</p>
+</div></div>
+<div class="function">
+<h3 id="predecessors/1-1">predecessors(Index::index(), CHash::chash(), N::integer()) -&gt; [NodeEntry]</h3>
+
+
+<div class="description">
+
+<p>Given an object key, return the next N NodeEntries in reverse order
+      starting at Index.</p>
+</div></div>
+<div class="function">
+<h3 id="key_of/1">key_of(ObjectName::term()) -&gt; index()</h3>
+
+
+<div class="description">
+
+<p>Given any term used to name an object, produce that object's key
+      into the ring.  Two names with the same SHA-1 hash value are
+      considered the same name.</p>
+</div></div>
+<div class="function">
+<h3 id="members/1">members(CHash::chash()) -&gt; [Node]</h3>
+
+
+<div class="description">
+
+<p>Return all Nodes that own any partitions in the ring.</p>
+</div></div>
+<div class="function">
+<h3 id="nodes/1">nodes(CHash::chash()) -&gt; [NodeEntry]</h3>
+
+
+<div class="description">
+
+<p>Return the entire set of NodeEntries in the ring.</p>
+</div></div>
+<div class="function">
+<h3 id="merge_rings/1">merge_rings(CHashA::chash(), CHashB::chash()) -&gt; chash()</h3>
+
+
+<div class="description">
+
+<p>Return a randomized merge of two rings.
+      If multiple nodes are actively claiming nodes in the same
+      time period, churn will occur.  Be prepared to live with it.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(CHash::chash()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of partitions in the ring.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','n2o_chat','n2o_chat','[application]'],['mod','n2o_chat','n2o_chat_app',[]],['fun','n2o_chat','n2o_chat_app:start/0',[]],['fun','n2o_chat','n2o_chat_app:start/2',[]],['fun','n2o_chat','n2o_chat_app:stop/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','couchdb-couch-index','couchdb-couch-index','[application]'],['mod','couchdb-couch-index','couch_index_api',[]]];

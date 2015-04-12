@@ -1,0 +1,1 @@
+var index = [['app','erlbench','erlbench','[application]'],['mod','erlbench','bandwidth',[]],['mod','erlbench','bench',[]],['mod','erlbench','bench_util',[]],['fun','erlbench','bandwidth:bench/2',[]],['fun','erlbench','bandwidth:client/2',[]],['fun','erlbench','bandwidth:server/0',[]],['fun','erlbench','bench:bench_modules/0',[]],['fun','erlbench','bench_util:repeat/2',[]]];

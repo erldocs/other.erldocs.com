@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>epryl_amp (epryl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>epryl_amp</h1>
+<h2 class="modsummary">
+   AMP protocol utilities.</h2>
+<div class="description">
+<p>
+   AMP protocol utilities. See:
+    <url href="http://twistedmatrix.com/documents/current/api/twisted.protocols.amp.html">http://twistedmatrix.com/documents/current/api/twisted.protocols.amp.html</url></p>
+  
+   <p>This module implements low-level encoding and decoding of AMP   
+Boxes. An Amp Box is represented in Erlang as a list of key/value   
+pairs. This type is referred to as a Box.</p>
+  
+      Box = [KVP]
+      KVP = {Key, Value}
+      Key = string()
+      Value = term()</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="make_error/1">make_error(Key::atom(), Description::string()) -&gt; box()</h3>
+
+
+<div class="description">
+
+<p>Given an error atom key and a string description, return a box
+  that can be returned by an ask handler as the error information for
+  an error response.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="encode_ask/1">encode_ask(Command::amp_record(), Id::string(), Box::box()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and a box, return a
+  binary encoding of the Amp Box that would implement the call.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="encode_answer/1">encode_answer(Command::amp_record(), Id::string(), Box::box()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and a box, return a
+  binary encoding of the AmpBox that would implement the answer box for
+  a call.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="encode_error/1">encode_error(Command::amp_record(), Id::string(), Box::box()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and a box, return a
+  binary encoding of the Amp Box that would implement the error box for
+  a call.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="encode_response/1">encode_response(Response::atom(), Command::amp_record(), Id::string(), Box::box()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and a box, return a
+  binary encoding of the AmpBox that would implement the error box for
+  a call.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="new_decoder/1">new_decoder(Protocol::list()) -&gt; decoder()</h3>
+
+
+<div class="description">
+
+<p>Return a new decoder object suitable for unserializing a wire
+  format of an Amp box. Decoders are required arguments for decode_box/2.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="decode_box/1">decode_box(Decoder::decoder(), Packet::binary()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {not_done, decoder()} | {done, Box::box(), Rest::binary()}</code></li></ul>
+<div class="description">
+
+<p>Decode a part (or whole) of a box.
+  If the complete box is decoded, return the box we decoded and the
+  unprocessed bytes. If we are not done, return the new state of the
+  decoder.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="decode_header/1">decode_header(Packet::binary()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = not_enough | {BoxType, Id::string(), Remaining::binary()}</code></li><li><code>BoxType = ask | answer | error</code></li></ul>
+<div class="description">
+
+<p>Match a key/value pair encoded at the front of an incoming box.
+  Return a tuple indicating the type of incoming box and the Id for the
+  message, plus the remaining bytes in the packet. The function will crash
+  if the kvp has the wrong name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="decode_command_header/1">decode_command_header(Packet::binary()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = not_enough | {CommandName::string(), Remaining::binary()}</code></li></ul>
+<div class="description">
+
+<p>Match a key/value pair encoding the command name of an ask box.
+  Return a tuple with the command name and the remaining bytes in the
+  packet. The function will crash if the kvp was the wrong name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="encode_box/2">encode_box(Protocol::AmpList, Box::box()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Given an AmpList protocol and a box, return a binary encoding
+  of the box that matches the protocol.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Dave Peticolas</aname>
+<email>dave@krondo.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

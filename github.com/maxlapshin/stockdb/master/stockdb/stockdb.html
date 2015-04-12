@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>stockdb (stockdb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>stockdb</h1>
+<h2 class="modsummary">Stock database
+   Designed for continious writing of stock data
+   with later fast read and fast seek.</h2>
+<div class="description">
+<p>Stock database
+   Designed for continious writing of stock data
+   with later fast read and fast seek</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-date">date() = string()</h3></div>
+    <div class="type"><h3 id="type-datetime_ms">datetime_ms() = {<a href="calendar.html#type-date" class="seealso">calendar:date()</a>, <a href="#type-time_ms" class="seealso">time_ms()</a>}</h3></div>
+    <div class="type"><h3 id="type-filter">filter() = candle | average</h3></div>
+    <div class="type"><h3 id="type-iterator">iterator() = term()</h3></div>
+    <div class="type"><h3 id="type-market_data">market_data() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#md{timestamp = undefined | <a href="stockdb.html#type-timestamp" class="seealso">stockdb:timestamp()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bid = undefined | [<a href="stockdb.html#type-quote" class="seealso">stockdb:quote()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ask = undefined | [<a href="stockdb.html#type-quote" class="seealso">stockdb:quote()</a>]}</h3></div>
+    <div class="type"><h3 id="type-millisecond">millisecond() = 0..999</h3></div>
+    <div class="type"><h3 id="type-open_option">open_option() = {depth, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {scale, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {chunk_size, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {date, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stock, <a href="stockdb.html#type-stock" class="seealso">stockdb:stock()</a>}</h3></div>
+    <div class="type"><h3 id="type-price">price() = float()</h3></div>
+    <div class="type"><h3 id="type-quote">quote() = {<a href="#type-price" class="seealso">price()</a>, <a href="#type-volume" class="seealso">volume()</a>}</h3></div>
+    <div class="type"><h3 id="type-reader_option">reader_option() = {filter, <a href="#type-filter" class="seealso">filter()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {range,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="stockdb.html#type-timestamp" class="seealso">stockdb:timestamp()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="stockdb.html#type-timestamp" class="seealso">stockdb:timestamp()</a>}</h3></div>
+    <div class="type"><h3 id="type-stock">stock() = atom()</h3></div>
+    <div class="type"><h3 id="type-stockdb">stockdb() = {stockdb_pid, pid()} | term()</h3></div>
+    <div class="type"><h3 id="type-time_ms">time_ms() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="calendar.html#type-hour" class="seealso">calendar:hour()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="calendar.html#type-minute" class="seealso">calendar:minute()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="calendar.html#type-second" class="seealso">calendar:second()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-millisecond" class="seealso">millisecond()</a>}</h3></div>
+    <div class="type"><h3 id="type-timestamp">timestamp() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-trade">trade() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#trade{timestamp = undefined | <a href="stockdb.html#type-timestamp" class="seealso">stockdb:timestamp()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price = undefined | <a href="stockdb.html#type-price" class="seealso">stockdb:price()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volume = undefined | <a href="stockdb.html#type-volume" class="seealso">stockdb:volume()</a>}</h3></div>
+    <div class="type"><h3 id="type-volume">volume() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="stocks/0">stocks() -&gt; [stock()]</h3>
+
+
+<div class="description">
+
+<p>List of stocks in local database</p>
+</div></div>
+<div class="function">
+<h3 id="stocks/1">stocks(Storage::term()) -&gt; [stock()]</h3>
+
+
+<div class="description">
+
+<p>List of stocks in remote database</p>
+</div></div>
+<div class="function">
+<h3 id="dates/1">dates(Stock::stock() | {any(), stock()}) -&gt; [date()]</h3>
+
+
+<div class="description">
+
+<p>List of available dates for stock</p>
+</div></div>
+<div class="function">
+<h3 id="dates/1-1">dates(Storage::term(), Stock::stock()) -&gt; [date()]</h3>
+
+
+<div class="description">
+
+<p>List of available dates in remote database</p>
+</div></div>
+<div class="function">
+<h3 id="common_dates/1">common_dates(Stocks::[stock()]) -&gt; [date()]</h3>
+
+
+<div class="description">
+
+<p>List dates when all given stocks have data</p>
+</div></div>
+<div class="function">
+<h3 id="common_dates/1-1">common_dates(Storage::term(), Stocks::[stock()]) -&gt; [date()]</h3>
+
+
+<div class="description">
+
+<p>List dates when all given stocks have data, remote version</p>
+</div></div>
+<div class="function">
+<h3 id="open_read/1">open_read(Stock::stock() | {any(), stock()}, Date::date()) -&gt; {ok, stockdb()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Open stock for reading</p>
+</div></div>
+<div class="function">
+<h3 id="open_append/1">open_append(Stock::stock(), Date::date(), Opts::[open_option()]) -&gt; {ok, stockdb()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Open stock for appending</p>
+</div></div>
+<div class="function">
+<h3 id="append/1">append(Event::stockdb(), Stockdb::trade() | market_data()) -&gt; {ok, stockdb()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Append row to db</p>
+</div></div>
+<div class="function">
+<h3 id="write_events/1">write_events(Stock::stock(), Date::date(), Events::[trade() | market_data()]) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write_events/1-1">write_events(Stock::stock(), Date::date(), Events::[trade() | market_data()], Options::[open_option()]) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/1">info(Stockdb::stockdb()) -&gt; [{Key::atom(), Value::term()}]</h3>
+
+
+<div class="description">
+
+<p>Fetch information from opened stockdb</p>
+</div></div>
+<div class="function">
+<h3 id="info/1-1">info(Stock::stock(), Date::date()) -&gt; [{Key::atom(), Value::term()}]</h3>
+
+
+<div class="description">
+
+<p>Fetch typical information about given Stock/Date</p>
+</div></div>
+<div class="function">
+<h3 id="info/1-2">info(Stock::stock(), Date::date(), Key::[Key::atom()]) -&gt; [{Key::atom(), Value::term()}]</h3>
+
+
+<div class="description">
+
+<p>Fetch requested information about given Stock/Date</p>
+</div></div>
+<div class="function">
+<h3 id="events/2">events(X1::{node, node()}, Stock::stock(), Date::date(), Filters::[term()]) -&gt; [trade() | market_data()]</h3>
+
+
+<div class="description">
+
+<p>Get all events from filtered stock/date</p>
+</div></div>
+<div class="function">
+<h3 id="events/1">events(Stock::stock(), Date::date(), Filters::[term()]) -&gt; [trade() | market_data()]</h3>
+
+
+<div class="description">
+
+<p>Get all events from filtered stock/date</p>
+</div></div>
+<div class="function">
+<h3 id="events/1-1">events(Stock::stock(), Date::date()) -&gt; [trade() | market_data()]</h3>
+
+
+<div class="description">
+
+<p>Read all events for stock and date</p>
+</div></div>
+<div class="function">
+<h3 id="events/1-2">events(Dbstate::stockdb() | iterator()) -&gt; [trade() | market_data()]</h3>
+
+
+<div class="description">
+
+<p>Just read all events from stockdb</p>
+</div></div>
+<div class="function">
+<h3 id="init_reader/1">init_reader(Dbstate::stockdb(), Filters::[reader_option()]) -&gt; {ok, iterator()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Init iterator over opened stockdb
+ Options:
+    {range, Start, End}
+    {filter, FilterFun, FilterArgs}
+ FilterFun is function in stockdb_filters</p>
+</div></div>
+<div class="function">
+<h3 id="init_reader/1-1">init_reader(Stock::stock(), Date::date(), Filters::[reader_option()]) -&gt; {ok, iterator()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Shortcut for opening iterator on stock-date pair</p>
+</div></div>
+<div class="function">
+<h3 id="read_event/1">read_event(Iterator::iterator()) -&gt; {ok, trade() | market_data(), iterator()} | {eof, iterator()}</h3>
+
+
+<div class="description">
+
+<p>Read next event from iterator</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Dbstate::stockdb()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>close stockdb</p>
+</div></div>
+<div class="function">
+<h3 id="candle/1">candle(Stock::stock(), Date::date()) -&gt; {price(), price(), price(), price()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="candle/1-1">candle(Stock::stock(), Date::date(), Options::[reader_option()]) -&gt; {price(), price(), price(), price()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="timestamp/1">timestamp(DateTime::datetime() (see module calendar) | datetime_ms() | timestamp() (see module erlang)) -&gt; timestamp()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

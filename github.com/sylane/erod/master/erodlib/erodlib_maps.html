@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erodlib_maps (erodlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erodlib_maps</h1>
+<h2 class="modsummary">TODO: Document module erodlib_maps.</h2>
+<div class="description">
+<p>TODO: Document module erodlib_maps.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-emap">emap() = gb_tree()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Creates a new empty map.</p>
+</div></div>
+<div class="function">
+<h3 id="from_orddict/1">from_orddict(Items) -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Items = [{Key, Value}] | []</code></li><li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Creates a new ap from an ordered list of items.</p>
+</div></div>
+<div class="function">
+<h3 id="from_items/1">from_items(Items) -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Items = [{Key, Value}] | []</code></li><li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Creates a new map from an unordered list of items.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(Map) -&gt; Size</h3>
+
+<ul class="type">
+<li><code>Map = emap()</code></li><li><code>Size = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Gives the number of nodes in the map.</p>
+</div></div>
+<div class="function">
+<h3 id="keys/1">keys(Map) -&gt; Keys</h3>
+
+<ul class="type">
+<li><code>Map = emap()</code></li><li><code>Keys = [Key] | []</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the ordered list of keys of a map.</p>
+</div></div>
+<div class="function">
+<h3 id="lookup/2">lookup(Key, Map) -&gt; {value, Value} | none</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Map = emap()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the map value for given key or 'none'.</p>
+</div></div>
+<div class="function">
+<h3 id="value/2">value(Key, Map) -&gt; Value</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Map = emap()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the map value for given key assuming it exists, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/3">insert(Key, Value, Map) -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Inserts a node with specified key and value in the map.
+  Assume the key is not present in the map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="update/3">update(Key, Value, Map) -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Update the map value with specified key.
+  Assume the key is present in the map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/2">delete(Key, Map) -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Removes the node with specified key from the map.
+  Assume the key is present in the map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_from/2">lookup_from(Key, Map) -&gt; {values, Values} | none</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Map = emap()</code></li><li><code>Values = [Value]</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Lookup all the values starting from the specified key.
+  If the specified key is not found 'none' is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="trim_smallest/2">trim_smallest(Size, Map) -&gt; Map</h3>
+
+<ul class="type">
+<li><code>Size = pos_integer() | 0</code></li><li><code>Map = emap()</code></li></ul>
+<div class="description">
+
+<p>Removes the smallest nodes so the map size become the specified size.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Sebastien Merle</aname>
+<email>s.merle@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

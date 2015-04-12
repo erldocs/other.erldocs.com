@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>amp_box (amp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>amp_box</h1>
+<h2 class="modsummary">
+  AMP protocol utilities.</h2>
+<div class="description">
+<p>
+  AMP protocol utilities. See:
+   <url href="http://twistedmatrix.com/documents/current/api/twisted.protocols.amp.html">http://twistedmatrix.com/documents/current/api/twisted.protocols.amp.html</url>
+   <url href="http://twistedmatrix.com/documents/current/core/howto/amp.html">http://twistedmatrix.com/documents/current/core/howto/amp.html</url></p>
+ 
+  <p>This module implements low-level encoding and decoding of AMP
+  Boxes. An Amp Box is represented in Erlang as a list of key/value
+  pairs.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-decoder">decoder()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="encode_ask/1">encode_ask(Command::amp_command() (see module amp_command), Id::binary(), Box::amp_box() (see module amp)) -&gt; iodata()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and a box, return an
+  iodata encoding of the Amp Box that would implement the call.</p>
+</div></div>
+<div class="function">
+<h3 id="encode_answer/1">encode_answer(Command::amp_command() (see module amp_command), Id::binary(), Box::amp_box() (see module amp)) -&gt; iodata()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and a box, return an
+  iodata encoding of the AmpBox that would implement the answer box for
+  a call.</p>
+</div></div>
+<div class="function">
+<h3 id="encode_error/1">encode_error(Command::amp_command() (see module amp_command), Id::binary(), ErrorCode::binary(), Description::binary()) -&gt; iodata()</h3>
+
+
+<div class="description">
+
+<p>Given an amp_command record, a message id, and an error code,
+  and a description, return an iodata encoding of the Amp Box that
+  would implement the error box for a call.</p>
+</div></div>
+<div class="function">
+<h3 id="new_decoder/0">new_decoder() -&gt; #decoder{box=amp_bin_box() (see module amp), rest=binary()}</h3>
+
+
+<div class="description">
+
+<p>Return a new decoder object suitable for unserializing a wire
+  format of an Amp box. Decoders are required arguments for
+  decode_bin_box/2.</p>
+</div></div>
+<div class="function">
+<h3 id="decode_bin_box/1">decode_bin_box(Decoder::decoder(), New::binary()) -&gt; {not_done, decoder()} | {amp_bin_box() (see module amp), decoder()}</h3>
+
+
+<div class="description">
+
+<p>Decode a part (or whole) of a box.
+ If the complete box is decoded, return the box we decoded and a
+ new decoder state. The decoder may contain another box, so
+ a second decode call with an empty binary is needed.</p>
+</div></div>
+<div class="function">
+<h3 id="identify_bin_box/1">identify_bin_box(Box::amp_bin_box() (see module amp)) -&gt; {ask, Id::binary(), Name::binary(), amp_bin_box() (see module amp)} | {answer, Id::binary(), amp_bin_box() (see module amp)} | {error, Id::binary(), amp_box() (see module amp)}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode_box/1">decode_box(Protocol::amp_list() (see module amp), BinBox::amp_bin_box() (see module amp)) -&gt; amp_box() (see module amp)</h3>
+
+
+<div class="description">
+
+<p>Decode a binary box into a box where the values have
+ been decoded into appropriate erlang terms</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

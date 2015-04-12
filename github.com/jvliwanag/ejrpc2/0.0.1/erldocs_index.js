@@ -1,0 +1,1 @@
+var index = [['app','ejrpc2','ejrpc2','[application]'],['mod','ejrpc2','ejrpc2',[]],['fun','ejrpc2','ejrpc2:decode_request/1',[]],['fun','ejrpc2','ejrpc2:encode_response/1',[]],['fun','ejrpc2','ejrpc2:handle_req/1',[]],['fun','ejrpc2','ejrpc2:handle_req/1',[]]];

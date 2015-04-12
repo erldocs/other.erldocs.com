@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>exometer_report (exometer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>exometer_report</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+<p>A custom reporter plugin, executing in its own process, can receive
+  updated metric values by having its module referenced in an
+  <code>exometer_report:subscribe()</code> call.</p>
+ 
+  <p>The reporter, once it is setup as a subscription destination, will  
+receive periodic calls with updated metrics and data points to be  
+reported.</p>
+ 
+  <p>Each custom plugin implements the exometer_report behavior.</p>
+ 
+  <p>The life cycle of a a custom reporter consists of the following steps.</p>
+ 
+  <p>+ Reporter creation <br /><code>exometer_init/1</code> is invoked by exometer when
+      the reporter is configured in the reporter application
+      environment. See <a href="#Configuring_reporter_plugins" class="seealso">Configuring reporter plugins</a> for      
+details.</p>
+ 
+  <p>+ Setup subscription<br />When <code>exometer_report:subscribe()</code> is called, targeting the
+      custom report plugin, the gen_serve's <code>exometer_subscribe()</code> function      
+will be invoked to notify the plugin of the new metrics subscription.</p>
+ 
+  <p>+ Report Metrics<br />Updated metrics are sent by exometer to the
+      <code>exometer_report/4</code>. All reported metrics will have been notified
+      to the recipient through a previous <code>exometer_report()</code> function.</p>
+ 
+  <p>+ Tear down subscription<br />When <code>exometer_report:unsubscribe()</code> is called, addressing the
+      custom report plugin, the recipient's <code>exometer_unsubscribe()</code> function      
+will be invoked to notify the plugin of the deleted subscription.</p>
+ 
+ 
+  <p>The following chapters details each of the callbacks to be implemented  
+in the exometer_report behavior.</p>
+ 
+  <p><em><marker id="exometer_init/1">exometer_init/1</marker></em></p>
+ 
+  <p>The <code>exometer_init()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       exometer_init(Options)</pre>
+ 
+  <p>The custom reporter plugin should create the necessary state for the  
+new plugin and return a state to be used in future plugin calls.</p>
+ 
+  <p>+ <code>Options</code><br />Provides the prop list with attributes from the application environment
+      for the cusom recipient. See <a href="#Configuring_reporter_plugins" class="seealso">Configuring reporter plugins</a> for</p>
+ 
+  <p>The <code>exomoeter_init()</code> function should return <code>{ok, State}</code> where  
+State is a tuple that will be provided as a reference argument to  
+future calls made into the plugin. Any other return formats will  
+cancel the creation of the custom reporting plugin.</p>
+ 
+ 
+  <p><em><marker id="exometer_subscribe/4">exometer_subscribe/4</marker></em></p>
+ 
+  <p>The <code>exometer_subscribe()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       exometer_subscribe(Metric, DataPoint, Interval State)</pre>
+ 
+  <p>The custom plugin can use this notification to modify and return its
+  state in order to prepare for future calls to <code>exometer_report()</code> with  
+the given meteric and data point.</p>
+ 
+  <p>+ <code>Metric</code><br />Specifies the metric that is now subscribed to by the plugin      
+as a list of atoms.</p>
+ 
+  <p>+ <code>DataPoint</code><br />Specifies the data point within the subscribed-to metric as an atom.</p>
+ 
+  <p>+ <code>Interval</code><br />Specifies the interval, in milliseconds, that the subscribed-to      
+value will be reported at.</p>
+ 
+  <p>+ <code>State</code><br />Contains the state returned by the last called plugin function.</p>
+ 
+  <p>The <code>exomoeter_subscribe()</code> function should return <code>{ok, State}</code> where  
+State is a tuple that will be provided as a reference argument to  
+future calls made into the plugin. Any other return formats will  
+generate an error log message by exometer.</p>
+ 
+ 
+  <p><em><marker id="exometer_report/4">exometer_report/4</marker></em></p>
+ 
+  <p>The <code>exometer_report()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       exometer_report(Metric, DataPoint, State)</pre>
+ 
+  <p>The custom plugin will receive this call when a periodic subscription  
+triggers and wants to report its current value through the plugin.  
+The plugin should export the value to the external system it interfaces and  
+return its possibly modified state.</p>
+ 
+  <p>+ <code>Metric</code><br />Specifies the metric that is to be reported.</p>
+ 
+  <p>+ <code>DataPoint</code><br />Specifies the data point within the metric that is to be reported.</p>
+ 
+  <p>+ <code>State</code><br />Contains the state returned by the last called plugin function.</p>
+ 
+  <p>The <code>exomoeter_report()</code> function should return <code>{ok, State}</code> where  
+State is a tuple that will be provided as a reference argument to  
+future calls made into the plugin. Any other return formats will  
+generate an error log message by exometer.</p>
+ 
+ 
+  <p><em><marker id="exometer_unsubscribe/3">exometer_unsubscribe/3</marker></em></p>
+ 
+  <p>The <code>exometer_unsubscribe()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       exometer_unsubscribe(Metric, DataPoint, State)</pre>
+ 
+  <p>The custom plugin can use this notification to modify and return its
+  state in order to free resources used to maintain the now de-activated
+  subscription. When this call returns, the given metric / data point
+  will not be present in future calls to <code>exometer_report()</code>.</p>
+ 
+  <p>+ <code>Metric</code><br />Specifies the metric that is now subscribed to by the plugin      
+as a list of atoms.</p>
+ 
+  <p>+ <code>DataPoint</code><br />Specifies the data point within the subscribed-to metric as an atom.</p>
+ 
+  <p>+ <code>State</code><br />Contains the state returned by the last called plugin function.</p>
+ 
+  <p>The <code>exomoeter_unsubscribe()</code> function should return <code>{ok, State}</code> where
+  State is a tuple that will be provided as a reference argument to
+  future calls made into the plugin. Any other return formats will
+  generate an error log message by exometer.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Starts the server
+ </p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/5">subscribe(Reporter, Metric, DataPoint, Interval, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="subscribe/4">subscribe(Reporter, Metric, DataPoint, Interval) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unsubscribe/4">unsubscribe(Reporter, Metric, DataPoint, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unsubscribe/3">unsubscribe(Reporter, Metric, DataPoint) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_metrics/0">list_metrics() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_metrics/1">list_metrics(Path) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_reporters/0">list_reporters() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_reporter/2">add_reporter(Reporter, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="remove_reporter/1">remove_reporter(Reporter) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

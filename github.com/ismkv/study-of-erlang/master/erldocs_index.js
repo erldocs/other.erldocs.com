@@ -1,0 +1,1 @@
+var index = [['app','study-of-erlang','study-of-erlang','[application]'],['mod','study-of-erlang','quadratic_equation',[]],['fun','study-of-erlang','quadratic_equation:find/3',[]]];

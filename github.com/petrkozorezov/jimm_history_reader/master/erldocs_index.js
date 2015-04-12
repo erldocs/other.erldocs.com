@@ -1,0 +1,1 @@
+var index = [['app','jimm_history_reader','jimm_history_reader','[application]'],['mod','jimm_history_reader','jimm_history_reader',[]],['fun','jimm_history_reader','jimm_history_reader:convert_file/4',[]],['fun','jimm_history_reader','jimm_history_reader:main/1',[]],['fun','jimm_history_reader','jimm_history_reader:read_file/2',[]]];

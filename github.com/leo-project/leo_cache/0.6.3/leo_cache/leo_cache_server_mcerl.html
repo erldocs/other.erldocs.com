@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_cache_server_mcerl (leo_cache) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_cache_server_mcerl</h1>
+<h2 class="modsummary">The memory-cache server.</h2>
+<div class="description">
+<p>The memory-cache server</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/2">start(Workers, Options) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Workers = integer()</code></li><li><code>Options = [{atom(), any()}]</code></li></ul>
+<div class="description">
+
+<p>Launch cache-server(s)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop cache-server(s)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_ref/2">get_ref(Id, Key) -&gt; {ok, reference()} | {error, undefined}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Key = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a reference of cached object (for large-object)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_filepath/2">get_filepath(Id, Key) -&gt; {ok, #cache_meta{size=non_neg_integer(), md5=integer(), mtime=non_neg_integer(), content_type=string(), file_path=name_all() (see module file)}} | {error, undefined}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Key = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a meta data of cached object (for large-object)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get/2">get(Id, Key) -&gt; not_found | {ok, binary()} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Key = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Retrieve an object from cache-server</p>
+</div></div>
+<div class="function">
+<h3 id="get/3">get(Id, Ref, Key) -&gt; not_found | {ok, binary()} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Ref = reference()</code></li><li><code>Key = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Retrieve an object from cache-server (for large-object)</p>
+</div></div>
+<div class="function">
+<h3 id="put/3">put(Id, Key, Value) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Key = binary() | any()</code></li><li><code>Value = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Insert an object into the momory storage</p>
+</div></div>
+<div class="function">
+<h3 id="put/4">put(Id, Ref, Key, Value) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Ref = reference()</code></li><li><code>Key = binary() | any()</code></li><li><code>Value = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Insert an object into the cache-server (for large-object)</p>
+</div></div>
+<div class="function">
+<h3 id="put_begin_tran/2">put_begin_tran(Id, Key) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Key = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Start put-transaction for large-object (for large-object)</p>
+</div></div>
+<div class="function">
+<h3 id="put_end_tran/5">put_end_tran(Id, Ref, Key, Meta, IsCommit) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Ref = reference()</code></li><li><code>Key = binary() | any()</code></li><li><code>Meta = #cache_meta{size=non_neg_integer(), md5=integer(), mtime=non_neg_integer(), content_type=string(), file_path=name_all() (see module file)}</code></li><li><code>IsCommit = boolean()</code></li></ul>
+<div class="description">
+
+<p>End put-transaction for large-object (for large-object)</p>
+</div></div>
+<div class="function">
+<h3 id="delete/2">delete(Id, Key) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Key = binary() | any()</code></li></ul>
+<div class="description">
+
+<p>Remove an object from the momory storage</p>
+</div></div>
+<div class="function">
+<h3 id="stats/0">stats() -&gt; {ok, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve status of this application
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

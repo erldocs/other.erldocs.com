@@ -1,0 +1,1 @@
+var index = [['app','diningphilosophers','diningphilosophers','[application]'],['mod','diningphilosophers','philosopherTester','@todo Add description to philosopherTester.'],['fun','diningphilosophers','philosopherTester:main/0',[]]];

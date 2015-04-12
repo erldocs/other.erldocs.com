@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erstar (erstar) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erstar</h1>
+<h2 class="modsummary">Implementation of R* tree data structure.</h2>
+<div class="description">
+<p>Implementation of R* tree data structure.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-rtree">rtree() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{erstar,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-treenode" class="seealso">treenode()</a>}</h3></div>
+    <div class="type"><h3 id="type-treeleaf">treeleaf() = {<a href="erstar_bound.html#type-bound" class="seealso">erstar_bound:bound()</a>, any()}</h3></div>
+    <div class="type"><h3 id="type-treenode">treenode() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{node,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;empty | <a href="erstar_bound.html#type-bound" class="seealso">erstar_bound:bound()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-treenode" class="seealso">treenode()</a> | <a href="#type-treeleaf" class="seealso">treeleaf()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(MaxCapacity::pos_integer()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Creates an empty R* tree with specific maximum node capacity.
+  Same as to create a tree with minimum node capacity equal to 40% of the
+  <code>MaxCapacity</code>.</p>
+<p><em>See also:</em> <a href="#new/2" class="seealso">new/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(MinCapacity::pos_integer(), MaxCapacity::pos_integer()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Creates an empty R* tree with specific minimum and maximum node capacity.
+  Same as to create a tree with given node capacities, choose-subtree cutout of 32
+  and reinserts count equal to 30% of the <code>MaxCapacity</code>.</p>
+<p><em>See also:</em> <a href="#new/4" class="seealso">new/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/3">new(MinCapacity, MaxCapacity, ChooseCutout::pos_integer(), ReinsertCount::non_neg_integer()) -&gt; rtree()</h3>
+
+<ul class="type">
+<li><code>MinCapacity = pos_integer()</code></li><li><code>MaxCapacity = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Creates an empty R* tree with specific node capacities, choose-subtree cutout  
+value and reinserts count.</p>
+ 
+  <p>Node capacities dictate how many children each node should contain. Only the root
+  node allowed to contain lesser than <code>MinCapacity</code> number of children.  
+Minimum node capacity should be at least 2 and maximum capacity should be at  
+least double the minimum one. Practically, in the most of cases wide nodes  
+are preferred, starting from 16 or 32, and wider.</p>
+ 
+  <p>Choose-subtree cutout value says how many children at each level are being  
+considered during each insertion. Generally, the lesser this value is, the  
+faster each insert will be, but later lookups may degrade in performance  
+instead.</p>
+ 
+  <p>Finally, reinserts count states how many nodes should be inserted again during  
+each node split. Theretically, greater values would give better R* tree  
+lookup performance in the long term. But on the other hand they will incur  
+notable insert performace penalty. However, author's observations show that  
+there was no notable improvement in the tree quality on different, even pretty big,  
+datasets when recommended values were used.</p>
+ 
+  <p>As paper on the subject states, the general optimal value for the minimum node
+  capacity is 40% of the maximum one, for the choose-subtree cutout is 32 and for
+  the reinserts count is at 30% of the maximum node capacity.</p>
+</div></div>
+<div class="function">
+<h3 id="instance/1">instance(X1::any()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Verifies that the given term is an R* tree.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1">insert(Bound::bound() (see module erstar_bound), Data::any(), RStar::rtree()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Inserts new leaf into an R* tree, given its bound and arbitrary term  
+to associate with it.</p>
+ 
+  <p>Generally, it is expensive operation. If you expect large number of inserts
+  with your usage plan, consider lowering reinserts count or maximum node
+  capacity, or both.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1-1">insert(Leafs::[treeleaf()], RStar::rtree()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Inserts a bulk of leafs simultaneously.
+  Each leaf is a tuple containing its bound and arbitrary term.</p>
+<p><em>See also:</em> <a href="#insert/3" class="seealso">insert/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="remove/1">remove(Bound::bound() (see module erstar_bound), Data::any(), RStar::rtree()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Removes the leaf from an R* tree, given its bound and arbitrary term.
+  Does nothing if tree does not contain such leaf.</p>
+</div></div>
+<div class="function">
+<h3 id="remove/1-1">remove(Leaves::[treeleaf()], RStar::rtree()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Removes the bulk of leaves with a single call.</p>
+<p><em>See also:</em> <a href="#remove/3" class="seealso">remove/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="clear/1">clear(X1::rtree()) -&gt; rtree()</h3>
+
+
+<div class="description">
+
+<p>Removes all leaves from a tree.</p>
+</div></div>
+<div class="function">
+<h3 id="fold/3">fold(FoldFun, Acc, X3::rtree()) -&gt; Acc</h3>
+
+<ul class="type">
+<li><code>FoldFun = (node | leaf, bound() (see module erstar_bound), any(), pos_integer(), Acc) -&gt; Acc</code></li><li><code>Acc = any()</code></li></ul>
+<div class="description">
+
+<p>Folds over entire tree in a depth-first traversal.
+  Accumulates result with each call to the user-defined function. Each call is
+  given entry type, <code>node</code> or <code>leaf</code>, its bound, the thing it contain, numeric
+  level in a tree and the accumulator.
+  Leaves contain arbitrary terms passed to <code>insert</code> while nodes contain list of
+  their children.</p>
+</div></div>
+<div class="function">
+<h3 id="foldwide/3">foldwide(FoldFun, Acc, X3::rtree()) -&gt; Acc</h3>
+
+<ul class="type">
+<li><code>FoldFun = (node | leaf, bound() (see module erstar_bound), any(), pos_integer(), Acc) -&gt; Acc</code></li><li><code>Acc = any()</code></li></ul>
+<div class="description">
+
+<p>Folds over entire tree in a breadth-first traversal.
+  Otherwise, the same as <code>fold/3</code>.</p>
+<p><em>See also:</em> <a href="#fold/3" class="seealso">fold/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="walk/2">walk(WalkFun, X2::rtree()) -&gt; [treeleaf()]</h3>
+
+<ul class="type">
+<li><code>WalkFun = (node | leaf, bound() (see module erstar_bound)) -&gt; false | true | true_for_all</code></li></ul>
+<div class="description">
+
+<p>Walks over nodes and leaves in a tree, effectively gathering list of
+  leaves accepted by the user-defined function.
+  User-defined function should decide, given entry type and its bound, if a node
+  should be visited, should be walked over as a whole (as if to decide to walk over
+  any descendants of this node unconditionally), or a leaf should appear in
+  the result.
+  If you want to issue some specific locate query on a tree, start here.</p>
+</div></div>
+<div class="function">
+<h3 id="walkfold/3">walkfold(WalkFun, Acc, X3::rtree()) -&gt; Acc</h3>
+
+<ul class="type">
+<li><code>WalkFun = (node | leaf, bound() (see module erstar_bound), any(), pos_integer(), Acc) -&gt; Result</code></li><li><code>Result = {ok, Acc} | {descend, Acc} | {done, Acc}</code></li><li><code>Acc = any()</code></li></ul>
+<div class="description">
+
+<p>Walks over nodes and leaves in a tree, simultaneously folding over these
+  which were accepted by the user-defined function.
+  User-defined function should decide, given entry type, its bound, thing it contains,
+  its level in a tree and the accumulator, what it wants to do further. If <code>{ok, Acc}</code>
+  is returned, the walk operation continues over other siblings in a tree. On the other
+  hand, if <code>{descend, Acc}</code> is returned, operation continues with all children of
+  the current node. It is not allowed to <code>descend</code> when walking over a leaf. Finally,
+  <code>{done, Acc}</code> ends the walk operation instantly, returning <code>Acc</code> as the final result.</p>
+ 
+  <p>This operation is a hybrid of <code>fold/3</code> and <code>walk/2</code>.</p>
+<p><em>See also:</em> <a href="#fold/3" class="seealso">fold/3</a>, <a href="#walk/2" class="seealso">walk/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="leaves/1">leaves(RTree::rtree()) -&gt; [treeleaf()]</h3>
+
+
+<div class="description">
+
+<p>Gathers plain list of all leaves in an R* tree.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(RTree::rtree()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Computes the size of an R* tree.</p>
+ 
+  <p>Please note that the computation involves traversal
+  of the whole tree.</p>
+</div></div>
+<div class="function">
+<h3 id="at/1">at(X::number(), Y::number(), RStar::rtree()) -&gt; [treeleaf()]</h3>
+
+
+<div class="description">
+
+<p>Locates all the leaves which contain the given point in its bound.</p>
+<p><em>See also:</em> <a href="#locate/3" class="seealso">locate/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="around/1">around(X::number(), Y::number(), CloserThan::number(), RStar::rtree()) -&gt; [treeleaf()]</h3>
+
+
+<div class="description">
+
+<p>Locates all the leaves which are closer than <code>CloserThan</code> units to
+  the given point.
+  Distance to a bound is said to be the distance to its center.</p>
+</div></div>
+<div class="function">
+<h3 id="inbetween/1">inbetween(X::number(), Y::number(), FartherThan::number(), ButCloserThan::number(), RStar::rtree()) -&gt; [treeleaf()]</h3>
+
+
+<div class="description">
+
+<p>Locates all the leaves which are in between <code>FartherThan</code> and <code>ButCloserThan</code>
+  units far from the given point.
+  Distance to a bound is said to be the distance to its center.</p>
+</div></div>
+<div class="function">
+<h3 id="locate/1">locate(Where::bound() (see module erstar_bound), RStar::rtree()) -&gt; [treeleaf()]</h3>
+
+
+<div class="description">
+
+<p>Locates all the leaves getting inside the given bound.</p>
+<p><em>See also:</em> <a href="#locate/3" class="seealso">locate/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="locate/2">locate(X1::enclose | intersect, Where::bound() (see module erstar_bound), RStar::rtree()) -&gt; [treeleaf()]</h3>
+
+
+<div class="description">
+
+<p>Locates all the leaves enclosed inside or overlapping the given bound.
+  Thus, <code>enclose</code> and <code>intersect</code> specify which set will be returned, respectively.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

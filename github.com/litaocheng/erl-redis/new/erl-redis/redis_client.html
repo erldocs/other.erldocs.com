@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>redis_client (erl-redis) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>redis_client</h1>
+<h2 class="modsummary">the redis client.</h2>
+<div class="description">
+<p>the redis client</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-channel">channel() = <a href="#type-str" class="seealso">str()</a></h3></div>
+    <div class="type"><h3 id="type-client">client() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-index">index() = integer()</h3></div>
+    <div class="type"><h3 id="type-inet_host">inet_host() = atom() | string() | binary()</h3></div>
+    <div class="type"><h3 id="type-inet_port">inet_port() = 0..65535</h3></div>
+    <div class="type"><h3 id="type-inet_server">inet_server() = {<a href="#type-inet_host" class="seealso">inet_host()</a>, <a href="#type-inet_port" class="seealso">inet_port()</a>}</h3></div>
+    <div class="type"><h3 id="type-passwd">passwd() = [byte()] | binary()</h3></div>
+    <div class="type"><h3 id="type-str">str() = binary() | [byte()]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Host::inet_host(), Port::inet_port(), Passwd::passwd()) -&gt; {ok, any()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1-1">start(Host::inet_host(), Port::inet_port(), Passwd::passwd(), Name::atom()) -&gt; {ok, any()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Host::inet_host(), Port::inet_port(), Passwd::passwd()) -&gt; {ok, any()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Host::inet_host(), Port::inet_port(), Passwd::passwd(), Name::atom()) -&gt; {ok, any()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Client::client() | tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handler/1">handler(Client::client()) -&gt; tuple()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_server/1">get_server(Client::pid()) -&gt; inet_server()</h3>
+
+
+<div class="description">
+
+<p>get the server info</p>
+</div></div>
+<div class="function">
+<h3 id="get_sock/1">get_sock(Client::pid()) -&gt; {ok, port()}</h3>
+
+
+<div class="description">
+
+<p>return the socket</p>
+</div></div>
+<div class="function">
+<h3 id="set_selected_db/1">set_selected_db(Client::client(), Index::index()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>set the select db</p>
+</div></div>
+<div class="function">
+<h3 id="get_selected_db/1">get_selected_db(Client::atom()) -&gt; index()</h3>
+
+
+<div class="description">
+
+<p>get the selected db</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Client::pid(), Data::iolist()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>send the data</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(Client::client(), Channels::[channel()], CbSub::function(), CbMsg::function()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unsubscribe/1">unsubscribe(Client::client(), Callback::function()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unsubscribe/1-1">unsubscribe(Client::client(), Channels::[channel()], Callback::function()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="shutdown/1">shutdown(Client::client()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="msg_send_cb/1">msg_send_cb(Dest::pid() | atom(), X2::atom()) -&gt; function()</h3>
+
+
+<div class="description">
+
+<p>generate one callback functions for pubsub, which send the
+  message to some process</p>
+</div></div>
+<div class="function">
+<h3 id="name/2">name(Host, Port) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>generate process registered name</p>
+</div></div>
+<div class="function">
+<h3 id="existing_name/2">existing_name(Host, Port) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="name/3">name(Host, Port, UserData) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>generate process registered name</p>
+</div></div>
+<div class="function">
+<h3 id="existing_name/3">existing_name(Host, Port, UserData) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Msg, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(Old, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>litaocheng</aname>
+<email>litaocheng@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

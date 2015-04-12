@@ -1,0 +1,1 @@
+var index = [['app','dijkstra','dijkstra','[application]'],['mod','dijkstra','dik',[]],['fun','dijkstra','dik:dijkstra/2',[]],['fun','dijkstra','dik:read_graph/1',[]],['fun','dijkstra','dik:start/0',[]]];

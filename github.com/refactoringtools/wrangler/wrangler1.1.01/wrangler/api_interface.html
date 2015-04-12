@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>api_interface (wrangler) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>api_interface</h1>
+<h2 class="modsummary">This module provides API functions that map the textual selection of a code fragment to
+  its internal represenation.</h2>
+<div class="description">
+<p>This module provides API functions that map the textual selection of a code fragment to
+  its internal represenation.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-filename">filename() = string()</h3></div>
+    <div class="type"><h3 id="type-pos">pos() = {integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-syntaxTree">syntaxTree() = {tree, any(), any(), any()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {wrapper, any(), any(), any()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="pos_to_node/1">pos_to_node(FileOrTree::filename() | syntaxTree(), Pos::pos(), Cond::function()) -&gt; {ok, syntaxTree()} | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Returns the outmost Node which encloses the cursor and
+      makes Pred(Node) return <code>true</code>.
+  =================================================================================</p>
+</div></div>
+<div class="function">
+<h3 id="range_to_node/1">range_to_node(FileOrTree::filename() | syntaxTree(), Range::{pos(), pos()}, Cond::Pred) -&gt; syntaxTree() | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Returns the largest, left-most Node which is enclosed by the location range specified,
+       and also makes Pred(Node) return <code>true</code>.
+ ===========================================================================================</p>
+</div></div>
+<div class="function">
+<h3 id="pos_to_fun_name/1">pos_to_fun_name(Node::syntaxTree(), Pos::{integer(), integer()}) -&gt; {ok, {Mod, Fun, Arity, OccurPos, DefPos}} | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Mod = atom()</code></li><li><code>Fun = atom()</code></li><li><code>Arity = integer()</code></li><li><code>OccurPos = {integer(), integer()}</code></li><li><code>DefPos = {integer(), integer()}</code></li></ul>
+<div class="description">
+
+<p>Returns information about the function name which occurs at the specified
+  position in the code. If successful, the returned information contains:
+  the module in which the function is defined, the function name, the
+  function's arity, the occurrence position (same as Pos), and the defining
+  position of this function.
+ </p>
+<p><em>See also:</em> <a href="#pos_to_expr/3" class="seealso">pos_to_expr/3</a>, <a href="#pos_to_fun_def/2" class="seealso">pos_to_fun_def/2</a>, <a href="#pos_to_var_name/2" class="seealso">pos_to_var_name/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pos_to_fun_def/1">pos_to_fun_def(FileOrTree::any(), Pos::pos()) -&gt; {ok, syntaxTree()} | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Returns the AST representation of the function definition in which the
+  location specified by <code>Pos</code> falls.
+ </p>
+<p><em>See also:</em> <a href="#pos_to_fun_name/2" class="seealso">pos_to_fun_name/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pos_to_var_name/1">pos_to_var_name(Node::syntaxTree(), Pos::{integer(), integer()}) -&gt; {ok, {VarName, DefPos}} | {error, string()}</h3>
+
+<ul class="type">
+<li><code>VarName = atom()</code></li><li><code>DefPos = [{integer(), integer()}]</code></li></ul>
+<div class="description">
+
+<p>Returns the variable name that occurs at the position specified by position <code>Pos</code>.</p>
+<p><em>See also:</em> <a href="#pos_to_expr/3" class="seealso">pos_to_expr/3</a>, <a href="#pos_to_fun_def/2" class="seealso">pos_to_fun_def/2</a>, <a href="#pos_to_fun_name/2" class="seealso">pos_to_fun_name/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pos_to_var/1">pos_to_var(Node::syntaxTree(), Pos::pos()) -&gt; {ok, syntaxTree()} | {error, string()}</h3>
+
+
+<div class="description">
+
+<p>Returns the variable node at position <code>Pos</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="pos_to_expr/1">pos_to_expr(Tree::syntaxTree(), Start::Pos, End::Pos) -&gt; {ok, syntaxTree()} | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Pos = {integer(), integer()}</code></li></ul>
+<div class="description">
+
+<p>Returns the largest, left-most expression enclosed by the start and end locations.
+ </p>
+<p><em>See also:</em> <a href="#pos_to_fun_def/2" class="seealso">pos_to_fun_def/2</a>, <a href="#pos_to_fun_name/2" class="seealso">pos_to_fun_name/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pos_to_expr1/3">pos_to_expr1(FileOrTree, Start, End) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pos_to_expr_list/1">pos_to_expr_list(FileOrTree::filename() | syntaxTree(), X2::{Start::pos(), End::pos()}) -&gt; [syntaxTree()]</h3>
+
+
+<div class="description">
+
+<p>Return the expression sequence enclosed by start and end locations.
+  ====================================================================</p>
+</div></div>
+<div class="function">
+<h3 id="expr_to_fun/1">expr_to_fun(Tree::syntaxTree(), Exp::syntaxTree()) -&gt; {ok, syntaxTree()} | {error, none}</h3>
+
+
+<div class="description">
+
+<p>Return the AST of the function to which Exp (an expression node) belongs.
+ -spec(expr_to_fun(Tree::syntaxTree(), Exp::syntaxTree())-&gt;{ok, syntaxTree()} | {error, none}).</p>
+</div></div></div>
+
+<authors>
+
+<aname>Huiqing Li</aname>
+<email>H.Li@kent.ac.uk</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

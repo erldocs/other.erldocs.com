@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ranch (ranch) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ranch</h1>
+<h2 class="modsummary">Ranch API to start and stop listeners.</h2>
+<div class="description">
+<p>Ranch API to start and stop listeners.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-max_conns">max_conns() = integer() &gt;= 0 | infinity</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_listener/1">start_listener(Ref::any(), NbAcceptors::non_neg_integer(), Transport::module(), TransOpts::any(), Protocol::module(), ProtoOpts::any()) -&gt; {ok, pid()} | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>Start a listener for the given transport and protocol.</p>
+ 
+  <p>A listener is effectively a pool of <em>NbAcceptors</em> acceptors.
+  Acceptors accept connections on the given <em>Transport</em> and forward
+  connections to the given <em>Protocol</em> handler. Both transport and
+  protocol modules can be given options through the <em>TransOpts</em> and
+  the <em>ProtoOpts</em> arguments. Available options are documented in the
+  <em>listen</em> transport function and in the protocol module of your choice.</p>
+ 
+  <p>All acceptor and connection processes are supervised by the listener.</p>
+ 
+  <p>It is recommended to set a large enough number of acceptors to improve  
+performance. The exact number depends of course on your hardware, on the  
+protocol used and on the number of expected simultaneous connections.</p>
+ 
+  <p>The <em>Transport</em> option <em>max_connections</em> allows you to define
+  the maximum number of simultaneous connections for this listener. It defaults
+  to 1024. See <em>ranch_listener</em> for more details on limiting the number  
+of connections.</p>
+ 
+  <p><em>Ref</em> can be used to stop the listener later on.</p>
+ 
+  <p>This function will return <code>{error, badarg}` if and only if the transport
+  module given doesn</code>t appear to be correct.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_listener/1">stop_listener(Ref::any()) -&gt; ok | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>Stop a listener identified by <em>Ref</em>.</p>
+ 
+  <p>Note that stopping the listener will close all currently running
+  connections abruptly.</p>
+</div></div>
+<div class="function">
+<h3 id="child_spec/1">child_spec(Ref::any(), NbAcceptors::non_neg_integer(), Transport::module(), TransOpts::any(), Protocol::module(), ProtoOpts::any()) -&gt; child_spec() (see module supervisor)</h3>
+
+
+<div class="description">
+
+<p>Return a child spec suitable for embedding.</p>
+ 
+  <p>When you want to embed Ranch in another application, you can use this
+  function to create a <em>ChildSpec</em> suitable for use in a supervisor.
+  The parameters are the same as in <em>start_listener/6</em> but rather
+  than hooking the listener to the Ranch internal supervisor, it just returns
+  the spec.</p>
+</div></div>
+<div class="function">
+<h3 id="accept_ack/1">accept_ack(Ref::any()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Acknowledge the accepted connection.</p>
+ 
+  <p>Effectively used to make sure the socket control has been given to  
+the protocol process before starting to use it.</p>
+ 
+  <p>Equivalent to accept_ack(Ref, infinity).</p>
+</div></div>
+<div class="function">
+<h3 id="accept_ack/1-1">accept_ack(Ref::any(), Timeout::timeout()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Acknowledge the accepted connection.</p>
+ 
+  <p>Effectively used to make sure the socket control has been given to
+  the protocol process before starting to use it. It also carries out
+  any handshaking, if required, within <em>Timeout</em> or exits.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_connection/1">remove_connection(Ref::any()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Remove the calling process' connection from the pool.</p>
+ 
+  <p>Useful if you have long-lived connections that aren't taking up
+  resources and shouldn't be counted in the limited number of running
+  connections.</p>
+</div></div>
+<div class="function">
+<h3 id="get_port/1">get_port(Ref::any()) -&gt; port_number() (see module inet)</h3>
+
+
+<div class="description">
+
+<p>Return the listener's port.</p>
+</div></div>
+<div class="function">
+<h3 id="get_max_connections/1">get_max_connections(Ref::any()) -&gt; max_conns()</h3>
+
+
+<div class="description">
+
+<p>Return the max number of connections allowed concurrently.</p>
+</div></div>
+<div class="function">
+<h3 id="set_max_connections/1">set_max_connections(Ref::any(), MaxConnections::max_conns()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the max number of connections allowed concurrently.</p>
+</div></div>
+<div class="function">
+<h3 id="get_protocol_options/1">get_protocol_options(Ref::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Return the current protocol options for the given listener.</p>
+</div></div>
+<div class="function">
+<h3 id="set_protocol_options/1">set_protocol_options(Ref::any(), Opts::any()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Upgrade the protocol options for the given listener.</p>
+ 
+  <p>The upgrade takes place at the acceptor level, meaning that only the
+  newly accepted connections receive the new protocol options. This has
+  no effect on the currently opened connections.</p>
+</div></div>
+<div class="function">
+<h3 id="filter_options/1">filter_options(Tail::[{atom(), any()}], AllowedKeys::[atom()], Acc) -&gt; Acc</h3>
+
+<ul class="type">
+<li><code>Acc = [any()]</code></li></ul>
+<div class="description">
+
+<p>Filter a list of options and remove all unwanted values.</p>
+ 
+  <p>It takes a list of options, a list of allowed keys and an accumulator.
+  This accumulator can be used to set default options that should never
+  be overriden.</p>
+</div></div>
+<div class="function">
+<h3 id="set_option_default/2">set_option_default(Opts, Key::atom(), Value::any()) -&gt; Opts</h3>
+
+<ul class="type">
+<li><code>Opts = [{atom(), any()}]</code></li></ul>
+<div class="description">
+
+<p>Add an option to a list, but only if it wasn't previously set.</p>
+</div></div>
+<div class="function">
+<h3 id="require/1">require(Tail::[module()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Start the given applications if they were not already started.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

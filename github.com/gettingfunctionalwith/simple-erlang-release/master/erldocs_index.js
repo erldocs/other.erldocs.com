@@ -1,0 +1,1 @@
+var index = [['app','simple-erlang-release','simple-erlang-release','[application]'],['mod','simple-erlang-release','toppage_handler','Hello world handler.'],['fun','simple-erlang-release','toppage_handler:handle/2',[]],['fun','simple-erlang-release','toppage_handler:init/3',[]],['fun','simple-erlang-release','toppage_handler:terminate/3',[]]];

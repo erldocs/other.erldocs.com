@@ -1,0 +1,1 @@
+var index = [['app','dikulanirc','dikulanirc','[application]'],['mod','dikulanirc','dikulanirc_app','The signup bot application for starting all other '],['fun','dikulanirc','dikulanirc_app:start/2','start is called when starting the application and '],['fun','dikulanirc','dikulanirc_app:stop/1','stop/1 is called after the application has been st']];

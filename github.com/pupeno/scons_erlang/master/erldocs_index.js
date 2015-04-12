@@ -1,0 +1,1 @@
+var index = [['app','scons_erlang','scons_erlang','[application]'],['mod','scons_erlang','erlangscanner',[]],['fun','scons_erlang','erlangscanner:app_needed_by_rel/1',[]],['fun','scons_erlang','erlangscanner:erlang_dir/0',[]],['fun','scons_erlang','erlangscanner:mod_needed_by_app/1',[]]];

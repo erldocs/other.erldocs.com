@@ -1,0 +1,1 @@
+var index = [['app','erlang-lean','erlang-lean','[application]'],['mod','erlang-lean','kvs',[]],['mod','erlang-lean','lean1',[]],['fun','erlang-lean','kvs:lookup/1',[]],['fun','erlang-lean','kvs:start/0',[]],['fun','erlang-lean','kvs:store/2',[]],['fun','erlang-lean','lean1:add/2',[]],['fun','erlang-lean','lean1:multi/2',[]]];

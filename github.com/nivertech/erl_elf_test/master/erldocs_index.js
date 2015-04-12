@@ -1,0 +1,1 @@
+var index = [['app','erl_elf_test','erl_elf_test','[application]'],['mod','erl_elf_test','erl_elf_test',[]]];

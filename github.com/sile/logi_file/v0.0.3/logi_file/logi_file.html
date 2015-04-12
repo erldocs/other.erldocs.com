@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>logi_file (logi_file) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>logi_file</h1>
+<h2 class="modsummary">File Backend Interface.</h2>
+<div class="description">
+<p>File Backend Interface</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-backend_id">backend_id() = atom()</h3></div>
+    <div class="type"><h3 id="type-backend_option">backend_option() = {rotate, daily} | {suffix, date}</h3></div>
+    <div class="type"><h3 id="type-backend_options">backend_options() = [<a href="#type-backend_option" class="seealso">backend_option()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_backend/1">start_backend(BackendId::backend_id(), LogFile::name_all() (see module file), Options::backend_options()) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = {already_started, pid()}</code></li></ul>
+<div class="description">
+
+<p>ログ出力用のバックエンドを起動する</p>
+</div></div>
+<div class="function">
+<h3 id="stop_backend/1">stop_backend(BackendId::backend_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>バックエンドを停止する</p>
+ 
+  <p>対象バックエンドが未起動の�&nbsp;�合は、エラーとならずに単に無視される</p>
+</div></div>
+<div class="function">
+<h3 id="install/1">install(ConditionSpec::spec() (see module logi_condition), BackendId::backend_id()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#install/3" class="seealso">install(logi:default_logger(), ConditionSpec, BackendId)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="install/1-1">install(Logger::logger() (see module logi), ConditionSpec::spec() (see module logi_condition), BackendId::backend_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>ファイル出力用のログバックエンドをLoggerに登録する</p>
+ 
+  <p>既に登録済みの�&nbsp;�合は、内容が更新される.</p>
+ 
+  <p>なおバックエンドを登録しても、そのバックエンドが<a href="#start_backend/3" class="seealso">start_backend/3</a>を使って起動されていない�&nbsp;�合は、
+  ログが出力されないので注意が必要。</p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/1">uninstall(BackendId::backend_id()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#uninstall/2" class="seealso">uninstall(logi:default_logger(), BackendId)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/1-1">uninstall(Logger::logger() (see module logi), BackendId::backend_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>バックエンドの登録を解除する</p>
+ 
+  <p>バックエンドが未登録の�&nbsp;�合は、エラーとはならずに単に無視される.</p>
+ 
+  <p>また、登録を解除してもバックエンドプロセスは自動では停止しないので、
+  必要であれば明示的に<a href="#stop_backend/1" class="seealso">stop_backend/1</a>を呼び出す必要がある。</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

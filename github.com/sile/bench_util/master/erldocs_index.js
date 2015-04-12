@@ -1,0 +1,1 @@
+var index = [['app','bench_util','bench_util','[application]'],['mod','bench_util','bench_util','Benchmark Utility Functions.'],['fun','bench_util','bench_util:dotimes/1',[]],['fun','bench_util','bench_util:dotimes_tc/1',[]],['fun','bench_util','bench_util:sar/1','System Activity Report.'],['fun','bench_util','bench_util:stat/0',[]]];

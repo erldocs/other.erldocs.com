@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>moka_mod_utils (moka) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>moka_mod_utils</h1>
+<h2 class="modsummary">Functions to manipulate loaded code.</h2>
+<div class="description">
+<p>Functions to manipulate loaded code</p>
+  
+   To avoid killing any process with dangling old code, functions in this
+   module fail with <code>{processes_using_old_code, Module}</code> if there are such
+   processes. The alternative behaviour is letting those dangling processes die
+   with <code>killed</code>, which easily leads to very difficult to debug situations. If
+   you see these errors trying to load new code with functions in this module,
+   you have to find the reason there are processes dangling with old code and
+   fix that problem.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-abstract_code">abstract_code()</h3></div>
+    <div class="type"><h3 id="type-remote_call">remote_call() = {module(), atom(), Args :: [term()]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_object_code/1">get_object_code(Module::module()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Returns the object code of a loadable module</p>
+ 
+  <p>Independently of whether the module is loaded, this function fails if the
+  object module cannot be loaded again (i.e. if the beam file is not int the
+  load path).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_abs_code/1">get_abs_code(Module::module()) -&gt; abstract_code()</h3>
+
+
+<div class="description">
+
+<p>Returns the abstract code of a loadable module</p>
+ 
+  <p>This function throws <code>{no_abstract_code, Module}</code> when the module binary does
+  not contain an <code>abstract_code</code> chunk. This is usually because the module was
+  not compiled with <code>debug_info</code> or because it was stripped afterwards.</p>
+ 
+  <p>It also throws <code>{cannot_get_object, Module}</code> if <code>Module</code> is not a loadable
+  erlang module (e.g. the name is misspelled, or the code is not compiled).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="load_abs_code/1">load_abs_code(Module::module(), AbsCode::abstract_code()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Substitutes current <code>Module</code> with the result of compiling <code>AbsCode</code></p>
+ 
+  <p><code>AbsCode</code> will be slightly modified:
+  </p><list>
+  <item><p>The attribute <code>module</code> of <code>AbsCode</code> is set to <code>Module</code></p></item>
+  <item><p>A wild attribute <code>-moka_orig_module(Module).</code> is added with the former
+      module name</p></item>
+  </list><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="restore_module/1">restore_module(Module::module()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Restores the original module behaviour.</p>
+ 
+  <p>To restore the original behaviour, this function unloads the module and loads
+  it again from the code search path.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="to_str/1">to_str(AbsCode::abstract_code()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>Returns a pretty printed version of <code>AbsCode</code></p>
+</div></div>
+<div class="function">
+<h3 id="replace_remote_calls/1">replace_remote_calls(X1::mfa(), NewCall::remote_call(), AbsCode::abstract_code()) -&gt; abstract_code()</h3>
+
+
+<div class="description">
+
+<p>Replaces external function calls in <code>AbsCode</code></p>
+ 
+  <p>An element <code>$args</code> in the <code>Args</code> list of the <a href="#type-remote_call" class="seealso">remote_call()</a> is  
+replaced by the argument list in the old call.</p>
+ 
+  <p>For example, if <code>AbsCode</code> represents a module <code>my_mod</code> containing next code:
+  </p><pre class="sh_erlang">  foo() -&gt;
+     ...
+     other_module:bar(X).</pre><p>
+  Next call will change <code>other_module:bar(X)</code> by
+  <code>io:format("Args: ~p~n", [X])</code>:
+  </p><pre class="sh_erlang">  moka_mod_utils:replace_remote_calls(
+     {other_module, bar, 0},
+     {io, format, ["Args: ~p~n", '$args']},
+     AbsCode)</pre>
+</div></div>
+<div class="function">
+<h3 id="export/1">export(Funct::atom(), Arity::non_neg_integer(), AbsCode::abstract_code()) -&gt; abstract_code()</h3>
+
+
+<div class="description">
+
+<p>Adds an exported function to the list of exported functions of <code>AbsCode</code></p>
+ 
+  <p>This will add <code>Funct/Arity</code> to the first <code>-exported</code> attribute found in
+  <code>AbsCode</code>.</p>
+ 
+  <p>Note that this function doesn't check whether <code>Funct/Arity</code> is defined. If
+  you export an undefined function, the <code>AbsCode</code> will not compile, and thus
+  cannot be loaded. This will make <a href="#load_abs_code/2" class="seealso">load_abs_code/2</a> fail.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="code.html" class="seealso">code</a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','ex_php','ex_php','[application]'],['mod','ex_php','ex_php',[]],['fun','ex_php','ex_php:read_serialized/1',[]],['fun','ex_php','ex_php:serialize/1',[]],['fun','ex_php','ex_php:serialize/1','Equivalent to serialize(Value, 6).'],['fun','ex_php','ex_php:unserialize/1',[]]];

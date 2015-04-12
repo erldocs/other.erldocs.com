@@ -1,0 +1,1 @@
+var index = [['app','remote_plugin_loader','remote_plugin_loader','[application]'],['mod','remote_plugin_loader','remote_plugin_loader',[]],['fun','remote_plugin_loader','remote_plugin_loader:clean-plugins/2',[]],['fun','remote_plugin_loader','remote_plugin_loader:install-plugins/2',[]]];

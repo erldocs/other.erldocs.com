@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>autoscale (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>autoscale</h1>
+<h2 class="modsummary">Auto-scaling service.</h2>
+<div class="description">
+<p>Auto-scaling service.</p>
+ 
+       <p>{autoscale, true} in scalaris.local.cfg will enable this service.</p>
+ 
+       <p>The main task of the autoscale is to manage a set of installed alarms       
+by calling their alarm handlers periodically. Every alarm handler can       
+request to add or remove VMs (see alarm_handler/2).</p>
+ 
+       <p>Alarms are read from the config as a list of alarm records:       
+{autoscale_alarms, [{alarm, Name (req.), Options (opt.),                                   
+Interval (opt.), Cooldown (opt.),                                   
+State (opt.)}]}.</p>
+ 
+       <p>Every provided tuple corresponds to the alarm record type:         
+- Name:     the name of the alarm handler (should be unique)         
+- Options:  options are alarm handler specific (see alarm_handler/2)         
+- Interval: interval between alarm checks in seconds         
+- Cooldown: interval after a scale request         
+- State:    active or inactive</p>
+ 
+       <p>Example:       
+{autoscale_alarms, [{alarm, rand_churn, [{lower_limit, -3}, {upper_limit, 10}], 60, 0, inactive},                           
+{alarm, lat_avg, [], 60, 120, inactive}]}.</p>
+ 
+       <p>In this example, the rand_churn alarm handler is called every 60       
+seconds and configured with the options lower_limit and upper_limit.       
+The lat_avg alarm handler is called every 60 seconds and falls       
+back to the default options (set in the alarm handler), because no       
+options are provided. If the lat_avg handler requested to add or remove       
+VMs, the handler will be called after 120 seconds in order to allow the       
+changes to take effect (cooldown).</p>
+ 
+       <p>VMs requests are handled by the cloud module. It can be configured with         
+{autoscale_cloud_module, CloudModule}.</p>
+ 
+       <p>Possible modules are: cloud_local, cloud_ssh, and cloud_cps. For both       
+cloud_local and cloud_ssh, scale requests are pushed by autoscale, for       
+cloud_cps, autoscale expects pulling of requests.</p>
+ 
+       <p>cloud_cps is a dummy and not actually implemented as a module. Instead,
+       the manager of the ConPaaS scalaris service needs to pull the current
+       request via the JSON API.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-alarm">alarm() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#alarm{name = atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options = <a href="#type-key_value_list" class="seealso">key_value_list()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval = integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cooldown = integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = active | inactive}</h3></div>
+    <div class="type"><h3 id="type-alarms">alarms() = [<a href="#type-alarm" class="seealso">alarm()</a>]</h3></div>
+    <div class="type"><h3 id="type-api_message">api_message() = {pull_scale_req, Pid :: pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {unlock_scale_req, Pid :: pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {toggle_alarm, Name :: atom(), Pid :: pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {activate_alarms, Pid :: pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {deactivate_alarms, Pid :: pid()}</h3></div>
+    <div class="type"><h3 id="type-key_value_list">key_value_list() = [{Key :: atom(), Value :: term()}]</h3></div>
+    <div class="type"><h3 id="type-message">message() = {get_state_response,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MyRange :: <a href="intervals.html#type-interval" class="seealso">intervals:interval()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {check_alarm, Name :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {push_scale_req}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-api_message" class="seealso">api_message()</a></h3></div>
+    <div class="type"><h3 id="type-scale_req">scale_req() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#scale_req{req = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lock = locked | unlocked,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mode = push | pull}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{IsLeader :: boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alarms :: <a href="#type-alarms" class="seealso">alarms()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ScaleReq :: <a href="#type-scale_req" class="seealso">scale_req()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Triggers :: <a href="#type-triggers" class="seealso">triggers()</a>}</h3></div>
+    <div class="type"><h3 id="type-triggers">triggers() = [{Name :: atom(), Trigger :: reference() | ok}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="on/1">on(Msg::message(), State::state()) -&gt; state()</h3>
+
+
+<div class="description">
+
+<p>Set new leader state at startup and ring changes.</p>
+</div></div>
+<div class="function">
+<h3 id="send_my_range_req/1">send_my_range_req(Pid::pid(), Tag::autoscale, _OldN::neighborhood() (see module nodelist), _NewN::neighborhood() (see module nodelist)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Request my_range from dht_node (called by rm_loop at direct neighborhood
+       changes).</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(DHTNodeGroup::groupname() (see module pid_groups)) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether config parameters exist and are valid.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_exec/1">rm_exec(Pid::pid(), Tag::autoscale, OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist)) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Ufuk Celebi</aname>
+<email>celebi@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

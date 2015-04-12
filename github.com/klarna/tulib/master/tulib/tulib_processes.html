@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>tulib_processes (tulib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>tulib_processes</h1>
+<h2 class="modsummary">Process-related utility functions.</h2>
+<div class="description">
+<p>Process-related utility functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-m_proc">m_proc()</h3></div>
+    <div class="type"><h3 id="type-maybe">maybe(A, B) = {ok, A} | {error, B}</h3></div>
+    <div class="type"><h3 id="type-prim_proc">prim_proc() = pid() | atom() | {atom(), node()}</h3></div>
+    <div class="type"><h3 id="type-proc">proc() = <a href="#type-m_proc" class="seealso">m_proc()</a> | <a href="#type-prim_proc" class="seealso">prim_proc()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="call/1">call(Proc::proc(), Msg::term()) -&gt; maybe(term(), term())</h3>
+
+
+<div class="description">
+
+<p>Perform a synchronous call to Proc.</p>
+</div></div>
+<div class="function">
+<h3 id="call/3">call(Proc, Msg, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send/1">send(P::proc(), Msg::term()) -&gt; ok | {error, no_such_process}</h3>
+
+
+<div class="description">
+
+<p>Send P a Msg.</p>
+</div></div>
+<div class="function">
+<h3 id="recv/1">recv(P::proc()) -&gt; maybe(term(), term())</h3>
+
+
+<div class="description">
+
+<p>Receive a message from P.</p>
+</div></div>
+<div class="function">
+<h3 id="recv/2">recv(P, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="flush/0">flush() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Empty the message queue of the calling process.</p>
+</div></div>
+<div class="function">
+<h3 id="flush/1">flush(Msg::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Empty the message queue of the calling process of all Msgs.</p>
+</div></div>
+<div class="function">
+<h3 id="is_up/1">is_up(Proc::proc()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true iff Proc is running.</p>
+</div></div>
+<div class="function">
+<h3 id="kill/1">kill(Proc::proc()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Kill processes unconditionally.</p>
+</div></div>
+<div class="function">
+<h3 id="kill/2">kill(Proc, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pid/1">pid(P::proc()) -&gt; pid() | undefined</h3>
+
+
+<div class="description">
+
+<p>Return P's pid.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_with/1">sync_with(Pid::pid()) -&gt; ok | no_return()</h3>
+
+
+<div class="description">
+
+<p>Sync with Pid, which must call syncing_with/2.</p>
+</div></div>
+<div class="function">
+<h3 id="syncing_with/1">syncing_with(Pid::pid(), Thunk::() -&gt; A) -&gt; maybe(A, term())</h3>
+
+
+<div class="description">
+
+<p>Execute thunk, then sync with Pid, which must call sync_with/1.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_registered/1">sync_registered(Regnames) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spinlock until Regname has been registered.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_unregistered/1">sync_unregistered(Regnames) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spinlock until Regname has been unregistered.</p>
+</div></div>
+<div class="function">
+<h3 id="monitor/1">monitor(Proc::prim_proc()) -&gt; m_proc()</h3>
+
+
+<div class="description">
+
+<p>Add a monitor to Proc.</p>
+</div></div>
+<div class="function">
+<h3 id="demonitor/1">demonitor(Proc::m_proc()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Attempt to remove a monitor from Proc. Returns true iff
+  successful.</p>
+</div></div>
+<div class="function">
+<h3 id="demonitor/2">demonitor(P, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="with_monitor/1">with_monitor(PrimProc::prim_proc(), F::function()) -&gt; maybe(term(), term())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="spawn_monitor/1">spawn_monitor(F::function()) -&gt; #p{proc=undefined | prim_proc(), monitor=undefined | reference()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="spawn_monitor/1-1">spawn_monitor(M::atom(), F::atom(), A::[term()]) -&gt; #p{proc=undefined | prim_proc(), monitor=undefined | reference()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="spawn_register/1">spawn_register(F::function(), Name::atom()) -&gt; pid()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="spawn_register/1-1">spawn_register(M::atom(), F::atom(), A::[term()], Name::atom()) -&gt; pid()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

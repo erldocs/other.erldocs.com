@@ -1,0 +1,1 @@
+var index = [['app','jiffy','jiffy','[application]'],['mod','jiffy','jiffy',[]],['fun','jiffy','jiffy:decode/1',[]],['fun','jiffy','jiffy:encode/1',[]],['fun','jiffy','jiffy:encode/2',[]]];

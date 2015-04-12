@@ -1,0 +1,1 @@
+var index = [['app','mimosa','mimosa','[application]'],['mod','mimosa','mimosa_app',[]],['mod','mimosa','mimosa_sup',[]],['fun','mimosa','mimosa_app:start/0',[]],['fun','mimosa','mimosa_app:start/2',[]],['fun','mimosa','mimosa_app:stop/1',[]],['fun','mimosa','mimosa_sup:init/1',[]],['fun','mimosa','mimosa_sup:start_link/0',[]]];

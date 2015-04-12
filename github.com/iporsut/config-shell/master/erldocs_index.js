@@ -1,0 +1,1 @@
+var index = [['app','config-shell','config-shell','[application]'],['mod','config-shell','server',[]],['fun','config-shell','server:accept_client/2',[]],['fun','config-shell','server:start/0',[]]];

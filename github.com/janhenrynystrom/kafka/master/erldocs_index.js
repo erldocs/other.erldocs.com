@@ -1,0 +1,1 @@
+var index = [['app','kafka','kafka','[application]'],['mod','kafka','kafka_protocol','   The protocol encoding/decoding for Kafka.'],['fun','kafka','kafka_protocol:decode/1','    Deccodes a kafka response.'],['fun','kafka','kafka_protocol:encode/1','    Encodes a kafka request.']];

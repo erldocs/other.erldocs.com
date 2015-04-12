@@ -1,0 +1,1 @@
+var index = [['app','pierl','pierl','[application]'],['mod','pierl','pierl',[]],['mod','pierl','pierl_demo',[]],['fun','pierl','pierl:delegate/2',[]],['fun','pierl','pierl:new_chan/0',[]],['fun','pierl','pierl:recv/1',[]],['fun','pierl','pierl:recv/2',[]],['fun','pierl','pierl:send/2',[]],['fun','pierl','pierl:spawn/1',[]],['fun','pierl','pierl:start/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlz','erlz','[application]'],['mod','erlz','erlz',[]],['mod','erlz','erlz_nifs',[]],['fun','erlz','erlz:compress/1',[]],['fun','erlz','erlz:decompress/1',[]],['fun','erlz','erlz_nifs:compress/1',[]],['fun','erlz','erlz_nifs:decompress/1',[]]];

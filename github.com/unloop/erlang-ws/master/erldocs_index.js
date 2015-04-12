@@ -1,0 +1,1 @@
+var index = [['app','erlang-ws','erlang-ws','[application]'],['mod','erlang-ws','ws_handler',[]],['fun','erlang-ws','ws_handler:init/3',[]],['fun','erlang-ws','ws_handler:websocket_handle/3',[]],['fun','erlang-ws','ws_handler:websocket_info/3',[]],['fun','erlang-ws','ws_handler:websocket_init/3',[]],['fun','erlang-ws','ws_handler:websocket_terminate/3',[]]];

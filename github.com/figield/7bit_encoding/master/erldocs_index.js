@@ -1,0 +1,1 @@
+var index = [['app','7bit_encoding','7bit_encoding','[application]'],['mod','7bit_encoding','sms_7bit_encoding',[]]];

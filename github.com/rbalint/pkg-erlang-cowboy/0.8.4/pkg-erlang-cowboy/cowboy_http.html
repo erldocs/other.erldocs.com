@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cowboy_http (pkg-erlang-cowboy) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cowboy_http</h1>
+<h2 class="modsummary">Core HTTP parsing API.</h2>
+<div class="description">
+<p>Core HTTP parsing API.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-headers">headers() = [{binary(), iodata()}]</h3></div>
+    <div class="type"><h3 id="type-status">status() = integer() &gt;= 0 | binary()</h3></div>
+    <div class="type"><h3 id="type-version">version() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Major :: integer() >= 0, Minor :: integer() >= 0}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="nonempty_list/1">nonempty_list(Data::binary(), Fun::function()) -&gt; [any(), ...] | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>Parse a non-empty list of the given type.</p>
+</div></div>
+<div class="function">
+<h3 id="list/1">list(Data::binary(), Fun::function()) -&gt; list() | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>Parse a list of the given type.</p>
+</div></div>
+<div class="function">
+<h3 id="cookie_list/1">cookie_list(Data::binary()) -&gt; [{binary(), binary()}] | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>Parse a list of cookies.</p>
+ 
+  <p>We need a special function for this because we need to support both
+  $; and $, as separators as per RFC2109.</p>
+</div></div>
+<div class="function">
+<h3 id="content_type/1">content_type(Data::binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a content type.</p>
+</div></div>
+<div class="function">
+<h3 id="media_range/1">media_range(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a media range.</p>
+</div></div>
+<div class="function">
+<h3 id="conneg/1">conneg(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a conneg header (Accept-Charset, Accept-Encoding),
+  followed by an optional quality value.</p>
+</div></div>
+<div class="function">
+<h3 id="language_range/1">language_range(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a language range, followed by an optional quality value.</p>
+</div></div>
+<div class="function">
+<h3 id="entity_tag_match/1">entity_tag_match(Data::binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse either a list of entity tags or a "*".</p>
+</div></div>
+<div class="function">
+<h3 id="expectation/1">expectation(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse an expectation.</p>
+</div></div>
+<div class="function">
+<h3 id="params/1">params(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a list of parameters (a=b;c=d).</p>
+</div></div>
+<div class="function">
+<h3 id="http_date/1">http_date(Data::binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse an HTTP date (RFC1123, RFC850 or asctime date).</p>
+</div></div>
+<div class="function">
+<h3 id="rfc1123_date/1">rfc1123_date(Data::binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse an RFC1123 date.</p>
+</div></div>
+<div class="function">
+<h3 id="rfc850_date/1">rfc850_date(Data::binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse an RFC850 date.</p>
+</div></div>
+<div class="function">
+<h3 id="asctime_date/1">asctime_date(Data::binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse an asctime date.</p>
+</div></div>
+<div class="function">
+<h3 id="whitespace/1">whitespace(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Skip whitespace.</p>
+</div></div>
+<div class="function">
+<h3 id="digits/1">digits(Data::binary()) -&gt; non_neg_integer() | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>Parse a list of digits as a non negative integer.</p>
+</div></div>
+<div class="function">
+<h3 id="token_ci/1">token_ci(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a case-insensitive token.</p>
+ 
+  <p>Changes all characters to lowercase.</p>
+</div></div>
+<div class="function">
+<h3 id="token/1">token(Data::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a token.</p>
+</div></div>
+<div class="function">
+<h3 id="quoted_string/1">quoted_string(X1::binary(), Fun::function()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Parse a quoted string.</p>
+</div></div>
+<div class="function">
+<h3 id="authorization/1">authorization(UserPass::binary(), Type::binary()) -&gt; {binary(), any()} | {error, badarg}</h3>
+
+
+<div class="description">
+
+<p>Parse authorization value according rfc 2617.
+  Only Basic authorization is supported so far.</p>
+</div></div>
+<div class="function">
+<h3 id="range/1">range(Data::binary()) -&gt; {Unit, [Range]} | {error, badarg}</h3>
+
+<ul class="type">
+<li><code>Unit = binary()</code></li><li><code>Range = {non_neg_integer(), non_neg_integer() | infinity} | neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Parse range header according rfc 2616.</p>
+</div></div>
+<div class="function">
+<h3 id="te_chunked/2">te_chunked(Bin, TransferState) -&gt; more | {more, non_neg_integer(), Bin, TransferState} | {ok, Bin, Bin, TransferState} | {done, non_neg_integer(), Bin} | {error, badarg}</h3>
+
+<ul class="type">
+<li><code>Bin = binary()</code></li><li><code>TransferState = {non_neg_integer(), non_neg_integer()}</code></li></ul>
+<div class="description">
+
+<p>Decode a stream of chunks.</p>
+</div></div>
+<div class="function">
+<h3 id="te_identity/2">te_identity(Bin, TransferState) -&gt; {more, non_neg_integer(), Bin, TransferState} | {done, Bin, non_neg_integer(), Bin}</h3>
+
+<ul class="type">
+<li><code>Bin = binary()</code></li><li><code>TransferState = {non_neg_integer(), non_neg_integer()}</code></li></ul>
+<div class="description">
+
+<p>Decode an identity stream.</p>
+</div></div>
+<div class="function">
+<h3 id="ce_identity/1">ce_identity(Data::binary()) -&gt; {ok, binary()}</h3>
+
+
+<div class="description">
+
+<p>Decode an identity content.</p>
+</div></div>
+<div class="function">
+<h3 id="cookie_to_iodata/1">cookie_to_iodata(Name::iodata(), Value::iodata(), Opts::cookie_opts() (see module cowboy_req)) -&gt; iodata()</h3>
+
+
+<div class="description">
+
+<p>Convert a cookie name, value and options to its iodata form.</p>
+</div></div>
+<div class="function">
+<h3 id="version_to_binary/1">version_to_binary(X1::version()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Convert an HTTP version tuple to its binary form.</p>
+</div></div>
+<div class="function">
+<h3 id="urldecode/1">urldecode(Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Decode a URL encoded binary.</p>
+</div></div>
+<div class="function">
+<h3 id="urldecode/1-1">urldecode(Bin::binary(), OnError::crash | skip) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Decode a URL encoded binary.
+  The second argument specifies how to handle percent characters that are not
+  followed by two valid hex characters. Use <code>skip</code> to ignore such errors,
+  if <code>crash</code> is used the function will fail with the reason <code>badarg</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="urlencode/1">urlencode(Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>URL encode a string binary.</p>
+</div></div>
+<div class="function">
+<h3 id="urlencode/1-1">urlencode(Bin::binary(), Opts::[noplus | upper]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>URL encode a string binary.
+  The <code>noplus</code> option disables the default behaviour of quoting space
+  characters, <code>\s</code>, as <code>+</code>. The <code>upper</code> option overrides the default behaviour
+  of writing hex numbers using lowecase letters to using uppercase letters
+  instead.</p>
+</div></div>
+<div class="function">
+<h3 id="x_www_form_urlencoded/1">x_www_form_urlencoded(Qs::binary()) -&gt; [{binary(), binary() | true}]</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

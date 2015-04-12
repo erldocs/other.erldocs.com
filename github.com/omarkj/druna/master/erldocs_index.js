@@ -1,0 +1,1 @@
+var index = [['app','druna','druna','[application]'],['mod','druna','druna_plugin',[]],['fun','druna','druna_plugin:delete-deps/2',[]],['fun','druna','druna_plugin:get-deps/2',[]],['fun','druna','druna_plugin:list-deps/2',[]],['fun','druna','druna_plugin:make-druna/2',[]],['fun','druna','druna_plugin:preprocess/2',[]]];

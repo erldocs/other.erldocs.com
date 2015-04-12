@@ -1,0 +1,1 @@
+var index = [['app','lastock','lastock','[application]'],['app','lastock','lastock','[application]'],['mod','lastock','lastock_app',[]],['mod','lastock','lastock_sup',[]],['fun','lastock','lastock_app:start/2',[]],['fun','lastock','lastock_app:stop/1',[]],['fun','lastock','lastock_sup:init/1',[]],['fun','lastock','lastock_sup:start_link/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','programming-katas','programming-katas','[application]'],['mod','programming-katas','concurrency',[]],['mod','programming-katas','erlang_kata_app',[]],['mod','programming-katas','erlang_kata_tests',[]],['fun','programming-katas','erlang_kata_app:assignment/1',[]]];

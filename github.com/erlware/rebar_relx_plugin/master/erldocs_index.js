@@ -1,0 +1,1 @@
+var index = [['app','rebar_relx_plugin','rebar_relx_plugin','[application]'],['mod','rebar_relx_plugin','rebar_relx_plugin','    This provides a trivial way to integrate the '],['fun','rebar_relx_plugin','rebar_relx_plugin:release/1',[]]];

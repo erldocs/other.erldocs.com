@@ -1,0 +1,1 @@
+var index = [['app','arygon_nfc','arygon_nfc','[application]'],['mod','arygon_nfc','arygon_nfc_app',[]],['mod','arygon_nfc','arygon_nfc_sup',[]],['fun','arygon_nfc','arygon_nfc_app:start/2',[]],['fun','arygon_nfc','arygon_nfc_app:stop/1',[]],['fun','arygon_nfc','arygon_nfc_sup:init/1',[]],['fun','arygon_nfc','arygon_nfc_sup:start_link/0',[]]];

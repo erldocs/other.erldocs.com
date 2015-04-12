@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>idealib_dt (idealib_erl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>idealib_dt</h1>
+<h2 class="modsummary">Date and time library.</h2>
+<div class="description">
+<p>Date and time library.  
+Base time epoch is the UNIX one, so microsecond (us),  
+now and datetime functions operate with positive or  
+negative shift relative to 01-JAN-1970 00:00:00.</p>
+ 
+  <p>Gsec functions operates relatively to the 01-JAN-0000 00:00:00,
+  so for example <code>idealib_dt:gsec2now (0)</code> correctly gives result  
+of {-62167,-219200,0}, the equivalent of Gregorian zero-time.</p>
+ 
+  <p>Horolog functions are relative to the standard MUMPS epoch
+  of 31-DEC-1840 00:00:00, so for example <code>idealib_dt:gsec2horolog (0)</code>  
+correctly gives {-672411,0}.</p>
+ 
+  <p>WARNING: be careful when converting microseconds (us2* function family)
+  to whatever else and back (*2us functions) -- only the <code>now</code> format
+  handle microseconds! All the rest (datetime, gregorian seconds) looses
+  the information on anything smaller than a single second.
+  So, for example:
+  </p><pre class="sh_erlang">  erl&gt; N = now ().
+  {1368,803088,971319}
+  erl&gt; X = idealib_dt:now2us (N).
+  1368803088971319
+  erl&gt; Y = idealib_dt:dt2us (idealib_dt:us2dt (X)).
+  1368803088000000
+  erl&gt; idealib_dt:us2now (Y).
+  {1368,803088,0}</pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="now2us/0">now2us() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert erlang:now () to microseconds integer.
+  Since the argument is not supplied, default is
+  erlang:now () of the time when this function was called.</p>
+</div></div>
+<div class="function">
+<h3 id="now2us/1">now2us(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert erlang:now () to microseconds integer.</p>
+</div></div>
+<div class="function">
+<h3 id="us2now/1">us2now(Ms) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert microseconds integer back to erlang:now () format.</p>
+</div></div>
+<div class="function">
+<h3 id="now2dt/0">now2dt() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert erlang:now () to {date (), time ()}.
+  Use current value of erlang:now ().
+  WARNING: this is one-way function since it looses
+  information (datetime is based on number of seconds)!</p>
+</div></div>
+<div class="function">
+<h3 id="now2dt/1">now2dt(Now) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert erlang:now () to {date (), time ()}.
+  WARNING: this is one-way function since it looses
+  information (datetime is based on number of seconds)!</p>
+</div></div>
+<div class="function">
+<h3 id="us2dt/1">us2dt(Ms) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert microseconds integer to {date (), time ()}.
+  WARNING: this is one-way function since it looses
+  information (datetime is based on number of seconds)!</p>
+</div></div>
+<div class="function">
+<h3 id="dt2now/1">dt2now(DT) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert a datetime to erlang:now format.</p>
+</div></div>
+<div class="function">
+<h3 id="dt2us/1">dt2us(DT) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert a datetime to microseconds.</p>
+</div></div>
+<div class="function">
+<h3 id="epoch2gsec/1">epoch2gsec(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert a specified epoch to gregorian seconds.</p>
+</div></div>
+<div class="function">
+<h3 id="dt2gsec/1">dt2gsec(DT) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert a specified date-time to gregorian seconds.</p>
+</div></div>
+<div class="function">
+<h3 id="sec2us/1">sec2us(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert seconds to microseconds.</p>
+</div></div>
+<div class="function">
+<h3 id="days2sec/1">days2sec(D) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert number of days to seconds.</p>
+</div></div>
+<div class="function">
+<h3 id="gsec2now/1">gsec2now(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert gregorian seconds to erlang:now format.</p>
+</div></div>
+<div class="function">
+<h3 id="gsec2dt/1">gsec2dt(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert gregorian seconds to datetime tuple.</p>
+</div></div>
+<div class="function">
+<h3 id="dt2horolog/1">dt2horolog(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert date-time tuple to MUMPS $Horolog.</p>
+</div></div>
+<div class="function">
+<h3 id="horolog2dt/1">horolog2dt(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert MUMPS $Horolog to date-time tuple.</p>
+</div></div>
+<div class="function">
+<h3 id="gsec2horolog/1">gsec2horolog(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert Gregorian seconds to MUMPS $Horolog.</p>
+</div></div>
+<div class="function">
+<h3 id="horolog2gsec/1">horolog2gsec(H) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert MUMPS $Horolog to gregorian seconds.
+  For $H="62959,49838", we accept {62959, 49838} or "62959,49838".</p>
+</div></div>
+<div class="function">
+<h3 id="horolog2str/1">horolog2str(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert $Horolog tuple to $H string.</p>
+</div></div>
+<div class="function">
+<h3 id="dt2horologstr/1">dt2horologstr(D) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert Erlang DateTime to $H string.</p>
+</div></div>
+<div class="function">
+<h3 id="timezones/0">timezones() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>List of all the available TimeZones.</p>
+</div></div>
+<div class="function">
+<h3 id="dt2local/2">dt2local(DT, Tz) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Apply timezone shift on {date (), time ()}.</p>
+</div></div>
+<div class="function">
+<h3 id="now2local/2">now2local(Now, Tz) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert erlang:now () to DateTime with TimeZone.
+  WARNING: this is one-way function since it looses
+  information (datetime is based on number of seconds)!</p>
+</div></div>
+<div class="function">
+<h3 id="dt2iso/1">dt2iso(DateTime) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="iso2dt/1">iso2dt(IsoString) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="str2dt/2">str2dt(DTString, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dt_compare/2">dt_compare(DT1, DT2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>True if DateTime <code>DT1</code> is before DateTime <code>DT2</code>.
+  False otherwise.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

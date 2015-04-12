@@ -1,0 +1,1 @@
+var index = [['app','ircbot','ircbot','[application]'],['mod','ircbot','ircbot',[]]];

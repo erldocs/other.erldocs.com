@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gearman_client_server (erl-gearman) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gearman_client_server</h1>
+<h2 class="modsummary">gearman client server.</h2>
+<div class="description">
+<p>gearman client server</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-fun_name">fun_name() = string()</h3></div>
+    <div class="type"><h3 id="type-inet_host">inet_host() = string() | atom()</h3></div>
+    <div class="type"><h3 id="type-inet_port">inet_port() = 0..65535</h3></div>
+    <div class="type"><h3 id="type-job_handle">job_handle() = binary()</h3></div>
+    <div class="type"><h3 id="type-status_res">status_res() = #status_res{}</h3></div>
+    <div class="type"><h3 id="type-task_id">task_id() = integer()</h3></div>
+    <div class="type"><h3 id="type-work_callback">work_callback() = fun((<a href="#type-task_id" class="seealso">task_id()</a>, <a href="#type-work_response" class="seealso">work_response()</a>) -> any())</h3></div>
+    <div class="type"><h3 id="type-work_complete">work_complete() = #work_complete{}</h3></div>
+    <div class="type"><h3 id="type-work_data">work_data() = #work_data{}</h3></div>
+    <div class="type"><h3 id="type-work_exception">work_exception() = #work_exception{}</h3></div>
+    <div class="type"><h3 id="type-work_fail">work_fail() = #work_fail{}</h3></div>
+    <div class="type"><h3 id="type-work_response">work_response() = <a href="#type-work_data" class="seealso">work_data()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-work_warning" class="seealso">work_warning()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-work_status" class="seealso">work_status()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-work_complete" class="seealso">work_complete()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-work_fail" class="seealso">work_fail()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-work_exception" class="seealso">work_exception()</a></h3></div>
+    <div class="type"><h3 id="type-work_status">work_status() = #work_status{}</h3></div>
+    <div class="type"><h3 id="type-work_warning">work_warning() = #work_warning{}</h3></div>
+    <div class="type"><h3 id="type-workload">workload() = binary() | string()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Host::inet_host(), Port::inet_port()) -&gt; {ok, any()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>start the gearman client server</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>stop the client server</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Host::inet_host(), Port::inet_port()) -&gt; {ok, any()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>start the gearman client server</p>
+</div></div>
+<div class="function">
+<h3 id="do/1">do(Pid::pid(), FunName::fun_name(), Workload::workload()) -&gt; {ok, task_id()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>do a job, the result is sent to the caller as message
+   the message:
+   {task_id(), work_response()}</p>
+</div></div>
+<div class="function">
+<h3 id="do/1-1">do(Pid::pid(), FunName::fun_name(), Workload::workload(), Callback::work_callback()) -&gt; {ok, task_id()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>run a job</p>
+</div></div>
+<div class="function">
+<h3 id="do_bg/1">do_bg(Pid::pid(), FunName::fun_name(), Workload::workload()) -&gt; {ok, job_handle()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>run a job in background</p>
+</div></div>
+<div class="function">
+<h3 id="get_status/1">get_status(Pid::pid(), JobHandle::job_handle()) -&gt; {ok, status_res()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>get the status of submitted job</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Msg, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(Old, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>richie at yun.io</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','gs_util','gs_util','[application]'],['mod','gs_util','gs_util','     Miscellaneous Erlang function collection.']];

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rfc4627_jsonrpc_mochiweb (erlang-rfc4627) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rfc4627_jsonrpc_mochiweb</h1>
+<h2 class="modsummary">Support for serving JSON-RPC via Mochiweb.</h2>
+<div class="description">
+<p>Support for serving JSON-RPC via Mochiweb.</p>
+ 
+  <p>Familiarity with writing Mochiweb applications is assumed.</p>
+ 
+  <p><em><marker id="Basic_Usage">Basic Usage</marker></em></p>
+ 
+  <list>
+  <item><p>Register your JSON-RPC services as usual.</p></item>
+  <item><p>Decide on your <code>AliasPrefix</code> (see <a href="rfc4627_jsonrpc_http.html#invoke_service_method/4" class="seealso">rfc4627_jsonrpc_http:invoke_service_method/4</a>).</p></item>
+  <item><p>When a Mochiweb request arrives at your application, call <a href="#handle/2" class="seealso">handle/2</a> with your <code>AliasPrefix</code> and the request.</p></item>
+  </list>
+ 
+  <p>It's as simple as that - if the request's URI path matches the
+  <code>AliasPrefix</code>, it will be decoded and the JSON-RPC service it names
+  will be invoked.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="handle/1">handle(AliasPrefix::string(), Req::#mochiweb_request{}) -&gt; no_match | {ok, Response}</h3>
+
+<ul class="type">
+<li><code>Response = {Code, ReplyHeaders, ReplyBody}</code></li><li><code>Code = integer()</code></li><li><code>ReplyHeaders = [{string(), string()}]</code></li><li><code>ReplyBody = string()</code></li></ul>
+<div class="description">
+
+<p>If the request matches <code>AliasPrefix</code>, the corresponding
+  JSON-RPC service is invoked, and an <code>{ok, Response}</code> is returned;
+  otherwise, <code>no_match</code> is returned.</p>
+ 
+  <p>Call this function from your Mochiweb application's <code>loop</code>  
+function, as follows:</p>
+ 
+  <pre class="sh_erlang">  case rfc4627_jsonrpc_mochiweb:handle("/rpc", Req) of
+       no_match -&gt;
+           handle_non_jsonrpc_request(Req);
+       {ok, Response} -&gt;
+           Req:respond(Response)
+  end</pre>
+ 
+  <p>where <code>handle_non_jsonrpc_request</code> does the obvious thing for
+  non-JSON-RPC requests.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Tony Garnock-Jones</aname>
+<email>tonyg@kcbbs.gen.nz</email>
+<aname>LShift Ltd.</aname>
+<email>query@lshift.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

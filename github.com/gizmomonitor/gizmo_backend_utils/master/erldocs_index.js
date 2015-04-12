@@ -1,0 +1,1 @@
+var index = [['app','gizmo_backend_utils','gizmo_backend_utils','[application]'],['mod','gizmo_backend_utils','gizmo_backend_utils',[]],['fun','gizmo_backend_utils','gizmo_backend_utils:db_execute/1','Executes given DB action and formats the results.'],['fun','gizmo_backend_utils','gizmo_backend_utils:db_execute/1','Executes given DB action.']];

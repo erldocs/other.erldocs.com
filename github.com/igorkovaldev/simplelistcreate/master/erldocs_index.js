@@ -1,0 +1,1 @@
+var index = [['app','simplelistcreate','simplelistcreate','[application]'],['mod','simplelistcreate','mlist',[]],['fun','simplelistcreate','mlist:create/1',[]],['fun','simplelistcreate','mlist:reverse_create/1',[]]];

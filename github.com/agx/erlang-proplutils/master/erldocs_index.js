@@ -1,0 +1,1 @@
+var index = [['app','erlang-proplutils','erlang-proplutils','[application]'],['mod','erlang-proplutils','proplutils','Simplify proplist manipulation a bit.'],['fun','erlang-proplutils','proplutils:delete/2','Delete all Keys from Proplist.'],['fun','erlang-proplutils','proplutils:delete_except/2','Delete all keys except Keys from PropList.']];

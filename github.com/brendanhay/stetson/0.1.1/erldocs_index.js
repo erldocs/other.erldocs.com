@@ -1,0 +1,1 @@
+var index = [['app','stetson','stetson','[application]'],['mod','stetson','stetson_server','.'],['mod','stetson','stetson_sup','.'],['fun','stetson','stetson_server:cast/1',[]],['fun','stetson','stetson_server:start_link/1','Start the stats process.'],['fun','stetson','stetson_sup:start_link/1',[]]];

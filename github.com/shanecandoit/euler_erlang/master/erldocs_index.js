@@ -1,0 +1,1 @@
+var index = [['app','euler_erlang','euler_erlang','[application]'],['mod','euler_erlang','e1mults',[]],['mod','euler_erlang','e2fibs',[]],['mod','euler_erlang','e3prim',[]],['fun','euler_erlang','e1mults:main/0',[]],['fun','euler_erlang','e2fibs:main/0',[]],['fun','euler_erlang','e3prim:main/0',[]]];

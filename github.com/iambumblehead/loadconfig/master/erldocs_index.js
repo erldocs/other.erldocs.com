@@ -1,0 +1,1 @@
+var index = [['app','loadconfig','loadconfig','[application]'],['mod','loadconfig','loadconfig',[]],['fun','loadconfig','loadconfig:load/1',[]]];

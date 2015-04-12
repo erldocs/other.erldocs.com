@@ -1,0 +1,1 @@
+var index = [['app','game-of-life-erlang','game-of-life-erlang','[application]'],['mod','game-of-life-erlang','gol',[]],['mod','game-of-life-erlang','utils',[]],['fun','game-of-life-erlang','utils:pprint/2',[]],['fun','game-of-life-erlang','utils:print_content/1',[]],['fun','game-of-life-erlang','utils:read_file/1',[]]];

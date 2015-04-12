@@ -1,0 +1,1 @@
+var index = [['app','game','game','[application]'],['mod','game','trivia',[]],['fun','game','trivia:start/0',[]]];

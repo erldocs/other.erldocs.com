@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-server','rabbitmq-server','[application]'],['mod','rabbitmq-server','vm_memory_monitor_tests',[]],['fun','rabbitmq-server','vm_memory_monitor_tests:all_tests/0',[]]];

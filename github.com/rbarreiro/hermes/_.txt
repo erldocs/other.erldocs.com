@@ -1,0 +1,51 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/rbarreiro/hermes'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/5859253789/meta.txt"
+ :: Processing https://github.com/rbarreiro/hermes	{rev,branch,"master","a84dd8b58b984134a7aafa0500661aad94a71f4c"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/rbarreiro/hermes/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes"
+$ 5000  `find 'hermes-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["hermes_core","misultin"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/5859253789/repo/master
+Building hermes
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes/src/hermes_base_app.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes/src/hermes_base_app_sup.erl"
+Generating XML for application hermes "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes" -> "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes"
+/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes/src/pages/page_index.erl: at line 9: can't find include file "elements.hrl"
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes/src/pages/page_index.erl': {'EXIT',
+                                                                                                                         error}.
+edoc: error in doclet 'edoc_doclet': {'EXIT',error}.
+Error generating hermes XMLs. Using fallback ...
+Generating XML hermes - hermes_base_app "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes/src/hermes_base_app.erl" -> "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes/hermes_base_app.xml"
+Generating XML hermes - hermes_base_app_sup "/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master/hermes/src/hermes_base_app_sup.erl" -> "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes/hermes_base_app_sup.xml"
+Generating HTML - hermes_base_app "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes/hermes_base_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes/hermes_base_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/specs_hermes_base_app.xml"
+Generating HTML - hermes_base_app_sup "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes/hermes_base_app_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/hermes/hermes_base_app_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/5859253789/repo/master/.xml/specs_hermes_base_app_sup.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5859253789/hermes-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5859253789/hermes'  2>&1`

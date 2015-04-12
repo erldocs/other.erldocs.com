@@ -1,0 +1,34 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/alexanderwingard/docbuilderl'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/9996875414/meta.txt"
+ :: Processing https://github.com/alexanderwingard/docbuilderl	{rev,branch,"master","da47ed38847a3fd395d3a8092122846e4843e584"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master/docbuilderl"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/alexanderwingard/docbuilderl/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master/docbuilderl"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master/docbuilderl"
+$ 5000  `find 'docbuilderl-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master/docbuilderl"
+$ infinity  `git submodule update --init --recursive  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/9996875414/repo/master
+Building docbuilderl
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master/docbuilderl/src/example.erl"
+Generating XML for application docbuilderl "/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master/docbuilderl" -> "/home/pete/wefwefwef/docs/other/9996875414/repo/master/.xml/docbuilderl"
+Generated docbuilderl XMLs: ["/home/pete/wefwefwef/docs/other/9996875414/repo/master/.xml/docbuilderl/example.xml"]
+Generating HTML - example "/home/pete/wefwefwef/docs/other/9996875414/repo/master/.xml/docbuilderl/example.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9996875414/repo/master/.xml/docbuilderl/example.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9996875414/repo/master/.xml/specs_example.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9996875414/docbuilderl-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9996875414/docbuilderl'  2>&1`

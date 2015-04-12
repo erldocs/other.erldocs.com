@@ -1,0 +1,1 @@
+var index = [['app','erldeps','erldeps','[application]'],['mod','erldeps','erldeps','   Easily start or stop a group of application mo'],['fun','erldeps','erldeps:start/1',[]],['fun','erldeps','erldeps:stop/1',[]]];

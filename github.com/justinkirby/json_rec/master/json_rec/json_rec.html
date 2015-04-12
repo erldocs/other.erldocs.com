@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>json_rec (json_rec) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>json_rec</h1>
+<h2 class="modsummary">
+   Assuming a record  of -record(simple, {one, two}) in mod_fake
+   Usage example:
+        Rec = mod_fake:new(&lt;&lt;"simple"&gt;&gt;),
+     Json = mochijson2:decode("{'one':1,'two':2}"),
+     SimpleRec = json_rec:to_rec(Json,mod_fake,Rec).</h2>
+<div class="description">
+<p>
+   Assuming a record  of <code>-record(simple, {one, two})</code> in mod_fake
+   Usage example:
+   </p><pre class="sh_erlang">     Rec = mod_fake:new(&lt;&lt;"simple"&gt;&gt;),
+     Json = mochijson2:decode("{'one':1,'two':2}"),
+     SimpleRec = json_rec:to_rec(Json,mod_fake,Rec)</pre><p>
+  
+   </p><p>The above code will take the json and transform it into the   
+specified record. Trying to match the field of the record with the   
+key in the json. If a match fails, then json_rec will fall back to   
+using proplists</p>
+  
+   The module MUST export module:new/1. new/1 should take a binary and return a record. Example:
+   <pre class="sh_erlang">   -module(mod_fake).
+   -export([new/1]).
+   -record(simple, {one,two}).
+   new(&lt;&lt;"simple"&gt;&gt;) -&gt; #simple{};
+   new(_) -&gt; undefined.</pre>
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-proplist">proplist() = [{term(), term()}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="to_json/1">to_json(Record::tuple(), Module::[atom()]) -&gt; {struct, proplist()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_rec/3">to_rec(Json::_Json, Module, Rec::Record) -&gt; tuple()</h3>
+
+
+<div class="description">
+
+<p>  
+Take the result from mochijson2:decode/1 and transform it into a  
+record, or proplist.</p>
+ 
+  <p>_Json MUST the result of mochijson2:decode/1.
+  Module is a module that refers to a specific module which exports new/1.
+  Rec is the initial empty record #record_name{} or <code>module:new(&lt;&lt;"record_name"&gt;&gt;)</code></p>
+ 
+  <p>NOTE: it is up to you to export and define module:new/1</p>
+</div></div></div>
+
+<authors>
+
+<aname>Justin Kirby</aname>
+<email>jkirby@voalte.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

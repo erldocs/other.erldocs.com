@@ -1,0 +1,1 @@
+var index = [['app','dork','dork','[application]'],['mod','dork','ferlangi',[]],['fun','dork','ferlangi:loop0/1',[]],['fun','dork','ferlangi:start_link/0',[]],['fun','dork','ferlangi:worker/2',[]]];

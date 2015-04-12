@@ -1,0 +1,1 @@
+var index = [['app','qsearch-erl','qsearch-erl','[application]'],['mod','qsearch-erl','qsearch',[]],['fun','qsearch-erl','qsearch:score/2',[]]];

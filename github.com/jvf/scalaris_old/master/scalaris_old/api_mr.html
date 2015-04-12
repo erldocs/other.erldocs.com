@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>api_mr (scalaris_old) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>api_mr</h1>
+<h2 class="modsummary">   API functions for the Map-Reduce system.</h2>
+<div class="description">
+<p>   API functions for the Map-Reduce system</p>
+ 
+          <p>The Map-Reduce system will snapshot the database and apply the the
+          supplied job to that data. Since snapshots work on the overlay level
+          only the hashed keys are available.
+          Since hashed keys are not useful in this context, the MR system will
+          only considers values of the following structure as inputs:
+          </p><pre class="sh_erlang">          {Key::string(), Value::term()}
+          or
+          {Tag::atom(), Key:string(), Value::term()}</pre><p>
+          Either all 2-tuples are considered to be input or, if
+          <code>{tag, some_tag}</code> is found in the options list, all 3-tuples with <code>some_tag</code>          
+as the first element are.</p>
+ 
+          <p>A job description is a 2-tuple where the first element is a list of
+          phase specifications and the second element a list of options.
+          A simple example job could look like this:
+          </p><pre class="sh_erlang">             Map = fun({_Key, Line}) -&gt;
+                 Tokens = string:tokens(Line, " \n,.;:?!()\"'-_"),
+                 [{string:to_lower(X),1} || X &lt;- Tokens]
+             end,
+             Reduce = fun(KVList) -&gt;
+                     lists:map(fun({K, V}) -&gt;
+                                       {K, lists:sum(V)}
+                                 end, KVList)
+             end,
+             api_mr:start_job({[{map, {erlanon, term_to_binary(Map)}},
+                                {reduce, {erlanon, term_to_binary(Reduce)}}],
+                               []}).</pre><p>
+          It considers all <code>{string(), string()}</code> as input and returns the word count of all
+          values.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_job/1">start_job(Job::job_description() (see module mr)) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>synchronous call to start a map reduce job.
+       it will return the results of the job.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jan Fajerski</aname>
+<email>fajerski@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

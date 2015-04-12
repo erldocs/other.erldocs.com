@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>trace_mpath (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>trace_mpath</h1>
+<h2 class="modsummary">Trace what a message triggers in the system by tracing all
+  generated subsequent messages.</h2>
+<div class="description">
+<p>Trace what a message triggers in the system by tracing all
+  generated subsequent messages.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-anypid">anypid() = pid() | <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a></h3></div>
+    <div class="type"><h3 id="type-erlang_timestamp">erlang_timestamp() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{MegaSecs :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Secs :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MicroSecs :: integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-filter_fun">filter_fun() = fun((<a href="#type-trace_event" class="seealso">trace_event()</a>) -> boolean())</h3></div>
+    <div class="type"><h3 id="type-gc_mpath_msg">gc_mpath_msg() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'$gen_component',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trace_mpath,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-passed_state" class="seealso">passed_state()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source :: <a href="#type-anypid" class="seealso">anypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dest :: <a href="#type-anypid" class="seealso">anypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-message" class="seealso">comm:message()</a>}</h3></div>
+    <div class="type"><h3 id="type-info_event">info_event() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{log_info, <a href="#type-time" class="seealso">time()</a>, <a href="#type-trace_id" class="seealso">trace_id()</a>, <a href="#type-pidinfo" class="seealso">pidinfo()</a>, <a href="comm.html#type-message" class="seealso">comm:message()</a>}</h3></div>
+    <div class="type"><h3 id="type-logger">logger() = io_format<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {log_collector, <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proto_sched, <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>}</h3></div>
+    <div class="type"><h3 id="type-msg_map_fun">msg_map_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="comm.html#type-message" class="seealso">comm:message()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source :: pid() | <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dest :: pid() | <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-message" class="seealso">comm:message()</a>)</h3></div>
+    <div class="type"><h3 id="type-options">options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{logger, <a href="#type-logger" class="seealso">logger()</a> | <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{map_fun, <a href="#type-msg_map_fun" class="seealso">msg_map_fun()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{filter_fun, <a href="#type-filter_fun" class="seealso">filter_fun()</a>}]</h3></div>
+    <div class="type"><h3 id="type-passed_state">passed_state() = <a href="#type-passed_state/1" class="seealso">passed_state1()</a> | {<a href="#type-trace_id" class="seealso">trace_id()</a>, <a href="#type-logger" class="seealso">logger()</a>}</h3></div>
+    <div class="type"><h3 id="type-passed_state1">passed_state1() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-trace_id" class="seealso">trace_id()</a>, <a href="#type-logger" class="seealso">logger()</a>, <a href="#type-msg_map_fun" class="seealso">msg_map_fun()</a>, <a href="#type-filter_fun" class="seealso">filter_fun()</a>}</h3></div>
+    <div class="type"><h3 id="type-pidinfo">pidinfo() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="pid_groups.html#type-groupname" class="seealso">pid_groups:groupname()</a>, <a href="pid_groups.html#type-pidname" class="seealso">pid_groups:pidname()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_pid_name |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;non_local_pid_name_unknown}</h3></div>
+    <div class="type"><h3 id="type-recv_event">recv_event() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{log_recv,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-time" class="seealso">time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-trace_id" class="seealso">trace_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source :: <a href="#type-pidinfo" class="seealso">pidinfo()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dest :: <a href="#type-pidinfo" class="seealso">pidinfo()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-message" class="seealso">comm:message()</a>}</h3></div>
+    <div class="type"><h3 id="type-send_event">send_event() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{log_send,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-time" class="seealso">time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-trace_id" class="seealso">trace_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source :: <a href="#type-pidinfo" class="seealso">pidinfo()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dest :: <a href="#type-pidinfo" class="seealso">pidinfo()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-message" class="seealso">comm:message()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local | global}</h3></div>
+    <div class="type"><h3 id="type-state">state() = [{<a href="#type-trace_id" class="seealso">trace_id()</a>, <a href="#type-trace" class="seealso">trace()</a>}]</h3></div>
+    <div class="type"><h3 id="type-time">time() = <a href="#type-erlang_timestamp" class="seealso">erlang_timestamp()</a> | integer() >= 0</h3></div>
+    <div class="type"><h3 id="type-trace">trace() = [<a href="#type-trace_event" class="seealso">trace_event()</a>]</h3></div>
+    <div class="type"><h3 id="type-trace_event">trace_event() = <a href="#type-send_event" class="seealso">send_event()</a> | <a href="#type-info_event" class="seealso">info_event()</a> | <a href="#type-recv_event" class="seealso">recv_event()</a></h3></div>
+    <div class="type"><h3 id="type-trace_id">trace_id() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(TraceId::trace_id() | passed_state()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1-1">start(TraceId::trace_id(), Options::logger() | mypid() (see module comm) | options()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="infected/0">infected() -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clear_infection/0">clear_infection() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="restore_infection/0">restore_infection() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_trace/0">get_trace() -&gt; trace()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_trace/1">get_trace(TraceId::trace_id()) -&gt; trace()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_trace_raw/1">get_trace_raw(TraceId::trace_id()) -&gt; trace()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cleanup/0">cleanup() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cleanup/1">cleanup(TraceId::trace_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="thread_yield/0">thread_yield() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send_histogram/1">send_histogram(Trace::trace()) -&gt; list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="time_delta/1">time_delta(Trace::trace()) -&gt; trace()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_texfile/1">to_texfile(Trace::trace(), Filename::name() (see module file)) -&gt; ok | {error, posix() (see module file) | badarg | terminated}</h3>
+
+
+<div class="description">
+
+<p>Write the trace to a LaTeX file (20 microseconds in the trace are 1 cm
+       in the plot).</p>
+</div></div>
+<div class="function">
+<h3 id="to_texfile/1-1">to_texfile(Trace::trace(), Filename::name() (see module file), ScaleX::pos_integer()) -&gt; ok | {error, posix() (see module file) | badarg | terminated}</h3>
+
+
+<div class="description">
+
+<p>Write the trace to a LaTeX file (ScaleX microseconds in the trace are 1
+       cm in the plot).</p>
+</div></div>
+<div class="function">
+<h3 id="to_texfile_no_time/1">to_texfile_no_time(Trace::trace(), Filename::name() (see module file)) -&gt; ok | {error, posix() (see module file) | badarg | terminated}</h3>
+
+
+<div class="description">
+
+<p>Write the trace to a LaTeX file (20 microseconds in the trace are 1 cm
+       in the plot). The representation will not have a time representation
+       but rather only show successive messages.</p>
+</div></div>
+<div class="function">
+<h3 id="to_texfile_no_time/1-1">to_texfile_no_time(Trace::trace(), Filename::name() (see module file), ScaleX::pos_integer()) -&gt; ok | {error, posix() (see module file) | badarg | terminated}</h3>
+
+
+<div class="description">
+
+<p>Write the trace to a LaTeX file (ScaleX microseconds in the trace are 1
+       cm in the plot). The representation will not have a time representation
+       but rather only show successive messages.</p>
+</div></div>
+<div class="function">
+<h3 id="epidemic_reply_msg/1">epidemic_reply_msg(PState::passed_state(), FromPid::anypid(), ToPid::anypid(), Msg::message() (see module comm)) -&gt; gc_mpath_msg()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log_send/1">log_send(PState::passed_state(), FromPid::anypid(), ToPid::anypid(), Msg::message() (see module comm), LocalOrGlobal::local | global | local_after) -&gt; DeliverAlsoDirectly::boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log_info/1">log_info(FromPid::anypid(), Info::message() (see module comm)) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log_info/1-1">log_info(PState::passed_state(), FromPid::anypid(), Info::message() (see module comm)) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log_recv/1">log_recv(PState::passed_state(), FromPid::anypid(), ToPid::anypid(), Msg::message() (see module comm)) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="normalize_pidinfo/1">normalize_pidinfo(Pid::anypid() | pidinfo()) -&gt; pidinfo()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(ServiceGroup::groupname() (see module pid_groups)) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Arg::any()) -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="on/1">on(Msg::trace_event() | message() (see module comm), State::state()) -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Florian Schintke</aname>
+<email>schintke@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

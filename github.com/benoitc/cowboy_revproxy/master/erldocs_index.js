@@ -1,0 +1,1 @@
+var index = [['app','cowboy_revproxy','cowboy_revproxy','[application]'],['mod','cowboy_revproxy','cowboy_revproxy_example',[]],['fun','cowboy_revproxy','cowboy_revproxy_example:proxy/1',[]],['fun','cowboy_revproxy','cowboy_revproxy_example:start/0',[]]];

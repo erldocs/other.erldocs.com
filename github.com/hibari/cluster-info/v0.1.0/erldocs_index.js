@@ -1,0 +1,1 @@
+var index = [['app','cluster-info','cluster-info','[application]'],['mod','cluster-info','cluster_info_ex',[]],['fun','cluster-info','cluster_info_ex:cluster_info_generator_funs/0','Required callback function for cluster_info: retur'],['fun','cluster-info','cluster_info_ex:cluster_info_init/0','Required callback function for cluster_info: initi']];

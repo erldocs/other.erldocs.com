@@ -1,0 +1,62 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/ferd/recon_demo'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/850613031/meta.txt"
+ :: Processing https://github.com/ferd/recon_demo	{rev,branch,"master","6b8a4d92d72ba75195b30a6246f381d1f9483ba8"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/ferd/recon_demo/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo"
+$ 5000  `find 'recon_demo-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["gproc","recon"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/850613031/repo/master
+Building council
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/apps/council/src/council_app.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/apps/council/src/council_member.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/apps/council/src/council_sup.erl"
+Generating XML for application council "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/apps/council" -> "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council"
+Generated council XMLs: ["/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_member.xml",
+                         "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_app.xml",
+                         "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_sup.xml"]
+Generating HTML - council_sup "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/specs_council_sup.xml"
+Generating HTML - council_app "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/specs_council_app.xml"
+Generating HTML - council_member "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_member.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/council/council_member.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/specs_council_member.xml"
+Building recon_demo
+Generating XML for application recon_demo "/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo" -> "/home/pete/wefwefwef/docs/other/850613031/repo/master/.xml/recon_demo"
+/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/deps/gproc/patches/gen_leader/gen_leader.erl, in module header: at line 35: warning: redefining built-in type 'node'.
+/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/deps/gproc/patches/kernel/application_master.erl: at line 27: can't find include file "application_master.hrl"
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/deps/gproc/patches/kernel/application_master.erl': {'EXIT',
+                                                                                                                                                        error}.
+/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/deps/recon/docsite.erl: at line 1: syntax error before: '#'
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master/recon_demo/deps/recon/docsite.erl': {'EXIT',
+                                                                                                                              error}.
+edoc: error in doclet 'edoc_doclet': {'EXIT',error}.
+Error generating recon_demo XMLs. Using fallback ...
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 2 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/850613031/recon_demo-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/850613031/recon_demo'  2>&1`

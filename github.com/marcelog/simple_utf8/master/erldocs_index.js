@@ -1,0 +1,1 @@
+var index = [['app','simple_utf8','simple_utf8','[application]'],['mod','simple_utf8','simple_utf8','     Very simple module to translate binaries in'],['fun','simple_utf8','simple_utf8:bin_to_cp/1','Translates a binary stream into a list of utf8 cod'],['fun','simple_utf8','simple_utf8:cp_to_bin/1','Transforms a list of utf8 codepoints into a binary']];

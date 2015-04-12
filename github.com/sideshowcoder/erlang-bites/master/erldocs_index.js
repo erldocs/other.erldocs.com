@@ -1,0 +1,1 @@
+var index = [['app','erlang-bites','erlang-bites','[application]'],['mod','erlang-bites','fizzbuzz',[]],['mod','erlang-bites','sort',[]],['mod','erlang-bites','sort_tests',[]],['fun','erlang-bites','fizzbuzz:upto/1',[]],['fun','erlang-bites','sort:quick/1',[]]];

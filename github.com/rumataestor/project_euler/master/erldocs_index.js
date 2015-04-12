@@ -1,0 +1,1 @@
+var index = [['app','project_euler','project_euler','[application]'],['mod','project_euler','lazy',[]],['mod','project_euler','primes',[]],['mod','project_euler','problem003',[]],['fun','project_euler','lazy:foldl_lazy/3',[]],['fun','project_euler','primes:lazy/0',[]],['fun','project_euler','problem003:max_factor/1',[]]];

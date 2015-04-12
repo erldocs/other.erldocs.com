@@ -1,0 +1,1 @@
+var index = [['app','riak_cql','riak_cql','[application]'],['mod','riak_cql','riak_cql','A protocol buffers encoding and decoding module.']];

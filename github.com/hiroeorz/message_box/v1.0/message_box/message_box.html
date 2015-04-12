@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>message_box (message_box) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>message_box</h1>
+<h2 class="modsummary">MessageBox is Twitter clone using Erlang (for plactice).</h2>
+<div class="description">
+<p>MessageBox is Twitter clone using Erlang (for plactice).</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>stating system using default setting file(conf/message_box.conf).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(ConfigFilePath::string()) -&gt; pid</h3>
+
+
+<div class="description">
+
+<p>stating system.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="init/0">init() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>system initializer.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>all system shuting down.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="authenticate/1">authenticate(UserName::string() | atom(), Password::string()) -&gt; {ok, #user{}} | {error, unauthenticated}</h3>
+
+
+<div class="description">
+
+<p>user authentication.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_message/1">get_message(MessageId::integer()) -&gt; {ok, #message{}} | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>get message record.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create_user/1">create_user(UserName::string() | atom(), Mail::string(), Password::string()) -&gt; {ok, #user{}} | {error, already_exist}</h3>
+
+
+<div class="description">
+
+<p>create new user.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_user/1">update_user(UserName::string() | atom(), AuthPassword::string(), Mail::string(), Password::string()) -&gt; {ok, #user{}} | {error, user_not_exist}</h3>
+
+
+<div class="description">
+
+<p>update user settings.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="send_message/1">send_message(Id::integer(), Password::binary() | string(), Message::binary()) -&gt; {ok, integer()} | {error, unauthenticated}</h3>
+
+
+<div class="description">
+
+<p>send message to timeline.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="follow/1">follow(UserId1::integer(), Password::string(), UserId2::integer()) -&gt; ok | {error, already_following}</h3>
+
+
+<div class="description">
+
+<p>follow other user.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="unfollow/1">unfollow(UserId1::integer(), Password::string(), UserId2::integer()) -&gt; ok | {error, not_following}</h3>
+
+
+<div class="description">
+
+<p>unfollow other user.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_home_timeline/1">get_home_timeline(UserId_OR_Name::integer() | string(), Count::integer()) -&gt; [message] | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>get home timeline list. sorted by recentry time.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_mentions_timeline/1">get_mentions_timeline(UserId_OR_Name::integer() | string(), Count::integer()) -&gt; [message] | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>get mentions timeline list. sorted by recentry time.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_sent_timeline/1">get_sent_timeline(UserId_OR_Name::integer() | string(), Count::integer()) -&gt; [message] | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>get sent timeline list. sorted by recentry time.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="is_follow/1">is_follow(UserId_OR_Name::integer() | string(), Id::integer()) -&gt; true | false | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>check following other user.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="save_icon/1">save_icon(UserId_OR_Name::integer() | string() | atom(), Data::binary(), ContentType::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>save icon to disc.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_icon/1">get_icon(UserId_OR_Name::integer() | string()) -&gt; {ok, binary(), string()} | {error, not_found} | {error, not_exist}</h3>
+
+
+<div class="description">
+
+<p>get icon data.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_user/1">get_user(UserName::string()) -&gt; {ok, [tuple()]} | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p> return {ok,[{id,4},{name,"hoge"},{mail,"hoge@mail.com"}]}
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>HIROE Shin</aname>
+<email>twitter: http://twitter.com/#!/hiroe_orz17</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

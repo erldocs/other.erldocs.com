@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>msgpack (jhn_stdlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>msgpack</h1>
+<h2 class="modsummary">    
+A MessagePack to and from erlang terms library based on    
+http://wiki.msgpack.org/display/MSGPACK/Format+specification.</h2>
+<div class="description">
+<p>    
+A MessagePack to and from erlang terms library based on    
+http://wiki.msgpack.org/display/MSGPACK/Format+specification.</p>
+  
+    <p>MessagePack is represented as follows:</p>
+  
+    msgpack  : map | array | integers | floats | boolean | raw
+    map      : {[{msgpack, msgpack}*]}
+    array    : [msgpack*]
+    integers : integer | {pos_fixnum, integer} | {neg_fixnum, integer} |
+               {uint8, integer} | {uint16, integer} | {uint32, integer} |
+               {uint64, integer} | {int8, integer} | {int16, integer} |
+               {int632, integer} | {int64, integer}
+    floats   : float | {'float', float} | {'double', float}
+    nil      : nil
+    boolean  : 'true' | 'false'
+    raw      : binary
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-float_type">float_type() = float | double</h3></div>
+    <div class="type"><h3 id="type-floats">floats() = float() | {<a href="#type-float_type" class="seealso">float_type()</a>, float()}</h3></div>
+    <div class="type"><h3 id="type-integer_type">integer_type() = pos_fixnum<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| neg_fixnum<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| uint8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| uint16<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| uint32<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| uint64<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| int8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| int16<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| int32<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| int64</h3></div>
+    <div class="type"><h3 id="type-integers">integers() = integer() | {<a href="#type-integer_type" class="seealso">integer_type()</a>, integer()}</h3></div>
+    <div class="type"><h3 id="type-msgpack">msgpack() = #{}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-msgpack_array" class="seealso">msgpack_array()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-integers" class="seealso">integers()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-floats" class="seealso">floats()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-raw" class="seealso">raw()</a></h3></div>
+    <div class="type"><h3 id="type-msgpack_array">msgpack_array() = [<a href="#type-msgpack" class="seealso">msgpack()</a>]</h3></div>
+    <div class="type"><h3 id="type-opt">opt() = {atom_strings, boolean()} | binary | iolist</h3></div>
+    <div class="type"><h3 id="type-raw">raw() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="encode/1">encode(Term::msgpack()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>
+    Encodes the structured Erlang term as an iolist.
+    Equivalent of encode(Term, []) -&gt; MSGPACK.</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1-1">encode(Term::msgpack(), Opts::[opt()] | #opts{return_type=iolist | binary, orig_call=any(), number_types=boolean()}) -&gt; iolist() | binary()</h3>
+
+
+<div class="description">
+
+<p>
+    Encodes the structured Erlang term as an iolist or binary.
+    Encode will give an exception if the erlang term is not well formed.
+    Options are:
+      binary -&gt; a binary is returned
+      iolist -&gt; a iolist is returned</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1">decode(Binary::binary()) -&gt; msgpack()</h3>
+
+
+<div class="description">
+
+<p>
+    Decodes the binary into a structured Erlang term.
+    Equivalent of decode(MSGPACK, []) -&gt; Term.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(Binary::binary(), Opts::[opt()] | #opts{return_type=iolist | binary, orig_call=any(), number_types=boolean()}) -&gt; msgpack()</h3>
+
+
+<div class="description">
+
+<p>
+    Decodes the binary into a structured Erlang.
+    Decode will give an exception if the binary is not well formed MSGPACK.
+    Options are:
+      number_types -&gt; decode into {Type, Value} for number types.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jan Henry Nystrom</aname>
+<email>JanHenryNystrom@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

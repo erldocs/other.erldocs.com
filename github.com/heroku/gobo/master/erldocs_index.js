@@ -1,0 +1,1 @@
+var index = [['app','gobo','gobo','[application]'],['mod','gobo','gobo_app',[]],['mod','gobo','gobo_sup',[]],['fun','gobo','gobo_app:start/2',[]],['fun','gobo','gobo_app:stop/1',[]],['fun','gobo','gobo_sup:init/1',[]],['fun','gobo','gobo_sup:new_conn/2',[]],['fun','gobo','gobo_sup:start_link/0',[]]];

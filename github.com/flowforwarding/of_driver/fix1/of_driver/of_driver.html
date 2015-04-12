@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>of_driver (of_driver) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>of_driver</h1>
+<h2 class="modsummary">   
+of_driver manages the network connection between an OpenFlow   
+controller and an OpenFlow switch.</h2>
+<div class="description">
+<p>   
+of_driver manages the network connection between an OpenFlow   
+controller and an OpenFlow switch.</p>
+  
+   <em><marker id="Application_Environment_Variables">Application Environment Variables</marker></em><p>
+   <code>listen_ip</code> - IP address   
+to listen on for connections; default is any IP address.</p>
+  
+   <p><code>listen_tcp_options</code> - <code>gen_tcp:listen</code> tcp options.  of_driver   
+overrides the data delivery options (e.g., active, packet, etc.);   
+default is no special options.</p>
+  
+   <p><code>init_opt</code> - Erlang term passed to <code>Module:init</code> and <code>Module:connect</code>;
+   default is <code>undefined</code>.</p>
+  
+   <p><code>enable_ping</code> - If <code>true</code> enables automatic echo requests from
+   of_driver to the connected switch.  If <code>false</code> there is no automatic
+   echo.  Default is <code>true</code>. [not implemented].</p>
+  
+   <p><code>ping_timeout</code> - Maximum number of milliseconds to wait for an echo   
+response; default is 1000.</p>
+  
+   <p><code>ping_idle</code> - Send an echo to the switch if there has not been any   
+messages from the switch in this many milliseconds; default is 5000.</p>
+  
+   <p><code>multipart_timeout</code> - Maximum number of milliseconds to wait for   
+the final part of a multipart message; default is 30000. [not implemented]</p>
+  
+   <p><code>callback_module</code> - of_driver callback module.</p>
+  
+   <em><marker id="Callback_Functions">Callback Functions</marker></em><p>
+   <code>Module:init/6</code> and <code>Module:handle_connect/7</code> return a State variable   
+which of_driver associates with the connection.  The State variable   
+may be any Erlang term.  The callback module may store its own   
+connection state information in State.  On subsequent callbacks   
+of_driver passes the State to the callback module function for the   
+connection that is making the callback.  Module may make changes   
+to State and those changes are reflected in the next callback.</p>
+  
+   <p><code>Module:init(IpAddr, DatapathId, Features, Version, Connection,
+   InitOpt) -&gt; {ok, State} | {error, Reason}</code> - Called when a switch
+   makes the main connection to of_driver.  <code>IpAddr</code> is the IP address
+   of the switch formatted as <code>{A, B, C, D}</code>, <code>DatapathId</code> is the datapath
+   id reported by the switch
+   in the OFP_FEATURES_REPLY, <code>Features</code> is the decoded OFP_FEATURES_REPLY,
+   <code>Version</code> is the negotiated OpenFlow version, <code>Connection</code> is the
+   Connection handle Module uses to identify the connection for sending
+   and receiving messages.  <code>InitOpt</code> is the Erlang term from the <code>init_opt</code>
+   application environment variable.
+   <code>Module:init/6</code> returns an Erlang term State that is passed to   
+the callbacks or an error to reject the connection.</p>
+  
+   <p><code>Module:handle_connect(IpAddr, DatapathId, Features, Version,
+   AuxConnection, AuxId InitOpt) -&gt; {ok, State} | {error, Reason}.</code> -
+   Called when a switch makes an auxiliary connection to of_driver.
+   <code>IpAddr</code> is the IP address of the switch formatted as <code>{A, B, C,
+   D}</code>, <code>DatapathId</code> is the datapath id reported by the switch in the
+   OFTP_FEATURES_REPLY, <code>Features</code> is the decoded OFTP_FEATURES_REPLY,
+   <code>Version</code> is the negotiated OpenFlow version, <code>AuxConnection</code> is the
+   connection handle Module uses to identify the auxiliary connection
+   for sending and receiving messages, <code>AuxId</code> is the auxiliary connection
+   id from the features reply, <code>InitOpt</code> is the Erlang term from the <code>init_opt</code>
+   application environment variable.
+   <code>Module:handle_connect/7</code> returns a State that is passed   
+to callbacks or an error to reject the connection.</p>
+  
+   <p><code>Module:handle_message(Msg = #ofp_message{}, State) -&gt; {ok, NewState} | {terminate, Reason, NewState}.</code> -
+   Called when of_driver receives a mesage from the switch.  The message
+   may arrive on
+   the main connection or an auxiliary connection.  <code>Msg</code> is the received
+   message suitable for decoding by <code>of_msg_lib:decode/1</code>.  <code>State</code> is the
+   <code>State</code> value initially returned by <code>Module:init/6</code> or <code>Module:handle_connect/7</code>
+   and later modified by other callback functions.
+   Returns <code>ok</code> with an updated
+   <code>NewState</code> to accept the message or <code>terminate</code> to close the connection.
+   <code>Module:handle_message</code> is not called for replies to <code>of_driver:sync_send/2</code> and <code>of_driver:sync_send_list/2</code>   
+requests.</p>
+  
+   <p><code>Module:handle_error(Reason, State) -&gt; {ok, NewState} | {terminate,
+   Reason, NewState}.</code> -
+   Called when the switch does not send a valid OpenFlow message or
+   some other error has occurred on the connection.  The error may be
+   on the main connection or an auxiliary connection.  Examples:
+   incomplete multipart message, message that does not parse as an
+   OpenFlow message.  <code>State</code> is the <code>State</code> value initially returned by
+   <code>Module:init/6</code> or <code>Module:handle_connect/7</code> and later modified by other
+   callback functions.  Returns <code>ok</code> with an updated <code>NewState</code> or <code>terminate</code>   
+to close the connection.</p>
+  
+   <p><code>Module:handle_disconnect(Reason, State) -&gt; ok.</code> -
+   Called when an auxiliary connection is lost because of <code>Reason</code>.
+   <code>State</code> is the <code>State</code> value initially returned by <code>Module:handle_connect/7</code>
+   and later modified by other callback functions.  The complement of
+   <code>Module:handle_connect/7</code>.  This is the last callback for this particular   
+auxiliary connection.</p>
+  
+   <code>Module:terminate(Reason, State) -&gt; ok.</code>
+   Called when the main connection is lost for <code>Reason</code>.  This is always
+   the last callback for this particular main connection.  <code>State</code> is the
+   <code>State</code> value initially returned by <code>Module:init/6</code> and later modified
+   by other callback functions.  The complement of <code>Module:init/6</code>.  Module
+   should cleanup and terminate.</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="send/1">send(ConnectionPid::term(), Msg::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()}) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Send <code>Msg</code> to a switch via <code>Connection</code>.  <code>Connection</code> is returned
+  via the <code>Module:init/6</code> or <code>Module:handle_connect/7</code> callbacks.  A
+  long message is silently split into a multipart message as appropriate.
+  An <code>ok</code> return means of_driver successfully delivered the message.
+  It does not indicate the success of the request on the switch.
+  Switch responses, if any, are delivered via the <code>Module:handle_message</code>
+  callback.</p>
+</div></div>
+<div class="function">
+<h3 id="send_list/1">send_list(ConnectionPid::term(), Messages::[Msg::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()}]) -&gt; ok | {error, [ok | {error, Reason::term()}]}</h3>
+
+
+<div class="description">
+
+<p>
+  Send a list of <code>Msg</code> records to a switch via <code>Connection</code>.
+  Automatically adds xids to the messages using <code>of_driver:gen_xid/1</code>.
+  Any long messages are silently split into multipart messages as appropriate.
+  <code>Connection</code> is the same as with the <code>of_driver:send/2</code>.  Returns <code>ok</code> if all
+  messages are delivered successfully.  Returns an <code>error</code> tuple if
+  there were any errors.  In the error there is one status reply or
+  each request in the send list.  The returned status has the
+  same meaning as <code>of_driver:send</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_send/1">sync_send(ConnectionPid::term(), Msg::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()}) -&gt; {ok, Reply::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()} | noreply} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Send <code>Msg</code> to a switch via <code>Connection</code> followed by a barrier request.
+  <code>Connection</code> is the same with <code>of_driver:send/2</code>.  Automatically adds the
+  xid to the message using <code>of_driver:gen_xid/1</code>.  A long message is
+  silently split into a multipart message as appropriate.
+  <code>Reply</code> is the reply from
+  the switch for <code>Msg</code>. Note that <code>Reply</code> may contain an error response
+  from the switch.  <code>noreply</code> indicates there was no reply to the
+  command.  A success reply to the implicitly added barrier request
+  is not returned.  An error from the implicitly added barrier is
+  reported as an error. An error return may also indicate that of_driver
+  was unable to deliver the message to the switch.  <code>Module:handle_message/2</code>
+  is not called for replies.
+  This call is concurrency safe.  That is, there may be more than one
+  <code>of_driver:sync_send/2</code> call in progress at the same time.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_send_list/1">sync_send_list(ConnectionPid::term(), Messages::[Msg::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()}]) -&gt; {ok, [{ok, Reply::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()} | noreply}]} | {error, [{ok, Reply::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()} | noreply} | {error, Reason::term()}]}</h3>
+
+
+<div class="description">
+
+<p>
+  Send a list of <code>Msg</code> records to a switch via <code>Connection</code> followed by
+  a barrier request.  <code>Connection</code> is the same as with <code>of_driver:send/2</code>.
+  Automatically adds the xid to the messages using <code>of_driver:gen_xid/2</code>.
+  Any long messages are silently split into multipart messages as appropriate.
+  Returns a <code>ok</code> tuple when there are no errors.  Returns
+  an <code>error</code> tuple if there are any errors.  In the error
+  return there is one status reply for each request in the
+  message list.  The status reply is the same as with <code>of_driver:sync_send/2</code>.
+  A successful reply from the implicitly added barrier request
+  is not returned.  A error from the implicitly added barrier is
+  reported as an error.  An error may also indicate that of_driver
+  was unable to deliver the messages to the switch.  <code>Module:handle_message/2</code>
+  is not called for any replies.
+  This call is concurrency safe.  That is, there may be more than one
+  <code>of_driver:sync_send_list/2</code> call in progress at the same time.</p>
+</div></div>
+<div class="function">
+<h3 id="close_connection/1">close_connection(ConnectionPid::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Close the connection.  Does nothing if the connection is already
+  closed or is not valid.  of_driver calls 'Module:handle_disconnect/2'
+  if closing a auxiliary connection or <code>Module:terminate/2</code> if closing
+  the main connection.  When closing the main connection, all auxiliary
+  connections to the same switch are automatically closed and
+  <code>Module:handle_disconnect/2</code> is called for each auxiliary connection
+  that is closed.</p>
+</div></div>
+<div class="function">
+<h3 id="set_xid/1">set_xid(Msg::#ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()}, Xid::integer()) -&gt; {ok, #ofp_message{version=undefined | integer(), type=undefined | atom(), xid=integer(), body=any()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="gen_xid/1">gen_xid(ConnectionPid::term()) -&gt; {ok, Xid::integer()}</h3>
+
+
+<div class="description">
+
+<p>
+  Generate a unique Xid for Connection.  The code sending messages may use
+  this function to generate a unique Xid for a <code>Connection</code>, or the
+  callback Module may use a method of its own choosing.
+  <code>of_driver:sync_send/2</code> and
+  <code>of_driver:sync_send_list/2</code> use this mechanism to generate unique Xids.
+  Recommendation:
+  if there is only one pid using the Connection, your can use its
+  own code to create unique Xid.  If there is more then one pid
+  using a single <code>Connection</code>, your code should use <code>of_driver:gen_xid/1</code> (or
+  some other intra-pid coordination) to generate unique Xids for the
+  <code>Connection</code>.  You should use <code>of_driver:gen_xid/1</code> if you are mixing
+  <code>of_driver:send/2</code> and <code>of_driver:send_list/2</code> calls with
+  <code>of_driver:sync_send/2</code> and
+  <code>of_driver:sync_send_list/2</code> calls to avoid duplicate Xids.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Erlang Solutions Ltd.</aname>
+<email>openflow@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

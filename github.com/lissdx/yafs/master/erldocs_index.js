@@ -1,0 +1,1 @@
+var index = [['app','yafs','yafs','[application]'],['mod','yafs','yafs_app',[]],['mod','yafs','yafs_cmd_handle',[]],['mod','yafs','yafs_server','.'],['mod','yafs','yafs_sup',[]],['fun','yafs','yafs_app:start/2',[]],['fun','yafs','yafs_app:stop/1',[]],['fun','yafs','yafs_sup:init/1',[]],['fun','yafs','yafs_sup:start_link/0',[]]];

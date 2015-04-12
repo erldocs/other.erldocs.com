@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gproc_pool (gproc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gproc_pool</h1>
+<h2 class="modsummary">Load balancing functions based on Gproc.</h2>
+<div class="description">
+<p>Load balancing functions based on Gproc.</p>
+ 
+  <p>This module implements support for load-balancing server pools. It was  
+originally intended mainly as an example of how to use various Gproc  
+resources (e.g. counters and shared properties), but is fully integrated  
+into Gproc, and fully functional.</p>
+ 
+  <p><em>Concepts</em></p>
+ 
+  <p>Each pool has a list of 'named' workers (defined using <code>add_worker/2</code>) and
+  a load-balancing strategy. Processes can then 'connect' to the pool (with
+  <code>connect_worker/2</code>), using one of the defined names.</p>
+ 
+  <p>Users then 'pick' one of the currently connected processes in the pool. Which  
+process is picked depends on the load-balancing strategy.</p>
+ 
+  <p>The whole representation of the pool and its connected workers is in gproc.
+  The server <code>gproc_pool</code> is used to serialize pool management updates, but  
+worker selection is performed entirely in the calling process, and can be  
+performed by several processes concurrently.</p>
+ 
+  <p><em>Load-balancing strategies</em></p>
+ 
+  <p>* <code>round_robin</code> is the default. A wrapping gproc counter keeps track of the
+    latest worker picked, and <code>gproc:next()</code> is used to find the next worker.
+  * <code>random</code> picks a random worker from the pool.
+  * <code>hash</code> requires a value (<code>pick/2</code>), and picks a worker based on the hash of
+    that value.
+  * <code>direct</code> takes an integer as an argument, and picks the next worker (modulo
+    the size of the pool). This is mainly for implementations that implement
+    a load-balancing strategy on top of <code>gproc_pool</code>.
+  * <code>claim</code> picks the first available worker and 'claims' it while executing
+    a user-provided fun. This means that the number of concurrently executing
+    jobs will not exceed the size of the pool.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Pool::any()) -&gt; true</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#new/3" class="seealso">new(Pool, round_robin, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(Pool::any(), Type, Opts) -&gt; true</h3>
+
+<ul class="type">
+<li><code>Type = round_robin | random | hash | direct | claim</code></li><li><code>Opts = [{size, integer()} | {auto_size, boolean()}]</code></li></ul>
+<div class="description">
+
+<p>Create a new pool.</p>
+ 
+  <p>The pool starts out empty. If a size is not given, the pool size is set to
+  0 initially. <code>auto_size</code> is <code>true</code> by default if size is not specified, but
+  <code>false</code> by default otherwise. If <code>auto_size == true</code>, the pool will be  
+enlarged to accomodate new workers, when necessary. Otherwise, trying to add  
+a worker when the pool is full will raise an exception, as will trying to add  
+a worker on a specific position beyond the current size of the pool.</p>
+ 
+  <p>If the given pool already exists, this function will raise an exception.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Pool::any()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Delete an existing pool.</p>
+ 
+  <p>This function will delete a pool, only if there are no connected workers.
+  Ensure that workers have been disconnected before deleting the pool.</p>
+</div></div>
+<div class="function">
+<h3 id="force_delete/1">force_delete(Pool::any()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Forcibly remove a pool, terminating all active workers</p>
+ 
+  <p>This function is primarily intended for cleanup of any pools that might have
+  become inconsistent (for whatever reason). It will clear out all resources
+  belonging to the pool and send <code>exit(Pid, kill)</code> signals to all connected
+  workers (except the calling process).</p>
+</div></div>
+<div class="function">
+<h3 id="add_worker/1">add_worker(Pool::any(), Name::any()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Assign a worker name to the pool, returning the worker's position.</p>
+ 
+  <p>Before a worker can connect to the pool, its name must be added. If no explicit
+  position is given (see <a href="#add_worker/3" class="seealso">add_worker/3</a>), the most suitable position,  
+depending on load-balancing algorithm, is selected: for round_robin and direct  
+pools, names are packed tightly from the beginning; for hash and random pools,  
+slots are filled as sparsely as possible, in order to maintain an even  
+likelihood of hitting each worker.</p>
+ 
+  <p>An exception is raised if the pool is full (and <code>auto_size</code> is false), or if
+  <code>Name</code> already exists in the pool.</p>
+ 
+  <p>Before a worker can be used, a process must connect to it (see
+  <a href="#connect_worker/2" class="seealso">connect_worker/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="add_worker/1-1">add_worker(Pool::any(), Name::any(), Slot::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Assign a worker name to a given slot in the pool, returning the slot.</p>
+ 
+  <p>This function allows the pool maintainer to exactly position each worker
+  inside the pool. An exception is raised if the position is already taken,
+  or if <code>Name</code> already exists in the pool. If <code>Slot</code> is larger than the current
+  size of the pool, an exception is raised iff <code>auto_size</code> is <code>false</code>;
+  otherwise the pool is expanded to accomodate the new position.</p>
+</div></div>
+<div class="function">
+<h3 id="connect_worker/1">connect_worker(Pool::any(), Name::any()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Connect the current process to <code>Name</code> in <code>Pool</code>.</p>
+ 
+  <p>Typically, a server will call this function as it starts, similarly to when
+  it registers itself. In fact, calling <code>connect_worker/2</code> leads to the process
+  being registered as <code>{n,l,[gproc_pool,N,Name]}</code>, where <code>N</code> is the position of
+  <code>Name</code> in the pool. This means (a) that gproc monitors the worker, and  
+removes the connection automatically if it dies, and (b) that the registered  
+names can be listed in order of their positions in the pool.</p>
+ 
+  <p>This function raises an exception if <code>Name</code> does not exist in <code>Pool</code> (or
+  there is no such pool), or if another worker is already connected to
+  <code>Name</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="disconnect_worker/2">disconnect_worker(Pool, Name) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Disconnect the current process from <code>Name</code> in <code>Pool</code>.</p>
+ 
+  <p>This function is similar to a <code>gproc:unreg()</code> call. It removes the
+  connection between <code>Pool</code>, <code>Name</code> and pid, and makes it possible for another
+  process to connect to <code>Name</code>.</p>
+ 
+  <p>An exception is raised if there is no prior connection between <code>Pool</code>,
+  <code>Name</code> and the current process.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_worker/1">remove_worker(Pool::any(), Name::any()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Remove a previously added worker.</p>
+ 
+  <p>This function will assume that any connected worker is disconnected first.
+  It will fail if there is no such pool, but will return <code>true</code> in the case
+  when <code>Name</code> did not exist in the pool in the first place.</p>
+</div></div>
+<div class="function">
+<h3 id="whereis_worker/1">whereis_worker(Pool::any(), Name::any()) -&gt; pid() | undefined</h3>
+
+
+<div class="description">
+
+<p>Look up the pid of a connected worker.</p>
+ 
+  <p>This function works similarly to <code>gproc:where/1</code>: it will return the pid
+  of the worker connected as <code>Pool / Name</code>, if there is such a worker; otherwise
+  it will return <code>undefined</code>. It will raise an exception if <code>Name</code> has not been
+  added to the pool.</p>
+</div></div>
+<div class="function">
+<h3 id="worker_id/2">worker_id(Pool, Name) -&gt; GprocName</h3>
+
+
+<div class="description">
+
+<p>Return the unique gproc name corresponding to a name in the pool.</p>
+ 
+  <p>This function assumes that <code>Name</code> has been added to <code>Pool</code>. It returns the
+  unique name that a connected worker will be registered as. This doesn't mean
+  that there is, in fact, such a connected worker.</p>
+</div></div>
+<div class="function">
+<h3 id="active_workers/1">active_workers(Pool::any()) -&gt; [{Name, Pid}]</h3>
+
+
+<div class="description">
+
+<p>Return a list of currently connected workers in the pool.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="defined_workers/1">defined_workers(Pool::any()) -&gt; [{Name, Pos, Count}]</h3>
+
+
+<div class="description">
+
+<p>Return a list of added workers in the pool.</p>
+ 
+  <p>The added workers are slots in the pool that have been given names, and thus  
+can be connected to. This function doesn't detect whether or not there are  
+any connected (active) workers.</p>
+ 
+  <p>The list contains <code>{Name, Pos, Count}</code>, where <code>Name</code> is the name of the added
+  worker, <code>Pos</code> is its position in the pool, and <code>Count</code> represents the number
+  of times the worker has been picked (assuming callers keep count by explicitly
+  calling <a href="#log/1" class="seealso">log/1</a>).</p>
+</div></div>
+<div class="function">
+<h3 id="worker_pool/1">worker_pool(Pool::any()) -&gt; [integer() | {Name, Pos}]</h3>
+
+
+<div class="description">
+
+<p>Return a list of slots and/or named workers in the pool.</p>
+ 
+  <p>This function is mainly for testing, but can also be useful when implementing  
+your own worker placement algorithm on top of gproc_pool.</p>
+ 
+  <p>A plain integer represents an unfilled slot, and <code>{Name, Pos}</code> represents an
+  added worker. The pool is always filled to the current size.</p>
+</div></div>
+<div class="function">
+<h3 id="pick/1">pick(Pool::any()) -&gt; GprocName | false</h3>
+
+
+<div class="description">
+
+<p>Pick a worker from the pool given the pool's load-balancing algorithm.</p>
+ 
+  <p>The pool types that allows picking without an extra argument are
+  round_robin and random. This function returns <code>false</code> if there is no available
+  worker, or if <code>Pool</code> is not a valid pool.</p>
+</div></div>
+<div class="function">
+<h3 id="pick/1-1">pick(Pool::any(), Value::any()) -&gt; GprocName | false</h3>
+
+
+<div class="description">
+
+<p>Pick a worker from the pool based on <code>Value</code>.</p>
+ 
+  <p>The pool types that allows picking based on an extra argument are
+  hash and direct. This function returns <code>false</code> if there is no available
+  worker, or if <code>Pool</code> is not a valid pool.</p>
+ 
+  <p>If the pool is of type <code>direct</code>, <code>Value</code> must be an integer corresponding to
+  a position in the pool (modulo the size of the pool). If the type is
+  <code>hash</code>, <code>Value</code> may be any term, and its hash value will serve as a guide for
+  selecting a worker.</p>
+</div></div>
+<div class="function">
+<h3 id="claim/1">claim(Pool::any(), Fun::function()) -&gt; {true, Res} | false</h3>
+
+
+<div class="description">
+
+<p>Picks the first available worker in the pool and applies <code>Fun</code>.</p>
+ 
+  <p>A <code>claim</code> pool allows the caller to "claim" a worker during a short span
+  (essentially, a lock is set and released as soon as <code>Fun</code> returns).
+  Once a worker is selected, <code>Fun(Name, Pid)</code> is called, where <code>Name</code> is a
+  unique gproc name of the worker, and <code>Pid</code> is its process identifier.
+  The gproc name of the worker serves as a mutex, where its value is 0 (zero)
+  if the worker is free, and 1 (one) if it is busy. The mutex operation is
+  implemented using <code>gproc:update_counter/2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="log/1">log(X1::GprocKey) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Update a counter associated with a worker name.</p>
+ 
+  <p>Each added worker has a gproc counter that can be used e.g. to keep track of
+  the number of times the worker has been picked. Since it's associated with the
+  named 'slot', and not to the connected worker, its value will persist even
+  if the currently connected worker dies.</p>
+</div></div>
+<div class="function">
+<h3 id="randomize/1">randomize(Pool::any()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Randomizes the "next" pointer for the pool.</p>
+ 
+  <p>This function only has an effect for <code>round_robin</code> pools, which have a
+  reference to the next worker to be picked. Without randomizing, the load
+  balancing will always start with the first worker in the pool.</p>
+</div></div>
+<div class="function">
+<h3 id="ptest/4">ptest(N, I, Type, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="test_run0/2">test_run0(N, X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Ulf Wiger</aname>
+<email>ulf@wiger.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

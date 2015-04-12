@@ -1,0 +1,1 @@
+var index = [['app','wp-erlang','wp-erlang','[application]'],['mod','wp-erlang','wp',[]],['fun','wp-erlang','wp:wp/0',[]],['fun','wp-erlang','wp:wp/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','rebar_xref_plugin','rebar_xref_plugin','[application]'],['mod','rebar_xref_plugin','rebar_xref_plugin',[]]];

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>my_protocol (myproto) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>my_protocol</h1>
+<h2 class="modsummary"> 
+This is a server-side protocol implementation.</h2>
+<div class="description">
+<p> 
+This is a server-side protocol implementation</p>
+
+ <p>When server process receives socket, it MUST first call hello:</p>
+
+   handle_info({socket, Socket}, State) -&gt;
+     {ok, Hello, My} = my_protocol:hello(ConnectionId), % here ConnectionId is a thread id
+     ok = gen_tcp:send(Socket, Hello),
+     inet:setopts(Socket, [{active,once}]),
+     {noreply, State#state{my = My}};
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-delete">delete() = #delete{}</h3></div>
+    <div class="type"><h3 id="type-insert">insert() = #insert{}</h3></div>
+    <div class="type"><h3 id="type-my">my() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#my{connection_id = undefined | integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = undefined | auth | normal,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse_query = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query_buffer = binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket = undefined | <a href="inet.html#type-socket" class="seealso">inet:socket()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-request">request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#request{command = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info = undefined | binary() | <a href="#type-sql" class="seealso">sql()</a> | <a href="#type-user" class="seealso">user()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = integer()}</h3></div>
+    <div class="type"><h3 id="type-select">select() = #select{}</h3></div>
+    <div class="type"><h3 id="type-show">show() = #show{}</h3></div>
+    <div class="type"><h3 id="type-sql">sql() = <a href="#type-show" class="seealso">show()</a> | <a href="#type-select" class="seealso">select()</a> | <a href="#type-update" class="seealso">update()</a> | <a href="#type-delete" class="seealso">delete()</a> | <a href="#type-insert" class="seealso">insert()</a></h3></div>
+    <div class="type"><h3 id="type-update">update() = #update{}</h3></div>
+    <div class="type"><h3 id="type-user">user() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#user{name = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;capabilities = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plugin = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charset = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_hash = undefined | binary()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="hello/1">hello(ConnectionId::non_neg_integer(), My::my()) -&gt; {ok, Bin::iodata(), State::my()} | {ok, my()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send_or_reply/2">send_or_reply(Response, My) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ok/1">ok(My::my()) -&gt; {ok, Reply::binary(), my()} | {ok, my()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/1">error(Reason::binary(), My::my()) -&gt; {ok, Reply::binary(), my()} | {ok, my()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/1-1">error(Code::non_neg_integer(), Reason::binary(), My::my()) -&gt; {ok, Reply::binary(), my()} | {ok, my()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/1">decode(Bin::binary(), My::my()) -&gt; {ok, Reply::request(), my()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="buffer_bytes/1">buffer_bytes(Bin::binary(), My::my()) -&gt; my()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(My::my()) -&gt; {ok, Reply::request(), my()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next_packet/1">next_packet(My) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

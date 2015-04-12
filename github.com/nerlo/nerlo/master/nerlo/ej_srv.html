@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ej_srv (nerlo) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ej_srv</h1>
+<h2 class="modsummary">This is the Erlang server maintaining connections  
+to the hidden Java node.</h2>
+<div class="description">
+<p>This is the Erlang server maintaining connections  
+to the hidden Java node.</p>
+ 
+  <p>This one is trapping exists. You should always use ej_srv:stop()  
+to shutdown the server and the linked Java node. If the Java  
+node dies it will be restarted.</p>
+ 
+  <p>To use this module in your code you should include ej.hrl.</p>
+ 
+  <pre class="sh_erlang">
+  (shell@host)1&gt; {ok,Pid} = ej_srv:start().
+  (shell@host)2&gt; ej_srv:ping().
+  (shell@host)3&gt; ej_srv:stop().
+  </pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/2">start(N, Bindir) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/2">start_link(N, Bindir) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send/2">send(Tag, Msg) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Send a message to the peer and return immediately.</p>
+</div></div>
+<div class="function">
+<h3 id="call/2">call(Tag, Msg) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Send a message to the peer and wait for an answer.
+ This runs with a default timeout of 10 seconds.</p>
+</div></div>
+<div class="function">
+<h3 id="call/3">call(Tag, Msg, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Send a message to the peer and wait for an answer.
+ After Timeout seconds {error,timeout} will be returned.
+ Set Timeout to 'infinity' to wait forever.</p>
+</div></div>
+<div class="function">
+<h3 id="callback/3">callback(Tag, Msg, Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Set a fun to be called each time the peer sends a
+ fragmented message.</p>
+</div></div>
+<div class="function">
+<h3 id="add_listener/1">add_listener(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Register a listener process receiving messages 
+of the form {From, ej_notify, Notification}.</p>
+
+ <p>Currently implemented notifications are:</p>
+
+ <p>{From, ej_notify, start} - sent when the server is starting. 
+{From, ej_notify, stop}  - sent when the server is stopping.</p>
+
+ This registration survives server crash.
+</div></div>
+<div class="function">
+<h3 id="ping/0">ping() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Ping the peer. This will not use net_adm:ping but
+ the ej_srv message channel to the Java node to test this
+ particular channel.</p>
+</div></div>
+<div class="function">
+<h3 id="restart_peer/0">restart_peer() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Restart the Java node.</p>
+</div></div>
+<div class="function">
+<h3 id="bad/0">bad() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Ingo Schramm</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

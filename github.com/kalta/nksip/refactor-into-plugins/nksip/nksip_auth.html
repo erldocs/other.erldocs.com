@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nksip_auth (nksip) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nksip_auth</h1>
+<h2 class="modsummary">Authentication management module.</h2>
+<div class="description">
+<p>Authentication management module.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="realms/1">realms(Sipmsg::response() (see module nksip) | id() (see module nksip)) -&gt; [Realm::binary()]</h3>
+
+
+<div class="description">
+
+<p>Extracts all the realms present in <i>WWW-Authenticate</i> or
+  <i>Proxy-Authenticate</i> headers from a response.</p>
+</div></div>
+<div class="function">
+<h3 id="make_ha1/1">make_ha1(User::binary() | string(), Pass::binary() | string(), Realm::binary() | string()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a password hash to use in NkSIP authentication.
+  In order to avoid storing the user's passwords in clear text, you can generate
+  a <code>hash</code> (fom <code>User</code>, <code>Pass</code> and <code>Realm</code>) and store and use it in
+  <url href="/home/pete/wefwefwef/docs/other/6491459840/repo/refactor-into-plugins/.xml/nksip/./nksip_sipapp.xml#get_user_pass-3">nksip_sipapp:get_user_pass/3</url> instead of the real password.</p>
+</div></div>
+<div class="function">
+<h3 id="make_request/1">make_request(Req::request() (see module nksip), Resp::response() (see module nksip), Opts::optslist() (see module nksip)) -&gt; {ok, request() (see module nksip)} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Error = invalid_auth_header | unknown_nonce | no_pass</code></li></ul>
+<div class="description">
+
+<p>Adds an <i>Authorization</i> or <i>Proxy-Authorization</i> header  
+for a request after receiving a 401 or 407 response.  
+CSeq must be updated after calling this function.</p>
+ 
+  <p>Recognized options are <code>pass</code>, <code>user</code>, <code>cnonce</code> and <code>nc</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_response/1">make_response(Realm::binary(), Req::request() (see module nksip)) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a <i>WWW-Authenticate</i> or <i>Proxy-Authenticate</i> header  
+in response to a request.  
+Use this function to answer to a request with a 401 or 407 response.</p>
+ 
+  <p>A new <code>nonce</code> will be generated to be used by the client in its response,
+  but will expire after the time configured in global parameter <code>nonce_timeout</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="authorize_data/1">authorize_data(Req::request() (see module nksip), Call::call() (see module nksip_call)) -&gt; [Authorized]</h3>
+
+<ul class="type">
+<li><code>Authorized = {{digest, Realm::binary()}, true | false}</code></li></ul>
+<div class="description">
+
+<p>Extracts digest authentication information from a incoming request.
+  The response can include:
+  </p><list>
+     <item><p><code>{{digest, Realm}, true}</code>: there is at least one valid user authenticated
+         with this <code>Realm</code>.</p></item>
+     <item><p><code>{{digest, Realm}, false}</code>: there is at least one user offering
+         an authentication header for this <code>Realm</code>, but all of them have
+         failed the authentication.</p></item>
+  </list><p>
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

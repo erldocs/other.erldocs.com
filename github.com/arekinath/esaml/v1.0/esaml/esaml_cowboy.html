@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>esaml_cowboy (esaml) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>esaml_cowboy</h1>
+<h2 class="modsummary">Convenience functions for use with Cowboy handlers.</h2>
+<div class="description">
+<p>Convenience functions for use with Cowboy handlers</p>
+ 
+  <p>This module makes it easier to use esaml in your Cowboy-based web
+  application, by providing easy wrappers around the functions in
+  esaml_binding and esaml_sp.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-uri">uri() = string()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="reply_with_authnreq/1">reply_with_authnreq(SP::sp() (see module esaml), IdPSSOEndpoint::uri(), RelayState::binary(), Req) -&gt; {ok, Req}</h3>
+
+
+<div class="description">
+
+<p>Reply to a Cowboy request with an AuthnRequest payload</p>
+ 
+  <p>RelayState is an arbitrary blob up to 80 bytes long that will
+  be returned verbatim with any assertion that results from this
+  AuthnRequest.</p>
+</div></div>
+<div class="function">
+<h3 id="reply_with_logoutreq/1">reply_with_logoutreq(SP::sp() (see module esaml), IdPSLOEndpoint::uri(), NameID::string(), Req) -&gt; {ok, Req}</h3>
+
+
+<div class="description">
+
+<p>Reply to a Cowboy request with a LogoutRequest payload</p>
+ 
+  <p>NameID should be the exact subject name from the assertion you
+  wish to log out.</p>
+</div></div>
+<div class="function">
+<h3 id="reply_with_logoutresp/1">reply_with_logoutresp(SP::sp() (see module esaml), IdPSLOEndpoint::uri(), Status::status_code() (see module esaml), RelayState::binary(), Req) -&gt; {ok, Req}</h3>
+
+
+<div class="description">
+
+<p>Reply to a Cowboy request with a LogoutResponse payload</p>
+ 
+  <p>Be sure to keep the RelayState from the original LogoutRequest that you
+  received to allow the IdP to keep state.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_logout/1">validate_logout(SP::sp() (see module esaml), Req) -&gt; {request, logoutreq() (see module esaml), RelayState::binary(), Req} | {response, logoutresp() (see module esaml), RelayState::binary(), Req} | {error, Reason::term(), Req}</h3>
+
+
+<div class="description">
+
+<p>Validate and parse a LogoutRequest or LogoutResponse</p>
+ 
+  <p>This function handles both REDIRECT and POST bindings.</p>
+</div></div>
+<div class="function">
+<h3 id="reply_with_metadata/1">reply_with_metadata(SP::sp() (see module esaml), Req) -&gt; {ok, Req}</h3>
+
+
+<div class="description">
+
+<p>Reply to a Cowboy request with a Metadata payload</p>
+</div></div>
+<div class="function">
+<h3 id="validate_assertion/1">validate_assertion(SP::sp() (see module esaml), Req) -&gt; {ok, assertion() (see module esaml), RelayState::binary(), Req} | {error, Reason::term(), Req}</h3>
+
+
+<div class="description">
+
+<p>Validate and parse an Assertion inside a SAMLResponse</p>
+ 
+  <p>This function handles only POST bindings.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_assertion/1-1">validate_assertion(SP::sp() (see module esaml), DuplicateFun::dupe_fun() (see module esaml_sp), Req) -&gt; {ok, assertion() (see module esaml), RelayState::binary(), Req} | {error, Reason::term(), Req}</h3>
+
+
+<div class="description">
+
+<p>Validate and parse an Assertion with duplicate detection</p>
+ 
+  <p>This function handles only POST bindings.</p>
+ 
+  <p>For the signature of DuplicateFun, see esaml_sp:validate_assertion/3</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

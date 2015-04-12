@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>th_telex (erl-telehash) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>th_telex</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-address">address() = #address{host = <a href="#type-ip_address" class="seealso">ip_address()</a>, port = integer()}</h3></div>
+    <div class="type"><h3 id="type-end">end() = {'end', binary()}</h3></div>
+    <div class="type"><h3 id="type-ip_address">ip_address() = {integer(), integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-json">json() = <a href="#type-json_string" class="seealso">json_string()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_number" class="seealso">json_number()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_array" class="seealso">json_array()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_object" class="seealso">json_object()</a></h3></div>
+    <div class="type"><h3 id="type-json_array">json_array() = [<a href="#type-json" class="seealso">json()</a>]</h3></div>
+    <div class="type"><h3 id="type-json_number">json_number() = integer() | float()</h3></div>
+    <div class="type"><h3 id="type-json_object">json_object() = {struct, [{<a href="#type-json_string" class="seealso">json_string()</a>, <a href="#type-json" class="seealso">json()</a>}]}</h3></div>
+    <div class="type"><h3 id="type-json_string">json_string() = atom | binary()</h3></div>
+    <div class="type"><h3 id="type-key_type">key_type() = header | signal | command | normal</h3></div>
+    <div class="type"><h3 id="type-path">path() = atom() | <a href="#type-json_string" class="seealso">json_string()</a> | integer() | [<a href="#type-path" class="seealso">path()</a>]</h3></div>
+    <div class="type"><h3 id="type-subtap">subtap() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#subtap{is =<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{Key :: <a href="th_telex.html#type-json_string" class="seealso">th_telex:json_string()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: <a href="th_telex.html#type-json" class="seealso">th_telex:json()</a>}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;has = [Key :: <a href="th_telex.html#type-json_string" class="seealso">th_telex:json_string()</a>]}</h3></div>
+    <div class="type"><h3 id="type-tap">tap() = #tap{subtaps = [<a href="#type-subtap" class="seealso">subtap()</a>]}</h3></div>
+    <div class="type"><h3 id="type-telex">telex() = <a href="#type-json" class="seealso">json()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="encode/1">encode(Telex::telex()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/1">decode(Json::binary()) -&gt; telex()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/1">get(Json::json(), Path::path()) -&gt; {ok, json()} | {error, not_found}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set/1">set(Json::json(), Path::path(), Value::json()) -&gt; json()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update/1">update(Json::json(), Path::path(), F::(json()) -&gt; json(), Default::json()) -&gt; json()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="end_signal/1">end_signal(End::end()) -&gt; json_object()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="see_command/1">see_command(Addresses::[address()]) -&gt; json_object()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="tap_command/1">tap_command(Tap::tap()) -&gt; json_object()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="key_type/1">key_type(Key::binary()) -&gt; key_type()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="tap_to_json/1">tap_to_json(Tap) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="json_to_tap/1">json_to_tap(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

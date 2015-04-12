@@ -1,0 +1,1 @@
+var index = [['app','lisp99','lisp99','[application]'],['mod','lisp99','arithmetic',[]],['mod','lisp99','bin_tree',[]],['mod','lisp99','logic',[]],['mod','lisp99','my_lists',[]],['fun','lisp99','arithmetic:start/0',[]],['fun','lisp99','bin_tree:bin_tree/0',[]],['fun','lisp99','logic:start/0',[]],['fun','lisp99','my_lists:start/0',[]]];

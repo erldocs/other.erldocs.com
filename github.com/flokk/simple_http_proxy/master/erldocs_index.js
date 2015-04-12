@@ -1,0 +1,1 @@
+var index = [['app','simple_http_proxy','simple_http_proxy','[application]'],['mod','simple_http_proxy','simple_http_proxy',[]],['fun','simple_http_proxy','simple_http_proxy:handle/2',[]],['fun','simple_http_proxy','simple_http_proxy:init/3',[]],['fun','simple_http_proxy','simple_http_proxy:terminate/3',[]]];

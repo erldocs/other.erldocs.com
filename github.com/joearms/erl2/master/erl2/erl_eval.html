@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erl_eval (erl2) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erl_eval</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-binding_struct">binding_struct() = <a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a></h3></div>
+    <div class="type"><h3 id="type-bindings">bindings() = [{<a href="#type-name" class="seealso">name()</a>, <a href="#type-value" class="seealso">value()</a>}]</h3></div>
+    <div class="type"><h3 id="type-clauses">clauses() = [<a href="erl_parse.html#type-abstract_clause" class="seealso">erl_parse:abstract_clause()</a>]</h3></div>
+    <div class="type"><h3 id="type-expression">expression() = <a href="erl_parse.html#type-abstract_expr" class="seealso">erl_parse:abstract_expr()</a></h3></div>
+    <div class="type"><h3 id="type-expression_list">expression_list() = [<a href="#type-expression" class="seealso">expression()</a>]</h3></div>
+    <div class="type"><h3 id="type-expressions">expressions() = [<a href="erl_parse.html#type-abstract_expr" class="seealso">erl_parse:abstract_expr()</a>]</h3></div>
+    <div class="type"><h3 id="type-func_spec">func_spec() = {Module :: module(), Function :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| function()</h3></div>
+    <div class="type"><h3 id="type-lfun_eval_handler">lfun_eval_handler() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((Name :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Arguments :: <a href="#type-expression_list" class="seealso">expression_list()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bindings :: <a href="#type-binding_struct" class="seealso">binding_struct()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{value,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: <a href="#type-value" class="seealso">value()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewBindings :: <a href="#type-binding_struct" class="seealso">binding_struct()</a>})</h3></div>
+    <div class="type"><h3 id="type-lfun_value_handler">lfun_value_handler() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((Name :: atom(), Arguments :: [term()]) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: <a href="#type-value" class="seealso">value()</a>)</h3></div>
+    <div class="type"><h3 id="type-local_function_handler">local_function_handler() = {value, <a href="#type-lfun_value_handler" class="seealso">lfun_value_handler()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {eval, <a href="#type-lfun_eval_handler" class="seealso">lfun_eval_handler()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| none</h3></div>
+    <div class="type"><h3 id="type-name">name() = term()</h3></div>
+    <div class="type"><h3 id="type-nlfun_handler">nlfun_handler() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((FuncSpec :: <a href="#type-func_spec" class="seealso">func_spec()</a>, Arguments :: [term()]) -> term())</h3></div>
+    <div class="type"><h3 id="type-non_local_function_handler">non_local_function_handler() = {value, <a href="#type-nlfun_handler" class="seealso">nlfun_handler()</a>} | none</h3></div>
+    <div class="type"><h3 id="type-value">value() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="exprs/2">exprs(Expressions, Bindings) -&gt; {value, Value, NewBindings}</h3>
+
+<ul class="type">
+<li><code>Expressions = expressions()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exprs/3">exprs(Expressions, Bindings, LocalFunctionHandler) -&gt; {value, Value, NewBindings}</h3>
+
+<ul class="type">
+<li><code>Expressions = expressions()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exprs/4">exprs(Expressions, Bindings, LocalFunctionHandler, NonLocalFunctionHandler) -&gt; {value, Value, NewBindings}</h3>
+
+<ul class="type">
+<li><code>Expressions = expressions()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>NonLocalFunctionHandler = non_local_function_handler()</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr/2">expr(Expression, Bindings) -&gt; {value, Value, NewBindings}</h3>
+
+<ul class="type">
+<li><code>Expression = expression()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr/3">expr(Expression, Bindings, LocalFunctionHandler) -&gt; {value, Value, NewBindings}</h3>
+
+<ul class="type">
+<li><code>Expression = expression()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr/4">expr(Expression, Bindings, LocalFunctionHandler, NonLocalFunctionHandler) -&gt; {value, Value, NewBindings}</h3>
+
+<ul class="type">
+<li><code>Expression = expression()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>NonLocalFunctionHandler = non_local_function_handler()</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_command/2">check_command(Es, Bs) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fun_data/1">fun_data(F) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr/5">expr(Expression, Bindings, LocalFunctionHandler, NonLocalFunctionHandler, ReturnFormat) -&gt; {value, Value, NewBindings} | Value</h3>
+
+<ul class="type">
+<li><code>Expression = expression()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>NonLocalFunctionHandler = non_local_function_handler()</code></li><li><code>ReturnFormat = none | value</code></li><li><code>Value = value()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr_list/2">expr_list(ExpressionList, Bindings) -&gt; {ValueList, NewBindings}</h3>
+
+<ul class="type">
+<li><code>ExpressionList = expression_list()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>ValueList = [value()]</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr_list/3">expr_list(ExpressionList, Bindings, LocalFunctionHandler) -&gt; {ValueList, NewBindings}</h3>
+
+<ul class="type">
+<li><code>ExpressionList = expression_list()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>ValueList = [value()]</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expr_list/4">expr_list(ExpressionList, Bindings, LocalFunctionHandler, NonLocalFunctionHandler) -&gt; {ValueList, NewBindings}</h3>
+
+<ul class="type">
+<li><code>ExpressionList = expression_list()</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>NonLocalFunctionHandler = non_local_function_handler()</code></li><li><code>ValueList = [value()]</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match_clause/4">match_clause(Clauses, ValueList, Bindings, LocalFunctionHandler) -&gt; {Body, NewBindings} | nomatch</h3>
+
+<ul class="type">
+<li><code>Clauses = clauses()</code></li><li><code>ValueList = [value()]</code></li><li><code>Bindings = binding_struct()</code></li><li><code>LocalFunctionHandler = local_function_handler()</code></li><li><code>Body = expression_list()</code></li><li><code>NewBindings = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_bindings/0">new_bindings() -&gt; binding_struct()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bindings/1">bindings(BindingStruct::binding_struct()) -&gt; bindings()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="binding/2">binding(Name, BindingStruct) -&gt; {value, value()} | unbound</h3>
+
+<ul class="type">
+<li><code>Name = name()</code></li><li><code>BindingStruct = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_binding/3">add_binding(Name, Value, BindingStruct) -&gt; binding_struct()</h3>
+
+<ul class="type">
+<li><code>Name = name()</code></li><li><code>Value = value()</code></li><li><code>BindingStruct = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="del_binding/2">del_binding(Name, BindingStruct) -&gt; binding_struct()</h3>
+
+<ul class="type">
+<li><code>Name = name()</code></li><li><code>BindingStruct = binding_struct()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_constant_expr/1">is_constant_expr(Expr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="partial_eval/1">partial_eval(Expr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="resolve_unqualified_call/2">resolve_unqualified_call(F, Arity) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

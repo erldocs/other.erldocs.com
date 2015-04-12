@@ -1,0 +1,1 @@
+var index = [['app','megaburst2','megaburst2','[application]'],['mod','megaburst2','megaburst2','the main app.'],['fun','megaburst2','megaburst2:start/0',[]],['fun','megaburst2','megaburst2:start/2',[]],['fun','megaburst2','megaburst2:stop/1',[]]];

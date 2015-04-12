@@ -1,0 +1,1 @@
+var index = [['app','riak-rabbitmq-commit-hooks','riak-rabbitmq-commit-hooks','[application]'],['mod','riak-rabbitmq-commit-hooks','riak_rabbitmq',[]],['fun','riak-rabbitmq-commit-hooks','riak_rabbitmq:postcommit_send_amqp/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','jabaddon-erlang-learning','jabaddon-erlang-learning','[application]'],['mod','jabaddon-erlang-learning','hello',[]],['fun','jabaddon-erlang-learning','hello:hello_world/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','heroku-erlang','heroku-erlang','[application]'],['mod','heroku-erlang','hello_world',[]],['fun','heroku-erlang','hello_world:service/3',[]],['fun','heroku-erlang','hello_world:start/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlangstuff','erlangstuff','[application]'],['mod','erlangstuff','infra',[]],['mod','erlangstuff','msp430_parser',[]],['fun','erlangstuff','msp430_parser:get_hex_by_addr/2',[]],['fun','erlangstuff','msp430_parser:get_hex_map/0',[]],['fun','erlangstuff','msp430_parser:main/0',[]]];

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_proto_wire (etorrent) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_proto_wire</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-capabilities">capabilities() = [{integer(), atom()}]</h3></div>
+    <div class="type"><h3 id="type-cont_state">cont_state() = {partial, binary() | {integer(), [binary()]}}</h3></div>
+    <div class="type"><h3 id="type-packet">packet() = keep_alive<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| choke<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unchoke<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| interested<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| not_interested<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {have, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {bitfield, binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {request, integer(), integer(), integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {piece, integer(), integer(), binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {cancel, integer(), integer(), integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {port, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {suggest, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| have_all<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| have_none<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {reject_request, integer(), integer(), integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {allowed_fast, [integer()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {extended, integer(), binary()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="incoming_packet/1">incoming_packet(X1::none | cont_state(), Packet::binary()) -&gt; ok | {ok, binary(), binary()} | cont_state()</h3>
+
+
+<div class="description">
+
+<p>Decode an incoming (partial) packet
+ </p><p>The incoming packet function will attempt to decode an incoming packet. It
+ returns either the decoded packet, or it returns a partial continuation to
+ continue packet reading.</p>
+</div></div>
+<div class="function">
+<h3 id="send_msg/1">send_msg(Socket::port(), Msg::packet(), Mode::slow | fast) -&gt; {ok | {error, term()}, integer()}</h3>
+
+
+<div class="description">
+
+<p>Send a message on a socket.
+ </p><p>Returns a pair {R, Sz}, where R is the result of the send and Sz is the
+ size of the sent datagram.</p>
+</div></div>
+<div class="function">
+<h3 id="decode_bitfield/1">decode_bitfield(Size::integer(), BinaryLump::binary()) -&gt; {ok, gb_set()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Decode a binary bitfield into a pieceset</p>
+</div></div>
+<div class="function">
+<h3 id="encode_bitfield/1">encode_bitfield(Size::integer(), PieceSet::gb_set()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encode a pieceset into a binary bitfield
+ </p><p>The Size entry is the full size of the bitfield, so the function knows
+ how much and when to pad
+ </p>
+</div></div>
+<div class="function">
+<h3 id="decode_msg/1">decode_msg(Message::binary()) -&gt; packet()</h3>
+
+
+<div class="description">
+
+<p>Decode a message from the wire</p>
+</div></div>
+<div class="function">
+<h3 id="remaining_bytes/1">remaining_bytes(X1::none | cont_state()) -&gt; {val, integer()}</h3>
+
+
+<div class="description">
+
+<p>Tell how many bytes there are left on a continuation
+ </p><p>Occasionally, we will need to know how many bytes we are missing on a
+ continuation, before we have to full packet. This function reports this.</p>
+</div></div>
+<div class="function">
+<h3 id="complete_handshake/1">complete_handshake(Socket::port(), InfoHash::binary(), LocalPeerId::binary()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Complete a partially initiated handshake.
+ </p><p>This function is used for incoming peer connections. They start off by
+ transmitting all their information, we check it against our current database
+ of what we accept. If we accept the message, then this function is called to
+ complete the handshake by reflecting back the correct handshake to the
+ peer.</p>
+</div></div>
+<div class="function">
+<h3 id="receive_handshake/1">receive_handshake(Socket::port()) -&gt; {error, term()} | {ok, [{integer(), term()}], binary(), binary()}</h3>
+
+
+<div class="description">
+
+<p>Receive and incoming handshake
+ </p><p>If the handshake is in the incoming direction, the method is to fling off
+ the protocol header, so the peer knows we are talking bittorrent. Then it
+ waits for the header to arrive. If the header is good, the connection can be
+ completed by a call to complete_handshake/3.</p>
+</div></div>
+<div class="function">
+<h3 id="initiate_handshake/1">initiate_handshake(Socket::port(), LocalPeerId::binary(), InfoHash::binary()) -&gt; {error, term()} | {ok, capabilities(), binary(), binary()} | {ok, capabilities(), binary()}</h3>
+
+
+<div class="description">
+
+<p>Initiate a handshake in the outgoing direction
+ </p><p>If we are initiating a connection, then it is simple. We just fling off
+ everything to the peer and await the peer to get back to us. When he
+ eventually gets back, we can check his InfoHash against ours.</p>
+</div></div>
+<div class="function">
+<h3 id="extended_msg_contents/0">extended_msg_contents() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

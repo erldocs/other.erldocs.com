@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_compact_fsm_controller (leo_object_storage) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_compact_fsm_controller</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-state_of_compaction">state_of_compaction() = idling | running | suspending</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(TargetPids::[string() | atom()], MaxConNum::non_neg_integer(), CallbackFun::function()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>start compaction</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Id::term()) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lock/1">lock(Id::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Terminate child</p>
+</div></div>
+<div class="function">
+<h3 id="suspend/0">suspend() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Suspend compaction</p>
+</div></div>
+<div class="function">
+<h3 id="resume/0">resume() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Resume compaction</p>
+</div></div>
+<div class="function">
+<h3 id="state/0">state() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Retrieve all compaction statuses</p>
+</div></div>
+<div class="function">
+<h3 id="finish/1">finish(Pid::pid(), Id::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Terminate child</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Initiates the server
+ </p>
+</div></div>
+<div class="function">
+<h3 id="idling/3">idling(X1::{run, [], non_neg_integer(), function()} | term(), From::term(), State::#state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}) -&gt; {next_state, running | idling, #state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}}</h3>
+
+
+<div class="description">
+
+<p>State of 'idle'
+ </p>
+</div></div>
+<div class="function">
+<h3 id="idling/2">idling(X1::{finish, term(), term()}, State::term()) -&gt; {stop, string(), term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="running/2">running(X1::{run, term(), term(), term()} | suspend | term(), From::term(), State::#state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}) -&gt; {next_state, running | suspending, #state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}}</h3>
+
+
+<div class="description">
+
+<p>State of 'running'
+ </p>
+</div></div>
+<div class="function">
+<h3 id="running/2-1">running(X1::{lock, atom()} | {finish, pid(), atom()}, State::#state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}) -&gt; {next_state, running, #state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="suspending/1">suspending(X1::resume | term(), From::term(), State::#state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}) -&gt; {next_state, suspending | running, #state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}}</h3>
+
+
+<div class="description">
+
+<p>State of 'suspend'
+ </p>
+</div></div>
+<div class="function">
+<h3 id="suspending/2">suspending(X1::{finish, pid(), atom()}, State::#state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}) -&gt; {next_state, suspending | idling, #state{max_num_of_concurrent=non_neg_integer(), callback_fun=function() | undefined, total_num_of_targets=non_neg_integer(), reserved_targets=[atom()], pending_targets=[atom()], ongoing_targets=[atom()], locked_targets=[atom()], child_pids=orddict() (see module orddict), start_datetime=non_neg_integer(), status=state_of_compaction()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(Event, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Handle events
+ </p>
+</div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(X1, From, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Handle 'state' event</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/3">handle_info(Info, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/3">terminate(Reason, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="format_status/2">format_status(Opt, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

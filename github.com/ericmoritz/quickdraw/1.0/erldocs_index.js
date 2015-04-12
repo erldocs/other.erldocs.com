@@ -1,0 +1,1 @@
+var index = [['app','quickdraw','quickdraw','[application]'],['mod','quickdraw','quickdraw','   Simple tools for easy multi-app Cowboy project'],['mod','quickdraw','quickdraw_dispatch','   The quickdraw_dispatch behaviour.'],['fun','quickdraw','quickdraw:dispatch/1','  Compile dispatch rules from multiple applicatio'],['fun','quickdraw','quickdraw_dispatch:behaviour_info/1',[]]];

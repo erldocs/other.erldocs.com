@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>recon_alloc (recon) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>recon_alloc</h1>
+<h2 class="modsummary">Functions to deal with
+   Erlang's memory
+   allocators, or particularly, to try to present the allocator data   
+in a way that makes it simpler to discover possible problems.</h2>
+<div class="description">
+<p>Functions to deal with
+   <url href="http://www.erlang.org/doc/man/erts_alloc.html">Erlang's memory
+   allocators</url>, or particularly, to try to present the allocator data   
+in a way that makes it simpler to discover possible problems.</p>
+  
+   <p>Tweaking Erlang memory allocators and their behaviour is a very tricky   
+ordeal whenever you have to give up the default settings. This module   
+(and its documentation) will try and provide helpful pointers to help   
+in this task.</p>
+  
+   <p>This module should mostly be helpful to figure out <em>if</em> there is
+   a problem, but will offer little help to figure out <em>what</em> is wrong.</p>
+  
+   <p>To figure this out, you need to dig deeper into the allocator data
+   (obtainable with <a href="#allocators/0" class="seealso">allocators/0</a>), and/or have some precise knowledge   
+about the type of load and work done by the VM to be able to assess what   
+each reaction to individual tweak should be.</p>
+  
+   <p>A lot of trial and error might be required to figure out if tweaks have   
+helped or not, ultimately.</p>
+  
+   <p>In order to help do offline debugging of memory allocator problems
+   recon_alloc also has a few functions that store snapshots of the
+   memory statistics.
+   These snapshots can be used to freeze the current allocation values so that
+   they do not change during analysis while using the regular functionality of
+   this module, so that the allocator values can be saved, or that
+   they can be shared, dumped, and reloaded for further analysis using files.
+   See <a href="#snapshot_load/1" class="seealso">snapshot_load/1</a> for a simple use-case.</p>
+  
+   Glossary:
+   <taglist>
+     <dt>sys_alloc</dt>
+     <item><p>System allocator, usually just malloc</p></item>
+  
+     <dt>mseg_alloc</dt>
+     <item><p>Used by other allocators, can do mmap. Caches allocations</p></item>
+  
+     <dt>temp_alloc</dt>
+     <item><p>Used for temporary allocations</p></item>
+  
+     <dt>eheap_alloc</dt>
+     <item><p>Heap data (i.e. process heaps) allocator</p></item>
+  
+     <dt>binary_alloc</dt>
+     <item><p>Global binary heap allocator</p></item>
+  
+     <dt>ets_alloc</dt>
+     <item><p>ETS data allocator</p></item>
+  
+     <dt>driver_alloc</dt>
+     <item><p>Driver data allocator</p></item>
+  
+     <dt>sl_alloc</dt>
+     <item><p>Short-lived memory blocks allocator</p></item>
+  
+     <dt>ll_alloc</dt>
+     <item><p>Long-lived data (i.e. Erlang code itself) allocator</p></item>
+  
+     <dt>fix_alloc</dt>
+     <item><p>Frequently used fixed-size data allocator</p></item>
+  
+    <dt>std_alloc</dt>
+    <item><p>Allocator for other memory blocks</p></item>
+  
+    <dt>carrier</dt>
+    <item><p>When a given area of memory is allocated by the OS to the
+      VM (through sys_alloc or mseg_alloc), it is put into a 'carrier'. There
+      are two kinds of carriers: multiblock and single block. The default
+      carriers data is sent to are multiblock carriers, owned by a specific
+      allocator (ets_alloc, binary_alloc, etc.). The specific allocator can
+      thus do allocation for specific Erlang requirements within bits of
+      memory that has been preallocated before. This allows more reuse,
+      and we can even measure the cache hit rates <a href="#cache_hit_rates/0" class="seealso">cache_hit_rates/0</a>.</p>
+  
+      <p>There is however a threshold above which an item in memory won't fit      
+a multiblock carrier. When that happens, the specific allocator does      
+a special allocation to a single block carrier. This is done by the      
+allocator basically asking for space directly from sys_alloc or      
+mseg_alloc rather than a previously multiblock area already obtained      
+before.</p>
+  
+      This leads to various allocation strategies where you decide to
+      choose:
+      <list>
+        <item>which multiblock carrier you're going to (if at all)</item>
+        <item>which block in that carrier you're going to</item>
+      </list>
+  
+      See <url href="http://www.erlang.org/doc/man/erts_alloc.html">the official
+      documantation on erts_alloc</url> for more details.
+    </item>
+  
+    <dt>mbcs</dt>
+    <item><p>Multiblock carriers.</p></item>
+  
+    <dt>sbcs</dt>
+    <item><p>Single block carriers.</p></item>
+  
+    <dt>lmbcs</dt>
+    <item><p>Largest multiblock carrier size</p></item>
+  
+    <dt>smbcs</dt>
+    <item><p>Smallest multiblock carrier size</p></item>
+  
+    <dt>sbct</dt>
+    <item><p>Single block carrier threshold</p></item>
+   </taglist>
+  
+   All sizes returned by this module are in bytes.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-allocator">allocator() = temp_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| eheap_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ets_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| driver_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sl_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ll_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fix_alloc<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| std_alloc</h3></div>
+    <div class="type"><h3 id="type-allocdata">allocdata(T) = {{allocator(), instance()}, T}</h3></div>
+    <div class="type"><h3 id="type-instance">instance() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-memory">memory() = [{atom(), atom()}]</h3></div>
+    <div class="type"><h3 id="type-snapshot">snapshot() = {<a href="#type-memory" class="seealso">memory()</a>, [<a href="#type-allocdata" class="seealso">allocdata</a>(term())]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="memory/1">memory(X1::used | allocated | unused) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>reports one of multiple possible memory values for the entire  
+node depending on what is to be reported:</p>
+ 
+  <list>
+    <item><p><code>memory(used)</code> reports the memory that is actively used for allocated
+        Erlang data;</p></item>
+    <item><p><code>memory(allocated)</code> reports the memory that is reserved by the VM. It
+        includes the memory used, but also the memory yet-to-be-used but still
+        given by the OS. This is the amount you want if you're dealing with
+        ulimit and OS-reported values.</p></item>
+    <item><p><code>memory(unused)</code> reports the amount of memory reserved by the VM that
+        is not being allocated.
+        Equivalent to <code>memory(allocated) - memory(used)</code>.</p></item>
+    <item><p><code>memory(usage)</code> returns a percentage (0.0 .. 1.0) of <code>used/allocated</code>
+        memory ratios.</p></item>
+  </list>
+ 
+  <p>The memory reported by <code>memory(allocated)</code> should roughly  
+match what the OS reports. If this amount is different by a large margin,  
+it may be the sign that someone is allocating memory in C directly, outside  
+of Erlang's own allocator -- a big warning sign.</p>
+ 
+  <p>Also note that low memory usages can be the sign of fragmentation in
+  memory, in which case exploring which specific allocator is at fault
+  is recommended (see <a href="#fragmentation/1" class="seealso">fragmentation/1</a>)</p>
+</div></div>
+<div class="function">
+<h3 id="fragmentation/1">fragmentation(Keyword::current | max) -&gt; [allocdata([{atom(), term()}])]</h3>
+
+
+<div class="description">
+
+<p>Compares the block sizes to the carrier sizes, both for
+  single block (<code>sbcs</code>) and multiblock (<code>mbcs</code>) carriers.</p>
+ 
+  <p>The returned results are sorted by a weight system that is
+  somewhat likely to return the most fragmented allocators first,
+  based on their percentage of use and the total size of the carriers,
+  for both <code>sbcs</code> and <code>mbcs</code>.</p>
+ 
+  <p>The values can both be returned for <code>current</code> allocator values, and
+  for <code>max</code> allocator values. The current values hold the present allocation
+  numbers, and max values, the values at the peak. Comparing both together
+  can give an idea of whether the node is currently being at its memory peak
+  when possibly leaky, or if it isn't. This information can in turn
+  influence the tuning of allocators to better fit sizes of blocks and/or
+  carriers.</p>
+</div></div>
+<div class="function">
+<h3 id="cache_hit_rates/0">cache_hit_rates() -&gt; [{{instance, instance()}, [{Key, Val}]}]</h3>
+
+<ul class="type">
+<li><code>Key = hit_rate | hits | calls</code></li><li><code>Val = term()</code></li></ul>
+<div class="description">
+
+<p>looks at the <code>mseg_alloc</code> allocator (allocator used by all the
+  allocators in <a href="#type-allocator" class="seealso">allocator()</a>) and returns information relative to  
+the cache hit rates. Unless memory has expected spiky behaviour, it should  
+usually be above 0.80 (80%).</p>
+ 
+  <p>Cache can be tweaked using three VM flags: <code>+MMmcs</code>, <code>+MMrmcbf</code>, and
+  <code>+MMamcbf</code>.</p>
+ 
+  <p><code>+MMmcs</code> stands for the maximum amount of cached memory segments. Its  
+default value is '10' and can be anything from 0 to 30. Increasing  
+it first and verifying if cache hits get better should be the first  
+step taken.</p>
+ 
+  <p>The two other options specify what are the maximal values of a segment  
+to cache, in relative (in percent) and absolute terms (in kilobytes),  
+respectively. Increasing these may allow more segments to be cached, but  
+should also add overheads to memory allocation. An Erlang node that has  
+limited memory and increases these values may make things worse on  
+that point.</p>
+ 
+  <p>The values returned by this function are sorted by a weight combining
+  the lower cache hit joined to the largest memory values allocated.</p>
+</div></div>
+<div class="function">
+<h3 id="average_sizes/0">average_sizes() -&gt; [{allocator(), [{Key, Val}]}]</h3>
+
+<ul class="type">
+<li><code>Key = mbcs | sbcs</code></li><li><code>Val = number()</code></li></ul>
+<div class="description">
+
+<p>Checks all allocators in <a href="#type-allocator" class="seealso">allocator()</a> and returns the average
+  carrier sized being used for <code>mbcs</code> and <code>sbcs</code>. This value is interesting
+  to use because it will tell us how used most carriers are individually being
+  used for. This can be related to the VM's largest multiblock carrier size
+  (<code>lmbcs</code>) and smallest multiblock carrier size (<code>smbcs</code>) to specify  
+allocation strategies regarding the block sizes to be used.</p>
+ 
+  <p>This function isn't exceptionally useful unless you know you have some
+  specific problem, say with sbcs/mbcs ratios (see <a href="#sbcs_to_mbcs/0" class="seealso">sbcs_to_mbcs/0</a>)  
+or fragmentation for a specific allocator, and want to figure out what  
+values to pick to increase or decrease sizes compared to the currently  
+configured value.</p>
+ 
+  <p>Do note that values for <code>lmbcs</code> and <code>smbcs</code> are going to be rounded up
+  to the next power of two when configuring them.</p>
+</div></div>
+<div class="function">
+<h3 id="sbcs_to_mbcs/0">sbcs_to_mbcs() -&gt; [allocdata(term())]</h3>
+
+
+<div class="description">
+
+<p>compares the amount of single block carriers (<code>sbcs</code>) vs the
+  number of multiblock carriers (<code>mbcs</code>) for each individual allocator in
+  <a href="#type-allocator" class="seealso">allocator()</a>.</p>
+ 
+  <p>When a specific piece of data is allocated, it is compared to a threshold,
+  called the 'single block carrier threshold' (<code>sbct</code>). When the data is
+  larger than the <code>sbct</code>, it gets sent to a single block carrier. When the
+  data is smaller than the <code>sbct</code>, it gets placed into a multiblock carrier.</p>
+ 
+  <p>mbcs are to be prefered to sbcs because they basically represent pre-  
+allocated memory, whereas sbcs will map to one call to sys_alloc (often  
+just malloc) or mmap, which is more expensive than redistributing data  
+that was obtain for multiblock carriers. Moreover, the VM is able to do  
+specific work with mbcs that should help reduce fragmentation in ways  
+sys_alloc or mmap usually won't.</p>
+ 
+  <p>Ideally, most of the data should fit inside multiblock carriers. If
+  most of the data ends up in <code>sbcs</code>, you may need to adjust the multiblock
+  carrier sizes, specifically the maximal value (<code>lmbcs</code>) and the threshold
+  (<code>sbct</code>). On 32 bit VMs, <code>sbct</code> is limited to 8MBs, but 64 bit VMs can go  
+to pretty much any practical size.</p>
+ 
+  <p>Given the value returned is a ratio of sbcs/mbcs, the higher the value,
+  the worst the condition. The list is sorted accordingly.</p>
+</div></div>
+<div class="function">
+<h3 id="allocators/0">allocators() -&gt; [allocdata(term())]</h3>
+
+
+<div class="description">
+
+<p>returns a dump of all allocator settings and values</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot/0">snapshot() -&gt; snapshot() | undefined</h3>
+
+
+<div class="description">
+
+<p>Take a new snapshot of the current memory allocator statistics.
+  The snapshot is stored in the process dictionary of the calling process,
+  with all the limitations that it implies (i.e. no garbage-collection).
+  To unsert the snapshot, see <a href="#snapshot_clear/1" class="seealso">snapshot_clear/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot_clear/0">snapshot_clear() -&gt; snapshot() | undefined</h3>
+
+
+<div class="description">
+
+<p>clear the current snapshot in the process dictionary, if present,
+  and return the value it had before being unset.</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot_print/0">snapshot_print() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>print a dump of the current snapshot stored by <a href="#snapshot/0" class="seealso">snapshot/0</a>
+  Prints <code>undefined</code> if no snapshot has been taken.</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot_get/0">snapshot_get() -&gt; snapshot() | undefined</h3>
+
+
+<div class="description">
+
+<p>returns the current snapshot stored by <a href="#snapshot/0" class="seealso">snapshot/0</a>.
+  Returns <code>undefined</code> if no snapshot has been taken.</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot_save/1">snapshot_save(Filename) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Filename = name() (see module file)</code></li></ul>
+<div class="description">
+
+<p>save the current snapshot taken by <a href="#snapshot/0" class="seealso">snapshot/0</a> to a file.
+  If there is no current snapshot, a snaphot of the current allocator
+  statistics will be written to the file.</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot_load/1">snapshot_load(Filename) -&gt; snapshot() | undefined</h3>
+
+<ul class="type">
+<li><code>Filename = name() (see module file)</code></li></ul>
+<div class="description">
+
+<p>load a snapshot from a given file. The format of the data in the
+  file can be either the same as output by <a href="#type-snapshot_save" class="seealso">snapshot_save()</a>,
+  or the output obtained by calling
+   <code>{erlang:memory(),[{A,erlang:system_info({allocator,A})} || A &lt;- element(3,erlang:system_info(allocator))]}.</code>
+  and storing it in a file.
+  If the latter option is taken, please remember to add a full stop at the end
+  of the resulting Erlang term, as this function uses <code>file:consult/1</code> to load  
+the file.</p>
+ 
+  <p>Example usage:</p>
+ 
+ <pre class="sh_erlang">    On target machine:
+      1&gt; recon_alloc:snapshot().
+      unefined
+      2&gt; recon_alloc:memory(used).
+      18411064
+      3&gt; recon_alloc:snapshot_save("recon_snapshot.terms").
+      ok
+ 
+    On other machine:
+      1&gt; recon_alloc:snapshot_load("recon_snapshot.terms").
+      undefined
+      2&gt; recon_alloc:memory(used).
+      18411064</pre><p>
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

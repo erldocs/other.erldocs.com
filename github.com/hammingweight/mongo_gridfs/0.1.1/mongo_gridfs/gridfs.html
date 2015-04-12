@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gridfs (mongo_gridfs) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gridfs</h1>
+<h2 class="modsummary">MongoDB GridFS API.</h2>
+<div class="description">
+<p>MongoDB GridFS API. This module provides functions for creating, reading, updating and
+        deleting files from GridFS. The exported functions exposed are similar to the CRUD
+        functions exposed by the mongo API of the MongoDB driver.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-action">action() = function()</h3></div>
+    <div class="type"><h3 id="type-cursor">cursor() = pid()</h3></div>
+    <div class="type"><h3 id="type-file">file() = pid()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="delete/1">delete(Selector::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes files matching the selector from the fs.files and fs.chunks collections.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(Bucket::atom(), Selector::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes files matching the selector from the specified bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_one/1">delete_one(Selector::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes the first file matching the selector from the fs.files and fs.chunks collections.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_one/1-1">delete_one(Bucket::atom(), Selector::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes the first file matching the selector from the specified bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="do/1">do(WriteMode::write_mode() (see module mongo), ReadMode::read_mode() (see module mongo), Connection::connection() (see module mongo) | rs_connection() (see module mongo), Database::db() (see module mongo), Action::action() (see module mongo)) -&gt; {ok, any()} | {failure, any()}</h3>
+
+
+<div class="description">
+
+<p>Executes an 'action' using the specified read and write modes to a database using a connection.
+       An 'action' is a function that takes no arguments. The fun will usually invoke functions
+       to do inserts, finds, modifies, deletes, etc.</p>
+</div></div>
+<div class="function">
+<h3 id="find_one/1">find_one(Selector::document() (see module bson)) -&gt; file()</h3>
+
+
+<div class="description">
+
+<p>Finds the first file matching the selector from the fs.files and fs.chunks collections.</p>
+</div></div>
+<div class="function">
+<h3 id="find_one/1-1">find_one(Bucket::atom(), Selector::document() (see module bson)) -&gt; file()</h3>
+
+
+<div class="description">
+
+<p>Finds the first file matching the selector from the specified bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(Selector::document() (see module bson)) -&gt; cursor()</h3>
+
+
+<div class="description">
+
+<p>Finds files matching the selector from the fs.files and fs.chunks collections
+     and returns a cursor.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1-1">find(Bucket::atom(), Selector::document() (see module bson)) -&gt; cursor()</h3>
+
+
+<div class="description">
+
+<p>Finds files matching the selector from the specified bucket
+     and returns a cursor.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/2">insert(FileName, FileData) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Inserts a file with a specified name into the default bucket.
+     The file contents can be passed as either data or a file process opened for
+     reading.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/3">insert(Bucket, FileName, FileData) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Inserts a file with a specified name into the specified bucket.
+     The file contents can be passed as either data or a file process opened for
+     reading.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Gridfs_connection::[State::#gridfs_connection{}]) -&gt; {ok, State::#gridfs_connection{}}</h3>
+
+
+<div class="description">
+
+<p>Initializes the server with a write mode, read mode, a connection and database.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/2">handle_call(Request::{do, action()}, From::pid(), Gridfs_connection::#gridfs_connection{}) -&gt; {stop, normal, any(), #gridfs_connection{}}</h3>
+
+
+<div class="description">
+
+<p>Responds synchronously to server calls.  The action of the do/5 function is executed by
+       this function. The process is stopped after this call.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Message::any(), State::#gridfs_connection{}) -&gt; {noreply, State::#gridfs_connection{}}</h3>
+
+
+<div class="description">
+
+<p>Responds asynchronously to messages. The server ignores any asynchronous messages.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::any(), State::#gridfs_connection{}) -&gt; {noreply, State::#gridfs_connection{}}</h3>
+
+
+<div class="description">
+
+<p>Responds to out-of-band messages. The server ignores any such messages.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::any(), Gridfs_connection::#gridfs_connection{}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Handles the shutdown of the server.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVersion::any(), State::#gridfs_connection{}, Extra::any()) -&gt; {ok, State::#gridfs_connection{}}</h3>
+
+
+<div class="description">
+
+<p>Responds to code changes. Any code changes are ignored (the server's state is unchanged).</p>
+</div></div></div>
+
+<authors>
+
+<aname>CA Meijer</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

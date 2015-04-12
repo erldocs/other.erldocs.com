@@ -1,0 +1,1 @@
+var index = [['app','erlmath','erlmath','[application]'],['mod','erlmath','erlmath',[]],['mod','erlmath','gorner',[]],['fun','erlmath','erlmath:dot_product/2',[]],['fun','erlmath','erlmath:multiplicator/1',[]],['fun','erlmath','erlmath:reductor/3',[]],['fun','erlmath','erlmath:spawn_multiplicators/3',[]],['fun','erlmath','gorner:gorner_tail/2',[]]];

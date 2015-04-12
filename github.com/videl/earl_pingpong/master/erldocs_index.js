@@ -1,0 +1,1 @@
+var index = [['app','earl_pingpong','earl_pingpong','[application]'],['mod','earl_pingpong','earl_pingpong',[]],['fun','earl_pingpong','earl_pingpong:ping/2',[]],['fun','earl_pingpong','earl_pingpong:pong/0',[]],['fun','earl_pingpong','earl_pingpong:start/0',[]]];

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>spr_ets_handler (spapi-router) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>spr_ets_handler</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-config_workers">config_workers() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{<a href="#type-config_workers_node" class="seealso">config_workers_node()</a>, [<a href="#type-config_workers_worker" class="seealso">config_workers_worker()</a>]}]</h3></div>
+    <div class="type"><h3 id="type-config_workers_node">config_workers_node() = string() | binary()</h3></div>
+    <div class="type"><h3 id="type-config_workers_worker">config_workers_worker() = string() | binary() | atom()</h3></div>
+    <div class="type"><h3 id="type-interval_config">interval_config() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{world_monitor_interval_ms |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;worker_monitor_interval_ms |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hosts_monitor_interval_ms,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-node_name">node_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-worker_config">worker_config() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{workers, <a href="#type-config_workers" class="seealso">config_workers()</a> | undefined} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{worker_nodes, any()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{worker_prefixes, any()}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_one_node/1">get_one_node(ServiceName::atom()) -&gt; {error, no_node} | {ok, node_name()}</h3>
+
+
+<div class="description">
+
+<p>Get one node that runs the requested Service</p>
+</div></div>
+<div class="function">
+<h3 id="get_all_nodes/1">get_all_nodes(ServiceName::atom()) -&gt; {ok, [node_name()]} | {error, no_node}</h3>
+
+
+<div class="description">
+
+<p>Get all the available nodes that run the requested Service</p>
+</div></div>
+<div class="function">
+<h3 id="update_host_names/1">update_host_names(Hostnames::[atom()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Update the host names. Be careful when using this operation, as the
+  lists of hosts will periodically get reloaded from config.</p>
+</div></div>
+<div class="function">
+<h3 id="update_host_names/0">update_host_names() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Force reloading of hostnames from the default source. This will only be applied
+  when the world is scanned again.</p>
+</div></div>
+<div class="function">
+<h3 id="get_host_node_names/1">get_host_node_names(Host::string() | atom()) -&gt; {ok, [{string(), non_neg_integer()}]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Returns names of nodes on host.</p>
+</div></div>
+<div class="function">
+<h3 id="set_node_down/1">set_node_down(Node::node()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes a node from the routing table, thus immediately no requests
+  will be sent to the removed node.</p>
+</div></div>
+<div class="function">
+<h3 id="reload_world_list/0">reload_world_list() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Forces rescanning the whole world. This can be useful if you
+  updated the host_names and don't want to wait for the next world rescan.
+  Note that this is a blocking call (and can take a while).</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(IntervalConfig::interval_config(), WorkerConfig::worker_config()) -&gt; ignore | {error, term()} | {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts this gen_server.
+  To be called from the supervisor. ServiceMonitorFreq is in ms.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

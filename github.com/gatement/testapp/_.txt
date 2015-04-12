@@ -1,0 +1,56 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/gatement/testapp'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/9665453865/meta.txt"
+ :: Processing https://github.com/gatement/testapp	{rev,branch,"master","006265119a409c7f064fa97e2d24b0d88142ab3d"}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/gatement/testapp/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp"
+$ 5000  `find 'testapp-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["emysql","goldrush","lager"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/9665453865/repo/master
+Building testapp
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp/src/testapp.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp/src/testapp_app.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp/src/testapp_server.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp/src/testapp_sup.erl"
+Generating XML for application testapp "/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master/testapp" -> "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp"
+Generated testapp XMLs: ["/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_app.xml",
+                         "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp.xml",
+                         "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_sup.xml",
+                         "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_server.xml"]
+Generating HTML - testapp_app "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_app.xml"
+Generating HTML - testapp "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp.xml"
+Generating HTML - testapp_sup "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_sup.xml"
+Generating HTML - testapp_server "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_server.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/testapp/testapp_server.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/specs_testapp_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/specs_testapp_server.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/specs_testapp_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/9665453865/repo/master/.xml/specs_testapp.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9665453865/testapp-branch-master'  2>&1`
+ :: Erldocs finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/9665453865/testapp'  2>&1`

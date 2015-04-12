@@ -1,0 +1,1 @@
+var index = [['app','cowboy_robots','cowboy_robots','[application]'],['mod','cowboy_robots','cowboy_robots',[]],['fun','cowboy_robots','cowboy_robots:execute/2',[]],['fun','cowboy_robots','cowboy_robots:init/0',[]],['fun','cowboy_robots','cowboy_robots:init/1',[]]];

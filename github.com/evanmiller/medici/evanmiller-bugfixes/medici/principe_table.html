@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>principe_table (medici) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>principe_table</h1>
+<h2 class="modsummary">
+   An extension to the principe module that handles tables.</h2>
+<div class="description">
+<p>
+   An extension to the principe module that handles tables.  See the
+   principe module docs for a note about Tyrant and server byte-order
+   issues.  When using tyrant in table mode this matters far less than
+   it does for Tyrant in other modes; in most cases Tyrant will encode
+   table column values internally as strings. The only place that this
+   matters is using addint or adddouble in conjunction with a row in
+   which you manually added a magic "_num" column.  For this case you
+   will need to do a bit of magic on your own to properly encode the
+   float or int using the put() function.  See the @see principe module
+   for examples (use the "bigendian" property from a stat() call to
+   figure out what your server expects.)</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-coldata">coldata() = [{key(), value_or_num()}]</h3></div>
+    <div class="type"><h3 id="type-endian">endian() = big | little</h3></div>
+    <div class="type"><h3 id="type-error">error() = {error, term()}</h3></div>
+    <div class="type"><h3 id="type-index_col">index_col() = primary | iolist()</h3></div>
+    <div class="type"><h3 id="type-index_type">index_type() = lexical | decimal | void</h3></div>
+    <div class="type"><h3 id="type-key">key() = iolist()</h3></div>
+    <div class="type"><h3 id="type-keylist">keylist() = [key()]</h3></div>
+    <div class="type"><h3 id="type-order_type">order_type() = str_ascending | str_descending | num_ascending | num_descending</h3></div>
+    <div class="type"><h3 id="type-query_expr">query_expr() = [binary() | string() | integer()]</h3></div>
+    <div class="type"><h3 id="type-query_opcode">query_opcode() = atom() | tuple()</h3></div>
+    <div class="type"><h3 id="type-value">value() = iolist()</h3></div>
+    <div class="type"><h3 id="type-value_or_num">value_or_num() = iolist() | integer() | float()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="connect/0">connect() -&gt; {ok, port()} | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Establish a connection to the tyrant service.</p>
+</div></div>
+<div class="function">
+<h3 id="connect/1">connect(ConnectProps::proplist()) -&gt; {ok, port()} | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Establish a connection to the tyrant service using properties in the
+  ConnectProps proplist to determine the hostname, port number and tcp
+  socket options for the connection.  Any missing parameters are filled
+  in using the module defaults.</p>
+</div></div>
+<div class="function">
+<h3 id="mget/1">mget(Socket::port(), KeyList::keylist()) -&gt; [{Key::binary(), Value::proplist()}] | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Get the values for a list of keys.  Due to the way that columns are returned
+  via the tyrant protocol a null seperator is used to break</p>
+</div></div>
+<div class="function">
+<h3 id="addint/1">addint(Socket::port(), Key::key(), Int::integer()) -&gt; integer() | error()</h3>
+
+
+<div class="description">
+
+<p>Add an integer value to the _num column of a given a key.  The  
+_num column will be created if it does not already exist.</p>
+ 
+  <p>NOTE: Something truly wierd about this _num column setup is that tc/tyrant
+  expects the column to be a string() value internally.  I am assuming this
+  is because for table databases a null is used as a column separator, if the
+  _num value was stored as an integer then differing server byte order (which TC
+  suffers from) would confuse the server.  If you put() an integer() value to
+  the _num column it will get overwritten by an addint() call, but if you write
+  a integer_to_list(integer()) value to the num column via a normal put() call
+  things will work correctly.</p>
+</div></div>
+<div class="function">
+<h3 id="adddouble/1">adddouble(Socket::port(), Key::key(), Double::float()) -&gt; {Integral::integer(), Fractional::integer()} | error()</h3>
+
+
+<div class="description">
+
+<p>Add an float value to the _num column of a given a key.  The
+  _num column will be created if it does not already exist.</p>
+</div></div>
+<div class="function">
+<h3 id="adddouble/1-1">adddouble(Socket::port(), Key::key(), Integral::integer(), Fractional::integer()) -&gt; {Integral::integer(), Fractional::integer()} | error()</h3>
+
+
+<div class="description">
+
+<p>The raw adddouble function for those who need a bit more control on float adds.</p>
+</div></div>
+<div class="function">
+<h3 id="iterinit/1">iterinit(Socket::port()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Start iteration protocol.  WARNING: The tyrant iteration protocol has no
+  concurrency controls whatsoever, so if multiple clients try to do iteration
+  they will stomp all over each other!</p>
+</div></div>
+<div class="function">
+<h3 id="iternext/1">iternext(Socket::port()) -&gt; {Key::binary(), Value::binary()} | error()</h3>
+
+
+<div class="description">
+
+<p>Get the next key/value pair in the iteration protocol.</p>
+</div></div>
+<div class="function">
+<h3 id="fwmkeys/1">fwmkeys(Socket::port(), Prefix::iolist(), MaxKeys::integer()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Return a number of keys that match a given prefix.</p>
+</div></div>
+<div class="function">
+<h3 id="vsiz/1">vsiz(Socket::port(), Key::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>
+  Get the size of the value for a given key.  The value returned for
+  a key will be the total of the column size values, and each column
+  size will be the size of the column name (in bytes), the size of the
+  column value (in bytes), plus one for the internal null seperator
+  between column name and value plus one for the null terminator for
+  the column (i.e. length(ColumnName) + length(ColumnValue) + 2 for each
+  column.)</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1">sync(Socket::port()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Call sync() on the remote database.</p>
+</div></div>
+<div class="function">
+<h3 id="vanish/1">vanish(Socket::port()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Remove all records from the remote database.</p>
+</div></div>
+<div class="function">
+<h3 id="optimize/1">optimize(Socket::port(), Params::list()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Change the remote database tuning parameters</p>
+</div></div>
+<div class="function">
+<h3 id="rnum/1">rnum(Socket) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="size/1">size(Socket::port()) -&gt; integer() | error()</h3>
+
+
+<div class="description">
+
+<p>Get the size in bytes of the remote database.</p>
+</div></div>
+<div class="function">
+<h3 id="stat/1">stat(Socket::port()) -&gt; proplist() | error()</h3>
+
+
+<div class="description">
+
+<p>Get the status string of a remote database.</p>
+</div></div>
+<div class="function">
+<h3 id="copy/1">copy(Socket::port(), PathName::iolist()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Make a copy of the database file of the remote database.</p>
+</div></div>
+<div class="function">
+<h3 id="restore/1">restore(Socket::port(), PathName::iolist(), TimeStamp::integer) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Restore the database to a particular point in time from the update log.</p>
+</div></div>
+<div class="function">
+<h3 id="setmst/1">setmst(Socket::port(), HostName::iolist(), Port::integer) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Set the replication master of a remote database server.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(Socket::port(), Key::key(), Cols::coldata()) -&gt; [] | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Call the Tyrant server to store a new set of column values for the given key.</p>
+</div></div>
+<div class="function">
+<h3 id="putkeep/1">putkeep(Socket::port(), Key::key(), Cols::coldata()) -&gt; [] | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Call the Tyrant server to add a set of column values for a given key.  Will
+  return an error if Key is already in the remote database.</p>
+</div></div>
+<div class="function">
+<h3 id="putcat/1">putcat(Socket::port(), Key::key(), Cols::coldata()) -&gt; [] | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Concatenate a set of column values to the existing value of Key (or
+  create a new entry for Key with the given column values if Key is not
+  in the remote database.)  If any columns in Cols already have values
+  for the given key then the entries provided in the Cols parameter for
+  those specific columns will be ignored by the remote database. Use the
+  update() function to overwrite existing column values.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Socket::port(), Key::key(), Cols::coldata()) -&gt; [] | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Update a table entry by merging Cols into existing data for given key. The
+  end result of this function should be to create a new entry for Key whose
+  column values are the new data from the Cols parameter as well as any previous
+  columns for Key that were not in the Cols proplist.</p>
+</div></div>
+<div class="function">
+<h3 id="out/1">out(Socket::port(), Key::key()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Remove a key from the remote database.  Will return an error if Key is
+  not in the database.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Socket::port(), Key::key()) -&gt; proplist() | error()</h3>
+
+
+<div class="description">
+
+<p>Get the value for a given key. Table data is returned in a proplist of
+  {ColumnName, ColumnValue} tuples.</p>
+</div></div>
+<div class="function">
+<h3 id="setindex/1">setindex(Socket::port(), ColName::index_col(), Type::index_type()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>
+  Tell the tyrant server to build an index for a column.  The ColName
+  should be either the atom "primary" (to index on the primary key) or a
+  iolist() that names the column to be indexed. Type should be an atom
+  selected from decimal (index column as decimal data), lexical (index as
+  character/string data) or void (remove an existing index for ColName).</p>
+</div></div>
+<div class="function">
+<h3 id="genuid/1">genuid(Socket::port()) -&gt; binary() | error()</h3>
+
+
+<div class="description">
+
+<p>Generate a unique id within the set of primary keys</p>
+</div></div>
+<div class="function">
+<h3 id="query_add_condition/1">query_add_condition(Socket::port(), Query::proplist(), ColName::iolist(), Op::query_opcode(), ExprList::query_expr()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>
+  Add a condition for a query.  ExprList should be a list of one or more
+  values where each value is either a binary, string, or integer.  Op can be
+  either an atom or a tuple of atoms describing the operation.  If the first
+  atom in an Op tuple is "no" then the condition is a negation query and if
+  the last atom is no_index an existing index on the remote database server will
+  be bypassed.</p>
+</div></div>
+<div class="function">
+<h3 id="query_limit/1">query_limit(Socket::port(), Query::proplist(), Max::integer(), Skip::integer()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Set a limit on the number of returned values for Query, skip the first Skip records.</p>
+</div></div>
+<div class="function">
+<h3 id="query_limit/1-1">query_limit(Socket::port(), Query::proplist(), Max::integer()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Set a limit on the number of returned values for Query.</p>
+ 
+  <p>XXX: should the missing skip be 0 or -1 (protocol ref and perl versions seem to disagree)</p>
+</div></div>
+<div class="function">
+<h3 id="query_order/1">query_order(Socket::port(), Query::proplist(), ColName::index_col(), Type::order_type()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Set the order for returned values in Query.</p>
+</div></div>
+<div class="function">
+<h3 id="search/2">search(Socket::port, Query::proplist()) -&gt; keylist() | error()</h3>
+
+
+<div class="description">
+
+<p>Run a prepared query against the table and return matching keys.</p>
+</div></div>
+<div class="function">
+<h3 id="searchcount/2">searchcount(Socket::port, Query::proplist()) -&gt; [integer()] | error()</h3>
+
+
+<div class="description">
+
+<p>Run a prepared query against the table and get the count of matching keys.</p>
+</div></div>
+<div class="function">
+<h3 id="searchout/2">searchout(Socket::port, Query::proplist()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Run a prepared query against the table and remove the matching records.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jim McCoy</aname>
+<email>mccoy@mad-scientist.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

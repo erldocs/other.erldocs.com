@@ -1,0 +1,1 @@
+var index = [['app','erl-jsonpointer','erl-jsonpointer','[application]'],['mod','erl-jsonpointer','jsonpointer',[]],['fun','erl-jsonpointer','jsonpointer:get/2',[]],['fun','erl-jsonpointer','jsonpointer:set/3',[]]];

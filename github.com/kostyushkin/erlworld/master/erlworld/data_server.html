@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>data_server (erlworld) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>data_server</h1>
+<h2 class="modsummary">   
+The Data Server is a special type of server that holds data whilst offering   
+call back functionality on messages and requests.</h2>
+<div class="description">
+<p>   
+The Data Server is a special type of server that holds data whilst offering   
+call back functionality on messages and requests. The result of the callback   
+depicts the new data of the server.</p>
+  
+   When created two functions are required:
+       on_message( Message, Parameters, State ) -&gt; State
+           Deals with the message and is passed in the server state. It returns
+           the servers new state when it ends.
+       on_request( Message, Parameters, State ) -&gt; { State, ReturnVal }
+           Same as OnMessage, only this needs to return a tuple containing the
+           servers new state and the value to return to the initial sender.
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/3">new(OnMessage, OnRequest, StartState::term()) -&gt; PID::pid()</h3>
+
+<ul class="type">
+<li><code>OnMessage = (Params::term(), State::term()) -&gt; term()</code></li><li><code>OnRequest = (Params::term(), State::term()) -&gt; {term(), term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/3-1">new(OnMessage, OnRequest, StartState::term(), SpawnLink::boolean()) -&gt; PID::pid()</h3>
+
+<ul class="type">
+<li><code>OnMessage = (Params::term(), State::term()) -&gt; term()</code></li><li><code>OnRequest = (Params::term(), State::term()) -&gt; {term(), term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_in_pid/3">new_in_pid(OnMessage, OnRequest, StateFunc) -&gt; PID::pid()</h3>
+
+<ul class="type">
+<li><code>OnMessage = (Params::term(), State::term()) -&gt; term()</code></li><li><code>OnRequest = (Params::term(), State::term()) -&gt; {term(), term()}</code></li><li><code>StateFunc = () -&gt; term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_in_pid/4">new_in_pid(OnMessage, OnRequest, StateFunc, X4) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send/1">send(Server::data_server(), Message::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends the message to the given data_server. It's parameters is the atom ok.
+  The OnMessage fun stored by the data_server will then handle the message.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="send/1-1">send(Server::data_server(), Message::atom(), Params::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends the given message, with the given parameters, to the given server.
+  The OnMessage fun stored by the data_server will then handle the message with
+  the given parameters.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="request/1">request(Server::data_server(), Message::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Sends the message to the server and then returns the value returned from the request.
+  The ok atom will be sent as the default parameters.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="request/1-1">request(Server::data_server(), Message::atom(), Params::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Sends the message to the server and then returns the value returned from the request.
+  The Message and the Params will be passed into the data_servers OnRequest fun.
+  This fun defines the value to return.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="request_timeout/1">request_timeout(Server::data_server(), Message::atom(), Timeout::integer()) -&gt; timeout | term()</h3>
+
+
+<div class="description">
+
+<p>A request reply, but with a timeout value.
+  If a response is not received within the given amount of time then failure is
+  presumed and the atom timeout will be returned. Otherwise it will be the
+  return value of the request.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="request_timeout/1-1">request_timeout(Server::data_server(), Message::atom(), Params::term(), Timeout::integer()) -&gt; timeout | term()</h3>
+
+
+<div class="description">
+
+<p>The same as the other request_timeout function, only this also allows a request parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="send_request/1">send_request(Server::data_server(), Message::atom()) -&gt; TimeStamp::integer()</h3>
+
+
+<div class="description">
+
+<p>This is the same as request, except that it does not block and wait for a reply.
+  Instead you must use collect_request at a later date to receive the reply. To
+  receive the reply you will also need to use the TimeStamp returned by this
+  send_request function.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="send_request/1-1">send_request(Server::data_server(), Message::atom(), Params::term()) -&gt; TimeStamp::integer()</h3>
+
+
+<div class="description">
+
+<p>A request is sent but the function returns directly.
+  The return value should be retrieved later using the receive_request function.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="receive_request/1">receive_request(TimeStamp::integer()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Receives the return value from a previous sent request to a data server.  
+The TimeStamp given is a unique identifier to the request to receive. If the  
+request is never received then this will block indefinitely.</p>
+ 
+  <p>The TimeStamp should be a value returned from the send_request function.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="receive_request/1-1">receive_request(TimeStamp::integer(), TimeOut::integer()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Same as the other collect_request function only this has a time out value.</p>
+</div></div>
+<div class="function">
+<h3 id="set_message_forward/1">set_message_forward(Server::server(), Destination::pid() | none) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets where to forward messages on to.  
+This is to allow servers to spawn child processes where work is performed,  
+that look exactly like the server who spawned them, whilst the server can  
+deal with more incomming requests.</p>
+ 
+  <p>Setting the destination to none will disable mail forwarding.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Joseph Lenton</aname>
+<email> </email>
+<aname>Joseph Lenton</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>crone (polish) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>crone</h1>
+<h2 class="modsummary">Simple task scheduler for Erlang/OTP.</h2>
+<div class="description">
+<p>Simple task scheduler for Erlang/OTP.  This application aims to
+  one day be a viable replacement for <code>cron</code>.</p>
+ 
+  <p><code>crone</code> is a simple utility which schedules tasks to be
+  run periodically at given times.</p>
+ 
+  <p><code>crone</code> differs from <code>cron</code> in the following
+  ways:</p>
+ 
+  <list>
+  <item><p><code>crone</code> does not support multiple users.
+  Of course, individual users may run their own copies of <code>crone</code>
+  as desired.</p></item>
+ 
+  <item><p>No configuration files are used.  <code>crone</code> is simply
+  started with a list of task descriptions.  These could easily be stored
+  in a file to be read with <code>file:consult/1</code> if desired.</p></item>
+ 
+  <item><p><code>crone</code> launches, not system executables, but Erlang
+  functions.  Of course, system programs can be launched with the Erlang
+  function <code>os:cmd/1</code>.</p></item>
+ 
+  <item><p>The synax of a task description is quite different from
+  <code>crontab</code>.  It is (in this author's opinion) easier to read
+  and is much more in keeping with the Erlang tradition.  It is not
+  quite as expressive as <code>cron</code> but this can be compensated
+  for by adding multiple tasks.</p></item>
+ 
+  <item><p>No output is logged or mailed to anyone.  If you want output to
+  be logged or mailed, you must explicitly specify that as part of the
+  task.</p></item>
+ 
+  <item><p><code>crone</code> does not poll the system on a minute-by-minute
+  basis like <code>cron</code> does.  Each task is assigned to a single
+  (Erlang) process.  The time until it is to run next is calculated,
+  and the process sleeps for exactly that long.</p></item>
+ 
+  <item><p>Unlike <code>cron</code>'s one-minute resolution, <code>crone</code>
+  has a 2-second resolution (actually 1 second, but after running the
+  task, the process waits an extra second to avoid accidentally running it
+  more than once.)</p></item>
+ 
+  <item><p>Because it does not wake up every minute, and because it does not
+  have a fixed configuration file, <code>crone</code> must be stopped and
+  restarted if the user wishes to change the scheduled tasks.</p></item>
+ 
+  <item><p><code>crone</code> does not handle Daylight Savings Time (or other
+  cases when the system clock is altered) gracefully, and it is recommended
+  that it be stopped and restarted on such occasions.</p></item>
+  </list><p>
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-constraint">constraint() = {between, time(), time()}</h3></div>
+    <div class="type"><h3 id="type-dom">dom() = integer()</h3></div>
+    <div class="type"><h3 id="type-dow">dow() = mon | tue | wed | thu | fri | sat | sun</h3></div>
+    <div class="type"><h3 id="type-duration">duration() = {integer(), hr | min | sec}</h3></div>
+    <div class="type"><h3 id="type-mfa">mfa() = {module(), function(), args()}</h3></div>
+    <div class="type"><h3 id="type-period">period() = time() | [time()] | {every, duration(), constraint()}</h3></div>
+    <div class="type"><h3 id="type-task">task() = {when(), mfa()}</h3></div>
+    <div class="type"><h3 id="type-time">time() = {integer(), am | pm} | {integer(), integer(), am | pm}</h3></div>
+    <div class="type"><h3 id="type-when">when() = {daily, period()} | {weekly, dow(), period()} | {monthly, dom(), period()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Tasks::[task()]) -&gt; [pid()]</h3>
+
+
+<div class="description">
+
+<p>Starts <code>crone</code>, spawning a process for each task.
+  XXX: This function is not tested.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Tasks::[task()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops all monitoring processes started by <code>crone</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="loop_task0/1">loop_task0(Task::task()) -&gt; never_returns</h3>
+
+
+<div class="description">
+
+<p>Used by <code>start/1</code> to wait until the next time
+  each task is scheduled to run, run it, and repeat.</p>
+</div></div>
+<div class="function">
+<h3 id="loop_task/2">loop_task(Task, Job) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loop_task/3">loop_task(Duration, Task, Job) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="format_time/1">format_time(N::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns human-readable string from seconds past midnight.</p>
+</div></div>
+<div class="function">
+<h3 id="format_task/1">format_task(Task) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

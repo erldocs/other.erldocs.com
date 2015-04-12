@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>e_component (eptic) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>e_component</h1>
+<h2 class="modsummary">Ecomponent behaviour module.</h2>
+<div class="description">
+<p>Ecomponent behaviour module.
+   </p><p>The ecomponent manager is built on top of gen_server behaviour.
+   It allows users to install and uninstall the new optional components
+   into their applications. </p>
+   <p>In order to provide an excellent cooperation and integration,
+   the new Erlang Web component must export three callback functions:
+   </p><list>
+   <item><p>install/1</p></item>
+   <item><p>uninstall/1</p></item>
+   <item><p>dependencies/0</p></item>
+   </list>
+   <p>The role of the <i>install/1</i> function is to install all needed
+   things in the new environment (such as: start gen_server and connect
+   it to the main wparts supervisor - registered locally
+   under the <em>wpart</em> name, create ets tables, load tpls or similar).
+   The <i>install/1</i> function takes one argument which is taken from
+   the configuration file (the syntax of the <i>ecomponent</i>
+   option is the same as used in <i>sys.config</i>), so it is possible
+   to parametrize created components.<br />
+   The <i>install/1</i> should return either <i>ok</i> in case of
+   successful installation or <i>{error, Reason}</i> otherwise.</p>
+   <p><i>uninstall/1</i> function does the opposite thing: removes the
+   selected component from the system. Component should clean up
+   all its resources before ending the uninstallation process.<br />
+   The returning value is the same as in <i>install/1</i>.</p>
+   <p><i>dependencies/0</i> should return a list of component required
+   components (we can imagine that component using Google Maps needs
+   the component Google Engine at least in version 1.3) with their versions.</p>
+   <p>Callback functions specification:
+   </p><pre class="sh_erlang">      install(Conf :: list(term())) -&gt; ok | {error, Reason}
+  
+   uninstall(Conf :: list(term())) -&gt; ok | {error, Reason}
+  
+   dependencies() -&gt; [dependency_spec()]
+     dependency_spec() = {ComponentName :: atom(), {LowestVsn :: version(), HighestVsn :: version()
+     version() = float() | undefined</pre>
+   <p>The ecomponent manager could detect dependency loops, lack of modules
+   and version incompatibility.</p>
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="install/0">install() -&gt; InstallationResult::[{atom, Result}]</h3>
+
+<ul class="type">
+<li><code>Result = ok | {error, Reason}</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Installs all ecomponents declared inside the <i>project.conf</i> file.
+  The components are installed sequentially, in order of their declaration.</p>
+<p><em>See also:</em> <a href="e_conf.html#ecomponents/0" class="seealso">e_conf:ecomponents/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="install/1">install(X1::{EComponentName::atom(), Conf::list()}) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Installs the selected ecomponent and all its dependencies.
+  If installation fails, the <i>{error, Reason}</i> is returned.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="list/0">list() -&gt; InstalledComponents::[{atom(), string(), string()}]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of the installed components with their versions.
+  The format of the returning data is the same as in the application:which_applications/0.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/0">uninstall() -&gt; UninstallationResult::[{ComponentName::atom(), Result::term()}]</h3>
+
+
+<div class="description">
+
+<p>Uninstalls all ecomponents declared in the <i>project.conf</i> file from the system.
+  After successful uninstallation all dependencies are removed too.</p>
+<p><em>See also:</em> <a href="e_conf.html#ecomponents/0" class="seealso">e_conf:ecomponents/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/1">uninstall(X1::{Name::atom(), Configuration::list()}) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Uninstalls specified component from the system.
+  It is possible to pass some configuration details to the component
+  so it knows how it should be removed.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Michal Ptaszek</aname>
+<email>michal.ptaszek@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

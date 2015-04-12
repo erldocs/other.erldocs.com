@@ -1,0 +1,1 @@
+var index = [['app','programmingerlang','programmingerlang','[application]'],['mod','programmingerlang','homework8',[]],['mod','programmingerlang','processes',[]],['fun','programmingerlang','homework8:bench_ring/2',[]],['fun','programmingerlang','homework8:ring_node/3',[]],['fun','programmingerlang','homework8:start/2',[]],['fun','programmingerlang','processes:max/1',[]]];
