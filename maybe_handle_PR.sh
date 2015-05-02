@@ -16,9 +16,12 @@ mkdir other \
     && ./gen.escript $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/other $TRAVIS_BUILD_DIR/gen \
     && cd $TRAVIS_BUILD_DIR \
     && rm -rf other/* erldocs_other.git/* gen \
+    && touch gen
     && echo 'apps = [' >apps.js \
     && find . -name meta.txt | cut -c3- | sed 's/.........$/",/' | sed 's/^/"/' | tr -d '\n' >>apps.js \
     && echo '];' >>apps.js \
+    && git config user.email travis@atdot.dot \
+    && git config user.name 'Travis CI' \
     && git add -A . \
     && git commit -m "Close PR #$TRAVIS_PULL_REQUEST: successfully applied" \
     && git push origin gh-pages
