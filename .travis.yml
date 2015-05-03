@@ -3,6 +3,9 @@ branches:
 language: erlang
 otp_release: 17.4
 script:
-  - ./maybe_handle_PR.sh $TRAVIS_PULL_REQUEST $TRAVIS_BUILD_DIR
-  - find . -name meta.txt | cut -c3- | sed 's/.........$//' >_
-  - wc -l _
+  - ./maybe_handle_PR.sh $TRAVIS_PULL_REQUEST $TRAVIS_BUILD_DIR "$GHT"
+after_success:
+  - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l _
+env:
+  global:
+    - secure: "aoyYDVQ7fmBNkKUzW54gwZbiUL9J9TP6bHp6BB/YwQ8dA//aNdWXXg8Xanvqb9w2u7K8buCyMLLlyVy8dBqsba76yMmTnkN1tLiFMc9+TZeuK4bNv5ieZurOHPer3nFF8OPvJiBfYxsSnrrbjxeav4p71jPv8hcCtEJLMupVA/s="

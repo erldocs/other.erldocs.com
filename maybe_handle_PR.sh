@@ -1,10 +1,11 @@
 #!/bin/bash -x
 
-# $0  $TRAVIS_PULL_REQUEST $TRAVIS_BUILD_DIR
+# $0  $TRAVIS_PULL_REQUEST $TRAVIS_BUILD_DIR $GHT
 
-[[ $# -ne 2 ]] && exit 1
+[[ $# -ne 3 ]] && exit 1
 TRAVIS_PULL_REQUEST="$1"
 TRAVIS_BUILD_DIR="$2"
+GHT="$3"
 [[ $TRAVIS_PULL_REQUEST == false ]] && exit 0
 
 cd $TRAVIS_BUILD_DIR
@@ -20,7 +21,7 @@ mkdir other \
     && echo 'apps = [' >apps.js \
     && find . -name meta.txt | cut -c3- | sed 's/.........$/",/' | sed 's/^/"/' | tr -d '\n' >>apps.js \
     && echo '];' >>apps.js \
-    && git remote set-url --push origin https://github.com/erldocs/other.erldocs.com.git \
+    && git remote set-url --push origin https://"$GHT"@github.com/erldocs/other.erldocs.com.git \
     && git config user.email travis@atdot.dot \
     && git config user.name 'Travis CI' \
     && git add -A . \
