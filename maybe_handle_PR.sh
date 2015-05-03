@@ -5,7 +5,7 @@
 [[ $TRAVIS_PULL_REQUEST == false ]] && exit 0
 
 cd $TRAVIS_BUILD_DIR
-[[ ! -f gen ]] && exit 3
+[[ ! -f todo.txt ]] && exit 3
 mkdir other \
     && cp todo.txt gen
     && export PR_branch=$TRAVIS_BRANCH \
