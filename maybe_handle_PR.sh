@@ -20,6 +20,7 @@ mkdir other \
     && echo 'apps = [' >apps.js \
     && find . -name meta.txt | cut -c3- | sed 's/.........$/",/' | sed 's/^/"/' | tr -d '\n' >>apps.js \
     && echo '];' >>apps.js \
+    && git remote set-url --push origin https://github.com/erldocs/other.erldocs.com.git \
     && git config user.email travis@atdot.dot \
     && git config user.name 'Travis CI' \
     && git add -A . \
