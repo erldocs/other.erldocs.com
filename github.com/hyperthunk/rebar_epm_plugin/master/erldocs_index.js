@@ -1,1 +1,0 @@
-var index = [['app','rebar_epm_plugin','rebar_epm_plugin','[application]'],['mod','rebar_epm_plugin','rebar_epm_plugin','   ---------------------------------------------']];

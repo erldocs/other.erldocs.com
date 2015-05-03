@@ -1,1 +1,0 @@
-var index = [['app','rest_http_api','rest_http_api','[application]'],['mod','rest_http_api','rest_http_api',[]],['fun','rest_http_api','rest_http_api:filter_params/2',[]],['fun','rest_http_api','rest_http_api:param/2',[]],['fun','rest_http_api','rest_http_api:param/3',[]],['fun','rest_http_api','rest_http_api:upgrade/4',[]]];

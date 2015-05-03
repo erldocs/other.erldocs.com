@@ -1,1 +1,0 @@
-var index = [['app','imps','imps','[application]'],['mod','imps','chimp',[]],['mod','imps','iamb_pent',[]],['mod','imps','imps',[]],['mod','imps','imps_util',[]],['mod','imps','itag',[]],['fun','imps','itag:from_integer/1',[]],['fun','imps','itag:get_itag/1',[]],['fun','imps','itag:to_integer/1',[]]];

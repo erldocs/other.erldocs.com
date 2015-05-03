@@ -1,1 +1,0 @@
-var index = [['app','erlparsecsv','erlparsecsv','[application]'],['mod','erlparsecsv','parse_csv',[]],['fun','erlparsecsv','parse_csv:parse/1',[]],['fun','erlparsecsv','parse_csv:parse/3',[]],['fun','erlparsecsv','parse_csv:parse_file/1',[]],['fun','erlparsecsv','parse_csv:parse_file/3',[]]];

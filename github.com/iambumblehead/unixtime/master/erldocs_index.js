@@ -1,1 +1,0 @@
-var index = [['app','unixtime','unixtime','[application]'],['mod','unixtime','unixtime',[]],['fun','unixtime','unixtime:gettime/0','Returns current date as a 13-digit timestamp.'],['fun','unixtime','unixtime:gettime/1','Returns erlang timestamp tuple as a 13-digit times']];

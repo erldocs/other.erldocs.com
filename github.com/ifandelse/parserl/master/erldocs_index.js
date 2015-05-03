@@ -1,1 +1,0 @@
-var index = [['app','parserl','parserl','[application]'],['mod','parserl','parserl',[]],['fun','parserl','parserl:parse_string/3',[]],['fun','parserl','parserl:parse_string/4',[]]];

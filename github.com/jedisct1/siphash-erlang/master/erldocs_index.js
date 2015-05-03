@@ -1,1 +1,0 @@
-var index = [['app','siphash-erlang','siphash-erlang','[application]'],['mod','siphash-erlang','siphash',[]],['fun','siphash-erlang','siphash:hash24/1',[]]];

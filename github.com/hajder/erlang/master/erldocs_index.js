@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','dijkstra',[]],['mod','erlang','game_of_life',[]],['fun','erlang','dijkstra:perform/0',[]],['fun','erlang','dijkstra:perform/4',[]],['fun','erlang','game_of_life:initialize/0',[]]];

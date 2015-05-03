@@ -1,1 +1,0 @@
-var index = [['app','redirect_service','redirect_service','[application]'],['mod','redirect_service','redirect_lookup',[]],['mod','redirect_service','redirect_service',[]],['fun','redirect_service','redirect_lookup:execute/2',[]],['fun','redirect_service','redirect_service:start/0',[]]];

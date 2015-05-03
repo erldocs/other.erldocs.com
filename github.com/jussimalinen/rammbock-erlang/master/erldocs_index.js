@@ -1,1 +1,0 @@
-var index = [['app','rammbock-erlang','rammbock-erlang','[application]'],['mod','rammbock-erlang','percompile',[]],['mod','rammbock-erlang','readfile',[]],['fun','rammbock-erlang','percompile:compile/1',[]],['fun','rammbock-erlang','readfile:readfile/1',[]],['fun','rammbock-erlang','readfile:readfile/2',[]]];

@@ -35,7 +35,53 @@
    <code>connection_count/0</code> and <code>connection_count/1</code>.
    The gen_server is supposed to be started by a supervisor, which is
    normally <a href="lhttpc_sup.html" class="seealso">lhttpc_sup</a>.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-host">host() = string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {integer(), integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-invalid_option">invalid_option() = any()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {connect_timeout, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {send_retry, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {partial_upload, integer() >= 0 | infinity}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {partial_download, [<a href="#type-partial_download_option" class="seealso">partial_download_option()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {connect_options, <a href="#type-socket_options" class="seealso">socket_options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proxy, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proxy_ssl_options, <a href="#type-socket_options" class="seealso">socket_options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pool, pid() | atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-invalid_option" class="seealso">invalid_option()</a></h3></div>
+    <div class="type"><h3 id="type-options">options() = [<a href="#type-option" class="seealso">option()</a>]</h3></div>
+    <div class="type"><h3 id="type-partial_download_option">partial_download_option() = {window_size, <a href="#type-window_size" class="seealso">window_size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {part_size,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0 | infinity}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-invalid_option" class="seealso">invalid_option()</a></h3></div>
+    <div class="type"><h3 id="type-pool_id">pool_id() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-port_num">port_num() = 1..65535</h3></div>
+    <div class="type"><h3 id="type-socket">socket() = term()</h3></div>
+    <div class="type"><h3 id="type-socket_options">socket_options() = [{atom(), term()} | atom()]</h3></div>
+    <div class="type"><h3 id="type-window_size">window_size() = integer() &gt;= 0 | infinity</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="dump_settings/1">dump_settings(PidOrName::PoolPidOrName) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Returns the current settings in state for the
+  specified lhttpc pool (manager).</p>
+</div></div>
+<div class="function">
+<h3 id="set_max_pool_size/1">set_max_pool_size(PidOrName::pool_id(), Size::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the maximum pool size for the specified pool.</p>
+</div></div>
+<div class="function">
+<h3 id="list_pools/0">list_pools() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Lists all the pools already started.</p>
+</div></div>
+<div class="function">
+<h3 id="client_count/1">client_count(PidOrName::PoolPidOrName) -&gt; Count</h3>
+
+<ul class="type">
+<li><code>Count = integer()</code></li></ul>
+<div class="description">
+
+<p>Returns the total number of active clients maintained by the
+  specified lhttpc pool (manager).</p>
+</div></div>
 <div class="function">
 <h3 id="connection_count/1">connection_count(PidOrName::PoolPidOrName) -&gt; Count</h3>
 
@@ -81,11 +127,30 @@
 
 
 <div class="description">
- </div></div></div>
+ </div></div>
+<div class="function">
+<h3 id="ensure_call/1">ensure_call(Pool::pool_id(), Pid::pid(), Host::host(), Port::port_num(), Ssl::boolean(), Options::options()) -&gt; socket() | no_socket</h3>
+
+
+<div class="description">
+
+<p>If call contains pool_ensure option, dynamically create the pool with
+  configured parameters. Checks the pool for a socket connected to the
+  destination and returns it if it exists, 'undefined' otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="client_done/1">client_done(Pool::pid(), Host::host(), Port::port_num(), Ssl::boolean(), Socket::socket()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>A client has finished one request and returns the socket to the pool,
+  which can be new or not.</p>
+</div></div></div>
 
 <authors>
 
-<aname>Oscar HellstrÃ¶m</aname>
+<aname>Oscar Hellström</aname>
 <email>oscar@hellstrom.st</email>
 <aname>Filipe David Manana</aname>
 <email>fdmanana@apache.org</email></authors>

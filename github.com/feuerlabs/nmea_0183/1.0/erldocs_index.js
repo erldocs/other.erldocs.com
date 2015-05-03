@@ -1,1 +1,0 @@
-var index = [['app','nmea_0183','nmea_0183','[application]'],['mod','nmea_0183','nmea_0183_app',[]],['mod','nmea_0183','nmea_0183_sup',[]],['fun','nmea_0183','nmea_0183_app:start/2',[]],['fun','nmea_0183','nmea_0183_app:stop/1',[]],['fun','nmea_0183','nmea_0183_sup:init/1',[]],['fun','nmea_0183','nmea_0183_sup:start_link/0',[]]];

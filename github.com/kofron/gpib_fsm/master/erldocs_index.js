@@ -1,1 +1,0 @@
-var index = [['app','gpib_fsm','gpib_fsm','[application]'],['mod','gpib_fsm','gpib_fsm_app',[]],['mod','gpib_fsm','gpib_fsm_sup',[]],['fun','gpib_fsm','gpib_fsm_app:start/2',[]],['fun','gpib_fsm','gpib_fsm_app:stop/1',[]],['fun','gpib_fsm','gpib_fsm_sup:init/1',[]],['fun','gpib_fsm','gpib_fsm_sup:start_link/0',[]]];

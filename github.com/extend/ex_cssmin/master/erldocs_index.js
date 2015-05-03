@@ -1,1 +1,0 @@
-var index = [['app','ex_cssmin','ex_cssmin','[application]'],['mod','ex_cssmin','ex_cssmin',[]],['fun','ex_cssmin','ex_cssmin:minify/1','CSS minifier.']];

@@ -41,7 +41,9 @@
   Command timeout = 10 sec (time to wait for a command to return)
   Max no of reconnection attempts = 3
   Reconnection interval = 5 sek (time to wait in between reconnection attempts)
-  Keep alive = true (will send NOP to the server every 10 sec if connection is idle)</pre>
+  Keep alive = true (will send NOP to the server every 10 sec if connection is idle)
+  Polling limit = 0 (max number of times to poll to get a remaining string terminated)
+  Polling interval = 1 sec (sleep time between polls)</pre>
   <p>These parameters can be altered by the user with the following
   configuration term:</p>
   <pre class="sh_erlang">
@@ -49,7 +51,9 @@
                      {command_timeout,Millisec},
                      {reconnection_attempts,N},
                      {reconnection_interval,Millisec},
-                     {keep_alive,Bool}]}.</pre>
+                     {keep_alive,Bool},
+                     {poll_limit,N},
+                     {poll_interval,Millisec}]}.</pre>
   <p><code>Millisec = integer(), N = integer()</code></p>
   <p>Enter the <code>telnet_settings</code> term in a configuration
   file included in the test and ct_telnet will retrieve the information
@@ -176,7 +180,7 @@ like this:</p>
    <code>connect(Ip,Port,KeepAlive,Extra)</code> and <code>get_prompt_regexp()</code>
    for the given <code>TargetType</code> (e.g. <code>unix_telnet</code>).</p>
   
-<p><em>See also:</em> <a href="ct.html#require/2" class="seealso">ct:require/2</a>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/6756100022/repo/master/.xml/common_test/./ct.xml.html#require/2" class="seealso">ct:require/2</a>.</p>
 </div></div>
 <div class="function">
 <h3 id="close/1">close(Connection) -&gt; ok | {error, Reason}</h3>
@@ -197,33 +201,46 @@ like this:</p>
 
 
 <div class="description">
-<p>Equivalent to <a href="#cmd/3" class="seealso">cmd(Connection, Cmd, DefaultTimeout)</a>.</p>
+<p>Equivalent to <a href="#cmd/3" class="seealso">cmd(Connection, Cmd, [])</a>.</p>
 </div></div>
 <div class="function">
-<h3 id="cmd/3">cmd(Connection, Cmd, Timeout) -&gt; {ok, Data} | {error, Reason}</h3>
+<h3 id="cmd/3">cmd(Connection, Cmd, Opts) -&gt; {ok, Data} | {error, Reason}</h3>
 
 <ul class="type">
-<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>Cmd = string()</code></li><li><code>Timeout = integer()</code></li><li><code>Data = [string()]</code></li><li><code>Reason = term()</code></li></ul>
+<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>Cmd = string()</code></li><li><code>Opts = [Opt]</code></li><li><code>Opt = {timeout, timeout()} | {newline, boolean()}</code></li><li><code>Data = [string()]</code></li><li><code>Reason = term()</code></li></ul>
 <div class="description">
 
 <p>Send a command via telnet and wait for prompt.</p>
+  
+   <p>This function will by default add a newline to the end of the
+   given command. If this is not desired, the option
+   <code>{newline,false}</code> can be used. This is necessary, for example,   
+when sending telnet command sequences (prefixed with the   
+Interprete As Command, IAC, character).</p>
+  
+   The option <code>timeout</code> specifies how long the client shall wait for
+   prompt. If the time expires, the function returns
+   <code>{error,timeout}</code>. See the module description for information
+   about the default value for the command timeout.
 </div></div>
 <div class="function">
 <h3 id="cmdf/3">cmdf(Connection, CmdFormat, Args) -&gt; {ok, Data} | {error, Reason}</h3>
 
 
 <div class="description">
-<p>Equivalent to <a href="#cmdf/4" class="seealso">cmdf(Connection, CmdFormat, Args, DefaultTimeout)</a>.</p>
+<p>Equivalent to <a href="#cmdf/4" class="seealso">cmdf(Connection, CmdFormat, Args, [])</a>.</p>
 </div></div>
 <div class="function">
-<h3 id="cmdf/4">cmdf(Connection, CmdFormat, Args, Timeout) -&gt; {ok, Data} | {error, Reason}</h3>
+<h3 id="cmdf/4">cmdf(Connection, CmdFormat, Args, Opts) -&gt; {ok, Data} | {error, Reason}</h3>
 
 <ul class="type">
-<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>CmdFormat = string()</code></li><li><code>Args = list()</code></li><li><code>Timeout = integer()</code></li><li><code>Data = [string()]</code></li><li><code>Reason = term()</code></li></ul>
+<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>CmdFormat = string()</code></li><li><code>Args = list()</code></li><li><code>Opts = [Opt]</code></li><li><code>Opt = {timeout, timeout()} | {newline, boolean()}</code></li><li><code>Data = [string()]</code></li><li><code>Reason = term()</code></li></ul>
 <div class="description">
 
-<p>Send a telnet command and wait for prompt
-        (uses a format string and list of arguments to build the command).</p>
+<p>Send a telnet command and wait for prompt        
+(uses a format string and list of arguments to build the command).</p>
+  
+   See <a href="#cmd/3" class="seealso">cmd/3</a> further description.
 </div></div>
 <div class="function">
 <h3 id="get_data/1">get_data(Connection) -&gt; {ok, Data} | {error, Reason}</h3>
@@ -232,17 +249,37 @@ like this:</p>
 <li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>Data = [string()]</code></li><li><code>Reason = term()</code></li></ul>
 <div class="description">
 
-<p>Get all data which has been received by the telnet client
-   since last command was sent.</p>
+<p>Get all data that has been received by the telnet client
+   since the last command was sent. Note that only newline terminated
+   strings are returned. If the last string received has not yet
+   been terminated, the connection may be polled automatically until
+   the string is complete. The polling feature is controlled
+   by the <code>poll_limit</code> and <code>poll_interval</code> config values and is
+   by default disabled (meaning the function will immediately
+   return all complete strings received and save a remaining
+   non-terminated string for a later <code>get_data</code> call).</p>
 </div></div>
 <div class="function">
 <h3 id="send/2">send(Connection, Cmd) -&gt; ok | {error, Reason}</h3>
 
+
+<div class="description">
+<p>Equivalent to <a href="#send/3" class="seealso">send(Connection, Cmd, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send/3">send(Connection, Cmd, Opts) -&gt; ok | {error, Reason}</h3>
+
 <ul class="type">
-<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>Cmd = string()</code></li><li><code>Reason = term()</code></li></ul>
+<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>Cmd = string()</code></li><li><code>Opts = [Opt]</code></li><li><code>Opt = {newline, boolean()}</code></li><li><code>Reason = term()</code></li></ul>
 <div class="description">
 
 <p>Send a telnet command and return immediately.</p>
+  
+   <p>This function will by default add a newline to the end of the
+   given command. If this is not desired, the option
+   <code>{newline,false}</code> can be used. This is necessary, for example,   
+when sending telnet command sequences (prefixed with the   
+Interprete As Command, IAC, character).</p>
   
    <p>The resulting output from the command can be read with
    <code>get_data/1</code> or <code>expect/2/3</code>.</p>
@@ -250,8 +287,15 @@ like this:</p>
 <div class="function">
 <h3 id="sendf/3">sendf(Connection, CmdFormat, Args) -&gt; ok | {error, Reason}</h3>
 
+
+<div class="description">
+<p>Equivalent to <a href="#sendf/4" class="seealso">sendf(Connection, CmdFormat, Args, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="sendf/4">sendf(Connection, CmdFormat, Args, Opts) -&gt; ok | {error, Reason}</h3>
+
 <ul class="type">
-<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>CmdFormat = string()</code></li><li><code>Args = list()</code></li><li><code>Reason = term()</code></li></ul>
+<li><code>Connection = connection() (see module ct_telnet)</code></li><li><code>CmdFormat = string()</code></li><li><code>Args = list()</code></li><li><code>Opts = [Opt]</code></li><li><code>Opt = {newline, boolean()}</code></li><li><code>Reason = term()</code></li></ul>
 <div class="description">
 
 <p>Send a telnet command and return immediately (uses a format
@@ -354,7 +398,7 @@ like this:</p>
 
 <div class="description">
  </div></div></div>
-<div class="section"><h4>See also</h4><p><a href="unix_telnet.html" class="seealso">unix_telnet</a></p></div>
+<div class="section"><h4>See also</h4><p><a href="/home/pete/wefwefwef/docs/other/6756100022/repo/master/.xml/common_test/./unix_telnet.xml.html" class="seealso">unix_telnet</a></p></div>
 <authors>
 <aname> </aname>
 <email> </email></authors>

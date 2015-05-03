@@ -1,1 +1,0 @@
-var index = [['app','euler','euler','[application]'],['mod','euler','euler31',[]],['fun','euler','euler31:coins_graph_search/4',[]],['fun','euler','euler31:init_params/0',[]],['fun','euler','euler31:solve/2',[]]];

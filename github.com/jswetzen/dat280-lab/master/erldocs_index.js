@@ -1,1 +1,0 @@
-var index = [['app','dat280-lab','dat280-lab','[application]'],['mod','dat280-lab','crawl',[]],['mod','dat280-lab','foo',[]],['mod','dat280-lab','map_reduce',[]],['mod','dat280-lab','page_rank',[]],['mod','dat280-lab','sudoku',[]],['mod','dat280-lab','sudoku_old',[]]];

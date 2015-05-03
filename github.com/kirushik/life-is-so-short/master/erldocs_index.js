@@ -1,1 +1,0 @@
-var index = [['app','life-is-so-short','life-is-so-short','[application]'],['mod','life-is-so-short','life',[]],['fun','life-is-so-short','life:run/0',[]]];

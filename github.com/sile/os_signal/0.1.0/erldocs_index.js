@@ -1,1 +1,0 @@
-var index = [['app','os_signal','os_signal','[application]'],['mod','os_signal','os_signal','OS signal handling module.'],['fun','os_signal','os_signal:kill/1','Send signal to an OS process.']];

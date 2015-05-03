@@ -1,1 +1,0 @@
-var index = [['app','random-code','random-code','[application]'],['mod','random-code','euler002',[]],['mod','random-code','primes',[]],['fun','random-code','euler002:euler002/0',[]],['fun','random-code','primes:is_prime/2',[]]];

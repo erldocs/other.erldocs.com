@@ -1,1 +1,0 @@
-var index = [['app','nif-tests','nif-tests','[application]'],['mod','nif-tests','niftest',[]],['fun','nif-tests','niftest:echo_type/1',[]],['fun','nif-tests','niftest:hello/0',[]],['fun','nif-tests','niftest:init/0',[]]];

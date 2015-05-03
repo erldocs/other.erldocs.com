@@ -1,1 +1,0 @@
-var index = [['app','rebar_plugins','rebar_plugins','[application]'],['mod','rebar_plugins','rebar_plugins_app','.'],['mod','rebar_plugins','rebar_plugins_sup','.'],['mod','rebar_plugins','todo_plugin','      FIXME:.'],['fun','rebar_plugins','rebar_plugins_sup:start_link/0','  Starts the supervisor.'],['fun','rebar_plugins','todo_plugin:todo/2',[]]];

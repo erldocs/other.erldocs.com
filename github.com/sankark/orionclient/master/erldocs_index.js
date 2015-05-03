@@ -1,1 +1,0 @@
-var index = [['app','orionclient','orionclient','[application]'],['mod','orionclient','ezwebframe_demos',[]],['fun','orionclient','ezwebframe_demos:dispatch/1',[]],['fun','orionclient','ezwebframe_demos:start/0',[]]];

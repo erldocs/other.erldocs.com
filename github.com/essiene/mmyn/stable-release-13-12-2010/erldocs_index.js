@@ -1,1 +1,0 @@
-var index = [['app','mmyn','mmyn','[application]'],['mod','mmyn','rebarctl',[]],['fun','mmyn','rebarctl:admin/1',[]]];

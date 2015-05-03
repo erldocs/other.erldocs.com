@@ -1,1 +1,0 @@
-var index = [['app','kata-erl','kata-erl','[application]'],['mod','kata-erl','kata',[]],['fun','kata-erl','kata:read_lines/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','gcproc','gcproc','[application]'],['mod','gcproc','gcproc',[]],['fun','gcproc','gcproc:demonitor/2',[]],['fun','gcproc','gcproc:link/1',[]],['fun','gcproc','gcproc:monitor/1',[]],['fun','gcproc','gcproc:pid/1',[]],['fun','gcproc','gcproc:send/2',[]],['fun','gcproc','gcproc:spawn/1',[]],['fun','gcproc','gcproc:unlink/1',[]]];

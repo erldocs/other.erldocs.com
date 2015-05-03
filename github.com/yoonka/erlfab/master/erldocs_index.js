@@ -1,1 +1,0 @@
-var index = [['app','erlfab','erlfab','[application]'],['mod','erlfab','erlfab',[]],['fun','erlfab','erlfab:benchmark/6',[]],['fun','erlfab','erlfab:start/0',[]],['fun','erlfab','erlfab:start/4',[]],['fun','erlfab','erlfab:void/0',[]]];

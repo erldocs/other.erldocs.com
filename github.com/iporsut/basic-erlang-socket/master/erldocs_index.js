@@ -1,1 +1,0 @@
-var index = [['app','basic-erlang-socket','basic-erlang-socket','[application]'],['mod','basic-erlang-socket','server',[]],['fun','basic-erlang-socket','server:accept_client/1',[]],['fun','basic-erlang-socket','server:start/0',[]]];

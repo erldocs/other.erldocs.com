@@ -1,1 +1,0 @@
-var index = [['app','ramsay','ramsay','[application]'],['mod','ramsay','ramsay','Tagged time manipulation for Erlang.'],['fun','ramsay','ramsay:measure/1',[]],['fun','ramsay','ramsay:measure/1',[]]];

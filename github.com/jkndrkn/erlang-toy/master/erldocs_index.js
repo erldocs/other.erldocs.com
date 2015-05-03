@@ -1,1 +1,0 @@
-var index = [['app','erlang-toy','erlang-toy','[application]'],['mod','erlang-toy','array_test',[]]];

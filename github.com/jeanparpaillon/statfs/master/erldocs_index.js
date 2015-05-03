@@ -1,1 +1,0 @@
-var index = [['app','statfs','statfs','[application]'],['mod','statfs','statfs',[]],['mod','statfs','statfs_app','.'],['fun','statfs','statfs:df/0',[]],['fun','statfs','statfs:df_pretty/0',[]],['fun','statfs','statfs:free/1',[]],['fun','statfs','statfs:free_pc/1',[]],['fun','statfs','statfs:mounts/0',[]],['fun','statfs','statfs:statfs/1',[]]];

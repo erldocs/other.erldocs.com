@@ -1,1 +1,0 @@
-var index = [['app','mod_chat_candy','mod_chat_candy','[application]'],['mod','mod_chat_candy','mod_chat_candy','Candy XMPP chat.']];

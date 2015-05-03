@@ -1,1 +1,0 @@
-var index = [['app','gpb','gpb','[application]'],['mod','gpb','gpb_compile',[]],['mod','gpb','gpb_compile_tests',[]],['mod','gpb','gpb_parse_tests',[]],['mod','gpb','gpb_scan_tests',[]],['mod','gpb','gpb_tests',[]],['fun','gpb','gpb_compile:file/1','Equivalent to file(File, []).'],['fun','gpb','gpb_compile:file/2','  Compile a .proto file to a .erl file and to a .']];

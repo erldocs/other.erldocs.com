@@ -1,1 +1,0 @@
-var index = [['app','ex_complete','ex_complete','[application]'],['mod','ex_complete','ex_complete',[]],['mod','ex_complete','ex_complete_app',[]],['fun','ex_complete','ex_complete:bindings/0',[]],['fun','ex_complete','ex_complete:expand/1',[]],['fun','ex_complete','ex_complete:start_link/0',[]],['fun','ex_complete','ex_complete_app:start/0',[]]];

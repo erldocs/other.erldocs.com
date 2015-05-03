@@ -1,1 +1,0 @@
-var index = [['app','ergrep','ergrep','[application]'],['mod','ergrep','ergrep',[]],['fun','ergrep','ergrep:start/2',[]]];

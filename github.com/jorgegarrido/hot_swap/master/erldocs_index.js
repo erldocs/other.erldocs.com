@@ -1,1 +1,0 @@
-var index = [['app','hot_swap','hot_swap','[application]'],['mod','hot_swap','code_loading',[]],['mod','hot_swap','dummy_module',[]],['fun','hot_swap','code_loading:server/1',[]],['fun','hot_swap','code_loading:start/0',[]],['fun','hot_swap','dummy_module:function/1',[]]];

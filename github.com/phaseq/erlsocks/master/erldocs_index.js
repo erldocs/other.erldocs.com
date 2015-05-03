@@ -1,1 +1,0 @@
-var index = [['app','erlsocks','erlsocks','[application]'],['mod','erlsocks','erlsocks',[]],['mod','erlsocks','socksauth',[]],['fun','erlsocks','erlsocks:start/0',[]],['fun','erlsocks','erlsocks:start/1',[]],['fun','erlsocks','socksauth:auth/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','httpstressclient','httpstressclient','[application]'],['mod','httpstressclient','http',[]],['fun','httpstressclient','http:get/1',[]],['fun','httpstressclient','http:getProxy/2',[]],['fun','httpstressclient','http:stressTest/3',[]],['fun','httpstressclient','http:timer/3',[]]];

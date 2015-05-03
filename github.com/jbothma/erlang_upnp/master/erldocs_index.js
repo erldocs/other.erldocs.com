@@ -1,1 +1,0 @@
-var index = [['app','erlang_upnp','erlang_upnp','[application]'],['mod','erlang_upnp','bob',[]],['fun','erlang_upnp','bob:start/0',[]]];

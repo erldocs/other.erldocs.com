@@ -1,1 +1,0 @@
-var index = [['app','snakes_in_a_game','snakes_in_a_game','[application]'],['mod','snakes_in_a_game','creature',[]],['fun','snakes_in_a_game','creature:idle/1',[]],['fun','snakes_in_a_game','creature:start/0',[]]];

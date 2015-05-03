@@ -1,1 +1,0 @@
-var index = [['app','erlang-upnp','erlang-upnp','[application]'],['mod','erlang-upnp','tcp_client',[]],['mod','erlang-upnp','tcp_server',[]],['mod','erlang-upnp','upnp',[]]];

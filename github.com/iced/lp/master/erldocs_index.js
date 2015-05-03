@@ -1,1 +1,0 @@
-var index = [['app','lp','lp','[application]'],['mod','lp','lps',[]],['fun','lp','lps:join/1',[]],['fun','lp','lps:join/2',[]],['fun','lp','lps:len/1',[]],['fun','lp','lps:reverse/1',[]],['fun','lp','lps:split/2',[]],['fun','lp','lps:to_binary/1',[]],['fun','lp','lps:to_string/1',[]]];

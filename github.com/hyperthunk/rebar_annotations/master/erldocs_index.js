@@ -1,1 +1,0 @@
-var index = [['app','rebar_annotations','rebar_annotations','[application]'],['mod','rebar_annotations','base_dir',[]],['fun','rebar_annotations','base_dir:around_advice/4',[]]];

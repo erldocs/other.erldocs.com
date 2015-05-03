@@ -1,1 +1,0 @@
-var index = [['app','yungame','yungame','[application]'],['mod','yungame','yungame_app',[]],['fun','yungame','yungame_app:start/2',[]],['fun','yungame','yungame_app:stop/1',[]]];

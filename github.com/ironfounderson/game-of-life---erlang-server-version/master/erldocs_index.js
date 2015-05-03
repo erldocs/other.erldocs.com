@@ -1,1 +1,0 @@
-var index = [['app','game-of-life---erlang-server-version','game-of-life---erlang-server-version','[application]'],['mod','game-of-life---erlang-server-version','gol_cell',[]],['mod','game-of-life---erlang-server-version','gol_tests',[]]];

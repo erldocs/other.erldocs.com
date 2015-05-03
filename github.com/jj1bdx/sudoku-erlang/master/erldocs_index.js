@@ -1,1 +1,0 @@
-var index = [['app','sudoku-erlang','sudoku-erlang','[application]'],['mod','sudoku-erlang','sudoku',[]],['fun','sudoku-erlang','sudoku:print/1',[]],['fun','sudoku-erlang','sudoku:solve/1',[]]];

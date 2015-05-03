@@ -1,1 +1,0 @@
-var index = [['app','terltris','terltris','[application]'],['mod','terltris','game',[]],['mod','terltris','piece',[]],['fun','terltris','piece:blocks/1',[]],['fun','terltris','piece:new/0',[]],['fun','terltris','piece:rotate/2',[]],['fun','terltris','piece:shape/1',[]],['fun','terltris','piece:translate/2',[]]];

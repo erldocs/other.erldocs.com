@@ -1,1 +1,0 @@
-var index = [['app','monadur','monadur','[application]'],['mod','monadur','monadur_custom_filters',[]],['mod','monadur','monadur_custom_tags',[]],['mod','monadur','monadur_hello_controller',[]],['mod','monadur','monadur_incoming_mail_controller',[]],['mod','monadur','monadur_outgoing_mail_controller',[]],['mod','monadur','monadur_pet_controller',[]],['mod','monadur','pet',[]]];

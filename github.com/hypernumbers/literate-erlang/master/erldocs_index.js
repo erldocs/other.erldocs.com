@@ -1,1 +1,0 @@
-var index = [['app','literate-erlang','literate-erlang','[application]'],['mod','literate-erlang','compile_literate','      This is a rebar plugin for compiling literat'],['mod','literate-erlang','markup','      This is a rebar plugin for turning Erlang so'],['fun','literate-erlang','compile_literate:compile_literate/2',[]],['fun','literate-erlang','markup:markup/2',[]]];

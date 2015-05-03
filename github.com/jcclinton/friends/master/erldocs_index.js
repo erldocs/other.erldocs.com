@@ -1,1 +1,0 @@
-var index = [['app','friends','friends','[application]'],['mod','friends','friends',[]],['fun','friends','friends:cleanup/0',[]],['fun','friends','friends:get_direct_friends/1',[]],['fun','friends','friends:get_indirect_friends/1',[]],['fun','friends','friends:init/0',[]],['fun','friends','friends:make/2',[]],['fun','friends','friends:unmake/2',[]]];

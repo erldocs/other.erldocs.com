@@ -1,14 +1,30 @@
  :: Extracting meta information
 $ 5000  `git ls-remote --heads --tags 'https://github.com/openacd/openacd'  2>&1`
-$ 5000  `hg identify 'https://github.com/openacd/openacd'  2>&1`
+>>> [repo] 13 branches, 3 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/3299733273/meta.txt"
+ :: Processing https://github.com/openacd/openacd	{rev,tag,"sipxecs-4.6.0","3370bffad9dafd39e9cae4840768d7efd017a1df",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/3299733273/openacd-tag-sipxecs-4.6.0/openacd"
+$ infinity  `curl --fail --silent --show-error --location --output 'sipxecs-4.6.0.zip' 'https://github.com/openacd/openacd/archive/sipxecs-4.6.0.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/3299733273/openacd-tag-sipxecs-4.6.0/openacd"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/3299733273/openacd-tag-sipxecs-4.6.0/openacd"
+$ 5000  `find 'openacd-sipxecs-4.6.0' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `openacd-sipxecs-4.6.0': No such file or directory"
  :: Error running eo_core:
-	[{eo_util,hg_test,1,[{file,"src/eo_util.erl"},{line,91}]},
-         {eo_core,extract_info,3,[{file,"src/eo_core.erl"},{line,314}]},
-         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,72}]},
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,87}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,235}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,94}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,77}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,77}]},
          {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
-         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
-         {gen_escript__escript__1427__324242__518175,seq_gen,3,
-             [{file,"./gen.escript"},{line,47}]},
-         {escript,run,2,[{file,"escript.erl"},{line,752}]},
-         {escript,start,1,[{file,"escript.erl"},{line,276}]}]
-{error,{case_clause,{error,timeout}}}
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: "},
+            {"`openacd-sipxecs-4.6.0'"},
+            {": No such file or directory"}]}}

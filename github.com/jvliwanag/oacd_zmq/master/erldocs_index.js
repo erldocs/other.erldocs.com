@@ -1,1 +1,0 @@
-var index = [['app','oacd_zmq','oacd_zmq','[application]'],['mod','oacd_zmq','oacd_zmq_app',[]],['mod','oacd_zmq','oacd_zmq_sup',[]],['fun','oacd_zmq','oacd_zmq_app:start/2',[]],['fun','oacd_zmq','oacd_zmq_app:stop/1',[]],['fun','oacd_zmq','oacd_zmq_sup:init/1',[]],['fun','oacd_zmq','oacd_zmq_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','feeds','feeds','[application]'],['mod','feeds','feeds',[]],['mod','feeds','feeds_gen',[]],['mod','feeds','feeds_sup',[]],['fun','feeds','feeds:start/2',[]],['fun','feeds','feeds:stop/1',[]],['fun','feeds','feeds_gen:init/1',[]],['fun','feeds','feeds_gen:start_link/0',[]],['fun','feeds','feeds_sup:init/1',[]],['fun','feeds','feeds_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','stylish','stylish','[application]'],['mod','stylish','stylish',[]],['mod','stylish','stylish_sup',[]],['fun','stylish','stylish:compile/1',[]],['fun','stylish','stylish:compile/2',[]],['fun','stylish','stylish:start/2',[]],['fun','stylish','stylish:stop/1',[]],['fun','stylish','stylish_sup:init/1',[]],['fun','stylish','stylish_sup:start_link/0',[]]];

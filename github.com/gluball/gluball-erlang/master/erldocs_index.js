@@ -1,1 +1,0 @@
-var index = [['app','gluball-erlang','gluball-erlang','[application]'],['mod','gluball-erlang','db',[]]];

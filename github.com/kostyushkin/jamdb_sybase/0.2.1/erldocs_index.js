@@ -1,1 +1,0 @@
-var index = [['app','jamdb_sybase','jamdb_sybase','[application]'],['mod','jamdb_sybase','jamdb_sybase',[]],['fun','jamdb_sybase','jamdb_sybase:close/1',[]],['fun','jamdb_sybase','jamdb_sybase:connect/1',[]],['fun','jamdb_sybase','jamdb_sybase:sql_query/1',[]]];

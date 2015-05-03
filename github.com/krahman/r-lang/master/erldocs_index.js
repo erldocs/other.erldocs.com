@@ -1,1 +1,0 @@
-var index = [['app','r-lang','r-lang','[application]'],['mod','r-lang','regsysapp_app_controller',[]],['mod','r-lang','start',[]],['fun','r-lang','regsysapp_app_controller:hook/1',[]],['fun','r-lang','start:boot/0',[]],['fun','r-lang','start:boot/1',[]]];

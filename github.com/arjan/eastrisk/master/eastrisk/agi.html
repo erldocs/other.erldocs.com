@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>agi (eastrisk) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>agi</h1>
+<h2 class="modsummary">   
+AGI Library functions.</h2>
+<div class="description">
+<p>   
+AGI Library functions.</p>
+  
+   <p>
+   This module provides an Erlang interface to AGI functions. A connection must
+   have been established between Asterisk and the AGI Server (see <a href="agi_server.html" class="seealso">agi_server</a>) before this module can be used.
+   </p>
+   <p>
+   Every function takes a ChannelPid as the first argument. This pid will be
+   distributed by the <a href="agi_events.html" class="seealso">agi_events</a> when a channel is created.
+   </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-agi_error">agi_error(Code, Message) = {integer(), string()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="answer/1">answer(ChannelPid::pid()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Answers the channel (if not already in an answered state).
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>-1, Failure</p></item>
+  <item><p> 0, Success</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="channel_status/1">channel_status(ChannelPid::pid()) -&gt; {ok, Value} | agi_error()</h3>
+
+
+<div class="description">
+
+<p>
+  Queries the status of the current channel.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>0,  Channel is down and available</p></item>
+  <item><p>1,  Channel is down, but reserved</p></item>
+  <item><p>2,  Channel is off-hook</p></item>
+  <item><p>3,  Digits have been dialled</p></item>
+  <item><p>4,  Line is ringing</p></item>
+  <item><p>5,  Line is up</p></item>
+  <item><p>6,  Line is busy</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="channel_status/1-1">channel_status(ChannelPid::pid(), ChannelName::string()) -&gt; {ok, Value}</h3>
+
+
+<div class="description">
+
+<p>
+  Queries the status of channel <em>ChannelName</em>.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>0,  Channel is down and available</p></item>
+  <item><p>1,  Channel is down, but reserved</p></item>
+  <item><p>2,  Channel is off-hook</p></item>
+  <item><p>3,  Digits have been dialled</p></item>
+  <item><p>4,  Line is ringing</p></item>
+  <item><p>5,  Line is up</p></item>
+  <item><p>6,  Line is busy</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="database_del/1">database_del(ChannelPid::pid(), Family::string(), Key::string()) -&gt; {ok, Value} | agi_error()</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Deletes an entry from the Asterisk database for the specified family and key.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>0,  Failure (value not set)</p></item>
+  <item><p>1,  Success (value deleted)</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="database_deltree/1">database_deltree(ChannelPid::pid(), Family::sting()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Deletes a family and from the Asterisk database.
+  </p><p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0,  Failure</p></item>
+  <item><p>1,  Success</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="database_deltree/1-1">database_deltree(ChannelPid::pid(), Family::sting(), KeyTree::string()) -&gt; {ok, Value} | agi_error()</h3>
+
+
+<div class="description">
+
+<p>
+  Deletes a family and/or keytree from the Asterisk database.
+  </p><p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0,  Failure</p></item>
+  <item><p>1,  Success</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="database_get/1">database_get(ChannelPid::pid(), Family::string(), Key::string()) -&gt; {ok, 0} | {ok, {1, Value}} | agi_error()</h3>
+
+<ul class="type">
+<li><code>Status = integer()</code></li><li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Retrieves a value from the Asterisk database for the specified family and
+  key.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>0</p></item>
+  <item><p>{1, <em>Value</em>}, Value is retrieved from database</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="database_put/1">database_put(ChannelPid::pid(), Family::string(), Key::string(), Value::string()) -&gt; {ok, Status} | agi_error()</h3>
+
+<ul class="type">
+<li><code>Status = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Adds or updates an entry in the Asterisk database for the specified family
+  and key, with the specified value.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>0,  Failure</p></item>
+  <item><p>1,  Success</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="exec/1">exec(ChannelPid::pid(), Application::string(), Options::string()) -&gt; {ok, Value} | agi_error()</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Executes the specified dialplan application, including options.
+  </p><p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0,  Success</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_data/1">get_data(ChannelPid::pid(), Filename::string()) -&gt; {ok, Value} | {ok, {Value, timeout}}</h3>
+
+
+<div class="description">
+
+<p>
+  Plays an audio file and accepts DTMF digits.
+  </p><p>
+  Plays the audio file specified by <em>Filename</em> and accepts DTMF
+  digits.<br />
+  Similar to the dialplan application Background().
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p><em>Value</em>, Digits received from the caller</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_data/1-1">get_data(ChannelPid::pid(), Filename::string(), Timeout::integer()) -&gt; {ok, Value} | {ok, {Value, timeout}}</h3>
+
+
+<div class="description">
+
+<p>
+  Plays a file and accepts DTMF digits, with a timeout.
+  </p><p>
+  Works as <a href="#get_data/2" class="seealso">get_data/2</a>, but has a timeout in milliseconds.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p><em>Value</em>, Digits received from the caller</p></item>
+  <item><p>{<em>Value</em>, timeout}, If a timeout occurred, digits received from
+  the called, before the timeout</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_data/1-2">get_data(ChannelPid::pid(), Filename::string(), Timeout::integer(), MaxDigits::integer()) -&gt; {ok, Value} | {ok, {Value, timeout}}</h3>
+
+<ul class="type">
+<li><code>List = [Arg]</code></li><li><code>Arg = string() | integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Plays a file and accepts DTMF digits, with a timeout and a maximum amount of
+  digits.
+  </p><p>
+  Works as <a href="#get_data/3" class="seealso">get_data/3</a> but will stop when <em>MaxDigits</em> DTMF
+  digits has been entered.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p><em>Value</em>, Digits received from the caller, where the number of
+  digits is <em>MaxDigits</em></p></item>
+  <item><p>{<em>Value</em>, timeout}, If a timeout occurred, digits received from
+  the called, before the timeout</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_full_variable/1">get_full_variable(ChannelPid::pid(), VariableName::string()) -&gt; {ok, 0} | {ok, {1, Value}}</h3>
+
+<ul class="type">
+<li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the variable specified by <em>VariableName</em> if it is set.</p>
+ 
+ 
+  <p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0,  No channel or variable not set</p></item>
+  <item><p><em>Value</em>, Value as string()</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_full_variable/1-1">get_full_variable(ChannelPid::pid(), VariableName::string(), ChannelName::string()) -&gt; {ok, 0} | {ok, {1, Value}}</h3>
+
+<ul class="type">
+<li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Behaves like <a href="#get_full_variable/2" class="seealso">get_full_variable/2</a> but specifies the
+  <em>ChannelName</em>.
+  </p><p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0,  No channel or variable not set</p></item>
+  <item><p><em>Value</em>, Value as string()</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_option/1">get_option(ChannelPid::pid(), Filename::string(), EscapeDigits::string()) -&gt; {ok, {Value, EndPoint}}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li><li><code>EndPoint = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Behaves the same as <a href="#stream_file/3" class="seealso">stream_file/3</a>.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p><em>Value</em>, ASCII value of the digits received, in decimal.</p></item>
+  </list><p>
+  <em>EndPoint</em> refers to how long the file has played for.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_option/1-1">get_option(ChannelPid::pid(), Filename::string(), EscapeDigits::string(), Timeout::integer()) -&gt; {ok, {Value, EndPoint}}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li><li><code>EndPoint = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Behaves the same as <a href="#get_option/3" class="seealso">get_option/3</a>, but has a timeout (in seconds).
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>0, timeout</p></item>
+  <item><p><em>Value</em>, ASCII value of the digits received, in decimal.</p></item>
+  </list><p>
+  <em>EndPoint</em> refers to how long the file has played for.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_variable/1">get_variable(ChannelPid::pid(), VariableName::string()) -&gt; {ok, 0} | {ok, {1, Value}}</h3>
+
+<ul class="type">
+<li><code>Value = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the value of a variable.
+  </p><p>
+  This command does not understand complex variables or built-in variables; use
+  the <a href="#get_full_variable/2" class="seealso">get_full_variable/2</a> or <a href="#get_full_variable/3" class="seealso">get_full_variable/3</a> command if
+  your application requires these types of variables.
+  Return values:
+  </p>
+  <list>
+  <item><p>0, No channel, or variable not set</p></item>
+  <item><p>{1, <em>Value</em>}, Variable set and returned</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="hangup/1">hangup(ChannelPid::pid()) -&gt; {ok, Value} | agi_error()</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Hangs up the current channel.
+  </p><p>
+  Usually the socket between the AGI -&gt; Erlang bridge seem to close before the
+  return value has been sent.
+  This causes this function to return {error, {-1, Message}} most of the time.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>1, Hangup successful</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="hangup/1-1">hangup(ChannelPid::pid(), ChannelName::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Hangs up the specified channel.
+  </p><p>
+  Usually the socket between the AGI -&gt; Erlang bridge seem to close before the
+  return value has been sent.
+  This causes this function to return {error, {-1, Message}} most of the time.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, The specified channel does not exist</p></item>
+  <item><p> 1, Hangup successful</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="noop/1">noop(ChannelPid::pid(), Text::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Performs <em>no</em> operation, but will cause the text passed to it to
+  appear in the Asterisk console.
+  </p><p>
+  Usually used for debugging purposes.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="receive_char/1">receive_char(ChannelPid::pid(), Timeout::integer()) -&gt; {ok, {Result, Reason}}</h3>
+
+<ul class="type">
+<li><code>Result = string()</code></li><li><code>Reason = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Receives a character of text on a channel.
+  </p><p>
+  The <em>Timeout</em> specifies how the maximum amount of seconds to wait for
+  a character, where 0 means infinity. Note that most channels does not support
+  the reception of text.
+  </p>
+  <p>
+  NOTE: Not sure about these return values.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>{-1,   "hangup"}, Failure or hangup</p></item>
+  <item><p>{Char, "timeout"}, Failure or hangup</p></item>
+  <item><p><em>Value</em>, ASCII value of character, in decimal</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="record_file/1">record_file(ChannelPid::pid(), Filename::string(), Format::string(), EscapeDigits::string(), Timeout::integer(), OffsetSamples::integer(), Beep::bool(), Silence::integer()) -&gt; {ok, {Result, Reason, Endpoint}}</h3>
+
+<ul class="type">
+<li><code>Result = integer()</code></li><li><code>Reason = atom()</code></li><li><code>Endpoint = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Records channel audio to a specified file.
+  </p><p>
+  Records the audio to <em>Filename</em> in <em>Format</em> until any of
+  <em>EscapeDigits</em> are received or <em>Timeout</em> milliseconds has
+  passed.
+  <p>
+  If <em>Timeout</em> is set to -1, no timeout will happen.
+  <p>
+  </p>
+  If <em>Beep</em> is true, a beep will be played before the recording is
+  started.
+  </p>
+  <p>
+  If <em>OffsetSamples</em> != 0, it will seek to the offset without exceeding
+  the end of the file.
+  </p>
+  <em>Silence</em> is the number of seconds of silence
+  allowed before the function returns despite the lack of DTMF digits or
+  reaching the timeout, set it to 0 to disable.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>{0, hangup, EndPoint}, The channel was hung up, this will probably never
+      happend, instead -1 error code will be received.</p></item>
+  <item><p>{Value, dtmf, EndPoint}, where <em>Value</em> is a list of ASCII values
+  representing the DTMF characters sent.</p></item>
+  <item><p>{0, timeout, Endpoint}, whenever a timeout has stopped the recording,
+  either due to <em>Silence</em> or due to <em>Timout</em>.</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_alpha/1">say_alpha(ChannelPid::pid(), Number::string(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+
+<div class="description">
+
+<p>
+  Plays a character string.
+  </p><p>
+  Plays the character string <em>Number</em>, returning the first of the
+  <em>EscapeDigits</em> pressed.
+  </p>
+  <p>
+  Note! Does <em>not</em> return early if any escape digits are pressed even
+  though it says so in the documentation.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0, Playback completed without an escape digit peing pressed</p></item>
+  <item><p><em>Value</em>, ASCII value of the digit pressed</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_date/1">say_date(ChannelPid::pid(), Date::integer(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says the given <em>UnixTimeStamp</em> as a date.
+  </p><p>
+  <em>Date</em> is a Unix Timestamp, or, the number of seconds elapsed since
+  00.00.00 on January 1, 1970.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0,  Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><em>Value</em>, ASCII value of the digit pressed</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_datetime/1">say_datetime(ChannelPid::pid(), UnixTimeStamp::integer(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says the given <em>UnixTimeStamp</em> as a datetime.
+  </p><p>
+  Says the given UnixTimeStamp, allowing playback to be interrupted if any of
+  the given <em>EscapeDigits</em> is pressed (empty string if none).
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0, Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><em>value</em>, ASCII value of digit (if pressed)</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_datetime/1-1">say_datetime(ChannelPid::pid(), UnixTimeStamp::integer(), EscapeDigits::string(), Format::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says the given <em>UnixTimeStamp</em> as a datetime.
+  </p><p>
+  Behaves like <a href="#say_datetime/3" class="seealso">say_datetime/3</a> except the optional <em>Format</em>.
+  </p>
+  <p>
+  <em>Format</em> defaults to "ABdY 'digits/at' IMp" according to the following
+  format:<br />
+  </p><pre class="sh_erlang">
+  A or a        Day of week (Saturday, Sunday, ...)
+  B or b or h   Month name (January, February, ...)
+  d or e        numeric day of month (first, second, ..., thirty-first)
+  Y             Year
+  I or l        Hour, 12 hour clock
+  H             Hour, 24 hour clock (single digit hours preceded by "oh")
+  k             Hour, 24 hour clock (single digit hours NOT preceded by "oh")
+  M             Minute, with 00 pronounced as "o'clock"
+  N             Minute, with 00 pronounced as "hundred" (US military time)
+  P or p        AM or PM
+  Q             "today", "yesterday" or ABdY
+                (*note: not standard strftime value)
+  q             "" (for today), "yesterday", weekday, or ABdY
+                (*note: not standard strftime value)
+  R             24 hour time, including minute
+  </pre><p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0, Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><i>value</i>, ASCII value of digit (if pressed), in decimal</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_datetime/1-2">say_datetime(ChannelPid::pid(), UnixTimeStamp::integer(), EscapeDigits::string(), Format::string(), TimeZone::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says the given <em>UnixTimeStamp</em> as a datetime.
+  </p><p>
+  Behaves like <a href="#say_datetime/4" class="seealso">say_datetime/4</a> except the it accepts the second optional
+  argument <em>TimeZone</em>.
+  </p>
+  <p>
+  Acceptable values for
+  timezone can be found in <em>/usr/share/zoneinfo</em>.
+  <em>timezone</em> defaults to the default time zone of the Asterisk server.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0, Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><i>value</i>, ASCII value of digit (if pressed), in decimal</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_digits/1">say_digits(ChannelPid::pid(), Number::string(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says a given number.
+  </p><p>
+  Says a given digit string, returning early if any of the given DTMF digits
+  are received on the channel.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0,  Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><em>Value</em>, ASCII value of digit pressed</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_number/1">say_number(ChannelPid::pid(), Number::integer(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says a given number, returning early if any of the given DTMF digits are
+  received on the channel.
+  </p><p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0,  Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><em>Value</em>, ASCII value of digit sent</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_phonetic/1">say_phonetic(ChannelPid::pid(), String::string(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says a string with phonetics.
+  </p><p>
+  Say the <em>String</em> with phonetics, returning early if any of the given
+  DTMF digits are received on the channel.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p> 0, Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><em>value</em>, ASCII value of digit sent</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="say_time/1">say_time(ChannelPid::pid(), Time::integer(), EscapeDigits::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Says the given time.
+  </p><p>
+  Says the given <em>Time</em>, returning early if any of the DTMF digits in
+  <em>EscapeDigits</em> are received on the channel.
+  <em>Time</em> is a Unix Timestamp.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p> 0, Playback completed without being interrupted by an escape digit</p></item>
+  <item><p><em>value</em>, ASCII value of the digit pressed</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="send_image/1">send_image(ChannelPid::pid(), Image::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Sends an image on the current channel.
+  </p><p>
+  <em>Image</em> is the filename of an image without it's extension.
+  </p>
+  <p>
+  Note: Most channels does not support sending images.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item><p>-1, Error or hangup</p></item>
+      <item><p>0, Image sent, or channel does not support sending an image.</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="send_text/1">send_text(ChannelPid::pid(), Text::string()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Sends text on the current channel.
+  </p><p>
+  <em>Text</em> is a string with the text to send.
+  </p>
+  <p>
+  Note: Most channels does not support sending text.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item><p>-1, Error or hangup</p></item>
+      <item><p>0, Image sent, or channel does not support sending an image.</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_auto_hangup/2">set_auto_hangup(ChannelPid::pid, Time::integer()) -&gt; {ok, 0}</h3>
+
+
+<div class="description">
+
+<p>
+  Causes the channel to automatically be hung up once <em>Time</em> seconds have
+  elapsed.
+  </p><p>
+  Setting <em>Time</em> to 0 will disable auto hangup on the channel.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item><p>0, Auto hangup has been set</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_callerid/1">set_callerid(ChannelPid::pid(), Number::string()) -&gt; {ok, 1}</h3>
+
+
+<div class="description">
+
+<p>
+  Changes the Caller ID of the current channel.
+  </p><p>
+  Return values:
+  </p><list>
+      <item><p>1, Caller ID has been set</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_context/1">set_context(ChannelPid::pid(), Context::string()) -&gt; {ok, 0}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets the context for continuation upon exiting the AGI application.
+  </p><p>
+  Return values:
+  </p><list>
+      <item><p>0, Context has been set</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_extension/1">set_extension(ChannelPid::pid(), Extension::string()) -&gt; {ok, 0}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets the extension for continuation upon exiting the AGI application.
+  </p><p>
+  Return values:
+  </p><list>
+      <item><p>0, extension has been set</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_music_on/1">set_music_on(ChannelPid::pid(), On::bool()) -&gt; {ok, 0}</h3>
+
+
+<div class="description">
+
+<p>
+  Enables/disables <em>Music on Hold</em> generator.
+  </p><p>
+  Will use the default Music on Hold class.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item><p>0, Music has been set</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_music_on/1-1">set_music_on(ChannelPid::pid(), On::bool(), Class::string()) -&gt; {ok, 0}</h3>
+
+
+<div class="description">
+
+<p>
+  Enables/disables <em>Music on Hold</em> generator, which a specific class.
+  </p><p>
+  Will use the Music on Hold class specified by <em>Class</em>.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item><p>0, Music has been set</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_priority/1">set_priority(ChannelPid::pid(), Priority::string()) -&gt; {ok, 0}</h3>
+
+
+<div class="description">
+
+<p>
+  Changes the priority for the continuation upon exiting the AGI application.
+  </p><p>
+  <em>Priority</em> must be a valid priority or label.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item />
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_variable/1">set_variable(ChannelPid::pid(), Name::string(), Value::string()) -&gt; {ok, 1}</h3>
+
+
+<div class="description">
+
+<p>
+  Sets a variable.
+  </p><p>
+  Sets variable with <em>Name</em> to <em>Value</em>.
+  </p>
+  Return values:
+  <list>
+  <item><p>1, Success</p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="stream_file/1">stream_file(ChannelPid::pid(), FileName::string(), EscapeDigits::string()) -&gt; {ok, {Value, EndPoint}}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li><li><code>EndPoint = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Plays an audio file, allowing playback to be interrupted.
+  </p><p>
+  Plays the audio file specified by <em>FileName</em>, allowing playback to be
+  interrupted by the digits specified by <em>EscapeDigits</em>, if any (empty
+  string if none).
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0,  Playback completed with no digit pressed</p></item>
+  <item><p><em>Value</em>,  ASCII value of digit (if pressed)</p></item>
+  </list><p>
+  <em>EndPoint</em> refers to how long the file played for.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="stream_file/1-1">stream_file(ChannelPid::pid(), FileName::string(), EscapeDigits::string(), SampleOffset::integer()) -&gt; {ok, {Value, EndPoint}}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li><li><code>EndPoint = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Plays an audio file from a specific position, allowing playback to be
+  interrupted.
+  </p><p>
+  Plays the audio file specified by <em>FileName</em>, starting at
+  <em>SampleOffset</em> allowing playback to be
+  interrupted by the digits specified by <em>EscapeDigits</em>, if any (empty
+  string if none).
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>-1, Error or hangup</p></item>
+  <item><p>0,  Playback completed with no digit pressed</p></item>
+  <item><p><em>Value</em>,  ASCII value of digit (if pressed), in decimal</p></item>
+  </list><p>
+  <em>EndPoint</em> refers to how long the file played for.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="tdd_mode/1">tdd_mode(ChannelPid::pid(), Mode::bool()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Enable/disable Telecommunications Devices for the Deaf (TDD)
+  transmission/reception on this channel.
+  </p><p>
+  Return values:
+  </p><list>
+      <item><p>0, Channel is not TDD-capable</p></item>
+      <item><p>1, Success</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="verbose/1">verbose(ChannelPid::pid(), Message::string(), Level::integer()) -&gt; AGIReturn</h3>
+
+
+<div class="description">
+
+<p>
+  Sends a message to the console via the verbose system.
+  The <em>Level</em> argument is the minimum verbosity level at which the
+  <em>Message</em> will appear on the Asterisk command-line interface.
+  </p><p>
+  </p>
+  <p>
+  Return values:
+  </p><list>
+  <item><p>0</p></item>
+  </list><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_digit/1">wait_for_digit(ChannelPid::pid(), Timeout::integer()) -&gt; {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Value = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Wait for the channel to receive a DTMF digit.
+  </p><p>
+  Will wait for <em>Timeout</em> milliseconds for the channel to receive a DTMF
+  digit. Use -1 for infinity.
+  </p>
+  <p>
+  Return values:
+  </p><list>
+      <item><p>-1, Error or hangup</p></item>
+      <item><p>0, Timeout</p></item>
+      <item><p><em>Value</em>, ASCII value of the digit received</p></item>
+  </list><p>
+  </p>
+</div></div></div>
+
+<authors>
+
+<aname>Oscar Hellström</aname>
+<email>oscar@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

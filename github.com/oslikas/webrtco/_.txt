@@ -1,14 +1,28 @@
  :: Extracting meta information
 $ 5000  `git ls-remote --heads --tags 'https://github.com/oslikas/webrtco'  2>&1`
-$ 5000  `hg identify 'https://github.com/oslikas/webrtco'  2>&1`
+>>> [repo] 1 branches, 5 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/6414813167/meta.txt"
+ :: Processing https://github.com/oslikas/webrtco	{rev,tag,"1.0.0-beta","e88933249a36c0be89aa0a945869d5240401bf93",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/6414813167/webrtco-tag-1.0.0-beta/webrtco"
+$ infinity  `curl --fail --silent --show-error --location --output '1.0.0-beta.zip' 'https://github.com/oslikas/webrtco/archive/1.0.0-beta.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6414813167/webrtco-tag-1.0.0-beta/webrtco"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6414813167/webrtco-tag-1.0.0-beta/webrtco"
+$ 5000  `find 'webrtco-1.0.0-beta' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `webrtco-1.0.0-beta': No such file or directory"
  :: Error running eo_core:
-	[{eo_util,hg_test,1,[{file,"src/eo_util.erl"},{line,91}]},
-         {eo_core,extract_info,3,[{file,"src/eo_core.erl"},{line,314}]},
-         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,72}]},
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,87}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,235}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,94}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,77}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,77}]},
          {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
-         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]},
-         {gen_escript__escript__1427__324242__518175,seq_gen,3,
-             [{file,"./gen.escript"},{line,47}]},
-         {escript,run,2,[{file,"escript.erl"},{line,752}]},
-         {escript,start,1,[{file,"escript.erl"},{line,276}]}]
-{error,{case_clause,{error,timeout}}}
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `webrtco-1.0.0-beta'"},{": No such file or directory"}]}}

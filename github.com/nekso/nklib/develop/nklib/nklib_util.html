@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nklib_util (nklib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nklib_util</h1>
+<h2 class="modsummary">Common library utility funcions.</h2>
+<div class="description">
+<p>Common library utility funcions</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-gen_server_call">gen_server_call(State) = {reply, term(), State} | {reply, term(), State, gen_server_time()} | {stop, term(), term(), State} | gen_server_cast(State)</h3></div>
+    <div class="type"><h3 id="type-gen_server_cast">gen_server_cast(State) = {noreply, State} | {noreply, State, gen_server_time()} | {stop, term(), State}</h3></div>
+    <div class="type"><h3 id="type-gen_server_code_change">gen_server_code_change(State) = {ok, State}</h3></div>
+    <div class="type"><h3 id="type-gen_server_from">gen_server_from() = {pid(), reference()}</h3></div>
+    <div class="type"><h3 id="type-gen_server_info">gen_server_info(State) = gen_server_cast(State)</h3></div>
+    <div class="type"><h3 id="type-gen_server_init">gen_server_init(State) = {ok, State} | {ok, State, gen_server_time()} | ignore</h3></div>
+    <div class="type"><h3 id="type-gen_server_terminate">gen_server_terminate() = ok</h3></div>
+    <div class="type"><h3 id="type-gen_server_time">gen_server_time() = integer() &gt;= 0 | hibernate</h3></div>
+    <div class="type"><h3 id="type-l_timestamp">l_timestamp() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-optslist">optslist() = [atom() | binary() | {atom() | binary(), term()}]</h3></div>
+    <div class="type"><h3 id="type-timestamp">timestamp() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ensure_all_started/2">ensure_all_started(Application, Type) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Ensure that an application and all of its transitive
+  dependencies are started.</p>
+</div></div>
+<div class="function">
+<h3 id="luid/0">luid() -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a new printable random UUID.</p>
+</div></div>
+<div class="function">
+<h3 id="uuid_4122/0">uuid_4122() -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a RFC4122 compatible uuid</p>
+</div></div>
+<div class="function">
+<h3 id="lhash/1">lhash(Base::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a new printable SHA hash binary over <code>Base</code> (using 160 bits, 27 chars).</p>
+</div></div>
+<div class="function">
+<h3 id="uid/0">uid() -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a new random tag of 6 chars</p>
+</div></div>
+<div class="function">
+<h3 id="hash/1">hash(Base::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a new tag of 6 chars based on a value.</p>
+</div></div>
+<div class="function">
+<h3 id="hash36/1">hash36(Base::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a new tag based on a value (only numbers and uppercase) of 7 chars</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/0">timestamp() -&gt; timestamp()</h3>
+
+
+<div class="description">
+
+<p>Gets an second-resolution timestamp</p>
+</div></div>
+<div class="function">
+<h3 id="l_timestamp/0">l_timestamp() -&gt; l_timestamp()</h3>
+
+
+<div class="description">
+
+<p>Gets an microsecond-resolution timestamp</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp_to_local/1">timestamp_to_local(Secs::timestamp()) -&gt; datetime() (see module calendar)</h3>
+
+
+<div class="description">
+
+<p>Converts a <code>timestamp()</code> to a local <code>datetime()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp_to_gmt/1">timestamp_to_gmt(Secs::timestamp()) -&gt; datetime() (see module calendar)</h3>
+
+
+<div class="description">
+
+<p>Converts a <code>timestamp()</code> to a gmt <code>datetime()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="l_timestamp_to_float/1">l_timestamp_to_float(LStamp::l_timestamp()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Generates a float representing <code>HHMMSS.MicroSecs</code> for a high resolution timer.</p>
+</div></div>
+<div class="function">
+<h3 id="gmt_to_timestamp/1">gmt_to_timestamp(DateTime::datetime() (see module calendar)) -&gt; timestamp()</h3>
+
+
+<div class="description">
+
+<p>Converts a local <code>datetime()</code> to a <code>timestamp()</code>,</p>
+</div></div>
+<div class="function">
+<h3 id="local_to_timestamp/1">local_to_timestamp(DateTime::datetime() (see module calendar)) -&gt; timestamp()</h3>
+
+
+<div class="description">
+
+<p>Converts a gmt <code>datetime()</code> to a <code>timestamp()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1">get_value(Key::term(), List::list()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>proplists:get_value/2</code> but faster.</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1-1">get_value(Key::term(), List::list(), Default::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Requivalent to <code>proplists:get_value/3</code> but faster.</p>
+</div></div>
+<div class="function">
+<h3 id="get_binary/1">get_binary(Key::term(), List::list()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>get_value(Key, List, &lt;&lt;&gt;&gt;)</code> but converting the result into
+  a <code>binary()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_binary/1-1">get_binary(Key::term(), List::list(), Default::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>get_value(Key, List, Default)</code> but converting the result into
+  a <code>binary()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_list/1">get_list(Key::term(), List::list()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>get_value(Key, List, [])</code> but converting the result into a <code>list()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_list/1-1">get_list(Key::term(), List::list(), Default::term()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>get_value(Key, List, Default)</code> but converting the result
+  into a <code>list()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_integer/1">get_integer(Key::term(), List::list()) -&gt; integer() | error</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>get_value(Key, List, 0)</code> but converting the result into
+  an <code>integer()</code> or <code>error</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_integer/1-1">get_integer(Key::term(), List::list(), Default::term()) -&gt; integer() | error</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>get_value(Key, List, Default)</code> but converting the result into
+  a <code>integer()</code> or <code>error</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="store_value/1">store_value(Term::term(), List::list()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Stores a value in a list</p>
+</div></div>
+<div class="function">
+<h3 id="store_value/1-1">store_value(Key::term(), Val::term(), List::optslist() (see module nklib)) -&gt; optslist() (see module nklib)</h3>
+
+
+<div class="description">
+
+<p>Stores a value in a proplist</p>
+</div></div>
+<div class="function">
+<h3 id="store_values/1">store_values(Rest::list(), List::optslist() (see module nklib)) -&gt; optslist() (see module nklib)</h3>
+
+
+<div class="description">
+
+<p>Stores a set of values in a proplist</p>
+</div></div>
+<div class="function">
+<h3 id="filtermap/2">filtermap(Fun, List1) -&gt; List2</h3>
+
+<ul class="type">
+<li><code>Fun = (Elem) -&gt; boolean() | {true, Value}</code></li><li><code>List1 = [Elem]</code></li><li><code>List2 = [Elem | Value]</code></li><li><code>Elem = term()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(B::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts anything into a <code>binary()</code>. Can convert ip addresses also.</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(L::string() | binary() | atom() | integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts anything into a <code>string()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_integer/1">to_integer(I::integer() | binary() | string()) -&gt; integer() | error</h3>
+
+
+<div class="description">
+
+<p>Converts anything into a <code>integer()</code> or <code>error</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_boolean/1">to_boolean(Term::integer() | binary() | string() | atom()) -&gt; true | false | error</h3>
+
+
+<div class="description">
+
+<p>Converts anything into a <code>integer()</code> or <code>error</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_ip/1">to_ip(Address::string() | binary() | ip_address() (see module inet)) -&gt; {ok, ip_address() (see module inet)} | error</h3>
+
+
+<div class="description">
+
+<p>Converts a <code>list()</code> or <code>binary()</code> into a <code>inet:ip_address()</code> or <code>error</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_host/1">to_host(IpOrHost::ip_address() (see module inet) | string() | binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts an IP or host to a binary host value</p>
+</div></div>
+<div class="function">
+<h3 id="to_host/1-1">to_host(Address::ip_address() (see module inet) | string() | binary(), IsUri::boolean()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts an IP or host to a binary host value.
+ If <code>IsUri</code> and it is an IPv6 address, it will be enclosed in <code>[</code> and <code>]</code></p>
+</div></div>
+<div class="function">
+<h3 id="to_lower/1">to_lower(List::string() | binary() | atom()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>converts a <code>string()</code> or <code>binary()</code> to a lower <code>binary()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_upper/1">to_upper(List::string() | binary() | atom()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>converts a <code>string()</code> or <code>binary()</code> to an upper <code>binary()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/1">strip(Bin::list() | binary()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>URI Strips trailing white space</p>
+</div></div>
+<div class="function">
+<h3 id="unquote/1">unquote(Bin::list() | binary()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Removes doble quotes</p>
+</div></div>
+<div class="function">
+<h3 id="extract/1">extract(PropList::[term()], KeyOrKeys::term() | [term()]) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Extracts all elements in <code>Proplist</code> having key <code>KeyOrKeys</code> or having key in
+  <code>KeyOrKeys</code> if <code>KeyOrKeys</code> is a list.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(PropList::[term()], KeyOrKeys::term() | [term()]) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Deletes all elements in <code>Proplist</code> having key <code>KeyOrKeys</code> or having key in
+  <code>KeyOrKeys</code> if <code>KeyOrKeys</code> is a list.</p>
+</div></div>
+<div class="function">
+<h3 id="defaults/1">defaults(List::[{term(), term()}], Rest::[{term(), term()}]) -&gt; [{term(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Inserts defaults in a proplist</p>
+</div></div>
+<div class="function">
+<h3 id="is_string/1">is_string(Term::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks if <code>Term</code> is a <code>string()</code> or <code>[]</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="bjoin/1">bjoin(List::[term()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Joins each element in <code>List</code> into a <code>binary()</code> using <code>&lt;&lt;","&gt;&gt;</code> as separator.</p>
+</div></div>
+<div class="function">
+<h3 id="bjoin/1-1">bjoin(List::[term()], Separator::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Join each element in <code>List</code> into a <code>binary()</code>, using the indicated <code>Separator</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_max/1">append_max(Term::term(), List::list(), Max::pos_integer()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Appends to a list with a maximum length (not efficient for large lists!!)</p>
+</div></div>
+<div class="function">
+<h3 id="bin_last/1">bin_last(Char::char(), Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Gets the subbinary after <code>Char</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_timer/1">cancel_timer(Ref::reference() | undefined) -&gt; false | integer()</h3>
+
+
+<div class="description">
+
+<p>Cancels and existig timer.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

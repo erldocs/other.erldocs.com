@@ -1,1 +1,0 @@
-var index = [['app','erl-dns','erl-dns','[application]'],['mod','erl-dns','server',[]],['mod','erl-dns','unpack',[]],['fun','erl-dns','server:start/0',[]],['fun','erl-dns','unpack:unpack/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','sterling','sterling','[application]'],['mod','sterling','sterling',[]],['mod','sterling','sterling_test',[]],['fun','sterling','sterling:find_all_positions/2',[]],['fun','sterling','sterling:gsubstitute_chars/3',[]],['fun','sterling','sterling:substitute_chars/3',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','xserver','xserver','[application]'],['mod','xserver','area_server1',[]],['mod','xserver','area_server_final',[]],['mod','xserver','ctemplate',[]],['mod','xserver','module_test',[]],['mod','xserver','processes',[]],['mod','xserver','t12',[]],['fun','xserver','processes:max/1',[]]];

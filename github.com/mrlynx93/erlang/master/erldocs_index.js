@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','pfactorial',[]],['fun','erlang','pfactorial:facProc/1',[]],['fun','erlang','pfactorial:factorial/2',[]],['fun','erlang','pfactorial:receiver/2',[]],['fun','erlang','pfactorial:start/2',[]]];

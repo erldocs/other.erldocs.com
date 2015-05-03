@@ -1,1 +1,0 @@
-var index = [['app','simplesummfunction','simplesummfunction','[application]'],['mod','simplesummfunction','simpleSumm',[]],['fun','simplesummfunction','simpleSumm:summ/1',[]],['fun','simplesummfunction','simpleSumm:summ/2',[]]];

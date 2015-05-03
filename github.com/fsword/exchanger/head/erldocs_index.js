@@ -1,1 +1,0 @@
-var index = [['app','exchanger','exchanger','[application]'],['mod','exchanger','pv',[]],['fun','exchanger','pv:inner_network/0',[]],['fun','exchanger','pv:start/0',[]]];

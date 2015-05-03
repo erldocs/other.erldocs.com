@@ -1,1 +1,0 @@
-var index = [['app','gta2kserver','gta2kserver','[application]'],['mod','gta2kserver','client',[]],['mod','gta2kserver','gta2k',[]],['mod','gta2kserver','util',[]],['fun','gta2kserver','client:new_client/1',[]],['fun','gta2kserver','gta2k:hub_loop/1',[]],['fun','gta2kserver','gta2k:start_server/0',[]],['fun','gta2kserver','util:atomic_controlling_process_spawn/3',[]]];

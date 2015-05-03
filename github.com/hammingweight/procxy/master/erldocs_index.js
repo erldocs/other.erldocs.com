@@ -1,1 +1,0 @@
-var index = [['app','procxy','procxy','[application]'],['mod','procxy','procxy','The proxcy behaviour defines callback functions to'],['fun','procxy','procxy:call/2',[]],['fun','procxy','procxy:start/3',[]]];

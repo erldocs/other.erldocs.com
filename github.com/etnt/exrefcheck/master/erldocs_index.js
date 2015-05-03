@@ -1,1 +1,0 @@
-var index = [['app','exrefcheck','exrefcheck','[application]'],['mod','exrefcheck','exrefcheck_app',[]],['fun','exrefcheck','exrefcheck_app:start/2',[]],['fun','exrefcheck','exrefcheck_app:stop/1',[]]];

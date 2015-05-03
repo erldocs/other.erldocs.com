@@ -1,1 +1,0 @@
-var index = [['app','tckimliknogenerate','tckimliknogenerate','[application]'],['mod','tckimliknogenerate','tckimlik',[]],['fun','tckimliknogenerate','tckimlik:generate/0',[]]];

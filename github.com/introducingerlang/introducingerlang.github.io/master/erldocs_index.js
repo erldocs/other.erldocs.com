@@ -1,1 +1,0 @@
-var index = [['app','introducingerlang.github.io','introducingerlang.github.io','[application]'],['mod','introducingerlang.github.io','fizzbuzz',[]],['fun','introducingerlang.github.io','fizzbuzz:t/0',[]],['fun','introducingerlang.github.io','fizzbuzz:t/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlang-lz4','erlang-lz4','[application]'],['mod','erlang-lz4','lz4',[]],['fun','erlang-lz4','lz4:compress/1',[]],['fun','erlang-lz4','lz4:compress_hc/1',[]],['fun','erlang-lz4','lz4:uncompress/1',[]]];

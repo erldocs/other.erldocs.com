@@ -1,1 +1,0 @@
-var index = [['app','erlspec-expectations','erlspec-expectations','[application]'],['mod','erlspec-expectations','erlspec',[]],['fun','erlspec-expectations','erlspec:delta/2',[]],['fun','erlspec-expectations','erlspec:type_of/1',[]]];

@@ -37,9 +37,10 @@ verification, as specified at http://www.w3.org/TR/xmldsig-core/ .</p>
   <p>These routines work on xmerl data structures (see the xmerl user guide  
 for details).</p>
  
-  <p>Currently only RSA + SHA1 signatures are supported, in the typical
+  <p>Currently only RSA + SHA1|SHA256 signatures are supported, in the typical
   enveloped mode.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-fingerprint">fingerprint() = binary() | {sha | sha256, binary()}</h3></div>
     <div class="type"><h3 id="type-xml_thing">xml_thing() = #xmlDocument{}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #xmlElement{}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #xmlAttribute{}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #xmlPI{}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #xmlText{}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #xmlComment{}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
@@ -67,13 +68,13 @@ the element with the signature added.</p>
 
 <div class="description">
 
-<p>Returns the canonical SHA-1 digest of an (optionally signed) element</p>
+<p>Returns the canonical digest of an (optionally signed) element</p>
  
   <p>Strips any XML digital signatures and applies any relevant InclusiveNamespaces
   before generating the digest.</p>
 </div></div>
 <div class="function">
-<h3 id="verify/2">verify(Element::#xmlElement{}, Fingerprints::[binary()] | any) -&gt; ok | {error, bad_digest | bad_signature | cert_not_accepted}</h3>
+<h3 id="verify/2">verify(Element::#xmlElement{}, Fingerprints::[fingerprint()] | any) -&gt; ok | {error, bad_digest | bad_signature | cert_not_accepted}</h3>
 
 
 <div class="description">
@@ -85,7 +86,7 @@ accepted.</p>
  
   <p>Will throw badmatch errors if you give it XML that is not signed
   according to the xml-dsig spec. If you're using something other
-  than rsa+sha1 this will asplode. Don't say I didn't warn you.</p>
+  than rsa+sha1 or sha256 this will asplode. Don't say I didn't warn you.</p>
 </div></div>
 <div class="function">
 <h3 id="verify/1">verify(Element::xml_thing()) -&gt; ok | {error, bad_digest | bad_signature | cert_not_accepted}</h3>

@@ -30,44 +30,64 @@
 <h2 class="modsummary"/>
 <div class="description">
 </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-base64">base64() = {base64, string()}</h3></div>
+    <div class="type"><h3 id="type-call_result">call_result() = {ok, <a href="#type-response_payload" class="seealso">response_payload()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ok, <a href="#type-response_payload" class="seealso">response_payload()</a>, #header{}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ok, <a href="#type-socket" class="seealso">socket()</a>, <a href="#type-response_payload" class="seealso">response_payload()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ok, <a href="#type-socket" class="seealso">socket()</a>, <a href="#type-response_payload" class="seealso">response_payload()</a>, #header{}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, Reason :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, <a href="#type-socket" class="seealso">socket()</a>, Reason :: term()}</h3></div>
+    <div class="type"><h3 id="type-host">host() = string() | <a href="#type-ip_address" class="seealso">ip_address()</a></h3></div>
+    <div class="type"><h3 id="type-ip_address">ip_address() = <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a></h3></div>
+    <div class="type"><h3 id="type-iso8601date">iso8601date() = {date, string()}</h3></div>
+    <div class="type"><h3 id="type-options">options() = [{string(), term()}]</h3></div>
+    <div class="type"><h3 id="type-response_payload">response_payload() = {response, [<a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {response, [<a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>], #header{}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {response,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{fault,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message :: string()}}</h3></div>
+    <div class="type"><h3 id="type-socket">socket() = term()</h3></div>
+    <div class="type"><h3 id="type-uri">uri() = string()</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_array">xmlrpc_array() = {array, [<a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>]}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_struct">xmlrpc_struct() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{struct, [{Key :: atom(), Value :: <a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>}]}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_value">xmlrpc_value() = integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-iso8601date" class="seealso">iso8601date()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-base/64" class="seealso">base64()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-xmlrpc_struct" class="seealso">xmlrpc_struct()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-xmlrpc_array" class="seealso">xmlrpc_array()</a></h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="call/3">call(Socket, URI, Payload) -&gt; term()
-</h3>
+<h3 id="call/3">call(Socket, URI, Payload) -&gt; call_result()</h3>
 
-
+<ul class="type">
+<li><code>Socket = socket()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="call/5">call(Host, Port, URI, Payload, Options) -&gt; term()
-</h3>
+<h3 id="call/5">call(Host, Port, URI, Payload, Options) -&gt; call_result()</h3>
 
-
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>Options = options()</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="call/4">call(Host, Port, URI, Payload) -&gt; term()
-</h3>
+<h3 id="call/4">call(Host, Port, URI, Payload) -&gt; call_result()</h3>
 
-
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="call/6">call(Host, Port, URI, Payload, KeepAlive, Timeout) -&gt; term()
-</h3>
+<h3 id="call/6">call(Host, Port, URI, Payload, KeepAlive, Timeout) -&gt; call_result()</h3>
 
-
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="call/7">call(Host, Port, URI, Payload, KeepAlive, Timeout, Options) -&gt; term()
-</h3>
+<h3 id="call/7">call(Host, Port, URI, Payload, KeepAlive, Timeout, Options) -&gt; call_result()</h3>
 
-
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li><li><code>Options = options()</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="call/8">call(Host, Port, URI, Payload, KeepAlive, Timeout, ExtraHeaders, Options) -&gt; term()
+<h3 id="call/8">call(Host, Port, URI, Payload, KeepAlive, Timeout, ExtraHeaders, Options) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li><li><code>ExtraHeaders = string()</code></li><li><code>Options = options()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open_socket/3">open_socket(Host, Port, Options) -&gt; term()
 </h3>
 
 
@@ -75,6 +95,13 @@
  </div></div>
 <div class="function">
 <h3 id="call2/7">call2(Socket, URI, Payload, KeepAlive, Timeout, ExtraHeader, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_response/3">parse_response(Socket, Timeout, SslOption) -&gt; term()
 </h3>
 
 

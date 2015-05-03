@@ -1,1 +1,0 @@
-var index = [['app','zipper','zipper','[application]'],['mod','zipper','zipper_default',[]],['fun','zipper','zipper_default:bin_tree/1',[]],['fun','zipper','zipper_default:list/1',[]],['fun','zipper','zipper_default:map_tree/2',[]]];

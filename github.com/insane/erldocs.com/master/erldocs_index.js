@@ -1,1 +1,0 @@
-var index = [['app','erldocs.com','erldocs.com','[application]'],['mod','erldocs.com','erldocs',[]],['fun','erldocs.com','erldocs:build_docs/0',[]],['fun','erldocs.com','erldocs:build_docs/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','cloud-simulation','cloud-simulation','[application]'],['mod','cloud-simulation','cloud_simulation',[]],['mod','cloud-simulation','drop',[]],['mod','cloud-simulation','node',[]]];

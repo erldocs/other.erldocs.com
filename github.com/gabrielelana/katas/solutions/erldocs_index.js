@@ -1,1 +1,0 @@
-var index = [['app','katas','katas','[application]'],['mod','katas','calculator',[]],['fun','katas','calculator:add/1',[]]];

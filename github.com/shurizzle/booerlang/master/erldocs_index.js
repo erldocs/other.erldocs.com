@@ -1,1 +1,0 @@
-var index = [['app','booerlang','booerlang','[application]'],['mod','booerlang','booerlang',[]],['fun','booerlang','booerlang:bin_list/2',[]],['fun','booerlang','booerlang:eval/1',[]],['fun','booerlang','booerlang:in_list/2',[]],['fun','booerlang','booerlang:parse/1',[]]];

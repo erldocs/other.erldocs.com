@@ -1,1 +1,0 @@
-var index = [['app','erlsynapse','erlsynapse','[application]'],['mod','erlsynapse','neuralnet',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','mazurka_lint','mazurka_lint','[application]'],['mod','mazurka_lint','mazurka_lint',[]],['mod','mazurka_lint','mazurka_lint_valid_children',[]],['fun','mazurka_lint','mazurka_lint:resource/1',[]],['fun','mazurka_lint','mazurka_lint:warn/2',[]],['fun','mazurka_lint','mazurka_lint_valid_children:pre/2',[]]];

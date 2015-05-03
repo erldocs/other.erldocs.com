@@ -1,1 +1,0 @@
-var index = [['app','erlang-mesos','erlang-mesos','[application]'],['mod','erlang-mesos','erlang_mesos_app',[]],['mod','erlang-mesos','erlang_mesos_sup',[]],['fun','erlang-mesos','erlang_mesos_app:start/2',[]],['fun','erlang-mesos','erlang_mesos_app:stop/1',[]],['fun','erlang-mesos','erlang_mesos_sup:init/1',[]],['fun','erlang-mesos','erlang_mesos_sup:start_link/0',[]]];

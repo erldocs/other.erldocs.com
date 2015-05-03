@@ -1,1 +1,0 @@
-var index = [['app','edcfp','edcfp','[application]'],['mod','edcfp','master',[]],['mod','edcfp','slave',[]],['mod','edcfp','user_func',[]],['fun','edcfp','master:map/2',[]],['fun','edcfp','master:start/4',[]],['fun','edcfp','slave:map/4',[]],['fun','edcfp','user_func:fact/1',[]]];

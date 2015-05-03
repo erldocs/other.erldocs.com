@@ -1,1 +1,0 @@
-var index = [['app','cereal','cereal','[application]'],['mod','cereal','cereal',[]],['fun','cereal','cereal:close_tty/1',[]],['fun','cereal','cereal:open_tty/1',[]],['fun','cereal','cereal:set_raw_tty_mode/1',[]],['fun','cereal','cereal:set_tty_flow/2',[]],['fun','cereal','cereal:set_tty_speed/3',[]],['fun','cereal','cereal:test/1',[]]];

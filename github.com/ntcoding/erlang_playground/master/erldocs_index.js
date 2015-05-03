@@ -1,1 +1,0 @@
-var index = [['app','erlang_playground','erlang_playground','[application]'],['mod','erlang_playground','simple_server',[]],['fun','erlang_playground','simple_server:start/0',[]]];

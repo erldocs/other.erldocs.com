@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','config','The module containing the algorithm parameters.'],['mod','erlang','emas_config',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang_soap_webservice','erlang_soap_webservice','[application]'],['mod','erlang_soap_webservice','soap',[]],['fun','erlang_soap_webservice','soap:lang_lat_service/1',[]]];

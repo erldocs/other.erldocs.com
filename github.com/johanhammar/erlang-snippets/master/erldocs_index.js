@@ -1,1 +1,0 @@
-var index = [['app','erlang-snippets','erlang-snippets','[application]'],['mod','erlang-snippets','fizzbuzz',[]],['fun','erlang-snippets','fizzbuzz:fb1/1',[]],['fun','erlang-snippets','fizzbuzz:fb2/1',[]]];

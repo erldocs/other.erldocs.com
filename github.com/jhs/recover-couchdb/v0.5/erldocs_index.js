@@ -1,1 +1,0 @@
-var index = [['app','recover-couchdb','recover-couchdb','[application]'],['mod','recover-couchdb','recover_couchdb',[]],['fun','recover-couchdb','recover_couchdb:main/1',[]]];

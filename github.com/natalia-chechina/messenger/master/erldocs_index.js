@@ -1,1 +1,0 @@
-var index = [['app','messenger','messenger','[application]'],['mod','messenger','messenger',[]],['fun','messenger','messenger:client/2',[]],['fun','messenger','messenger:logoff/0',[]],['fun','messenger','messenger:logon/1',[]],['fun','messenger','messenger:message/2',[]],['fun','messenger','messenger:server/1',[]],['fun','messenger','messenger:start_server/0',[]]];

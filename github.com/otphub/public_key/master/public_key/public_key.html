@@ -120,6 +120,8 @@
     affiliationChanged | superseded | cessationOfOperation |
     certificateHold | privilegeWithdrawn | aACompromise</code></p>
 
+    <p><code>issuer_name() = {rdnSequence,[#'AttributeTypeAndValue'{}]} </code> </p>
+
     <p><code>ssh_file()  = openssh_public_key | rfc4716_public_key | known_hosts |
     auth_keys</code></p>
     
@@ -328,8 +330,8 @@
     <h3 id="pkix_is_issuer/2">pkix_is_issuer(Cert, IssuerCert) -&gt; boolean()</h3>
     
     <ul class="type">
-      <li><code>Cert = der_encode() | #'OTPCertificate'{}</code></li> 
-      <li><code>IssuerCert = der_encode() | #'OTPCertificate'{}</code></li> 
+      <li><code>Cert = der_encoded() | #'OTPCertificate'{}</code></li>
+      <li><code>IssuerCert = der_encoded() | #'OTPCertificate'{}</code></li>
   </ul> 
   <div class="description"> 
     <p> Checks if <code>IssuerCert</code> issued <code>Cert</code> </p> 
@@ -340,7 +342,7 @@
     <h3 id="pkix_is_fixed_dh_cert/1">pkix_is_fixed_dh_cert(Cert) -&gt; boolean()</h3>
     
     <ul class="type">
-        <li><code>Cert = der_encode() | #'OTPCertificate'{}</code></li> 
+        <li><code>Cert = der_encoded() | #'OTPCertificate'{}</code></li>
   </ul> 
   <div class="description"> 
     <p> Checks if a Certificate is a fixed Diffie-Hellman Cert.</p> 
@@ -351,7 +353,7 @@
     <h3 id="pkix_is_self_signed/1">pkix_is_self_signed(Cert) -&gt; boolean()</h3>
     
     <ul class="type">
-       <li><code>Cert = der_encode() | #'OTPCertificate'{}</code></li> 
+       <li><code>Cert = der_encoded() | #'OTPCertificate'{}</code></li>
   </ul> 
   <div class="description"> 
     <p> Checks if a Certificate is self signed.</p> 
@@ -362,23 +364,24 @@
     <h3 id="pkix_issuer_id/2">pkix_issuer_id(Cert, IssuedBy) -&gt; {ok, IssuerID} | {error, Reason}</h3>
     
     <ul class="type">
-        <li><code>Cert = der_encode() | #'OTPCertificate'{}</code></li>
+        <li><code>Cert = der_encoded() | #'OTPCertificate'{}</code></li>
 	<li><code>IssuedBy = self | other</code></li>
-	<li><code>IssuerID = {integer(), {rdnSequence, [#'AttributeTypeAndValue'{}]}}</code></li>
+	<li><code>IssuerID = {integer(), issuer_name()}</code></li>
 	<d>The issuer id consists of the serial number and the issuers name.</d>
 	<li><code>Reason = term()</code></li>
-  </ul> 
-  <div class="description"> 
-    <p> Returns the issuer id.</p> 
-  </div> 
+    </ul> 
+    <div class="description"> 
+      <p> Returns the issuer id.</p> 
+    </div> 
   </div>
-
+  
+ 
   <div class="function">
     <h3 id="pkix_normalize_name/1">pkix_normalize_name(Issuer) -&gt; Normalized</h3>
     
     <ul class="type">
-      <li><code>Issuer = {rdnSequence,[#'AttributeTypeAndValue'{}]}</code></li>
-      <li><code>Normalized = {rdnSequence, [#'AttributeTypeAndValue'{}]}</code></li>
+      <li><code>Issuer = issuer_name()</code></li>
+      <li><code>Normalized = issuer_name()</code></li>
   </ul> 
   <div class="description"> 
     <p>Normalizes a issuer name so that it can be easily
@@ -390,13 +393,13 @@
     <h3 id="pkix_path_validation/3">pkix_path_validation(TrustedCert, CertChain, Options) -&gt; {ok, {PublicKeyInfo, PolicyTree}} | {error, {bad_cert, Reason}} </h3>
     
      <ul class="type">
-       <li><code> TrustedCert =  #'OTPCertificate'{} | der_encode() | atom()  </code></li>
+       <li><code> TrustedCert =  #'OTPCertificate'{} | der_encoded() | atom()  </code></li>
        <d>Normally a trusted certificate but it can also be a path validation
        error that can be discovered while
        constructing the input to this function and that should be run through the <code>verify_fun</code>.
        For example <code>unknown_ca </code> or <code>selfsigned_peer </code>
        </d>
-       <li><code> CertChain = [der_encode()]</code></li>
+       <li><code> CertChain = [der_encoded()]</code></li>
        <d>A list of DER encoded certificates in trust order ending with the peer certificate.</d>
        <li><code> Options = proplists:proplist()</code></li>
        <li><code>PublicKeyInfo = {?'rsaEncryption' | ?'id-dsa',
@@ -485,6 +488,17 @@ fun(OtpCert :: #'OTPCertificate'{},
     </div>
    </div>
 
+    <div class="function">  
+      <h3 id="pkix_crl_issuer/1">pkix_crl_issuer(CRL) -&gt; issuer_name()</h3>
+      
+      <ul class="type">
+	<li><code>CRL = der_encoded() | #'CertificateList'{} </code></li> 
+      </ul> 
+      <div class="description"> 
+	<p>Returns the issuer of the <code>CRL</code>.</p>
+      </div> 
+    </div> 
+   
    <div class="function">
      <h3 id="pkix_crls_validate/3">pkix_crls_validate(OTPCertificate, DPAndCRLs, Options) -&gt; CRLStatus()</h3>
      
@@ -532,9 +546,47 @@ fun(#'DistributionPoint'{}, #'CertificateList'{},
       </taglist>
     </div>
    </div>
+   
+   <div class="function">  
+     <h3 id="pkix_crl_verify/2">pkix_crl_verify(CRL, Cert) -&gt; boolean()</h3>
+     
+     <ul class="type">
+       <li><code>CRL = der_encoded() | #'CertificateList'{} </code></li> 
+       <li><code>Cert = der_encoded() | #'OTPCertificate'{} </code></li> 
+     </ul> 
+     <div class="description"> 
+       <p>Verify that <code>Cert</code> is the <code>CRL</code> signer.</p>
+     </div> 
+   </div>
 
+   <div class="function">  
+     <h3 id="pkix_dist_point/1">pkix_dist_point(Cert) -&gt; DistPoint</h3>
+     
+     <ul class="type">
+       <li><code> Cert  = der_encoded() | #'OTPCertificate'{} </code></li> 
+       <li><code> DistPoint =  #'DistributionPoint'{}</code></li> 
+     </ul> 
+     <div class="description"> 
+       <p>Creates a distribution point for CRLs issued by the same issuer as <code>Cert</code>.
+       Can be used as input to <a href="#pkix_crls_validate/3" class="seealso">pkix_crls_validate/3 </a>
+       </p>
+     </div> 
+   </div>
+   
+   <div class="function">  
+     <h3 id="pkix_dist_points/1">pkix_dist_points(Cert) -&gt; DistPoints</h3>
+     
+     <ul class="type">
+       <li><code> Cert  = der_encoded() | #'OTPCertificate'{} </code></li> 
+       <li><code> DistPoints =  [#'DistributionPoint'{}]</code></li> 
+     </ul> 
+     <div class="description"> 
+       <p> Extracts distribution points from the certificates extensions.</p>
+     </div> 
+ </div>
+   
   <div class="function">
-    <h3 id="pkix_sign/2">pkix_sign(#'OTPTBSCertificate'{}, Key) -&gt; der_encode()</h3>
+    <h3 id="pkix_sign/2">pkix_sign(#'OTPTBSCertificate'{}, Key) -&gt; der_encoded()</h3>
     
     <ul class="type">
       <li><code>Key = rsa_public_key() | dsa_public_key()</code></li> 
@@ -564,7 +616,7 @@ fun(#'DistributionPoint'{}, #'CertificateList'{},
     <h3 id="pkix_verify/2">pkix_verify(Cert, Key) -&gt; boolean()</h3>
     
     <ul class="type">
-      <li><code>Cert = der_encode()</code></li> 
+      <li><code>Cert = der_encoded()</code></li>
       <li><code>Key = rsa_public_key() | dsa_public_key()</code></li> 
     </ul> 
   <div class="description"> 

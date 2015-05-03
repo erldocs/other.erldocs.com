@@ -1,1 +1,0 @@
-var index = [['app','snippy','snippy','[application]'],['mod','snippy','quad_tree',[]],['fun','snippy','quad_tree:add_point/1',[]],['fun','snippy','quad_tree:add_point/1',[]],['fun','snippy','quad_tree:flatten/1',[]],['fun','snippy','quad_tree:new/1',[]],['fun','snippy','quad_tree:query/1',[]],['fun','snippy','quad_tree:remove_point/1',[]]];

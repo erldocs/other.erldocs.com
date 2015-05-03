@@ -1,1 +1,0 @@
-var index = [['app','my-first-couchdb-plugin','my-first-couchdb-plugin','[application]'],['mod','my-first-couchdb-plugin','my_first_couchdb_plugin',[]],['fun','my-first-couchdb-plugin','my_first_couchdb_plugin:my_func/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','rebar_package_plugin','rebar_package_plugin','[application]'],['mod','rebar_package_plugin','rebar_package_plugin',[]],['fun','rebar_package_plugin','rebar_package_plugin:package/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','rxconsensus-erlang','rxconsensus-erlang','[application]'],['mod','rxconsensus-erlang','rx',[]],['mod','rxconsensus-erlang','rxconsensus',[]],['mod','rxconsensus-erlang','rxconsensus_test',[]],['fun','rxconsensus-erlang','rx:future/1',[]]];

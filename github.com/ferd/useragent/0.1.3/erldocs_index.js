@@ -1,1 +1,0 @@
-var index = [['app','useragent','useragent','[application]'],['mod','useragent','useragent',[]],['fun','useragent','useragent:parse/1',[]],['fun','useragent','useragent:parse/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','hit-server-bench','hit-server-bench','[application]'],['mod','hit-server-bench','erlanghttp',[]],['fun','hit-server-bench','erlanghttp:do/1',[]],['fun','hit-server-bench','erlanghttp:httpd_start/2',[]],['fun','hit-server-bench','erlanghttp:httpd_stop/1',[]],['fun','hit-server-bench','erlanghttp:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','wkb_parser','wkb_parser','[application]'],['mod','wkb_parser','wkb_parser',[]],['fun','wkb_parser','wkb_parser:parse/1','Return the Geometry with SRID if present.'],['fun','wkb_parser','wkb_parser:parse_hex/1','Return the Geometry with SRID if present.']];

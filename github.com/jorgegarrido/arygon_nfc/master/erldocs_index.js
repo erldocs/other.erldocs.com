@@ -1,1 +1,0 @@
-var index = [['app','arygon_nfc','arygon_nfc','[application]'],['mod','arygon_nfc','arygon_nfc_cmds',[]],['mod','arygon_nfc','arygon_nfc_sup',[]],['fun','arygon_nfc','arygon_nfc_cmds:split/1','Splits the response to get the value.'],['fun','arygon_nfc','arygon_nfc_sup:init/1',[]],['fun','arygon_nfc','arygon_nfc_sup:start_link/0',[]]];

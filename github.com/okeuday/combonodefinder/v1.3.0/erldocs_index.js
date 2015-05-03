@@ -1,1 +1,0 @@
-var index = [['app','combonodefinder','combonodefinder','[application]'],['mod','combonodefinder','combonodefinder','nodefinder+ec2nodefinder service.'],['fun','combonodefinder','combonodefinder:discover/0','Initiate a discovery request.']];

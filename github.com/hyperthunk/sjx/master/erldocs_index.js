@@ -1,1 +1,0 @@
-var index = [['app','sjx','sjx','[application]'],['mod','sjx','sjx_dialect',[]]];

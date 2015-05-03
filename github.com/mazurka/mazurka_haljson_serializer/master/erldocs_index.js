@@ -1,1 +1,0 @@
-var index = [['app','mazurka_haljson_serializer','mazurka_haljson_serializer','[application]'],['mod','mazurka_haljson_serializer','mazurka_haljson_serializer',[]],['fun','mazurka_haljson_serializer','mazurka_haljson_serializer:serialize/1',[]],['fun','mazurka_haljson_serializer','mazurka_haljson_serializer:serialize/2',[]]];

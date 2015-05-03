@@ -1,1 +1,0 @@
-var index = [['app','ezway','ezway','[application]'],['mod','ezway','ezway_app',[]],['mod','ezway','ezway_sup',[]],['fun','ezway','ezway_app:start/2',[]],['fun','ezway','ezway_app:stop/1',[]],['fun','ezway','ezway_sup:init/1',[]],['fun','ezway','ezway_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','xerllib','xerllib','[application]'],['mod','xerllib','xdict',[]],['mod','xerllib','xlists',[]],['fun','xerllib','xdict:find/2',[]],['fun','xerllib','xdict:store/3',[]],['fun','xerllib','xlists:keyfind/1',[]],['fun','xerllib','xlists:keysfind/3',[]],['fun','xerllib','xlists:take/2',[]]];

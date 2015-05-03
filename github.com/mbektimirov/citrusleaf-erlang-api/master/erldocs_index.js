@@ -1,1 +1,0 @@
-var index = [['app','citrusleaf-erlang-api','citrusleaf-erlang-api','[application]'],['mod','citrusleaf-erlang-api','erl_make',[]],['mod','citrusleaf-erlang-api','m1',[]],['fun','citrusleaf-erlang-api','erl_make:make/0',[]],['fun','citrusleaf-erlang-api','m1:start/0',[]]];

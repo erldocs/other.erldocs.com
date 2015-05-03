@@ -1,1 +1,0 @@
-var index = [['app','laforge','laforge','[application]'],['mod','laforge','laforge_app',[]],['mod','laforge','laforge_sup',[]],['fun','laforge','laforge_app:start/2',[]],['fun','laforge','laforge_app:stop/1',[]],['fun','laforge','laforge_sup:init/1',[]],['fun','laforge','laforge_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','heroku_crashdumps','heroku_crashdumps','[application]'],['mod','heroku_crashdumps','heroku_crashdumps_app','.'],['fun','heroku_crashdumps','heroku_crashdumps_app:start/0',[]]];

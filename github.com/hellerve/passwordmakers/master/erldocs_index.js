@@ -1,1 +1,0 @@
-var index = [['app','passwordmakers','passwordmakers','[application]'],['mod','passwordmakers','passwordmaker',[]],['fun','passwordmakers','passwordmaker:makepass/0',[]]];

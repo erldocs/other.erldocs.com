@@ -1,1 +1,0 @@
-var index = [['app','elmer','elmer','[application]'],['mod','elmer','elmer',[]],['fun','elmer','elmer:change_monitoring_thresholds/4',[]],['fun','elmer','elmer:get_monitoring_status/2',[]],['fun','elmer','elmer:remove_monitoring/2',[]],['fun','elmer','elmer:setup_monitoring/4',[]],['fun','elmer','elmer:toggle_monitoring/2',[]]];

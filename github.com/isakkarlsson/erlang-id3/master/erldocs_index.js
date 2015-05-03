@@ -1,1 +1,0 @@
-var index = [['app','erlang-id3','erlang-id3','[application]'],['mod','erlang-id3','csv',[]],['mod','erlang-id3','inst',[]],['mod','erlang-id3','stat',[]],['mod','erlang-id3','tr',[]],['mod','erlang-id3','util',[]],['fun','erlang-id3','tr:induce/5',[]],['fun','erlang-id3','tr:induce_branch/7',[]],['fun','erlang-id3','tr:run_experiment/6',[]],['fun','erlang-id3','tr:start/0',[]]];

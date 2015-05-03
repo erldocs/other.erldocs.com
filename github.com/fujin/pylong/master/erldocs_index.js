@@ -1,1 +1,0 @@
-var index = [['app','pylong','pylong','[application]'],['mod','pylong','pylon_app',[]],['mod','pylong','pylon_sup',[]],['fun','pylong','pylon_app:start/2',[]],['fun','pylong','pylon_app:stop/1',[]],['fun','pylong','pylon_sup:init/1',[]],['fun','pylong','pylon_sup:start_link/0',[]]];

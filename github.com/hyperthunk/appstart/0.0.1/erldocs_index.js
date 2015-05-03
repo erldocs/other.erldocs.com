@@ -1,1 +1,0 @@
-var index = [['app','appstart','appstart','[application]'],['mod','appstart','appstart','Helper module for working with OTP application sta'],['fun','appstart','appstart:start/1','Starts the OTP application AppName, forcing all de'],['fun','appstart','appstart:start/2','As start/1, but accepts a Type specification which'],['fun','appstart','appstart:start_deps/1',[]]];

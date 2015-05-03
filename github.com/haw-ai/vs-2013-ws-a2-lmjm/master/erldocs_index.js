@@ -1,1 +1,0 @@
-var index = [['app','vs-2013-ws-a2-lmjm','vs-2013-ws-a2-lmjm','[application]'],['mod','vs-2013-ws-a2-lmjm','node',[]],['mod','vs-2013-ws-a2-lmjm','node_start',[]],['mod','vs-2013-ws-a2-lmjm','util',[]],['fun','vs-2013-ws-a2-lmjm','node:start/1',[]],['fun','vs-2013-ws-a2-lmjm','node_start:main/1',[]],['fun','vs-2013-ws-a2-lmjm','node_start:split_string/2',[]]];

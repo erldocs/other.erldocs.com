@@ -1,1 +1,0 @@
-var index = [['app','erlpam','erlpam','[application]'],['mod','erlpam','erlpam',[]],['fun','erlpam','erlpam:auth_user/2',[]],['fun','erlpam','erlpam:init/0',[]]];

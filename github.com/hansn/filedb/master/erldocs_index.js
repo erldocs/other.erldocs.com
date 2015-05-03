@@ -1,1 +1,0 @@
-var index = [['app','filedb','filedb','[application]'],['mod','filedb','filedb',[]],['fun','filedb','filedb:read/2',[]],['fun','filedb','filedb:write/1',[]]];

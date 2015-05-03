@@ -1,1 +1,0 @@
-var index = [['app','erlmaze','erlmaze','[application]'],['mod','erlmaze','backtracker',[]],['fun','erlmaze','backtracker:generate/0',[]],['fun','erlmaze','backtracker:generate/1',[]]];

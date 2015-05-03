@@ -31,6 +31,8 @@
 <div class="description">
 <p>Main interface to the lightweight http client.
    See <a href="#request/4" class="seealso">request/4</a>, <a href="#request/5" class="seealso">request/5</a> and <a href="#request/6" class="seealso">request/6</a> functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-poolsize">poolsize() = integer() &gt;= 0 | atom()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start/0">start() -&gt; ok | {error, Reason}</h3>
@@ -39,8 +41,7 @@
 <li><code>Reason = term()</code></li></ul>
 <div class="description">
 
-<p>
-  Start the application.
+<p>Start the application.
   This is a helper function that will call <code>application:start(lhttpc)</code> to
   allow the library to be started using the <code>-s</code> flag.
   For instance:
@@ -55,11 +56,43 @@
 <li><code>Reason = term()</code></li></ul>
 <div class="description">
 
-<p>
-  Stops the application.
+<p>Stops the application.
   This is a helper function that will call <code>application:stop(lhttpc)</code>.</p>
  
   <p>For more info on possible return values the <code>application</code> module.</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1">add_pool(Name) -&gt; {ok, Pid} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Name = atom()</code></li><li><code>Pid = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Add a new named httpc_manager pool to the supervisor tree</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1-1">add_pool(Name::atom(), ConnTimeout::non_neg_integer()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Add a new httpc_manager to the supervisor tree</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1-2">add_pool(Name::atom(), ConnTimeout::non_neg_integer(), PoolSize::poolsize()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Add a new httpc_manager to the supervisor tree</p>
+</div></div>
+<div class="function">
+<h3 id="delete_pool/1">delete_pool(PoolPid::atom() | pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Delete a pool</p>
 </div></div>
 <div class="function">
 <h3 id="request/4">request(URL, Method, Hdrs, Timeout) -&gt; Result</h3>
@@ -78,7 +111,7 @@
 <h3 id="request/5">request(URL, Method, Hdrs, Body::RequestBody, Timeout) -&gt; Result</h3>
 
 <ul class="type">
-<li><code>URL = string()</code></li><li><code>Method = string() | atom()</code></li><li><code>Hdrs = [{Header, Value}]</code></li><li><code>Header = string() | binary() | atom()</code></li><li><code>Value = string() | binary()</code></li><li><code>RequestBody = iolist()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Result = {ok, {{StatusCode, ReasonPhrase}, Hdrs, ResponseBody}} | {error, Reason}</code></li><li><code>StatusCode = integer()</code></li><li><code>ReasonPhrase = string()</code></li><li><code>ResponseBody = binary()</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
+<li><code>URL = string()</code></li><li><code>Method = string() | atom()</code></li><li><code>Hdrs = [{Header, Value}]</code></li><li><code>Header = string() | binary() | atom()</code></li><li><code>Value = string() | binary()</code></li><li><code>RequestBody = iodata()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Result = {ok, {{StatusCode, ReasonPhrase}, Hdrs, ResponseBody}} | {error, Reason}</code></li><li><code>StatusCode = integer()</code></li><li><code>ReasonPhrase = string()</code></li><li><code>ResponseBody = binary()</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
 <div class="description">
 
 <p>Sends a request with a body.
@@ -90,7 +123,7 @@
 <h3 id="request/6">request(URL, Method, Hdrs, Body::RequestBody, Timeout, Options) -&gt; Result</h3>
 
 <ul class="type">
-<li><code>URL = string()</code></li><li><code>Method = string() | atom()</code></li><li><code>Hdrs = [{Header, Value}]</code></li><li><code>Header = string() | binary() | atom()</code></li><li><code>Value = string() | binary()</code></li><li><code>RequestBody = iolist()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Options = [Option]</code></li><li><code>Option = {connect_timeout, Milliseconds | infinity} | {connect_options, [ConnectOptions]} | {send_retry, integer()} | {partial_upload, WindowSize} | {partial_download, PartialDownloadOptions} | {proxy, ProxyUrl} | {proxy_ssl_options, SslOptions} | {pool, LhttcPool}</code></li><li><code>Milliseconds = integer()</code></li><li><code>ConnectOptions = term()</code></li><li><code>WindowSize = integer() | infinity</code></li><li><code>PartialDownloadOptions = [PartialDownloadOption]</code></li><li><code>PartialDowloadOption = {window_size, WindowSize} | {part_size, PartSize}</code></li><li><code>ProxyUrl = string()</code></li><li><code>SslOptions = [any()]</code></li><li><code>LhttcPool = pid() | atom()</code></li><li><code>PartSize = integer() | infinity</code></li><li><code>Result = {ok, {{StatusCode, ReasonPhrase}, Hdrs, ResponseBody}} | {ok, UploadState} | {error, Reason}</code></li><li><code>StatusCode = integer()</code></li><li><code>ReasonPhrase = string()</code></li><li><code>ResponseBody = binary()</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
+<li><code>URL = string()</code></li><li><code>Method = string() | atom()</code></li><li><code>Hdrs = [{Header, Value}]</code></li><li><code>Header = string() | binary() | atom()</code></li><li><code>Value = string() | binary()</code></li><li><code>RequestBody = iodata()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Options = [Option]</code></li><li><code>Option = {connect_timeout, Milliseconds | infinity} | {connect_options, [ConnectOptions]} | {send_retry, integer()} | {partial_upload, WindowSize} | {partial_download, PartialDownloadOptions} | {proxy, ProxyUrl} | {proxy_ssl_options, SslOptions} | {pool, LhttcPool}</code></li><li><code>Milliseconds = integer()</code></li><li><code>ConnectOptions = term()</code></li><li><code>WindowSize = integer() | infinity</code></li><li><code>PartialDownloadOptions = [PartialDownloadOption]</code></li><li><code>PartialDowloadOption = {window_size, WindowSize} | {part_size, PartSize}</code></li><li><code>ProxyUrl = string()</code></li><li><code>SslOptions = [any()]</code></li><li><code>LhttcPool = pid() | atom()</code></li><li><code>PartSize = integer() | infinity</code></li><li><code>Result = {ok, {{StatusCode, ReasonPhrase}, Hdrs, ResponseBody}} | {ok, UploadState} | {error, Reason}</code></li><li><code>StatusCode = integer()</code></li><li><code>ReasonPhrase = string()</code></li><li><code>ResponseBody = binary() | pid() | undefined</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
 <div class="description">
 
 <p>Sends a request with a body.
@@ -107,7 +140,7 @@
 <h3 id="request/9">request(Host, Port, Ssl, Path, Method, Hdrs, Body::RequestBody, Timeout, Options) -&gt; Result</h3>
 
 <ul class="type">
-<li><code>Host = string()</code></li><li><code>Port = integer()</code></li><li><code>Ssl = boolean()</code></li><li><code>Path = string()</code></li><li><code>Method = string() | atom()</code></li><li><code>Hdrs = [{Header, Value}]</code></li><li><code>Header = string() | binary() | atom()</code></li><li><code>Value = string() | binary()</code></li><li><code>RequestBody = iolist()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Options = [Option]</code></li><li><code>Option = {connect_timeout, Milliseconds | infinity} | {connect_options, [ConnectOptions]} | {send_retry, integer()} | {partial_upload, WindowSize} | {partial_download, PartialDownloadOptions} | {proxy, ProxyUrl} | {proxy_ssl_options, SslOptions} | {pool, LhttcPool}</code></li><li><code>Milliseconds = integer()</code></li><li><code>WindowSize = integer()</code></li><li><code>PartialDownloadOptions = [PartialDownloadOption]</code></li><li><code>PartialDowloadOption = {window_size, WindowSize} | {part_size, PartSize}</code></li><li><code>ProxyUrl = string()</code></li><li><code>SslOptions = [any()]</code></li><li><code>LhttcPool = pid() | atom()</code></li><li><code>PartSize = integer() | infinity</code></li><li><code>Result = {ok, {{StatusCode, ReasonPhrase}, Hdrs, ResponseBody}} | {error, Reason}</code></li><li><code>StatusCode = integer()</code></li><li><code>ReasonPhrase = string()</code></li><li><code>ResponseBody = binary() | pid() | undefined</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
+<li><code>Host = string()</code></li><li><code>Port = integer()</code></li><li><code>Ssl = boolean()</code></li><li><code>Path = string()</code></li><li><code>Method = string() | atom()</code></li><li><code>Hdrs = [{Header, Value}]</code></li><li><code>Header = string() | binary() | atom()</code></li><li><code>Value = string() | binary()</code></li><li><code>RequestBody = iodata()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Options = [Option]</code></li><li><code>Option = {connect_timeout, Milliseconds | infinity} | {connect_options, [ConnectOptions]} | {send_retry, integer()} | {partial_upload, WindowSize} | {partial_download, PartialDownloadOptions} | {proxy, ProxyUrl} | {proxy_ssl_options, SslOptions} | {pool, LhttcPool}</code></li><li><code>Milliseconds = integer()</code></li><li><code>WindowSize = integer()</code></li><li><code>PartialDownloadOptions = [PartialDownloadOption]</code></li><li><code>PartialDowloadOption = {window_size, WindowSize} | {part_size, PartSize}</code></li><li><code>ProxyUrl = string()</code></li><li><code>SslOptions = [any()]</code></li><li><code>LhttcPool = pid() | atom()</code></li><li><code>PartSize = integer() | infinity</code></li><li><code>Result = {ok, {{StatusCode, ReasonPhrase}, Hdrs, ResponseBody}} | {error, Reason}</code></li><li><code>StatusCode = integer()</code></li><li><code>ReasonPhrase = string()</code></li><li><code>ResponseBody = binary() | pid() | undefined</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
 <div class="description">
 
 <p>Sends a request with a body.</p>
@@ -222,7 +255,7 @@ Example value: {proxy, "http://john:doe@myproxy.com:3128"}</p>
 <h3 id="send_body_part/2">send_body_part(UploadState, BodyPart) -&gt; Result</h3>
 
 <ul class="type">
-<li><code>BodyPart = iolist() | binary()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Result = {error, Reason} | UploadState</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
+<li><code>BodyPart = iodata() | binary()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Result = {error, Reason} | UploadState</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
 <div class="description">
 
 <p>Sends a body part to an ongoing request when
@@ -236,7 +269,7 @@ Example value: {proxy, "http://john:doe@myproxy.com:3128"}</p>
 <h3 id="send_body_part/3">send_body_part(UploadState, BodyPart, Timeout) -&gt; Result</h3>
 
 <ul class="type">
-<li><code>BodyPart = iolist() | binary()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Result = {error, Reason} | UploadState</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
+<li><code>BodyPart = iodata() | binary()</code></li><li><code>Timeout = integer() | infinity</code></li><li><code>Result = {error, Reason} | UploadState</code></li><li><code>Reason = connection_closed | connect_timeout | timeout</code></li></ul>
 <div class="description">
 
 <p>Sends a body part to an ongoing request when
@@ -312,12 +345,14 @@ response in milliseconds.</p>
   <code>{partial_download, PartialDownloadOptions}</code> is used.
   <code>Timeout</code> is the timeout for reading the next body part in milliseconds.
   <code>http_eob</code> marks the end of the body. If there were Trailers in the
-  response those are returned with <code>http_eob</code> as well.</p>
+  response those are returned with <code>http_eob</code> as well.
+  If it evers returns an error, no further calls to this function should
+  be done.</p>
 </div></div></div>
 
 <authors>
 
-<aname>Oscar HellstrÃ¶m</aname>
+<aname>Oscar Hellström</aname>
 <email>oscar@hellstrom.st</email></authors>
       </div>
   </div>

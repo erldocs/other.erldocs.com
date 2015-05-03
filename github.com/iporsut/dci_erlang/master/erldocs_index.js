@@ -1,1 +1,0 @@
-var index = [['app','dci_erlang','dci_erlang','[application]'],['mod','dci_erlang','account',[]],['mod','dci_erlang','money_transfer',[]],['fun','dci_erlang','money_transfer:execute/3',[]]];

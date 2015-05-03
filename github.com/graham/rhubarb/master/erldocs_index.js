@@ -1,1 +1,0 @@
-var index = [['app','rhubarb','rhubarb','[application]'],['mod','rhubarb','parser_plain',[]],['mod','rhubarb','server',[]]];

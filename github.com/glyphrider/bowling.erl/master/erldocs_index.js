@@ -1,1 +1,0 @@
-var index = [['app','bowling.erl','bowling.erl','[application]'],['mod','bowling.erl','bowling',[]]];

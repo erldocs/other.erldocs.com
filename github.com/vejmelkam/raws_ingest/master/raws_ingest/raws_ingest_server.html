@@ -31,11 +31,11 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-station_selector">station_selector() = {station_list, [string()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {region,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{number(), number()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{number(), number()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {station_file, string()}</h3></div>
+    <div class="type"><h3 id="type-station_selector">station_selector() = {station_list, [string()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {region,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{number(), number()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{number(), number()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {station_file, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| empty_station_selector</h3></div>
     <div class="type"><h3 id="type-var_id">var_id() = fm10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| air_temp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| rel_humidity<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| soil_temp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pressure<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| accum_precip<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fuel_temp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wind_speed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wind_dir<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wind_gust<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| solar_rad</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/5">start_link(Token, StationInfos, VarIds, TimeoutMins, Method) -&gt; term()
+<h3 id="start_link/5">start_link(Cfg, SSel, VarIds, TimeoutMins, Method) -&gt; term()
 </h3>
 
 
@@ -63,14 +63,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="acquire_observations/1">acquire_observations(SSel::station_selector(), VarIds::[atom()], X3::{datetime() (see module calendar), datetime() (see module calendar)}, TimeoutS::pos_integer()) -&gt; [#raws_obs{timestamp=undefined | datetime() (see module calendar), station_id=undefined | string(), lat=undefined | number(), lon=undefined | number(), var_id=undefined | var_id(), value=undefined | number(), variance=undefined | number()}] | {error, any()}</h3>
+<h3 id="acquire_observations/1">acquire_observations(SSel::station_selector(), VarIds::[atom()], X3::{datetime() (see module calendar), datetime() (see module calendar)}, TimeoutS::pos_integer()) -&gt; [#raws_obs{timestamp=undefined | datetime() (see module calendar), station_id=undefined | string(), lat=undefined | number(), lon=undefined | number(), elevation=undefined | number(), var_id=undefined | var_id(), value=undefined | number(), variance=undefined | number()}] | {error, any()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="acquire_stations_in_region/3">acquire_stations_in_region(LatRng, LonRng, WithVars) -&gt; term()
-</h3>
+<h3 id="acquire_stations/1">acquire_stations(SSel::station_selector(), WithVars::[atom()]) -&gt; [#raws_station{id=undefined | string(), name=undefined | string(), lat=undefined | number(), lon=undefined | number(), elevation=undefined | number()}] | {error, any()}</h3>
 
 
 <div class="description">
@@ -83,7 +82,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
 </h3>
 
 
@@ -113,12 +112,6 @@
 <div class="function">
 <h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
 </h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
-<h3 id="is_station_selector/1">is_station_selector(X1::any()) -&gt; boolean()</h3>
 
 
 <div class="description">

@@ -1,1 +1,0 @@
-var index = [['app','port-redirect','port-redirect','[application]'],['mod','port-redirect','portRedirect',[]],['fun','port-redirect','portRedirect:forward/2',[]],['fun','port-redirect','portRedirect:handle/2',[]],['fun','port-redirect','portRedirect:handle/3',[]]];

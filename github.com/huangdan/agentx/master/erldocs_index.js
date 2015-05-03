@@ -1,1 +1,0 @@
-var index = [['app','agentx','agentx','[application]'],['mod','agentx','agentx_app',[]],['mod','agentx','agentx_sup',[]],['fun','agentx','agentx_app:start/0',[]],['fun','agentx','agentx_app:start/2',[]],['fun','agentx','agentx_app:stop/0',[]],['fun','agentx','agentx_app:stop/1',[]],['fun','agentx','agentx_sup:init/1',[]],['fun','agentx','agentx_sup:start_link/0',[]]];

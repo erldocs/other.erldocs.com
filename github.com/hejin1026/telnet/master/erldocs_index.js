@@ -1,1 +1,0 @@
-var index = [['app','telnet','telnet','[application]'],['mod','telnet','telnet_mod',[]],['fun','telnet','telnet_mod:behaviour_info/1',[]]];

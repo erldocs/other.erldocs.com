@@ -1,1 +1,0 @@
-var index = [['app','chitchat','chitchat','[application]'],['mod','chitchat','chat_client',[]],['mod','chitchat','message_router',[]]];

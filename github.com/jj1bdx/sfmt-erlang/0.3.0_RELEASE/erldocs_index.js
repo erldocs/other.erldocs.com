@@ -1,1 +1,0 @@
-var index = [['app','sfmt-erlang','sfmt-erlang','[application]'],['mod','sfmt-erlang','sfmt_test',[]],['fun','sfmt-erlang','sfmt_test:test/0',[]],['fun','sfmt-erlang','sfmt_test:test_speed_orig_random/2',[]],['fun','sfmt-erlang','sfmt_test:test_speed_rand/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','cowboy_fcgi','cowboy_fcgi','[application]'],['mod','cowboy_fcgi','cowboy_http_fcgi',[]],['fun','cowboy_fcgi','cowboy_http_fcgi:handle/1',[]],['fun','cowboy_fcgi','cowboy_http_fcgi:init/1',[]],['fun','cowboy_fcgi','cowboy_http_fcgi:terminate/1',[]]];

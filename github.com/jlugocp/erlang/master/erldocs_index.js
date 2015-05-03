@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','jar_search',[]],['mod','erlang','raging_rapids',[]],['fun','erlang','jar_search:find/2',[]],['fun','erlang','raging_rapids:get_solution_sets/0',[]]];

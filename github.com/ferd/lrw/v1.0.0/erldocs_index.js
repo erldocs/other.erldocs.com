@@ -1,1 +1,0 @@
-var index = [['app','lrw','lrw','[application]'],['mod','lrw','lrw','Prioritize a list of IPs for a specific key in inc'],['fun','lrw','lrw:all/1','Returns the given set of nodes sorted in increasin'],['fun','lrw','lrw:top/1','Only keep the N top entries, compared to all/2.']];

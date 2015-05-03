@@ -1,1 +1,0 @@
-var index = [['app','erlang-json','erlang-json','[application]'],['mod','erlang-json','json','This is a json encode/decode library for erlang.'],['fun','erlang-json','json:decode/1','decode json text into erlang term.'],['fun','erlang-json','json:decode/1','decode json text into erlang term.'],['fun','erlang-json','json:encode/1','encode erlang term into json text.']];

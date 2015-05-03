@@ -1,1 +1,0 @@
-var index = [['app','mazurka_yaml','mazurka_yaml','[application]'],['mod','mazurka_yaml','mazurka_yaml',[]],['fun','mazurka_yaml','mazurka_yaml:parse/2',[]],['fun','mazurka_yaml','mazurka_yaml:parse_file/2',[]]];

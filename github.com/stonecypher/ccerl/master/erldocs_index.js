@@ -1,1 +1,0 @@
-var index = [['app','ccerl','ccerl','[application]'],['mod','ccerl','ccerl',[]],['fun','ccerl','ccerl:parse_bic/1','Parses a Bank Identification Code, also known as a']];

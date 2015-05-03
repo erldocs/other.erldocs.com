@@ -1,1 +1,0 @@
-var index = [['app','scripts','scripts','[application]'],['mod','scripts','conditions',[]],['mod','scripts','functions',[]],['mod','scripts','test',[]],['mod','scripts','what_the_if',[]],['fun','scripts','test:add/2',[]],['fun','scripts','test:greet_and_add_two/1',[]],['fun','scripts','test:greet_gender/2',[]],['fun','scripts','test:hello/0',[]]];

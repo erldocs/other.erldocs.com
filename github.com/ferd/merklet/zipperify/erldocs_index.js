@@ -1,1 +1,0 @@
-var index = [['app','merklet','merklet','[application]'],['mod','merklet','merklet_dist',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','zml','zml','[application]'],['mod','zml','out_scratch',[]],['mod','zml','pgsql_sample',[]],['fun','zml','out_scratch:render/1',[]],['fun','zml','out_scratch:test/0',[]]];

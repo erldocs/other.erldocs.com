@@ -1,1 +1,0 @@
-var index = [['app','vfe','vfe','[application]'],['mod','vfe','vfe',[]],['fun','vfe','vfe:displayable_error/1',[]],['fun','vfe','vfe:validate/2',[]]];

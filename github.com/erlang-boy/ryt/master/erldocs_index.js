@@ -1,1 +1,0 @@
-var index = [['app','ryt','ryt','[application]'],['mod','ryt','mymod',[]],['mod','ryt','mysee_app',[]],['mod','ryt','mysee_sup',[]],['fun','ryt','mymod:my_func/0',[]],['fun','ryt','mysee_app:start/2',[]],['fun','ryt','mysee_app:stop/1',[]],['fun','ryt','mysee_sup:init/1',[]],['fun','ryt','mysee_sup:start_link/0',[]]];

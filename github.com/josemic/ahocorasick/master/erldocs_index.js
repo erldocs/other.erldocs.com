@@ -1,1 +1,0 @@
-var index = [['app','ahocorasick','ahocorasick','[application]'],['mod','ahocorasick','ahocorasick','.'],['fun','ahocorasick','ahocorasick:build_dicts/1',[]],['fun','ahocorasick','ahocorasick:find/4',[]],['fun','ahocorasick','ahocorasick:goto/3',[]],['fun','ahocorasick','ahocorasick:output/2',[]],['fun','ahocorasick','ahocorasick:read/2',[]]];

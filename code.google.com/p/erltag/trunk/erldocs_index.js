@@ -1,1 +1,0 @@
-var index = [['app','erltag','erltag','[application]'],['mod','erltag','oma',[]],['fun','erltag','oma:parse_header/1',[]]];

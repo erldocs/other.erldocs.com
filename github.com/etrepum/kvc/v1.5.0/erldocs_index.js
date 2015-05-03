@@ -1,1 +1,0 @@
-var index = [['app','kvc','kvc','[application]'],['mod','kvc','kvc','Implementation of Key Value Coding style "queries"'],['fun','kvc','kvc:path/1',[]],['fun','kvc','kvc:path/1','Return the result of the query Path on P.'],['fun','kvc','kvc:to_proplist/1','Normalize P to nested proplists.'],['fun','kvc','kvc:value/1','Return the immediate result of the query for key K']];

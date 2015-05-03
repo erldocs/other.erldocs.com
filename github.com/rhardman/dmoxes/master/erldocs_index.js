@@ -1,1 +1,0 @@
-var index = [['app','dmoxes','dmoxes','[application]'],['mod','dmoxes','dmoxes_app',[]],['mod','dmoxes','dmoxes_sup',[]],['fun','dmoxes','dmoxes_app:start/2',[]],['fun','dmoxes','dmoxes_app:stop/1',[]],['fun','dmoxes','dmoxes_sup:init/1',[]],['fun','dmoxes','dmoxes_sup:start_link/0',[]]];

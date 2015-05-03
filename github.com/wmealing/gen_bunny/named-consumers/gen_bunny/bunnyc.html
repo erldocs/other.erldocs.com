@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bunnyc (gen_bunny) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bunnyc</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="publish/3">publish(Name, Key, Message) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="publish/4">publish(Name, Key, Message, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="async_publish/3">async_publish(Name, Key, Message) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="async_publish/4">async_publish(Name, Key, Message, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/2">get(Name, NoAck) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ack/2">ack(Name, Tag) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="register_return_handler/2">register_return_handler(Name, PID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="register_flow_handler/2">register_flow_handler(Name, PID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/4">start_link(Name, ConnectionInfo, DeclareInfo, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start the bunnyc gen_server as a locally registered process.
+  <em><marker id="ConnectionInfo">ConnectionInfo</marker></em>
+  <code>ConnectionInfo</code> is passed as an argument to the connection fun, which by
+  default is <a href="gen_bunny_mon.html#connect/1" class="seealso">gen_bunny_mon:connect/1</a>. In this case, <code>ConnectionInfo</code> can
+  be any of the following types:
+  </p><list>
+ 
+  <item><p><code>{network, Host, Port, {User, Pass}, VHost}</code>, or <code>{network, #amqp_params{} }</code>:
+  Connects to RabbitMQ over TCP, using the supplied parameters. When using the
+  tuple form, each term after Host is optional. For any parameters not
+  supplied, the defaults in the #amqp_params{} record definition are used.
+  The default values are currently:
+  </p><pre class="sh_erlang">  {username          = &lt;&lt;"guest"&gt;&gt;,
+   password          = &lt;&lt;"guest"&gt;&gt;,
+   virtual_host      = &lt;&lt;"/"&gt;&gt;,
+   host              = "localhost",
+   port              = 5672,
+   channel_max       = 0,
+   frame_max         = 0,
+   heartbeat         = 0,
+   ssl_options       = none,
+   client_properties = []}</pre><p>
+  </p></item>
+ 
+  <item><p><code>direct</code> or <code>{direct, #amqp_params{} }</code>: Connect to RabbitMQ using native
+  Erlang messaging. See <url href="http://www.rabbitmq.com/erlang-client-user-guide.html">http://www.rabbitmq.com/erlang-client-user-guide.html</url>
+  </p></item>
+  </list><p>
+ 
+  <em><marker id="DeclareInfo">DeclareInfo</marker></em>
+  <code>DeclareInfo</code> is passed as an argument to the declare fun, which by default
+  is <a href="bunny_util.html#declare/2" class="seealso">bunny_util:declare/2</a>. In this case, <code>DeclareInfo</code> can be any of the
+  following:
+  </p><list>
+  <item><p><code>NameForEverything</code> (binary()): gen_bunny will declare an exchange and a
+  queue with this name, and bind the queue to the exchange with a routing key of
+  the same name.</p></item>
+  <item><p><code>{Exchange}</code>: <code>Exchange</code> can be a binary() name, or an
+  #'exchange.declare_ok'{} record.</p></item>
+  <item><p><code>{Exchange, Queue, RoutingKey}</code>: <code>Exchange</code> is as described above.
+  <code>Queue</code> may be a binary() name or a  #'queue.declare_ok'{} record. RoutingKey
+  is a binary().</p></item>
+  </list><p>
+ 
+  <em><marker id="Args">Args</marker></em>
+  <code>Args</code> is a property list. If the key <code>connect_fun</code> is supplied, that fun
+  will be used in place of the default connection fun described above. Likewise,
+  if the key <code>declare_fun</code> is given, the associated value will be used in
+  place of the default declare fun described above.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Name) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

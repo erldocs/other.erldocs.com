@@ -1,1 +1,0 @@
-var index = [['app','one-hour-erlang-intro','one-hour-erlang-intro','[application]'],['mod','one-hour-erlang-intro','lol',[]],['mod','one-hour-erlang-intro','lol_server',[]],['fun','one-hour-erlang-intro','lol:fib/1',[]],['fun','one-hour-erlang-intro','lol_server:compute/1',[]],['fun','one-hour-erlang-intro','lol_server:start/0',[]]];

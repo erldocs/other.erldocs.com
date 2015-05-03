@@ -1,1 +1,0 @@
-var index = [['app','rabbitmq-webhooks','rabbitmq-webhooks','[application]'],['mod','rabbitmq-webhooks','rabbit_webhooks_app',[]],['fun','rabbitmq-webhooks','rabbit_webhooks_app:start/0',[]],['fun','rabbitmq-webhooks','rabbit_webhooks_app:start/2',[]],['fun','rabbitmq-webhooks','rabbit_webhooks_app:stop/0',[]],['fun','rabbitmq-webhooks','rabbit_webhooks_app:stop/1',[]]];

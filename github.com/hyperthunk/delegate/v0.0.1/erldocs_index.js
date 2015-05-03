@@ -1,1 +1,0 @@
-var index = [['app','delegate','delegate','[application]'],['mod','delegate','delegate',[]],['fun','delegate','delegate:codegen/3',[]],['fun','delegate','delegate:delegate_advice/4',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','clock','@todo Add description to clock.'],['mod','erlang','ctemplate','@todo Add description to ctemplate.'],['mod','erlang','hw','@todo Add description to hw.'],['fun','erlang','clock:start/2',[]],['fun','erlang','clock:stop/0',[]],['fun','erlang','hw:printHelloWorld/0',[]]];

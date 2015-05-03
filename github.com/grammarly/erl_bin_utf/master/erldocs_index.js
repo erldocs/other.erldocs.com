@@ -1,1 +1,0 @@
-var index = [['app','erl_bin_utf','erl_bin_utf','[application]'],['mod','erl_bin_utf','bin_utf',[]],['fun','erl_bin_utf','bin_utf:is_unicode_valid/1',[]],['fun','erl_bin_utf','bin_utf:len/1',[]],['fun','erl_bin_utf','bin_utf:substr/1',[]],['fun','erl_bin_utf','bin_utf:substr/1',[]]];

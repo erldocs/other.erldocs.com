@@ -1,1 +1,0 @@
-var index = [['app','erlang-tests','erlang-tests','[application]'],['mod','erlang-tests','fibonacci',[]],['mod','erlang-tests','ring',[]],['mod','erlang-tests','ring_dist',[]],['fun','erlang-tests','fibonacci:fibonacci/1',[]],['fun','erlang-tests','ring:rpc/2',[]],['fun','erlang-tests','ring:start/2',[]],['fun','erlang-tests','ring_dist:start/3',[]]];

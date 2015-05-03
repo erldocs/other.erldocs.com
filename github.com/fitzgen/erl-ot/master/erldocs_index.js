@@ -1,1 +1,0 @@
-var index = [['app','erl-ot','erl-ot','[application]'],['mod','erl-ot','ot',[]],['fun','erl-ot','ot:client/1',[]],['fun','erl-ot','ot:get_doc/0',[]],['fun','erl-ot','ot:get_doc/1',[]],['fun','erl-ot','ot:server/1',[]],['fun','erl-ot','ot:start/0',[]],['fun','erl-ot','ot:stop/0',[]]];

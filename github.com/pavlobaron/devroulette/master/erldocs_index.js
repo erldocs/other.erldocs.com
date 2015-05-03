@@ -1,1 +1,0 @@
-var index = [['app','devroulette','devroulette','[application]'],['mod','devroulette','make_boot',[]],['fun','devroulette','make_boot:write_scripts/1',[]]];

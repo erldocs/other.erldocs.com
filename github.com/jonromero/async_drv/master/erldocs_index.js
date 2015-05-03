@@ -1,1 +1,0 @@
-var index = [['app','async_drv','async_drv','[application]'],['mod','async_drv','async',[]],['fun','async_drv','async:call_port/3',[]],['fun','async_drv','async:create/0',[]],['fun','async_drv','async:process/0',[]],['fun','async_drv','async:putdb/2',[]],['fun','async_drv','async:start/0',[]],['fun','async_drv','async:stop/0',[]]];

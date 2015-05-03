@@ -1,1 +1,0 @@
-var index = [['app','hammerbeam','hammerbeam','[application]'],['mod','hammerbeam','hammerbeam_app',[]],['mod','hammerbeam','hammerbeam_sup',[]],['fun','hammerbeam','hammerbeam_app:start/2',[]],['fun','hammerbeam','hammerbeam_app:stop/1',[]],['fun','hammerbeam','hammerbeam_sup:init/1',[]],['fun','hammerbeam','hammerbeam_sup:start_link/0',[]]];

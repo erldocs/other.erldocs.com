@@ -1,1 +1,0 @@
-var index = [['app','project','project','[application]'],['mod','project','bar',[]],['mod','project','bar_test',[]],['mod','project','foo','A simple example module demonstrating how to use E'],['fun','project','bar:fac/1',[]],['fun','project','foo:start/0','Starts the system...']];

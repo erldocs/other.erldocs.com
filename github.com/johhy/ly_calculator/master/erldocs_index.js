@@ -1,1 +1,0 @@
-var index = [['app','ly_calculator','ly_calculator','[application]'],['mod','ly_calculator','ly_calculator','Main ly_calculator module.'],['fun','ly_calculator','ly_calculator:do/1','Function for start calculator.']];

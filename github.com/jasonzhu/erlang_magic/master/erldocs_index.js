@@ -1,1 +1,0 @@
-var index = [['app','erlang_magic','erlang_magic','[application]'],['mod','erlang_magic','emagic',[]],['fun','erlang_magic','emagic:from_buffer/1',[]],['fun','erlang_magic','emagic:from_file/1',[]],['fun','erlang_magic','emagic:magic/1',[]]];

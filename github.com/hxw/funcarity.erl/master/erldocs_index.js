@@ -1,1 +1,0 @@
-var index = [['app','funcarity.erl','funcarity.erl','[application]'],['mod','funcarity.erl','funcarity',[]],['fun','funcarity.erl','funcarity:parse_transform/1',[]]];

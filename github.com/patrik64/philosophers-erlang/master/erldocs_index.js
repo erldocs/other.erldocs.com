@@ -1,1 +1,0 @@
-var index = [['app','philosophers-erlang','philosophers-erlang','[application]'],['mod','philosophers-erlang','philosophers',[]],['fun','philosophers-erlang','philosophers:dinner/0',[]]];

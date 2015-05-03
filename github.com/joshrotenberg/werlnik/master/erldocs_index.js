@@ -1,1 +1,0 @@
-var index = [['app','werlnik','werlnik','[application]'],['mod','werlnik','werlnik_app',[]],['mod','werlnik','werlnik_sup',[]],['fun','werlnik','werlnik_app:start/2',[]],['fun','werlnik','werlnik_app:stop/1',[]],['fun','werlnik','werlnik_sup:init/1',[]],['fun','werlnik','werlnik_sup:start_link/0',[]]];

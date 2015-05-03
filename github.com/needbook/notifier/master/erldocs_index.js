@@ -1,1 +1,0 @@
-var index = [['app','notifier','notifier','[application]'],['mod','notifier','notifier_app',[]],['mod','notifier','notifier_sup',[]],['fun','notifier','notifier_app:start/2',[]],['fun','notifier','notifier_app:stop/1',[]],['fun','notifier','notifier_sup:init/1',[]],['fun','notifier','notifier_sup:start_link/0',[]]];

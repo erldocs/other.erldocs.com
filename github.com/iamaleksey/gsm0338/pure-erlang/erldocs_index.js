@@ -1,1 +1,0 @@
-var index = [['app','gsm0338','gsm0338','[application]'],['mod','gsm0338','gsm0338',[]],['fun','gsm0338','gsm0338:from_utf8/1',[]],['fun','gsm0338','gsm0338:to_utf8/1',[]]];

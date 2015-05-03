@@ -1,1 +1,0 @@
-var index = [['app','erl_uuid','erl_uuid','[application]'],['mod','erl_uuid','erl_uuid',[]],['fun','erl_uuid','erl_uuid:init/0',[]],['fun','erl_uuid','erl_uuid:v4/0',[]]];

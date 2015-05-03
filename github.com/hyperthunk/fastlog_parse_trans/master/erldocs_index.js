@@ -1,1 +1,0 @@
-var index = [['app','fastlog_parse_trans','fastlog_parse_trans','[application]'],['mod','fastlog_parse_trans','fastlog_parse_trans',[]],['fun','fastlog_parse_trans','fastlog_parse_trans:parse_transform/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ci','ci','[application]'],['mod','ci','ci','Examples from the OReilly book: "Collective Intel'],['fun','ci','ci:get_blogdata/0',[]],['fun','ci','ci:get_u_data/0',[]],['fun','ci','ci:get_u_item/0',[]],['fun','ci','ci:get_zebo/0',[]]];

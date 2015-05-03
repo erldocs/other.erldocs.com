@@ -1,1 +1,0 @@
-var index = [['app','erldexer','erldexer','[application]'],['mod','erldexer','erldexer_app',[]],['mod','erldexer','erldexer_sup',[]],['fun','erldexer','erldexer_app:start/2',[]],['fun','erldexer','erldexer_app:stop/1',[]],['fun','erldexer','erldexer_sup:init/1',[]],['fun','erldexer','erldexer_sup:start_link/0',[]]];

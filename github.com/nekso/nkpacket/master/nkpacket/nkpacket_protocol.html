@@ -78,7 +78,7 @@
   Do not implement it or return 'continue' to call conn_unparse/2</p>
 </div></div>
 <div class="function">
-<h3 id="conn_init/1">conn_init(X1::nkport() (see module nkpacket)) -&gt; conn_state()</h3>
+<h3 id="conn_init/1">conn_init(X1::nkport() (see module nkpacket)) -&gt; {ok, conn_state()} | {stop, term()}</h3>
 
 
 <div class="description">
@@ -100,6 +100,14 @@
 <div class="description">
 
 <p>This function is called when a new message must be send to the connection</p>
+</div></div>
+<div class="function">
+<h3 id="conn_bridge/1">conn_bridge(Data::incoming() (see module nkpacket), Type::up | down, ConnState::conn_state()) -&gt; {ok, incoming() (see module nkpacket), conn_state()} | {skip, conn_state()} | {stop, term(), conn_state()}</h3>
+
+
+<div class="description">
+
+<p>This function is called on incoming data for bridged connections</p>
 </div></div>
 <div class="function">
 <h3 id="conn_handle_call/1">conn_handle_call(Msg::term(), From::{pid(), term()}, ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>

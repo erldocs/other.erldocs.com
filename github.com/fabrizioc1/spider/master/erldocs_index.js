@@ -1,1 +1,0 @@
-var index = [['app','spider','spider','[application]'],['mod','spider','parallel',[]],['mod','spider','spider_config',[]],['mod','spider','strre',[]],['fun','spider','parallel:map/2',[]],['fun','spider','strre:ends_with/2',[]],['fun','spider','strre:gsub/3',[]],['fun','spider','strre:starts_with/2',[]],['fun','spider','strre:sub/3',[]],['fun','spider','strre:test/0',[]]];

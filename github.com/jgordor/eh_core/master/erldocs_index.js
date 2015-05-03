@@ -1,1 +1,0 @@
-var index = [['app','eh_core','eh_core','[application]'],['mod','eh_core','eh_core_custom_filters',[]],['mod','eh_core','eh_core_custom_tags',[]],['mod','eh_core','eh_core_incoming_mail_controller',[]],['mod','eh_core','eh_core_outgoing_mail_controller',[]]];

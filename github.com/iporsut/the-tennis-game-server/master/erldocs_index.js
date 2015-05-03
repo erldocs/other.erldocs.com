@@ -1,1 +1,0 @@
-var index = [['app','the-tennis-game-server','the-tennis-game-server','[application]'],['mod','the-tennis-game-server','client',[]],['mod','the-tennis-game-server','server',[]],['fun','the-tennis-game-server','client:new/0',[]],['fun','the-tennis-game-server','server:start/0',[]],['fun','the-tennis-game-server','server:stop/0',[]]];

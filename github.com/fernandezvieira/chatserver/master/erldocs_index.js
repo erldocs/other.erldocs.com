@@ -1,1 +1,0 @@
-var index = [['app','chatserver','chatserver','[application]'],['mod','chatserver','client',[]],['mod','chatserver','server',[]],['fun','chatserver','client:join/2',[]],['fun','chatserver','client:send_message/2',[]],['fun','chatserver','client:start/0',[]],['fun','chatserver','server:start/0',[]]];

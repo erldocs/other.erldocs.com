@@ -1,1 +1,0 @@
-var index = [['app','moo_mime_types','moo_mime_types','[application]'],['mod','moo_mime_types','moo_mime_types',[]],['mod','moo_mime_types','moo_mime_types_generator','Mime Type module generator.'],['fun','moo_mime_types','moo_mime_types:t/1',[]],['fun','moo_mime_types','moo_mime_types_generator:run/0',[]]];

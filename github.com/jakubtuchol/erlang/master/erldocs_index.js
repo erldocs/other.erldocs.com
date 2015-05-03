@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','kitty_server',[]],['fun','erlang','kitty_server:close_shop/1',[]],['fun','erlang','kitty_server:order_cat/4',[]],['fun','erlang','kitty_server:return_cat/2',[]],['fun','erlang','kitty_server:start_link/0',[]]];
