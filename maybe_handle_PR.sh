@@ -7,8 +7,7 @@
 cd $TRAVIS_BUILD_DIR
 [[ ! -f todo.txt ]] && exit 3
 mkdir other \
-    && cp todo.txt gen
-    && export PR_branch=$TRAVIS_BRANCH \
+    && cp todo.txt gen \
     && export PR_commit=$TRAVIS_COMMIT \
     && git checkout gh-pages \
     && git clone https://github.com/erldocs/erldocs_other.git erldocs_other.git \
