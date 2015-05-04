@@ -29,9 +29,9 @@ script:
   - git config user.email travis@atdot.dot
   - git config user.name 'Travis CI'
   - git cherry-pick $TRAVIS_COMMIT_RANGE
-  - git checkout gh-pages -- $ToDo
+  - echo '' >$ToDo
   - git add -A .
-  - "git commit -m 'Close PR $TRAVIS_PULL_REQUEST: successfully applied'"
+  - git commit -m "Close successfully applied PR $TRAVIS_PULL_REQUEST"
   - git push origin gh-pages
 after_success:
   - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l
