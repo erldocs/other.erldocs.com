@@ -6,7 +6,7 @@ env:
   global:
     - secure: "aoyYDVQ7fmBNkKUzW54gwZbiUL9J9TP6bHp6BB/YwQ8dA//aNdWXXg8Xanvqb9w2u7K8buCyMLLlyVy8dBqsba76yMmTnkN1tLiFMc9+TZeuK4bNv5ieZurOHPer3nFF8OPvJiBfYxsSnrrbjxeav4p71jPv8hcCtEJLMupVA/s="
 script:
-  - [[ $TRAVIS_PULL_REQUEST == false ]]
+  - bash -c "[[ $TRAVIS_PULL_REQUEST == false ]]"
 after_success:
   - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l _
 after_failure:
@@ -14,7 +14,7 @@ after_failure:
   - ToDo=todo.txt
   - Gen=gen
   - cd $TRAVIS_BUILD_DIR
-  - [[ -f $ToDo ]]  # Fail if not found
+  - bash -c "[[ -f $ToDo ]]"  # Fail if not found
   - mkdir other
   - cp $ToDo $Gen
   - export PR_commit=$TRAVIS_COMMIT
