@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eradius_server (eradius) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eradius_server</h1>
+<h2 class="modsummary">    
+This module implements a generic RADIUS server.</h2>
+<div class="description">
+<p>    
+This module implements a generic RADIUS server. A handler callback module    
+is used to process requests. The handler module is selected based on the NAS that    
+sent the request. Requests from unknown NASs are discarded.</p>
+ 
+    <p>It is also possible to run request handlers on remote nodes. If configured,    
+the server process will balance load among connected nodes.    
+Please see the Overview page for a detailed description of the server configuration.</p>
+ 
+    <p><em><marker id="Callback_Description">Callback Description</marker></em></p>
+ 
+    <p>There is only one callback at the moment.</p>
+ 
+    <p><em><marker id="radius_request(#radius_request{},_#nas_prop{},_HandlerData_::_term())_->_{reply,_#radius_request{}}_|_noreply">radius_request(#radius_request{}, #nas_prop{}, HandlerData :: term()) -&gt; {reply, #radius_request{}} | noreply</marker></em></p>
+ 
+    <p>This function is called for every RADIUS request that is received by the server.    
+Its first argument is a request record which contains the request type and AVPs.    
+The second argument is a NAS descriptor. The third argument is an opaque term from the    
+server configuration.</p>
+ 
+    <p>Both records are defined in 'eradius_lib.hrl', but their definition is reproduced here for easy reference.</p>
+ 
+    <pre class="sh_erlang">    -record(radius_request, {
+        reqid         :: byte(),
+        cmd           :: 'request' | 'accept' | 'challenge' | 'reject' | 'accreq' | 'accresp' | 'coareq' | 'coaack' | 'coanak' | 'discreq' | 'discack' | 'discnak'm
+        attrs         :: eradius_lib:attribute_list(),
+        secret        :: eradius_lib:secret(),
+        authenticator :: eradius_lib:authenticator(),
+        msg_hmac      :: boolean(),
+        eap_msg       :: binary()
+    }).
+ 
+    -record(nas_prop, {
+        server_ip     :: inet:ip_address(),
+        server_port   :: eradius_server:port_number(),
+        nas_ip        :: inet:ip_address(),
+        nas_port      :: eradius_server:port_number(),
+        secret        :: eradius_lib:secret(),
+        trace         :: boolean(),
+        handler_nodes :: 'local' | list(atom())
+    }).</pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-port_number">port_number() = 1..65535</h3></div>
+    <div class="type"><h3 id="type-req_id">req_id() = byte()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(X1::callbacks) -&gt; [{module(), non_neg_integer()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stats/2">stats(Server, Function) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="printable_peer/1">printable_peer(X1::ip4_address() (see module inet), Port::port_number() (see module eradius_server)) -&gt; chars() (see module io_lib)</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

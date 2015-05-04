@@ -1,0 +1,1 @@
+var index = [['app','emr','emr','[application]'],['mod','emr','emr',[]],['mod','emr','emr_seq',[]],['fun','emr','emr:mapreduce/3',[]],['fun','emr','emr_seq:mapreduce/3',[]]];

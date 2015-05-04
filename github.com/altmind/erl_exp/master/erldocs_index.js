@@ -1,0 +1,1 @@
+var index = [['app','erl_exp','erl_exp','[application]'],['mod','erl_exp','boolean',[]],['fun','erl_exp','boolean:b_and/2',[]],['fun','erl_exp','boolean:b_not/1',[]],['fun','erl_exp','boolean:b_or/2',[]]];

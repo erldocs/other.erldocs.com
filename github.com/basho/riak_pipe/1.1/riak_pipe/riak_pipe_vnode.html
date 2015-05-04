@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_pipe_vnode (riak_pipe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_pipe_vnode</h1>
+<h2 class="modsummary">The vnode, where the queues live.</h2>
+<div class="description">
+<p>The vnode, where the queues live.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-chash">chash() = <a href="chash.html#type-index" class="seealso">chash:index()</a></h3></div>
+    <div class="type"><h3 id="type-chashfun">chashfun() = {Module :: atom(), Function :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-chash" class="seealso">chash()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| follow<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sink<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fun((term()) -> <a href="#type-chash" class="seealso">chash()</a>)</h3></div>
+    <div class="type"><h3 id="type-nval">nval() = integer() >= 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Module :: atom(), Function :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fun((term()) -> integer() >= 1)</h3></div>
+    <div class="type"><h3 id="type-partition">partition() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-qerror">qerror() = worker_limit_reached<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| worker_startup_failed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timeout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| forwarding<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| preflist_exhausted</h3></div>
+    <div class="type"><h3 id="type-qtimeout">qtimeout() = noblock | infinity</h3></div>
+    <div class="type"><h3 id="type-sender">sender() = {<a href="#type-sender_type" class="seealso">sender_type()</a>, reference(), pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {server, undefined, undefined}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {fsm, undefined, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ignore</h3></div>
+    <div class="type"><h3 id="type-sender_type">sender_type() = fsm | server | raw</h3></div>
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_vnode/1">start_vnode(I::partition()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the vnode, if it isn't started already.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[partition()]) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Initialize the vnode.  This function validates the limits set       
+in the application environment, and starts the worker       
+supervisor.</p>
+ 
+       <p>Two application environment variables matter to the vnode:
+ </p><taglist><dt>
+       <code>worker_limit</code>
+ </dt><item><p>
+       Positive integer, default 50. The maximum number of workers
+       allowed to operate on this vnode.
+ </p></item><dt>
+       <code>worker_queue_limit</code>
+ </dt><item><p>
+       Positive integer, default 4096. The maximum length of each
+       worker's input queue.  The actual cap for a fitting's queue is
+       the lesser of this number and the <code>q_limit</code> specified in the
+       startup spec.
+ </p></item></taglist>
+</div></div>
+<div class="function">
+<h3 id="hash_for_partition/1">hash_for_partition(I::partition()) -&gt; chash()</h3>
+
+
+<div class="description">
+
+<p>Produce a hash value in the range handled by the given
+       partition.  Used to support the <code>follow</code> chashfun.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_work/2">queue_work(Fitting, Input) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#queue_work/3" class="seealso">queue_work(Fitting, Input, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_work/3">queue_work(Fitting, Input, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#queue_work/4" class="seealso">queue_work(Fitting, Input, Timeout, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_work/1">queue_work(Fitting::fitting() (see module riak_pipe), Input::term(), Timeout::qtimeout(), UsedPreflist::preflist() (see module riak_core_apl)) -&gt; ok | {error, [qerror()]}</h3>
+
+
+<div class="description">
+
+<p>Queue the given <code>Input</code> for processing by the <code>Fitting</code>.  This
+       function handles getting the input to the correct vnode by
+       evaluating the fitting's consistent-hashing function
+       (<code>chashfun</code>) on the input.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_work/1-1">queue_work(Fitting::fitting() (see module riak_pipe), Input::term(), Timeout::qtimeout(), UsedPreflist::preflist() (see module riak_core_apl), Hash::chash()) -&gt; ok | {error, [qerror()]}</h3>
+
+
+<div class="description">
+
+<p>Queue the given <code>Input</code> for processing the the <code>Fitting</code> on
+       the vnode specified by <code>Hash</code>.  This version of the function
+       is used to support the <code>follow</code> chashfun, by allowing a worker       
+to send the input directly to the vnode it works for.</p>
+ 
+       <p><code>Timeout</code> may be any of the following:
+ </p><taglist><dt>
+       <code>infinity</code>
+ </dt><item><p>
+       Never timeout.  Wait as long as necessary to get the input in
+       the queue.
+ </p></item><dt>
+       <code>noblock</code>
+ </dt><item><p>
+       Timeout if the vnode cannot immediately queue the input.
+       <code>noblock</code> will wait as long as necessary for a response from
+       the vnode, but will direct the vnode not to block the request
+       if the queue is full.
+ </p></item></taglist>
+</div></div>
+<div class="function">
+<h3 id="eoi/1">eoi(Pid::pid(), Fitting::fitting() (see module riak_pipe)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send end-of-inputs for a fitting to a vnode.  Note: this
+       should only be called by <code>riak_pipe_fitting</code> processes.  This
+       will cause the vnode to shutdown the worker, dispose of the
+       queue, and send a <code>done</code> to the fitting, once the queue is
+       emptied.</p>
+</div></div>
+<div class="function">
+<h3 id="next_input/1">next_input(Pid::pid(), Fitting::fitting() (see module riak_pipe)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Request the next input from the queue for the given fitting
+       from a vnode.  Note: this should only be called by the worker
+       process for that fitting-vnode pair.  This will cause the
+       vnode to send the next input to the worker process for this
+       fitting.</p>
+</div></div>
+<div class="function">
+<h3 id="reply_archive/1">reply_archive(Pid::pid(), Fitting::fitting() (see module riak_pipe), Archive::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send the result of archiving a worker to the vnode that owns
+       that worker.  Note: this should only be called by the worker
+       being archived.  This will cause the vnode to send that
+       worker's queue and archive to its handoff partner when
+       instructed to do so.</p>
+</div></div>
+<div class="function">
+<h3 id="status/1">status(Pid::pid()) -&gt; {partition(), [[{atom(), term()}]]}</h3>
+
+
+<div class="description">
+
+<p>Get some information about the worker queues on this vnode.
+       The result is a tuple of the form <code>{PartitionNumber,
+       [WorkerProplist]}</code>.  Each WorkerProplist contains tagged
+       tuples, such as:
+ </p><taglist><dt>
+       <code>fitting</code>
+ </dt><item><p>
+       The pid of the fitting the worker implements.
+ </p></item><dt>
+       <code>name</code>
+ </dt><item><p>
+       The name of the fitting.
+ </p></item><dt>
+       <code>module</code>
+ </dt><item><p>
+       The module that implements the fitting.
+ </p></item><dt>
+       <code>state</code>
+ </dt><item><p>
+       The state of the worker.  One of <code>working</code>, <code>waiting</code>, <code>init</code>.
+ </p></item><dt>
+       <code>inputs_done</code>
+ </dt><item><p>
+       Boolean: true if <code>eoi</code> has been delivered for this fitting,
+       false otherwise.
+ </p></item><dt>
+       <code>queue_length</code>
+ </dt><item><p>
+       Integer number of items in the worker's queue.
+ </p></item><dt>
+       <code>blocking_length</code>
+ </dt><item><p>
+       Integer number of requests blocking on the queue.
+ </p></item><dt>
+       <code>started</code>
+ </dt><item><p>
+       An <a href="erlang.html#now/0" class="seealso">erlang:now/0</a> tuple, indicating the time that the
+       worker started.
+ </p></item><dt>
+       <code>processed</code>
+ </dt><item><p>
+       Integer number of inputs that the worker has processed.
+ </p></item><dt>
+       <code>failures</code>
+ </dt><item><p>
+       Integer number of times that the worker has failed (and was
+       restarted).
+ </p></item><dt>
+       <code>work_time</code>
+ </dt><item><p>
+       Total time the worker has spent processing inputs (as opposed
+       to waiting, idle for them).  Given as an integer number of
+       microseconds.
+ </p></item><dt>
+       <code>idle_time</code>
+ </dt><item><p>
+       Total time the worker has spent waiting for inputs (as opposed
+       to working on them).  Given as an integer number of
+       microseconds.  Should be roughly equal to
+       <code>(now()-started)-work_time</code>.
+ </p></item></taglist>
+</div></div>
+<div class="function">
+<h3 id="status/1-1">status(Pid::pid(), Fittings::[#fitting{pid=undefined | pid(), ref=undefined | reference(), chashfun=undefined | chashfun() (see module riak_pipe_vnode), nval=undefined | nval() (see module riak_pipe_vnode)}] | all) -&gt; {partition(), [[{atom(), term()}]]}</h3>
+
+
+<div class="description">
+
+<p>Produces the same type of data as <a href="#status/1" class="seealso">status/1</a>, but only
+       includes information for the fittings given.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_command/1">handle_command(Cmd_enqueue::term(), Sender::sender(), State::state()) -&gt; {reply, term(), state()} | {noreply, state()}</h3>
+
+
+<div class="description">
+
+<p>Handle a vnode command.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_handoff_command/1">handle_handoff_command(Riak_core_fold_req_v1::term(), Sender::sender(), State::state()) -&gt; {reply, term(), state()} | {noreply, state()} | {forward, state()}</h3>
+
+
+<div class="description">
+
+<p>Handle a handoff command.</p>
+</div></div>
+<div class="function">
+<h3 id="handoff_starting/1">handoff_starting(TargetNode::node(), State::state()) -&gt; {true, state()}</h3>
+
+
+<div class="description">
+
+<p>Be prepared to handoff.</p>
+</div></div>
+<div class="function">
+<h3 id="handoff_cancelled/1">handoff_cancelled(State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Stop handing off before getting started.</p>
+</div></div>
+<div class="function">
+<h3 id="handoff_finished/1">handoff_finished(TargetNode::node(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Note that handoff has completed.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_handoff_data/1">handle_handoff_data(Data::binary(), State::state()) -&gt; {reply, ok | {error, term()}, state()}</h3>
+
+
+<div class="description">
+
+<p>Accept handoff data from some other node.  <code>Data</code> should be a
+       term_to_binary-ed <code>#worker_handoff{}</code> record.  See <a href="#encode_handoff_item/2" class="seealso">encode_handoff_item/2</a>.</p>
+ 
+       <p>Ensure that a worker is running for the fitting, merge queues,
+       and prepare to handle archive transfer.</p>
+</div></div>
+<div class="function">
+<h3 id="encode_handoff_item/1">encode_handoff_item(Fitting::fitting() (see module riak_pipe), X2::{queue(), queue(), term()}) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Produce a binary representing the worker data to handoff.</p>
+</div></div>
+<div class="function">
+<h3 id="is_empty/1">is_empty(State::state()) -&gt; {boolean(), state()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether this vnode has any running workers.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_exit/1">handle_exit(Pid::pid(), Reason::term(), State::state()) -&gt; {noreply, state()}</h3>
+
+
+<div class="description">
+
+<p>Handle an 'EXIT' message from a worker process.</p>
+ 
+       <p>If the worker died normally after receiving end-of-inputs and
+       emptying its queue, send <code>done</code> to the fitting, and remove the       
+worker's entry in the vnodes list.</p>
+ 
+       <p>If the worker died abnormally, attempt to restart it.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(X1::term(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Handle a 'DOWN' message from a fitting process. Kill the
+       worker associated with that fitting and dispose of its queue.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_coverage/1">handle_coverage(Request::term(), FilterVNodes::term(), Sender::sender(), State::state()) -&gt; {reply, ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Coverage requests may be used to enqueue identical work on
+       multiple vnodes.  <code>Input</code> is delivered to the worker as
+       <code>{cover, FilterVNodes, Input}</code>.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

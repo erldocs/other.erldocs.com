@@ -1,0 +1,1 @@
+var index = [['app','swirl-ql','swirl-ql','[application]'],['mod','swirl-ql','swirl_ql',[]],['fun','swirl-ql','swirl_ql:evaluate/1',[]],['fun','swirl-ql','swirl_ql:parse/1',[]]];

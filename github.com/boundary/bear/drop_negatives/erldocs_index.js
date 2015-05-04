@@ -1,0 +1,1 @@
+var index = [['app','bear','bear','[application]'],['mod','bear','bear','   statistics functions for calucating based on i'],['fun','bear','bear:get_statistics/1',[]],['fun','bear','bear:get_statistics/2',[]]];

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sc_list (sc_list) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sc_list</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-weight_list">weight_list(T) = [weighted_value(T)]</h3></div>
+    <div class="type"><h3 id="type-weighted_value">weighted_value(T) = {Value::T, Weight::number()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="between/1">between(List::list(), Delim::any()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Places a delimiter inbetween every item in the list. </p><pre class="sh_erlang">  1&gt; sc_list:between( [1,2,3], 0 ).
+  [1,0,2,0,3]
+ 
+  2&gt; sc_list:between( [], 0 ).
+  []</pre><p>
+ 
+  Unit and doc tested.</p>
+</div></div>
+<div class="function">
+<h3 id="foldl0/1">foldl0(Fun::function(), List::nonempty_list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>A traditional convenience pre-loader for <code>foldl</code>, for when the initializer is the list's first member. </p><pre class="sh_erlang">  1&gt; sc_list:foldl0( fun(Step, Acc) -&gt; Step + Acc end, [2,4,6,8] ).
+  20
+ 
+  2&gt; ForceList = fun(X) when is_integer(X) -&gt; integer_to_list(X);
+  2&gt;                (X)                    -&gt; X end.
+  #Fun&lt;erl_eval.6.106461118&gt;
+ 
+  3&gt; Paren = fun(X,Y) -&gt; "(" ++ ForceList(X) ++ "," ++ ForceList(Y) ++ ")" end.
+  #Fun&lt;erl_eval.12.106461118&gt;
+ 
+  4&gt; Paren(2,3).
+  "(2,3)"
+ 
+  5&gt; Paren(2,"(3,4)").
+  "(2,(3,4))"
+ 
+  6&gt; sc_list:foldl0( Paren, [1,2,3,4,5] ).
+  "(5,(4,(3,(2,1))))"
+ 
+  7&gt; sc_list:foldr0( Paren, [1,2,3,4,5] ).
+  "(2,(3,(4,(5,1))))"</pre><p>
+ 
+  Unit and doc tested.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="foldr0/1">foldr0(Fun::function(), List::nonempty_list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>A traditional convenience pre-loader for <code>foldr</code>, for when the initializer is the list's first member. </p><pre class="sh_erlang">  1&gt; sc_list:foldl0( fun(Step, Acc) -&gt; Step + Acc end, [2,4,6,8] ).
+  20
+ 
+  2&gt; ForceList = fun(X) when is_integer(X) -&gt; integer_to_list(X);
+  2&gt;                (X)                    -&gt; X end.
+  #Fun&lt;erl_eval.6.106461118&gt;
+ 
+  3&gt; Paren = fun(X,Y) -&gt; "(" ++ ForceList(X) ++ "," ++ ForceList(Y) ++ ")" end.
+  #Fun&lt;erl_eval.12.106461118&gt;
+ 
+  4&gt; Paren(2,3).
+  "(2,3)"
+ 
+  5&gt; Paren(2,"(3,4)").
+  "(2,(3,4))"
+ 
+  6&gt; sc_list:foldl0( Paren, [1,2,3,4,5] ).
+  "(5,(4,(3,(2,1))))"
+ 
+  7&gt; sc_list:foldr0( Paren, [1,2,3,4,5] ).
+  "(2,(3,(4,(5,1))))"</pre><p>
+ 
+  Unit and doc tested.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="max/1">max(Name::nonempty_list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Returns the maximum of a non-empty list of values, type-insensitive. </p><pre class="sh_erlang">  1&gt; sc_list:max( [1, 2, 3] ).
+  3
+ 
+  2&gt; sc_list:max( [1, 2.0, 3] ).
+  3
+ 
+  3&gt; sc_list:max( [1, two, 3] ).
+  two</pre><p>
+ 
+  Unit and doc tested.</p>
+</div></div>
+<div class="function">
+<h3 id="min/1">min(Name::nonempty_list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Returns the minimum of a non-empty list of values, type-insensitive. </p><pre class="sh_erlang">  1&gt; sc_list:min( [1, 2, 3] ).
+  1
+ 
+  2&gt; sc_list:min( [1, 2.0, 3] ).
+  1
+ 
+  3&gt; sc_list:min( [one, 2, three] ).
+  2</pre><p>
+ 
+  Unit and doc tested.</p>
+</div></div>
+<div class="function">
+<h3 id="extrema/1">extrema(List::nonempty_list()) -&gt; {Low::any(), Hi::any()}</h3>
+
+
+<div class="description">
+
+<p><span style="color: green; font-weight: bold;">Stoch</span> Returns the lowest and highest values in a list of one or more member in the form <code>{Lo,Hi}</code>.  Undefined over the empty list.  Mixed-type safe; sorts according to type order rules.  </p><pre class="sh_erlang">  1&gt; sc_list:extrema([1,2,3,4]).
+  {1,4}
+ 
+  2&gt; sc_list:extrema([1,2,3,a,b,c]).
+  {1,c}</pre><p>
+ 
+  </p><p>3&gt; sc_list:extrema( [] ).  
+** exception error: no function clause matching sc_list:extrema([])'''</p>
+ 
+  <p>Unit, doc and stochastic (min and max are list members) tested.</p>
+</div></div>
+<div class="function">
+<h3 id="key_duplicate/1">key_duplicate(KeyList::[{non_neg_integer(), any()}]) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p><span style="color: green; font-weight: bold;">Stoch, spec</span> Iterates a list of <code>{Count,Term}</code>, producing a list of <code>[Term,Term,...]</code>.  </p><pre class="sh_erlang">  1&gt; sc_list:key_duplicate([ {3,bork} ]).
+  [bork,bork,bork]
+ 
+  2&gt; sc_list:key_duplicate([ {3,sunday}, {2,monster}, {2,truck}, {1,'MADNESS'} ]).
+  [sunday,sunday,sunday,monster,monster,truck,truck,'MADNESS']</pre><p>
+ 
+  Unit, doc, spec and stochastic (correct length) tested.</p>
+</div></div>
+<div class="function">
+<h3 id="implode/2">implode(Separator, Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p><span style="color:orange;font-style:italic">Stoch untested</span> Append strings with separating string inbetween - contrast <a href="#explode/2" class="seealso">explode/2</a>. </p><pre class="sh_erlang">  1&gt; sc_list:implode(",", ["a", "b", "c"]).
+  "a,b,c"
+ 
+  2&gt; sc_list:implode(",", ["ab", "cd", "ef"]).
+  "ab,cd,ef"
+ 
+  3&gt; sc_list:implode(",", ["", "", ""]).
+  ",,"
+ 
+  4&gt; sc_list:implode("-wop ", ["do", "do", "do"]).
+  "do-wop do-wop do"
+ 
+  5&gt; sc_list:implode("", ["", "", ""]).
+  []</pre><p>
+ 
+  thanks for a much better implementation, etnt</p>
+</div></div>
+<div class="function">
+<h3 id="rotate_list/1">rotate_list(Distance::integer(), ListData::list()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p><span style="color: green; font-weight: bold;">Tested</span> Rotates the front <code>Distance</code> elements of a list to the back, in order.  Negative distances rotate the back towards the front.  Distances over the length of
+  the list wrap in modulus.  </p><pre class="sh_erlang">  1&gt; sc_list:rotate_list(2, [1,2,3,4,5,6,7,8]).
+  [3,4,5,6,7,8,1,2]
+ 
+  2&gt; sc_list:rotate_list(-2, [1,2,3,4,5,6,7,8]).
+  [7,8,1,2,3,4,5,6]
+ 
+  3&gt; sc_list:rotate_list(0, [1,2,3,4,5,6,7,8]).
+  [1,2,3,4,5,6,7,8]
+ 
+  4&gt; sc_list:rotate_list(16, [1,2,3,4,5,6,7,8]).
+  [1,2,3,4,5,6,7,8]</pre>
+</div></div>
+<div class="function">
+<h3 id="histograph/1">histograph(List::list()) -&gt; weight_list(_T)</h3>
+
+
+<div class="description">
+
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Takes a histograph count of the items in the list.  Mixed type lists are safe.  Input lists do not need to be sorted.  The histograph is shallow - that is, the histograph of <code>[ [1,2], [1,2], [2,2] ]</code> is <code>[ {[1,2],2}, {[2,2],1} ]</code>, not <code>[ {1,2}, {2,4} ]</code>. </p><pre class="sh_erlang">  1&gt; sc_list:histograph([1,2,a,2,b,1,b,1,b,2,a,2,2,1]).
+  [{1,4},{2,5},{a,2},{b,3}]
+ 
+  2&gt; sc_list:histograph([ sc:rand(10) || X &lt;- lists:seq(1,100000) ]).
+  [{0,10044}, {1,9892}, {2,10009}, {3,10016}, {4,10050}, {5,10113}, {6,9990}, {7,9994}, {8,10004}, {9,9888}]
+ 
+  3&gt; ChessBoard = [ rook,  knight, bishop, king,  queen, bishop, knight, rook,
+                    pawn,  pawn,   pawn,   pawn,  pawn,  pawn,   pawn,   pawn,
+                    empty, empty,  empty,  empty, empty, empty,  empty,  empty,
+                    empty, empty,  empty,  empty, empty, empty,  empty,  empty,
+                    empty, empty,  empty,  empty, empty, empty,  empty,  empty,
+                    empty, empty,  empty,  empty, empty, empty,  empty,  empty,
+                    pawn,  pawn,   pawn,   pawn,  pawn,  pawn,   pawn,   pawn,
+                    rook,  knight, bishop, king,  queen, bishop, knight, rook ].
+  [rook,knight,bishop,king,queen,bishop,knight,rook,pawn,pawn,
+   pawn,pawn,pawn,pawn,pawn,pawn,empty,empty,empty,empty,empty,
+   empty,empty,empty,empty,empty,empty,empty,empty|...]
+ 
+  4&gt; sc_list:histograph(ChessBoard).
+  [ { bishop, 4  },
+    { empty,  32 },
+    { king,   2  },
+    { knight, 4  },
+    { pawn,   16 },
+    { queen,  2  },
+    { rook,   4  } ]</pre><p>
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

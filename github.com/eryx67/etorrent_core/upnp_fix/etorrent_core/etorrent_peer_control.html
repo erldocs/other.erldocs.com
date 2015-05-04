@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_peer_control (etorrent_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_peer_control</h1>
+<h2 class="modsummary">Manage and control peer communication.</h2>
+<div class="description">
+<p>Manage and control peer communication.
+  </p><p>This gen_server handles the communication with a single peer. It
+  handles incoming connections, and transmits the right messages back
+  to the peer, according to the specification of the BitTorrent
+  procotol.</p>
+  <p>Each peer runs one gen_server of this kind. It handles the
+  queueing of pieces, requestal of new chunks to download, choking
+  states, the remotes request queue, etc.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-direction">direction() = incoming | outgoing</h3></div>
+    <div class="type"><h3 id="type-torrentid">torrentid() = <a href="etorrent_types.html#type-torrent_id" class="seealso">etorrent_types:torrent_id()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="register_server/2">register_server(TorrentID, Socket) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Register the current process as a peer process</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_server/1">lookup_server(Socket) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Lookup the process id of a specific peer.</p>
+</div></div>
+<div class="function">
+<h3 id="await_server/1">await_server(Socket) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lookup_peers/1">lookup_peers(TorrentID::torrentid()) -&gt; [pid()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/7">start_link(TrackerUrl, LocalPeerId, InfoHash, Id, X5, Caps, Socket) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Starts the server</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Gracefully ask the server to stop.</p>
+</div></div>
+<div class="function">
+<h3 id="choke/1">choke(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Choke the peer.
+  </p><p>The intended caller of this function is the <a href="etorrent_choker.html" class="seealso">etorrent_choker</a></p>
+</div></div>
+<div class="function">
+<h3 id="unchoke/1">unchoke(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Unchoke the peer.
+  </p><p>The intended caller of this function is the <a href="etorrent_choker.html" class="seealso">etorrent_choker</a></p>
+</div></div>
+<div class="function">
+<h3 id="update_queue/1">update_queue(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Rerun <code>poll_local_rqueue</code>.
+  </p><p>The intended caller of this function is the <a href="etorrent_reordered.html" class="seealso">etorrent_reordered</a></p>
+</div></div>
+<div class="function">
+<h3 id="initialize/1">initialize(Pid::pid(), Way::direction()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Initialize the connection.
+  </p><p>The <code>Way</code> parameter tells the client of the connection is
+  <code>incoming</code> or <code>outgoing</code>. They are handled differently since part
+  of the handshake is already completed for incoming connections.</p>
+</div></div>
+<div class="function">
+<h3 id="incoming_msg/2">incoming_msg(Pid, Msg) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Inject an incoming message to the process.
+  </p><p>This is the main "Handle-incoming-messages" call. The intended
+  caller is <a href="etorrent_peer_recv.html" class="seealso">etorrent_peer_recv</a>, whenever a message arrives on
+  the socket.</p>
+</div></div>
+<div class="function">
+<h3 id="check_choke/1">check_choke(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Trigger a check of the current choke status.
+  </p><p>
+  Rechecking the current choke status ensures that an upload-slot is
+  immediately allocated to a peer that has shown interest, if there is
+  an available upload-slot.
+  </p>
+  <p>
+  The current choke status is also rechecked when a peer has shown a lack
+  of interest. This ensures that the upload-slot it has allocated, if it
+  is unchoked at the time, is freed and reallocated to another peer.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="format_status/2">format_status(Opt, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Jesper Louis Andersen</aname>
+<email>jesper.louis.andersen@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

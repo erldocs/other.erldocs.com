@@ -1,0 +1,1 @@
+var index = [['app','basho_bench_dist','basho_bench_dist','[application]'],['mod','basho_bench_dist','basho_bench_dist',[]],['fun','basho_bench_dist','basho_bench_dist:main/1',[]]];

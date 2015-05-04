@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ephp_func_array (ephp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ephp_func_array</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-arith_mono">arith_mono() = <a href="#type-pre_incr" class="seealso">pre_incr()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-pre_decr" class="seealso">pre_decr()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-post_incr" class="seealso">post_incr()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-post_decr" class="seealso">post_decr()</a></h3></div>
+    <div class="type"><h3 id="type-array_index">array_index() = <a href="#type-arith_mono" class="seealso">arith_mono()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ternary" class="seealso">ternary()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-operation" class="seealso">operation()</a></h3></div>
+    <div class="type"><h3 id="type-condition">condition() = <a href="#type-expression" class="seealso">expression()</a> | <a href="#type-operation" class="seealso">operation()</a></h3></div>
+    <div class="type"><h3 id="type-conditions">conditions() = [<a href="#type-condition" class="seealso">condition()</a>]</h3></div>
+    <div class="type"><h3 id="type-context">context() = reference()</h3></div>
+    <div class="type"><h3 id="type-expression">expression() = <a href="#type-operation" class="seealso">operation()</a></h3></div>
+    <div class="type"><h3 id="type-if_block">if_block() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#if_block{conditions = undefined | <a href="#type-conditions" class="seealso">conditions()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;true_block = undefined | <a href="#type-statements" class="seealso">statements()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;false_block = undefined | <a href="#type-statements" class="seealso">statements()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line = undefined | <a href="#type-line" class="seealso">line()</a>}</h3></div>
+    <div class="type"><h3 id="type-line">line() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{line, integer() >= 0}, {column, integer() >= 0}}</h3></div>
+    <div class="type"><h3 id="type-mixed">mixed() = integer() | float() | binary() | boolean() | null</h3></div>
+    <div class="type"><h3 id="type-operation">operation() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#operation{type = undefined | binary() | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expression_left = undefined | <a href="#type-variable" class="seealso">variable()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expression_right = undefined | <a href="#type-expression" class="seealso">expression()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line = undefined | <a href="#type-line" class="seealso">line()</a>}</h3></div>
+    <div class="type"><h3 id="type-post_decr">post_decr() = {post_decr, <a href="#type-variable" class="seealso">variable()</a>, <a href="#type-line" class="seealso">line()</a>}</h3></div>
+    <div class="type"><h3 id="type-post_incr">post_incr() = {post_incr, <a href="#type-variable" class="seealso">variable()</a>, <a href="#type-line" class="seealso">line()</a>}</h3></div>
+    <div class="type"><h3 id="type-pre_decr">pre_decr() = {pre_decr, <a href="#type-variable" class="seealso">variable()</a>, <a href="#type-line" class="seealso">line()</a>}</h3></div>
+    <div class="type"><h3 id="type-pre_incr">pre_incr() = {pre_incr, <a href="#type-variable" class="seealso">variable()</a>, <a href="#type-line" class="seealso">line()</a>}</h3></div>
+    <div class="type"><h3 id="type-statement">statement() = tuple() | atom()</h3></div>
+    <div class="type"><h3 id="type-statements">statements() = [<a href="#type-statement" class="seealso">statement()</a>]</h3></div>
+    <div class="type"><h3 id="type-ternary">ternary() = <a href="#type-if_block" class="seealso">if_block()</a></h3></div>
+    <div class="type"><h3 id="type-var_value">var_value() = {<a href="#type-variable" class="seealso">variable()</a>, <a href="#type-mixed" class="seealso">mixed()</a>}</h3></div>
+    <div class="type"><h3 id="type-variable">variable() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#variable{name = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;idx = [<a href="#type-array_index" class="seealso">array_index()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line = undefined | <a href="#type-line" class="seealso">line()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; [php_function() (see module ephp_func)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="in_array/1">in_array(Context::context(), Key::var_value(), Array::var_value()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="count/1">count(Context::context(), Array::var_value()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sizeof/1">sizeof(Context::context(), Array::var_value()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

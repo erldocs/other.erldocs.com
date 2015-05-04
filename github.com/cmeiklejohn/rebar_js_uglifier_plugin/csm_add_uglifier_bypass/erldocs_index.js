@@ -1,0 +1,1 @@
+var index = [['app','rebar_js_uglifier_plugin','rebar_js_uglifier_plugin','[application]'],['mod','rebar_js_uglifier_plugin','rebar_js_uglifier_plugin',[]],['fun','rebar_js_uglifier_plugin','rebar_js_uglifier_plugin:clean/2',[]],['fun','rebar_js_uglifier_plugin','rebar_js_uglifier_plugin:compile/2',[]],['fun','rebar_js_uglifier_plugin','rebar_js_uglifier_plugin:compress/3',[]]];

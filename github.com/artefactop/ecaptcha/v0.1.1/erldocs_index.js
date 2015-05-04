@@ -1,0 +1,1 @@
+var index = [['app','ecaptcha','ecaptcha','[application]'],['mod','ecaptcha','ecaptcha_image',[]],['mod','ecaptcha','ecaptcha_text',[]],['fun','ecaptcha','ecaptcha_image:check/1',[]],['fun','ecaptcha','ecaptcha_image:new/1',[]],['fun','ecaptcha','ecaptcha_text:check/1',[]],['fun','ecaptcha','ecaptcha_text:new/1',[]]];

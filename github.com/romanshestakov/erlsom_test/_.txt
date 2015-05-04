@@ -1,0 +1,41 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/romanshestakov/erlsom_test'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/6720961761/meta.txt"
+ :: Processing https://github.com/romanshestakov/erlsom_test	{rev,branch,"master","08b5fb0663104c5430a93a2307d0068bb81ef060",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/romanshestakov/erlsom_test/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test"
+$ 5000  `find 'erlsom_test-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["mdigraph"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/6720961761/repo/master
+Building erlsom_test
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test/src/ec_digraphdot.erl"
+Generating XML for application erlsom_test "/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master/erlsom_test" -> "/home/pete/wefwefwef/docs/other/6720961761/repo/master/.xml/erlsom_test"
+Generated erlsom_test XMLs: ["/home/pete/wefwefwef/docs/other/6720961761/repo/master/.xml/erlsom_test/ec_digraphdot.xml"]
+Generating HTML - ec_digraphdot "/home/pete/wefwefwef/docs/other/6720961761/repo/master/.xml/erlsom_test/ec_digraphdot.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/6720961761/repo/master/.xml/erlsom_test/ec_digraphdot.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/6720961761/repo/master/.xml/specs_ec_digraphdot.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/6720961761/erlsom_test-branch-master'  2>&1`
+ :: Finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/6720961761/erlsom_test'  2>&1`

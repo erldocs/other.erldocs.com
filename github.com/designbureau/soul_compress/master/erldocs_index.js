@@ -1,0 +1,1 @@
+var index = [['app','soul_compress','soul_compress','[application]'],['mod','soul_compress','soul_compress',[]],['mod','soul_compress','soul_compress_css',[]],['fun','soul_compress','soul_compress:css/1',[]],['fun','soul_compress','soul_compress:path/1',[]],['fun','soul_compress','soul_compress_css:css/1',[]],['fun','soul_compress','soul_compress_css:path/1',[]]];

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>tulib_lists (tulib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>tulib_lists</h1>
+<h2 class="modsummary">List-related utility functions.</h2>
+<div class="description">
+<p>List-related utility functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-alist">alist(A, B) = [{A, B}]</h3></div>
+    <div class="type"><h3 id="type-maybe">maybe(A, B) = {ok, A} | {error, B}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="all/1">all(Xs::[term()]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Indicate whether Xs contains only <code>true</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="exists/1">exists(Xs::[term()]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Indicate whether Xs contains at least one <code>true</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="assoc/3">assoc(A, T::alist(A, B)) -&gt; maybe(B, notfound)</h3>
+
+
+<div class="description">
+
+<p>Lookup Key in Alist.</p>
+</div></div>
+<div class="function">
+<h3 id="assoc/3-1">assoc(K, Alist, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="assoc_delete/3">assoc_delete(A, Alist::alist(A, term())) -&gt; alist(A, term())</h3>
+
+
+<div class="description">
+
+<p>Remove all entries associated with Key from Alist.</p>
+</div></div>
+<div class="function">
+<h3 id="assoc_update/2">assoc_update(A, F::(B) -&gt; B, Rest::alist(A, B)) -&gt; alist(A, B)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="assoc_update/2-1">assoc_update(A, F::(B) -&gt; B, B, Rest::alist(A, B)) -&gt; alist(A, B)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="keyfilter/3">keyfilter(A, Alist::alist(A, term())) -&gt; alist(A, term())</h3>
+
+
+<div class="description">
+
+<p>Return all elements of Alist with a key equal to K1.</p>
+</div></div>
+<div class="function">
+<h3 id="multikeyfilter/3">multikeyfilter(A::[A], Alist::alist(A, term())) -&gt; alist(A, term())</h3>
+
+
+<div class="description">
+
+<p>Return all elements of Alist with a key in Ks.</p>
+</div></div>
+<div class="function">
+<h3 id="butlast/2">butlast(Xs::[A, ...]) -&gt; [A]</h3>
+
+
+<div class="description">
+
+<p>Return Xs (assumed to be non-empty) without its last element.</p>
+</div></div>
+<div class="function">
+<h3 id="drop/1">drop(N::integer(), Xs::[term()]) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Return Xs without its first N elements.
+  Returns the empty list if Xs has fewer than N elements.</p>
+</div></div>
+<div class="function">
+<h3 id="take/1">take(N::integer(), Xs::[term()]) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Return the first N elements of Xs.
+  Returns the empty list if Xs has fewer than N elements.</p>
+</div></div>
+<div class="function">
+<h3 id="partition/1">partition(N::non_neg_integer(), Xs::[term()]) -&gt; [[term()]] | []</h3>
+
+
+<div class="description">
+
+<p>Split Xs into sublists of N elements each.
+  If Xs has fewer than N elements, return a single partition containing
+  all elements.
+  If Xs is empty, return the empty list.</p>
+</div></div>
+<div class="function">
+<h3 id="strict_partition/1">strict_partition(N::non_neg_integer(), Xs::[term()]) -&gt; [[term()]] | []</h3>
+
+
+<div class="description">
+
+<p>Split Xs into sublists of exactly N elements each.
+  If Xs is empty, return the empty list.</p>
+</div></div>
+<div class="function">
+<h3 id="pickwith/1">pickwith(Pred::(A) -&gt; boolean(), A::[A]) -&gt; {A, [A]} | false</h3>
+
+
+<div class="description">
+
+<p>Try to find an element satisfying Pred in List. Returns {Match, Other}       
+where       
+- Match is the first element in List for which Pred returned true.       
+- Other is List with Match removed.</p>
+ 
+       <p>Returns false if no element in List satisfies Pred.</p>
+</div></div>
+<div class="function">
+<h3 id="cons/1">cons(Car::term(), Cdr::term()) -&gt; maybe_improper_list()</h3>
+
+
+<div class="description">
+
+<p>Cons car onto cdr.</p>
+</div></div>
+<div class="function">
+<h3 id="cons/1-1">cons(Car) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ensure/1">ensure(X::term()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Return a list.</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(X::term()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Return the list-representation of X.</p>
+</div></div>
+<div class="function">
+<h3 id="repeatedly/1">repeatedly(N::non_neg_integer(), F::() -&gt; A) -&gt; [A]</h3>
+
+
+<div class="description">
+
+<p>Call F N times and return a list of the results.</p>
+</div></div>
+<div class="function">
+<h3 id="seq/1">seq(N::pos_integer()) -&gt; [pos_integer()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of integers from 1 to N.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(Pred::function(), Xs::[term()]) -&gt; maybe(term(), not_found)</h3>
+
+
+<div class="description">
+
+<p>Return the first element of Xs for which Pred returns true.</p>
+</div></div>
+<div class="function">
+<h3 id="find_result/1">find_result(F::function(), Xs::[term()]) -&gt; maybe(term(), not_found)</h3>
+
+
+<div class="description">
+
+<p>Return the result of applying F to the first element of Xs for
+  which F returns something other than <code>false</code></p>
+</div></div>
+<div class="function">
+<h3 id="max/2">max(A::[A, ...]) -&gt; A</h3>
+
+
+<div class="description">
+
+<p>Return the maximum of Xs.</p>
+</div></div>
+<div class="function">
+<h3 id="min/2">min(A::[A, ...]) -&gt; A</h3>
+
+
+<div class="description">
+
+<p>Return the minimum of Xs.</p>
+</div></div>
+<div class="function">
+<h3 id="flatrev/1">flatrev(A::[[A]]) -&gt; [A]</h3>
+
+
+<div class="description">
+
+<p>Flatten and reverse Xs.</p>
+</div></div>
+<div class="function">
+<h3 id="intersperse/1">intersperse(X::term(), Ys::[term()]) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>Intersperse X into Ys.</p>
+</div></div>
+<div class="function">
+<h3 id="join/1">join(A::[[A]]) -&gt; [A]</h3>
+
+
+<div class="description">
+
+<p>Shallow flatten/1.</p>
+</div></div>
+<div class="function">
+<h3 id="numbered/1">numbered(Xs::[term()]) -&gt; [{pos_integer(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Return Xs with its elements numbered from 1.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ubf_plugin_meta_stateful (ubf) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ubf_plugin_meta_stateful</h1>
+<h2 class="modsummary">Implement the UBF(C) meta-protocol for UBF(B) "stateful" contracts.</h2>
+<div class="description">
+<p>Implement the UBF(C) meta-protocol for UBF(B) "stateful" contracts.</p>
+  
+   <p>The metaprotocol is used at the beginning of a UBF session to
+   select one of the UBF(B) contracts that the TCP listener is
+   capable of offering.  The list of contracts (or more precisely,
+   the Erlang modules that implement the contract(s)) is passed via
+   the <code>ubf_server:start_link()</code> function, in the <code>PluginModule</code>   
+list.</p>
+  
+   <p>Code in this module is executed by the "Plugin Handler" process   
+in the Process Structure Diagram in the Overview.</p>
+  
+   For the purposes of this module, the list of modules that
+   implement contracts is passed using Erlang parameterized module
+   <code>Module:new(ModuleList)</code> syntax.  See the Erlang/OTP documentation
+   for more information on parameterized module syntax and usage.
+   For code examples, look in the
+   "<url href="../../test/unit">../test/unit</url>"
+   directory for several examples (see files with "_plugin.erl" suffix).
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="info/0">info() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Emit an info string.</p>
+</div></div>
+<div class="function">
+<h3 id="description/0">description() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Emit a description string.</p>
+</div></div>
+<div class="function">
+<h3 id="managerStart/1">managerStart(Args::term()) -&gt; {ok, State::term()}</h3>
+
+
+<div class="description">
+
+<p>Required UBF contract implementation callback: start manager
+       process(es).</p>
+</div></div>
+<div class="function">
+<h3 id="managerRestart/1">managerRestart(Args::term(), Manager::pid()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Required UBF contract implementation callback: restart a manager
+       process.</p>
+</div></div>
+<div class="function">
+<h3 id="managerRpc/1">managerRpc(Args::term(), Manager::pid()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Required UBF contract implementation callback: call a manager's RPC
+       function.</p>
+</div></div>
+<div class="function">
+<h3 id="handlerStart/1">handlerStart(Arg_From_UBF_Client::term(), ManagerProc::pid()) -&gt; {accept, Reply::term(), StateName::atom(), StateData::term()} | {reject, Reply::term()}</h3>
+
+
+<div class="description">
+
+<p>Required UBF contract implementation callback: start a new session
+       handler process.</p>
+</div></div>
+<div class="function">
+<h3 id="handlerStop/1">handlerStop(Env::term(), Reason::term(), StateData::term()) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>Required UBF contract implementation callback: stop a session
+       handler process.</p>
+</div></div>
+<div class="function">
+<h3 id="handlerRpc/1">handlerRpc(StateName::atom(), RpcCall::term(), StateData::term(), ManagerPid::pid()) -&gt; {Reply::term(), NewStateName::atom(), NewStateData::term()} | {changeContract, Reply::term(), NewStateData::term(), HandlerMod::atom(), State1::term(), Data1::term(), ManagerPid::pid()}</h3>
+
+
+<div class="description">
+
+<p>Required UBF contract implementation callback: call an RPC function.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

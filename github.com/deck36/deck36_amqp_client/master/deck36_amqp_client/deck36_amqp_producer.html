@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>deck36_amqp_producer (deck36_amqp_client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>deck36_amqp_producer</h1>
+<h2 class="modsummary">AMQP producer.</h2>
+<div class="description">
+<p>AMQP producer.</p>
+ 
+  <p>In order to see how to use this, see:  
+* start_link/1 and type start_opt()  
+* send/1, send/2</p>
+ 
+  <p>You should always properly shut down the producer using stop/1 or
+  you might end up with errors from amqp_client.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-delivery_mode">delivery_mode() = persistent | non_persistent | undefined</h3></div>
+    <div class="type"><h3 id="type-msg">msg() = #amqp_msg{} | binary()</h3></div>
+    <div class="type"><h3 id="type-publish_opt">publish_opt() = {exchange, binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {queue, binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {routing_key, binary()}</h3></div>
+    <div class="type"><h3 id="type-server_ref">server_ref() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-server_ref_opt">server_ref_opt() = undefined | singleton | <a href="#type-server_ref" class="seealso">server_ref()</a></h3></div>
+    <div class="type"><h3 id="type-start_opt">start_opt() = {server_ref, <a href="#type-server_ref_opt" class="seealso">server_ref_opt()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {connection, <a href="deck36_amqp_util.html#type-connection_def" class="seealso">deck36_amqp_util:connection_def()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {publish, [<a href="#type-publish_opt" class="seealso">publish_opt()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {delivery_mode, <a href="#type-delivery_mode" class="seealso">delivery_mode()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Opts::[start_opt()]) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, pid()} | ignore | {error, Error}</code></li><li><code>Error = {already_started, pid()} | term()</code></li></ul>
+<div class="description">
+
+<p>Start deck36_amqp_producer</p>
+ 
+  <p>Use option {server_ref, Ref} to register the producer:
+  - undefined -&gt; don't register (default)
+  - singleton -&gt; register as locally default server
+  - {global, Ref} -&gt; register globally
+  - Ref -&gt; register locally</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop singleton producer</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Ref::server_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop producer identified by Ref</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Msg::#amqp_msg{} | binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send message via the singleton producer</p>
+ 
+  <p>Returns ok even if the connection is somehow closed. If you want to
+  be sure the message reached the channel, use send_sync/1.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1-1">send(Ref::server_ref(), Msg::#amqp_msg{} | binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send message via producer identified by Ref</p>
+ 
+  <p>Returns ok even if the connection is somehow closed. If you want to
+  be sure the message reached the channel, use send_sync/2.</p>
+</div></div>
+<div class="function">
+<h3 id="send_sync/1">send_sync(Msg::#amqp_msg{} | binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send message via the singleton producer synchronously.</p>
+ 
+  <p>If you don't want to block your process use send/1.</p>
+</div></div>
+<div class="function">
+<h3 id="send_sync/1-1">send_sync(Ref::server_ref(), Msg::#amqp_msg{} | binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send message via producer identified by Ref synchronously.</p>
+ 
+  <p>If you don't want to block your process use send/1.</p>
+</div></div>
+<div class="function">
+<h3 id="delivery_mode/1">delivery_mode(X1::undefined | non_persistent | persistent | default) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get internal delivery_mode representation</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, State} | {ok, State, Timeout} | {ok, State, hibernate} | {stop, Reason::term()} | ignore</code></li><li><code>State = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:init-1">gen_server:init/1</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/1">handle_call(Request::term(), From::{pid(), Tag::term()}, State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {reply, Reply, NewState} | {reply, Reply, NewState, Timeout} | {reply, Reply, NewState, hibernate} | {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason, Reply, NewState} | {stop, Reason, NewState}</code></li><li><code>Reply = term()</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_call-3">gen_server:handle_call/3</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Request::term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_cast-2">gen_server:handle_cast/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::timeout | term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_info-2">gen_server:handle_info/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State::term()) -&gt; Any::term()</h3>
+
+<ul class="type">
+<li><code>Reason = normal | shutdown | {shutdown, term()} | term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:terminate-2">gen_server:terminate/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="code_change/2">code_change(OldVsn, State::term(), Extra::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, NewState::term()} | {error, Reason::term()}</code></li><li><code>OldVsn = Vsn | {down, Vsn}</code></li><li><code>Vsn = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:code_change-3">gen_server:code_change/3</url></p>
+</div></div></div>
+
+<authors>
+
+<aname>Bjoern Kortuemm (@uuid0)</aname>
+<email>bjoern.kortuemm@deck36.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

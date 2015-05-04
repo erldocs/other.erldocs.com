@@ -1,0 +1,1 @@
+var index = [['app','freeride','freeride','[application]'],['mod','freeride','freeride_web_app','.'],['mod','freeride','freeride_web_sup','.'],['fun','freeride','freeride_web_app:start/2',[]],['fun','freeride','freeride_web_app:stop/1',[]],['fun','freeride','freeride_web_sup:start_link/0','  Starts the supervisor.']];

@@ -1,0 +1,1 @@
+var index = [['app','mybase64','mybase64','[application]'],['mod','mybase64','mybase64','Functions encoding and decoding binary data from a'],['mod','mybase64','mybase64_tests',[]],['fun','mybase64','mybase64:decode_base64/1','Decodes Base64-encoded binary data.'],['fun','mybase64','mybase64:encode_base64/1','Encodes binary data to Base64.']];

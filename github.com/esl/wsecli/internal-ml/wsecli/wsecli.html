@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wsecli (wsecli) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wsecli</h1>
+<h2 class="modsummary">Websocket Client.</h2>
+<div class="description">
+<p>Websocket Client</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-client">client() = atom() | pid()</h3></div>
+    <div class="type"><h3 id="type-data_callback">data_callback() = fun((text, string()) -> any())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fun((binary, binary()) -> any())</h3></div>
+    <div class="type"><h3 id="type-encoding">encoding() = text | binary</h3></div>
+    <div class="type"><h3 id="type-on_close_callback">on_close_callback() = fun((undefined) -&gt; any())</h3></div>
+    <div class="type"><h3 id="type-on_error_callback">on_error_callback() = fun((string()) -&gt; any())</h3></div>
+    <div class="type"><h3 id="type-on_message_callback">on_message_callback() = <a href="#type-data_callback" class="seealso">data_callback()</a></h3></div>
+    <div class="type"><h3 id="type-on_open_callback">on_open_callback() = fun(() -&gt; any())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(URI::string(), Options::[{atom(), any()}]) -&gt; {error, any()} | {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the websocket client.</p>
+ 
+  <p>This function will open a connection with the specified remote endpoint.</p>
+ 
+  <p>If the option <code>ssl</code> is given it will be overwritten by the scheme type of the URI.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(Host::string(), Port::port_number() (see module inet), Resource::string(), Options::[{atom(), any()}]) -&gt; {ok, pid()} | {error, {shutdown, any()}} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Start the websocket client</p>
+ 
+  <p>This function will open a connection with the specified remote endpoint.  
+The options to this method can be the following:</p>
+ 
+  <taglist>
+ 
+   <dt><code>ssl</code></dt>
+   <item><p>Connect to the server using ssl or not. Values: <code>true</code> or <code>false</code></p></item>
+ 
+   <dt><code>register</code></dt>
+   <item><p>Register the client in the Erlang runtime. Values: <code>true</code> to register using the default name <code>wsecli</code>, <code>false</code> to not register and any other atom to register it with other name</p></item>
+ 
+  </taglist>
+ 
+  <p>If no options are given the process will not be registered and it will not try to connect using SSL.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop the websocket client</p>
+ 
+  <p>This is the same as calling <a href="#stop/1" class="seealso">stop/1</a> with the atom <code>wsecli</code> as a parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Client::client()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop the websocket client</p>
+ 
+  <p>Calling this function doesn't mean that the connection will be inmediatelly closed. A
+  closing handshake is tryed and only after that the connection is closed and the client stopped. Use
+  the callback <a href="#on_close/2" class="seealso">on_close/2</a> to know when the connection has ben closed and the client has stopped.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Data::binary() | string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send data to a remote endpoint</p>
+ 
+  <p>This is the same as calling <a href="#send/2" class="seealso">send/2</a> with the atom <code>wsecli</code> (see <a href="#start/4" class="seealso">start/4</a>) as first parameter</p>
+</div></div>
+<div class="function">
+<h3 id="send/1-1">send(Client::client(), Data::binary() | string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send data to a remote endpoint</p>
+ 
+  <p>This is the same as calling <a href="#send/3" class="seealso">send/3</a> whit the third parameter being the type of the Data sent. The type will
+  determined by <code>is_binary</code> and <code>is_list</code> NIFs. So if you want to send a <code>text</code> message which is stored in a binary value you
+  will have to use <a href="#send/3" class="seealso">send/3</a> and specify the type as <code>text</code>. Otherwise it will be sent as <code>binary</code> type</p>
+</div></div>
+<div class="function">
+<h3 id="send/1-2">send(Client::client(), Data::binary() | string(), Type::encoding()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send data to a remote endpoint</p>
+ 
+  <p>Sends data using the specified client, encoding the data as the give type.</p>
+</div></div>
+<div class="function">
+<h3 id="on_open/1">on_open(Callback::on_open_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when a connection is opened</p>
+ 
+  <p>This is the same as calling <a href="#on_open/2" class="seealso">on_open/2</a> with the atom <code>wsecli</code> (see <a href="#start/4" class="seealso">start/4</a>) as first parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="on_open/1-1">on_open(Client::client(), Callback::on_open_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when a connection is opened</p>
+ 
+  <p>This callback will be called when the connection is opened (after a successful websocket handshake)
+ or inmediatelly if added while in the open state. Adding it in any other state will
+ raise an error.</p>
+</div></div>
+<div class="function">
+<h3 id="on_error/1">on_error(Callback::on_error_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when an error occurs</p>
+ 
+  <p>This is the same as calling <a href="#on_error/2" class="seealso">on_error/2</a> with the atom <code>wsecli</code> (see <a href="#start/4" class="seealso">start/4</a>) as the first parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="on_error/1-1">on_error(Client::client(), Callback::on_error_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when an error occurs</p>
+</div></div>
+<div class="function">
+<h3 id="on_message/1">on_message(Callback::on_message_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when a message arrives</p>
+ 
+  <p>This is the same as calling <a href="#on_message/2" class="seealso">on_message/2</a> with the atom <code>wsecli</code> (see <a href="#start/4" class="seealso">start/4</a>) as the first parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="on_message/1-1">on_message(Client::client(), Callback::on_message_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when a message arrives</p>
+</div></div>
+<div class="function">
+<h3 id="on_close/1">on_close(Callback::on_close_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when then connection was closed</p>
+ 
+  <p>This is the same as calling <a href="#on_close/2" class="seealso">on_close/2</a> with the atom <code>wsecli</code> (see <a href="#start/4" class="seealso">start/4</a>) as the first parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="on_close/1-1">on_close(Client::client(), Callback::on_close_callback()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Add a callback to be called when then connection was closed</p>
+ 
+  <p>This callback will be called when the connection is successfully closed, i.e. after performing the
+ websocket closing handshake.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Farruco Sanjurjo</aname>
+<email>madtrick@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

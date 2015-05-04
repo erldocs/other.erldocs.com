@@ -1,0 +1,1 @@
+var index = [['app','zanox_erl','zanox_erl','[application]'],['mod','zanox_erl','zanox_utils','   See LICENSE for licensing information.'],['fun','zanox_erl','zanox_utils:request/1',[]],['fun','zanox_erl','zanox_utils:request/1',[]]];

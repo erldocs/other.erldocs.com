@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>db_conn_server (erlang-db-driver) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>db_conn_server</h1>
+<h2 class="modsummary">The driver's APIs.</h2>
+<div class="description">
+<p>The driver's APIs.
+  </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="pools/0">pools() -&gt; [record()]</h3>
+
+
+<div class="description">
+
+<p>Get all pools.</p>
+</div></div>
+<div class="function">
+<h3 id="set_table_schema/1">set_table_schema(PoolId::atom(), TableSchemas::[{atom(), list()}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set table_schemas in the connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="get_conn_args/1">get_conn_args(PoolId::atom()) -&gt; record()</h3>
+
+
+<div class="description">
+
+<p>Get the connection parameters in the connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="get_pool_info/1">get_pool_info(PoolId::atom(), Info::conn_args | table_schemas | size) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get information about the connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="get_pool/1">get_pool(PoolId::atom()) -&gt; record()</h3>
+
+
+<div class="description">
+
+<p>Get the connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="get_default_pool/0">get_default_pool() -&gt; record() | undefined</h3>
+
+
+<div class="description">
+
+<p>Get the default connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="set_default_pool/1">set_default_pool(PoolId::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the default connection pool.</p>
+ 
+  <p>If the default pool is exist, overwrite it.</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1">add_pool(Pool::record()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add a connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_pool/1">remove_pool(PoolId::atom()) -&gt; record()</h3>
+
+
+<div class="description">
+
+<p>Remove the connection pool and return it.</p>
+</div></div>
+<div class="function">
+<h3 id="add_connections/1">add_connections(PoolId::atom(), Conns::[record()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add connections to the connection pool.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_connections/1">remove_connections(PoolId::atom(), Num::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Remove N connections from the connection pool.</p>
+ 
+  <p>If N &gt; pool_size, then remove all connections.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_connection/1">wait_for_connection(PoolId::atom()) -&gt; record()</h3>
+
+
+<div class="description">
+
+<p>Wait for a available connection.</p>
+ 
+  <p>If ?TRANSCATION_CONNECTION is exist, then return the transaction connection.</p>
+ 
+  <p>If it isn't exist, try to lock a connection. If no connections are available
+  then wait to be notified of the next available connection.</p>
+</div></div>
+<div class="function">
+<h3 id="pass_connection/1">pass_connection(Connection::record()) -&gt; ok | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>Pass a locked connection.</p>
+ 
+  <p>Check if any processes are waiting for a connection.</p>
+ 
+  <p>If there is no program is in waiting, add the connection to the 'available'  
+queue and remove from 'locked' tree.</p>
+ 
+  <p>If the waiting queue is not empty then remove the head of the queue and  
+send it the connection.</p>
+ 
+  <p>Update the pool and queue in state once the head has been removed.</p>
+</div></div>
+<div class="function">
+<h3 id="replace_connection_as_available/1">replace_connection_as_available(OldConn::record(), NewConn::record()) -&gt; ok | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>Replace a close connection to a new one, and make it into available queue.</p>
+ 
+  <p>if an error occurs while doing work over a connection then the connection  
+must be closed and a new one created in its place. The calling process is  
+responsible for creating the new connection, closing the old one and replacing  
+it in state.</p>
+ 
+  <p>This function expects a new, available connection to be passed in to serve
+  as the replacement for the old one.</p>
+</div></div>
+<div class="function">
+<h3 id="replace_connection_as_locked/1">replace_connection_as_locked(OldConn::record(), NewConn::record()) -&gt; ok | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>Replace a close connection to a new one, and make it into locked queue.</p>
+ 
+  <p>Replace an existing, locked condition with the newly supplied one
+  and keep it in the locked list so that the caller can continue to use it
+  without having to lock another connection.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(ThreadLen::integer()) -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Starts the server.</p>
+ 
+       <p>ThreadLen: Initializes the driver thread length.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(ThreadLen::integer()) -&gt; {ok, State} | {ok, State, Timeout} | ignore | {stop, Reason}</h3>
+
+
+<div class="description">
+
+<p>Initiates the server.</p>
+ 
+       <p>Starts the db driver and save driver pid in state.</p>
+ 
+       <p>ThreadLen: Initializes the driver thread length.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1::Request, From, State) -&gt; {reply, Reply, State} | {reply, Reply, State, Timeout} | {noreply, State} | {noreply, State, Timeout} | {stop, Reason, Reply, State} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Handling call messages</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Handling cast messages</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Handling all non call/cast messages</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>Close all connections and stop db driver.</p>
+ 
+  <p>This function is called by a gen_server when it is about to terminate.  
+It should be the opposite of Module:init/1 and do any necessary  
+cleaning up.</p>
+ 
+  <p>When it returns, the gen_server terminates with Reason. The return
+  value is ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; {ok, NewState}</h3>
+
+
+<div class="description">
+
+<p>Convert process state when code is changed</p>
+</div></div></div>
+
+<authors>
+
+<aname>deng.lifen</aname>
+<email>deng.lifen@rytong.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

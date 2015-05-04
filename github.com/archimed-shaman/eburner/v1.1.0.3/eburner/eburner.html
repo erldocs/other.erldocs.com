@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eburner (eburner) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eburner</h1>
+<h2 class="modsummary">
+   The common API inteface file.</h2>
+<div class="description">
+<p>
+   The common API inteface file</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="load/2">load(ConfigName, Getter) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Getter = () -&gt; string()</code></li><li><code>Result = startchild_ret() (see module supervisor)</code></li></ul>
+<div class="description">
+
+<p>
+  Loads the new the config with the help of Getter and starts the new
+  gen_server config holder, identified by the ConfigName</p>
+</div></div>
+<div class="function">
+<h3 id="unload/1">unload(ConfigName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Result = ok | {error, Error}</code></li><li><code>Error = running | restarting | not_found | simple_one_for_one</code></li></ul>
+<div class="description">
+
+<p>
+  Unloads the config server, identified by the ConfigName</p>
+</div></div>
+<div class="function">
+<h3 id="set_logger/1">set_logger(Logger) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Logger = (Level, Msg) -&gt; ok</code></li><li><code>Result = ok</code></li><li><code>Level = debug | trace | info | warning | error</code></li><li><code>Msg = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Sets the logger function fun(Level, Msg).
+  Level must take one of the following values:
+   - debug
+   - trace
+   - info
+   - warning
+   - error
+  Msg is the string to be logged.</p>
+</div></div>
+<div class="function">
+<h3 id="get_config/1">get_config(ConfigName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Result = {config, CurrentConfig}</code></li><li><code>CurrentConfig = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Just returns the current config value, identified by ConfigName.
+  No subscription.</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(ConfigName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Result = {config, CurrentConfig}</code></li><li><code>CurrentConfig = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the current config value, identified by ConfigName and
+  subscribes the calling pid to receive the messages, when config
+  is reloaded. The messages looks like
+   {config, Config :: string()}</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/2">subscribe(ConfigName, Pid) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Pid = pid()</code></li><li><code>Result = {config, CurrentConfig}</code></li><li><code>CurrentConfig = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the current config value, identified by ConfigName and
+  subscribes the Pid to receive the messages, when config
+  is reloaded. The messages looks like
+   {config, Config :: string()}</p>
+</div></div>
+<div class="function">
+<h3 id="unsubscribe/1">unsubscribe(ConfigName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Result = {config, CurrentConfig}</code></li><li><code>CurrentConfig = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Unsubsribes the calling pid from the reload notifications of config,
+  identified by ConfigName</p>
+</div></div>
+<div class="function">
+<h3 id="unsubscribe/2">unsubscribe(ConfigName, Pid) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfigName = binary()</code></li><li><code>Pid = pid()</code></li><li><code>Result = {config, CurrentConfig}</code></li><li><code>CurrentConfig = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Unsubsribes the Pid from the reload notifications of config,
+  identified by ConfigName</p>
+</div></div>
+<div class="function">
+<h3 id="reload/1">reload(ConfgigName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ConfgigName = binary()</code></li><li><code>Result = ok | {error, Error}</code></li><li><code>Error = term()</code></li></ul>
+<div class="description">
+
+<p>
+  Reloads the config, identified be ConfigName</p>
+</div></div></div>
+
+<authors>
+
+<aname>Alexander Morozov aka ~ArchimeD~</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

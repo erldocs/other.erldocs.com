@@ -1,0 +1,1 @@
+var index = [['app','eweb','eweb','[application]'],['mod','eweb','eweb',[]],['fun','eweb','eweb:dir/0',[]],['fun','eweb','eweb:file/1',[]]];

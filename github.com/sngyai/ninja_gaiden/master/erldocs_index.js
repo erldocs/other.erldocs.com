@@ -1,0 +1,1 @@
+var index = [['app','ninja_gaiden','ninja_gaiden','[application]'],['mod','ninja_gaiden','main','.'],['fun','ninja_gaiden','main:rpc_server_stop/1',[]],['fun','ninja_gaiden','main:server_start/0',[]],['fun','ninja_gaiden','main:server_stop/0',[]]];

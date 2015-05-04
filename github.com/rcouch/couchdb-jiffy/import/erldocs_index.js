@@ -1,0 +1,1 @@
+var index = [['app','couchdb-jiffy','couchdb-jiffy','[application]'],['mod','couchdb-jiffy','jiffy',[]],['mod','couchdb-jiffy','jiffy_utf8',[]],['fun','couchdb-jiffy','jiffy:decode/1',[]],['fun','couchdb-jiffy','jiffy:encode/1',[]],['fun','couchdb-jiffy','jiffy:encode/2',[]],['fun','couchdb-jiffy','jiffy_utf8:fix/1',[]]];

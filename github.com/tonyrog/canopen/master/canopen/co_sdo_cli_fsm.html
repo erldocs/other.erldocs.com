@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>co_sdo_cli_fsm (canopen) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>co_sdo_cli_fsm</h1>
+<h2 class="modsummary">     
+CANopen SDO Client Finite State Machine.</h2>
+<div class="description">
+<p>     
+CANopen SDO Client Finite State Machine</p>
+  
+      <p>Started by the CANOpen node when an SDO session is initialized.</p>
+  
+   File: co_sdo_srv_fsm.erl<br />
+   Created:  4 Jun 2010 by Tony Rogvall</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-cobid">cobid() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-uint1">uint1() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-uint16">uint16() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-uint32">uint32() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-uint8">uint8() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="store/3">store(Ctx::#sdo_ctx{}, Mode::segment | block, Client::pid(), Src::integer(), Dst::integer(), Ix::integer(), Si::integer(), Source::{app, Pid::pid(), Mod::atom()} | {data, Bin::binary}) -&gt; {ok, Pid::pid()} | ignore | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Creates a gen_fsm process which calls Module:init/1 to
+  initialize.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="fetch/3">fetch(Ctx::#sdo_ctx{}, Mode::segment | block, Client::term(), Src::integer(), Dst::integer(), Ix::integer(), Si::integer(), Destination::{app, Pid::pid(), Mod::atom()} | data) -&gt; {ok, Pid::pid()} | ignore | {error, Error::term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Creates a gen_fsm process which calls Module:init/1 to
+  initialize.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="s_segmented_download/1">s_segmented_download(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Reading and sending segments.<br />
+  Expected events are:
+  </p><list>
+  <item><p>initiate_download_response</p></item>
+  <item><p>download_segment_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_reading_segment </p></item>
+  <item><p> s_segment_download </p></item>
+  <item><p> s_segment_download_end </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_segmented_download_end/1">s_segmented_download_end(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Finalizing download of segments.<br />
+  Expected events are:
+  </p><list>
+  <item><p>initiate_download_response</p></item>
+  <item><p>download_segment_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_reading_segment_started/1">s_reading_segment_started(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Initializing reading for application stored data.<br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, {ok, Value}}</p></item>
+  <item><p>{Mref, {ok, Ref, Size}}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_segment_download </p></item>
+  <item><p> s_segment_download_end </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_reading_segment/1">s_reading_segment(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Reading application stored data.<br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, {ok, Ref, Data, Eod}}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_segment_download </p></item>
+  <item><p> s_segment_download_end </p></item>
+  <item><p> s_reading_segment </p></item>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_segmented_upload_response/1">s_segmented_upload_response(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Receiving first segment.<br />
+  Expected events are:
+  </p><list>
+  <item><p>initiate_upload_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_writing_segment </p></item>
+  <item><p> s_segmented_upload </p></item>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_segmented_upload/1">s_segmented_upload(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Receiving segments.<br />
+  Expected events are:
+  </p><list>
+  <item><p>upload_segment_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_writing_segment </p></item>
+  <item><p> s_segmented_upload </p></item>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_writing_segment_started/1">s_writing_segment_started(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Initializing write for application stored data.<br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, {ok, Ref, Size}}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_segmented_upload_response </p></item>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_writing_segment/1">s_writing_segment(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Writing segments to application. <br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, ok}</p></item>
+  <item><p>{Mref, {ok, Ref}}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_initiate_download_response/1">s_block_initiate_download_response(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Block download initialization.<br />
+  Expected events are:
+  </p><list>
+  <item><p> block_initiate_download_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_reading_block_segment </p></item>
+  <item><p> s_block_download_response </p></item>
+  <item><p> s_block_download_response_last </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_download_response/1">s_block_download_response(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Downloading block segments.<br />
+  Expected events are:
+  </p><list>
+  <item><p> block_download_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_reading_block_segment </p></item>
+  <item><p> s_block_download_response </p></item>
+  <item><p> s_block_download_response_last </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_download_response_last/1">s_block_download_response_last(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Downloading last block segment.<br />
+  Expected events are:
+  </p><list>
+  <item><p> block_download_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_block_download_end_response </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_download_end_response/1">s_block_download_end_response(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Finalizing downloading blocks.<br />
+  Expected events are:
+  </p><list>
+  <item><p> block_download_end_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_reading_block_started/1">s_reading_block_started(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Initilize reading data from application.<br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, {ok, Value}</p></item>
+  <item><p>{Mref, {ok, Ref, Size}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p>  s_block_initiate_download_response</p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_upload_response/1">s_block_upload_response(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Uploading block segments.<br />
+  Expected events are:
+  </p><list>
+  <item><p>block_upload_response</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_block_upload </p></item>
+  <item><p> s_writing_segment (protocol switch)</p></item>
+  <item><p> s_segmented_upload (protocol switch)</p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_upload/1">s_block_upload(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Receiving block segments.<br />
+  Expected events are:
+  </p><list>
+  <item><p>block_segment</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_block_upload </p></item>
+  <item><p> s_block_upload_end </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_block_upload_end/1">s_block_upload_end(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Block upload, last block.<br />
+  Expected events are:
+  </p><list>
+  <item><p>block_upload_end_request</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_writing_block_end </p></item>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_writing_block_started/1">s_writing_block_started(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Initialize writing data to application.<br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, {ok, Ref, WriteSze}}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> s_block_upload_response </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="s_writing_block_end/1">s_writing_block_end(M::term(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Writing last data to application.<br />
+  Expected events are:
+  </p><list>
+  <item><p>{Mref, {ok, Ref}}</p></item>
+  </list><p>
+  Next state can be:
+  </p><list>
+  <item><p> stop </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::term(), StateName::atom(), S::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}) -&gt; {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}} | {next_state, NextState::atom(), NextS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}, Tout::timeout()} | {stop, Reason::atom(), NewS::#co_session{src=undefined | cobid(), dst=undefined | cobid(), index=undefined | uint16(), subind=undefined | uint8(), data=undefined | binary(), exp=undefined | uint1(), n=undefined | uint8(), size_ind=undefined | uint1(), t=undefined | uint1(), pst=undefined | uint8(), crc=undefined | boolean(), clientcrc=undefined | boolean(), size=undefined | uint32(), blksize=undefined | uint8(), blkseq=undefined | uint8(), blkbytes=undefined | uint16(), lastblk=undefined | binary(), blkcrc=undefined | uint16(), last=undefined | uint1(), node_pid=undefined | pid(), client=undefined | term(), ctx=undefined | #sdo_ctx{}, buf=undefined | term(), mref=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>  
+This function is called by a gen_fsm when it receives any  
+message other than a synchronous or asynchronous event  
+(or a system message).</p>
+ 
+  <p>NOTE!!! This actually where all the replies from the application
+  are received. They are then normally sent on to the appropriate
+  state-function.
+  The exception is the reply to the read-call sent from co_data_buf as
+  this can arrive in any state and should just fill the buffer.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Tony Rogvall</aname>
+<email>tony@rogvall.se</email>
+<aname>Malotte W Lonne</aname>
+<email>malotte@malotte.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

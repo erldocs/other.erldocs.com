@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ls_vm (libsniffle) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ls_vm</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create/1">create(PackageID::package_id() (see module fifo), DatasetID::package_id() (see module fifo), Config::attr_list() (see module fifo)) -&gt; {error, no_servers} | {ok, UUID::binary()}</h3>
+
+
+<div class="description">
+
+<p>Initiates the creating a new VM, this will just return the
+    UUID progress is directy written to the object in the database.</p>
+</div></div>
+<div class="function">
+<h3 id="dry_run/1">dry_run(PackageID::binary(), DatasetID::binary(), Config::[{Key::binary(), Value::term()}]) -&gt; {error, no_servers} | {ok, success | failed}</h3>
+
+
+<div class="description">
+
+<p>Initiates the creating a new VM, this will just return the
+    UUID progress is directy written to the object in the database.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1">register(VM::vm_id() (see module fifo), Hypervisor::hypervisor_id() (see module fifo)) -&gt; ok | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Registeres an existing VM with sniffle.</p>
+</div></div>
+<div class="function">
+<h3 id="unregister/1">unregister(VM::vm_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Unregisteres a VM from the database, this does not include
+    deleting it from the hypervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(VM::vm_id() (see module fifo)) -&gt; not_found | {ok, vm() (see module fifo)} | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Reads the VM attribute from the database.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(VM::vm_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Starts a VM on the hypervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(VM::vm_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Stops a VM on the hypervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1-1">stop(VM::vm_id() (see module fifo), Options::[atom() | {atom(), term()}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Stops a VM on the hypervisor and allows passing options like
+    forced stop.</p>
+</div></div>
+<div class="function">
+<h3 id="reboot/1">reboot(VM::vm_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Restarts a VM on the hypervisor</p>
+</div></div>
+<div class="function">
+<h3 id="reboot/1-1">reboot(VM::vm_id() (see module fifo), Options::[atom() | {atom(), term()}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Restarts a VM on the hypervisor and allows passing options like
+    forced restart.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(User::user_id() (see module fifo) | undefined, VM::vm_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Triggers a delete, this does not remove the VM from the
+    database instead just pokes the hypervisor which, when the delete
+    was successful calls a unregister.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(VM) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="store/1">store(User::user_id() (see module fifo) | undefined, VM::vm_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="store/1-1">store(VM) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="owner/1">owner(User::user_id() (see module fifo) | undefined, VM::vm_id() (see module fifo), Owner::uuid() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Changes the owner of a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="owner/2">owner(VM, Owner) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update/1">update(User::user_id() (see module fifo) | undefined, VM::vm_id() (see module fifo), Package::binary() | undefined, Config::attr_list() (see module fifo)) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Updates a VM by attempting to resize it from package
+    perspective and changing some of the config values.</p>
+</div></div>
+<div class="function">
+<h3 id="update/3">update(VM, Package, Config) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_nic/1">add_nic(VM::vm_id() (see module fifo), Network::network_id() (see module fifo)) -&gt; ok | not_found | {error, no_servers | update_failed | claim_failed | not_stopped | _Reason}</h3>
+
+
+<div class="description">
+
+<p>Adds a new interface to a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_nic/1">remove_nic(VM::vm_id() (see module fifo), Mac::binary()) -&gt; ok | not_found | {error, no_servers | update_failed | not_found | not_stopped | _Reason}</h3>
+
+
+<div class="description">
+
+<p>Remove a interface from a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="primary_nic/1">primary_nic(VM::vm_id() (see module fifo), Mac::binary()) -&gt; ok | not_found | {error, no_servers | update_failed | not_found | not_stopped | _Reason}</h3>
+
+
+<div class="description">
+
+<p>Sets a NIC as primary interface.</p>
+</div></div>
+<div class="function">
+<h3 id="state/1">state(VM::vm_id() (see module fifo), State::binary()) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets the state of a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="set_service/1">set_service(VM::vm_id() (see module fifo), AVs::[{Attribute::keys() (see module fifo), Value::value() (see module fifo) | delete}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets a service attribute on the VM object in the database</p>
+</div></div>
+<div class="function">
+<h3 id="set_backup/1">set_backup(VM::vm_id() (see module fifo), AVs::[{Attribute::keys() (see module fifo), Value::value() (see module fifo) | delete}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets a backup attribute on the VM object in the database</p>
+</div></div>
+<div class="function">
+<h3 id="set_snapshot/1">set_snapshot(VM::vm_id() (see module fifo), AVs::[{Attribute::keys() (see module fifo), Value::value() (see module fifo) | delete}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets a backup attribute on the VM object in the database</p>
+</div></div>
+<div class="function">
+<h3 id="set_metadata/1">set_metadata(VM::vm_id() (see module fifo), AVs::[{Attribute::keys() (see module fifo), Value::value() (see module fifo) | delete}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets a metadata attribute on the VM object in the database</p>
+</div></div>
+<div class="function">
+<h3 id="set_config/1">set_config(VM::vm_id() (see module fifo), AVs::[{Attribute::keys() (see module fifo), Value::value() (see module fifo) | delete}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets a config attribute on the VM object in the database</p>
+</div></div>
+<div class="function">
+<h3 id="set_info/1">set_info(VM::vm_id() (see module fifo), AVs::[{Attribute::keys() (see module fifo), Value::value() (see module fifo) | delete}]) -&gt; ok | not_found | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Sets a info attribute on the VM object in the database</p>
+</div></div>
+<div class="function">
+<h3 id="log/1">log(Vm::uuid() (see module fifo), Log::binary()) -&gt; ok | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Adds a log to the VM that will be timestamped on the server.</p>
+</div></div>
+<div class="function">
+<h3 id="incremental_backup/4">incremental_backup(Vm, Parent, Comment, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Creates a full backup of a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="full_backup/3">full_backup(Vm, Comment, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Creates a full backup of a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="restore_backup/2">restore_backup(Vm, Backup) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Restores a VM from a backup.</p>
+</div></div>
+<div class="function">
+<h3 id="restore_backup/3">restore_backup(Vm, Backup, Hypervisor) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Restores a VM from a backup to a specific hypervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="restore_backup/4">restore_backup(User, Vm, Backup, Hypervisor) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_backup/3">delete_backup(Vm, Backup, Where) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Deletes the backup of a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="service_enable/2">service_enable(Vm, Service) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Enables a service on a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="service_disable/2">service_disable(Vm, Service) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Enables a service on a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="service_clear/2">service_clear(Vm, Service) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Enables a service on a VM.</p>
+</div></div>
+<div class="function">
+<h3 id="snapshot/1">snapshot(Vm::uuid() (see module fifo), Comment::binary()) -&gt; {ok, uuid() (see module fifo)} | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Creates a ZFS new snapshot of a given VM.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_snapshot/1">delete_snapshot(Vm::uuid() (see module fifo), UUID::binary()) -&gt; ok | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Deletes a ZFS snapshot from the VM.</p>
+</div></div>
+<div class="function">
+<h3 id="rollback_snapshot/1">rollback_snapshot(Vm::uuid() (see module fifo), UUID::uuid() (see module fifo)) -&gt; ok | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Rolls back a snapshot of a VM, this will <em>delete</em> all
+    snapshots between the current state and the rolled back snapshot!</p>
+</div></div>
+<div class="function">
+<h3 id="commit_snapshot_rollback/1">commit_snapshot_rollback(Vm::uuid() (see module fifo), UUID::uuid() (see module fifo)) -&gt; ok | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Confirms the rollback of a snapshot, this will delete all
+    snapshots between the current state and the rolled back snapshot!</p>
+</div></div>
+<div class="function">
+<h3 id="promote_snapshot/1">promote_snapshot(Vm::uuid() (see module fifo), UUID::uuid() (see module fifo), Config::object() (see module fifo)) -&gt; {ok, UUID::dataset_id() (see module fifo)} | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Rolls back a snapshot of a VM, this will <em>delete</em> all
+    snapshots between the current state and the rolled back snapshot!</p>
+</div></div>
+<div class="function">
+<h3 id="list/0">list() -&gt; {ok, [uuid() (see module fifo)]} | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Lists the UUID's of all VM's known to the server.</p>
+</div></div>
+<div class="function">
+<h3 id="list/1">list(Reqs::[matcher() (see module fifo)], Full::boolean()) -&gt; {ok, [{Ranking::integer(), vm_id() (see module fifo)}]} | {ok, [{Ranking::integer(), vm() (see module fifo)}]} | {error, no_servers}</h3>
+
+
+<div class="description">
+
+<p>Lists the UUID's of all VM's known to the server filtered by
+    given matchers.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

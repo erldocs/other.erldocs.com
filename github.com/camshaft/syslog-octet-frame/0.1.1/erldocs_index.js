@@ -1,0 +1,1 @@
+var index = [['app','syslog-octet-frame','syslog-octet-frame','[application]'],['mod','syslog-octet-frame','syslog_octet_frame',[]],['fun','syslog-octet-frame','syslog_octet_frame:parse/1',[]],['fun','syslog-octet-frame','syslog_octet_frame:parse_async/3',[]]];

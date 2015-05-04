@@ -1,0 +1,1 @@
+var index = [['app','auction','auction','[application]'],['mod','auction','bidder',[]],['fun','auction','bidder:init_bidder/2',[]],['fun','auction','bidder:process_requests/0',[]],['fun','auction','bidder:start/2',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','yocto-db','yocto-db','[application]'],['mod','yocto-db','ydb_app',[]],['fun','yocto-db','ydb_app:register_input_stream/1',[]],['fun','yocto-db','ydb_app:register_query/1',[]],['fun','yocto-db','ydb_app:start/2',[]],['fun','yocto-db','ydb_app:stop/1',[]]];

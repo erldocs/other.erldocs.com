@@ -1,0 +1,1 @@
+var index = [['app','db','db','[application]'],['mod','db','db',[]],['mod','db','db_app',[]],['fun','db','db:equery/3',[]],['fun','db','db:squery/2',[]],['fun','db','db_app:start/2',[]],['fun','db','db_app:stop/1',[]]];

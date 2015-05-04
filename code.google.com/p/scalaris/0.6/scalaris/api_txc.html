@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>api_txc (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>api_txc</h1>
+<h2 class="modsummary">API for compressed transactional access to replicated DHT items.</h2>
+<div class="description">
+<p>API for compressed transactional access to replicated DHT items.
+  Same as api_tx but transmits compressed values in both request and result
+  list.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-add_del_on_list_request">add_del_on_list_request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{add_del_on_list,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_key" class="seealso">client_key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_value" class="seealso">client_value()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_value" class="seealso">client_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-add_on_nr_request">add_on_nr_request() = {add_on_nr, <a href="#type-client_key" class="seealso">client_key()</a>, <a href="#type-client_value" class="seealso">client_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-client_key">client_key() = string()</h3></div>
+    <div class="type"><h3 id="type-client_value">client_value() = any()</h3></div>
+    <div class="type"><h3 id="type-commit_result">commit_result() = {ok} | {fail, abort, [<a href="#type-client_key" class="seealso">client_key()</a>]}</h3></div>
+    <div class="type"><h3 id="type-listop_result">listop_result() = <a href="#type-write_result" class="seealso">write_result()</a> | {fail, not_a_list}</h3></div>
+    <div class="type"><h3 id="type-numberop_result">numberop_result() = <a href="#type-write_result" class="seealso">write_result()</a> | {fail, not_a_number}</h3></div>
+    <div class="type"><h3 id="type-read_random_from_list_request">read_random_from_list_request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{read, <a href="#type-client_key" class="seealso">client_key()</a>, random_from_list}</h3></div>
+    <div class="type"><h3 id="type-read_random_from_list_result">read_random_from_list_result() = {ok,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RandomValue_ListLen_MaybeEncoded ::<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_value" class="seealso">client_value()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {fail,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_found |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;empty_list |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_a_list}</h3></div>
+    <div class="type"><h3 id="type-read_request">read_request() = {read, <a href="#type-client_key" class="seealso">client_key()</a>}</h3></div>
+    <div class="type"><h3 id="type-read_result">read_result() = {ok, <a href="#type-client_value" class="seealso">client_value()</a>} | {fail, not_found}</h3></div>
+    <div class="type"><h3 id="type-read_sublist_request">read_sublist_request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{read,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_key" class="seealso">client_key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{sublist,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start :: integer() >= 1 | integer() =< -1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Len :: integer()}}</h3></div>
+    <div class="type"><h3 id="type-read_sublist_result">read_sublist_result() = {ok,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SubList_ListLen_MaybeEncoded ::<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_value" class="seealso">client_value()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {fail, not_found | not_a_list}</h3></div>
+    <div class="type"><h3 id="type-request">request() = <a href="#type-request_on_key" class="seealso">request_on_key()</a> | {commit}</h3></div>
+    <div class="type"><h3 id="type-request_on_key">request_on_key() = <a href="#type-read_request" class="seealso">read_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-read_random_from_list_request" class="seealso">read_random_from_list_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-read_sublist_request" class="seealso">read_sublist_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-write_request" class="seealso">write_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-add_del_on_list_request" class="seealso">add_del_on_list_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-add_on_nr_request" class="seealso">add_on_nr_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-test_and_set_request" class="seealso">test_and_set_request()</a></h3></div>
+    <div class="type"><h3 id="type-result">result() = <a href="#type-read_result" class="seealso">read_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-read_random_from_list_result" class="seealso">read_random_from_list_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-read_sublist_result" class="seealso">read_sublist_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-write_result" class="seealso">write_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-listop_result" class="seealso">listop_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-numberop_result" class="seealso">numberop_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-testandset_result" class="seealso">testandset_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-commit_result" class="seealso">commit_result()</a></h3></div>
+    <div class="type"><h3 id="type-test_and_set_request">test_and_set_request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{test_and_set,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-client_key" class="seealso">client_key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Old :: <a href="#type-client_value" class="seealso">client_value()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New :: <a href="#type-client_value" class="seealso">client_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-testandset_result">testandset_result() = <a href="#type-write_result" class="seealso">write_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {fail,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_found |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{key_changed,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RealOldValue :: <a href="#type-client_value" class="seealso">client_value()</a>}}</h3></div>
+    <div class="type"><h3 id="type-write_request">write_request() = {write, <a href="#type-client_key" class="seealso">client_key()</a>, <a href="#type-client_value" class="seealso">client_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-write_result">write_result() = {ok}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new_tlog/0">new_tlog() -&gt; tlog_ext() (see module tx_tlog)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="req_list/1">req_list(ReqList::[request()]) -&gt; {tlog_ext() (see module tx_tlog), [result()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read/1">read(TLog::tlog_ext() (see module tx_tlog), Key::client_key()) -&gt; {tlog_ext() (see module tx_tlog), read_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write/1">write(TLog::tlog_ext() (see module tx_tlog), Key::client_key(), Value::client_value()) -&gt; {tlog_ext() (see module tx_tlog), write_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_del_on_list/1">add_del_on_list(TLog::tlog_ext() (see module tx_tlog), Key::client_key(), ToAdd::[client_value()], ToRemove::[client_value()]) -&gt; {tlog_ext() (see module tx_tlog), listop_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_on_nr/1">add_on_nr(TLog::tlog_ext() (see module tx_tlog), Key::client_key(), ToAdd::number()) -&gt; {tlog_ext() (see module tx_tlog), numberop_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="test_and_set/1">test_and_set(TLog::tlog_ext() (see module tx_tlog), Key::client_key(), OldValue::client_value(), NewValue::client_value()) -&gt; {tlog_ext() (see module tx_tlog), testandset_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit/1">commit(TLog::tlog_ext() (see module tx_tlog)) -&gt; commit_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read/1-1">read(Key::client_key()) -&gt; read_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write/1-1">write(Key::client_key(), Value::client_value()) -&gt; commit_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_del_on_list/1-1">add_del_on_list(Key::client_key(), ToAdd::[client_value()], ToRemove::[client_value()]) -&gt; listop_result() | {fail, abort, [client_key()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_on_nr/1-1">add_on_nr(Key::client_key(), ToAdd::number()) -&gt; numberop_result() | {fail, abort, [client_key()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="test_and_set/1-1">test_and_set(Key::client_key(), OldValue::client_value(), NewValue::client_value()) -&gt; testandset_result() | {fail, abort, [client_key()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="req_list_commit_each/1">req_list_commit_each(ReqList::[request_on_key()]) -&gt; [result()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_system_snapshot/0">get_system_snapshot() -&gt; list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="req_list/1-1">req_list(TLog::tlog() (see module tx_tlog), ReqList::[request()]) -&gt; {tlog() (see module tx_tlog), [result()]}</h3>
+
+
+<div class="description">
+
+<p>Perform several requests inside a transaction and monitors its
+       execution time.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Florian Schintke</aname>
+<email>schintke@zib.de</email>
+<aname>Nico Kruber</aname>
+<email>kruber@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

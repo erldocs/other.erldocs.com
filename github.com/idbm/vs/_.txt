@@ -1,0 +1,28 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/idbm/vs'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/790553631/meta.txt"
+ :: Processing https://github.com/idbm/vs	{rev,branch,"master","3396fdf37f7206853ebe1a5da677d4bfa3a5e256",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/790553631/vs-branch-master/vs"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/idbm/vs/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/790553631/vs-branch-master/vs"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/790553631/vs-branch-master/vs"
+$ 5000  `find 'vs-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `vs-master': No such file or directory"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,87}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,235}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,94}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,77}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,77}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `vs-master'"},{": No such file or directory"}]}}

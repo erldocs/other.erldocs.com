@@ -1,0 +1,1 @@
+var index = [['app','erlang-recipe','erlang-recipe','[application]'],['mod','erlang-recipe','bint',[]],['mod','erlang-recipe','littlefun',[]],['mod','erlang-recipe','tools',[]],['mod','erlang-recipe','watch_pid',[]],['fun','erlang-recipe','bint:tobin/1',[]],['fun','erlang-recipe','bint:toterm/1',[]]];

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>redis (erl-redis) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>redis</h1>
+<h2 class="modsummary">the interface for redis, this module is parametered module,
+       the parameter is the Manager process registered name.</h2>
+<div class="description">
+<p>the interface for redis, this module is parametered module,
+       the parameter is the Manager process registered name</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-error">error() = {error, any()}</h3></div>
+    <div class="type"><h3 id="type-index">index() = integer()</h3></div>
+    <div class="type"><h3 id="type-inet_host">inet_host() = atom() | string() | binary()</h3></div>
+    <div class="type"><h3 id="type-inet_port">inet_port() = 0..65535</h3></div>
+    <div class="type"><h3 id="type-inet_server">inet_server() = {<a href="#type-inet_host" class="seealso">inet_host()</a>, <a href="#type-inet_port" class="seealso">inet_port()</a>}</h3></div>
+    <div class="type"><h3 id="type-key">key() = binary() | [byte()]</h3></div>
+    <div class="type"><h3 id="type-length">length() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-null">null() = null</h3></div>
+    <div class="type"><h3 id="type-pattern">pattern() = binary() | [byte()]</h3></div>
+    <div class="type"><h3 id="type-redis_sort">redis_sort() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#redis_sort{by_pat = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_pat = [string()],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;asc = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alpha = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;store = iolist()}</h3></div>
+    <div class="type"><h3 id="type-score">score() = integer() | float() | [byte()]</h3></div>
+    <div class="type"><h3 id="type-second">second() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-server_type">server_type() = undefined | single | dist</h3></div>
+    <div class="type"><h3 id="type-single_server">single_server() = {<a href="#type-inet_host" class="seealso">inet_host()</a>, <a href="#type-inet_port" class="seealso">inet_port()</a>, integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-str">str() = binary() | [byte()]</h3></div>
+    <div class="type"><h3 id="type-timestamp">timestamp() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-value">value() = <a href="#type-null" class="seealso">null()</a> | <a href="#type-str" class="seealso">str()</a></h3></div>
+    <div class="type"><h3 id="type-value_type">value_type() = none | string | list | set | hash</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="i/0">i() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>show stats info in the stdout</p>
+</div></div>
+<div class="function">
+<h3 id="version/0">version() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>return the redis version info</p>
+</div></div>
+<div class="function">
+<h3 id="group/0">group() -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>return the group info</p>
+</div></div>
+<div class="function">
+<h3 id="server_list/0">server_list() -&gt; [single_server()]</h3>
+
+
+<div class="description">
+
+<p>return the server list</p>
+</div></div>
+<div class="function">
+<h3 id="server_type/0">server_type() -&gt; server_type()</h3>
+
+
+<div class="description">
+
+<p>return the server config type</p>
+</div></div>
+<div class="function">
+<h3 id="db/0">db() -&gt; index()</h3>
+
+
+<div class="description">
+
+<p>return the currently selected db</p>
+</div></div>
+<div class="function">
+<h3 id="ping/0">ping() -&gt; ok | {error, [atom()]}</h3>
+
+
+<div class="description">
+
+<p>ping the redis server</p>
+</div></div>
+<div class="function">
+<h3 id="exists/1">exists(Key::key()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>test if the specified key exists
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Keys::[key()]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>remove the specified key, return ture if deleted,
+  otherwise return false
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="multi_delete/1">multi_delete(Keys::[key()]) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>remove the specified keys, return the number of
+  keys removed.
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="type/1">type(Key::key()) -&gt; value_type()</h3>
+
+
+<div class="description">
+
+<p>return the type of the value stored at key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="keys/1">keys(Pattern::pattern()) -&gt; {[key()], [atom()]}</h3>
+
+
+<div class="description">
+
+<p>return the keys list matching a given pattern,
+  return the {[key()], [atom()]}, the second element in tuple is
+  the bad servers.
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="random_key/0">random_key() -&gt; key() | null()</h3>
+
+
+<div class="description">
+
+<p>return a randomly selected key from the currently selected DB
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="rename/1">rename(OldKey::key(), NewKey::key()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>atmoically renames key OldKey to NewKey
+  NOTE: MUST single mode
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="rename_not_exists/1">rename_not_exists(OldKey::key(), NewKey::key()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p> rename oldkey into newkey  but fails if the destination key newkey already exists.
+  NOTE: MUST single mode
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="dbsize/0">dbsize() -&gt; {integer(), [inet_server()]}</h3>
+
+
+<div class="description">
+
+<p>return the nubmer of keys in all the currently selected database
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="expire/1">expire(Key::key(), Time::second()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>set a timeout on the specified key, after the Time the Key will
+  automatically deleted by server.
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="expire_at/1">expire_at(Key::key(), TimeStamp::timestamp()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>set a unix timestamp on the specified key, the Key will
+  automatically deleted by server at the TimeStamp in the future.
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="ttl/1">ttl(Key::key()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>return the remaining time to live in seconds of a key that
+  has an EXPIRE set
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="select/1">select(Index::index()) -&gt; ok | {error, [inet_server()]}</h3>
+
+
+<div class="description">
+
+<p>select the DB with have the specified zero-based numeric index
+  ??</p>
+</div></div>
+<div class="function">
+<h3 id="move/1">move(Key::key(), DBIndex::index()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>move the specified key  from the currently selected DB to the specified
+  destination DB
+  NOTE: MUST single mode</p>
+</div></div>
+<div class="function">
+<h3 id="flush_db/0">flush_db() -&gt; ok | {error, [atom()]}</h3>
+
+
+<div class="description">
+
+<p>delete all the keys of the currently selected DB</p>
+</div></div>
+<div class="function">
+<h3 id="flush_all/0">flush_all() -&gt; ok | {error, [atom()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set/1">set(Key::key(), Val::str()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>set the string as value of the key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Key::key()) -&gt; null() | binary()</h3>
+
+
+<div class="description">
+
+<p>get the value of specified key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="getset/1">getset(Key::key(), Val::str()) -&gt; null() | binary()</h3>
+
+
+<div class="description">
+
+<p>atomatic set the value and return the old value
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="multi_get/1">multi_get(Keys::[key()]) -&gt; [string() | null()]</h3>
+
+
+<div class="description">
+
+<p>get the values of all the specified keys
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="not_exists_set/1">not_exists_set(Key::key(), Val::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>set value, if the key already exists no operation is performed
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="multi_set/1">multi_set(KeyVals::[{key(), str()}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>set the respective keys to respective values
+  NOTE: MUST single mode
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="multi_set_not_exists/1">multi_set_not_exists(KeyVals::[{key(), str()}]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>set the respective keys to respective values, either all the
+  key-value paires or not none at all are set.
+  NOTE: MUST single mode
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="incr/1">incr(Key::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>increase the integer value of key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="incr/1-1">incr(Key::key(), N::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>increase the integer value of key by integer
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="decr/1">decr(Key::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>decrease the integer value of key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="decr/1-1">decr(Key::key(), N::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>decrease the integer value of key by integer
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="list_push_tail/1">list_push_tail(Key::key(), Val::str()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>add the string Val to the tail of the list stored at Key
+  returnt he current list length
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="list_push_head/1">list_push_head(Key::key(), Val::str()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>add the string Val to the head of the list stored at Key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="list_len/1">list_len(Key::key()) -&gt; length() | error()</h3>
+
+
+<div class="description">
+
+<p>return the length of the list
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="list_range/1">list_range(Key::key(), Start::index(), End::index()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return the specified elements of the list, Start, End are zero-based
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_trim/1">list_trim(Key::key(), Start::index(), End::index()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>trim an existing list, it will contains the elements specified by
+  Start End
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_index/1">list_index(Key::key(), Idx::index()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>return the element at Idx in the list(zero-based)
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_set/1">list_set(Key::key(), Idx::index(), Val::str()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>set the list element at Idx with the new value Val
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_rm/1">list_rm(Key::key(), Val::str()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>remove all the elements in the list whose value are Val
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_rm_from_head/1">list_rm_from_head(Key::key(), N::pos_integer(), Val::str()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>remove the first N occurrences of the value from head to
+  tail in the list
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_rm_from_tail/1">list_rm_from_tail(Key::key(), N::pos_integer(), Val::str()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>remove the first N occurrences of the value from tail to
+  head in the list
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="list_pop_head/1">list_pop_head(Key::key()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>atomically return and remove the first element of the list
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="list_pop_tail/1">list_pop_tail(Key::key()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>atomically return and remove the last element of the list
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="list_tail_to_head/1">list_tail_to_head(SrcKey::key(), DstKey::key()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>atomically remove the last element of the SrcKey list and push
+  the element into the DstKey list
+  NOTE: MUST single mode
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_add/1">set_add(Key::key(), Mem::str()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>add Mem to the set stored at Key
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_rm/1">set_rm(Key::key(), Mem::str()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>remove the specified member from the set</p>
+</div></div>
+<div class="function">
+<h3 id="set_pop/1">set_pop(Key::key()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>remove a random member from the set, returning it as return value
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_move/1">set_move(Src::key(), Dst::key(), Mem::str()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>atomically move the member form one set to another
+  NOTE: MUST single mode
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_len/1">set_len(Key::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>return the number of elements in set
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_is_member/1">set_is_member(Key::key(), Mem::str()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>test if the specified value is the member of the set
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_inter/1">set_inter(Keys::[key()]) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return the intersection between the sets
+  NOTE: MUST single mode
+  O(N*M)</p>
+</div></div>
+<div class="function">
+<h3 id="set_inter_store/1">set_inter_store(Dst::key(), Keys::[key()]) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>compute the intersection between the sets and save the
+  resulting to new set</p>
+</div></div>
+<div class="function">
+<h3 id="set_union/1">set_union(Keys::[key()]) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p> return the union of all the sets
+  NOTE: MUST single mode
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="set_union_store/1">set_union_store(Dst::key(), Keys::[key()]) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>compute the union between the sets and save the
+  resulting to new set
+  NOTE: MUST single mode
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="set_diff/1">set_diff(First::key(), Keys::[key()]) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return the difference between the First set and all the other sets
+  NOTE: MUST single mode
+  o(n)</p>
+</div></div>
+<div class="function">
+<h3 id="set_diff_store/1">set_diff_store(Dst::key(), First::key(), Keys::[key()]) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>compute the difference between the sets and save the
+  resulting to new set
+  NOTE: MUST single mode
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="set_members/1">set_members(Key::key()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return all the members in the set
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="set_random_member/1">set_random_member(Key::key()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>return a random member from the set
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="zset_add/1">zset_add(Key::key(), Mem::str(), Score::score()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>add Mem to the sorted set stored at Key
+  O(log(N))</p>
+</div></div>
+<div class="function">
+<h3 id="zset_rm/1">zset_rm(Key::key(), Mem::str()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>remove the specified member from the sorted set
+  O(log(N))</p>
+</div></div>
+<div class="function">
+<h3 id="zset_incr/1">zset_incr(Key::key(), Mem::str(), N::integer()) -&gt; score()</h3>
+
+
+<div class="description">
+
+<p>If the member already exists increment its score,
+  otherwise add the member setting N as score
+  O(log(N))</p>
+</div></div>
+<div class="function">
+<h3 id="zset_index/1">zset_index(Key::key(), Mem::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>return the index(rank) of member in the sorted set, the scores being
+  ordered from low to high
+  O(log(N))
+  Reids &gt;= 1.3.4</p>
+</div></div>
+<div class="function">
+<h3 id="zset_reverse_index/1">zset_reverse_index(Key::key(), Mem::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>return the index(rank) of member in the sorted set, the scores being
+  ordered from high to low
+  O(log(N))
+  Reids &gt;= 1.3.4</p>
+</div></div>
+<div class="function">
+<h3 id="zset_range_index/1">zset_range_index(Key::key(), Start::index(), End::index(), WithScore::boolean()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return a range of elements from the sorted set
+  O(log(N))+O(M)</p>
+</div></div>
+<div class="function">
+<h3 id="zset_range_index_reverse/1">zset_range_index_reverse(Key::key(), Start::index(), End::index(), WithScore::boolean()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return a range of elements form the sorted set, like zset_range_index, but
+  the sorted set is ordered in traversed in reverse order.</p>
+</div></div>
+<div class="function">
+<h3 id="zset_range_score/1">zset_range_score(Key::key(), Min::score(), Max::score(), WithScore::boolean()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return all elements with score in the specified scope</p>
+</div></div>
+<div class="function">
+<h3 id="zset_range_score/1-1">zset_range_score(Key::key(), Min::score(), Max::score(), Start::index(), Count::integer(), WithScore::boolean()) -&gt; [value()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="zset_rm_by_index/1">zset_rm_by_index(Key::key(), Start::index(), End::index()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>remove the elements in the sorted set with index between start and end
+  Redis &gt;= 1.3.4</p>
+</div></div>
+<div class="function">
+<h3 id="zset_rm_by_score/1">zset_rm_by_score(Key::key(), Min::score(), Max::score()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>remove the elements in the sorted set with score between start and end
+  Redis &gt;= 1.1</p>
+</div></div>
+<div class="function">
+<h3 id="zset_len/1">zset_len(Key::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>return the number of elements in sorted set</p>
+</div></div>
+<div class="function">
+<h3 id="zset_score/1">zset_score(Key::key(), Mem::key()) -&gt; null | score()</h3>
+
+
+<div class="description">
+
+<p>return the score of the element</p>
+</div></div>
+<div class="function">
+<h3 id="zset_union/1">zset_union(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="zset_inter/1">zset_inter(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="hash_set/1">hash_set(Key::key(), Field::key(), Val::str()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>set specified hash filed with Val
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="hash_get/1">hash_get(Key::key(), Field::key()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>retrieve the value of the specified hash field
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="hash_del/1">hash_del(Key::key(), Field::key()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>remove the sepcified field from the hash
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="hash_exists/1">hash_exists(Key::key(), Field::key()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>test if the field exists in the hash
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="hash_len/1">hash_len(Key::key()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>return the number of items in hash
+  O(1)</p>
+</div></div>
+<div class="function">
+<h3 id="hash_keys/1">hash_keys(Key::key()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return all the fields in hash
+  O(n)</p>
+</div></div>
+<div class="function">
+<h3 id="hash_vals/1">hash_vals(Key::key()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>return all the values in hash</p>
+</div></div>
+<div class="function">
+<h3 id="hash_all/1">hash_all(Key) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>return a tuple list include both the fields and values in hash</p>
+</div></div>
+<div class="function">
+<h3 id="sort/1">sort(Key::key(), SortOpt::redis_sort()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>sort a list or set accordingly to the parameters</p>
+</div></div>
+<div class="function">
+<h3 id="trans_begin/0">trans_begin() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>transaction begin</p>
+</div></div>
+<div class="function">
+<h3 id="trans_commit/0">trans_commit() -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>transaction commit</p>
+</div></div>
+<div class="function">
+<h3 id="trans_abort/0">trans_abort() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>transaction discard</p>
+</div></div>
+<div class="function">
+<h3 id="save/0">save() -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>synchronously save the DB on disk</p>
+</div></div>
+<div class="function">
+<h3 id="bg_save/0">bg_save() -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>save the DB in background</p>
+</div></div>
+<div class="function">
+<h3 id="lastsave_time/0">lastsave_time() -&gt; [{atom(), timestamp()}]</h3>
+
+
+<div class="description">
+
+<p>return the UNIX time that the last DB save excuted with success</p>
+</div></div>
+<div class="function">
+<h3 id="bg_rewrite_aof/0">bg_rewrite_aof() -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>rewrite the append only log in background</p>
+</div></div>
+<div class="function">
+<h3 id="info/0">info() -&gt; [{atom(), value()}]</h3>
+
+
+<div class="description">
+
+<p>return the info about the server</p>
+</div></div></div>
+
+<authors>
+
+<aname>litaocheng@gmail.com</aname>
+<email>litaocheng@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

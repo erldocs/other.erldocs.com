@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erserve (erserve) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erserve</h1>
+<h2 class="modsummary">erserve allows Erlang code to call R code via Rserve.</h2>
+<div class="description">
+<p>erserve allows Erlang code to call R code via Rserve. The basic usage
+        is to open a connection and send one or more commands to it, then use
+        the type/1 and parse/1 functions to transfer the data from internal
+        representation to "Erlangy" formats.
+  </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-connection">connection()</h3></div>
+    <div class="type"><h3 id="type-df">df() = [{Name :: string(), <a href="#type-r_data" class="seealso">r_data()</a>}]</h3></div>
+    <div class="type"><h3 id="type-error_code">error_code() = atom()</h3></div>
+    <div class="type"><h3 id="type-r_class">r_class() = string()</h3></div>
+    <div class="type"><h3 id="type-r_data">r_data()</h3></div>
+    <div class="type"><h3 id="type-r_df">r_df()</h3></div>
+    <div class="type"><h3 id="type-r_expression">r_expression() = string()</h3></div>
+    <div class="type"><h3 id="type-r_type">r_type() = xt_str<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| xt_array_bool<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| xt_array_double<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| xt_array_int<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| xt_array_str<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| xt_list_tag<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| xt_vector<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| dataframe<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| list<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unsupported</h3></div>
+    <div class="type"><h3 id="type-type">type() = int<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| double<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| array_int<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| array_double<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| array_string</h3></div>
+    <div class="type"><h3 id="type-untagged_data">untagged_data() = float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [float()]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [integer()]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [string()]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-untagged_data" class="seealso">untagged_data()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-df" class="seealso">df()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="close/1">close(Conn::connection()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/0">open() -&gt; connection()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/1">open(Host::string()) -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/1-1">open(Name::string(), Port::pos_integer()) -&gt; connection()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="eval/1">eval(Conn::connection(), Expr::r_expression()) -&gt; {ok, r_data()} | {error, error_code(), term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="eval_void/1">eval_void(Conn::connection(), Expr::r_expression()) -&gt; ok | {error, error_code(), term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_variable/1">set_variable(Conn::connection(), Name::string() | atom(), Type::type(), Value::untagged_data()) -&gt; {ok, r_data()} | {error, error_code(), term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="type/1">type(Rdata::r_data()) -&gt; r_type()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse/1">parse(Rdata::r_data()) -&gt; untagged_data()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(StartType::term(), Args::term()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(State::term()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Daniel Eliasson</aname>
+<email>daniel@danieleliasson.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

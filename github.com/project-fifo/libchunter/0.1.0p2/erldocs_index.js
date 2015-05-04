@@ -1,0 +1,1 @@
+var index = [['app','libchunter','libchunter','[application]'],['mod','libchunter','libchunter_app',[]],['mod','libchunter','libchunter_sup',[]],['fun','libchunter','libchunter_app:start/2',[]],['fun','libchunter','libchunter_app:stop/1',[]],['fun','libchunter','libchunter_sup:init/1',[]],['fun','libchunter','libchunter_sup:start_link/0',[]]];

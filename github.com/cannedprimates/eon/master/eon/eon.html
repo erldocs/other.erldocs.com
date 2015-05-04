@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eon (eon) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eon</h1>
+<h2 class="modsummary">Dictionary API.</h2>
+<div class="description">
+<p>Dictionary API.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-func">func/0</h3></div>
+    <div class="type"><h3 id="type-iterator">iterator() = [{term(), term()}]</h3></div>
+    <div class="type"><h3 id="type-literal">literal(A, B) = [A | B]</h3></div>
+    <div class="type"><h3 id="type-maybe">maybe(A, B) = {ok, A} | {error, B}</h3></div>
+    <div class="type"><h3 id="type-object">object(A, B) = dict(A, B) (see module dict) | [{A, B}] | literal(A, B)</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; object(term(), term())</h3>
+
+
+<div class="description">
+
+<p>new() is a fresh object.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2">new(X::object(A, B)) -&gt; object(A, B)</h3>
+
+
+<div class="description">
+
+<p>new(Obj) is the canonical representation of Obj.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2-1">new(X::object(A, B), Pred::func(boolean())) -&gt; object(A, B)</h3>
+
+
+<div class="description">
+
+<p>new(Obj, Pred) is the canonical representation of Obj iff Pred
+  returns true for all entries.</p>
+</div></div>
+<div class="function">
+<h3 id="del/2">del(Obj::object(A, B), A) -&gt; object(A, B)</h3>
+
+
+<div class="description">
+
+<p>del(Obj, Key) is Obj with the entry for Key removed.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1">equal(Obj1::object(term(), term()), Obj2::object(term(), term())) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>equal(Obj1, Obj2) is true iff Obj1 matches Obj2.</p>
+</div></div>
+<div class="function">
+<h3 id="get/2">get(Obj::object(A, B), A) -&gt; maybe(B, notfound)</h3>
+
+
+<div class="description">
+
+<p>get(Obj, Key) is the value associated with Key in Obj,
+  or an error if no such value exists.</p>
+</div></div>
+<div class="function">
+<h3 id="get/2-1">get(Obj::object(A, B), A, B) -&gt; B</h3>
+
+
+<div class="description">
+
+<p>get(Obj, Key, Default) is the value associated with Key in Obj,
+  or Default if no such value exists.</p>
+</div></div>
+<div class="function">
+<h3 id="get_/2">get_(Obj::object(A, B), A) -&gt; B | no_return()</h3>
+
+
+<div class="description">
+
+<p>get(Obj, Key) is the value associated with Key in Obj,
+  or an exception if no such value exists.</p>
+</div></div>
+<div class="function">
+<h3 id="is_empty/1">is_empty(Obj::object(term(), term())) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>is_empty(Obj) is true iff Obj is empty.</p>
+</div></div>
+<div class="function">
+<h3 id="is_key/2">is_key(Obj::object(A, term()), A) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>is_key(Obj, Key) is true iff there is a value associated with
+  Key in Obj.</p>
+</div></div>
+<div class="function">
+<h3 id="keys/2">keys(Obj::object(A, term())) -&gt; [A]</h3>
+
+
+<div class="description">
+
+<p>keys(Obj) is a list of all keys in Obj.</p>
+</div></div>
+<div class="function">
+<h3 id="set/2">set(Obj::object(A, B), A, B) -&gt; object(A, B)</h3>
+
+
+<div class="description">
+
+<p>set(Obj, Key, Val) is an object which is identical to Obj
+  execept that it maps Key to Val.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(Obj::object(term(), term())) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>size(Obj) is the number of mappings in Obj.</p>
+</div></div>
+<div class="function">
+<h3 id="vals/2">vals(Obj::object(A, term())) -&gt; [A]</h3>
+
+
+<div class="description">
+
+<p>vals(Obj) is a list of all values in Obj.</p>
+</div></div>
+<div class="function">
+<h3 id="zip/2">zip(Obj1::object(A, B), Obj2::object(A, C)) -&gt; object(A, {B, C})</h3>
+
+
+<div class="description">
+
+<p>zip(Obj1, Obj2) is an object which maps keys from Obj1 to values
+  from both Obj1 and Obj2.
+  Obj1 and Obj2 must have the same set of keys.</p>
+</div></div>
+<div class="function">
+<h3 id="map/1">map(F::func(C), Obj::object(A, term())) -&gt; object(A, C)</h3>
+
+
+<div class="description">
+
+<p>map(F, Obj) is the result of mapping F over Obj's entries.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/1">filter(Pred::func(boolean()), Obj::object(term(), term())) -&gt; object(term(), term())</h3>
+
+
+<div class="description">
+
+<p>filter(F, Obj) is the subset of entries in Obj for which Pred
+  returns true.</p>
+</div></div>
+<div class="function">
+<h3 id="fold/1">fold(F::function(), A, Obj::object(term(), term())) -&gt; A</h3>
+
+
+<div class="description">
+
+<p>fold(F, Acc0, Obj) is Obj reduced to Acc0 via F.</p>
+</div></div>
+<div class="function">
+<h3 id="union/1">union(Obj1::object(term(), term()), Obj2::object(term(), term())) -&gt; object(term(), term())</h3>
+
+
+<div class="description">
+
+<p>union(Obj1, Obj2) is Obj1 plus any entries from Obj2 whose keys
+  do not occur in Obj1.</p>
+</div></div>
+<div class="function">
+<h3 id="difference/1">difference(Obj1::object(term(), term()), Obj2::object(term(), term())) -&gt; object(term(), term())</h3>
+
+
+<div class="description">
+
+<p>difference(Obj1, Obj2) is Obj1 with all entries whose keys occur
+  in Obj2 removed.</p>
+</div></div>
+<div class="function">
+<h3 id="intersection/1">intersection(Obj1::object(term(), term()), Obj2::object(term(), term())) -&gt; object(term(), term())</h3>
+
+
+<div class="description">
+
+<p>intersection(Obj1, Obj2) is Obj1 with all entries whose keys do
+  not occur in Obj2 removed.</p>
+</div></div>
+<div class="function">
+<h3 id="make/1">make(Obj::object(term(), term())) -&gt; iterator()</h3>
+
+
+<div class="description">
+
+<p>make(Obj) is an iterator for Obj.</p>
+</div></div>
+<div class="function">
+<h3 id="next/1">next(Xs::iterator()) -&gt; {term(), iterator()}</h3>
+
+
+<div class="description">
+
+<p>next(It0) is the next entry in iterator It0 and the updated
+  iterator It.</p>
+</div></div>
+<div class="function">
+<h3 id="done/1">done(X1::iterator()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>done(It) is true iff iterator it is empty.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

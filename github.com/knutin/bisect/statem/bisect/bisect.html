@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bisect (bisect) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bisect</h1>
+<h2 class="modsummary"> Space-efficient dictionary implemented using a binary.</h2>
+<div class="description">
+<p> Space-efficient dictionary implemented using a binary</p>
+ 
+  <p>This module implements a space-efficient dictionary with no  
+overhead per entry. Read and write access is O(log n).</p>
+ 
+  <p>Keys and values are fixed size binaries stored ordered in a larger  
+binary which acts as a sparse array. All operations are implemented  
+using a binary search.</p>
+ 
+  <p>As large binaries can be shared among processes, there can be  
+multiple concurrent readers of an instance of this structure.</p>
+ 
+  <p>serialize/1 and deserialize/1</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bindict">bindict() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#bindict{key_size = undefined | <a href="#type-key_size" class="seealso">key_size()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value_size = undefined | <a href="#type-value_size" class="seealso">value_size()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block_size = undefined | <a href="#type-block_size" class="seealso">block_size()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b = undefined | binary()}</h3></div>
+    <div class="type"><h3 id="type-block_size">block_size() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-key">key() = binary()</h3></div>
+    <div class="type"><h3 id="type-key_size">key_size() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-value">value() = binary()</h3></div>
+    <div class="type"><h3 id="type-value_size">value_size() = integer() &gt;= 1</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(KeySize::key_size(), ValueSize::value_size()) -&gt; bindict()</h3>
+
+
+<div class="description">
+
+<p> Returns a new empty dictionary where where the keys and
+  values will always be of the given size.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1">insert(B::bindict(), K::key(), V::value()) -&gt; bindict()</h3>
+
+
+<div class="description">
+
+<p> Inserts the key and value into the dictionary. If the size of
+  key and value is wrong, throws badarg. If the key is already in the
+  array, the value is updated.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(B::bindict(), K::key()) -&gt; value() | not_found</h3>
+
+
+<div class="description">
+
+<p> Returns the value associated with the key or 'not_found' if
+  there is no such key.</p>
+</div></div>
+<div class="function">
+<h3 id="find_many/1">find_many(B::bindict(), Keys::[key()]) -&gt; [value() | not_found]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1">delete(B::bindict(), K::key()) -&gt; bindict()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compact/1">compact(B) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p> Compacts the internal binary used for storage, by creating a
+  new copy where all the data is aligned in memory. Writes will cause
+  fragmentation.</p>
+</div></div>
+<div class="function">
+<h3 id="expected_size/2">expected_size(B, NumKeys) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p> Returns how many bytes would be used by the structure if it
+  was storing NumKeys.</p>
+</div></div>
+<div class="function">
+<h3 id="expected_size_mb/2">expected_size_mb(B, NumKeys) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="num_keys/1">num_keys(B::bindict()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p> Returns the number of keys in the dictionary</p>
+</div></div>
+<div class="function">
+<h3 id="serialize/1">serialize(Bindict::bindict()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p> Returns a binary representation of the dictionary which can
+  be deserialized later to recreate the same structure.</p>
+</div></div>
+<div class="function">
+<h3 id="deserialize/1">deserialize(Bin::binary()) -&gt; bindict()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="from_orddict/2">from_orddict(Bindict, Orddict) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p> Populates the dictionary with data from the orddict, taking
+  advantage of the fact that it is already ordered. The given bindict
+  must be empty, but contain size parameters.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

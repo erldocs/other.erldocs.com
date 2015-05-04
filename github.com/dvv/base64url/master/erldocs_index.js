@@ -1,0 +1,1 @@
+var index = [['app','base64url','base64url','[application]'],['mod','base64url','base64url','URL safe base64-compatible codec.'],['fun','base64url','base64url:decode/1',[]],['fun','base64url','base64url:encode/1',[]]];

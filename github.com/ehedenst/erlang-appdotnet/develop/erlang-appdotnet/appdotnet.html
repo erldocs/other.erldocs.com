@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>appdotnet (erlang-appdotnet) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>appdotnet</h1>
+<h2 class="modsummary">Erlang implementation of the App.net API Specification</h2>
+<div class="description">
+<p>Erlang implementation of the App.net <a href="../https///github.com/appdotnet/api-spec.html" class="seealso">API Specification</a></p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-general_parameters">general_parameters() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{string(), string() | integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-http_response">http_response() = {ok,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data :: <a href="#type-json_term" class="seealso">json_term()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Meta :: <a href="#type-json_term" class="seealso">json_term()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, Reason :: term()}</h3></div>
+    <div class="type"><h3 id="type-json_term">json_term() = [{binary(), <a href="#type-json_term" class="seealso">json_term()</a>}]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-json_term" class="seealso">json_term()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| true<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| false<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="authenticate_url/1">authenticate_url(ClientId::string(), RedirectURI::string()) -&gt; {ok, URL::string()}</h3>
+
+
+<div class="description">
+
+<p>Generate an authentication URL with default scope.
+  See <a href="../https///github.com/appdotnet/api-spec/blob/master/auth.html#md" class="seealso">app.net authentication</a> for more information</p>
+</div></div>
+<div class="function">
+<h3 id="authenticate_url/1-1">authenticate_url(ClientId::string(), RedirectURI::string(), Scope::[string()]) -&gt; {ok, URL::string()}</h3>
+
+
+<div class="description">
+
+<p>Generate an authentication URL.
+  See <a href="../https///github.com/appdotnet/api-spec/blob/master/auth.html#md" class="seealso">app.net authentication</a> for more information</p>
+</div></div>
+<div class="function">
+<h3 id="access_token/1">access_token(ClientId::string(), ClientSecret::string(), RedirectURI::string(), Code::string()) -&gt; {ok, AccessToken::string()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve an access token.
+  See <a href="../https///github.com/appdotnet/api-spec/blob/master/auth.html#md" class="seealso">app.net authentication</a> for more information</p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_user/1">retrieve_user(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#retrieve-a-user">Retrieve a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="follow_user/1">follow_user(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#follow-a-user">Follow a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="unfollow_user/1">unfollow_user(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#unfollow-a-user">Unfollow a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="list_following/1">list_following(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#list-users-a-user-is-following">List users a User is following</url></p>
+</div></div>
+<div class="function">
+<h3 id="list_followers/1">list_followers(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#list-users-following-a-user">List users following a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="mute_user/1">mute_user(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#mute-a-user">Mute a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="unmute_user/1">unmute_user(AccessToken::string(), UserId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#unmute-a-user">Unmute a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="list_muted/1">list_muted(AccessToken::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#list-muted-users">List muted Users</url></p>
+</div></div>
+<div class="function">
+<h3 id="search_for_users/1">search_for_users(AccessToken::string(), Query::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#search-for-users">Search for Users</url></p>
+</div></div>
+<div class="function">
+<h3 id="list_reposters/1">list_reposters(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#list-users-who-have-reposted-a-post">List Users who have reposted a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="list_stars/1">list_stars(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/users.md#list-users-who-have-starred-a-post">List Users who have starred a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="check_current_token/1">check_current_token(AccessToken::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/token.md#retrieve-current-token">Check current Token</url></p>
+</div></div>
+<div class="function">
+<h3 id="create_post/1">create_post(AccessToken::string(), Text::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#create-a-post">Create a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="create_reply/1">create_reply(AccessToken::string(), Text::string(), ReplyTo::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#create-a-post">Create a Reply</url></p>
+</div></div>
+<div class="function">
+<h3 id="create_complex_post/1">create_complex_post(AccessToken::string(), Post::json_term()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#create-a-post">Create a complex Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_post/1">retrieve_post(PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-a-post">Retrieve a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="delete_post/1">delete_post(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#delete-a-post">Delete a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_replies/1">retrieve_replies(AccessToken::string(), PostId::string(), GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-the-replies-to-a-post">Retrieve the replies to a Post</url>.</p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_posts/1">retrieve_posts(UserId::string(), GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-posts-created-by-a-user">Retrieve Posts created by a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="repost_post/1">repost_post(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#repost-a-post">Repost a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="unrepost_post/1">unrepost_post(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#unrepost-a-post">Unrepost a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="star_post/1">star_post(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#star-a-post">Star a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="unstar_post/1">unstar_post(AccessToken::string(), PostId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#unstar-a-post">Unstar a Post</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_starred/1">retrieve_starred(AccessToken::string(), UserId::string(), GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-posts-starred-by-a-user">Retrieve Posts starred by a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_mentions/1">retrieve_mentions(AccessToken::string(), UserId::string(), GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-posts-mentioning-a-user">Retrieve Posts mentioning a User</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_personal_stream/1">retrieve_personal_stream(AccessToken::string(), GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-a-users-personalized-stream">Retrieve a User's personalized stream</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_global_stream/1">retrieve_global_stream(GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-the-global-stream">Retrieve the Global stream</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_tagged/1">retrieve_tagged(Hashtag::string(), GeneralParameters::general_parameters()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/posts.md#retrieve-tagged-posts">Retrieve tagged Posts</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_filters/1">retrieve_filters(AccessToken::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/filters.md#get-current-users-filters">Get current user's Filters</url></p>
+</div></div>
+<div class="function">
+<h3 id="create_filter/1">create_filter(AccessToken::string(), Filter::json_term()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/filters.md#create-a-filter">Create a Filter</url></p>
+</div></div>
+<div class="function">
+<h3 id="delete_filters/1">delete_filters(AccessToken::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/filters.md#delete-all-of-the-current-users-filters">Delete all of the current user's Filters</url></p>
+</div></div>
+<div class="function">
+<h3 id="retrieve_filter/1">retrieve_filter(AccessToken::string(), FilterId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/filters.md#retrieve-a-filter">Retrieve a Filter</url></p>
+</div></div>
+<div class="function">
+<h3 id="update_filter/1">update_filter(AccessToken::string(), FilterId::string(), Filter::json_term()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/filters.md#update-a-filter">Update a Filter</url></p>
+</div></div>
+<div class="function">
+<h3 id="delete_filter/1">delete_filter(AccessToken::string(), FilterId::string()) -&gt; http_response()</h3>
+
+
+<div class="description">
+
+<p><url href="https://github.com/appdotnet/api-spec/blob/master/resources/filters.md#delete-a-filter">Delete a Filter</url></p>
+</div></div></div>
+
+<authors>
+
+<aname>Erik Hedenstr&ouml;m</aname>
+<email>erik@hedenstroem.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

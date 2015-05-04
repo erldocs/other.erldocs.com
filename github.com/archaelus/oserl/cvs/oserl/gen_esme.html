@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_esme (oserl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_esme</h1>
+<h2 class="modsummary">Generic ESME.</h2>
+<div class="description">
+<p>Generic ESME.</p>
+  
+   <p>A generic ESME implemented as a <i>gen_server</i>.</p>
+  
+   <p>This behaviour acts as an extended <i>gen_server</i>, homonymous
+   functions have the exact same meaning.</p>
+  
+   <p>By default sessions are NOT linked to the parent ESME, thus silently
+   dropped if an error occurs.  To monitor sessions, ESME programmers may
+   either use <code>erlang:monitor(process, Session)</code> or explicitly create
+   a link to them.</p>
+  
+   <p>SMPP operations are directly issued upon underlying sessions, they
+   don't go through the ESME server loop.  This means you may call the
+   functions <a href="#session_start/2" class="seealso">session_start/2</a>,
+   <a href="#session_start/3" class="seealso">session_start/3</a>,
+   <a href="#session_stop/1" class="seealso">session_stop/1</a>,
+   <a href="#bind_receiver/2" class="seealso">bind_receiver/2</a>,
+   <a href="#bind_transmitter/2" class="seealso">bind_transmitter/2</a>,
+   <a href="#bind_transceiver/2" class="seealso">bind_transceiver/2</a>,
+   <a href="#broadcast_sm/2" class="seealso">broadcast_sm/2</a>,
+   <a href="#cancel_broadcast_sm/2" class="seealso">cancel_broadcast_sm/2</a>,
+   <a href="#cancel_sm/2" class="seealso">cancel_sm/2</a>, <a href="#data_sm/2" class="seealso">data_sm/2</a>,
+   <a href="#query_broadcast_sm/2" class="seealso">query_broadcast_sm/2</a>,
+   <a href="#query_sm/2" class="seealso">query_sm/2</a>, <a href="#replace_sm/2" class="seealso">replace_sm/2
+   </a>, <a href="#submit_multi/2" class="seealso">submit_multi/2</a>,
+   <a href="#submit_sm/2" class="seealso">submit_sm/2</a> or <a href="#unbind/1" class="seealso">unbind/1</a>
+   from within any callback without having the risk of blocking the ESME
+   server.</p>
+  
+   <p>Please refer to <url href="examples/echo_esme.erl">echo_esme.erl</url>
+   for a minimal ESME example.  There is also an ESME skeleton you may use
+   as the starting point of your ESME development, find the module
+   <url href="examples/esme_skel.erl">esme_skel.erl</url> under <code>doc/examples
+   </code> directory.</p>
+  
+  
+   <em>Callback Function Index</em>
+  
+   <p>A module implementing this behaviour must export these functions.
+   Leaving a callback undefined crashes the entire ESME whenever that
+   particular function is called.</p>
+  
+   
+     
+       <a href="#init/1" class="seealso">init/1</a>
+       Forwards <i>gen_server:init/1</i> callbacks to the ESME server.
+       
+     <br />
+     
+       <a href="#handle_outbind/3" class="seealso">handle_outbind/3</a>
+       Forwards <i>outbind</i> operations (from the peer SMSCs) to the
+         callback ESME.
+       
+     <br />
+     
+       <a href="#handle_alert_notification/2" class="seealso">
+         handle_alert_notification/2</a>
+       Forwards <i>alert_notification</i> operations (from the peer SMSCs)
+         to the callback ESME.
+       
+     <br />
+     
+       <a href="#handle_enquire_link_failure/2" class="seealso">
+         handle_enquire_link_failure/2</a>
+       Notifies <i>enquire_link</i> failures.
+     <br />
+     
+       <a href="#handle_operation/3" class="seealso">handle_operation/3</a>
+       
+       Forwards <i>broadcast_sm</i>, <i>cancel_broadcast_sm</i>,
+         <i>cancel_sm</i>, <i>query_broadcast_sm</i>, <i>query_sm</i>,
+         <i>replace_sm</i>, <i>submit_multi</i>, <i>submit_sm</i> and
+         <i>data_sm</i> operations (from the peer SMSC) to the callback
+         ESME.
+       
+     <br />
+     
+       <a href="#handle_unbind/3" class="seealso">handle_unbind/3</a>
+       This callback forwards an unbind request (issued by peer SMSCs)
+         to the callback ESME.
+       
+     <br />
+     
+       <a href="#handle_listen_error/1" class="seealso">handle_listen_error/1
+         </a>
+       Notifies listen socket failures to the callback ESME.
+     <br />
+     
+       <a href="#handle_call/3" class="seealso">handle_call/3</a>
+       Forwards <i>gen_server:handle_call/3</i> callbacks to the ESME
+         server.
+     <br />
+     
+       <a href="#handle_cast/2" class="seealso">handle_cast/2</a>
+       Forwards <i>gen_server:handle_cast/2</i> callbacks to the ESME
+         server.
+       .
+     <br />
+     
+       <a href="#handle_info/2" class="seealso">handle_info/2
+         </a>
+       Forwards <i>gen_server:handle_info/2</i> callbacks to the ESME
+         server.
+       .
+     <br />
+     
+       <a href="#terminate/2" class="seealso">terminate/2
+         </a>
+       Forwards <i>gen_server:terminate/2</i> callbacks to the ESME
+         server.
+       .
+     <br />
+     
+       <a href="#code_change/3" class="seealso">code_change/3
+         </a>
+       Forwards <i>gen_server:code_change/3</i> callbacks to the ESME
+         server.
+       .
+     <br />
+   
+  
+  
+   <em>Callback Function Details</em>
+  
+   <em><marker id="init-1">init/1</marker></em>
+  
+   <p><code>init(Args) -&gt; Result</code></p>
+  
+   <p>Forwards <i>gen_server:init/1</i> callbacks to the SMSC server.</p>
+  
+   <p>Refer to OTP <i>gen_server</i> behaviour documentation for greater
+   details on this callback.</p>
+  
+   <em><marker id="handle_outbind-3">handle_outbind/3</marker></em>
+  
+   <code>handle_outbind(Outbind, From, State) -&gt; Result</code>
+   <list>
+     <item><p><code>OutBind = {outbind, Session, Pdu, IPAddr}</code></p></item>
+     <item><p><code>Session = pid()</code></p></item>
+     <item><p><code>Pdu = pdu()</code></p></item>
+     <item><p><code>IPAddr = {int(), int(), int(), int()}</code></p></item>
+     <item><p><code>From = term()</code></p></item>
+     <item><p><code>State = term()</code></p></item>
+     <item><p><code>Result = {noreply, NewState}               |
+                      {noreply, NewState, Timeout}      |
+                      {stop, Reason, NewState}</code></p></item>
+     <item><p><code>ParamList = [{ParamName, ParamValue}]</code></p></item>
+     <item><p><code>ParamName = atom()</code></p></item>
+     <item><p><code>ParamValue = term()</code></p></item>
+     <item><p><code>Timeout = int()</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+   </list>
+  
+   <p>Forwards <i>outbind</i>, operations (from the peer SMSCs) to the
+   callback ESME.</p>
+  
+  
+   <em><marker id="handle_alert_notification-2">handle_alert_notification/2</marker>
+   </em>
+  
+   <code>handle_alert_notification(AlertNotification, State) -&gt; Result
+   </code>
+   <list>
+     <item><p><code>AlertNotification = {alert_notification, Session, Pdu}</code></p></item>
+     <item><p><code>Session = pid()</code></p></item>
+     <item><p><code>Pdu = pdu()</code></p></item>
+     <item><p><code>From = term()</code></p></item>
+     <item><p><code>State = term()</code></p></item>
+     <item><p><code>Result = {noreply, NewState}               |
+                      {noreply, NewState, Timeout}      |
+                      {stop, Reason, NewState}</code></p></item>
+     <item><p><code>Timeout = int()</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+   </list>
+  
+   <p>Forwards <i>alert_notification</i>, operations (from the peer SMSCs)
+   to the callback ESME.</p>
+  
+  
+   <em><marker id="handle_enquire_link_failure-2">handle_enquire_link_failure/2
+   </marker></em>
+  
+   <code>handle_enquire_link_failure(EnquireLinkFailure, State) -&gt; Result
+   </code>
+   <list>
+     <item><p><code>EnquireLinkFailure = {enquire_link_failure, Session, CommandStatus}</code>
+     </p></item>
+     <item><p><code>Session = pid()</code></p></item>
+     <item><p><code>CommandStatus = int()</code></p></item>
+     <item><p><code>State = term()</code></p></item>
+     <item><p><code>Result = {noreply, NewState}               |
+                      {noreply, NewState, Timeout}      |
+                      {stop, Reason, NewState}</code></p></item>
+     <item><p><code>Timeout = int()</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+   </list>
+  
+   <p>Notifies when an <i>enquire_link</i> failure occurs (i.e. the SMSC did
+   not respond to our <i>enquire_link</i> operation).</p>
+  
+  
+   <em><marker id="handle_operation-3">handle_operation/3</marker></em>
+  
+   <code>handle_operation(Operation, From, State) -&gt; Result</code>
+   <list>
+     <item><p><code>Operation = {deliver_sm, Session, Pdu} |
+                         {data_sm, Session, Pdu}</code></p></item>
+     <item><p><code>Session = pid()</code></p></item>
+     <item><p><code>Pdu = pdu()</code></p></item>
+     <item><p><code>From = term()</code></p></item>
+     <item><p><code>State = term()</code></p></item>
+     <item><p><code>Result = {reply, Reply, NewState}          |
+                      {reply, Reply, NewState, Timeout} |
+                      {noreply, NewState}               |
+                      {noreply, NewState, Timeout}      |
+                      {stop, Reason, Reply, NewState}   |
+                      {stop, Reason, NewState}</code></p></item>
+     <item><p><code>Reply = {ok, ParamList} | {error, Error, ParamList}</code></p></item>
+     <item><p><code>ParamList = [{ParamName, ParamValue}]</code></p></item>
+     <item><p><code>ParamName = atom()</code></p></item>
+     <item><p><code>ParamValue = term()</code></p></item>
+     <item><p><code>Timeout = int()</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+   </list>
+  
+   <p>Forwards <i>deliver_sm</i> and <i>data_sm</i> operations (from the peer
+   SMSCs) to the callback ESME.</p>
+  
+   <p>The <code>ParamList</code> included in the response is used to construct
+   the response PDU.  If a command_status other than ESME_ROK is to
+   be returned by the ESME in the response PDU, the callback should return the
+   term <code>{error, Error, ParamList}</code>, where <code>Error</code> is the
+   desired command_status error code.</p>
+  
+  
+   <em><marker id="handle_unbind-3">handle_unbind/3</marker></em>
+  
+   <code>handle_unbind(Unbind, From, State) -&gt; Result</code>
+   <list>
+     <item><p><code>Unbind = {unbind, Session, Pdu}</code></p></item>
+     <item><p><code>Session = pid()</code></p></item>
+     <item><p><code>Pdu = pdu()</code></p></item>
+     <item><p><code>Result = {reply, Reply, NewState}          |
+                      {reply, Reply, NewState, Timeout} |
+                      {noreply, NewState}               |
+                      {noreply, NewState, Timeout}      |
+                      {stop, Reason, Reply, NewState}   |
+                      {stop, Reason, NewState}</code></p></item>
+     <item><p><code>Reply = ok | {error, Error}</code></p></item>
+     <item><p><code>Error = int()</code></p></item>
+     <item><p><code>Timeout = int()</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+   </list>
+  
+   <p>This callback forwards an unbind request (issued by peer ESMEs) to the
+   SMSC.</p>
+  
+   <p>If <code>ok</code> returned an unbind_resp with a ESME_ROK
+   command_status is sent to the MC and the session moves into the unbound
+   state.  When <code>{error, Error}</code> is returned by the ESME, the
+   response PDU sent by the session to the MC will have an <code>Error</code>
+   command_status and the session will remain on it's current bound state
+   (bound_rx, bound_tx or bound_trx).</p>
+  
+  
+   <em><marker id="handle_listen_error-1">handle_listen_error/1</marker></em>
+  
+   <code>handle_listen_error(State) -&gt; Result</code>
+   <list>
+     <item><p><code>State = term()</code></p></item>
+     <item><p><code>Result = {noreply, NewState}               |
+                      {noreply, NewState, Timeout}      |
+                      {stop, Reason, NewState}</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+     <item><p><code>Timeout = int()</code></p></item>
+     <item><p><code>NewState = term()</code></p></item>
+     <item><p><code>Reason = term()</code></p></item>
+   </list>
+  
+   <p>Notifies listen socket failures to the callback SMSC.</p>
+  
+  
+   <em><marker id="handle_call-3">handle_call/3</marker></em>
+  
+   <p><code>handle_call(Request, From, State) -&gt; Result</code></p>
+  
+   <p>Forwards <i>gen_server:handle_call/3</i> callbacks to the SMSC server.
+   </p>
+  
+   <p>Refer to OTP <i>gen_server</i> behaviour documentation for greater
+   details on this callback.</p>
+  
+  
+   <em><marker id="handle_cast-2">handle_cast/2</marker></em>
+  
+   <p><code>handle_cast(Request, State) -&gt; Result</code></p>
+  
+   <p>Forwards <i>gen_server:handle_cast/2</i> callback to the SMSC server.
+   </p>
+  
+   <p>Refer to OTP <i>gen_server</i> behaviour documentation for greater
+   details on this callback.</p>
+  
+  
+   <em><marker id="handle_info-2">handle_info/2</marker></em>
+  
+   <p><code>handle_info(Info, State) -&gt; Result</code></p>
+  
+   <p>Forwards <i>gen_server:handle_info/2</i> callback to the SMSC server.
+   </p>
+  
+   <p>Refer to OTP <i>gen_server</i> behaviour documentation for greater
+   details on this callback.</p>
+  
+  
+   <em><marker id="terminate-2">terminate/2</marker></em>
+  
+   <p><code>terminate(Reason, State)</code></p>
+  
+   <p>Forwards <i>gen_server:terminate/2</i> callback to the SMSC server.</p>
+  
+   <p>Refer to OTP <i>gen_server</i> behaviour documentation for greater
+   details on this callback.</p>
+  
+  
+   <em><marker id="code_change-3">code_change/3</marker></em>
+  
+   <p><code>code_change(OldVsn, State, Extra) -&gt; {ok, NewState}</code></p>
+  
+   <p>Forwards <i>gen_server:code_change/3</i> callback to the SMSC server.
+   </p>
+  
+   <p>Refer to OTP <i>gen_server</i> behaviour documentation for greater
+   details on this callback.</p>
+  
+  
+   <em>Changes 1.1 -&gt; 1.2</em>
+  
+   <p>[7 Abr 2005]</p>
+  
+   <list>
+     <item><p>New callback <a href="#handle_enquire_link_failure/2" class="seealso">
+       handle_enquire_link_failure/2</a> added.
+       <br />
+       <url href="http://sourceforge.net/forum/forum.php?thread_id=1206343&forum_id=350015">More</url>
+     </p></item>
+     <item><p><a href="#handle_alert_notification/2" class="seealso">handle_alert_notification/2
+       </a> must have only 2 parameters and not 3, as previously declared
+       in behaviour_info/1.
+     </p></item>
+     <item><p>Functions <a href="#session_start_link/2" class="seealso">session_start_link/2</a>
+       and <a href="#session_start_link/3" class="seealso">session_start_link/3</a> added.
+     </p></item>
+     <item><p>Use <code>proc_lib:spawn_link/1</code> instead of <code>spawn_link</code>.
+     </p></item>
+     <item><p>Functions <a href="#submit_sm/3" class="seealso">submit_sm/3</a> and
+       <a href="#submit_multi/3" class="seealso">submit_multi/3</a> implemented.</p></item>
+   </list>
+  
+   <p>[6 May 2005]</p>
+  
+   <list>
+     <item><p>Log utility added.  Functions <a href="#open_disk_log/1" class="seealso">
+       open_disk_log/1</a>, <a href="#close_disk_log/0" class="seealso">close_disk_log</a>,
+       <a href="#open_error_logger/1" class="seealso">open_error_logger/1</a> and
+       <a href="#close_error_logger/0" class="seealso">close_error_logger</a> implemented.
+       <br />
+       By default neither the disk_log nor the error_logger handler are
+       added to the <url href="smpp_log.html">smpp_log</url> event manager, thus
+       no logging is done until <a href="#open_disk_log/1" class="seealso">open_disk_log/1</a>
+       and/or <a href="#open_error_logger/1" class="seealso">open_error_logger/1</a> are
+       called.
+       <br />
+       Please refer to <url href="smpp_log.html">smpp_log</url> for further
+       information about OSERL logs.
+     </p></item>
+   </list>
+  
+   <p>[4 Jul 2005]</p>
+  
+   <list>
+     <item><p>Implement <i>gen_esme_session</i> callback
+       <url href="gen_esme_session.html#handle_enquire_link-3">
+       handle_enquire_link/3</url>.
+       <br />
+       <url href="http://sourceforge.net/forum/forum.php?thread_id=1206343&forum_id=350015">More</url>
+     </p></item>
+   </list>
+  
+  
+   <em>Changes 1.2 -&gt; 1.3</em>
+  
+   <p>[30 Jul 2005]</p>
+  
+   <list>
+     <item><p>Add IPAddr in outbind callback.
+     </p></item>
+   </list>
+  
+   <p>[19 Sep 2006]</p>
+  
+   <list>
+     <item><p>Add <code>EsmeRef</code> to
+       <url href="gen_esme.html#session_start-4">session_start/4</url>,
+       <url href="gen_esme.html#session_start-5">session_start/5</url>,
+       <url href="gen_esme.html#session_start_link-4">session_start_link/4</url>
+       and <url href="gen_esme.html#session_start_link-5">session_start_link/5
+       </url> functions.
+     </p></item>
+   </list>
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Other::Category) -&gt; Info</h3>
+
+<ul class="type">
+<li><code>Category = callbacks | term()</code></li><li><code>Info = CallbacksInfo | term()</code></li><li><code>CallbacksInfo = [{FunctionName, Arity}]</code></li><li><code>FunctionName = atom()</code></li><li><code>Arity = int()</code></li></ul>
+<div class="description">
+
+<p>Gives information about the behaviour.</p>
+</div></div>
+<div class="function">
+<h3 id="start/3">start(Module, Args, Options) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Module = atom()</code></li><li><code>Result = {ok, Pid} | ignore | {error, Error}</code></li><li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid} | term()</code></li></ul>
+<div class="description">
+
+<p>Starts the ESME server.</p>
+ 
+  <p><code>Module</code>, <code>Args</code> and <code>Options</code> have the exact same
+  meaning as in gen_server behavior.</p>
+ 
+<p><em>See also:</em> <a href="#start/4" class="seealso">start/4</a>, <a href="#start_link/3" class="seealso">start_link/3</a>, <a href="gen_server.html#start/3" class="seealso">gen_server:start/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start/4">start(ServerName, Module, Args, Options) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ServerName = {local, Name} | {global, Name}</code></li><li><code>Name = atom()</code></li><li><code>Module = atom()</code></li><li><code>Result = {ok, Pid} | ignore | {error, Error}</code></li><li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid} | term()</code></li></ul>
+<div class="description">
+
+<p>Starts the ESME server.</p>
+ 
+  <p><code>ServerName</code>, <code>Module</code>, <code>Args</code> and <code>Options</code>
+  have the exact same meaning as in gen_server behavior.</p>
+ 
+<p><em>See also:</em> <a href="#start/3" class="seealso">start/3</a>, <a href="#start_link/4" class="seealso">start_link/4</a>, <a href="gen_server.html#start/4" class="seealso">gen_server:start/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/3">start_link(Module, Args, Options) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Module = atom()</code></li><li><code>Result = {ok, Pid} | ignore | {error, Error}</code></li><li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid} | term()</code></li></ul>
+<div class="description">
+
+<p>Starts the ESME server.</p>
+ 
+  <p><code>Module</code>, <code>Args</code> and <code>Options</code> have the exact same
+  meaning as in gen_server behavior.</p>
+ 
+<p><em>See also:</em> <a href="#start/3" class="seealso">start/3</a>, <a href="#start_link/4" class="seealso">start_link/4</a>, <a href="gen_server.html#start_link/3" class="seealso">gen_server:start_link/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/4">start_link(ServerName, Module, Args, Options) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ServerName = {local, Name} | {global, Name}</code></li><li><code>Name = atom()</code></li><li><code>Module = atom()</code></li><li><code>Result = {ok, Pid} | ignore | {error, Error}</code></li><li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid} | term()</code></li></ul>
+<div class="description">
+
+<p>Starts the ESME server.</p>
+ 
+  <p><code>ServerName</code>, <code>Module</code>, <code>Args</code> and <code>Options</code>
+  have the exact same meaning as in gen_server behavior.</p>
+ 
+<p><em>See also:</em> <a href="#start/4" class="seealso">start/4</a>, <a href="#start_link/3" class="seealso">start_link/3</a>, <a href="gen_server.html#start_link/4" class="seealso">gen_server:start_link/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="listen_start/1">listen_start(ServerRef) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Puts the ESME Server <code>ServerRef</code> to listen on
+  <code>DEFAULT_SMPP_PORT</code>.</p>
+ 
+  <p>By default only one connection is accepted before the listen socket
+  is closed.  Started sessions are NOT linked to the SMSC.</p>
+ 
+<p><em>See also:</em> <a href="#listen_start/4" class="seealso">listen_start/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="listen_start/4">listen_start(ServerRef, Port, Count, Timers) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Port = int()</code></li><li><code>Count = int() | infinity</code></li><li><code>Timers = timers()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Puts the ESME Server <code>ServerRef</code> to listen on <code>Port</code></p>
+ 
+  <p><code>Timers</code> is a <code>timers</code> record as declared in
+  <url href="oserl.html">oserl.hrl</url>.  Accepted session will be subject to
+  given timers.</p>
+ 
+  <p><code>Count</code> connections are accepted.  Started sessions are NOT
+  linked to the SMSC.</p>
+</div></div>
+<div class="function">
+<h3 id="listen_stop/1">listen_stop(ServerRef) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li></ul>
+<div class="description">
+
+<p>Stops listening.</p>
+</div></div>
+<div class="function">
+<h3 id="call/2">call(ServerRef, Request) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Request = term()</code></li><li><code>Reply = term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#call-2">gen_server:call/2</url>.</p>
+ 
+  <p><code>Request</code> is an arbitrary term which is passed as one of the
+  arguments to <code>Module:handle_call/3</code>.</p>
+ 
+  <p>Please refer to the <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html">gen_server</url> man page for greater details.</p>
+</div></div>
+<div class="function">
+<h3 id="call/3">call(ServerRef, Request, Timeout) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Request = term()</code></li><li><code>Timeout = int() | infinity</code></li><li><code>Reply = term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#call-3">gen_server:call/3</url>.</p>
+ 
+  <p><code>Request</code> is an arbitrary term which is passed as one of the
+  arguments to <code>Module:handle_call/3</code>.</p>
+ 
+  <p>Please refer to the <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html">gen_server</url> man page for greater details.</p>
+</div></div>
+<div class="function">
+<h3 id="cast/2">cast(ServerRef, Request) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Request = term()</code></li><li><code>Reply = term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#cast-2">gen_server:cast/2</url>.</p>
+ 
+  <p><code>Request</code> is an arbitrary term which is passed as one of the
+  arguments to <code>Module:handle_cast/2</code>.</p>
+ 
+  <p>Please refer to the <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html">gen_server</url> man page for greater details.</p>
+</div></div>
+<div class="function">
+<h3 id="close_disk_log/1">close_disk_log(ServerRef) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li></ul>
+<div class="description">
+
+<p>Closes the ESME disk log.
+ </p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/4900134077/repo/cvs/.xml/oserl/./smpp_log.xml.html#delete_disk_log_handler/0" class="seealso">smpp_log:delete_disk_log_handler/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="close_error_logger/1">close_error_logger(ServerRef) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li></ul>
+<div class="description">
+
+<p>Closes the ESME error logger.
+ </p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/4900134077/repo/cvs/.xml/oserl/./smpp_log.xml.html#delete_error_logger_handler/0" class="seealso">smpp_log:delete_error_logger_handler/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="count/4">count(ServerRef, Date, From, Pred) -&gt; int()</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Date = any | {from, Time} | {until, Time} | {lapse, FromTime, ToTime}</code></li><li><code>Time = {{Year, Month, Day}, {Hour, Minutes, Seconds}}</code></li><li><code>FromTime = Time</code></li><li><code>ToTime = Time</code></li><li><code>From = any | self | peer</code></li><li><code>Pred = function()</code></li></ul>
+<div class="description">
+
+<p>PDUs are logged in the disk log as <code>{Now, BinaryPdu, From}</code>
+  terms.  This function counts logged PDUs matching the given
+  <code>Date</code>, <code>From</code> and <code>Pred</code>.</p>
+ 
+  <list>
+    <item><p><em>Date:</em> <code>any</code>, <code>{from, Time}</code>, <code>{until, Time}
+      </code> or <code>{lapse, FromTime,ToTime}</code>.</p></item>
+    <item><p><em>From:</em> <code>self</code>, <code>peer</code> or <code>any</code>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be matched.  <code>fun(BinaryPdu) -&gt; bool()</code>.</p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="match/4">match(ServerRef, Date, From, Pred) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Date = any | {from, Time} | {until, Time} | {lapse, FromTime, ToTime}</code></li><li><code>Time = {{Year, Month, Day}, {Hour, Minutes, Seconds}}</code></li><li><code>FromTime = Time</code></li><li><code>ToTime = Time</code></li><li><code>From = any | self | peer</code></li><li><code>Pred = function()</code></li><li><code>Continuation = start | cont()</code></li><li><code>Result = {Continuation2, List} | {Continuation2, List, Badbytes} | eof | {error, Reason}</code></li><li><code>List = [{Now, BinaryPdu, From}]</code></li><li><code>Now = {MegaSecs, Secs, Microsecs}</code></li><li><code>BinaryPdu = binary()</code></li></ul>
+<div class="description">
+
+<p>PDUs are logged in the disk log as <code>{Now, BinaryPdu, From}</code>
+  terms.  This function gets the list of logged PDUs matching the given
+  <code>Date</code>, <code>From</code> and <code>Pred</code>.</p>
+ 
+  <list>
+    <item><p><em>Date:</em> <code>any</code>, <code>{from, Time}</code>, <code>{until, Time}
+      </code> or <code>{lapse, FromTime,ToTime}</code>.</p></item>
+    <item><p><em>From:</em> <code>self</code>, <code>peer</code> or <code>any</code>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be matched.  <code>fun(BinaryPdu) -&gt; bool()</code>.</p></item>
+  </list>
+ 
+  <p>This function internally calls <a href="#match/5" class="seealso">match/5</a> with
+  <code>start</code> as the <code>Continuation</code> parameters.</p>
+ 
+<p><em>See also:</em> <a href="#match/4" class="seealso">match/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="match/5">match(ServerRef, Date, From, Pred, Cont::Continuation) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Date = any | {from, Time} | {until, Time} | {lapse, FromTime, ToTime}</code></li><li><code>Time = {{Year, Month, Day}, {Hour, Minutes, Seconds}}</code></li><li><code>FromTime = Time</code></li><li><code>ToTime = Time</code></li><li><code>From = any | self | peer</code></li><li><code>Pred = function()</code></li><li><code>Continuation = start | cont()</code></li><li><code>Result = {Continuation2, List} | {Continuation2, List, Badbytes} | eof | {error, Reason}</code></li><li><code>List = [{Now, BinaryPdu, From}]</code></li><li><code>Now = {MegaSecs, Secs, Microsecs}</code></li><li><code>BinaryPdu = binary()</code></li></ul>
+<div class="description">
+
+<p>PDUs are logged in the disk log as <code>{Now, BinaryPdu, From}</code>
+  terms.  This function gets the list of logged PDUs matching the given
+  <code>Date</code>, <code>From</code> and <code>Pred</code>.</p>
+ 
+  <list>
+    <item><p><em>Date:</em> <code>any</code>, <code>{from, Time}</code>, <code>{until, Time}
+      </code> or <code>{lapse, FromTime,ToTime}</code>.</p></item>
+    <item><p><em>From:</em> <code>self</code>, <code>peer</code> or <code>any</code>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be matched.  <code>fun(BinaryPdu) -&gt; bool()</code>.</p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="open_disk_log/2">open_disk_log(ServerRef, Args) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Args = term()</code></li><li><code>File = string()</code></li><li><code>Pred = function()</code></li><li><code>BinaryPdu = binary()</code></li></ul>
+<div class="description">
+
+<p>Opens the ESME disk log.  Refer to <url href="smpp_log.html#add_disk_log_handler-1">smpp_log:add_disk_log_handler/1</url> to see permitted <code>Args</code>.</p>
+ 
+  <p><code>Pred</code> is a fun <code>fun(BinaryPdu) -&gt; bool()</code></p>
+ 
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/4900134077/repo/cvs/.xml/oserl/./smpp_log.xml.html#add_disk_log_handler/1" class="seealso">smpp_log:add_disk_log_handler/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="open_error_logger/2">open_error_logger(ServerRef, Args) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = Name | {Name, Node} | {global, Name} | pid()</code></li><li><code>Name = atom()</code></li><li><code>Node = atom()</code></li><li><code>Args = term()</code></li><li><code>Pred = function()</code></li><li><code>BinaryPdu = binary()</code></li></ul>
+<div class="description">
+
+<p>Opens the ESME error logger.  Refer to <url href="smpp_log.html#add_error_logger_handler-1">smpp_log:add_error_logger_handler/1</url> to see permitted <code>Args</code>.</p>
+ 
+  <p><code>Pred</code> is a fun <code>fun(BinaryPdu) -&gt; bool()</code></p>
+ 
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/4900134077/repo/cvs/.xml/oserl/./smpp_log.xml.html#add_error_logger_handler/1" class="seealso">smpp_log:add_error_logger_handler/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="reply/2">reply(Client, Reply) -&gt; true</h3>
+
+<ul class="type">
+<li><code>Client = term()</code></li><li><code>Reply = term()</code></li></ul>
+<div class="description">
+
+<p>Equivalent to <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#reply-2">gen_server:reply/2</url>.</p>
+ 
+  <p>Please refer to the <url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html">gen_server</url> man page for greater details.</p>
+</div></div>
+<div class="function">
+<h3 id="session_start/3">session_start(EsmeRef, Address, Port) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>EsmeRef = pid() | atom()</code></li><li><code>Address = string() | atom() | ip_address()</code></li><li><code>Port = int()</code></li><li><code>Result = {ok, Session} | {error, Reason}</code></li><li><code>Session = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Opens a new session.  By default Sessions are NOT linked to the ESME.</p>
+ 
+  <p>Returns <code>{ok, Session}</code> if success, <code>{error, Reason}</code>
+  otherwise.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="session_start/4">session_start(EsmeRef, Address, Port, Timers) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>EsmeRef = pid() | atom()</code></li><li><code>Address = string() | atom() | ip_address()</code></li><li><code>Port = int()</code></li><li><code>Result = {ok, Session} | {error, Reason}</code></li><li><code>Session = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Opens a new session.  By default Sessions are NOT linked to the ESME.</p>
+ 
+  <p><code>Timers</code> is a <code>timers</code> record as declared in
+  <url href="oserl.html">oserl.hrl</url>.</p>
+ 
+  <p>Returns <code>{ok, Session}</code> if success, <code>{error, Reason}</code>
+  otherwise.</p>
+ 
+<p><em>See also:</em> <a href="#session_start/2" class="seealso">session_start/2</a>, <a href="gen_esme_session.html#start/3" class="seealso">gen_esme_session:start/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="session_start_link/3">session_start_link(EsmeRef, Address, Port) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>EsmeRef = pid() | atom()</code></li><li><code>Address = string() | atom() | ip_address()</code></li><li><code>Port = int()</code></li><li><code>Result = {ok, Session} | {error, Reason}</code></li><li><code>Session = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Opens a new session linked to the ESME.</p>
+ 
+  <p>Returns <code>{ok, Session}</code> if success, <code>{error, Reason}</code>
+  otherwise.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="session_start_link/4">session_start_link(EsmeRef, Address, Port, Timers) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>EsmeRef = pid() | atom()</code></li><li><code>Address = string() | atom() | ip_address()</code></li><li><code>Port = int()</code></li><li><code>Result = {ok, Session} | {error, Reason}</code></li><li><code>Session = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Opens a new session linked to the ESME.</p>
+ 
+  <p><code>Timers</code> is a <code>timers</code> record as declared in
+  <url href="oserl.html">oserl.hrl</url>.</p>
+ 
+  <p>Returns <code>{ok, Session}</code> if success, <code>{error, Reason}</code>
+  otherwise.</p>
+ 
+<p><em>See also:</em> <a href="#session_start_link/2" class="seealso">session_start_link/2</a>, <a href="gen_esme_session.html#start_link/3" class="seealso">gen_esme_session:start_link/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="session_stop/1">session_stop(Session) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li></ul>
+<div class="description">
+
+<p>Closes the <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="bind_receiver/2">bind_receiver(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>bind_receiver</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="bind_transmitter/2">bind_transmitter(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>bind_transmitter</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="bind_transceiver/2">bind_transceiver(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>bind_transceiver</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="broadcast_sm/2">broadcast_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>broadcast_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_broadcast_sm/2">cancel_broadcast_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>cancel_broadcast_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_sm/2">cancel_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>cancel_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="data_sm/2">data_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>data_sm</i> operation on the session identified by
+  <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="query_broadcast_sm/2">query_broadcast_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>query_broadcast_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="query_sm/2">query_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>query_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="replace_sm/2">replace_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>replace_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="submit_multi/2">submit_multi(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>submit_multi</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="submit_multi/3">submit_multi(Session, ParamList, ConcatenationMethod) -&gt; Results</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>ConcatenationMethod = udh | tlv</code></li><li><code>Results = [Result]</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>submit_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+ 
+  <p>This submission function automatically accomplishes long messages
+  segmentation and concatenation using the <code>ConcatenationMethod</code>
+  indicated.</p>
+ 
+  <taglist>
+    <dt>udh</dt><item><p>Concatenates the messages using UDH.  If unsure use
+      this method, since is more portable and widely available in most SMSCs.
+    </p></item>
+    <dt>tlv</dt><item><p>Concatenates the messages using <i>sar_msg_ref_num</i>,
+      <i>sar_total_segments</i> and <i>sar_segments_seqnum</i> TLVs.  If
+      your SMSC supports these TLVs (not all of them do) this method is
+      recommended, unless <i>message_payload</i> TLV is also supported of
+      course, read below comments on this subject.</p></item>
+  </taglist>
+ 
+  <p>The <i>short_message</i> is splited if longer than SM_MAX_SIZE macro
+  (defaults to 160), otherwise <a href="#submit_sm/2" class="seealso">submit_sm/2</a> is
+  called and the message is send as is.  Resulting segments are
+  SM_SEGMENT_MAX_SIZE which defaults to 150 for either concatenation method,
+  to allow room for the UDH.  You may want to redefine these macros to fit
+  your particular needs, find them in <code>oserl.hrl</code>
+  </p>
+ 
+  <p>If you are lucky and your SMSC permits the <i>message_payload</i>
+  TLV, use it with the <a href="#data_sm/2" class="seealso">data_sm/2</a> and
+  <a href="#submit_sm/2" class="seealso">submit_sm/2</a> functions instead.</p>
+ 
+<p><em>See also:</em> <a href="#data_sm/2" class="seealso">data_sm/2</a>, <a href="#submit_sm/2" class="seealso">submit_sm/2</a>, <a href="gen_esme_session.html#submit_sm/3" class="seealso">gen_esme_session:submit_sm/3</a>, <a href="/home/pete/wefwefwef/docs/other/4900134077/repo/cvs/.xml/oserl/./sm.xml.html#split/2" class="seealso">sm:split/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="submit_sm/2">submit_sm(Session, ParamList) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>submit_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="submit_sm/3">submit_sm(Session, ParamList, ConcatenationMethod) -&gt; Results</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li><li><code>ConcatenationMethod = udh | tlv</code></li><li><code>Results = [Result]</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues a <i>submit_sm</i> operation on the session
+  identified by <code>Session</code>.</p>
+ 
+  <p>This submission function automatically accomplishes long messages
+  segmentation and concatenation using the <code>ConcatenationMethod</code>
+  indicated.</p>
+ 
+  <taglist>
+    <dt>udh</dt><item><p>Concatenates the messages using UDH.  If unsure use
+      this method, since is more portable and widely available in most SMSCs.
+    </p></item>
+    <dt>tlv</dt><item><p>Concatenates the messages using <i>sar_msg_ref_num</i>,
+      <i>sar_total_segments</i> and <i>sar_segments_seqnum</i> TLVs.  If
+      your SMSC supports these TLVs (not all of them do) this method is
+      recommended, unless <i>message_payload</i> TLV is also supported of
+      course, read below comments on this subject.</p></item>
+  </taglist>
+ 
+  <p>The <i>short_message</i> is splited if longer than SM_MAX_SIZE macro
+  (defaults to 160), otherwise <a href="#submit_sm/2" class="seealso">submit_sm/2</a> is
+  called and the message is send as is.  Resulting segments are
+  SM_SEGMENT_MAX_SIZE which defaults to 150 for either concatenation method,
+  to allow room for the UDH.  You may want to redefine these macros to fit
+  your particular needs, find them in <code>oserl.hrl</code>
+  </p>
+ 
+  <p>If you are lucky and your SMSC permits the <i>message_payload</i>
+  TLV, use it with the <a href="#data_sm/2" class="seealso">data_sm/2</a> and
+  <a href="#submit_sm/2" class="seealso">submit_sm/2</a> functions instead.</p>
+ 
+<p><em>See also:</em> <a href="#data_sm/2" class="seealso">data_sm/2</a>, <a href="#submit_sm/2" class="seealso">submit_sm/2</a>, <a href="gen_esme_session.html#submit_sm/3" class="seealso">gen_esme_session:submit_sm/3</a>, <a href="/home/pete/wefwefwef/docs/other/4900134077/repo/cvs/.xml/oserl/./sm.xml.html#split/2" class="seealso">sm:split/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="unbind/1">unbind(Session) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Session = pid()</code></li><li><code>Result = {ok, PduResp} | {error, Error}</code></li><li><code>PduResp = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p>Issues an <i>unbind</i> operation on the session identified by
+  <code>Session</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::Args) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Args = term()</code></li><li><code>Result = {ok, State} | {ok, State, Timeout} | ignore | {stop, Reason}</code></li><li><code>State = term()</code></li><li><code>Timeout = int() | infinity</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#init-1">gen_server - init/1</url> callback implementation.</p>
+ 
+  <p>Initiates the server.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(R::Request, From, S::State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Request = term()</code></li><li><code>From = {pid(), Tag}</code></li><li><code>State = term()</code></li><li><code>Result = {reply, Reply, NewState} | {reply, Reply, NewState, Timeout} | {noreply, NewState} | {noreply, NewState, Timeout} | {stop, Reason, Reply, NewState} | {stop, Reason, NewState}</code></li><li><code>Reply = term()</code></li><li><code>NewState = term()</code></li><li><code>Timeout = int() | infinity</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#handle_call-3">gen_server - handle_call/3</url> callback implementation.</p>
+ 
+  <p>Handling call messages.</p>
+ 
+  <list>
+    <item><p>On <code>{stop, Reason, Reply, NewState}</code>
+    terminate/2 is called</p></item>
+    <item><p>On <code>{stop, Reason, NewState}</code>
+    terminate/2 is called</p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="#terminate/2" class="seealso">terminate/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(R::Request, S::State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Request = term()</code></li><li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {stop, Reason, NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = int() | infinity</code></li><li><code>Reason = normal | term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#handle_cast-2">gen_server - handle_cast/2</url> callback implementation.</p>
+ 
+  <p>Handling cast messages.</p>
+ 
+  <list>
+    <item><p>On <code>{stop, Reason, State}</code> terminate/2 is called</p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="#terminate/2" class="seealso">terminate/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, S::State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Info = timeout | term()</code></li><li><code>State = term()</code></li><li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {stop, Reason, NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = int() | infinity</code></li><li><code>Reason = normal | term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#handle_info-2">gen_server - handle_info/2</url> callback implementation.</p>
+ 
+  <p>Handling all non call/cast messages.</p>
+ 
+  <list>
+    <item><p>On <code>{stop, Reason, State}</code> terminate/2 is called.</p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="#terminate/2" class="seealso">terminate/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(R::Reason, S::State) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Reason = normal | shutdown | term()</code></li><li><code>State = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#terminate-2">gen_server - terminate/2</url> callback implementation.</p>
+ 
+  <p>Shutdown the server.</p>
+ 
+  <p>Return value is ignored by <code>gen_server</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, S::State, Extra) -&gt; {ok, NewState}</h3>
+
+<ul class="type">
+<li><code>OldVsn = undefined | term()</code></li><li><code>State = term()</code></li><li><code>Extra = term</code></li><li><code>NewState = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/r9c/lib/stdlib-1.12/doc/html/gen_server.html#code_change-3">gen_server - code_change/3</url> callback implementation.</p>
+ 
+  <p>Convert process state when code is changed.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_outbind/3">handle_outbind(ServerRef, Session, Pdu) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Session = pid()</code></li><li><code>Pdu = pdu()</code></li></ul>
+<div class="description">
+
+<p><url href="gen_esme_session.html#handle_outbind-3">gen_esme_session -
+  handle_outbind/3</url> callback implementation.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_alert_notification/3">handle_alert_notification(ServerRef, Session, Pdu) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Session = pid()</code></li><li><code>Pdu = pdu()</code></li></ul>
+<div class="description">
+
+<p><url href="gen_esme_session.html#handle_alert_notification-3">
+  gen_esme_session - handle_alert_notification/3</url> callback implementation.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_enquire_link/3">handle_enquire_link(ServerRef, Session, Pdu) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Session = pid()</code></li><li><code>Pdu = pdu()</code></li></ul>
+<div class="description">
+
+<p><url href="gen_esme_session.html#handle_enquire_link-3">
+  gen_esme_session - handle_enquire_link/3</url> callback implementation.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_enquire_link_failure/3">handle_enquire_link_failure(ServerRef, Session, CommandStatus) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Session = pid()</code></li><li><code>CommandStatus = int()</code></li></ul>
+<div class="description">
+
+<p><url href="gen_esme_session.html#handle_enquire_link_failure-3">
+  gen_esme_session - handle_enquire_link_failure/3</url> callback
+  implementation.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_operation/4">handle_operation(ServerRef, Session, X3::{CmdName, Pdu}) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Session = pid()</code></li><li><code>CmdName = data_sm | deliver_sm</code></li><li><code>Pdu = pdu()</code></li><li><code>Result = {ok, ParamList} | {error, Error, ParamList}</code></li><li><code>ParamList = [{ParamName, ParamValue}]</code></li><li><code>ParamName = atom()</code></li><li><code>ParamValue = term()</code></li></ul>
+<div class="description">
+
+<p><url href="gen_esme_session.html#handle_operation-3">gen_esme_session -
+  handle_operation/3</url> callback implementation.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_unbind/3">handle_unbind(ServerRef, Session, Pdu) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>ServerRef = pid()</code></li><li><code>Session = pid()</code></li><li><code>Pdu = pdu()</code></li><li><code>Error = int()</code></li></ul>
+<div class="description">
+
+<p><url href="gen_esme_session.html#handle_unbind-3">gen_esme_session -
+  handle_unbind/3</url> callback implementation.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Enrique Marcote Peña</aname>
+<email>mpquique_at_users.sourceforge.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

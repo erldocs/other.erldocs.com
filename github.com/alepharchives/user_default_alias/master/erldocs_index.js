@@ -1,0 +1,1 @@
+var index = [['app','user_default_alias','user_default_alias','[application]'],['mod','user_default_alias','user_default_alias',[]],['fun','user_default_alias','user_default_alias:from/1','Create and load a user_default module from an exis'],['fun','user_default_alias','user_default_alias:from/1','Equivalent to from(Mod, false).']];

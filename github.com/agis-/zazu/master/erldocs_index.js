@@ -1,0 +1,1 @@
+var index = [['app','zazu','zazu','[application]'],['mod','zazu','zazu',[]],['mod','zazu','zazu_answers',[]],['mod','zazu','zazu_helper',[]],['fun','zazu','zazu:do/2',[]],['fun','zazu','zazu:kill/1',[]],['fun','zazu','zazu:start/4',[]],['fun','zazu','zazu_answers:mentioned/0',[]],['fun','zazu','zazu_answers:unknown/0',[]]];

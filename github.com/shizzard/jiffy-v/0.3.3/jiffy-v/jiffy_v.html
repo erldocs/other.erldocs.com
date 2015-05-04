@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jiffy_v (jiffy-v) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jiffy_v</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-jv_data">jv_data() = <a href="#type-jv_data_object" class="seealso">jv_data_object()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_data_list" class="seealso">jv_data_list()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_data_scalar" class="seealso">jv_data_scalar()</a></h3></div>
+    <div class="type"><h3 id="type-jv_data_list">jv_data_list() = [Item :: <a href="#type-jv_data" class="seealso">jv_data()</a>]</h3></div>
+    <div class="type"><h3 id="type-jv_data_object">jv_data_object() = {[{Key :: binary(), Value :: <a href="#type-jv_data" class="seealso">jv_data()</a>}]}</h3></div>
+    <div class="type"><h3 id="type-jv_data_scalar">jv_data_scalar() = binary() | integer() | float() | boolean()</h3></div>
+    <div class="type"><h3 id="type-jv_fun">jv_fun() = <a href="#type-jv_fun_val" class="seealso">jv_fun_val()</a> | <a href="#type-jv_fun_fix" class="seealso">jv_fun_fix()</a></h3></div>
+    <div class="type"><h3 id="type-jv_fun_fix">jv_fun_fix() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((fix, Stack :: [binary()], Value :: <a href="#type-jv_data" class="seealso">jv_data()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ok, NewValue :: <a href="#type-jv_data" class="seealso">jv_data()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, invalid} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, Code :: <a href="#type-jv_ret_code" class="seealso">jv_ret_code()</a>})</h3></div>
+    <div class="type"><h3 id="type-jv_fun_val">jv_fun_val() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((validate, Stack :: <a href="#type-jv_ret_stack" class="seealso">jv_ret_stack()</a>, Value :: <a href="#type-jv_data" class="seealso">jv_data()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ok, valid} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ok, NewValue :: <a href="#type-jv_data" class="seealso">jv_data()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, Code :: <a href="#type-jv_ret_code" class="seealso">jv_ret_code()</a>})</h3></div>
+    <div class="type"><h3 id="type-jv_ret">jv_ret() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Errors :: <a href="#type-jv_ret_errorlist" class="seealso">jv_ret_errorlist()</a>, Result :: <a href="#type-jv_ret_result" class="seealso">jv_ret_result()</a>}</h3></div>
+    <div class="type"><h3 id="type-jv_ret_code">jv_ret_code() = term()</h3></div>
+    <div class="type"><h3 id="type-jv_ret_error">jv_ret_error() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Code :: <a href="#type-jv_ret_code" class="seealso">jv_ret_code()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Path :: <a href="#type-jv_ret_path" class="seealso">jv_ret_path()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stack :: <a href="#type-jv_ret_stack" class="seealso">jv_ret_stack()</a>}</h3></div>
+    <div class="type"><h3 id="type-jv_ret_errorlist">jv_ret_errorlist() = [<a href="#type-jv_ret_error" class="seealso">jv_ret_error()</a>]</h3></div>
+    <div class="type"><h3 id="type-jv_ret_path">jv_ret_path() = binary()</h3></div>
+    <div class="type"><h3 id="type-jv_ret_result">jv_ret_result() = <a href="#type-jv_data" class="seealso">jv_data()</a></h3></div>
+    <div class="type"><h3 id="type-jv_ret_stack">jv_ret_stack() = [binary()]</h3></div>
+    <div class="type"><h3 id="type-jv_type">jv_type() = <a href="#type-jv_type_scalar" class="seealso">jv_type_scalar()</a> | <a href="#type-jv_type_composite" class="seealso">jv_type_composite()</a></h3></div>
+    <div class="type"><h3 id="type-jv_type_boolean">jv_type_boolean() = {boolean}</h3></div>
+    <div class="type"><h3 id="type-jv_type_composite">jv_type_composite() = <a href="#type-jv_type_hash" class="seealso">jv_type_hash()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_list" class="seealso">jv_type_list()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_enum" class="seealso">jv_type_enum()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_variant" class="seealso">jv_type_variant()</a></h3></div>
+    <div class="type"><h3 id="type-jv_type_enum">jv_type_enum() = {enum, Variants :: [Variant :: term()]}</h3></div>
+    <div class="type"><h3 id="type-jv_type_float">jv_type_float() = {float}</h3></div>
+    <div class="type"><h3 id="type-jv_type_hash">jv_type_hash() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{hash, Fields :: [Field :: <a href="#type-jv_type_hashfield" class="seealso">jv_type_hashfield()</a>]}</h3></div>
+    <div class="type"><h3 id="type-jv_type_hashfield">jv_type_hashfield() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{FieldName :: binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Obligatoriness :: required | optional,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type :: <a href="#type-jv_type" class="seealso">jv_type()</a>}</h3></div>
+    <div class="type"><h3 id="type-jv_type_integer">jv_type_integer() = {integer}</h3></div>
+    <div class="type"><h3 id="type-jv_type_list">jv_type_list() = {list, Variants :: [Variant :: <a href="#type-jv_type" class="seealso">jv_type()</a>]}</h3></div>
+    <div class="type"><h3 id="type-jv_type_null">jv_type_null() = {null}</h3></div>
+    <div class="type"><h3 id="type-jv_type_scalar">jv_type_scalar() = <a href="#type-jv_type_integer" class="seealso">jv_type_integer()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_float" class="seealso">jv_type_float()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_string" class="seealso">jv_type_string()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_boolean" class="seealso">jv_type_boolean()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-jv_type_null" class="seealso">jv_type_null()</a></h3></div>
+    <div class="type"><h3 id="type-jv_type_string">jv_type_string() = {string}</h3></div>
+    <div class="type"><h3 id="type-jv_type_variant">jv_type_variant() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{variant, Variants :: [Variant :: <a href="#type-jv_type" class="seealso">jv_type()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="validate/1">validate(Map::jv_type(), Data::jv_data()) -&gt; Ret::jv_ret()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate/1-1">validate(Map::jv_type(), Data::jv_data(), Fun::jv_fun()) -&gt; Ret::jv_ret()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

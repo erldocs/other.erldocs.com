@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_w_reduce (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_w_reduce</h1>
+<h2 class="modsummary">A "reduce"-like fitting (in the MapReduce sense) for Riak KV
+       MapReduce compatibility.</h2>
+<div class="description">
+<p>A "reduce"-like fitting (in the MapReduce sense) for Riak KV
+       MapReduce compatibility.  See riak_pipe_w_reduce.erl for more
+       docs: this module is a stripped-down version of that one.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Partition::partition() (see module riak_pipe_vnode), Fitting_details::details() (see module riak_pipe_fitting)) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Setup creates an empty list accumulator and
+       stashes away the <code>Partition</code> and <code>FittingDetails</code> for later.</p>
+</div></div>
+<div class="function">
+<h3 id="process/1">process(Input::term(), Last::boolean(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Process looks up the previous result for the <code>Key</code>, and then
+       evaluates the funtion on that with the new <code>Input</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="done/1">done(State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unless the aggregation function sends its own outputs, done/1
+       is where all outputs are sent.</p>
+</div></div>
+<div class="function">
+<h3 id="archive/1">archive(State::state()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>The archive is the accumulator.</p>
+</div></div>
+<div class="function">
+<h3 id="handoff/1">handoff(HandoffAcc::list(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>The handoff merge is simply an accumulator list.  The reduce
+       function is also re-evaluated for the key, such that <a href="#done/1" class="seealso">done/1</a> still has the correct value to send, even if no more
+       inputs arrive.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_arg/2">validate_arg(X1::{rct, function(), term()}) -&gt; ok | {error, iolist()}</h3>
+
+
+<div class="description">
+
+<p>Check that the arg is a valid arity-4 function.  See <a href="riak_pipe_v.html#validate_function/3" class="seealso">riak_pipe_v:validate_function/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="chashfun/1">chashfun(X1::{term(), term()}) -&gt; chash() (see module riak_pipe_vnode)</h3>
+
+
+<div class="description">
+
+<p>The preferred hashing function.  Chooses a partition based
+       on the hash of the <code>Key</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_compat/1">reduce_compat(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Compatibility wrapper for an old-school Riak MR reduce function,
+       which is an arity-2 function <code>fun(InputList, SpecificationArg)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="no_input_run_reduce_once/0">no_input_run_reduce_once() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

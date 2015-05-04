@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>my_lists (common_lib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>my_lists</h1>
+<h2 class="modsummary">My Lists Library.</h2>
+<div class="description">
+<p>My Lists Library.</p>
+  
+   <p>Additional functions for list processing.</p>
+  
+   <em>Changes 0.2 -&gt; 1.0</em>
+  
+   <p>[12 May 2004]</p>
+  
+   <list>
+     <item><p>New functions: <a href="#first/2" class="seealso">first/2</a>,
+       <a href="#is_deep/1" class="seealso">is_deep/1</a>,
+       <a href="#keyindex/3" class="seealso">keyindex/3</a> and
+       <a href="#splitwith/2" class="seealso">splitwith/2</a>.
+     </p></item>
+   </list>
+  
+   <em>Changes 1.0 -&gt; 1.1</em>
+  
+   <p>[29 Jul 2004]</p>
+  
+   <list>
+     <item><p>New functions: <a href="#from_number/2" class="seealso">from_number/1</a> and
+       <a href="#to_number/1" class="seealso">to_number/1</a>.
+     </p></item>
+   </list>
+  
+   <em>Changes 1.1 -&gt; 1.2</em>
+  
+   <p>[10 Dec 2004]</p>
+  
+   <list>
+     <item><p>New function: <a href="#delete/3" class="seealso">delete/3</a> added.</p></item>
+   </list>
+  
+   <p>[18 Dec 2004]</p>
+  
+   <list>
+     <item><p>New function: <a href="#intersec/2" class="seealso">intersec/2</a> added.</p></item>
+   </list>
+  
+   <p>[21 Dec 2004]</p>
+  
+   <list>
+     <item><p>Functions <a href="#hexlist_to_intlist/1" class="seealso">hexlist_to_intlist/1</a>,
+       <a href="#intlist_to_hexlist/1" class="seealso">intlist_to_hexlist/1</a> and
+       <a href="#split2/1" class="seealso">split2/1</a>.
+     </p></item>
+   </list>
+  
+   <p>[27 Jun 2005]</p>
+  
+   <list>
+     <item><p>Function <a href="#ukeymerge/3" class="seealso">ukeymerge/3</a> implemented.</p></item>
+   </list>
+  
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="asearch/2">asearch(APred, List) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>List = [term()]</code></li><li><code>Result = {value, Element} | false</code></li><li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p>Gets the first <code>Element</code> on the <code>List</code> where
+  <code>APred(Element) /= false</code>.</p>
+ 
+  <list>
+    <item><p><code>APred = fun(X) -&gt; true | approximate | false</code></p></item>
+  </list>
+ 
+  <p><code>APred</code> is an <i>approximate</i> predicate that returns
+  <code>true</code>, <code>false</code> or <code>approximate</code>.</p>
+ 
+  <p>If matching is ambiguous, there is more than one element on the list
+  where the approximate-predicate returns <code>approximate</code>,
+  <code>false</code> is returned.  This behaviour may be changed in the future
+  returning the atom <code>ambiguous</code> is such circumstances.</p>
+ 
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/1981689481/repo/master/.xml/common_lib/./my_string.xml.html#aequal/2" class="seealso">my_string:aequal/2</a>, <a href="/home/pete/wefwefwef/docs/other/1981689481/repo/master/.xml/common_lib/./my_string.xml.html#aequal/6" class="seealso">my_string:aequal/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="cut/2">cut(List, Index) -&gt; {Prefix, Suffix}</h3>
+
+<ul class="type">
+<li><code>List = [term()]</code></li><li><code>Index = int()</code></li><li><code>Prefix = [term()]</code></li><li><code>Suffix = [term()]</code></li></ul>
+<div class="description">
+
+<p>Cuts a List by an Index into two sublists.  Prefix ++ Suffix == List.</p>
+ 
+  <p>
+  <code>&gt; my_lists:cut([a, b, c, d, e], 3).
+  <br />{[a, b, c], [d, e]}
+  </code></p>
+</div></div>
+<div class="function">
+<h3 id="delete/3">delete(Element, N, TupleList::TupleList1) -&gt; TupleList2</h3>
+
+<ul class="type">
+<li><code>Element = term()</code></li><li><code>N = int()</code></li><li><code>TupleList1 = [tuple()]</code></li><li><code>TupleList2 = [tuple()]</code></li></ul>
+<div class="description">
+
+<p>Returns a copy of <code>TupleList1</code> where the all the occurrences of
+  a tuple whose <code>N</code>th element is <code>Element</code> is deleted, if
+  present.</p>
+</div></div>
+<div class="function">
+<h3 id="first/2">first(Pred, T::List) -&gt; Element</h3>
+
+<ul class="type">
+<li><code>List = [Element]</code></li><li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p>Gets the first <code>Element</code> of <code>List</code> where <code>Pred</code>
+  is <code>true</code>.</p>
+ 
+  <p>This function fails if no element on <code>List</code> satisfies
+  <code>Pred</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="from_number/1">from_number(Number) -&gt; List</h3>
+
+<ul class="type">
+<li><code>Number = int() | float()</code></li><li><code>List = string()</code></li></ul>
+<div class="description">
+
+<p>Returns the string representation of a <code>Number</code>, integer or
+  float.</p>
+</div></div>
+<div class="function">
+<h3 id="has_duplicates/1">has_duplicates(T::List) -&gt; bool()</h3>
+
+<ul class="type">
+<li><code>List = term()</code></li></ul>
+<div class="description">
+
+<p>Determines if a list has duplicates or not.</p>
+</div></div>
+<div class="function">
+<h3 id="hexlist_to_intlist/1">hexlist_to_intlist(List::HexList) -&gt; IntList</h3>
+
+<ul class="type">
+<li><code>HexList = [Hex]</code></li><li><code>Hex = int()</code></li><li><code>IntList = [int()]</code></li></ul>
+<div class="description">
+
+<p>Creates an integer list from an hex string.</p>
+ 
+  <p>Where <code>Hex</code> is
+  <code>$1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F</code></p>
+ 
+<p><em>See also:</em> <a href="#intlist_to_hexlist/1" class="seealso">intlist_to_hexlist/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="intersec/2">intersec(List1, List2) -&gt; List3</h3>
+
+<ul class="type">
+<li><code>List1 = [term()]</code></li><li><code>List2 = [term()]</code></li><li><code>List3 = [term()]</code></li></ul>
+<div class="description">
+
+<p>Returns the intersection of two lists.  <code>List3</code> contains all
+  elements in <code>List1</code> which also belong to <code>List2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="intlist_to_hexlist/1">intlist_to_hexlist(List::IntList) -&gt; HexList</h3>
+
+<ul class="type">
+<li><code>IntList = [int()]</code></li><li><code>HexList = [Hex]</code></li><li><code>Hex = int()</code></li></ul>
+<div class="description">
+
+<p>Creates an hex string from an integer list.</p>
+ 
+  <p>Where <code>Hex</code> is <code>$1|$2|$3|$4|$5|$6|$7|$8|$9|$A|$B|$C|$D|$E|$F
+  </code></p>
+ 
+<p><em>See also:</em> <a href="#hexlist_to_intlist/1" class="seealso">hexlist_to_intlist/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_deep/1">is_deep(T::List) -&gt; bool()</h3>
+
+<ul class="type">
+<li><code>List = [Element]</code></li><li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p>Returns <code>true</code> if <code>List</code> is a deep list, <code>false</code>
+  otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="keyindex/3">keyindex(Key, N, TupleList) -&gt; Index</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>N = int()</code></li><li><code>TupleList = [Tuple]</code></li><li><code>Tuple = tuple()</code></li><li><code>Index = int()</code></li></ul>
+<div class="description">
+
+<p>Gets the <code>Index</code> of the tuple on <code>TupleList</code> whose
+  Nth element is <code>Key</code>.</p>
+ 
+  <p>The functions fails if no element with such a <code>Key</code> exists on
+  <code>TupleList</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="random/2">random(Max, Length) -&gt; List</h3>
+
+<ul class="type">
+<li><code>Max = int()</code></li><li><code>Lenght = int()</code></li><li><code>List = [int()]</code></li></ul>
+<div class="description">
+
+<p>Creates a list of random integers with <code>Length</code> elementes.</p>
+ 
+  <p>Duplicates allowed, the values will be between 1 and <code>Max</code>
+  (both included).</p>
+ 
+<p><em>See also:</em> <a href="#random_seq/2" class="seealso">random_seq/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="random_seq/2">random_seq(Max, Length) -&gt; List</h3>
+
+<ul class="type">
+<li><code>Max = int()</code></li><li><code>Lenght = int()</code></li><li><code>List = [int()]</code></li></ul>
+<div class="description">
+
+<p>Creates an ordered list of random integers with <code>Length</code>  
+elements.</p>
+ 
+  <p>No duplicates allowed, the values will be between 1 and <code>Max</code>
+  (both included).</p>
+ 
+<p><em>See also:</em> <a href="#random/2" class="seealso">random/2</a>, <a href="#random_add/3" class="seealso">random_add/3</a>, <a href="#random_del/3" class="seealso">random_del/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="search/2">search(Pred, T::List) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>List = [term()]</code></li><li><code>Result = {value, Element} | false</code></li><li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p>Gets the first <code>Element</code> on the <code>List</code> where
+  <code>Pred(Element) == true</code>.</p>
+ 
+  <list>
+    <item><p><code>Pred = fun(X) -&gt; bool()</code></p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="split/2">split(List, N) -&gt; {List1, List2}</h3>
+
+<ul class="type">
+<li><code>List = [Element]</code></li><li><code>List1 = [Element]</code></li><li><code>List2 = [Element]</code></li><li><code>Element = term()</code></li><li><code>N = int()</code></li></ul>
+<div class="description">
+
+<p>Splits a <code>List</code> into two lists where<br />
+  <code>List == List1 ++ List2</code> and <code>length(List1) == N</code>.</p>
+ 
+  <p>I couldn't find it, but I'm sure this function must already exist.</p>
+</div></div>
+<div class="function">
+<h3 id="split2/1">split2(List) -&gt; Chunks</h3>
+
+<ul class="type">
+<li><code>List = [term()]</code></li><li><code>Chunks = [Chunk]</code></li></ul>
+<div class="description">
+
+<p>Splits a <code>List</code> into two elements lists.
+  <br /><br />
+  <code>split2("2AF1B3") == ["2A", "F1", "B3"]</code></p>
+</div></div>
+<div class="function">
+<h3 id="splitwith/2">splitwith(Pred, L::List) -&gt; {List1, List2}</h3>
+
+<ul class="type">
+<li><code>List = [term()]</code></li><li><code>List1 = [term()]</code></li><li><code>List2 = [term()]</code></li></ul>
+<div class="description">
+
+<p>Splits a <code>List</code> into two lists where elements on <code>List1</code>
+  satisfy <code>Pred</code>.  <code>List2</code> holds the elements for which
+  <code>Pred</code> is <code>false</code>.</p>
+ 
+  <list>
+    <item><p><code>Pred = fun(X) -&gt; bool()</code></p></item>
+  </list>
+ 
+  <p>Ordering is preserved.</p>
+</div></div>
+<div class="function">
+<h3 id="to_integer/1">to_integer(OctetList) -&gt; int()</h3>
+
+<ul class="type">
+<li><code>OctetList = [Octet]</code></li><li><code>Octet = char()</code></li></ul>
+<div class="description">
+
+<p>Converts a list of octets to an integer.</p>
+ 
+  <p>Please notice the difference:
+  <br />
+  <code>
+  <br />48&gt; my_lists:to_integer("100").
+  <br />3223600
+  <br />49&gt; list_to_integer("100").
+  <br />100
+  <br />50&gt; my_lists:to_integer("F").
+  <br />70
+  <br />51&gt; list_to_integer("F").
+  <br />=ERROR REPORT==== 21-Mar-2003::12:38:43 ===
+  <br />Error in process &lt;0.118.0&gt; with exit value: {badarg,
+  <br />[{erlang,list_to_integer,["F"]},{erl_eval,expr,3},{erl_eval,exprs,4},
+  <br />{shell,eval_loop,2}]}
+  <br />** exited: {badarg,[{erlang,list_to_integer,["F"]},
+  <br />                    {erl_eval,expr,3},
+  <br />                    {erl_eval,exprs,4},
+  <br />                    {shell,eval_loop,2}]} **
+  </code></p>
+ 
+<p><em>See also:</em> <a href="#list_to_integer/1" class="seealso">list_to_integer/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_number/1">to_number(List) -&gt; Number</h3>
+
+<ul class="type">
+<li><code>List = string()</code></li><li><code>Number = int() | float()</code></li></ul>
+<div class="description">
+
+<p>Returns the <code>Number</code>, integer or float, given the string
+  representation.</p>
+</div></div>
+<div class="function">
+<h3 id="ukeymerge/3">ukeymerge(N, List1, List2) -&gt; List3</h3>
+
+<ul class="type">
+<li><code>N = int()</code></li><li><code>List1 = [tuple()]</code></li><li><code>List2 = [tuple()]</code></li><li><code>List3 = [tuple()]</code></li></ul>
+<div class="description">
+
+<p>Returns the sorted list formed by merging <code>List1</code> and
+  <code>List2</code> while removing consecutive elements with the same key.  The
+  merge is performed on the <code>N</code>th element of each tuple.  Both
+  <code>List1</code> and <code>List2</code> must be key-sorted prior to evaluating
+  this function; otherwise the result will be undefined.   When elements in
+  the input lists have the same key, element from <code>List1</code> are picked
+  before elements from <code>List2</code>  (this how I expected lists:ukeymerge/3  
+to work).</p>
+ 
+  <pre class="sh_erlang">
+  1&gt; lists:ukeymerge(1, [{a, 1},{b, 1},{d, 1}], [{a, 2},{b, 2},{c, 2}]).
+  [{a,1},{a,2},{b,1},{b,2},{c,2},{d,1}]
+  2&gt; my_lists:ukeymerge(1, [{a, 1},{b, 1},{d, 1}], [{a, 2},{b, 2},{c, 2}]).
+  [{a,1},{b,1},{c,2},{d,1}]
+  </pre><p>
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Enrique Marcote Peña</aname>
+<email>mpquique_at_users.sourceforge.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ecirca (ecirca) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ecirca</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-ecirca">ecirca()</h3></div>
+    <div class="type"><h3 id="type-ecirca_atom_specs">ecirca_atom_specs() = [{atom(), strong | weak}]</h3></div>
+    <div class="type"><h3 id="type-ecirca_type">ecirca_type() = last | max | min | avg | sum</h3></div>
+    <div class="type"><h3 id="type-ecirca_value_size">ecirca_value_size() = small | medium | large</h3></div>
+    <div class="type"><h3 id="type-maybe_value">maybe_value() = <a href="#type-value" class="seealso">value()</a> | empty</h3></div>
+    <div class="type"><h3 id="type-nonneg">nonneg() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-value">value() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Size::pos_integer(), Type::ecirca_type()) -&gt; {ok, ecirca()} | {error, max_size}</h3>
+
+
+<div class="description">
+
+<p>Returns new ecirca. Takes size and type only, assumes medium
+       value size</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(Size::pos_integer(), Type::ecirca_type(), ValueSize::ecirca_value_size()) -&gt; {ok, ecirca()} | {error, max_size}</h3>
+
+
+<div class="description">
+
+<p>Returns new ecirca. Takes size, type and value size.
+       Assumes empty atom spec list.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-2">new(Size::pos_integer(), Type::ecirca_type(), X3::ecirca_value_size(), AtomSpecs::ecirca_atom_specs()) -&gt; {ok, ecirca()} | {error, max_size}</h3>
+
+
+<div class="description">
+
+<p>Returns new ecirca. Takes size, type and value size</p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(X1::ecirca(), Position::pos_integer(), Value::maybe_value()) -&gt; {ok, {maybe_value(), maybe_value()}}</h3>
+
+
+<div class="description">
+
+<p>Sets a value in ecirca. Returns {old value, new value} tuple</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(X1::ecirca(), Position::pos_integer(), Value::maybe_value()) -&gt; {ok, {maybe_value(), maybe_value()}}</h3>
+
+
+<div class="description">
+
+<p>Updates a value in ecirca, action is defined by type of ecirca.
+       Returns {old value, new value} tuple</p>
+</div></div>
+<div class="function">
+<h3 id="push/1">push(X1::ecirca(), Value::maybe_value()) -&gt; ok | {error, overflow} | {error, unknown_atom}</h3>
+
+
+<div class="description">
+
+<p>Push a value to ecirca</p>
+</div></div>
+<div class="function">
+<h3 id="push_many/1">push_many(Ecirca::ecirca(), N::nonneg(), Val::maybe_value()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Push a value to ecirca N times</p>
+</div></div>
+<div class="function">
+<h3 id="push_list/1">push_list(Ecirca::ecirca(), Lst::[maybe_value()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Push a list to ecirca</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(X1::ecirca(), Position::pos_integer()) -&gt; {ok, maybe_value()}</h3>
+
+
+<div class="description">
+
+<p>Returns a value</p>
+</div></div>
+<div class="function">
+<h3 id="slice/1">slice(X1::ecirca(), Start::pos_integer(), End::pos_integer()) -&gt; {ok, [maybe_value()]} | {error, slice_too_big}</h3>
+
+
+<div class="description">
+
+<p>Returns a slice of ecirca</p>
+</div></div>
+<div class="function">
+<h3 id="max_size/0">max_size() -&gt; {ok, pos_integer()}</h3>
+
+
+<div class="description">
+
+<p>Returns max allowed size of ecirca</p>
+</div></div>
+<div class="function">
+<h3 id="max_slice/0">max_slice() -&gt; {ok, pos_integer()}</h3>
+
+
+<div class="description">
+
+<p>Returns max allowed size of slice</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(X1::ecirca()) -&gt; {ok, pos_integer()}</h3>
+
+
+<div class="description">
+
+<p>Returns a size of ecirca</p>
+</div></div>
+<div class="function">
+<h3 id="load/1">load(Binary::binary()) -&gt; {ok, ecirca()} | {error, wrong_ecirca_value_type} | {error, bad_binary} | {error, max_size}</h3>
+
+
+<div class="description">
+
+<p>Loads ecirca from binary, assumes medium size of value</p>
+</div></div>
+<div class="function">
+<h3 id="load/1-1">load(Binary::binary(), X2::ecirca_value_size()) -&gt; {ok, ecirca()} | {error, wrong_ecirca_value_type} | {error, bad_binary} | {error, max_size}</h3>
+
+
+<div class="description">
+
+<p>Loads ecirca from binary</p>
+</div></div>
+<div class="function">
+<h3 id="save/1">save(X1::ecirca()) -&gt; {ok, binary()}</h3>
+
+
+<div class="description">
+
+<p>Saves ecirca to binary</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

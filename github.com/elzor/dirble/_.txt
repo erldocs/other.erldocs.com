@@ -1,0 +1,59 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/elzor/dirble'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/1731078662/meta.txt"
+ :: Processing https://github.com/elzor/dirble	{rev,branch,"master","881b499dc0f6c722654cfd2bda9d33ed903168b6",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/elzor/dirble/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble"
+$ 5000  `find 'dirble-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["gproc","ibrowse","jiffy"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/1731078662/repo/master
+Building dirble
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_app.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sup.erl"
+Generating Type Specs - "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl"
+/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl: at line 20: can't find include lib "common/include/log.hrl"
+EDoc could not process file '/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl'
+Error generating type specs for "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl"
+Generating XML for application dirble "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble" -> "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble"
+/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl: at line 20: can't find include lib "common/include/log.hrl"
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl': {'EXIT',
+                                                                                                                    error}.
+edoc: error in doclet 'edoc_doclet': {'EXIT',error}.
+Error generating dirble XMLs. Using fallback ...
+Generating XML dirble - dirble_app "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_app.erl" -> "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_app.xml"
+Generating XML dirble - dirble_sup "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sup.erl" -> "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_sup.xml"
+Generating XML dirble - dirble_sync "/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl" -> "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_sync.xml"
+/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl: at line 20: can't find include lib "common/include/log.hrl"
+Error generating XML ("/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master/dirble/src/dirble_sync.erl"): {'EXIT',
+                                                                                                                      error}
+Generating HTML - dirble_app "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_app.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/specs_dirble_app.xml"
+Generating HTML - dirble_sup "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/dirble/dirble_sup.xml"
+Reading XML for "/home/pete/wefwefwef/docs/other/1731078662/repo/master/.xml/specs_dirble_sup.xml"
+Creating index.html ...
+Creating erldocs_index.js ...
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/1731078662/dirble-branch-master'  2>&1`
+ :: Finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/1731078662/dirble'  2>&1`

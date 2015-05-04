@@ -1,0 +1,1 @@
+var index = [['app','langlab','langlab','[application]'],['mod','langlab','geometry',[]],['mod','langlab','shop',[]],['mod','langlab','tcpserver',[]],['fun','langlab','geometry:area/1',[]],['fun','langlab','shop:cost/1',[]],['fun','langlab','shop:total/1',[]],['fun','langlab','tcpserver:start/1',[]],['fun','langlab','tcpserver:stop/0',[]]];

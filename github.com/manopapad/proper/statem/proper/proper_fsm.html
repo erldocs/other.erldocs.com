@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>proper_fsm (proper) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>proper_fsm</h1>
+<h2 class="modsummary">This module contains functions for testing stateful systems that
+   can be modeled as a finite state machine.</h2>
+<div class="description">
+<p>This module contains functions for testing stateful systems that
+   can be modeled as a finite state machine. That is, a finite collection
+   of named states and transitions between them. <code>proper_fsm</code> is closely related
+   to <a href="proper_statem.html" class="seealso">proper_statem</a> and, in fact, implemented in terms of that. Test
+   cases generated using <code>proper_fsm</code> will be on precisely the same form as
+   test cases generated using <a href="proper_statem.html" class="seealso">proper_statem</a>. The difference lies
+   in the way the callback modules are specified. On the whole, the relation
+   between <a href="proper_statem.html" class="seealso">proper_statem</a> and <code>proper_fsm</code> can be considered similar
+   to the one between <code>gen_server</code> and <code>gen_fsm</code> in OTP libraries.</p>
+  
+   <p>Due to name conflicts with functions automatically imported from
+   <a href="proper_statem.html" class="seealso">proper_statem</a>, a fully qualified call is needed in order to
+   use the  <a href="#index" class="seealso">API functions </a> of <code>proper_fsm</code>.</p>
+  
+   <em><marker id="State_representation">State representation</marker></em><p>
+   Following the convention used in <code>gen_fsm behaviour</code>, the state is
+   separated into a <code>StateName::</code><code>state_name()</code> and some
+   <code>StateData::</code><code>state_data()</code>. <code>StateName</code> is used to denote a state
+   of the finite state machine and <code>StateData</code> is any relevant information
+   that has to be stored in the testcase state. States are fully
+   represented as tuples <code>{StateName, StateData}</code>.</p>
+  
+   <p><code>StateName</code> is usually an atom (i.e. the name of the state), but can also
+   be a tuple. In the latter case, the first element of the tuple must be an
+   atom specifying the name of the state, whereas the rest of the elements can
+   be arbitrary terms specifying state attributes. For example, when
+   implementing the fsm of an elevator which can reach N different floors, the
+   <code>StateName</code> for each floor could be <code>{floor,K}, 1 &lt;= K &lt;= N</code>.<br />
+   <code>StateData</code> can be an arbitrary term, but is usually a record.</p>
+  
+   <em><marker id="Transition_represantation">Transition represantation</marker></em><p>
+   A transition (<code>transition()</code>) is represented as a tuple
+   <code>{TargetState, {call,M,F,A}}</code>. This means that performing the specified
+   symbolic call at the current state of the fsm will lead to <code>TargetState</code>.
+   The atom <code>history</code> can be used as <code>TargetState</code> to denote that a transition   
+does not change the current state of the fsm.</p>
+  
+   <em><marker id="Callback_functions">Callback functions</marker></em>
+   The following functions must be exported from the callback module
+   implementing the finite state machine:
+   <list>
+   <item><p> <code>initial_state() ::</code> <code>state_name()</code>
+     </p><p>Specifies the initial state of the finite state machine. As with
+     <code>proper_statem:initial_state/0</code>, its result should be deterministic.
+     </p></item>
+   <item><p> <code>initial_state_data() ::</code> <code>state_data()</code>
+     </p><p>Specifies what the state data should initially contain. Its result
+     should be deterministic.</p></item>
+   <item><p> <code>StateName(S::</code><code>state_data()</code><code>) ::</code>
+          <code>[</code><code>transition()</code><code>]</code>
+     </p><p>There should be one instance of this function for each reachable
+     state <code>StateName</code> of the finite state machine. In case <code>StateName</code> is a
+     tuple the function takes a different form, described just below. The
+     function returns a list of possible transitions from the current state.
+     At command generation time, the instance of this function with the same
+     name as the current state's name is called to return the list of possible
+     transitions. Then, PropEr will randomly choose a transition and,
+     according to that, generate the next symbolic call to be included in the
+     command sequence. However, before the call is actually included, a
+     precondition that might impose constraints on <code>StateData</code> is checked.<br />
+     Note also that PropEr detects transitions that would raise an exception
+     of class <code>&lt;error&gt;</code> at generation time (not earlier) and does not choose
+     them. This feature can be used to include conditional transitions that
+     depend on the <code>StateData</code>.</p></item>
+   <item><p> <code>StateName(Attr1::term(), ..., AttrN::term(),
+                   S::</code><code>state_data()</code><code>) ::</code>
+          <code>[</code><code>transition()</code><code>]</code>
+     </p><p>There should be one instance of this function for each reachable state
+     <code>{StateName,Attr1,...,AttrN}</code> of the finite state machine. The function
+     has similar beaviour to <code>StateName/1</code>, described above.</p></item>
+   <item><p> <code>weight(From::</code><code>state_name()</code><code>,
+                Target::</code><code>state_name()</code><code>,
+                Call::</code><code>symb_call()</code><code>) :: integer()</code>
+     </p><p>This is an optional callback. When it is not defined (or not exported),
+     transitions are chosen with equal probability. When it is defined, it
+     assigns an integer weight to transitions from <code>From</code> to <code>Target</code>
+     triggered by symbolic call <code>Call</code>. In this case, each transition is chosen
+     with probability proportional to the weight assigned.</p></item>
+   <item><p> <code>precondition(From::</code><code>state_name()</code><code>,
+                      Target::</code><code>state_name()</code><code>,
+                      StateData::</code><code>state_data()</code><code>,
+                      Call::</code><code>symb_call()</code><code>) :: boolean()</code>
+     </p><p>Similar to <code>proper_statem:precondition/2</code>. Specifies the
+     precondition that should hold about <code>StateData</code> so that <code>Call</code> can be
+     included in the command sequence. In case precondition doesn't hold, a
+     new transition is chosen using the appropriate <code>StateName/1</code> generator.
+     It is possible for more than one transitions to be triggered by the same
+     symbolic call and lead to different target states. In this case, at most
+     one of the target states may have a true precondition. Otherwise, PropEr
+     will not be able to detect which transition was chosen and an exception
+     will be raised.<br />
+     Preconditions are also very important for the shrinking procedure. When
+     shrinking command sequences, we try to eliminate commands that do not
+     contribute to failure, ensuring that all preconditions still hold.</p>
+     </item>
+   <item><p> <code>postcondition(From::</code><code>state_name()</code><code>,
+                       Target::</code><code>state_name()</code><code>,
+                       StateData::</code><code>state_data()</code><code>,
+                       Call::</code><code>symb_call()</code><code>,
+                       Res::</code><code>result()</code><code>) :: boolean()</code>
+     </p><p>Similar to <code>proper_statem:postcondition/3</code>. Specifies the
+     postcondition that should hold about the result <code>Res</code> of the evaluation
+     of <code>Call</code>.</p></item>
+   <item><p> <code>next_state_data(From::</code><code>state_name()</code><code>,
+                         Target::</code><code>state_name()</code><code>,
+                         StateData::</code><code>state_data()</code><code>,
+                         Res::</code><code>result()</code><code>,
+                         Call::</code><code>symb_call()</code><code>) ::</code>
+          <code>state_data()</code>
+     </p><p>Similar to <code>proper_statem:next_state/3</code>. Specifies how the
+     transition from <code>FromState</code> to <code>Target</code> triggered by <code>Call</code> affects the
+     <code>StateData</code>. <code>Res</code> refers to the result of <code>Call</code> and can be either
+     symbolic or dynamic.</p></item>
+   </list>
+  
+   <em><marker id="Property_for_testing_finite_state_machines">Property for testing finite state machines</marker></em><p>   
+This is an example of a property to test an fsm specification:</p>
+  
+   <pre class="sh_erlang">      prop_fsm() -&gt;
+         ?FORALL(Cmds, proper_fsm:commands(?MODULE),
+          begin
+           {H,S,Res} = proper_fsm:run_commands(?MODULE, Cmds),
+           cleanup(),
+           ?WHENFAIL(io:format("History: ~w\nState: ~w\nRes: ~w\n",
+  	                        [H,S,Res]),
+  		      aggregate(zip(proper_fsm:state_names(H),
+  				    command_names(Cmds)),
+  			        Res =:= ok))
+          end).</pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-command">command() = {init, <a href="#type-fsm_state" class="seealso">fsm_state()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {set, <a href="#type-symb_var" class="seealso">symb_var()</a>, <a href="#type-symb_call" class="seealso">symb_call()</a>}</h3></div>
+    <div class="type"><h3 id="type-command_list">command_list() = [<a href="#type-command" class="seealso">command()</a>]</h3></div>
+    <div class="type"><h3 id="type-fsm_result">fsm_result() = <a href="proper_statem.html#type-statem_result" class="seealso">proper_statem:statem_result()</a></h3></div>
+    <div class="type"><h3 id="type-fsm_state">fsm_state() = {<a href="#type-state_name" class="seealso">state_name()</a>, <a href="#type-state_data" class="seealso">state_data()</a>}</h3></div>
+    <div class="type"><h3 id="type-history">history() = [{<a href="#type-fsm_state" class="seealso">fsm_state()</a>, <a href="#type-result" class="seealso">result()</a>}]</h3></div>
+    <div class="type"><h3 id="type-result">result() = term()</h3></div>
+    <div class="type"><h3 id="type-state_data">state_data() = term()</h3></div>
+    <div class="type"><h3 id="type-state_name">state_name() = atom() | tuple()</h3></div>
+    <div class="type"><h3 id="type-symb_call">symb_call() = <a href="proper_statem.html#type-symb_call" class="seealso">proper_statem:symb_call()</a></h3></div>
+    <div class="type"><h3 id="type-symb_var">symb_var() = <a href="proper_statem.html#type-symb_var" class="seealso">proper_statem:symb_var()</a></h3></div>
+    <div class="type"><h3 id="type-transition">transition() = {state_name(), symb_call()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="commands/1">commands(Mod::mod_name()) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+
+<p>A special PropEr type which generates random command sequences,
+  according to an finite state machine specification. The function takes as
+  input the name of a callback module, which contains the fsm specification.
+  The initial state is computed by <br />
+  <code>{Mod:initial_state/0, Mod:initial_state_data/0}</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="commands/1-1">commands(Mod::mod_name(), InitialState::fsm_state()) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+
+<p>Similar to <a href="#commands/1" class="seealso">commands/1</a>, but generated command sequences always
+  start at a given state. In this case, the first command is always <br />
+  <code>{init, InitialState = {Name,Data}}</code> and is used to correctly initialize the
+  state every time the command sequence is run (i.e. during normal execution,
+  while shrinking and when checking a counterexample).</p>
+</div></div>
+<div class="function">
+<h3 id="run_commands/1">run_commands(Mod::mod_name(), Cmds::command_list()) -&gt; {history(), fsm_state(), fsm_result()}</h3>
+
+
+<div class="description">
+
+<p>Evaluates a given symbolic command sequence <code>Cmds</code> according to the
+  finite state machine specified in <code>Mod</code>. The result is a triple of the
+  form<br /> <code>{History, FsmState, Result}</code>, similar to
+  <a href="proper_statem.html#run_commands/2" class="seealso">proper_statem:run_commands/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="run_commands/1-1">run_commands(Mod::mod_name(), Cmds::command_list(), Env::var_values() (see module proper_symb)) -&gt; {history(), fsm_state(), fsm_result()}</h3>
+
+
+<div class="description">
+
+<p>Similar to <a href="#run_commands/2" class="seealso">run_commands/2</a>, but also accepts an environment
+  used for symbolic variable evaluation, exactly as described in
+  <a href="proper_statem.html#run_commands/3" class="seealso">proper_statem:run_commands/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="state_names/1">state_names(History::history()) -&gt; [state_name()]</h3>
+
+
+<div class="description">
+
+<p>Extracts the names of the states from a given command execution history.
+  It is useful in combination with functions such as <a href="proper.html#aggregate/2" class="seealso">proper:aggregate/2</a>
+  in order to collect statistics about state transitions during command
+  execution.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Eirini Arvaniti</aname>
+<email>eirinibob@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

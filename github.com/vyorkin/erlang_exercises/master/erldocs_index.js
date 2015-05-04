@@ -1,0 +1,1 @@
+var index = [['app','erlang_exercises','erlang_exercises','[application]'],['mod','erlang_exercises','bool',[]],['fun','erlang_exercises','bool:b_and/1',[]],['fun','erlang_exercises','bool:b_and/2',[]],['fun','erlang_exercises','bool:b_nand/2',[]],['fun','erlang_exercises','bool:b_not/1',[]],['fun','erlang_exercises','bool:b_or/1',[]],['fun','erlang_exercises','bool:b_or/2',[]]];

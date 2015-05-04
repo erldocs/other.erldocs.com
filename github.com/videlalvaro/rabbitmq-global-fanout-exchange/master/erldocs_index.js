@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-global-fanout-exchange','rabbitmq-global-fanout-exchange','[application]'],['mod','rabbitmq-global-fanout-exchange','rabbit_global_fanout_plugin',[]]];

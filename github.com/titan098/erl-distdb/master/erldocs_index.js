@@ -1,0 +1,1 @@
+var index = [['app','erl-distdb','erl-distdb','[application]'],['mod','erl-distdb','distdb',[]]];

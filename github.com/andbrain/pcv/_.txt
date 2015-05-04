@@ -1,0 +1,28 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/andbrain/pcv'  2>&1`
+>>> [repo] 2 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/6613896354/meta.txt"
+ :: Processing https://github.com/andbrain/pcv	{rev,branch,"br1","edfd56124b191e3feaf36f2a2e11176b6710ea1d",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/6613896354/pcv-branch-br1/pcv"
+$ infinity  `curl --fail --silent --show-error --location --output 'br1.zip' 'https://github.com/andbrain/pcv/archive/br1.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6613896354/pcv-branch-br1/pcv"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/6613896354/pcv-branch-br1/pcv"
+$ 5000  `find 'pcv-br1' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [stdout] "find: `pcv-br1': No such file or directory"
+ :: Error running eo_core:
+	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,87}]},
+         {eo_core,copy_repo,5,[{file,"src/eo_core.erl"},{line,235}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,94}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,77}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,77}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,47}]},
+         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,28}]}]
+{throw,{sh,mv_all,error,1,
+           [{"find: `pcv-br1'"},{": No such file or directory"}]}}

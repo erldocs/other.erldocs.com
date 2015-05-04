@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>inspec_lib (wrangler) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>inspec_lib</h1>
+<h2 class="modsummary">This module describes the code inspection functions
+       that are currently supported by Wrangler.</h2>
+<div class="description">
+<p>This module describes the code inspection functions
+       that are currently supported by Wrangler.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="find_var_instances/1">find_var_instances(FileName::filename(), X2::{Line::integer(), Col::integer()}, TabWidth::integer()) -&gt; {error, string()} | {ok, [{pos(), pos()}], [pos()]}</h3>
+
+
+<div class="description">
+
+<p>Find all the instances of a variable, including both defining and use instances.</p>
+</div></div>
+<div class="function">
+<h3 id="nested_exprs/1">nested_exprs(FileOrDirNames::[filename() | dir()], NestLevel::integer(), ExprType::'if' | 'case' | 'receive') -&gt; {error, string()} | ok</h3>
+
+
+<div class="description">
+
+<p>Find all the functions that contain certain type of expressions that are nested a
+  specified number of levels or more.</p>
+</div></div>
+<div class="function">
+<h3 id="long_functions/1">long_functions(FileOrDirNames::[filename() | dir()], Lines::integer()) -&gt; {error, string()} | ok</h3>
+
+
+<div class="description">
+
+<p>Report all the functions that consist of more than specified number of lines of code.</p>
+</div></div>
+<div class="function">
+<h3 id="large_modules/1">large_modules(SearchPaths::[dir()], Lines::integer()) -&gt; {error, string()} | ok</h3>
+
+
+<div class="description">
+
+<p>Report all the modules that consist of more than a specified number of lines of code.</p>
+</div></div>
+<div class="function">
+<h3 id="calls_to_fun/1">calls_to_fun(FileName::filename(), FunctionName::functionname(), Arity::integer(), SearchPaths::[dir()]) -&gt; {error, string()} | ok</h3>
+
+
+<div class="description">
+
+<p>Report the functions by which the function specified is called. A function is reported
+  only if Wrangler is certain that it calls the function specified.</p>
+</div></div>
+<div class="function">
+<h3 id="dependencies_of_a_module/1">dependencies_of_a_module(ModOrFileName::modulename() | filename(), SearchPaths::[filename() | dir()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Report modules that depend on the module specified, as well as modules on which the
+       module specified in dependent.</p>
+</div></div>
+<div class="function">
+<h3 id="non_tail_recursive_servers/1">non_tail_recursive_servers(FileOrDirNames::[filename() | dir()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Report non tail-recursive server functions.
+  </p><p>
+  The Erlang Programming Rules says:
+  All servers must be tail-recursive, otherwise the server will consume memory until the system runs out of it.
+ 
+  Don't program like this:
+ 
+  </p><pre class="sh_erlang">      loop() -&gt;
+        receive
+          {msg1, Msg1} -&gt;
+            ...,
+            loop();
+          stop -&gt;
+            true;
+          Other -&gt;
+            error_logger:log({error, {process_got_other, self(), Other}}),
+            loop()
+        end,
+        io:format("Server going down").
+ 
+  The above is not tail-recusive. This is a correct solution:
+ 
+      loop() -&gt;
+        receive
+          {msg1, Msg1} -&gt;
+            ...,
+            loop();
+          stop -&gt;
+            io:format("Server going down");
+          Other -&gt;
+            error_logger:log({error, {process_got_other, self(), Other}}),
+            loop()
+        end.</pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="not_flush_unknown_messages/1">not_flush_unknown_messages(FileOrDirNames::[filename() | dir()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Report functions whose receive expression, if there is one,  does not flush unknown messages.
+  </p><p>
+  The Erlang Programming Rules says:
+  Every server should have an Other alternative in at least one receive statement.
+  This is to avoid filling up message queues. Example:
+ 
+ </p><pre class="sh_erlang">      main_loop() -&gt;
+        receive
+          {msg1, Msg1} -&gt;
+            ...,
+            main_loop();
+          {msg2, Msg2} -&gt;
+            ...,
+            main_loop();
+          Other -&gt; % Flushes the message queue.
+            error_logger:error_msg(
+                "Error: Process ~w got unknown msg ~w~n.",
+                [self(), Other]),
+            main_loop()
+        end.</pre><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="gen_function_callgraph/1">gen_function_callgraph(OutputDotFileName::filename(), FileName::filename(), SearchPaths::[filename() | dir()]) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Generate the function callgraph for a given Erlang file.</p>
+</div></div>
+<div class="function">
+<h3 id="gen_module_graph/1">gen_module_graph(OutputDotFileName::filename(), SearchPaths::[filename() | dir()], WithLabel::boolean()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Generate the module graph for a given list of directories of Erlang source code.</p>
+</div></div>
+<div class="function">
+<h3 id="cyclic_dependent_modules/1">cyclic_dependent_modules(OutputDotFileName::filename(), SearchPaths::[filename() | dir()], WithLabel::boolean()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Report the cyclic module dependencies, if there is any, for a given list of
+       directories of Erlang source code.</p>
+</div></div>
+<div class="function">
+<h3 id="improper_inter_module_calls/1">improper_inter_module_calls(OutputDotFileName::filename(), SearchPaths::[filename() | dir()]) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Report improper module dependencies, if there is any, for a given list of
+       directories of Erlang source code.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Huiqing Li, Simon Thompson</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

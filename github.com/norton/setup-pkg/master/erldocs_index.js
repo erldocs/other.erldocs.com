@@ -1,0 +1,1 @@
+var index = [['app','setup-pkg','setup-pkg','[application]'],['mod','setup-pkg','setup_pkg',[]],['fun','setup-pkg','setup_pkg:main/1',[]]];

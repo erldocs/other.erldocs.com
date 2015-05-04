@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_indira_sock_stream (indira) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_indira_sock_stream</h1>
+<h2 class="modsummary">
+     Stream socket (listening socket) behaviour.</h2>
+<div class="description">
+<p>
+     Stream socket (listening socket) behaviour.
+     This module was copied from <code>gen_sock_stream</code> and included in Indira to     
+lower its dependency profile.</p>
+  
+     <p>Stream socket is a socket with an idea of <i>connection</i> and
+     <i>listen</i> state.</p>
+  
+     <em><marker id="Expected_callbacks">Expected callbacks</marker></em>
+  
+     <list>
+       <item><pre class="sh_erlang">listen(Address) -&gt;
+    {ok, State :: term()}
+  | ignore
+  | {error, Reason :: term()}</pre><p>
+         <code>State</code> contains listening socket.
+       </p></item>
+       <item><pre class="sh_erlang">accept(State) -&gt;
+    {ok, Connection, State}
+  | {ok, State}
+  | {stop, Reason, State}</pre><p>
+         <code>Connection</code> will be passed as an argument to connection handler         
+module.</p>
+  
+         It's a good idea for this function to return after some specified
+         time passed (e.g. after 100ms), so the process can receive and
+         handle incoming messages and calls.
+       </item>
+       <item><pre class="sh_erlang">controlling_process(Connection, Pid) -&gt;
+    ok
+  | {error, Reason}</pre><p>
+         Make <code>Pid</code> to be the controlling process ("owner") of the
+         <code>Connection</code>. Also, good place to make <code>Connection</code> active.
+       </p></item>
+       <item><pre class="sh_erlang">close(State) -&gt;
+  any()</pre><p>
+       </p></item>
+     </list>
+  
+     <em><marker id="Connection_handler_module">Connection handler module</marker></em>
+  
+     <p>Connection handler can be any module. Especially well suited are modules
+     implementing <a href="gen_server.html" class="seealso">gen_server</a> or <a href="gen_event.html" class="seealso">gen_event</a> behaviours.</p>
+  
+     <p>Such module should only export a function that spawns new linked process
+     (default name for such function is <code>start_link</code>).</p>
+  
+     <p>The function will be called with <code>connection()</code> (returned by
+     <code>ListenModule:accept/1</code>) as its only argument. The function should return
+     <code>{ok,pid()}</code>, <code>ignore</code> or <code>{error,Reason}</code> (returned values from <a href="gen_server.html#start_link/3" class="seealso">gen_server:start_link/3</a> are fine here). It is this function's
+     responsibility to close passed <code>connection()</code> in case of <code>ignore</code>
+     or <code>{error,Reason}</code>.</p>
+  
+     <em><marker id="Small_code_example">Small code example</marker></em>
+  
+     Starting (supervised) <code>my_connection_listener</code> spawning
+     <code>my_connection_handler</code> (TCP listener not shown here for brevity):
+     <pre class="sh_erlang">     -module(my_app_sup).
+  
+     -behaviour(supervisor).
+  
+     -export([start_link/1]).
+  
+     %% supervisor callbacks
+     -export([init/1]).
+  
+     %%%---------------------------------------------------------------------
+     %%% starting the supervision tree
+     %%%---------------------------------------------------------------------
+  
+     start_link(Address) -&gt;
+       supervisor:start_link({local, ?MODULE}, ?MODULE, Address).
+  
+     %%%---------------------------------------------------------------------
+     %%% supervisor callbacks
+     %%%---------------------------------------------------------------------
+  
+     init(Address) -&gt;
+       GenSockStreamArgs = [
+         my_connection_listener,
+         % child will be started with indira_sock_stream_sup:start_link(), so
+         % this must be in form of {Mod,Fun}
+         {my_connection_handler,start_link},
+         {"localhost", 12345}
+       ],
+       Strategy = {one_for_one, 5, 10},
+       Children = [
+         {example,
+           {indira_sock_stream_sup, start_link, GenSockStreamArgs},
+           permanent, 5000, supervisor, [indira_sock_stream_sup]},
+         % other children...
+       ],
+       {ok, {Strategy, Children}}.</pre>
+  
+     TCP connection handler:
+     <pre class="sh_erlang">     -module(my_connection_handler).
+     -behaviour(gen_server).
+  
+     -export([start_link/1]).
+     % ...
+  
+     start_link(Connection) -&gt;
+       case gen_server:start_link(?MODULE, Connection, []) of
+         {ok, Pid} -&gt;
+           {ok, Pid};
+         Failure -&gt;
+           gen_tcp:close(Connection),
+           Failure
+       end.
+     % ...</pre>
+  
+     For development, it's sometimes easier to run the module unsupervised.
+     This is how to do it:
+     <pre class="sh_erlang">     gen_indira_sock_stream:start_link(
+       my_connection_listener,
+       {my_connection_handler,start_link}, % or just `my_connection_handler'
+       {"localhost", 12345}
+     ).</pre>
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-connection">connection() = term()</h3></div>
+    <div class="type"><h3 id="type-connection_handler">connection_handler() = atom() | {atom(), atom()}</h3></div>
+    <div class="type"><h3 id="type-listen_address">listen_address() = term()</h3></div>
+    <div class="type"><h3 id="type-listen_socket">listen_socket() = term()</h3></div>
+    <div class="type"><h3 id="type-listener_module">listener_module() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Item) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Behaviour description.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(ListenModule::listener_module(), ConnHandlerModule::connection_handler(), Address::listen_address()) -&gt; {ok, pid()} | ignore | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Start listener process outside of supervision tree.</p>
+ 
+    <p><code>ListenModule</code> is expected to implement <code>gen_indira_sock_stream</code>
+    behaviour (see <a href="#Expected_callbacks" class="seealso">Expected callbacks</a>).</p>
+ 
+    <p><code>ConnHandlerModule</code> specifies module to handle single connection in
+    a separate process. Such process is started by function part in
+    <code>ConnHandlerModule</code> (or <code>start_link/1</code> if it's not specified).
+    See <code>connection_handler()</code> for details.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="supervisor/1">supervisor(ListenModule::listener_module(), ConnHandlerModule::connection_handler(), Address::term()) -&gt; {ok, Supervisor::pid()} | ignore | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Start supervision (sub)tree for listener process.
+    This function should be used instead of <a href="#start_link/3" class="seealso">start_link/3</a> if the    
+listener is meant to be a part of supervision tree.</p>
+ 
+    <p><code>ListenModule</code> is expected to implement <code>gen_indira_sock_stream</code>
+    behaviour (see <a href="#Expected_callbacks" class="seealso">Expected callbacks</a>).</p>
+ 
+    <p><code>ConnHandlerModule</code> specifies module to handle single connection in
+    a separate process. Such process is started by function part in
+    <code>ConnHandlerModule</code> (or <code>start_link/1</code> if it's not specified).
+    See <code>connection_handler()</code> for details.</p>
+ 
+    <p><em>NOTE</em>: This function is the same as calling
+    <code>indira_sock_stream_sup:start_link(ListenModule, ConnHandlerModule,
+    Address)</code>, except that <code>ConnHandlerModule</code> must be in <code>{Module,Function}</code>
+    form. You can rely on this behaviour.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

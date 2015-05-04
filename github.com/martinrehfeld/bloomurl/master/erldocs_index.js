@@ -1,0 +1,1 @@
+var index = [['app','bloomurl','bloomurl','[application]'],['mod','bloomurl','bloomurl',[]],['fun','bloomurl','bloomurl:add/1',[]],['fun','bloomurl','bloomurl:deserialize/1',[]],['fun','bloomurl','bloomurl:member/1',[]],['fun','bloomurl','bloomurl:new/1',[]],['fun','bloomurl','bloomurl:serialize/1',[]]];

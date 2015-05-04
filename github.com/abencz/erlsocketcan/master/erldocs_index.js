@@ -1,0 +1,1 @@
+var index = [['app','erlsocketcan','erlsocketcan','[application]'],['mod','erlsocketcan','socketcan',[]],['fun','erlsocketcan','socketcan:close/1',[]],['fun','erlsocketcan','socketcan:open/1',[]],['fun','erlsocketcan','socketcan:recv/1',[]],['fun','erlsocketcan','socketcan:send/3',[]],['fun','erlsocketcan','socketcan:start/0',[]],['fun','erlsocketcan','socketcan:stop/0',[]]];

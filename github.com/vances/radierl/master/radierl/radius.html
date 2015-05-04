@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>radius (radierl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>radius</h1>
+<h2 class="modsummary">This library module implements the user API to the
+   		radius application.</h2>
+<div class="description">
+<p>This library module implements the user API to the
+   		<url href="http://www.erlang.org/edoc/doc/radius/doc/index.html">radius</url> application.</p>
+  
+   	<em><marker id="Callback_Functions">Callback Functions</marker></em>
+   	<em><marker id="init/2">init/2</marker></em><p>
+   	<em>Module:init(Address :: ip_address(),
+   	Port :: pos_integer()) -&gt; ok | {error, Reason :: term()}</em></p>
+  
+   	<p>Whenever a <url href="http://www.erlang.org/edoc/doc/radius/doc/radius_server.xml">radius_server</url> is started
+   	using <url href="http://www.erlang.org/edoc/doc/radius/doc/radius.xml#start-3">radius:start/3,4</url>, or
+   	<url href="http://www.erlang.org/edoc/doc/radius/doc/radius.xml#start_link-3">radius:start_link/3,4</url>,	   
+this function is called by the new process to initialize.</p>
+  
+   	<p><code>Address</code> is the <url href="http://www.erlang.org/edoc/doc/kernel/doc/inet.xml#type-ip_address">ip_address()</url>
+   	which the <url href="http://www.erlang.org/edoc/doc/kernel/doc/inet.xml#type-socket">socket()</url> is listening on.</p>
+  
+   	<p><code>Port</code> is the <url href="http://www.erlang.org/edoc/doc/kernel/doc/inet.xml#type-port_number">port_number()</url>
+   	which the <url href="http://www.erlang.org/edoc/doc/kernel/doc/inet.xml#type-socket">socket()</url> is listening on.</p>
+  
+   	<p>This function should return <code>ok</code> if the callback handler will
+   	be able service RADIUS requests on this
+   	<url href="http://www.erlang.org/edoc/doc/radius/doc/radius_server.xml">radius_server</url> or
+   	<code>{error, Reason}</code> indicating the problem.</p>
+  
+   	<em><marker id="request/3">request/3</marker></em><p>
+   	<em>Module:request(Address :: ip_address(),
+   	Port :: pos_integer(), RadiusRequest:: binary()) -&gt; {error, Reason :: ignore | term()} | RadiusResponse :: binary()</em></p>
+  
+   	<p>When a new valid RADIUS packet is received a
+   	<url href="http://www.erlang.org/edoc/doc/radius/doc/radius_fsm.xml">radius_fsm</url> transaction handler is started	   
+which will call this function to process the request.</p>
+  
+   	<p><code>Address</code> is the <url href="http://www.erlang.org/edoc/doc/kernel/doc/inet.xml#type-ip_address">ip_address()</url>	   
+of the client making the request.</p>
+  
+   	<p><code>Port</code> is the <url href="http://www.erlang.org/edoc/doc/kernel/doc/inet.xml#type-port_number">port_number()</url>	   
+of the client making the request.</p>
+  
+   	<p>This function should return a <code>RadiusResponse</code>, as returned
+   	by <url href="http://www.erlang.org/edoc/doc/radius/doc/codec.xml">radius:codec/1</url>, if the request was valid.
+   	If the RADIUS Authenticator or Attributes were badly formed
+   	<code>{error, ignore}</code> should be returned to silently discard the
+   	received packet and ignore retransmissions.  In the event of an error
+   	<code>{error, Reason}</code> should be returned which will stop the
+   	<url href="http://www.erlang.org/edoc/doc/radius/doc/radius_fsm.xml">radius_fsm</url> transaction handler and report	   
+an error.</p>
+  
+   	<em><marker id="terminate/1">terminate/1</marker></em><p>
+   	<em>Module:terminate(Reason :: term()) -&gt; any()</em></p>
+  
+   	This function is called by a <url href="http://www.erlang.org/edoc/doc/radius/doc/radius_server.xml">radius_server</url>
+   	when it is about to terminate. It should be the opposite of
+   	<code>Module:init/1</code> and do any necessary cleaning up. When it
+   	returns, the <url href="http://www.erlang.org/edoc/doc/radius/doc/radius_server.xml">radius_server</url> terminates
+   	with <code>Reason</code>. The return value is ignored.
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Module::atom(), Port::non_neg_integer()) -&gt; {ok, Pid::pid()} | {error, Error::already_present | {already_started, Pid::pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Start a RADIUS protocol server using the callback module
+  	<code>Module</code> listening on <code>Port</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(Module::atom(), Port::non_neg_integer(), Address::ip_address() (see module inet)) -&gt; {ok, Pid::pid()} | {error, Error::already_present | {already_started, Pid::pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Start a RADIUS protocol server using the callback module
+  	<code>Module</code> listening on <code>Port</code> with address <code>Address</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Module::atom(), Port::non_neg_integer()) -&gt; {ok, Pid::pid()} | {error, Error::already_present | {already_started, Pid::pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Start a RADIUS protocol server as part of a supervision tree
+  	 using the callback module <code>Module</code> listening on <code>Port</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Module::atom(), Port::non_neg_integer(), Address::ip_address() (see module inet)) -&gt; {ok, Pid::pid()} | {error, Error::already_present | {already_started, Pid::pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Start a RADIUS protocol server as part of a supervision tree
+  	using the callback module <code>Module</code> listening on <code>Port</code> with
+  	address <code>Address</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop a running RADIUS protocol server.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="codec/1">codec(In::binary() | #radius{code=undefined | byte(), id=undefined | byte(), authenticator=undefined | binary() | [byte()], attributes=undefined | binary() | [byte()]}) -&gt; Out::#radius{code=undefined | byte(), id=undefined | byte(), authenticator=undefined | binary() | [byte()], attributes=undefined | binary() | [byte()]} | binary()</h3>
+
+
+<div class="description">
+
+<p>Encode or decode a binary RADIUS protocol packet.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Vance Shipley</aname>
+<email>vances@motivity.ca</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

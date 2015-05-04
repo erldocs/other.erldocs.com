@@ -1,0 +1,1 @@
+var index = [['app','bitfield.erl','bitfield.erl','[application]'],['mod','bitfield.erl','bitfield',[]],['fun','bitfield.erl','bitfield:pack/1',[]],['fun','bitfield.erl','bitfield:unpack/1',[]]];

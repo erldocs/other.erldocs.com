@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>hackney_response (hackney) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>hackney_response</h1>
+<h2 class="modsummary">module handling the response.</h2>
+<div class="description">
+<p>module handling the response</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-response_state">response_state() = start | waiting | on_status | on_headers | on_body</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_response/1">start_response(Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start the response It parse the request lines and headers.</p>
+</div></div>
+<div class="function">
+<h3 id="expect_response/1">expect_response(Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>handle Expect header</p>
+</div></div>
+<div class="function">
+<h3 id="stream_body/1">stream_body(Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stream_multipart/1">stream_multipart(Client::#client{}) -&gt; {headers, list(), #client{}} | {body, binary(), #client{}} | {eof, #client{}} | {end_of_part, #client{}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>stream a multipart response</p>
+ 
+  <p>Use this function for multipart streaming. For each part in the
+  response, this function returns <em>{headers, Headers, Req}</em> followed by a sequence of
+  <em>{body, Data, Req}</em> tuples and finally <em>{end_of_part, Req}</em>. When there
+  is no part to parse anymore, <em>{eof, Req}</em> is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="skip_multipart/1">skip_multipart(Client) -&gt; {ok, Client}</h3>
+
+<ul class="type">
+<li><code>Client = #client{}</code></li></ul>
+<div class="description">
+
+<p>Skip a part returned by the multipart parser.</p>
+ 
+  <p>This function repeatedly calls <em>multipart_data/1</em> until
+  <em>{end_of_part, Req}</em> or <em>{eof, Req}</em> is parsed.</p>
+</div></div>
+<div class="function">
+<h3 id="body/1">body(Client::#client{}) -&gt; {ok, binary(), #client{}} | {error, atom()}</h3>
+
+
+<div class="description">
+
+<p>Return the full body sent with the request.</p>
+</div></div>
+<div class="function">
+<h3 id="body/1-1">body(MaxLength::non_neg_integer() | infinity, Client::#client{}) -&gt; {ok, binary(), #client{}} | {error, atom()}</h3>
+
+
+<div class="description">
+
+<p>Return the full body sent with the request as long as the body  
+length doesn't go over MaxLength.</p>
+ 
+  <p>This is most useful to quickly be able to get the full body while  
+avoiding filling your memory with huge request bodies when you're  
+not expecting it.</p>
+ 
+  <p>When the response is larger than MaxLength, this function will return
+  the body it received up to the last chunk, which might be a bit more than MaxLength.</p>
+</div></div>
+<div class="function">
+<h3 id="skip_body/1">skip_body(Client::#client{}) -&gt; {ok, #client{}} | {error, atom()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="maybe_close/1">maybe_close(Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="close/1">close(Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

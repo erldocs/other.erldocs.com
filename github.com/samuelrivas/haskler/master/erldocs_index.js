@@ -1,0 +1,1 @@
+var index = [['app','haskler','haskler','[application]'],['mod','haskler','herl_maybe',[]],['fun','haskler','herl_maybe:bind/1',[]],['fun','haskler','herl_maybe:fail/1',[]],['fun','haskler','herl_maybe:return/1',[]]];

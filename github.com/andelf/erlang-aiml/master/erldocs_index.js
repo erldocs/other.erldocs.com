@@ -1,0 +1,1 @@
+var index = [['app','erlang-aiml','erlang-aiml','[application]'],['mod','erlang-aiml','aiml_app',[]],['mod','erlang-aiml','aiml_sup',[]],['fun','erlang-aiml','aiml_app:start/2',[]],['fun','erlang-aiml','aiml_app:stop/1',[]],['fun','erlang-aiml','aiml_sup:init/1',[]],['fun','erlang-aiml','aiml_sup:start_link/0',[]]];

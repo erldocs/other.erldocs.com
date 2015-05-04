@@ -1,0 +1,1 @@
+var index = [['app','erlcsv','erlcsv','[application]'],['mod','erlcsv','erlcsv',[]],['fun','erlcsv','erlcsv:get_continuation_state/1',[]],['fun','erlcsv','erlcsv:new/1',[]],['fun','erlcsv','erlcsv:new/2',[]],['fun','erlcsv','erlcsv:next/1','Parses the first CSV record in a file into a list ']];

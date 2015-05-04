@@ -1,0 +1,1 @@
+var index = [['app','acceptable','acceptable','[application]'],['mod','acceptable','acceptable',[]],['fun','acceptable','acceptable:choose/1',[]]];

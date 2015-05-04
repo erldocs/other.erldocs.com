@@ -1,0 +1,1 @@
+var index = [['app','functional_patterns','functional_patterns','[application]'],['mod','functional_patterns','proxy',[]],['fun','functional_patterns','proxy:start/0',[]]];

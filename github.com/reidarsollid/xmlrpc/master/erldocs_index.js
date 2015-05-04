@@ -1,0 +1,1 @@
+var index = [['app','xmlrpc','xmlrpc','[application]'],['mod','xmlrpc','message_server',[]],['fun','xmlrpc','message_server:handler/2',[]]];

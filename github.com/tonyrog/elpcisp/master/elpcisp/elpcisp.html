@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>elpcisp (elpcisp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>elpcisp</h1>
+<h2 class="modsummary">
+       elpcisp functions.</h2>
+<div class="description">
+<p>
+       elpcisp functions</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open/1">open(Device::string()) -&gt; {ok, uart() (see module uart)} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Open a LPCx decide for flashing</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(Device::string(), Baud::integer()) -&gt; {ok, uart() (see module uart)} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Open a LPCx decide for flashing</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1">sync(U::uart() (see module uart)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+    Sync will (try to) set the LPC circuit in programming mode.</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1-1">sync(U::uart() (see module uart), Retries::integer()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sync/1-2">sync(U::uart() (see module uart), Retries::integer(), Tmo::timeout()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sync_osc/4">sync_osc(U, N, Tmo, Osc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="flush/1">flush(U) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="enter/1">enter(U::uart() (see module uart)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+     Enter programming mode</p>
+</div></div>
+<div class="function">
+<h3 id="reset/1">reset(U::uart() (see module uart)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+     Reset</p>
+</div></div>
+<div class="function">
+<h3 id="echo/1">echo(U::uart() (see module uart), X2::boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+     Turn echo on or off</p>
+</div></div>
+<div class="function">
+<h3 id="prepare_sector/1">prepare_sector(U::uart() (see module uart), A::integer(), B::integer()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Prepare the all sectors from A to and including B to be
+     erased or written to.</p>
+</div></div>
+<div class="function">
+<h3 id="copy/1">copy(U::uart() (see module uart), Dst::integer(), Src::integer(), N::integer()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Copy N bytes of data from RAM address Dst
+     to the flash starting at address Src. This is the
+     main flashing routine.</p>
+</div></div>
+<div class="function">
+<h3 id="go/1">go(U::uart() (see module uart), Addr::integer(), X3::arm | thumb) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Run the program found at address Addr</p>
+</div></div>
+<div class="function">
+<h3 id="go/1-1">go(U::uart() (see module uart), Addr::integer()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="erase_sector/1">erase_sector(U::uart() (see module uart), A::integer(), B::integer()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Erase data on sectors from A to and including sector B</p>
+</div></div>
+<div class="function">
+<h3 id="blank_check_sector/1">blank_check_sector(U::uart() (see module uart), A::integer(), B::integer()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Check that all sectors from A to and including B are erased</p>
+</div></div>
+<div class="function">
+<h3 id="read_device_type/1">read_device_type(U::uart() (see module uart)) -&gt; {ok, #device_type{id=undefined | non_neg_integer(), product=undefined | string(), flashSize=undefined | non_neg_integer(), ramSize=undefined | non_neg_integer(), flashSectors=undefined | non_neg_integer(), maxCopySize=undefined | non_neg_integer(), sectorTable=undefined | [non_neg_integer()], variant=undefined | atom()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Get the device type record</p>
+</div></div>
+<div class="function">
+<h3 id="read_partid/1">read_partid(U::uart() (see module uart)) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Read the circuit model number</p>
+</div></div>
+<div class="function">
+<h3 id="read_version/1">read_version(U::uart() (see module uart)) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Read the boot program version number</p>
+</div></div>
+<div class="function">
+<h3 id="compare/4">compare(U, A1, A2, N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unlock/1">unlock(U::uart() (see module uart)) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Unlock flash memory for erase and write operations.</p>
+</div></div>
+<div class="function">
+<h3 id="write_memory/1">write_memory(U::uart() (see module uart), Addr::integer(), Data::binary()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Write data to RAM address Addr</p>
+</div></div>
+<div class="function">
+<h3 id="read_memory/1">read_memory(U::uart() (see module uart), Addr::integer(), N::non_neg_integer()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+    Read data from RAM or flash memeory.
+    Address Addr must be a multiple of 4 and
+    byte count N must be a multiple of 4 and not more than 900 bytes</p>
+</div></div>
+<div class="function">
+<h3 id="flash/1">flash(Device::string() | port(), File::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+     Flash a firmware ihex-image from file onto a device</p>
+</div></div>
+<div class="function">
+<h3 id="flash_block/4">flash_block(U, DevType, Addr, Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="flash_block/5">flash_block(U, DevType, Addr, Data, Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="patch_segment/3">patch_segment(Addr, DevType, Segment) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="block_list/2">block_list(AddrDataList, ID) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Tony Rogvall</aname>
+<email>tony@rogvall.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

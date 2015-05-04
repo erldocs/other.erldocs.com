@@ -1,0 +1,1 @@
+var index = [['app','syslog-message-keyvalue','syslog-message-keyvalue','[application]'],['mod','syslog-message-keyvalue','syslog_message_keyvalue',[]],['fun','syslog-message-keyvalue','syslog_message_keyvalue:parse/1','Parse a key=value formatted message.']];

@@ -1,0 +1,1 @@
+var index = [['app','lpath','lpath','[application]'],['mod','lpath','lpath',[]],['fun','lpath','lpath:q/2','Get a specific value from a (property) list.']];

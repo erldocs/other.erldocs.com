@@ -1,0 +1,1 @@
+var index = [['app','htmltmpl','htmltmpl','[application]'],['mod','htmltmpl','htmltmpl',[]],['fun','htmltmpl','htmltmpl:apply/2','Apply a data to a compiled template.'],['fun','htmltmpl','htmltmpl:open/1','Compile a html template from a file.']];

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>podbc (podbc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>podbc</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-col_name">col_name() = string()</h3></div>
+    <div class="type"><h3 id="type-col_names">col_names() = [<a href="#type-col_name" class="seealso">col_name()</a>]</h3></div>
+    <div class="type"><h3 id="type-commit_mode">commit_mode() = commit | rollback</h3></div>
+    <div class="type"><h3 id="type-commit_reason">commit_reason() = not_an_explicit_commit_connection<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| process_not_owner_of_odbc_connection<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-common_reason" class="seealso">common_reason()</a></h3></div>
+    <div class="type"><h3 id="type-common_reason">common_reason() = connection_closed | term()</h3></div>
+    <div class="type"><h3 id="type-do_fun">do_fun/0</h3></div>
+    <div class="type"><h3 id="type-in_or_out">in_or_out() = in | out | inout</h3></div>
+    <div class="type"><h3 id="type-n_rows">n_rows() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-odbc_data_type">odbc_data_type() = sql_integer<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sql_smallint<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sql_tinyint<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_decimal, <a href="#type-precision" class="seealso">precision()</a>, <a href="#type-scale" class="seealso">scale()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_numeric, <a href="#type-precision" class="seealso">precision()</a>, <a href="#type-scale" class="seealso">scale()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_char, <a href="#type-size" class="seealso">size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_wchar, <a href="#type-size" class="seealso">size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_varchar, <a href="#type-size" class="seealso">size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_wvarchar, <a href="#type-size" class="seealso">size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_wlongvarchar, <a href="#type-size" class="seealso">size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sql_float, <a href="#type-precision" class="seealso">precision()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sql_real<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sql_double<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| sql_bit<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom()</h3></div>
+    <div class="type"><h3 id="type-params">params() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{<a href="#type-odbc_data_type" class="seealso">odbc_data_type()</a>, [<a href="#type-value" class="seealso">value()</a>]} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-odbc_data_type" class="seealso">odbc_data_type()</a>, <a href="#type-in_or_out" class="seealso">in_or_out()</a>, [<a href="#type-value" class="seealso">value()</a>]}]</h3></div>
+    <div class="type"><h3 id="type-position">position() = next<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {relative, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {absolute, integer()}</h3></div>
+    <div class="type"><h3 id="type-precision">precision() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-result_reason">result_reason() = result_set_does_not_exist<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| process_not_owner_of_odbc_connection<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-common_reason" class="seealso">common_reason()</a></h3></div>
+    <div class="type"><h3 id="type-result_tuple">result_tuple() = {updated, <a href="#type-n_rows" class="seealso">n_rows()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {selected, <a href="#type-col_names" class="seealso">col_names()</a>, <a href="#type-rows" class="seealso">rows()</a>}</h3></div>
+    <div class="type"><h3 id="type-row">row() = {<a href="#type-value" class="seealso">value()</a>}</h3></div>
+    <div class="type"><h3 id="type-rows">rows() = [<a href="#type-row" class="seealso">row()</a>]</h3></div>
+    <div class="type"><h3 id="type-scale">scale() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-scroll_reason">scroll_reason() = result_set_does_not_exist<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| driver_does_not_support_function<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| scrollable_cursors_disabled<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| process_not_owner_of_odbc_connection<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-common_reason" class="seealso">common_reason()</a></h3></div>
+    <div class="type"><h3 id="type-size">size() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-value">value() = null | term()</h3></div>
+    <div class="type"><h3 id="type-worker_ref">worker_ref() = {Pool :: atom(), WorkerPid :: pid()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="do/1">do(Pool::atom(), Fun::do_fun(T)) -&gt; {ok, T}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="do/1-1">do(Pool::atom(), Fun::do_fun(T), Block::boolean()) -&gt; {ok, T} | full</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="do/1-2">do(Pool::atom(), Fun::do_fun(T), Block::boolean(), TimeOut::timeout()) -&gt; {ok, T} | full</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transaction/2">transaction(WorkerRef, Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transaction/3">transaction(WorkerRef, Fun, TimeOut) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_pool_name/1">get_pool_name(WorkerRef::worker_ref()) -&gt; {ok, Name::atom()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="named_query/1">named_query(WorkerRef::worker_ref(), QueryName::atom(), Params::[any()]) -&gt; result_tuple() | [result_tuple()] | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="named_query/1-1">named_query(WorkerRef::worker_ref(), QueryName::atom(), Params::[any()], TimeOut::timeout()) -&gt; result_tuple() | [result_tuple()] | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit/1">commit(WorkerRef::worker_ref(), CommitMode::commit_mode()) -&gt; ok | {error, commit_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit/1-1">commit(WorkerRef::worker_ref(), CommitMode::commit_mode(), TimeOut::timeout()) -&gt; ok | {error, commit_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/1">connect(Pool::atom()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/1-1">connect(Pool::atom(), Block::boolean()) -&gt; {ok, pid()} | full</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/1-2">connect(Pool::atom(), Block::boolean(), TimeOut::timeout()) -&gt; {ok, pid()} | full</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="disconnect/1">disconnect(WorkerRef::worker_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="disconnect/1-1">disconnect(Pool::atom(), Worker::worker_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="describe_table/1">describe_table(WorkerRef::worker_ref(), Table::string()) -&gt; {ok, [{col_name(), odbc_data_type()}]} | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="describe_table/1-1">describe_table(WorkerRef::worker_ref(), Table::string(), TimeOut::timeout()) -&gt; {ok, [{col_name(), odbc_data_type()}]} | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="first/1">first(WorkerRef::worker_ref()) -&gt; {selected, col_names(), rows()} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="first/1-1">first(WorkerRef::worker_ref(), TimeOut::timeout()) -&gt; {selected, col_names(), rows()} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="last/1">last(WorkerRef::worker_ref()) -&gt; {selected, col_names(), rows()} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="last/1-1">last(WorkerRef::worker_ref(), TimeOut::timeout()) -&gt; {selected, col_names(), rows()} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next/1">next(WorkerRef::worker_ref()) -&gt; {selected, col_names(), rows()} | {error, result_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next/1-1">next(WorkerRef::worker_ref(), TimeOut::timeout()) -&gt; {selected, col_names(), rows()} | {error, result_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="param_query/1">param_query(WorkerRef::worker_ref(), SQLQuery::string(), Params::params()) -&gt; result_tuple() | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="param_query/1-1">param_query(WorkerRef::worker_ref(), SQLQuery::string(), Params::params(), TimeOut::timeout()) -&gt; result_tuple() | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prev/1">prev(WorkerRef::worker_ref()) -&gt; {selected, ColNames::[string()], Rows::[any()]} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prev/1-1">prev(WorkerRef::worker_ref(), TimeOut::timeout()) -&gt; {selected, ColNames::[string()], Rows::[any()]} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(Type::permanent | transient | temporary) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sql_query/1">sql_query(WorkerRef::worker_ref(), SQLQuery::string()) -&gt; result_tuple() | [result_tuple()] | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sql_query/1-1">sql_query(WorkerRef::worker_ref(), SQLQuery::string(), TimeOut::timeout()) -&gt; result_tuple() | [result_tuple()] | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select_count/1">select_count(WorkerRef::worker_ref(), SelectQuery::string()) -&gt; {ok, n_rows()} | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select_count/1-1">select_count(WorkerRef::worker_ref(), SelectQuery::string(), TimeOut::timeout()) -&gt; {ok, n_rows()} | {error, common_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/1">select(WorkerRef::worker_ref(), Position::position(), N::integer()) -&gt; {selected, col_names(), rows()} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/1-1">select(WorkerRef::worker_ref(), Position::position(), N::integer(), TimeOut::timeout()) -&gt; {selected, col_names(), rows()} | {error, scroll_reason()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>config_generator (onviso) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>config_generator</h1>
+<h2 class="modsummary"> The module provides an API to generate configurations.</h2>
+<div class="description">
+<p> The module provides an API to generate configurations.</p>
+  
+   Version: 1.0</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create_trace_case/0">create_trace_case() -&gt; #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}</h3>
+
+
+<div class="description">
+
+<p>Creates an empty trace case with a generated ID.</p>
+</div></div>
+<div class="function">
+<h3 id="create_trace_case/1">create_trace_case(Name::string()) -&gt; #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}</h3>
+
+
+<div class="description">
+
+<p>Creates an empty trace case with a generated ID and a string name.
+  Note that the string name is only for readability.</p>
+</div></div>
+<div class="function">
+<h3 id="create_pattern/1">create_pattern(Module::atom(), Function::atom(), Arity::list(), MatchSpec::term()) -&gt; #pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}</h3>
+
+
+<div class="description">
+
+<p>Create a pattern record. Will perform some basic error validation
+  on the pattern.</p>
+</div></div>
+<div class="function">
+<h3 id="create_flags/1">create_flags(Scope::atom(), Flags::list()) -&gt; #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}</h3>
+
+
+<div class="description">
+
+<p>Create flag record.</p>
+</div></div>
+<div class="function">
+<h3 id="create_merge_conf/0">create_merge_conf() -&gt; #merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}</h3>
+
+
+<div class="description">
+
+<p>Create merge configuration record with the default settings.
+  This means collecting all traces and writing them, as they arrive to the
+  collector node, to file. No manipulation of the trace is conducted. </p>
+</div></div>
+<div class="function">
+<h3 id="create_merge_conf/1">create_merge_conf(BeginFun::function(), WorkFun::function(), EndFun::function()) -&gt; #merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}</h3>
+
+
+<div class="description">
+
+<p>Create merge configuration record without comment. </p>
+</div></div>
+<div class="function">
+<h3 id="create_merge_conf/1-1">create_merge_conf(BeginFun::function(), WorkFun::function(), EndFun::function(), Comment::string()) -&gt; #merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}</h3>
+
+
+<div class="description">
+
+<p>Create merge configuration record. This record contains three funs which
+  defines the way merging is done. It is important that the <code>workfun</code>'s head
+  matches the trace output. </p>
+  <p>Example <code>workfun</code> heads</p>
+  <pre class="sh_erlang">
+  fun(Node, {trace_ts, Pid, call, {Module, Function, Arity}, Time}, PidMapping, Data) -&gt;
+         ...
+     (Node, {trace_ts, Pid, call, {M, F, A}, CallerFunction, Time}, PidMapping, Data) -&gt;
+         ...
+     (Node, {trace_ts, Pid, return_from, From, {M, F, A}, Time}, PidMapping, Data) -&gt;
+         ...
+  end
+  </pre>
+  <p>The workfun must always return <code>{ok, NewData}</code>.</p>
+  <p><em>Important:</em> If a trace pattern is generated and the
+  workfun cannot match on any of the heads a runtime error will be generated
+  when trying to merge. </p>
+  <p><code>Data</code> is the accumulator for the trace case evaluation. By default
+  it is set to <code>[]</code> but can be overridden in the <code>beginfun</code>.</p>
+  <pre class="sh_erlang">
+  BeginFun = fun([]) -&gt;
+                 {ok, #handlerdata{}}
+             end.
+  </pre>
+  <p>In the <code>endfun</code> it is possible to do any kind of post-processing
+  of the accumulated data. The fun must return <code>ok</code> when successful.</p>
+</div></div>
+<div class="function">
+<h3 id="add_pattern/1">add_pattern(Trace_case::#trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}, Pattern::#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}) -&gt; #pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}</h3>
+
+
+<div class="description">
+
+<p>Add a pattern to a trace case record.</p>
+</div></div>
+<div class="function">
+<h3 id="add_flags/1">add_flags(Trace_case::#trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}, Flags::#flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}) -&gt; #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}</h3>
+
+
+<div class="description">
+
+<p>Add a flag specification to a trace case record.</p>
+</div></div>
+<div class="function">
+<h3 id="add_merge_conf/1">add_merge_conf(Trace_case::#trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}, Merge_conf::#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}) -&gt; #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}</h3>
+
+
+<div class="description">
+
+<p>Add a merge configuration to a trace case record.</p>
+</div></div>
+<div class="function">
+<h3 id="add_nodes/1">add_nodes(Trace_case::#trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}, Nodes::[atom()]) -&gt; #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}</h3>
+
+
+<div class="description">
+
+<p>Append nodes to a trace case.</p>
+</div></div>
+<div class="function">
+<h3 id="create_fun/1">create_fun(StringFun::string()) -&gt; {ok, function()}</h3>
+
+
+<div class="description">
+
+<p>Create a fun from a string.</p>
+</div></div>
+<div class="function">
+<h3 id="validate/1">validate(Patterns::list(), Nodes::list(), Flags::list(), Merge::list(), Options::list(), TraceOpts::list()) -&gt; {ok, #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}}</h3>
+
+
+<div class="description">
+
+<p>Validate a configuration as inputted in a user interface. It is assumed
+  that all data is passed as strings in the following format:</p>
+  <pre class="sh_erlang">
+  Patterns = [{"module", "function", "arguments", "match specification"}]
+  Nodes = ["node@no-name-host"]
+  Flags = ["scope, [flags]"]
+  Merge = [{beginfun, BeginFun}, {workfun, WorkFun}, {endfun, EndFun}, {comment, Comment}]
+  Options = [{overload, "[]"}, {name, "Easy to read name"},
+             {output_file, "traceoutput.txt"}]
+  TraceOpts = "list()" (see onviso for the possible trace options list
+  </pre>
+  <p>Call validate like this:</p>
+  <pre class="sh_erlang"> validate(Patterns, Nodes, Flags, Merge, Options) </pre>
+  <p>The function will try to validate the input as is and in some cases try
+  to correct minor mistakes. </p>
+  <p>When an error is present the return could look like this:</p>
+  <pre class="sh_erlang">
+      {error, [{ok, [{ok, Pattern}, {ok, Pattern2}]},
+               {ok, [{ok, Node}]},
+               {ok, [{ok, Flag}]},
+               {error, [{ok, {beginfun, BeginFun}},
+                        {error, {workfun, syntax}},
+                        {ok, {endfun, EndFun}}]},
+               {ok, [{ok, Option}]}]}.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="validate/1-1">validate(Patterns::list(), Nodes::list(), Flags::list(), Merge::list(), Options::list()) -&gt; {ok, #trace_case{case_id=undefined | integer(), trace_ref=undefined | integer(), all_traces=[tuple()], name=undefined | none | string(), patterns=undefined | [#pattern{id=undefined | integer(), module=undefined | atom(), function='_' | atom(), arity='_' | [term()], matchspec=[] | return | caller | list()}], trace_flag=undefined | #flags{id=undefined | integer(), scope=undefined | atom(), flags=undefined | [atom()]}, nodes=undefined | [atom()], merge_confs=undefined | [#merge_conf{id=undefined | integer(), beginfun=void | function(), workfun=void | function(), endfun=file | function(), comment=undefined | string()}], overload=list(), output=undefined | string(), timestamp=undefined | tuple(), trace_opts=list}}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Aniko Nagyne Vig</aname>
+<email>aniko@erlang-consulting.com</email>
+<aname>Marcus Ljungblad, Erlang Training and Consulting Ltd</aname>
+<email> </email>
+<aname>Bartlomiej Puzon</aname>
+<email>bartlomiej.puzon@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

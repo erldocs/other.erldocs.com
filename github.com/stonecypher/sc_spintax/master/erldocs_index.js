@@ -1,0 +1,1 @@
+var index = [['app','sc_spintax','sc_spintax','[application]'],['mod','sc_spintax','sc_spintax',[]],['fun','sc_spintax','sc_spintax:ex_parsed/0',[]],['fun','sc_spintax','sc_spintax:ex_string/0',[]],['fun','sc_spintax','sc_spintax:gen_from/1',[]],['fun','sc_spintax','sc_spintax:parse_dive/1',[]],['fun','sc_spintax','sc_spintax:test/0',[]]];

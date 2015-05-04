@@ -1,0 +1,1 @@
+var index = [['app','nifwait','nifwait','[application]'],['mod','nifwait','wait',[]]];

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gettexter_plural (gettexter) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gettexter_plural</h1>
+<h2 class="modsummary">
+   Gettext plural form rule compiler and evaluator.</h2>
+<div class="description">
+<p>
+   Gettext plural form rule compiler and evaluator.
+   http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+   </p><pre class="sh_erlang">
+   Compiled = gettexter_plural:compile("nplurals=3; plural=...;"),
+   % ...store Compiled somwhere and reuse...
+   3 = gettexter_plural:nplurals(Compiled),
+   PluralFormNum = gettexter_plural:compile(N, Compiled),
+   </pre><p>
+  
+   The most hard part here, is that in C true==1 and false==0.
+   So, runtime dependency used for type casting (see runtime_mod option).
+   You may use default value, which is absolutely ok, if runtime dependency
+   from 'gettexter' is ok for you. But if you want to embed generated code
+   in your own generated code, take a look at <code>to_erlang_ast/2</code> and <code>runtime_mod</code>
+   option.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bin_expr">bin_expr() = {atom(), <a href="#type-math_expr" class="seealso">math_expr()</a>, <a href="#type-math_expr" class="seealso">math_expr()</a>}</h3></div>
+    <div class="type"><h3 id="type-if_expr">if_expr() = {'if', <a href="#type-math_expr" class="seealso">math_expr()</a>, <a href="#type-math_expr" class="seealso">math_expr()</a>, <a href="#type-math_expr" class="seealso">math_expr()</a>}</h3></div>
+    <div class="type"><h3 id="type-math_expr">math_expr() = <a href="#type-if_expr" class="seealso">if_expr()</a> | <a href="#type-bin_expr" class="seealso">bin_expr()</a> | <a href="#type-un_expr" class="seealso">un_expr()</a> | <a href="#type-operand" class="seealso">operand()</a></h3></div>
+    <div class="type"><h3 id="type-operand">operand() = integer() &gt;= 0 | n</h3></div>
+    <div class="type"><h3 id="type-opts">opts() = [{runtime_mod, atom()}]</h3></div>
+    <div class="type"><h3 id="type-plural_rule">plural_rule() = {plural_rule, integer(), <a href="#type-math_expr" class="seealso">math_expr()</a>}</h3></div>
+    <div class="type"><h3 id="type-un_expr">un_expr() = {atom(), <a href="#type-math_expr" class="seealso">math_expr()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="nplurals/1">nplurals(Plural_rule_compiled) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  Return number of plural forms for language. Value of 'nplurals' from
+  plural rule.</p>
+</div></div>
+<div class="function">
+<h3 id="plural/2">plural(N, Plural_rule_compiled) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  Calculate plural form number, using (compiled) plural form expression.
+  Usage:
+  </p><pre class="sh_erlang">
+  CompiledExpr = compile("nplurals=3; plural=...;", []),
+  % Compiled expr may be stored somewhere and reused
+  PluralFormNum = plural(N, CompiledExpr).
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="compile/1">compile(StringExpr::string(), Opts::opts()) -&gt; #plural_rule_compiled{nplurals=undefined | non_neg_integer(), abstract_form=undefined | abstract_form() (see module erl_parse)}</h3>
+
+
+<div class="description">
+
+<p>
+  Compile plural expression like
+  <code>nplurals=3; plural=...;</code>
+  to internal representation, used for fast expression evaluation.</p>
+</div></div>
+<div class="function">
+<h3 id="to_erlang_ast/1">to_erlang_ast(X1::plural_rule(), Opts::opts()) -&gt; syntaxTree() (see module erl_syntax)</h3>
+
+
+<div class="description">
+
+<p>
+  Converts output of <code>gettexter_plural_parser</code> to <code>erl_syntax</code> AST.
+  May be used for embedding to generated code.
+  May be wrapped to module AST and compiled to .beam file.
+  Note: generated code uses one free variable: 'N', and calls runtime dependencies:
+  <code>runtime_mod:to_boolean/1</code> and <code>runtime_mod:to_integer/1</code>.
+  <code>runtime_mod</code> is <code>?MODULE</code> by default.</p>
+</div></div>
+<div class="function">
+<h3 id="to_erlang_abstract/1">to_erlang_abstract(Rule::plural_rule(), Opts::opts()) -&gt; abstract_form() (see module erl_parse)</h3>
+
+
+<div class="description">
+
+<p>
+  Converts output of <code>gettexter_plural_parser</code> to <code>erl_parse</code> abstract form.
+  You, most probably, shouldn't call this from your programs.
+  Return value may be interpreted by <code>erl_eval:expr/2</code> (see <code>plural/2</code>).
+  May be printed as erlang code snippet by <code>erl_prettypr</code> (see <code>to_erlang_code/2</code>).</p>
+</div></div>
+<div class="function">
+<h3 id="to_erlang_code/2">to_erlang_code(Rule, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  For debugging - return human-readable generated Erlang code.</p>
+</div></div>
+<div class="function">
+<h3 id="to_boolean/1">to_boolean(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_integer/1">to_integer(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Sergey</aname>
+<email>me@seriyps.ru</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smerl (slicerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>smerl</h1>
+<h2 class="modsummary"> Smerl: Simple Metaprogramming for Erlang.</h2>
+<div class="description">
+<p> Smerl: Simple Metaprogramming for Erlang</p>
+ 
+   <p>Smerl is an Erlang library   
+that simplifies the creation and manipulation of Erlang modules in   
+runtime.</p>
+ 
+   <p>You don't need to know Smerl in order to use ErlyWeb; Smerl   
+is included in ErlyWeb because ErlyWeb uses it internally.</p>
+ 
+   <p>Smerl uses Erlang's capabilities for hot code swapping and
+   abstract syntax tree transformations to do its magic. Smerl is inspired by
+   the rdbms_codegen.erl module in the RDBMS application written by
+   Ulf Wiger. RDBMS is part of Jungerl (<url href="http://jungerl.sf.net">http://jungerl.sf.net</url>).</p>
+ 
+   <p>Here's a quick example illustrating how to use Smerl:
+   </p><pre class="sh_erlang">   test_smerl() -&gt;
+     M1 = smerl:new(foo),
+     {ok, M2} = smerl:add_func(M1, "bar() -&gt; 1 + 1."),
+     smerl:compile(M2),
+     foo:bar(),   % returns 2``
+     smerl:has_func(M2, bar, 0). % returns true</pre>
+ 
+   <p>New functions can be expressed either as strings of Erlang code
+   or as abstract forms. For more information, read the Abstract Format
+   section in the ERTS User's guide
+    (<url href="http://erlang.org/doc/doc-5.5/erts-5.5/doc/html/absform.html#4">http://erlang.org/doc/doc-5.5/erts-5.5/doc/html/absform.html#4</url>).</p>
+ 
+   <p>Using the abstract format, the 3rd line of the above example
+    would be written as
+    </p><pre class="sh_erlang">      {ok,M2} = smerl:add_func(M1, {function,1,bar,0,
+                               [{clause,1,[],[],
+                                [{op,1,'+',{integer,1,1},{integer,1,1}}]}]).</pre>
+ 
+    <p>The abstact format may look more verbose in this example, but
+    it's also easier to manipulate in code.</p>
+ </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Module::atom()) -&gt; meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Create a new meta_mod for a module with the given name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="for_module/1">for_module(ModuleName) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#for_module/2" class="seealso">for_module(ModuleName, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="for_module/2">for_module(ModuleName, IncludePaths) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#for_module/3" class="seealso">for_module(ModuleName, IncludePaths, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="for_module/1-1">for_module(ModuleName::atom() | string(), IncludePaths::[string()], Macros::[{atom(), term()}]) -&gt; {ok, meta_mod()} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Create a meta_mod tuple for an existing module. If ModuleName is a  
+string, it is interpreted as a file name (this is the same as calling  
+{link smerl:for_file}). If ModuleName is an atom, Smerl attempts to  
+find its abstract represtation either from its source file or from  
+its .beam file directly (if it has been compiled with debug_info).  
+If the abstract representation can't be found, this function returns  
+an error.</p>
+ 
+  <p>The IncludePaths parameter is used when 'ModuleName' is a file name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="for_file/1">for_file(SrcFilePath) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#for_file/2" class="seealso">for_file(SrcFilePath, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="for_file/2">for_file(SrcFilePath, IncludePaths) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#for_file/3" class="seealso">for_file(SrcFilePath, IncludePaths, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="for_file/1-1">for_file(SrcFilePath::string(), IncludePaths::[string()], Macros::[{atom(), term()}]) -&gt; {ok, meta_mod()} | {error, invalid_module}</h3>
+
+
+<div class="description">
+
+<p>Create a meta_mod for a module from its source file.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_module/1">get_module(MetaMod) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the module name for the meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_module/1">set_module(MetaMod::meta_mod(), NewName::atom()) -&gt; NewMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Set the meta_mod's module name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_forms/1">get_forms(MetaMod::meta_mod()) -&gt; [Form]</h3>
+
+
+<div class="description">
+
+<p>Return the list of function forms in the meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_forms/2">set_forms(MetaMod, Forms) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_exports/1">get_exports(MetaMod::meta_mod()) -&gt; [{FuncName::atom(), Arity::integer()}]</h3>
+
+
+<div class="description">
+
+<p>Return the list of exports in the meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_exports/1">set_exports(MetaMod::meta_mod(), Exports::[{FuncName::atom(), Arity::integer()}]) -&gt; NewMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Set the meta_mod's export list to the new list.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_export_all/1">get_export_all(MetaMod::meta_mod) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Get the export_all value for the module.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_export_all/1">set_export_all(MetaMod::meta_mod(), Val::true | false) -&gt; NewMetaMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Set the export_all value for the module.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="remove_export/1">remove_export(MetaMod::meta_mod(), FuncName::atom(), Arity::integer()) -&gt; NewMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Remove the export from the list of exports in the meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_attribute/1">get_attribute(MetaMod::meta_mod(), AttName::atom()) -&gt; {ok, Val} | error</h3>
+
+
+<div class="description">
+
+<p>Get the value a the module's attribute.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_func/1">add_func(MetaMod::meta_mod(), Form::func_form() | string()) -&gt; {ok, NewMod::meta_mod()} | {error, parse_error}</h3>
+
+
+<div class="description">
+
+<p>Add a new function to the meta_mod and return the resulting meta_mod.
+  This function calls add_func(MetaMod, Form, true).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_func/1-1">add_func(MetaMod::meta_mod(), Func::func_form() | string(), Export::boolean()) -&gt; {ok, NewMod::meta_mod()} | {error, parse_error}</h3>
+
+
+<div class="description">
+
+<p>Add a new function to the meta_mod and return the new MetaMod
+  record. Export is a boolean variable indicating if the function should
+  be added to the module's exports.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="remove_func/1">remove_func(MetaMod::meta_mod(), FuncName::string(), Arity::integer()) -&gt; NewMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Try to remove the function from the meta_mod.
+  If the function exists, the new meta_mod is returned. Otherwise,
+  original meta_mod is returned.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="has_func/1">has_func(MetaMod::meta_mod(), FuncName::atom(), Arity::integer()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Check whether the meta_mod has a function with the given name
+    and arity.</p>
+</div></div>
+<div class="function">
+<h3 id="get_func/1">get_func(MetaMod::meta_mod() | atom(), FuncName::atom(), Arity::integer()) -&gt; {ok, func_form()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Get the form for the function with the specified arity in the
+    meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="replace_func/1">replace_func(MetaMod::meta_mod(), Function::string() | func_form()) -&gt; {ok, NewMod::meta_mod()} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Replace an existing function with the new one. If the function doesn't exist
+  the new function is added to the meta_mod.
+  This is tantamount to calling smerl:remove_func followed by smerl:add_func.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="compile/1">compile(MetaMod::meta_mod()) -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Compile the module represented by the meta_mod and load the
+  resulting BEAM into the emulator. This function calls
+  compile(MetaMod, [report_errors, report_warnings]).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="compile/1-1">compile(MetaMod::meta_mod(), Options::[term()]) -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Compile the module represented by the meta_mod and load the  
+resulting BEAM into the emulator. 'Options' is a list of options as  
+described in the 'compile' module in the Erlang documentation.</p>
+ 
+  <p>If the 'outdir' option is provided,
+  the .beam file is written to the destination directory.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="rename/1">rename(Form::func_form(), NewName::atom()) -&gt; {ok, NewForm::func_form()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Change the name of the function represented by the form.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry/1">curry(Form::func_form(), Param::term() | [term()]) -&gt; {ok, NewForm::func_form()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Get the curried form for the function and parameter(s). Currying
+  involves replacing one or more of the function's leading parameters
+  with predefined values.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry/1-1">curry(ModName::atom(), Name::atom(), Arity::integer(), Params::term() | [term()]) -&gt; {ok, NewForm} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Curry the function from the module with the given param(s)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry/1-2">curry(Module::atom() | meta_mod(), Name::atom(), Arity::integer(), Params::term() | [terms()], NewName::atom()) -&gt; {ok, NewForm} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Curry the function from the module or meta_mod
+   with the param(s), and return its renamed form.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry_add/1">curry_add(MetaMod::meta_mod(), Form::func_form(), Params::term() | [term()]) -&gt; {ok, NewMetaMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Add the curried form of the function in the meta_mod
+   with its curried form.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry_add/1-1">curry_add(MetaMod::meta_mod(), Name::atom(), Arity::integer(), Params::term() | [term()]) -&gt; {ok, NewMetaMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Add the curried form of the function
+    in the meta_mod with its curried form.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry_add/1-2">curry_add(MetaMod::meta_mod(), Name::atom(), Arity::integer(), Params::[term()], NewName::atom()) -&gt; {ok, NewMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Curry the function form from the meta_mod, then add it
+    to the other meta_mod with a new name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry_add/1-3">curry_add(MetaMod::meta_mod(), Module::atom() | meta_mod(), Name::atom(), Arity::integer(), Params::term() | [term()], NewName::atom()) -&gt; {ok, NewMod::meta_mod()} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Curry the function in the module, rename the curried form, and
+    add it to the meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry_replace/1">curry_replace(MetaMod::meta_mod(), Form::func_form(), Params::term() | [term()]) -&gt; {ok, NewMetaMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Replace the function in the meta_mod with
+    its curried form.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="curry_replace/1-1">curry_replace(MetaMod::meta_mod(), Name::atom(), Arity::integer(), Params::term() | list()) -&gt; {ok, NewMetaMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Replace the function in the meta_mod with
+    its curried form.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="embed_params/1">embed_params(Func::func_form(), Vals::[{Name::atom(), Value::term()}]) -&gt; NewForm::func_form()</h3>
+
+
+<div class="description">
+
+<p>This function takes a function form and list of name/value pairs,
+  and replaces all the function's parameters that whose names match an
+  element from the list with the predefined value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="embed_params/1-1">embed_params(MetaMod::meta_mod(), Name::atom(), Arity::integer(), Values::proplist()) -&gt; {ok, NewMetaMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Apply <a href="#embed_params/2" class="seealso">embed_params/2</a> to a function from the meta_mod and
+    add the resulting function to the meta_mod, and return the resulting
+    meta_mod.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="embed_params/1-2">embed_params(MetaMod::meta_mod(), Name::atom(), Arity::integer(), Values::proplist(), NewName::atom()) -&gt; {ok, NewMetaMod::meta_mod()} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Apply embed_params/2 to the function from the meta_mod and
+    add the resulting function to the meta_mod after renaming the function.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="embed_all/1">embed_all(MetaMod::meta_mod(), Vals::[{Name::atom(), Value::term()}]) -&gt; NewMetaMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Apply the embed_params function with the list of {Name, Value}
+  pairs to all forms in the meta_mod. Exports
+  for functions whose arities change due to the embedding are preserved.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="extend/1">extend(Parent::atom() | meta_mod(), Child::atom() | meta_mod()) -&gt; NewChildMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>extend/2
+  Add all the parent module's functions that are missing from the child
+  module to the child module. The new functions in the child module are
+  shallow: they have the name and arity as their corresponding functions in
+  the parent meta_mod, but instead of implementing their logic they call
+  the parent module's functions.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="extend/1-1">extend(Parent::atom() | meta_mod(), Child::atom() | meta_mod(), ArityDiff::integer()) -&gt; NewChildMod::meta_mod()</h3>
+
+
+<div class="description">
+
+<p>Similar to extend/2, with the addition of the 'ArityDiff' parameter,
+  which indicates the difference
+  in arities Smerl should use when figuring out which functions to
+  generate based on the modules' exports. This is sometimes
+  useful when calling extend() followed by embed_all().
+ </p>
+</div></div>
+<div class="function">
+<h3 id="extend/4">extend(Parent, Child, ArityDiff, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_src/1">to_src(MetaMod::meta_mod()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Return the pretty-printed source code for the module.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="to_src/1-1">to_src(MetaMod::meta_mod(), FileName::string()) -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Write the pretty printed source code for the module
+    to the file with the given file name.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Yariv Sadan</aname>
+<email>yarivsblog@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

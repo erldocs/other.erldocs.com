@@ -1,0 +1,1 @@
+var index = [['app','erlang-uri-template','erlang-uri-template','[application]'],['mod','erlang-uri-template','uri_template',[]],['mod','erlang-uri-template','uri_template_test',[]],['fun','erlang-uri-template','uri_template:sub/2',[]]];

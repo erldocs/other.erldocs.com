@@ -1,0 +1,1 @@
+var index = [['app','erlbot','erlbot','[application]'],['mod','erlbot','jbot_sup',[]],['mod','erlbot','modlist',[]],['fun','erlbot','jbot_sup:init/1',[]],['fun','erlbot','modlist:modules/0',[]]];

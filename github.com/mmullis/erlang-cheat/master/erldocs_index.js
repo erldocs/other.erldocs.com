@@ -1,0 +1,1 @@
+var index = [['app','erlang-cheat','erlang-cheat','[application]'],['mod','erlang-cheat','cheat',[]],['fun','erlang-cheat','cheat:all/0',[]],['fun','erlang-cheat','cheat:recent/0',[]],['fun','erlang-cheat','cheat:remove_sheet/1',[]],['fun','erlang-cheat','cheat:sheet/1',[]],['fun','erlang-cheat','cheat:sheet_reset/1',[]]];

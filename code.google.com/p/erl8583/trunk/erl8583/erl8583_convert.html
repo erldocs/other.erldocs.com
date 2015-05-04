@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erl8583_convert (erl8583) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erl8583_convert</h1>
+<h2 class="modsummary">This module provides a number of functions for converting
+       between representations of data common in ISO 8583.</h2>
+<div class="description">
+<p>This module provides a number of functions for converting
+       between representations of data common in ISO 8583.
+       Particular data representations are ASCII and EBCDIC strings,
+       BCD encoding and the encoding used for track 2 data.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bcd">bcd() = [byte()]</h3></div>
+    <div class="type"><h3 id="type-field_encoding">field_encoding() = {n | b | an | ans | x_n | ns | z, fixed | llvar | lllvar, max_length()}</h3></div>
+    <div class="type"><h3 id="type-iso8583field_value">iso8583field_value() = utf8() | binary() | iso8583message()</h3></div>
+    <div class="type"><h3 id="type-iso8583message">iso8583message() = #iso8583_message{attributes=[iso8583attribute()], values=dict()}</h3></div>
+    <div class="type"><h3 id="type-max_length">max_length() = integer()</h3></div>
+    <div class="type"><h3 id="type-utf8">utf8() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="utf8_to_ascii_hex/1">utf8_to_ascii_hex(Str::utf8()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Converts a UTF8 string of characters to a string containing
+       the ASCII hex character codes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_utf8/1">ascii_hex_to_utf8(HexStr::utf8()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Converts a string containing ASCII hex characters
+       to an equivalent UTF8 string().
+ </p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_numeric_utf8/1">integer_to_numeric_utf8(IntValue::integer()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Converts an integer to its UTF8 decimal string
+       representation.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="numeric_utf8_to_integer/1">numeric_utf8_to_integer(IntStr::utf8()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Converts a UTF8 string encoding a decimal value to
+       its integer value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="numeric_utf8_to_bcd/1">numeric_utf8_to_bcd(IntStr::utf8()) -&gt; bcd()</h3>
+
+
+<div class="description">
+
+<p>Converts a UTF8 string encoding a decimal value to
+       a BCD encoding.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bcd_to_numeric_utf8/1">bcd_to_numeric_utf8(Bcd::bcd()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Converts a BCD encoding to a UTF8 string encoding a decimal
+       value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_integer/1">ascii_hex_to_integer(AsciiHex) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="integer_to_ascii_hex/1">integer_to_ascii_hex(IntValue) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pad_with_trailing_spaces/1">pad_with_trailing_spaces(Str::utf8(), Length::integer()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Pads a UTF8 string with a number of spaces so that the
+       resultant string has specified length.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="binary_to_ascii_hex/1">binary_to_ascii_hex(BinValue::binary()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Returns the ASCII hex encoding of a binary value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="binary_list_to_ascii_hex/1">binary_list_to_ascii_hex(BinList::binary()) -&gt; utf8()</h3>
+
+
+<div class="description">
+
+<p>Returns the ASCII hex encoding of a list of bytes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_binary/1">ascii_hex_to_binary(HexStr::utf8()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Returns the binary value corresponding to an ASCII hex string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_binary_list/1">ascii_hex_to_binary_list(HexStr::utf8()) -&gt; bcd()</h3>
+
+
+<div class="description">
+
+<p>Returns a binary list corresponding to an ASCII hex string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bcd_to_integer/1">bcd_to_integer(BcdList::bcd()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Converts a list of BCD encoded bytes to an integer.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_bcd/1">integer_to_bcd(IntValue::integer()) -&gt; bcd()</h3>
+
+
+<div class="description">
+
+<p>Converts an integer to a list of BCD encoded bytes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="track2_to_string/1">track2_to_string(Track2Data::[byte()], Length::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a list of track 2 nibbles to a string containing
+       an ASCII encoding of the same data.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="string_to_track2/1">string_to_track2(Str::string()) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Converts a string of ASCII characters to a track 2
+       encoding.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="strip_trailing_spaces/1">strip_trailing_spaces(Str::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Strips trailing spaces from an ASCII string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="strip_leading_zeroes/1">strip_leading_zeroes(Str::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Strips leading zeroes from an ASCII string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_to_ebcdic/1">ascii_to_ebcdic(Str::string()) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Converts an ASCII string to an EBCDIC string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ebcdic_to_ascii/1">ebcdic_to_ascii(EbcdicStr::[byte()]) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts an EBCDIC string to an ASCII string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="list_to_bitmap/1">list_to_bitmap(FieldIds::[integer()], Offset::integer()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts a list of integer IDs to a 64-bit bitmap.
+       Values in the range [Offset+1, Offset+64] are
+       encoded. Values outside the specified range are
+       ignored.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bitmap_to_list/1">bitmap_to_list(Bitmap::binary(), Offset::integer()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>Converts a 64-bit bitmap to a list of integers
+       starting at a specified offset.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>CA Meijer</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

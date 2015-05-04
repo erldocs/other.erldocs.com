@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rtmp (rtmp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rtmp</h1>
+<h2 class="modsummary">       RTMP encoding/decoding module.</h2>
+<div class="description">
+<p>       RTMP encoding/decoding module.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="encode/1">encode(Socket::rtmp_socket(), Message::rtmp_message()) -&gt; {NewSocket::rtmp_socket(), Packet::binary()}</h3>
+
+
+<div class="description">
+
+<p>Encodes outgoing message to chunked binary packet, prepared to be written  
+to TCP socket. As RTMP is a stateful protocol, state is modified on each encode.  
+Things, that change in state are chunk size and "last" stream_id, timestamp, packet length.  
+Thus, two sequential calls to encode can give you different results:</p>
+ 
+  <p><code>{NewSocket, Packet} = encode(Socket, #rtmp_message{type = chunk_size, body = 10}),
+  {NewSocket1, Packet1} = encode(NewSocket, #rtmp_message{type = chunk_size, body = 10}).</code><br />  
+First message will be chunked sent with default chunk size 128, but second will use chunk size 10  
+and will differ from previous one.</p>
+ 
+  <p>You can ask, where can you take Socket to use this module? Currently there are no methods to
+  construct it from nowhere, because RTMP protocol is useless without other connected side,
+  so take a use of <url href="/home/pete/wefwefwef/docs/other/6995528451/repo/v2.10.10/.xml/rtmp/./rtmp_socket.xml">rtmp_socket</url> module, that instantiates Socket for you.</p>
+ 
+  <p>To read description about rtmp_message, look for <a href="#decode/2" class="seealso">decode/2</a> documentation.</p>
+</div></div>
+<div class="function">
+<h3 id="element/1">element(Id::non_neg_integer(), Tuple::tuple()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setelement/1">setelement(Id::non_neg_integer(), Tuple::tuple(), Value::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="justify_ts/1">justify_ts(TS) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_list/1">encode_list(List) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_id/2">encode_id(Type, Id) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/1">decode(Socket::rtmp_socket(), Packet::binary()) -&gt; {NewSocket::rtmp_socket(), Message::rtmp_message(), Rest::binary()} | {NewSocket::rtmp_socket, Rest::binary()}</h3>
+
+
+<div class="description">
+
+<p>Encodes outgoing message to chunked binary packet, prepared to be written  
+to TCP socket.</p>
+ 
+  <p>RTMP is stateful protocol, so incoming messages modify state of protocol decoder. You need to keep
+  track of it. <url href="/home/pete/wefwefwef/docs/other/6995528451/repo/v2.10.10/.xml/rtmp/./rtmp_socket.xml">rtmp_socket</url> module can do this for you.</p>
+ 
+  <p>If it is enough data received, decode will return rtmp_message() and unconsumed bytes, that you need to store somewhere  
+in buffer and pass them next time, when you get more bytes. Even in this case you need to keep new state,  
+because rtmp_socket() has its own internal buffers, that are filled. It is required for chunks of packets.</p>
+ 
+  <p>So, always keep new state and keep returned buffer somewhere.</p>
+ 
+  <p>rtmp_message has following (interesting for you) structure:
+  </p><list>
+  <item><p><code>timestamp</code> this field is interesting only for audio/video messages</p></item>
+  <item><p><code>type</code> you can read different types further</p></item>
+  <item><p><code>stream_id</code> this field is default 0 (message received not on NetStream object, but on NetConnection)</p></item>
+  <item><p><code>body</code> this field is correlated with type, read further.</p></item>
+  </list>
+ 
+  <p>Here goes list of possible messages, you can receive from RTMP stream:
+  </p><list>
+  <item><code>#rtmp_message{type=window_size, body=WindowSize}</code> other side wants you to send ack_read message once in <code>WindowSize</code> bytes</item>
+  <item><code>#rtmp_message{type=stream_begin, stream_id=StreamId}</code> audio/video is starting on stream StreamId</item>
+  <item><code>#rtmp_message{type=stream_end, stream_id=StreamId}</code> audio/video is finished on stream StreamId</item>
+  <item><code>#rtmp_message{type=buffer_size, body=BufferSize, stream_id=StreamId}</code> other side tells us, that it has BufferSize a/v buffer on stream StreamId</item>
+  <item><code>#rtmp_message{type=stream_recorded, stream_id=StreamId}</code> stream StreamId was recorded on disc before sending to us</item>
+  <item><code>#rtmp_message{type=ping, body=Timestamp}</code> at time Timestamp peer sent us ping, we should reply with pong</item>
+  <item><code>#rtmp_message{type=control, body={EventType, Data}, stream_id=StreamId}</code> some other undecoded control message received</item>
+  <item><code>#rtmp_message{type=broken_meta, stream_id=StreamId}</code> audio/video with null size received. It happens sometimes, never mind and ignore.</item>
+  <item><code>#rtmp_message{type=audio, body=Body, stream_id=StreamId}</code> audio packet received on StreamId</item>
+  <item><code>#rtmp_message{type=video, body=Body, stream_id=StreamId}</code> video packet received on StreamId</item>
+  <item><code>#rtmp_message{type=metadata, body=Body, stream_id=StreamId}</code> metadata packet received on StreamId. It is usually sent, when flash client starts recording video stream from camera and tells size of video.</item>
+  <item><code>#rtmp_message{type=invoke, body=Funcall::rtmp_funcall()}</code> function is invoked. Read further about Funcall object.</item>
+  <item><code>#rtmp_message{type=shared_object, body=SharedObjectMessage}</code> shared object event happened. Not implemented yet.</item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="decode_list/1">decode_list(Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Max Lapshin</aname>
+<email>max@maxidoors.ru</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pgsql (edbi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pgsql</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="connect/4">connect(Host, Database, User, Password) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/5">connect(Host, Database, User, Password, Port) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/1">connect(Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect_link/1">connect_link(Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Db) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="squery/2">squery(Db, Query) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="squery/3">squery(Db, Query, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pquery/3">pquery(Db, Query, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prepare/3">prepare(Db, Name, Query) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unprepare/2">unprepare(Db, Name) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="execute/3">execute(Db, Name, Params) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="execute/4">execute(Db, Name, Params, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transaction/2">transaction(Db, Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Executes all statements that are execute in Fun in an transaction
+  with inifnity timeout.</p>
+<p><em>See also:</em> <a href="#transaction/3" class="seealso">transaction/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="transaction/1">transaction(Db::pid(), Fun::function(), Timeout::integer() | infinity) -&gt; {error, {rollback, RollbackResult, Error}} | {error, {begin_transaction, Unexpected}} | FunResult</h3>
+
+
+<div class="description">
+
+<p>Executes all statements that are execute in Fun in an transaction..  
+If an error occurs/is thrown or if the fun returns error, or {error, Reason},  
+the transaction is rolled back.  
+Returns {error, {rollback, RollbackResult, Error}}, if an error occurred and  
+the transaction was rolled back. RollbackResult = term() is the result of the  
+rollback, e.g. {ok, "ROLLBACK"} if the rollback was successfull, Error = term()  
+contains the reason for rollback.  
+Returns {error, {begin_transaction, Reason}} if the transaction could not be started.  
+Returns the return value from the Fun, if the transaction was commited successfully.</p>
+ 
+  <p>e.g:  
+pgsql:prepare(Db, stm1, "INSERT INTO foo (bar) VALUES ($1)"),  
+pgsql:prepare(Db, stm2, "INSERT INTO bar (foo) VALUES ($1)"),  
+Fun = fun() -&gt;   
+case pgsql:execute(Db, stm1, [1]) of     
+{ok,{'INSERT',1}} -&gt;       
+case pgsql:execute(Db, stm2, [2]) of         
+{ok,{'INSERT',1}} -&gt; ok; % commit transaction and return ok         
+Unexpected -&gt; error % rollback the transaction       
+end;     
+Unexpected -&gt; {error, Unexpected} % rollback the transaction   
+end  
+end,  
+case pgsql:transaction(Db, Fun) of   
+ok -&gt; io:format("transaction commited");   
+{error, {begin_transaction, _}} -&gt; io:format("could not start transaction.");   
+{error, {rollback, RollbackResult, Error}} -&gt;     
+case RollbackResult of       
+{ok, "ROLLBACK"} -&gt; io:format("transaction was successfully rolled back.");       
+RollbackError -&gt; io:format("transaction not commited, but rollback did not work.")     
+end  
+end</p>
+ 
+  <p>NOTICE: this transaction function does not block the Db connection thread, when starting the transaction  
+and executing the statements in that transaction. so make sure, that you DO NOT EXECUTE ANY STATEMENTS  
+AT THE SAME DB CONNECTION FROM ANOTHER THREAD than the tread that invokes this transaction function,  
+because otherwise they can be executed in the current transaction.</p>
+ 
+ 
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erl-mandelbrot','erl-mandelbrot','[application]'],['mod','erl-mandelbrot','mandelbrot',[]],['mod','erl-mandelbrot','mandelbrot2',[]],['fun','erl-mandelbrot','mandelbrot2:render/0',[]],['fun','erl-mandelbrot','mandelbrot2:render/7',[]],['fun','erl-mandelbrot','mandelbrot2:renderLine/1',[]],['fun','erl-mandelbrot','mandelbrot:render/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','newerlang','newerlang','[application]'],['mod','newerlang','helloworld_app',[]],['mod','newerlang','helloworld_sup',[]],['fun','newerlang','helloworld_app:start/2',[]],['fun','newerlang','helloworld_app:stop/1',[]],['fun','newerlang','helloworld_sup:init/1',[]],['fun','newerlang','helloworld_sup:start_link/0',[]]];

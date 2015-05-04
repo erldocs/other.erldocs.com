@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_redundant_manager_api (leo_redundant_manager) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_redundant_manager_api</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-method">method() = put | get | delete | head</h3></div>
+    <div class="type"><h3 id="type-ring_table_info">ring_table_info() = {<a href="#type-ring_table_type" class="seealso">ring_table_type()</a>, leo_ring_cur}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-ring_table_type" class="seealso">ring_table_type()</a>, leo_ring_prv}</h3></div>
+    <div class="type"><h3 id="type-ring_table_type">ring_table_type() = ets | mnesia</h3></div>
+    <div class="type"><h3 id="type-sync_mode">sync_mode() = both_rings | members | ring_cur | ring_prev</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create/0">create() -&gt; {ok, list(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Create the RING
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create/1">create(T::list()) -&gt; {ok, list(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create/1-1">create(T::list(), Options::list()) -&gt; {ok, list(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_options/1">set_options(Options::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>set routing-table's options.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_options/0">get_options() -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>get routing-table's options.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach/1">attach(Node::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>attach a node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach/2">attach(Node, Rack) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="attach/3">attach(Node, Rack, Clock) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="detach/1">detach(Node::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>detach a node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="detach/2">detach(Node, Clock) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="suspend/1">suspend(Node::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>suspend a node. (disable)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="suspend/2">suspend(Node, Clock) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="append/2">append(X1::cur | prev, VNodeId::integer(), Node::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>append a node into the ring.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="checksum/1">checksum(Type::ring | member) -&gt; {ok, binary()} | {ok, atom()}</h3>
+
+
+<div class="description">
+
+<p>get routing_table's checksum.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="synchronize/1">synchronize(T::sync_mode() | list(), Members::list(), Options::list()) -&gt; {ok, list(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>synchronize member-list and routing-table.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="synchronize/1-1">synchronize(Ver::sync_mode(), Members::list()) -&gt; {ok, integer()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="adjust/1">adjust(VNodeId::integer()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Adjust current vnode to previous vnode.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_ring/0">get_ring() -&gt; {ok, list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve Current Ring
+ </p>
+</div></div>
+<div class="function">
+<h3 id="dump/1">dump(Type::member | ring) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Dump table-records.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_redundancies_by_key/1">get_redundancies_by_key(Key::string()) -&gt; {ok, list(), integer(), integer(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve redundancies from the ring-table.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_redundancies_by_key/1-1">get_redundancies_by_key(Method::method(), Key::string()) -&gt; {ok, list(), integer(), integer(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_redundancies_by_addr_id/1">get_redundancies_by_addr_id(AddrId) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Retrieve redundancies from the ring-table.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_redundancies_by_addr_id/1-1">get_redundancies_by_addr_id(Method::method(), AddrId::integer()) -&gt; {ok, list(), integer(), integer(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="range_of_vnodes/1">range_of_vnodes(ToVNodeId::atom()) -&gt; {ok, list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve range of vnodes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="rebalance/0">rebalance() -&gt; {ok, list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Re-balance objects in the cluster.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="has_member/1">has_member(Node::atom()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Has a member ?
+ </p>
+</div></div>
+<div class="function">
+<h3 id="has_charge_of_node/1">has_charge_of_node(Key::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Has charge of node?
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members/0">get_members() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get members.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members/1">get_members(Ver::cur | prev) -&gt; {ok, list()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_member_by_node/1">get_member_by_node(Node::atom()) -&gt; {ok, #member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=atom(), num_of_vnodes=integer(), grp_level_1=undefined | atom(), grp_level_2=undefined | atom()}} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>get a member by node-name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members_count/0">get_members_count() -&gt; integer() | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>get # of members.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members_by_status/1">get_members_by_status(Status::atom()) -&gt; {ok, [#member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=atom(), num_of_vnodes=integer(), grp_level_1=undefined | atom(), grp_level_2=undefined | atom()}]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>get members by status
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_members/1">update_members(Members::list()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>update members.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_member_by_node/1">update_member_by_node(Node::atom(), Clock::integer(), State::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>update a member by node-name.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_ring/1">get_ring(X1::ring_cur | ring_prev) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve ring by version.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="is_alive/0">is_alive() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>stop membership.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="table_info/1">table_info(X1::cur | prev) -&gt; ring_table_info()</h3>
+
+
+<div class="description">
+
+<p>Retrieve table-info by version.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lama_utils (lama) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lama_utils</h1>
+<h2 class="modsummary">This module implements miscelaneous utility functions.</h2>
+<div class="description">
+<p>This module implements miscelaneous utility functions</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="str_to_exprs/1">str_to_exprs(Str::String) -&gt; {ok, Exprs} | throw({error, Reason})</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Exprs = [term()]</code></li><li><code>Reason = string()</code></li></ul>
+<div class="description">
+
+<p>Convert a string to a list of the abstract forms of the parsed expressions.
+       A String is a string representation of an expressions ending with ".".
+       Expression list can be used then in call to erl_eval:exprs/1
+       <code>Ex: str_to_exprs("fun(A) -&gt; A + 1 end.")</code></p>
+</div></div>
+<div class="function">
+<h3 id="eval_str/2">eval_str(Str::String, Bindings) -&gt; {value, Value, NewBindings} | throw({error, Reason}) | throw({error, {exception, Class, Exception}})</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Value = term()</code></li><li><code>Bindings = term()</code></li><li><code>NewBindings = term()</code></li><li><code>Reason = string()</code></li><li><code>Class = term()</code></li><li><code>Exception = term()</code></li></ul>
+<div class="description">
+
+<p>Evaluate string as expressions using variable bindings.
+       A String is a string representation of an expressions ending with ".".
+       Bindings and NewBindings - as returned by erl_eval:bindings/1.
+       Note:
+         exception {error, Reason} means parsing error;
+         exception {error, {exception, Class, Exception} means evaluating error.</p>
+</div></div>
+<div class="function">
+<h3 id="eval_str/1">eval_str(Str::String) -&gt; {value, Value, NewBindings} | throw({error, Reason}) | throw({error, {exception, Class, Exception}})</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Value = term()</code></li><li><code>NewBindings = term()</code></li><li><code>Reason = string()</code></li><li><code>Class = term()</code></li><li><code>Exception = term()</code></li></ul>
+<div class="description">
+
+<p>Evaluate string as expressions.
+       A String is a string representation of an expressions ending with ".".
+       Bindings and NewBindings - as returned by erl_eval:bindings/1.
+       Note:
+         exception {error, Reason} means parsing error;
+         exception {error, {exception, Class, Exception} means evaluating error.</p>
+</div></div>
+<div class="function">
+<h3 id="str_to_term/1">str_to_term(Str::String) -&gt; {ok, Term} | throw({error, Reason})</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li><li><code>Term = term()</code></li><li><code>Reason = string()</code></li></ul>
+<div class="description">
+
+<p>Convert a string to an Erlang term.  A String is a string
+       representation of a term ending with ".".  A Term is an Erlang
+       term.
+       <code>Ex: str_to_term("{1,2,[hello]}.") -&gt; {1,2,[hello]}</code></p>
+</div></div>
+<div class="function">
+<h3 id="str_to_terms/1">str_to_terms(BinStr::String) -&gt; {ok, Terms} | throw({error, Reason})</h3>
+
+<ul class="type">
+<li><code>String = string() | binary()</code></li><li><code>Terms = [term()]</code></li><li><code>Reason = string()</code></li></ul>
+<div class="description">
+
+<p>Convert a string to a list of Erlang terms.  This function is       
+similar to file:consult/1 but it works on a string as opposed to       
+a file.  An exception is thrown if there is a parsing problem.</p>
+ 
+       <p><code>Ex: str_to_terms("{1,2,[hello]}.\n{3,4}.") -&gt;
+                [{1,2,[hello]}, {3,4}]</code></p>
+</div></div>
+<div class="function">
+<h3 id="seconds_since_epoch/1">seconds_since_epoch(NowTime::now()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns number of seconds in local time elapsed from
+       1-Jan-1970 00:00:00 UTC.</p>
+</div></div>
+<div class="function">
+<h3 id="seconds_since_epoch/1-1">seconds_since_epoch(NowTime::now(), X2::Type) -&gt; integer()</h3>
+
+<ul class="type">
+<li><code>Type = local | utc</code></li></ul>
+<div class="description">
+
+<p>Returns number of seconds in local or UTC time elapsed from
+       1-Jan-1970 00:00:00 UTC.</p>
+</div></div>
+<div class="function">
+<h3 id="check_loops/3">check_loops(List, RootVal, RequireCommonRoot) -&gt; ok | throw({error, Reason})</h3>
+
+<ul class="type">
+<li><code>List = [{Key, ParentKey}]</code></li><li><code>RequireCommonRoot = boolean()</code></li><li><code>Reason = {Key, Description::string()}</code></li></ul>
+<div class="description">
+
+<p>Check if there are loops in the hierarchical <code>List</code>.
+       <code>RootVal</code> is the value of a root entry in the hierarchy of keys.
+       If <code>RequireCommonRoot</code> is <code>true</code>, then each node must have a
+       parent with the top-most parent being RootVal.
+       If <code>RequireCommonRoot</code> is <code>false</code>, the hierarchical tree
+       may have nodes without parents.<br />
+         This function implements an algorithm that finds loops in a list
+       containing tuples of hierarchically linked keys.  The algorithm
+       builds a dictionary of {key, parent_key} tuples, and for each
+       tuple in the list uses two navigational counters.  One counter
+       traverses the hierarchy one step at a time, and the second goes
+       two steps at a time.  If such traversal results in the same key
+       being fetched by each counter, we have a loop.
+  </p><pre class="sh_erlang">       Example:  check_loops([{a,root},{b,a},{c,b}], root, true) -&gt; ok</pre>
+</div></div>
+<div class="function">
+<h3 id="random_shuffle/1">random_shuffle(List::list()) -&gt; RandomList::list()</h3>
+
+
+<div class="description">
+
+<p>Constructs a random permutation of a list.</p>
+</div></div>
+<div class="function">
+<h3 id="bytestring_to_hexstring/1">bytestring_to_hexstring(ByteString::list()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a byte string to a list of hexadecimal digits
+       (every one byte will be represented as two hex digits).</p>
+</div></div>
+<div class="function">
+<h3 id="hexstring_to_bytestring/1">hexstring_to_bytestring(HexString::list()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Converts a hex string to a list of integers. Each two hex digits
+       represent one byte [0 ... 255].</p>
+</div></div>
+<div class="function">
+<h3 id="i2l/1">i2l(I::integer(), Width::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Convert an integer to a list left-padded with 0's.</p>
+</div></div>
+<div class="function">
+<h3 id="month/1">month(Month::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Return the month number as a string</p>
+</div></div></div>
+
+<authors>
+
+<aname>Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>util (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>util</h1>
+<h2 class="modsummary">   Utility Functions.</h2>
+<div class="description">
+<p>   Utility Functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-accumulatorFun">accumulatorFun/0</h3></div>
+    <div class="type"><h3 id="type-args">args() = [term()]</h3></div>
+    <div class="type"><h3 id="type-erlang_timestamp">erlang_timestamp() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{MegaSecs :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Secs :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MicroSecs :: integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-repeat_params">repeat_params() = parallel<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| collect<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {accumulate, <a href="#type-accumulatorFun" class="seealso">accumulatorFun</a>(any(), R), R}</h3></div>
+    <div class="type"><h3 id="type-tid">tid() = <a href="ets.html#type-tid" class="seealso">ets:tid()</a></h3></div>
+    <div class="type"><h3 id="type-us_timestamp">us_timestamp() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="wait_for/1">wait_for(F::() -&gt; boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Executes wait_for/2 with a WaitTime of 10ms.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for/1-1">wait_for(F::() -&gt; boolean(), WaitTimeInMs::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Waits for F/0 to become true and checks every WaitTime Milliseconds.
+       Uses (send_local_after/2 and receive) or timer:sleep/1 to wait to
+       return control flow to e.g. proto_sched depending on whether the caller
+       is a gen_component or not.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_process_to_die/1">wait_for_process_to_die(Name::pid() | atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Waits for the given process (name or pid) to die.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_table_to_disappear/1">wait_for_table_to_disappear(Pid::pid(), Table::tid() | atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Waits for the given ets table to disappear.</p>
+</div></div>
+<div class="function">
+<h3 id="ets_tables_of/1">ets_tables_of(Pid::pid()) -&gt; list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="escape_quotes/1">escape_quotes(String::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Escapes quotes in the given string.</p>
+</div></div>
+<div class="function">
+<h3 id="max/1">max(X::any(), B::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Variant of erlang:max/2 also taking ?PLUS_INFINITY_TYPE and
+       ?MINUS_INFINITY_TYPE into account, e.g. for comparing keys.</p>
+</div></div>
+<div class="function">
+<h3 id="min/1">min(X::any(), B::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Variant of erlang:min/2 also taking ?PLUS_INFINITY_TYPE and
+       ?MINUS_INFINITY_TYPE into account, e.g. for comparing keys.</p>
+</div></div>
+<div class="function">
+<h3 id="pow/1">pow(X::integer(), Y::non_neg_integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log/1">log(X::number(), Base::number()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Logarithm of X to the base of Base.</p>
+</div></div>
+<div class="function">
+<h3 id="log2/1">log2(X::number()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Logarithm of X to the base of 2.</p>
+</div></div>
+<div class="function">
+<h3 id="floor/1">floor(X::number()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the largest integer not larger than X.</p>
+</div></div>
+<div class="function">
+<h3 id="ceil/1">ceil(X::number()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the smallest integer not smaller than X.</p>
+</div></div>
+<div class="function">
+<h3 id="logged_exec/1">logged_exec(Cmd::string() | atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_stacktrace/0">get_stacktrace() -&gt; [{Module::atom(), Function::atom(), ArityOrArgs::byte() | [term()]} | {Module::atom(), Function::atom(), ArityOrArgs::byte() | [term()], Sources::[term()]}]</h3>
+
+
+<div class="description">
+
+<p>Gets the current stack trace. Use this method in order to get a stack
+       trace if no exception was thrown.</p>
+</div></div>
+<div class="function">
+<h3 id="get_linetrace/0">get_linetrace() -&gt; term() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_linetrace/1">get_linetrace(Pid::pid()) -&gt; term() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="do_throw/1">do_throw(Exception::term()) -&gt; no_return()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_from_list_may_not_exist/1">extract_from_list_may_not_exist(List::[{Item::term(), Info::any()}], ItemInfo::term()) -&gt; Info::any() | undefined</h3>
+
+
+<div class="description">
+
+<p>Extracts a given ItemInfo from an ItemList or returns 'undefined' if
+       there is no such item.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_all/2">minus_all(List::[T], Excluded::[T]) -&gt; [T]</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>minus_all(M,N) : { x | x in M and x notin N}</p>
+</div></div>
+<div class="function">
+<h3 id="minus_first/2">minus_first(List::[T], Excluded::[T]) -&gt; [T]</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Deletes the first occurrence of each element in Excluded from List.
+       Similar to lists:foldl(fun lists:delete/2, NewValue1, ToDel) but more
+       performant for out case.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_if_exists/2">delete_if_exists(Del::T, List::[T]) -&gt; {Found::boolean(), [T]}</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Removes Del from List if it is found. Stops on first occurrence.</p>
+</div></div>
+<div class="function">
+<h3 id="get_proc_in_vms/1">get_proc_in_vms(Proc::atom()) -&gt; [mypid() (see module comm)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sleep_for_ever/0">sleep_for_ever() -&gt; no_return()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="randomelem/2">randomelem(List::[X, ...]) -&gt; X</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Returns a random element from the given (non-empty!) list according to
+       a uniform distribution.</p>
+</div></div>
+<div class="function">
+<h3 id="randomelem_and_length/2">randomelem_and_length(List::[X, ...]) -&gt; {X, Length::pos_integer()}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Returns a random element from the given (non-empty!) list according to
+       a uniform distribution (also returns the list's length).</p>
+</div></div>
+<div class="function">
+<h3 id="pop_randomelem/2">pop_randomelem(List::[X, ...]) -&gt; {NewList::[X], PoppedElement::X}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Removes a random element from the (non-empty!) list and returns the
+       resulting list and the removed element.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_randomelem/3">pop_randomelem(List::[X, ...], Size::non_neg_integer()) -&gt; {NewList::[X], PoppedElement::X}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Removes a random element from the first Size elements of a (non-empty!)
+       list and returns the resulting list and the removed element.
+       If Size is 0, the first element will be popped.
+       Size must not exceed the length of the list!</p>
+</div></div>
+<div class="function">
+<h3 id="random_subset/1">random_subset(Size::pos_integer(), T::[T]) -&gt; [T]</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Returns a random subset of Size elements from the given list.</p>
+</div></div>
+<div class="function">
+<h3 id="shuffle/1">shuffle(T::[T]) -&gt; [T]</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Fisher-Yates shuffling for lists.</p>
+</div></div>
+<div class="function">
+<h3 id="gb_trees_largest_smaller_than/3">gb_trees_largest_smaller_than(Key, X2::tree(Key, Value) (see module gb_trees)) -&gt; {value, Key, Value} | nil</h3>
+
+<ul class="type">
+<li><code>Key = any()</code></li><li><code>Value = any()</code></li></ul>
+<div class="description">
+
+<p>Find the largest key in GBTree that is smaller than Key.
+       Note: gb_trees offers only linear traversal or lookup of exact keys -
+       we implement a more flexible binary search here despite gb_tree being
+       defined as opaque.</p>
+</div></div>
+<div class="function">
+<h3 id="gb_trees_foldl/3">gb_trees_foldl(F::(Key, Value, Acc) -&gt; Acc, Acc, GBTree::tree(Key, Value) (see module gb_trees)) -&gt; Acc</h3>
+
+<ul class="type">
+<li><code>Acc = any()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li></ul>
+<div class="description">
+
+<p>Foldl over gb_trees.</p>
+</div></div>
+<div class="function">
+<h3 id="tc/1">tc(M::module(), F::atom(), A::list()) -&gt; {integer(), term()}</h3>
+
+
+<div class="description">
+
+<p>Measures the execution time (in microseconds) for an MFA
+       (does not catch exceptions as timer:tc/3 in older Erlang versions).</p>
+</div></div>
+<div class="function">
+<h3 id="tc/1-1">tc(Fun::function(), Args::list()) -&gt; {integer(), term()}</h3>
+
+
+<div class="description">
+
+<p>Measures the execution time (in microseconds) for Fun(Args)
+       (does not catch exceptions as timer:tc/3 in older Erlang versions).</p>
+</div></div>
+<div class="function">
+<h3 id="tc/1-2">tc(Fun::function()) -&gt; {integer(), term()}</h3>
+
+
+<div class="description">
+
+<p>Measures the execution time (in microseconds) for Fun()
+       (does not catch exceptions as timer:tc/3 in older Erlang versions).</p>
+</div></div>
+<div class="function">
+<h3 id="zipfoldl/2">zipfoldl(ZipFun::(X, Y) -&gt; Z, FoldFun::(Z, Acc) -&gt; Acc, L1::[X], L2::[Y], Acc) -&gt; Acc</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="</2">=:&lt;(T, T) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Sorts like erlang:'=&lt;'/2 but also defines the order of integers/floats
+       representing the same value.</p>
+</div></div>
+<div class="function">
+<h3 id="safe_split/1">safe_split(N::non_neg_integer(), T::[T]) -&gt; {FirstN::[T], Rest::[T]}</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Splits off N elements from List. If List is not large enough, the whole
+       list is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="split_unique/2">split_unique(L1::[X], L2::[X]) -&gt; {UniqueL1::[X], Shared::[X], UniqueL2::[X]}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Splits L1 into a list of elements that are not contained in L2, a list
+       of elements that both lists share and a list of elements unique to L2.
+       Returned lists are sorted and contain no duplicates.</p>
+</div></div>
+<div class="function">
+<h3 id="split_unique/4">split_unique(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean()) -&gt; {UniqueL1::[X], Shared::[X], UniqueL2::[X]}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Splits L1 into a list of elements that are not contained in L2, a list
+       of elements that are equal in both lists (according to the ordering
+       function Lte) and a list of elements unique to L2.
+       When two elements compare equal, the element from List1 is picked.
+       Lte(A, B) should return true if A compares less than or equal to B in
+       the ordering, false otherwise.
+       Returned lists are sorted according to Lte and contain no duplicates.</p>
+</div></div>
+<div class="function">
+<h3 id="split_unique/4-1">split_unique(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean(), EqSelect::(X, X) -&gt; X) -&gt; {UniqueL1::[X], Shared::[X], UniqueL2::[X]}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Splits L1 into a list of elements that are not contained in L2, a list
+       of elements that are equal in both lists (according to the ordering
+       function Lte) and a list of elements unique to L2.
+       When two elements compare equal, EqSelect(element(L1), element(L2))
+       chooses which of them to take.
+       Lte(A, B) should return true if A compares less than or equal to B in
+       the ordering, false otherwise.
+       Returned lists are sorted according to Lte and contain no duplicates.</p>
+</div></div>
+<div class="function">
+<h3 id="ssplit_unique/2">ssplit_unique(L1::[X], L2::[X]) -&gt; {UniqueL1::[X], Shared::[X], UniqueL2::[X]}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Splits L1 into a list of elements that are not contained in L2, a list
+       of elements that both lists share and a list of elements unique to L2.
+       Both lists must be sorted. Returned lists are sorted as well.</p>
+</div></div>
+<div class="function">
+<h3 id="ssplit_unique/4">ssplit_unique(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean()) -&gt; {UniqueL1::[X], Shared::[X], UniqueL2::[X]}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Splits L1 into a list of elements that are not contained in L2, a list
+       of elements that are equal in both lists (according to the ordering
+       function Lte) and a list of elements unique to L2.
+       When two elements compare equal, the element from List1 is picked.
+       Both lists must be sorted according to Lte. Lte(A, B) should return
+       true if A compares less than or equal to B in the ordering, false
+       otherwise.
+       Returned lists are sorted according to Lte.</p>
+</div></div>
+<div class="function">
+<h3 id="ssplit_unique/4-1">ssplit_unique(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean(), EqSelect::(X, X) -&gt; X) -&gt; {UniqueL1::[X], Shared::[X], UniqueL2::[X]}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Splits L1 into a list of elements that are not contained in L2, a list
+       of elements that are equal in both lists (according to the ordering
+       function Lte) and a list of elements unique to L2.
+       When two elements compare equal, EqSelect(element(L1), element(L2))
+       chooses which of them to take.
+       Both lists must be sorted according to Lte. Lte(A, B) should return true
+       if A compares less than or equal to B in the ordering, false otherwise.
+       Returned lists are sorted according to Lte.</p>
+</div></div>
+<div class="function">
+<h3 id="smerge2/2">smerge2(L1::[X], L2::[X]) -&gt; MergedList::[X]</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Merges two unique sorted lists into a single list.</p>
+</div></div>
+<div class="function">
+<h3 id="smerge2/4">smerge2(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean()) -&gt; MergedList::[X]</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Merges two unique Lte-sorted lists into a single list.</p>
+</div></div>
+<div class="function">
+<h3 id="smerge2/4-1">smerge2(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean(), EqSelect::(X, X) -&gt; [X]) -&gt; MergedList::[X]</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Merges two unique Lte-sorted lists into a single list.</p>
+</div></div>
+<div class="function">
+<h3 id="smerge2/4-2">smerge2(L1::[X], L2::[X], Lte::(X, X) -&gt; boolean(), EqSelect::(X, X) -&gt; [X], FirstExist::(X) -&gt; [X], SecondExist::(X) -&gt; [X]) -&gt; MergedList::[X]</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>Merges two unique Lte-sorted lists into a single list.</p>
+</div></div>
+<div class="function">
+<h3 id="is_unittest/0">is_unittest() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Try to check whether common-test is running.</p>
+</div></div>
+<div class="function">
+<h3 id="make_filename/1">make_filename(Name::[byte()]) -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="app_get_env/1">app_get_env(Var::atom(), Default::T) -&gt; T</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>Get an application environment variable for the 'scalaris' application.
+       If the variable is undefined, Default is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="app_check_running/1">app_check_running(App::atom()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>check if App is allready running.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp2us/1">timestamp2us(X1::erlang_timestamp()) -&gt; us_timestamp()</h3>
+
+
+<div class="description">
+
+<p>convert os:timestamp() to microsecs
+ See http://erlang.org/pipermail/erlang-questions/2008-December/040368.html</p>
+</div></div>
+<div class="function">
+<h3 id="us2timestamp/1">us2timestamp(Time::us_timestamp()) -&gt; erlang_timestamp()</h3>
+
+
+<div class="description">
+
+<p>convert microsecs to os:timestamp()</p>
+</div></div>
+<div class="function">
+<h3 id="time_plus_us/1">time_plus_us(Time::erlang_timestamp(), Delta_MicroSeconds::non_neg_integer()) -&gt; erlang_timestamp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="time_plus_ms/1">time_plus_ms(Time::erlang_timestamp(), Delta_MilliSeconds::non_neg_integer()) -&gt; erlang_timestamp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="time_plus_s/1">time_plus_s(Time::erlang_timestamp(), Delta_Seconds::non_neg_integer()) -&gt; erlang_timestamp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readable_utc_time_feeder/3">readable_utc_time_feeder(X1::{0..1000, 0..1000, 0..1000}) -&gt; {erlang_timestamp()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readable_utc_time/1">readable_utc_time(TimeTriple::erlang_timestamp()) -&gt; tuple()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="for_to_fold/1">for_to_fold(I::integer(), N::integer(), Fun::(integer()) -&gt; X, AccFun::(X, Acc) -&gt; Acc, AccIn::Acc) -&gt; Acc</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="for_to/1">for_to(I::integer(), N::integer(), Fun::(integer()) -&gt; any()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="for_to_ex/1">for_to_ex(I::integer(), N::integer(), Fun::(integer()) -&gt; T, T::[T]) -&gt; [T]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="for_to_ex/1-1">for_to_ex(I::integer(), N::integer(), Fun::(integer()) -&gt; T) -&gt; [T]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="map_with_nr_feeder/2">map_with_nr_feeder(X1::1..2, List::[number()], StartNr::integer()) -&gt; {Fun::(number(), integer()) -&gt; number(), List::[number()], integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="map_with_nr/2">map_with_nr(F::(A, integer()) -&gt; B, List::[A], StartNr::integer()) -&gt; [B]</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li><li><code>B = any()</code></li></ul>
+<div class="description">
+
+<p>Similar to lists:map/2 but also passes the current number to the fun:
+       <code>[a, b, c,...]</code> maps to
+       <code>[fun(a, StartNr), fun(b, StartNr+1), fun(c, StartNr+2),...]</code></p>
+</div></div>
+<div class="function">
+<h3 id="par_map_feeder/2">par_map_feeder(X1::1..2, List::[number()]) -&gt; {Fun::(number()) -&gt; number(), List::[number()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="par_map/1">par_map(Fun::(A) -&gt; B, List::[A]) -&gt; [B]</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li><li><code>B = any()</code></li></ul>
+<div class="description">
+
+<p>Parallel version of lists:map/2. Spawns a new process for each element
+       in the list!</p>
+</div></div>
+<div class="function">
+<h3 id="par_map_feeder/2-1">par_map_feeder(FunNr::1..2, List::[number()], MaxThreads::1..50) -&gt; {Fun::(number()) -&gt; number(), List::[number()], 1..50}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="par_map/1-1">par_map(Fun::(A) -&gt; B, List::[A], MaxThreads::pos_integer()) -&gt; [B]</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li><li><code>B = any()</code></li></ul>
+<div class="description">
+
+<p>Parallel version of lists:map/2 with the possibility to limit the
+       maximum number of processes being spawned.</p>
+</div></div>
+<div class="function">
+<h3 id="lists_take/1">lists_take(Elem::any(), L::[any()]) -&gt; [any()] | false</h3>
+
+
+<div class="description">
+
+<p>Delete an element from a list (once). When not found, return false.</p>
+</div></div>
+<div class="function">
+<h3 id="lists_split/2">lists_split(A::[A], Partitions::pos_integer()) -&gt; [[A]]</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li></ul>
+<div class="description">
+
+<p>Splits the given list into several partitions, returning a list of parts
+       of the original list. Both the parts and their contents are reversed
+       compared to the original list!</p>
+</div></div>
+<div class="function">
+<h3 id="lists_keystore2/1">lists_keystore2(Key::term(), NC::pos_integer(), List::[tuple()], NS::pos_integer(), NewValue::term()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lists_partition3_feeder/2">lists_partition3_feeder(X1::will_fill_pred, List::[integer()]) -&gt; {(integer()) -&gt; 1..3, [integer()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lists_partition3/1">lists_partition3(Pred::(Elem::T) -&gt; 1..3, List::[T]) -&gt; {Pred1::[T], Pred2::[T], Pred3::[T]}</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lists_remove_at_indices/1">lists_remove_at_indices(List::[any(), ...], Indices::[non_neg_integer(), ...]) -&gt; [any()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sublist/3">sublist(List::[X, ...], Start::pos_integer() | neg_integer(), Length::integer()) -&gt; {[X], Length::non_neg_integer()}</h3>
+
+<ul class="type">
+<li><code>X = any()</code></li></ul>
+<div class="description">
+
+<p>A more flexible sublist function than lists:sublist/3.
+       Extracts a sublist of length Length starting at Start.
+       If Start is negative, we count from the end, e.g. -1 is the last
+       element, -2 the second last.
+       If Length is negative, the sublist is created in reversed
+       direction, e.g. sublist([a,b,c], -1, -2) gets [c, b].
+       If Start is less than -ListLength and Length is non-negative, it will be
+       set to 1. If Length is negative in this case, an empty sublist will be
+       returned.
+       If Start is greater than ListLength and Length is non-negative, an empty
+       sublist will be returned. If Length is negative in this case, it will
+       be set to ListLength.
+       Note: sublists never wrap between start and end, i.e.
+       sublist([a,b,c], 1, -2) gets []!
+       Examples:
+        * first 10: sublist(L, 1, 10) | sublist(L, 10, -10) (reverse order)
+        * last 10 : sublist(L, -10, 10) | sublist(L, -1, -10) (reverse order)</p>
+</div></div>
+<div class="function">
+<h3 id="lists_index_of/2">lists_index_of(Element::T, List::[T]) -&gt; pos_integer() | not_found</h3>
+
+<ul class="type">
+<li><code>T = any()</code></li></ul>
+<div class="description">
+
+<p>If Element is in List, its index is returned (1..length(List) as in lists:nth/2),
+       otherwise 'not_found'.</p>
+</div></div>
+<div class="function">
+<h3 id="lists_check_min_length/1">lists_check_min_length(List::[any()], I::non_neg_integer()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether the given list is at least the given length long without
+       going through the whole list like erlang:length/1.</p>
+</div></div>
+<div class="function">
+<h3 id="repeat/1">repeat(Fun::function(), Args::args(), Times::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sequencial (default) or parallel run of function FUN with arguments ARGS TIMES-fold.
+       Options as list/propertylist: collect, parallel, accumulate
+           * collect (atom): all results of FUN will returned as a list
+           * accumulate (tuple): {accumulate, accFun, accInit}
+                                 all results will be accumulated with accFun
+           * parallel (atom): FUN will be called TIMES-fold in parallel.
+                              Combination with collect and accumulate is supported.</p>
+</div></div>
+<div class="function">
+<h3 id="repeat/1-1">repeat(Fun::function(), Args::args(), Times::pos_integer(), Params::[repeat_params()]) -&gt; ok | any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parallel_run/1">parallel_run(SrcPid::pid(), Fun::function(), Args::args(), DoAnswer::boolean(), Id::any()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="collect_while/1">collect_while(GatherFun::(non_neg_integer()) -&gt; {boolean(), T} | boolean()) -&gt; [T]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_set_nth/2">list_set_nth(A::[A], Pos::pos_integer(), B) -&gt; [A | B]</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li><li><code>B = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug_info/0">debug_info() -&gt; [[{string(), term()}]]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug_info/1">debug_info(PidName::pid()) -&gt; [{string(), term()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="empty/1">empty(X1::any()) -&gt; []</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="print_bits/1">print_bits(FormatFun::(string(), [term()]) -&gt; Result, Binary::binary()) -&gt; Result</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="if_verbose/1">if_verbose(String::string()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="if_verbose/1-1">if_verbose(String::string(), Fmt::list()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bin_xor/1">bin_xor(Binary1::binary(), Binary2::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extint2atom/1">extint2atom(X::atom() | integer()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sets_map/1">sets_map(Fun::(V) -&gt; X, Set::set(V) (see module sets)) -&gt; [X]</h3>
+
+<ul class="type">
+<li><code>V = any()</code></li><li><code>X = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rrd_combine_timing_slots/1">rrd_combine_timing_slots(DB::rrd() (see module rrd), CurrentTS::erlang_timestamp(), Interval::non_neg_integer()) -&gt; {Sum::number(), SquaresSum::number(), Count::non_neg_integer(), Min::number(), Max::number()} | undefined</h3>
+
+
+<div class="description">
+
+<p>Combine the last N slots from a dump into one tuple. The number of slots to
+  combine is determined by Interval (in us): Take as many slots as needed to look
+  Interval-Epsilon microseconds back into the past.</p>
+</div></div>
+<div class="function">
+<h3 id="rrd_combine_timing_slots/1-1">rrd_combine_timing_slots(DB::rrd() (see module rrd), CurrentTS::erlang_timestamp(), Interval::non_neg_integer(), Epsilon::non_neg_integer()) -&gt; {Sum::number(), SquaresSum::number(), Count::non_neg_integer(), Min::number(), Max::number()} | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rrd_combine_gauge_slots/1">rrd_combine_gauge_slots(DB::rrd() (see module rrd), CurrentTS::erlang_timestamp(), Interval::non_neg_integer()) -&gt; Value::number() | undefined</h3>
+
+
+<div class="description">
+
+<p>This function does the same as rrd_combine_timing_slots, but for RRDs of type
+  gauge. It sums up slots until enough slots have been read.</p>
+</div></div>
+<div class="function">
+<h3 id="rrd_combine_gauge_slots/1-1">rrd_combine_gauge_slots(DB::rrd() (see module rrd), CurrentTS::erlang_timestamp(), Interval::non_neg_integer(), Epsilon::non_neg_integer()) -&gt; Value::number() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rrd_combine_slots/1">rrd_combine_slots(DB::rrd() (see module rrd), CurrentTS::erlang_timestamp(), Interval::non_neg_integer(), Epsilon::non_neg_integer(), InitialValue::(data_type() (see module rrd)) -&gt; Acc, UpdateValue::(Acc, data_type() (see module rrd)) -&gt; Acc) -&gt; term() | undefined</h3>
+
+
+<div class="description">
+
+<p>Accumulates data over RRD slots. This function allows to reduce a number of slots
+  into a single accumulator value. The amount of slots is determined by Interval and
+  Epsilon: it reads as many slots as needed to cover the last Interval - Epsilon us.</p>
+</div></div>
+<div class="function">
+<h3 id="round/1">round(Number::float(), Precision::pos_integer()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>Rounds a float according to some precision</p>
+</div></div></div>
+
+<authors>
+
+<aname>Thorsten Schuett</aname>
+<email>schuett@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

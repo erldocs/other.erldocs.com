@@ -1,0 +1,1 @@
+var index = [['app','util','util','[application]'],['mod','util','util_rpc','RPC utilities.'],['fun','util','util_rpc:call/1','optimized gen_server:call with timeout  see: http'],['fun','util','util_rpc:call/1','optimized gen_server:call with fixed timeout of 15'],['fun','util','util_rpc:multicall/1','  Quick and dirty multicall code  If you need to']];

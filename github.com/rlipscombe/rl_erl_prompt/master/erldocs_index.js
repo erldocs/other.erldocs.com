@@ -1,0 +1,1 @@
+var index = [['app','rl_erl_prompt','rl_erl_prompt','[application]'],['mod','rl_erl_prompt','rl_erl_prompt','Custom prompt for the Erlang shell.'],['fun','rl_erl_prompt','rl_erl_prompt:colored_prompt_func/1',[]],['fun','rl_erl_prompt','rl_erl_prompt:prompt_func/1',[]]];

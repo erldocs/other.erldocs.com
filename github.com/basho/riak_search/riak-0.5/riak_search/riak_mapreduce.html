@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_mapreduce (riak_search) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_mapreduce</h1>
+<h2 class="modsummary">Convenience functions for defining common map/reduce phases.</h2>
+<div class="description">
+<p>Convenience functions for defining common map/reduce phases.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="map_identity/1">map_identity(Acc::boolean()) -&gt; map_phase_spec()</h3>
+
+
+<div class="description">
+
+<p>Produces a spec for a map phase that simply returns
+       each object it's handed.  That is:
+       Client:mapred(BucketKeys, [map_identity(true)]).
+       Would return all of the objects named by BucketKeys.</p>
+</div></div>
+<div class="function">
+<h3 id="map_identity/1-1">map_identity(RiakObject::riak_object() (see module riak_object), X2::term(), X3::term()) -&gt; [riak_object() (see module riak_object)]</h3>
+
+
+<div class="description">
+
+<p>map phase function for map_identity/1</p>
+</div></div>
+<div class="function">
+<h3 id="map_object_value/1">map_object_value(Acc::boolean()) -&gt; map_phase_spec()</h3>
+
+
+<div class="description">
+
+<p>Produces a spec for a map phase that simply returns
+       the values of the objects from the input to the phase.
+       That is:
+       Client:mapred(BucketKeys, [map_object_value(true)]).
+       Would return a list that contains the value of each
+       object named by BucketKeys.</p>
+</div></div>
+<div class="function">
+<h3 id="map_object_value/1-1">map_object_value(RiakObject::riak_object() (see module riak_object), X2::term(), X3::term()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>map phase function for map_object_value/1</p>
+</div></div>
+<div class="function">
+<h3 id="map_object_value_list/1">map_object_value_list(Acc::boolean) -&gt; map_phase_spec()</h3>
+
+
+<div class="description">
+
+<p>Produces a spec for a map phase that returns the values of
+       the objects from the input to the phase.  The difference
+       between this phase and that of map_object_value/1 is that
+       this phase assumes that the value of the riak object is
+       a list.  Thus, if the input objects to this phase have values
+       of [a,b], [c,d], and [e,f], the output of this phase is
+       [a,b,c,d,e,f].</p>
+</div></div>
+<div class="function">
+<h3 id="map_object_value_list/1-1">map_object_value_list(RiakObject::riak_object() (see module riak_object), X2::term(), X3::term()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>map phase function for map_object_value_list/1</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_set_union/1">reduce_set_union(Acc::boolean()) -&gt; reduce_phase_spec()</h3>
+
+
+<div class="description">
+
+<p>Produces a spec for a reduce phase that produces the
+       union-set of its input.  That is, given an input of:
+          [a,a,a,b,c,b]
+       this phase will output
+          [a,b,c]</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_set_union/1-1">reduce_set_union(List::[term()], X2::term()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>reduce phase function for reduce_set_union/1</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_sum/1">reduce_sum(Acc::boolean()) -&gt; reduce_phase_spec()</h3>
+
+
+<div class="description">
+
+<p>Produces a spec for a reduce phase that produces the
+       sum of its inputs.  That is, given an input of:
+          [1,2,3]
+       this phase will output
+          [6]</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_sum/1-1">reduce_sum(List::[number()], X2::term()) -&gt; [number()]</h3>
+
+
+<div class="description">
+
+<p>reduce phase function for reduce_sum/1</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_plist_sum/1">reduce_plist_sum(Acc::boolean()) -&gt; reduce_phase_spec()</h3>
+
+
+<div class="description">
+
+<p>Produces a spec for a reduce phase that expects a proplist or
+       a list of proplists.  where all values are numbers, and
+       produces a proplist where all values are the sums of the
+       values of each property from input proplists.</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_plist_sum/1-1">reduce_plist_sum(PList::[{term(), number()} | [{term(), number()}]], X2::term()) -&gt; [{term(), number()}]</h3>
+
+
+<div class="description">
+
+<p>reduce phase function for reduce_plist_sum/1</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

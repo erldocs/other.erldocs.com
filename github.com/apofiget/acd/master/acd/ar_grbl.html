@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ar_grbl (acd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ar_grbl</h1>
+<h2 class="modsummary">Grbl API
+  Module works/tested with Arduino based on Grbl 0.8c firwmware.</h2>
+<div class="description">
+<p>Grbl API
+  Module works/tested with Arduino based on Grbl 0.8c firwmware.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-arduino_reply">arduino_reply() = Tuples</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; {ok, pid()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Start gen_server</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop gen_server</p>
+</div></div>
+<div class="function">
+<h3 id="reply/1">reply(S::string) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Get reply from serial port.
+  Function used as callback function for ar_serial, when data received from port.
+  Function should't be used manually!</p>
+</div></div>
+<div class="function">
+<h3 id="mode/1">mode(M::Mode) -&gt; ok | {ok, Id} | {error, daemon_locked}</h3>
+
+<ul class="type">
+<li><code>Id = integer()</code></li><li><code>Mode = file | command</code></li></ul>
+<div class="description">
+
+<p>Set gen_server internal mode.
+  In "file" mode, "send" function calls allowed only from process that set's "file" mode
+  In "command" mode, "send" function calls allowed from any process</p>
+</div></div>
+<div class="function">
+<h3 id="mode/0">mode() -&gt; {ok, {command, {pid(), reference()}}} | {ok, {file, {pid(), reference()}}}</h3>
+
+
+<div class="description">
+
+<p>Get current work mode</p>
+</div></div>
+<div class="function">
+<h3 id="run_homing_cycle/0">run_homing_cycle() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Run homing cycle</p>
+</div></div>
+<div class="function">
+<h3 id="kill_alarm/0">kill_alarm() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Kill alarm lock</p>
+</div></div>
+<div class="function">
+<h3 id="current_status/0">current_status() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Get current Arduino status and tool position</p>
+</div></div>
+<div class="function">
+<h3 id="reset_grbl/0">reset_grbl() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Make Arduino reset - send Ctrl+X to controller</p>
+</div></div>
+<div class="function">
+<h3 id="gcode_parameters/0">gcode_parameters() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Get Gcode parameters from Arduino.</p>
+</div></div>
+<div class="function">
+<h3 id="parameters/0">parameters() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Get Arduino parameters.</p>
+</div></div>
+<div class="function">
+<h3 id="parser_state/0">parser_state() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Get Grbl parser state from Arduino.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Cmd::string()) -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Send command to Arduino</p>
+</div></div>
+<div class="function">
+<h3 id="feed_hold/0">feed_hold() -&gt; arduino_reply() | {error, daemon_locked} | {error, port_hold} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Arduino feed hold.</p>
+</div></div>
+<div class="function">
+<h3 id="cycle_start/0">cycle_start() -&gt; arduino_reply() | {error, daemon_locked} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Arduino cycle start</p>
+</div></div>
+<div class="function">
+<h3 id="firmware_version/0">firmware_version() -&gt; {ok, string()} | {error, not_ready}</h3>
+
+
+<div class="description">
+
+<p>Get Grbl version</p>
+</div></div>
+<div class="function">
+<h3 id="start_console_trace/0">start_console_trace() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start trace async events to console</p>
+</div></div>
+<div class="function">
+<h3 id="stop_console_trace/0">stop_console_trace() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stop trace async events to console</p>
+</div></div></div>
+
+<authors>
+
+<aname>Andrey Andruschenko</aname>
+<email>apofiget@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','ecurry','ecurry','[application]'],['mod','ecurry','ecurry',[]],['fun','ecurry','ecurry:curry/1',[]],['fun','ecurry','ecurry:partial/2',[]]];

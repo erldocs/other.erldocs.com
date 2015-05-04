@@ -1,0 +1,1 @@
+var index = [['app','erlang-binary','erlang-binary','[application]'],['mod','erlang-binary','erlang_binary',[]],['fun','erlang-binary','erlang_binary:any/1',[]],['fun','erlang-binary','erlang_binary:duplicate/1',[]],['fun','erlang-binary','erlang_binary:map/1',[]]];

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eman (empd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eman</h1>
+<h2 class="modsummary">   
+The Event Manager handles the broadcasting of event messages to all  
+handlers.</h2>
+<div class="description">
+<p>   
+The Event Manager handles the broadcasting of event messages to all  
+handlers. It also is responsible for spawning handlers for all plugins so  
+that subscriptions can be handled effectively.</p>
+ 
+   <p>Please note that there is always just one Event Processor thread (eproc)
+  per plugin. However, when it's the Root user's EMan, N System Plugin Event
+  Processors (seproc) are also created, where N is the number of Users.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-BINARYSTRING">BINARYSTRING() = binary()</h3></div>
+    <div class="type"><h3 id="type-EMPCOMMAND">EMPCOMMAND() = #command{pid=undefined | UUID(), cid=undefined | UUID(), name=undefined | BINARYSTRING(), func=undefined | function(), dparams=[EMPPARAM()], rettype=undefined | EMPTYPEDEF()}</h3></div>
+    <div class="type"><h3 id="type-EMPPARAM">EMPPARAM() = #param{name=undefined | BINARYSTRING(), default=undefined | json_valid_value(), type=undefined | EMPTYPEDEF()}</h3></div>
+    <div class="type"><h3 id="type-EMPPLUGINDEF">EMPPLUGINDEF() = #plugindef{id=undefined | UUID(), module=undefined | atom(), state=undefined | [{BINARYSTRING(), any()}], commands=undefined | EMPCOMMAND()}</h3></div>
+    <div class="type"><h3 id="type-EMPTYPEDEF">EMPTYPEDEF() = [0..3] | [4..5 | EMPTYPEDEF()] | [6 | atom()] | [7 | binary()] | [8] | [9 | atom() | EMPTYPEDEF()]</h3></div>
+    <div class="type"><h3 id="type-EMPUSER">EMPUSER() = #user{uid=undefined | UUID(), name=BINARYSTRING()}</h3></div>
+    <div class="type"><h3 id="type-UUID">UUID() = binary()</h3></div>
+    <div class="type"><h3 id="type-json_valid_value">json_valid_value() = null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {[{binary(), <a href="#type-json_valid_value" class="seealso">json_valid_value()</a>}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-json_valid_value" class="seealso">json_valid_value()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="trigger_event/1">trigger_event(User::EMPUSER(), Plugin::atom(), EventName::string(), ValueList::[any()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Called from emp_plugin, this will send the event to all plugins and gman.</p>
+</div></div>
+<div class="function">
+<h3 id="trigger_sysevent/1">trigger_sysevent(Eman::EMPUSER(), Event::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="link_eproc/1">link_eproc(User::EMPUSER(), PRPid::pid(), PluginModule::EMPPLUGINDEF()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+   Called when a plugin is started for a given user. This will ask the
+   user's eman to make an eproc for it.</p>
+</div></div>
+<div class="function">
+<h3 id="link_new_user/1">link_new_user(User::EMPUSER()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+   Called when new users are started at runtime.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(User) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start and link a eman instance for a particular user.
+spec start_link( 'EMPUSER'() ) -&gt; ServerSpec.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(User::EMPUSER()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the eman and all eprocs for a particular user.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="eproc.html" class="seealso"><em>Event Processor</em></a>, <a href="ueproc.html" class="seealso"><em>User Event Processor</em>
+ </a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

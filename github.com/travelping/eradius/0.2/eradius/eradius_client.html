@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eradius_client (eradius) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eradius_client</h1>
+<h2 class="modsummary">This module contains a RADIUS client that can be used to send authentication and accounting requests.</h2>
+<div class="description">
+<p>This module contains a RADIUS client that can be used to send authentication and accounting requests.    
+A counter is kept for every NAS in order to determine the next request id and sender port    
+for each outgoing request. The implementation naively assumes that you won't send requests to a    
+distinct number of NASs over the lifetime of the VM, which is why the counters are not garbage-collected.</p>
+ 
+    <p>The client uses OS-assigned ports. The maximum number of open ports can be specified through the
+    <code>client_ports</code> application environment variable, it defaults to <code>20</code>. The number of ports should not
+    be set too low. If <code>N</code> ports are opened, the maximum number of concurrent requests is <code>N * 256</code>.</p>
+ 
+    <p>The IP address used to send requests is read <emph>once</emph> (at startup) from the <code>client_ip</code>
+    parameter. Changing it currently requires a restart. It can be given as a string or ip address tuple,
+    or the atom <code>undefined</code> (the default), which uses whatever address the OS selects.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-nas_address">nas_address() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="eradius_server.html#type-port_number" class="seealso">eradius_server:port_number()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="eradius_lib.html#type-secret" class="seealso">eradius_lib:secret()</a>}</h3></div>
+    <div class="type"><h3 id="type-options">options() = [{retries, integer() &gt;= 1} | {timeout, timeout()}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="send_request/1">send_request(NAS::nas_address(), Radius_request::#radius_request{reqid=byte(), cmd=command() (see module eradius_lib), attrs=attribute_list() (see module eradius_lib), secret=undefined | secret() (see module eradius_lib), authenticator=undefined | authenticator() (see module eradius_lib)}) -&gt; {ok, binary()} | {error, timeout | socket_down}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#send_request/3" class="seealso">send_request(NAS, Request, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_request/1-1">send_request(NAS::nas_address(), Radius_request::#radius_request{reqid=byte(), cmd=command() (see module eradius_lib), attrs=attribute_list() (see module eradius_lib), secret=undefined | secret() (see module eradius_lib), authenticator=undefined | authenticator() (see module eradius_lib)}, Options::options()) -&gt; {ok, binary()} | {error, timeout | socket_down}</h3>
+
+
+<div class="description">
+
+<p>Send a radius request to the given NAS.
+   If no answer is received within the specified timeout, the request will be sent again.</p>
+</div></div>
+<div class="function">
+<h3 id="send_remote_request/1">send_remote_request(Node::node(), NAS::nas_address(), Radius_request::#radius_request{reqid=byte(), cmd=command() (see module eradius_lib), attrs=attribute_list() (see module eradius_lib), secret=undefined | secret() (see module eradius_lib), authenticator=undefined | authenticator() (see module eradius_lib)}) -&gt; {ok, binary()} | {error, timeout | node_down | socket_down}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#send_remote_request/4" class="seealso">send_remote_request(Node, NAS, Request, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_remote_request/1-1">send_remote_request(Node::node(), NAS::nas_address(), Radius_request::#radius_request{reqid=byte(), cmd=command() (see module eradius_lib), attrs=attribute_list() (see module eradius_lib), secret=undefined | secret() (see module eradius_lib), authenticator=undefined | authenticator() (see module eradius_lib)}, Options::options()) -&gt; {ok, binary()} | {error, timeout | node_down | socket_down}</h3>
+
+
+<div class="description">
+
+<p>Send a radius request to the given NAS through a socket on the specified node.
+   If no answer is received within the specified timeout, the request will be sent again.
+   The request will not be sent again if the remote node is unreachable.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

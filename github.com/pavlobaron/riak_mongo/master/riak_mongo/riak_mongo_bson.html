@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_mongo_bson (riak_mongo) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_mongo_bson</h1>
+<h2 class="modsummary">Encode/decode bson to Erlang terms.</h2>
+<div class="description">
+<p>Encode/decode bson to Erlang terms.</p>
+ 
+  <p>The reason for not using the standard erlang-bson module is that
+  (1) erlang-bson does not specify a license which leaves us in libo
+  for using it, (2) erlang-bson generates atoms for all keys in BSON
+  documents, which is highly undesirable for server-side programming
+  since atoms are not garbage collected. In this implementation keys
+  are always utf8-encoded binaries. And finally, (3) we find the
+  mochi_json-like structure easier to work with.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bson_binary">bson_binary() = {binary | function | uuid | md5, binary()}</h3></div>
+    <div class="type"><h3 id="type-bson_document">bson_document() = {struct, [<a href="#type-bson_element" class="seealso">bson_element()</a>]}</h3></div>
+    <div class="type"><h3 id="type-bson_element">bson_element() = {<a href="#type-bson_utf/8" class="seealso">bson_utf8()</a>, <a href="#type-bson_value" class="seealso">bson_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-bson_integer">bson_integer() = -9223372036854775808..9223372036854775807</h3></div>
+    <div class="type"><h3 id="type-bson_javascript">bson_javascript() = {javascript, <a href="#type-bson_utf/8" class="seealso">bson_utf8()</a>}</h3></div>
+    <div class="type"><h3 id="type-bson_objectid">bson_objectid() = {objectid, binary()}</h3></div>
+    <div class="type"><h3 id="type-bson_raw_document">bson_raw_document() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#bson_raw_document{id = undefined | <a href="#type-bson_value" class="seealso">bson_value()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body = undefined | binary()}</h3></div>
+    <div class="type"><h3 id="type-bson_regex">bson_regex() = {regex, <a href="#type-bson_utf/8" class="seealso">bson_utf8()</a>, <a href="#type-bson_utf/8" class="seealso">bson_utf8()</a>}</h3></div>
+    <div class="type"><h3 id="type-bson_symbol">bson_symbol() = {symbol, <a href="#type-bson_utf/8" class="seealso">bson_utf8()</a>}</h3></div>
+    <div class="type"><h3 id="type-bson_time">bson_time() = {integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-bson_utf8">bson_utf8() = binary()</h3></div>
+    <div class="type"><h3 id="type-bson_value">bson_value() = boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_integer" class="seealso">bson_integer()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_document" class="seealso">bson_document()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_utf/8" class="seealso">bson_utf8()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-bson_value" class="seealso">bson_value()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_objectid" class="seealso">bson_objectid()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_regex" class="seealso">bson_regex()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_javascript" class="seealso">bson_javascript()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_symbol" class="seealso">bson_symbol()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_binary" class="seealso">bson_binary()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-bson_time" class="seealso">bson_time()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| '$min_key'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| '$max_key'</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_document/1">get_document(X1::binary()) -&gt; {bson_document(), binary()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_raw_document/1">get_raw_document(Binary::binary()) -&gt; {bson_raw_document(), binary()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_cstring/1">get_cstring(Bin::binary()) -&gt; {bson_utf8(), binary()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="value_type/1">value_type(Value) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_document/1">encode_document(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Kresten Krab Thorup</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

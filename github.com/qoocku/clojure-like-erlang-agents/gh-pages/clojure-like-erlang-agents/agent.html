@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>agent (clojure-like-erlang-agents) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>agent</h1>
+<h2 class="modsummary">Agent client API.</h2>
+<div class="description">
+<p>Agent client API.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-agent_fun">agent_fun() = fun((pid(), any()) -> <a href="#type-callback_result" class="seealso">callback_result()</a>)</h3></div>
+    <div class="type"><h3 id="type-agent_ref">agent_ref()</h3></div>
+    <div class="type"><h3 id="type-callback_result">callback_result() = {ok, any()} | {ok, any(), timeout()}</h3></div>
+    <div class="type"><h3 id="type-property">property() = validation | timeout | state</h3></div>
+    <div class="type"><h3 id="type-property_value">property_value() = <a href="#type-validation_fun" class="seealso">validation_fun()</a> | <a href="#type-timeout_fun" class="seealso">timeout_fun()</a> | any()</h3></div>
+    <div class="type"><h3 id="type-timeout_fun">timeout_fun() = <a href="#type-agent_fun" class="seealso">agent_fun()</a></h3></div>
+    <div class="type"><h3 id="type-validation_fun">validation_fun() = fun((any()) -&gt; boolean())</h3></div>
+    <div class="type"><h3 id="type-value_vsn">value_vsn() = reference() | undefined</h3></div>
+    <div class="type"><h3 id="type-watch_fun">watch_fun() = fun((<a href="#type-agent_ref" class="seealso">agent_ref()</a>, any(), any()) -> any())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(InitialState::any()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Starts unsupervised agent with the <code>InitialState</code> as initial value.
+  The validation and timeout functions are set to their defaults value (which
+  results in validation accepting any state value and timeout function doing nothing).
+ </p>
+<p><em>See also:</em> <a href="#start/3" class="seealso">start/3</a>, <a href="#start_link/1" class="seealso">start_link/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(InitialState::any(), VFun::validation_fun(), TFun::timeout_fun()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Start unsupervised agent with the <code>InitialState</code> as initial value. The validation
+  function set is to <code>VFun</code> and timeout function set to <code>TFun</code>. The result contains the
+  agent reference which currently is a <em>pid</em>.
+ </p>
+<p><em>See also:</em> <a href="#start/1" class="seealso">start/1</a>, <a href="#start_link/3" class="seealso">start_link/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_ref/1">start_ref(InitialState::any()) -&gt; {ok, ref() (see module agent_ref)}</h3>
+
+
+<div class="description">
+
+<p>Starts unsupervised agent with the <code>InitialState</code> as initial value.
+  The validation and timeout functions are set to their defaults value (which
+  results in validation accepting any state value and timeout function doing nothing).
+  The result is parametrized module instance <code>agent_ref[]</code>.
+ </p>
+<p><em>See also:</em> <a href="#start_link_ref/1" class="seealso">start_link_ref/1</a>, <a href="#start_ref/3" class="seealso">start_ref/3</a>, <a href="agent_ref.html#new/1" class="seealso">agent_ref:new/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_ref/1-1">start_ref(InitialState::any(), VFun::validation_fun(), TFun::timeout_fun()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Start unsupervised agent with the <code>InitialState</code> as initial value. The validation
+  function is set to <code>VFun</code> and timeout function is set to <code>TFun</code>.
+  The result is parametrized module instance <code>agent_ref[]</code>.
+ </p>
+<p><em>See also:</em> <a href="#start_link_ref/3" class="seealso">start_link_ref/3</a>, <a href="#start_ref/1" class="seealso">start_ref/1</a>, <a href="agent_ref.html#new/1" class="seealso">agent_ref:new/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(InitialState::any()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Starts an agent to be supervised with initial state set to <code>InitialState</code> value.
+  The validation and timeout functions are set to their defaults value (which
+  results in validation accepting any state value and timeout function doing nothing).
+  The result is containes <em>opaque</em> agent's reference (do not confuse with <code>agent_ref:ref()</code>.
+ </p>
+<p><em>See also:</em> <a href="#start/1" class="seealso">start/1</a>, <a href="#start_link/3" class="seealso">start_link/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(InitialState::any(), VFun::validation_fun(), TFun::timeout_fun()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Starts an agent to be supervised with the <code>InitialState</code> as initial value, validation
+  function set to <code>VFun</code> and timeout function set to <code>TFun</code>.
+  The result contains the agent reference which currently is an <em>opaque</em> term
+  containing the agent process <em>pid</em>.
+ </p>
+<p><em>See also:</em> <a href="#start/3" class="seealso">start/3</a>, <a href="#start_link/1" class="seealso">start_link/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link_ref/1">start_link_ref(InitialState::any()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Starts an agent to be supervised with initial state set to <code>InitialState</code> value.
+  The validation and timeout functions are set to their defaults value (which
+  results in validation accepting any state value and timeout function doing nothing).
+  The result is parametrized module instance <code>agent_ref[]</code>.
+ </p>
+<p><em>See also:</em> <a href="#start_link_ref/3" class="seealso">start_link_ref/3</a>, <a href="#start_ref/1" class="seealso">start_ref/1</a>, <a href="agent_ref.html#new/1" class="seealso">agent_ref:new/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link_ref/1-1">start_link_ref(InitialState::any(), VFun::validation_fun(), TFun::timeout_fun()) -&gt; {ok, agent_ref()}</h3>
+
+
+<div class="description">
+
+<p>Starts an agent to be supervised with the <code>InitialState</code> as initial value. The validation
+  function is set to <code>VFun</code> and timeout function is set to <code>TFun</code>.
+  The result is parametrized module instance <code>agent_ref[]</code>.
+ </p>
+<p><em>See also:</em> <a href="#start_link_ref/1" class="seealso">start_link_ref/1</a>, <a href="#start_ref/3" class="seealso">start_ref/3</a>, <a href="agent_ref.html#new/1" class="seealso">agent_ref:new/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Agent::agent_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops an agent asynchronously.
+ </p>
+<p><em>See also:</em> <a href="#sync_stop/1" class="seealso">sync_stop/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_stop/1">sync_stop(Agent::agent_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops an agent synchronously (the caller is blocked till the agent stops).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(Agent::agent_ref(), Property::property(), Value::property_value()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets an agent property. The property may be:
+  </p><list>
+  <item><p><code>validation</code> -- which stands for the agent's validation function;</p></item>
+  <item><p><code>timeout</code> -- which stands for the agent's timeout function;</p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="#get/2" class="seealso">get/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Agent::agent_ref(), Msg::property()) -&gt; {ok, property_value()}</h3>
+
+
+<div class="description">
+
+<p>Returns an agent property. The property may be:
+  </p><list>
+  <item><p><code>validation</code> -- which stands for the agent's validation function;</p></item>
+  <item><p><code>timeout</code> -- which stands for the agent's timeout function;</p></item>
+  <item><p><code>state</code> -- which stands for the agent's state value.</p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="#set/3" class="seealso">set/3</a>, <a href="#state/2" class="seealso">state/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pid/1">pid(Agent::agent_ref()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Returns the agent process <em>pid</em>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="is/1">is(Agent::agent_ref(), Arg::agent_ref() | alive) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Tests agent's properties. The tests includes:
+  </p><list>
+  <item><p>the equality of agent references iff <code>_Arg</code> is an agent's reference;</p></item>
+  <item><p>the agent liveness iff <code>_Arg</code> is atom <code>alive</code>.</p></item>
+  </list><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="state/1">state(Agent::agent_ref()) -&gt; {ok, any()}</h3>
+
+
+<div class="description">
+
+<p>Returns an agent's state value.</p>
+<p><em>See also:</em> <a href="#get/2" class="seealso">get/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Agent::agent_ref(), Fun::agent_fun()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends to an agent a function to be evaluated asynchronously.
+  The function will be evaluated within the agent process.
+ </p>
+<p><em>See also:</em> <a href="send_off.html" class="seealso">send_off</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_off/1">send_off(Agent::agent_ref(), Fun::agent_fun()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends to an agent a function to be evaluated asynchronously in a separate process.
+  Version control.</p>
+<p><em>See also:</em> <a href="#send/2" class="seealso">send/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_off/1-1">send_off(Agent::agent_ref(), Fun::agent_fun(), Versioned::boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends to an agent a function to be evaluated asynchronously in a separate process.
+  If <code>Versioned</code> is <code>true</code> the agent's value will be versioned.</p>
+<p><em>See also:</em> <a href="#send/2" class="seealso">send/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="add_watch/1">add_watch(Agent::agent_ref(), Fun::watch_fun()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Binds to an agent a watching function. The function will be evaluated
+  when the agent's state value has been changed (i.e. <em>after</em> the validation
+  function has been evaluated and returns <code>true</code> and the new value is not the same
+  as the old one).
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Damian T. dobroczy\\'nski</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

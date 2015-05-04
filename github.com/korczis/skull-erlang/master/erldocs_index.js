@@ -1,0 +1,1 @@
+var index = [['app','skull-erlang','skull-erlang','[application]'],['mod','skull-erlang','hello_world',[]],['fun','skull-erlang','hello_world:hello_world/0',[]]];

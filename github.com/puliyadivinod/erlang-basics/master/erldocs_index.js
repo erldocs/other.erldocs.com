@@ -1,0 +1,1 @@
+var index = [['app','erlang-basics','erlang-basics','[application]'],['mod','erlang-basics','area',[]],['mod','erlang-basics','beersong','@todo Add description to beersong.'],['mod','erlang-basics','practice',[]],['fun','erlang-basics','area:area/0',[]],['fun','erlang-basics','beersong:sing/0',[]],['fun','erlang-basics','practice:feach/0',[]]];

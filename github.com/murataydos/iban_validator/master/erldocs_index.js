@@ -1,0 +1,1 @@
+var index = [['app','iban_validator','iban_validator','[application]'],['mod','iban_validator','ibanValidation',[]],['fun','iban_validator','ibanValidation:validate/1',[]]];

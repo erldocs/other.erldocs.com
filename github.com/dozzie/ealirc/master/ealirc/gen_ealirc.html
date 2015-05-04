@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_ealirc (ealirc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_ealirc</h1>
+<h2 class="modsummary">     
+IRC client behaviour.</h2>
+<div class="description">
+<p>     
+IRC client behaviour.</p>
+  
+     <p><em>NOTE</em>: Any IRC commands (e.g. <i>JOIN</i>) sent to <code>self()</code> within
+     callbacks are processed <i>after</i> the callback has returned. This
+     could be a limitation. To overcome this, you can encode a state machine
+     (could be somewhat difficult in some cases) or spawn a process that will
+     be talking through <a href="gen_ealirc.html" class="seealso">gen_ealirc</a>.</p>
+  
+     <p><em>NOTE</em>: When using timeouts (<code>{noreply,State,Timeout}</code> and similar     
+returned from callbacks), your timeout could be reset on any incoming     
+IRC command to be sent to server. Don't use it for precise time     
+measurements.</p>
+  
+     <em><marker id="Expected_callbacks">Expected callbacks</marker></em>
+  
+     <p>The callbacks are the same as for <a href="gen_server.html" class="seealso">gen_server</a> behaviour, with     
+small additions.</p>
+  
+     <list>
+       <item><p>
+         <code>Module:connected(Socket, State)</code>, which should return:
+         </p><list>
+           <item><p><code>{ok, State}</code></p></item>
+           <item><p><code>{ok, State, Timeout}</code></p></item>
+           <item><p><code>{ok, State, hibernate}</code></p></item>
+           <item><p><code>{disconnect, Reason, State}</code></p></item>
+           <item><p><code>{stop, Reason, State}</code></p></item>
+         </list><p>
+       </p></item>
+       <item><p>
+         <code>Module:disconnected(Reason, State)</code>, which should return:
+         </p><list>
+           <item><p><code>{reconnect, After, State}</code></p></item>
+           <item><p><code>{reconnect, {Address, Port}, After, State}</code></p></item>
+           <item><p><code>{stop, Reason, State}</code></p></item>
+         </list><p>
+       </p></item>
+       <item><p>
+         <code>Module:handle_message(Prefix, Command, Args, State)</code>, which should
+         return:
+         </p><list>
+           <item><p><code>{noreply, State}</code></p></item>
+           <item><p><code>{noreply, State, Timeout}</code></p></item>
+           <item><p><code>{noreply, State, hibernate}</code></p></item>
+           <item><p><code>{disconnect, Reason, State}</code></p></item>
+           <item><p><code>{stop, Reason, State}</code></p></item>
+         </list><p>
+       </p></item>
+     </list>
+  
+     <em><marker id="Values_returned_from_callbacks">Values returned from callbacks</marker></em>
+  
+     <list>
+       <item><p><code>connected/2</code>, <code>handle_cast/2</code> and <code>handle_info/2</code> additionally
+           can return <code>{disconnect, Reason, State}</code>
+       </p></item>
+       <item><p><code>handle_call/3</code> can return <code>{disconnect, Reason, State}</code> or
+           <code>{disconnect, Reason, Reply, State}</code>,
+       </p></item>
+     </list>
+  
+     <p>When <code>Module:init(Args)</code> returns <code>{ok, State, Timeout}</code>, establishing
+     a connection is delayed by <code>Timeout</code> instead of being immediate.</p>
+  
+     <em><marker id="Possible_reasons_for_`disconnected/2'">Possible reasons for `disconnected/2'</marker></em>
+  
+     There are several built-in reasons <code>disconnected/2</code> could be called
+     with:
+     <list>
+       <item><p><code>{connect,Reason}</code>, when connection could not be established
+           (<code>Reason</code> is taken from <code>{error,Reason}</code> returned by <a href="gen_tcp.html#connect/3" class="seealso">gen_tcp:connect/3</a>)</p></item>
+       <item><p><code>badserver</code>, when IRC server sent a message that could not be
+           parsed</p></item>
+       <item><p><code>tcp_closed</code>, when TCP connection was closed</p></item>
+       <item><p><code>{tcp_error, Reason}</code>, when a TCP error occurred (<code>Reason</code> is
+           taken from <code>{tcp_error, Socket, Reason}</code> message; see <a href="gen_tcp.html" class="seealso">gen_tcp</a> for details)</p></item>
+     </list>
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-process_name">process_name() = {local, atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {global, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {via, term()}</h3></div>
+    <div class="type"><h3 id="type-server_address">server_address() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Host :: <a href="inet.html#type-hostname" class="seealso">inet:hostname()</a> | <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port :: integer()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Module::module(), Args::term(), IRCServer::server_address(), Options::list()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start IRC client process.</p>
+ 
+    <p><code>Options</code> is a proplist suitable for <a href="gen_server.html#start/3" class="seealso">gen_server:start/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(ProcessName::process_name(), Module::module(), Args::term(), IRCServer::server_address(), Options::list()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start registered process using already prepared socket.</p>
+ 
+    <p><code>ProcessName</code> is the same as for <a href="gen_server.html#start/4" class="seealso">gen_server:start/4</a>.</p>
+ 
+    <p><code>Options</code> is a proplist suitable for <a href="gen_server.html#start/4" class="seealso">gen_server:start/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Module::module(), Args::term(), IRCServer::server_address(), Options::list()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start (linked) process using already prepared socket.</p>
+ 
+    <p><code>Options</code> is a proplist suitable for <a href="gen_server.html#start_link/4" class="seealso">gen_server:start_link/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(ProcessName::process_name(), Module::module(), Args::term(), IRCServer::server_address(), Options::list()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start registered (and linked) process using already prepared socket.</p>
+ 
+    <p><code>ProcessName</code> is the same as for <a href="gen_server.html#start_link/4" class="seealso">gen_server:start_link/4</a>.</p>
+ 
+    <p><code>Options</code> is a proplist suitable for <a href="gen_server.html#start_link/4" class="seealso">gen_server:start_link/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Pid::pid(), Request::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Call <a href="gen_ealirc.html" class="seealso">gen_ealirc</a> synchronously.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Pid::pid(), Request::term(), Timeout::timeout()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Call <a href="gen_ealirc.html" class="seealso">gen_ealirc</a> synchronously with timeout.</p>
+</div></div>
+<div class="function">
+<h3 id="cast/1">cast(Pid::pid(), Request::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an asynchronous request to <a href="gen_ealirc.html" class="seealso">gen_ealirc</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="quote/1">quote(Pid::pid(), Line::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send raw IRC line to server.</p>
+ 
+    <p>The line will be terminated with CR+LF automatically. You don't need to
+    include it.</p>
+</div></div>
+<div class="function">
+<h3 id="nick/1">nick(Pid::pid(), Nick::nick() (see module ealirc_proto)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Nick change/set request.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#nick/1" class="seealso">ealirc_proto:nick/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="user/1">user(Pid::pid(), User::nick() (see module ealirc_proto), Mode::none | invisible | wallops | invisible_wallops, RealName::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Passing username and realname.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#user/3" class="seealso">ealirc_proto:user/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="mode/1">mode(Pid::pid(), NickOrChannel::nick() (see module ealirc_proto) | channel() (see module ealirc_proto), Modes::[user_mode() (see module ealirc_proto)] | [channel_mode() (see module ealirc_proto)]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set user or channel mode.</p>
+ 
+    <p><em>WARNING</em>: be careful when mixing modes with and without arguments
+    (channel modes only). There's a risk of passing argument to wrong mode if
+    you incidentally omitted argument to, for example, <code>"+o"</code> or <code>"+I"</code>.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#mode/2" class="seealso">ealirc_proto:mode/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="quit/1">quit(Pid::pid()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Quit message.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#quit/0" class="seealso">ealirc_proto:quit/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="quit/1-1">quit(Pid::pid(), Message::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Quit message.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#quit/1" class="seealso">ealirc_proto:quit/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="join/1">join(Pid::pid(), Channels::[channel() (see module ealirc_proto)] | [{channel() (see module ealirc_proto), string()}] | 0) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Join provided channels.</p>
+ 
+    <p>Channel may be provided as a name or a tuple of <code>{Chan,Key}</code>, containing    
+channel key.</p>
+ 
+    <p>Special case of integer 0 is for <i>JOIN 0</i> IRC command, which leaves
+    all the channels user is in.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#join/1" class="seealso">ealirc_proto:join/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="part/1">part(Pid::pid(), Channels::[channel() (see module ealirc_proto)]) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Leave specified channels.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#part/1" class="seealso">ealirc_proto:part/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="part/1-1">part(Pid::pid(), Channels::[channel() (see module ealirc_proto)], Message::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Leave specified channels.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#part/2" class="seealso">ealirc_proto:part/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="topic/1">topic(Pid::pid(), Channel::channel() (see module ealirc_proto), Topic::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Set topic for specified channel.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#topic/2" class="seealso">ealirc_proto:topic/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="invite/1">invite(Pid::pid(), Nick::nick() (see module ealirc_proto), Channel::channel() (see module ealirc_proto)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Invite user to a channel.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#invite/2" class="seealso">ealirc_proto:invite/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="kick/1">kick(Pid::pid(), Channels::[channel() (see module ealirc_proto)], Nicks::[nick() (see module ealirc_proto)]) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Kick users from channels.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#kick/2" class="seealso">ealirc_proto:kick/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="kick/1-1">kick(Pid::pid(), Channels::[channel() (see module ealirc_proto)], Nicks::[nick() (see module ealirc_proto)], Comment::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Kick users from channels.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#kick/3" class="seealso">ealirc_proto:kick/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="privmsg/1">privmsg(Pid::pid(), Target::nick() (see module ealirc_proto) | channel() (see module ealirc_proto), Message::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send a message to user or channel.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#privmsg/2" class="seealso">ealirc_proto:privmsg/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="notice/1">notice(Pid::pid(), Target::nick() (see module ealirc_proto) | channel() (see module ealirc_proto), Message::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send a message to user or channel.</p>
+ 
+    <p>Messages sent with <i>NOTICE</i> are never getting any automated
+    response (e.g. delivery errors).
+ </p>
+<p><em>See also:</em> <a href="#privmsg/3" class="seealso">privmsg/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="ping/1">ping(Pid::pid(), Target::server() (see module ealirc_proto)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send <i>ping</i> message to server.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#ping/1" class="seealso">ealirc_proto:ping/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pong/1">pong(Pid::pid(), Responder::server() (see module ealirc_proto)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send <i>pong</i> reply to server.
+ </p>
+<p><em>See also:</em> <a href="ealirc_proto.html#pong/1" class="seealso">ealirc_proto:pong/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Any) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Define callbacks.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

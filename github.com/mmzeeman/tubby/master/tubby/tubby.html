@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>tubby (tubby) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>tubby</h1>
+<h2 class="modsummary">Process Pool for Tasks.</h2>
+<div class="description">
+<p>Process Pool for Tasks.</p>
+ 
+  <p>Copyright 2012, 2013 Maas-Maarten Zeeman</p>
+ 
+  <p>Licensed under the Apache License, Version 2.0 (the "License");  
+you may not use this file except in compliance with the License.  
+You may obtain a copy of the License at</p>
+ 
+      <p>http://www.apache.org/licenses/LICENSE-2.0</p>
+ 
+  <p>Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="child_spec/3">child_spec(Name, MFA, Limit) -&gt; child_spec() (see module supervisor)</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {local, atom()} | {global, atom()} | {via, module(), atom()}</code></li><li><code>MFA = mfa()</code></li><li><code>Limit = undefined | pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Get a child spec. This can be used to start a process pool in the
+ supervision tree of another application.</p>
+</div></div>
+<div class="function">
+<h3 id="start/2">start(Name, MFA) -&gt; {ok, pid()}</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {local, atom()} | {global, atom()} | {via, module(), atom()}</code></li><li><code>MFA = mfa()</code></li></ul>
+<div class="description">
+
+<p>Start a new process pool with Name. MFA should contain the start
+ function of the task.</p>
+</div></div>
+<div class="function">
+<h3 id="start/3">start(Name, MFA, Limit) -&gt; {ok, pid()}</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {local, atom()} | {global, atom()} | {via, module(), term()}</code></li><li><code>MFA = mfa()</code></li><li><code>Limit = undefined | pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Start a new process pool by passing the MFA of the tasks
+  which will be used to start the tasks. The limit in</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Name) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {global, atom()} | {via, module(), atom()}</code></li></ul>
+<div class="description">
+
+<p>Stop a process pool.</p>
+</div></div>
+<div class="function">
+<h3 id="run/2">run(Name, Args) -&gt; {ok, pid()} | {error, full}</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {global, atom()} | {via, module(), atom()}</code></li><li><code>Args = list()</code></li></ul>
+<div class="description">
+
+<p>Run a task on pool Name</p>
+</div></div>
+<div class="function">
+<h3 id="queue_wait/2">queue_wait(Name, Args) -&gt; {ok, pid()}</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {global, atom()} | {via, module(), atom()}</code></li><li><code>Args = list()</code></li></ul>
+<div class="description">
+
+<p>Queue a task on pool Name and wait for it to start.</p>
+</div></div>
+<div class="function">
+<h3 id="queue/2">queue(Name, Args) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {global, atom()} | {via, module(), atom()}</code></li><li><code>Args = list()</code></li></ul>
+<div class="description">
+
+<p>Queue task on pool Name and continue immediately.</p>
+</div></div>
+<div class="function">
+<h3 id="status/1">status(Name) -&gt; {Running, Waiting, Limit}</h3>
+
+<ul class="type">
+<li><code>Name = atom() | {global, atom()} | {via, module(), atom()}</code></li><li><code>Running = non_neg_integer()</code></li><li><code>Waiting = non_neg_integer()</code></li><li><code>Limit = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Return the current status of the pool. Returns the
+ number of running tasks, the number of waiting tasks and
+ the current limit.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Maas-Maarten Zeeman</aname>
+<email>mmzeeman@xs4all.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

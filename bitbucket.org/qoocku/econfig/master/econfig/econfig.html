@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>econfig (econfig) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>econfig</h1>
+<h2 class="modsummary">Public API for econfig application.</h2>
+<div class="description">
+<p>Public API for <code>econfig</code> application.</p>
+  
+   <em><marker id="License">License</marker></em><p>   
+The contents of this file are subject to the Erlang Public License,   
+Version 1.1, (the "License"); you may not use this file except in   
+compliance with the License. You should have received a copy of the   
+Erlang Public License along with this software. If not, it can be   
+retrieved via the world wide web at http://www.erlang.org/EPLICENSE.</p>
+  
+   Software distributed under the License is distributed on an "AS IS"
+   basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+   the License for the specific language governing rights and limitations
+   under the License.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-change_info">change_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{econfig,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;App :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyPath :: <a href="#type-key_path" class="seealso">key_path()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: any()}</h3></div>
+    <div class="type"><h3 id="type-key_path">key_path() = [atom()]</h3></div>
+    <div class="type"><h3 id="type-struct">struct() = [<a href="#type-struct_item" class="seealso">struct_item()</a>]</h3></div>
+    <div class="type"><h3 id="type-struct_item">struct_item() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Id :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-type" class="seealso">type()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-struct" class="seealso">struct()</a> | integer() | float() | string() | atom() | tuple()}</h3></div>
+    <div class="type"><h3 id="type-type">type() = tree<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| list<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| tuple<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Starts this application.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stops this application.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(X1::supervisor | worker) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts one of main processes of this application.</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(App::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Subscribes calling process onto this application subscription list.
+  The application processes publish <a href="#type-change_info" class="seealso">message</a>
+  where <code>App</code> is id of an application for which <code>Value</code> has been set to the
+  parameter pointed by <code>KeyPath</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/0">subscribe() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Subscribes the calling process ont its application subscription list.</p>
+</div></div>
+<div class="function">
+<h3 id="configure/1">configure(App::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Updates/merge cached values with given application configuration.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(App::atom(), KeyPath::[atom()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes a value from configuration.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Keys::key_path()) -&gt; any() | undefined</h3>
+
+
+<div class="description">
+
+<p>Retrieves current application configuration value pointed by given key path.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1-1">get(X1::atom() | key_path(), X2::key_path() | any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Retrieves a configuration value pointed by given key path.
+  If <code>X1</code> is an atom it denotes an application. <code>X1</code> may be a list
+  of atoms (key path) so then <code>X1</code> is the default value if the entry
+  is not found. Otherwise <code>X2</code> is a key path. In the latter case
+  an error is raised if the entry is not found.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1-2">get(App::atom(), KeyPath::key_path(), Default::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Retrieves a configuration value pointed by given key path.
+  If value does not exists it returns <code>Default</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(App::atom(), KeyPath::key_path(), Value::any()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets a configuration value pointed by given key path.</p>
+</div></div>
+<div class="function">
+<h3 id="set/1-1">set(Keys::key_path(), Value::any()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets a confiuration value for current application.</p>
+</div></div>
+<div class="function">
+<h3 id="copy_from/1">copy_from(Node::node(), App::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Copies <code>App</code> configuration from <code>Node</code> node.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(X1::change_info(), Mod::module(), State::any()) -&gt; NewState::any()</h3>
+
+
+<div class="description">
+
+<p>Utility for process handling configuration change.
+  It may be used in <code>gen_servers</code> like this:
+  </p><pre class="sh_erlang">  handle_info (...) -&gt;
+    ...;
+  handle_info (Info, State) -&gt;
+    {noreply, econfig:handle_info(Info, ?MODULE, State)}.</pre><p>
+  or in <code>gen_event</code> handlers:
+  </p><pre class="sh_erlang">  handle_info (...) -&gt;
+    ...;
+  handle_info (Info, State) -&gt;
+    {ok, econfig:handle_info(Info, ?MODULE, State)}.</pre>
+<p><em>See also:</em> <a href="#subscribe/0" class="seealso">subscribe/0</a>, <a href="#subscribe/1" class="seealso">subscribe/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="struct/0">struct() -&gt; struct()</h3>
+
+
+<div class="description">
+
+<p>Returns structure of configurations of applications.</p>
+</div></div>
+<div class="function">
+<h3 id="struct/1">struct(App::atom()) -&gt; struct_item()</h3>
+
+
+<div class="description">
+
+<p>Returns structure of configuration of specific application.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Damian Dobroczy\\'nski</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','learn_erl','learn_erl','[application]'],['mod','learn_erl','useless',[]],['fun','learn_erl','useless:add/2',[]],['fun','learn_erl','useless:greet/0',[]],['fun','learn_erl','useless:greet_and_add_two/1',[]]];

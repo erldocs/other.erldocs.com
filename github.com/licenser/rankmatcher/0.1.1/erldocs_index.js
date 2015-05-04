@@ -1,0 +1,1 @@
+var index = [['app','rankmatcher','rankmatcher','[application]'],['mod','rankmatcher','rankmatcher','.'],['fun','rankmatcher','rankmatcher:apply_scales/1',[]],['fun','rankmatcher','rankmatcher:match/3',[]]];

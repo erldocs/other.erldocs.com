@@ -1,0 +1,1 @@
+var index = [['app','gen_mapred','gen_mapred','[application]'],['mod','gen_mapred','gen_mapred','Generic Map/Reduce behavior in Erlang.']];

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>west (west) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>west</h1>
+<h2 class="modsummary">This gen_server is a native Erlang WEST client or wrapper.</h2>
+<div class="description">
+<p>This gen_server is a native Erlang WEST client or wrapper.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-cb_spec">cb_spec() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{module(), function() | atom(), [term()] | undefined}</h3></div>
+    <div class="type"><h3 id="type-channel">channel() = string()</h3></div>
+    <div class="type"><h3 id="type-gname">gname() = term()</h3></div>
+    <div class="type"><h3 id="type-msg">msg() = any()</h3></div>
+    <div class="type"><h3 id="type-msg_spec">msg_spec() = <a href="#type-msg_spec" class="seealso">msg_spec()</a></h3></div>
+    <div class="type"><h3 id="type-name">name() = atom()</h3></div>
+    <div class="type"><h3 id="type-property">property() = {atom(), term()}</h3></div>
+    <div class="type"><h3 id="type-proplist">proplist() = [<a href="#type-property" class="seealso">property()</a>]</h3></div>
+    <div class="type"><h3 id="type-server_ref">server_ref() = <a href="#type-name" class="seealso">name()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-name" class="seealso">name()</a>, node()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {global, <a href="#type-gname" class="seealso">gname()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pid()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Key::iolist(), CallbackSpec::cb_spec(), Opts::proplist()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Starts the gen_server.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(ServerRef::server_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the gen_server.</p>
+</div></div>
+<div class="function">
+<h3 id="reg/1">reg(ServerRef::server_ref(), Channel::channel()) -&gt; {ok | error, msg_spec()}</h3>
+
+
+<div class="description">
+
+<p>Register to a point-to-point channel with name <code>Channel</code>. All
+       incoming events to the channel <code>Key</code> will be handle them by the
+       callback spec.</p>
+</div></div>
+<div class="function">
+<h3 id="unreg/1">unreg(ServerRef::server_ref(), Channel::channel()) -&gt; {ok | error, msg_spec()}</h3>
+
+
+<div class="description">
+
+<p>Unregister from a point-to-point channel with name <code>Channel</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(ServerRef::server_ref(), Channel::channel(), Msg::msg()) -&gt; {ok | error, msg_spec()}</h3>
+
+
+<div class="description">
+
+<p>Send the message <code>Msg</code> to point-to-point channel <code>Channel</code>.
+       Just one consumer will receive this message.</p>
+</div></div>
+<div class="function">
+<h3 id="sub/1">sub(ServerRef::server_ref(), Channel::channel()) -&gt; {ok | error, msg_spec()}</h3>
+
+
+<div class="description">
+
+<p>Subscribe to a pub/sub channel <code>Channel</code>. All incoming events
+       to the channel will be handle them by the callback spec.</p>
+</div></div>
+<div class="function">
+<h3 id="unsub/1">unsub(ServerRef::server_ref(), Channel::channel()) -&gt; {ok | error, msg_spec()}</h3>
+
+
+<div class="description">
+
+<p>Removes a subscription from a pub/sub channel <code>Channel</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="pub/1">pub(ServerRef::server_ref(), Channel::channel(), Msg::msg()) -&gt; {ok | error, msg_spec()}</h3>
+
+
+<div class="description">
+
+<p>Publish the message <code>Msg</code> to all subscribers to a pub/sub
+       channel <code>Channel</code>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Carlos Andres Bolaños R.A.</aname>
+<email>candres@niagara.io</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

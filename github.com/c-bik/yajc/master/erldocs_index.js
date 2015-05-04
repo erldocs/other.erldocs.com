@@ -1,0 +1,1 @@
+var index = [['app','yajc','yajc','[application]'],['mod','yajc','yajc',[]],['fun','yajc','yajc:to_erlang/1',[]],['fun','yajc','yajc:to_json/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlearning','erlearning','[application]'],['mod','erlearning','records',[]],['fun','erlearning','records:first_customer/0',[]],['fun','erlearning','records:print_contact/1',[]]];

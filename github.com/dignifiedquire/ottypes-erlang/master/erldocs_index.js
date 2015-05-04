@@ -1,0 +1,1 @@
+var index = [['app','ottypes-erlang','ottypes-erlang','[application]'],['mod','ottypes-erlang','text',[]],['fun','ottypes-erlang','text:apply/1',[]]];

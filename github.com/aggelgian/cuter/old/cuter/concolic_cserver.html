@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>concolic_cserver (cuter) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>concolic_cserver</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-call">call() = {load, atom()} | {mfa_spec, mfa()}</h3></div>
+    <div class="type"><h3 id="type-cast">cast() = {terminate, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {return_spec,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{mfa(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="concolic_spec_parse.html#type-maybe_prefixed_type_sig" class="seealso">concolic_spec_parse:maybe_prefixed_type_sig()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid()}</h3></div>
+    <div class="type"><h3 id="type-clogs">clogs() = [atom()]</h3></div>
+    <div class="type"><h3 id="type-reply">reply() = {ok, <a href="ets.html#type-tab" class="seealso">ets:tab()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="concolic_load.html#type-compile_error" class="seealso">concolic_load:compile_error()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| preloaded<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| cover_compiled<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| non_existing<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="concolic_spec_parse.html#type-maybe_prefixed_type_sig" class="seealso">concolic_spec_parse:maybe_prefixed_type_sig()</a></h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{db = undefined | <a href="ets.html#type-tab" class="seealso">ets:tab()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dir = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;waiting = [{{mfa_spec, mfa()}, pid()}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;workers = [pid()],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super = undefined | pid()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init_codeserver/1">init_codeserver(CoreDir::string(), Super::pid()) -&gt; pid() | no_return()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(CodeServer::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="load/1">load(CodeServer::pid(), M::atom()) -&gt; reply()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mfa_spec/1">mfa_spec(CodeServer::pid(), MFA::mfa()) -&gt; maybe_prefixed_type_sig() (see module concolic_spec_parse)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="return_spec/1">return_spec(CodeServer::pid(), MFA::mfa(), MaybeSpec::maybe_prefixed_type_sig() (see module concolic_spec_parse)) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="module_attributes/1">module_attributes(CodeServer::pid(), M::module()) -&gt; {ok, [{cerl() (see module cerl), cerl() (see module cerl)}]} | error</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="spec_finder/1">spec_finder(CodeServer::pid(), MFA::mfa()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[string() | pid(), ...]) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1-1">terminate(Reason::term(), State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVsn::term(), State::state(), Extra::term()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Msg::term(), State::state()) -&gt; {noreply, state()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/1">handle_call(X1::call(), From::{pid(), reference()}, State::state()) -&gt; {reply, reply(), state()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(X1::cast(), State::state()) -&gt; {stop, normal, state()} | {noreply, state()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

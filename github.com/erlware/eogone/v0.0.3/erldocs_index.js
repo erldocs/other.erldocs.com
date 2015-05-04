@@ -1,0 +1,1 @@
+var index = [['app','eogone','eogone','[application]'],['mod','eogone','eogone','    An Erlang API for Ogone.'],['fun','eogone','eogone:charge/1',[]],['fun','eogone','eogone:charge/1',[]],['fun','eogone','eogone:new_params/0',[]],['fun','eogone','eogone:new_params/1',[]],['fun','eogone','eogone:new_params/1',[]]];

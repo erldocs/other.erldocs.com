@@ -1,0 +1,1 @@
+var index = [['app','euser','euser','[application]'],['mod','euser','euser_app','.'],['mod','euser','euser_mainServer','.'],['mod','euser','euser_sup','.'],['fun','euser','euser_mainServer:start_link/0','  Starts the server.'],['fun','euser','euser_sup:start_link/0','  Starts the supervisor.']];

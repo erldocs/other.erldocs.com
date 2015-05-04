@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ubf_server (ubf) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ubf_server</h1>
+<h2 class="modsummary">UBF server-side public API.</h2>
+<div class="description">
+<p>UBF server-side public API.</p>
+  
+   <p>TO-DO: JoeNorton, ubf_server:start([file_plugin], 2000, [jsf])   
+will give a JSON-speaking server that has a lot of difficulty   
+decoding and encoding stuff.  Do you have any plan to fix it?</p>
+  
+   <p>This module implements most of the commonly-used server-side   
+functions: starting TCP listeners and registering their   
+implementation callback modules.</p>
+  
+   <p>We implement three different wire formats for accessing the same   
+implementation of a UBF(B) protocol-checking server:</p>
+  
+   <list>
+   <item><p> UBF(A).  This is Joe Armstrong's original implementation.
+        See <url href="http://www.sics.se/~joe/ubf/">
+        http://www.sics.se/~joe/ubf/</url> for details. </p></item>
+   <item><p> EBF, a.k.a. Erlang Binary Format.  This protocol uses common
+        Erlang wire formats, the <code>{packet, 4}</code> protocol from
+        'inets' for TCP connections, and the
+        <code>term_to_binary()</code>/<code>binary_to_term()</code> BIFs for
+        payload encoding.  These wire formats are used to pass Erlang
+        terms between a UBF(B) contract checking server and a client
+        that does not support the UBF(A) wire format but does support
+        Erlang's native wire formats. </p></item>
+   <item><p> JSF, a.k.a the JSon Format.  Similar to EBF, except
+        that JavaScript's JSON encoding is used for the wire protocol
+        instead of UBF(A) or Erlang's native wire formats.</p></item>
+   <item><p> TBF, a.k.a the Thrift Binary Format.  Similar to EBF, except
+        that Thrift's binary encoding is used for the wire protocol
+        instead of UBF(A) or Erlang's native wire formats.</p></item>
+   <item><p> PBF, a.k.a the Google's Protocol Buffers Format.  Similar to
+        EBF, except that Google's Protocol Buffers binary encoding is used
+        for the wire protocol instead of UBF(A) or Erlang's native wire
+        formats.</p></item>
+   <item><p> ABF, a.k.a the Avro Binary Format.  Similar to EBF, except
+        that Avro's binary encoding is used for the wire protocol
+        instead of UBF(A) or Erlang's native wire formats.</p></item>
+   </list>
+  
+   <p>There is no "stop" function.  To stop the server, instead stop the
+   TCP service manager that controls it: see the <code>proc_socket_server</code>   
+module for extra details.</p>
+  
+   See the documentation for the <code>file_plugin</code> module for
+   extra commentary on writing an UBF server implementation module.
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Plugins::[atom()], Port::integer()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Start a server and a TCP listener on port Port and register  
+all of the protocol implementation modules in the Plugins list.</p>
+ 
+  <p>Here we start the server.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(Name::atom(), Plugins::[atom()], Port::integer()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Start a registered server and a TCP listener on port Port and  
+register all of the protocol implementation modules in the Plugins  
+list. If Name is undefined, the server is not registered.</p>
+ 
+  <p>Here we start the server.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-2">start(Name::atom(), Plugins::[atom()], Port::integer(), Options::proplist()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Start a registered server and a TCP listener on port Port with  
+the Options properties list and register all of the protocol  
+implementation modules in the Plugins list.  If Name is undefined,  
+the server is not registered</p>
+ 
+  <p>Valid properties in the Options proplist are:
+  </p><list>
+  <item><p> {idletimer, integer() | infinity} ... Maximum time (in milliseconds)
+       that a client connection may remain idle before the server will
+       close the connection.
+       Default: infinity </p></item>
+  <item><p> {maxconn, integer()} ... Maximum number of simultaneous TCP
+       connections allowed.
+       Default: 10,000. </p></item>
+  <item><p> {proto, {ubf | ebf | atom()}} ... Enable the UBF, EBF, or
+       an alternative protocol wire format.
+       Default: ubf. </p></item>
+  <item><p> {proto, {ubf | ebf | atom(), proplist()}} ... Enable the UBF,
+       EBF, or an alternative protocol wire format with options.
+       Default: {ubf, []}. </p></item>
+ 
+       Supported options:
+       <list>
+       <item><p> safe ... Prevents decoding data that may be used to
+       attack the Erlang system.  In the event of receiving unsafe
+       data, decoding fails with a badarg error. </p></item>
+       </list>
+ 
+  <item><p> {registeredname, atom()} ... Set the name to be registered for
+       the TCP listener.  If undefined, a default name is automatically
+       registered.
+       Default: undefined. </p></item>
+  <item><p> {statelessrpc, true | false} ... Run the stateless variety of
+       a UBF(B) contract.  A stateless contract is an extension of
+       Joe Armstrong's original UBF server implementation.
+       Default: false. </p></item>
+  <item><p> {startplugin, atom()} ... Set the starting plugin, set after a
+       client first connects to the server.  If not set, client may
+       select the service using the startSession() API.  There is
+       no default setting. </p></item>
+  <item><p> {serverhello, string() | undefined} ... Meta contract greeting
+       string, sent when a client first connects to the server.  If
+       undefined, server hello is not sent to the client.
+       Default: "meta_server". </p></item>
+  <item><p> {simplerpc, true | false} ... Set the simple RPC mode.  If
+       true, server returns only the rpc reply to client.  If false,
+       server returns the rpc reply and next state to client.
+       Default: false. </p></item>
+  <item><p> {verboserpc, true | false} ... Set the verbose RPC mode.  If
+       true, server calls the plugin handler with the rpc request and
+       matched contract types.  If false, server calls the plugin
+       handler only with the rpc request.
+       Default: false. </p></item>
+  <item><p> {tlog_module, atom() | {atom(), boolean()}} ... Set the transaction
+       log callback module and optionally control the built-in calls
+       by 'contract_manager_tlog' to the 'error_logger' module.
+       If the 2-tuple representation is used and the boolean() member is
+       false, then calls to 'error_logger' will not be attempted.
+       Default: undefined. </p></item>
+  <item><p> {process_options, list()} ... Specify additional options used
+       for spawning server and/or client related erlang processes.
+       Typically used to specify non-default, garbage collection options.
+       Default: []. </p></item>
+  </list><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Plugins::[atom()], Port::integer()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>See start/2, but also link the server processs to the caller.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Name::atom(), Plugins::[atom()], Port::integer()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>See start/3, but also link the server processs to the caller.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-2">start_link(Name::atom(), Plugins::[atom()], Port::integer(), Options::proplist()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>See start/4, but also link the server processs to the caller.</p>
+</div></div>
+<div class="function">
+<h3 id="init/5">init(Name, Parent, Plugins, Port, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_term_listener/3">start_term_listener(Server0, Plugins, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang-svg','erlang-svg','[application]'],['mod','erlang-svg','svg',[]],['fun','erlang-svg','svg:box/4',[]],['fun','erlang-svg','svg:box/5',[]],['fun','erlang-svg','svg:createSVG/1',[]],['fun','erlang-svg','svg:line/4',[]],['fun','erlang-svg','svg:line/5',[]],['fun','erlang-svg','svg:link2/4',[]],['fun','erlang-svg','svg:link2/5',[]]];

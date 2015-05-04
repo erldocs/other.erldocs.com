@@ -1,0 +1,1 @@
+var index = [['app','spike-cl-android','spike-cl-android','[application]'],['mod','spike-cl-android','spike_app',[]],['mod','spike-cl-android','spike_sup',[]],['fun','spike-cl-android','spike_app:start/2',[]],['fun','spike-cl-android','spike_app:stop/1',[]],['fun','spike-cl-android','spike_sup:init/1',[]],['fun','spike-cl-android','spike_sup:start_link/0',[]]];

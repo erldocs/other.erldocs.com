@@ -1,0 +1,1 @@
+var index = [['app','erllint','erllint','[application]'],['mod','erllint','erllint','Erlant Lint Command.'],['fun','erllint','erllint:main/1',[]]];

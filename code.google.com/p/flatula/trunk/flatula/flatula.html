@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>flatula (flatula) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>flatula</h1>
+<h2 class="modsummary">Fast, write-once "tables" using flat files.</h2>
+<div class="description">
+<p>Fast, write-once "tables" using flat files.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-id">id()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Start flatula.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop flatula.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(Table::any(), Options::[Option]) -&gt; {ok, Table} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Option = {base_path, Path} | {max_file_bytes, Bytes} | {max_total_bytes, Bytes} | {n_partitions, NPartitions}</code></li></ul>
+<div class="description">
+
+<p>Open the flatula table named Table. More than one process may open  
+a given table, and a single process may open it more than once; the table  
+is not closed until a matching close() is called for each open().</p>
+ 
+  <p>The following options are mandatory:
+  </p><list>
+  <item><p>base_path: the base path for files in the table, of the form
+  /PATH/BASENAME. flatula may create any files of the form
+  /PATH/BASENAME.EXTENSION.</p></item>
+  <item><p> max_file_bytes: maximum bytes in one table file. When an entry is
+  added that exceeds this limit, a new file is created.</p></item>
+  <item><p> max_total_bytes: maximum total bytes in the table. When an entry is
+  added that exceeds this limit, the oldest file in the table is removed
+  (along with all the entries in it).</p></item>
+  </list><p>
+  The following options are optional:
+  </p><list>
+  <item><p>n_partitions: number of server processes (default 1). Using more than
+  one partition can increase throughput, but is usually unnecessary.</p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Table::any()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close the table Table. More than one process may open a given table,
+  and a single process may open it more than once; the table is not closed
+  until a matching close() is called for each open().</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(Table::any(), Id::id()) -&gt; {ok, any()} | not_found | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Read the entry with the given Id from the given Table.
+  Return { ok, Item } if found.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(Table::any(), Term::any()) -&gt; Id::id()</h3>
+
+
+<div class="description">
+
+<p>Write an entry to the given Table. Return an Id which may be used
+  to read the entry.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1-1">write(Table::any(), Term::any(), Timeout) -&gt; {ok, Id::id()} | timeout</h3>
+
+<ul class="type">
+<li><code>Timeout = integer() | infinity</code></li></ul>
+<div class="description">
+
+<p>Write an entry to the given Table. Return an Id which may be used
+  to read the entry. If the given Timeout in milliseconds expires, the
+  atom 'timeout' is returned instead.</p>
+</div></div>
+<div class="function">
+<h3 id="info/1">info(Table::any(), What) -&gt; [Value]</h3>
+
+<ul class="type">
+<li><code>What = size | max_file_bytes | max_total_bytes</code></li><li><code>Value = {size, Bytes::integer} | {max_file_bytes, integer()} | {max_total_bytes, integer()}</code></li></ul>
+<div class="description">
+
+<p>Get table information.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','re2','re2','[application]'],['mod','re2','re2','Erlang NIF bindings for the  re2 regex library.'],['fun','re2','re2:compile/1',[]],['fun','re2','re2:compile/1',[]],['fun','re2','re2:match/1',[]],['fun','re2','re2:match/1',[]],['fun','re2','re2:replace/1',[]],['fun','re2','re2:replace/1',[]]];

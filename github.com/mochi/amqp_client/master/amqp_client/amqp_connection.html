@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>amqp_connection (amqp_client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>amqp_connection</h1>
+<h2 class="modsummary">This module is responsible for maintaining a connection to an AMQP
+  broker and manages channels within the connection.</h2>
+<div class="description">
+<p>This module is responsible for maintaining a connection to an AMQP
+  broker and manages channels within the connection. This module is used to
+  open and close connections to the broker as well as creating new channels
+  within a connection.<br />
+  The connections and channels created by this module are supervised under
+  amqp_client's supervision tree. Please note that connections and channels
+  do not get restarted automatically by the supervision tree in the case of a
+  failure. If you need robust connections and channels, we recommend you use
+  Erlang monitors on the returned connection and channel PID.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-amqp_params">amqp_params() = #amqp_params{}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Type) -&gt; {ok, Connection} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Type = network | direct</code></li><li><code>Connection = pid()</code></li></ul>
+<div class="description">
+
+<p>Starts a connection to an AMQP server. Use network type to connect
+  to a remote AMQP server - default connection settings are used, meaning that
+  the server is expected to be at localhost:5672, with a vhost of "/"
+  authorising a user guest/guest. Use direct type for a direct connection to
+  a RabbitMQ server, assuming that the server is running in the same process
+  space, and with a default set of amqp_params. If a different host, port,
+  vhost or credential set is required, start/2 should be used.</p>
+</div></div>
+<div class="function">
+<h3 id="start/2">start(Type, AmqpParams::amqp_params()) -&gt; {ok, Connection} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Type = network | direct</code></li><li><code>Connection = pid()</code></li></ul>
+<div class="description">
+
+<p>Starts a connection to an AMQP server. Use network type to connect
+  to a remote AMQP server or direct type for a direct connection to
+  a RabbitMQ server, assuming that the server is running in the same process
+  space.</p>
+</div></div>
+<div class="function">
+<h3 id="open_channel/1">open_channel(ConnectionPid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Invokes open_channel(ConnectionPid, none).
+  Opens a channel without having to specify a channel number.</p>
+</div></div>
+<div class="function">
+<h3 id="open_channel/2">open_channel(ConnectionPid, ChannelNumber) -&gt; {ok, ChannelPid} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>ChannelNumber = pos_integer() | none</code></li><li><code>ConnectionPid = pid()</code></li><li><code>ChannelPid = pid()</code></li></ul>
+<div class="description">
+
+<p>Opens an AMQP channel.<br />
+  This function assumes that an AMQP connection (networked or direct)
+  has already been successfully established.<br />
+  ChannelNumber must be less than or equal to the negotiated max_channel value,
+  or less than or equal to ?MAX_CHANNEL_NUMBER if the negotiated max_channel
+  value is 0.<br />
+  In the direct connection, max_channel is always 0.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(ConnectionPid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Invokes close(ConnectionPid, 200, &lt;&lt;"Goodbye"&gt;&gt;).</p>
+</div></div>
+<div class="function">
+<h3 id="close/3">close(ConnectionPid, Code, Text) -&gt; ok | closing</h3>
+
+<ul class="type">
+<li><code>ConnectionPid = pid()</code></li><li><code>Code = integer()</code></li><li><code>Text = binary()</code></li></ul>
+<div class="description">
+
+<p>Closes the AMQP connection, allowing the caller to set the reply
+  code and text.</p>
+</div></div>
+<div class="function">
+<h3 id="info/2">info(ConnectionPid, Items) -&gt; ResultList</h3>
+
+<ul class="type">
+<li><code>ConnectionPid = pid()</code></li><li><code>Items = [Item]</code></li><li><code>ResultList = [{Item, Result}]</code></li><li><code>Item = atom()</code></li><li><code>Result = term()</code></li></ul>
+<div class="description">
+
+<p>Returns information about the connection, as specified by the Items
+  list. Item may be any atom returned by info_keys/1:
+       server_properties - returns the server_properties fiels sent by the
+           server while establishing the connection
+       is_closing - returns true if the connection is in the process of closing
+           and false otherwise
+       amqp_params - returns the #amqp_params{} structure used to start the
+           connection
+       num_channels - returns the number of channels currently open under the
+           connection (excluding channel 0)
+       max_channel - returns the max_channel value negotiated with the server
+           (only for the network connection)
+       heartbeat - returns the heartbeat value negotiated with the server
+           (only for the network connection)
+       sock - returns the socket for the network connection (for use with
+              e.g. inet:sockname/1)
+           (only for the network connection)
+       any other value - throws an exception</p>
+</div></div>
+<div class="function">
+<h3 id="info_keys/1">info_keys(ConnectionPid) -&gt; Items</h3>
+
+<ul class="type">
+<li><code>ConnectionPid = pid()</code></li><li><code>Items = [Item]</code></li><li><code>Item = atom()</code></li></ul>
+<div class="description">
+
+<p>Returns a list of atoms that can be used in conjunction with info/2.
+  Note that the list differs from a type of connection to another (network vs.
+  direct). Use info_keys/0 to get a list of info keys that can be used for
+  any connection.</p>
+</div></div>
+<div class="function">
+<h3 id="info_keys/0">info_keys() -&gt; Items</h3>
+
+<ul class="type">
+<li><code>Items = [Item]</code></li><li><code>Item = atom()</code></li></ul>
+<div class="description">
+
+<p>Returns a list of atoms that can be used in conjunction with info/2.
+  These are general info keys, which can be used in any type of connection.
+  Other info keys may exist for a specific type. To get the full list of
+  atoms that can be used for a certain connection, use info_keys/1.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

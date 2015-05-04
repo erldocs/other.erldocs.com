@@ -1,0 +1,1 @@
+var index = [['app','lapack-erlang-nif','lapack-erlang-nif','[application]'],['mod','lapack-erlang-nif','lapack',[]],['fun','lapack-erlang-nif','lapack:mmultiply/2',[]],['fun','lapack-erlang-nif','lapack:svd/1',[]]];

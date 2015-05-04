@@ -1,0 +1,1 @@
+var index = [['app','crawlerl','crawlerl','[application]'],['mod','crawlerl','crawler_config',[]],['mod','crawlerl','crawler_tests',[]],['mod','crawlerl','test_http',[]],['fun','crawlerl','crawler_config:load_rules/0',[]],['fun','crawlerl','test_http:get_page/1',[]]];

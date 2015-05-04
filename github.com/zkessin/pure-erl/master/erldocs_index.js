@@ -1,0 +1,1 @@
+var index = [['app','pure-erl','pure-erl','[application]'],['mod','pure-erl','pure_erl_app',[]],['mod','pure-erl','pure_erl_sup',[]],['fun','pure-erl','pure_erl_app:start/2',[]],['fun','pure-erl','pure_erl_app:stop/1',[]],['fun','pure-erl','pure_erl_sup:init/1',[]],['fun','pure-erl','pure_erl_sup:start_link/0',[]]];

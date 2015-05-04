@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-jsonrpc','rabbitmq-jsonrpc','[application]'],['mod','rabbitmq-jsonrpc','rabbit_jsonrpc',[]],['fun','rabbitmq-jsonrpc','rabbit_jsonrpc:listener/0',[]],['fun','rabbitmq-jsonrpc','rabbit_jsonrpc:start/2',[]],['fun','rabbitmq-jsonrpc','rabbit_jsonrpc:stop/1',[]]];

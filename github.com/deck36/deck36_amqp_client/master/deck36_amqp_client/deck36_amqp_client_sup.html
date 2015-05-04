@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>deck36_amqp_client_sup (deck36_amqp_client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>deck36_amqp_client_sup</h1>
+<h2 class="modsummary">Root supervisor of deck36_amqp_client application.</h2>
+<div class="description">
+<p>Root supervisor of deck36_amqp_client application.</p>
+ 
+  <p>start_link/1 starts all setups, consumers and producers that are  
+defined in the application configuration using their supervisors.  
+Setups will be started before consumers and producers are started  
+so all needed entities are set up before trying to use them.</p>
+ 
+  <p>stop/0 stops all setups, consumers and producers.
+  Stop them actively or you might end up getting errors from the
+  amqp_client and none of the setups will tear down the changes
+  they made.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Opt::[Opt]) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Opt = {consumers, [any()]}</code></li><li><code>Result = {ok, pid()} | ignore | {error, Error}</code></li><li><code>Error = {already_started, pid()} | shutdown | term()</code></li></ul>
+<div class="description">
+
+<p>Start named supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop setups, producers, consumers</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, {SupervisionPolicy, [ChildSpec]}} | ignore</code></li><li><code>SupervisionPolicy = {RestartStrategy, MaxR::non_neg_integer(), MaxT::pos_integer()}</code></li><li><code>RestartStrategy = one_for_all | one_for_one | rest_for_one | simple_one_for_one</code></li><li><code>ChildSpec = {Id::term(), StartFunc, RestartPolicy, Type::worker | supervisor, Modules}</code></li><li><code>StartFunc = {M::module(), F::atom(), A::[term()] | undefined}</code></li><li><code>RestartPolicy = permanent | transient | temporary</code></li><li><code>Modules = [module()] | dynamic</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/supervisor.html#Module:init-1">supervisor:init/1</url></p>
+</div></div></div>
+
+<authors>
+
+<aname>Bjoern Kortuemm (@uuid0)</aname>
+<email>bjoern.kortuemm@deck36.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

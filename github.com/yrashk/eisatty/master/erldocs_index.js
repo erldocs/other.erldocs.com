@@ -1,0 +1,1 @@
+var index = [['app','eisatty','eisatty','[application]'],['mod','eisatty','eisatty',[]],['fun','eisatty','eisatty:detect/0',[]]];

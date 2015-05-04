@@ -1,0 +1,1 @@
+var index = [['app','murmerl3','murmerl3','[application]'],['mod','murmerl3','murmerl3','This is a pure erlang implementation of the Murmur'],['fun','murmerl3','murmerl3:hash_32/1',[]],['fun','murmerl3','murmerl3:hash_32/2',[]]];

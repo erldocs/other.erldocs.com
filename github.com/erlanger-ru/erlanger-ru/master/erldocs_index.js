@@ -1,0 +1,1 @@
+var index = [['app','erlanger-ru','erlanger-ru','[application]'],['mod','erlanger-ru','erlanger_ru_random_rss',[]],['fun','erlanger-ru','erlanger_ru_random_rss:dependencies/0',[]],['fun','erlanger-ru','erlanger_ru_random_rss:render/3',[]]];

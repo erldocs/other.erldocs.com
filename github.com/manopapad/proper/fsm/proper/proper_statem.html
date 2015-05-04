@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>proper_statem (proper) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>proper_statem</h1>
+<h2 class="modsummary">This module contains functions for testing stateful systems.</h2>
+<div class="description">
+<p>This module contains functions for testing stateful systems.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-command">command() = {init, <a href="#type-symbolic_state" class="seealso">symbolic_state()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {set, <a href="#type-symb_var" class="seealso">symb_var()</a>, <a href="#type-symb_call" class="seealso">symb_call()</a>}</h3></div>
+    <div class="type"><h3 id="type-command_history">command_history() = [{<a href="#type-command" class="seealso">command()</a>, term()}]</h3></div>
+    <div class="type"><h3 id="type-command_list">command_list() = [<a href="#type-command" class="seealso">command()</a>]</h3></div>
+    <div class="type"><h3 id="type-dynamic_state">dynamic_state() = term()</h3></div>
+    <div class="type"><h3 id="type-exc_kind">exc_kind() = throw | error | exit</h3></div>
+    <div class="type"><h3 id="type-exc_reason">exc_reason() = term()</h3></div>
+    <div class="type"><h3 id="type-exception">exception() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{exception, <a href="#type-exc_kind" class="seealso">exc_kind()</a>, <a href="#type-exc_reason" class="seealso">exc_reason()</a>, <a href="#type-stacktrace" class="seealso">stacktrace()</a>}</h3></div>
+    <div class="type"><h3 id="type-fun_name">fun_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-history">history() = [{<a href="#type-dynamic_state" class="seealso">dynamic_state()</a>, term()}]</h3></div>
+    <div class="type"><h3 id="type-mod_name">mod_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-parallel_test_case">parallel_test_case() = {<a href="#type-command_list" class="seealso">command_list()</a>, [<a href="#type-command_list" class="seealso">command_list()</a>]}</h3></div>
+    <div class="type"><h3 id="type-stacktrace">stacktrace() = [{atom(), atom(), arity() | [term()]}]</h3></div>
+    <div class="type"><h3 id="type-statem_result">statem_result() = ok<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| initialization_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {precondition, boolean() | <a href="#type-exception" class="seealso">exception()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {postcondition, boolean() | <a href="#type-exception" class="seealso">exception()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-exception" class="seealso">exception()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| no_possible_interleaving</h3></div>
+    <div class="type"><h3 id="type-symb_call">symb_call() = {call, <a href="#type-mod_name" class="seealso">mod_name()</a>, <a href="#type-fun_name" class="seealso">fun_name()</a>, [term()]}</h3></div>
+    <div class="type"><h3 id="type-symb_var">symb_var() = {var, <a href="proper_symb.html#type-var_id" class="seealso">proper_symb:var_id()</a>}</h3></div>
+    <div class="type"><h3 id="type-symbolic_state">symbolic_state() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="commands/1">commands(Module::mod_name()) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commands/1-1">commands(Module::mod_name(), InitialState::symbolic_state()) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="more_commands/1">more_commands(N::pos_integer(), Type::type() (see module proper_types)) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parallel_commands/1">parallel_commands(Mod::mod_name()) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parallel_commands/1-1">parallel_commands(Mod::mod_name(), InitialState::symbolic_state()) -&gt; type() (see module proper_types)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run_commands/1">run_commands(Module::mod_name(), Cmds::command_list()) -&gt; {history(), dynamic_state(), statem_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run_commands/1-1">run_commands(Module::mod_name(), Commands::command_list(), Env::var_values() (see module proper_symb)) -&gt; {history(), dynamic_state(), statem_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run_parallel_commands/1">run_parallel_commands(Module::mod_name(), Cmds::parallel_test_case()) -&gt; {command_history(), [command_history()], statem_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run_parallel_commands/1-1">run_parallel_commands(Module::mod_name(), X2::parallel_test_case(), Env::var_values() (see module proper_symb)) -&gt; {command_history(), [command_history()], statem_result()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="command_names/1">command_names(Cmds::command_list()) -&gt; [mfa()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="state_after/1">state_after(Module::mod_name(), Commands::command_list()) -&gt; symbolic_state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="zip/2">zip(A::[A], B::[B]) -&gt; [{A, B}]</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Eirini Arvaniti</aname>
+<email>eirinibob@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

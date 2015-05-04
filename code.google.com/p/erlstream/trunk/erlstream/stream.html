@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>stream (erlstream) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>stream</h1>
+<h2 class="modsummary">Stream Processing Functions.</h2>
+<div class="description">
+<p>Stream Processing Functions.</p>
+ 
+  <p>This module contains functions for binary string (called
+  <em>stream</em>) processing.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="len/1">len(Stream) -&gt; Length</h3>
+
+
+<div class="description">
+
+<p>Returns the number of characters in the stream.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Length = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="equal/2">equal(Stream::Stream1, Stream::Stream2) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Tests whether two streams are equal.
+  Returns <CODE>true</CODE> if they are, otherwise <CODE>false</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream1 = Stream2 = binary()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="concat/2">concat(Stream1, Stream2) -&gt; Stream3</h3>
+
+
+<div class="description">
+
+<p>Concatenates two streams to form a new stream.  
+Returns the new stream.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream1 = Stream2 = Stream3 = binary()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="chr/2">chr(Stream, Character) -&gt; Index</h3>
+
+
+<div class="description">
+
+<p>Returns the index of the first occurrence of <CODE>Character</CODE> in
+  <CODE>Stream</CODE>.  0 is returned if <CODE>Character</CODE> does not occur.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+        <STRONG><CODE>Index = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="rchr/2">rchr(Stream, Character) -&gt; Index</h3>
+
+
+<div class="description">
+
+<p>Returns the index of the last occurrence of <CODE>Character</CODE> in
+  <CODE>Stream</CODE>.  0 is returned if <CODE>Character</CODE> does not occur.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+        <STRONG><CODE>Index = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="str/2">str(Stream, SubStream) -&gt; Index</h3>
+
+
+<div class="description">
+
+<p>Returns the position where the first occurrence of
+  <CODE>SubStream</CODE> begins in <CODE>Stream</CODE>.  0 is returned if
+  <CODE>Substream</CODE> does not exist in <CODE>Stream</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = SubStream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Index = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:str(&lt;&lt;" Hello Hello World World "&gt;&gt;, &lt;&lt;"Hello World"&gt;&gt;).
+  8
+  </PRE>
+  </P>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="rstr/2">rstr(Stream, SubStream) -&gt; Index</h3>
+
+
+<div class="description">
+
+<p>Returns the position where the last occurrence of <CODE>SubStream</CODE>
+  begins in <CODE>Stream</CODE>.  0 is returned if <CODE>SubStream</CODE> does
+  not exist in <CODE>Stream</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = SubStream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Index = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:rstr(&lt;&lt;" Hello Hello World World "&gt;&gt;, &lt;&lt;"World"&gt;&gt;).
+  20
+  </PRE>
+  </P>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="index/2">index(Stream, SubStream) -&gt; Index</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>See <a href="#str/2" class="seealso">str/2</a> for details.</p>
+<p>Equivalent to <a href="#str/2" class="seealso">str(Stream, SubStream)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="span/2">span(Stream, Chars) -&gt; Length</h3>
+
+
+<div class="description">
+
+<p>Returns the length of the maximum initial segment of
+  <CODE>Stream</CODE>, which consists entirely of bytes from
+  <CODE>Chars</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Chars = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Length = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:span(&lt;&lt;"\t    abcdef"&gt;&gt;, &lt;&lt;" \t"&gt;&gt;).
+  5
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="cspan/2">cspan(Stream, Chars) -&gt; Length</h3>
+
+
+<div class="description">
+
+<p>Returns the length of the maximum initial segment of
+  <CODE>Stream</CODE>, which consists entirely of bytes not from
+  <CODE>Chars</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Chars = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Length = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:cspan(&lt;&lt;"\t    abcdef"&gt;&gt;, &lt;&lt;" \t"&gt;&gt;).
+  0
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="substr/2">substr(Stream, Start) -&gt; SubStream</h3>
+
+
+<div class="description">
+
+<p>See <a href="#substr/3" class="seealso">substr/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="substr/3">substr(Stream, Start, Length) -&gt; SubStream</h3>
+
+
+<div class="description">
+
+<p>Returns a substream of <CODE>Stream</CODE>, starting at the position
+  <CODE>Start</CODE>, and ending at the end of the stream or at length
+  <CODE>Length</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = SubStream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Start = Length = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:substr(&lt;&lt;"Hello World"&gt;&gt;, 4, 5).
+  &lt;&lt;"lo Wo"&gt;&gt;
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="tokens/2">tokens(Stream, SeparatorList) -&gt; Tokens</h3>
+
+
+<div class="description">
+
+<p>Returns a list of tokens in <CODE>Stream</CODE>, separated by the
+  characters in <CODE>SeparatorList</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Seps = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Tockes = [binary()]</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:tokens(&lt;&lt;"abc defxxghix jkl"&gt;&gt;, &lt;&lt;"x "&gt;&gt;).
+  [&lt;&lt;"abc"&gt;&gt;, &lt;&lt;"def"&gt;&gt;, &lt;&lt;"ghi"&gt;&gt;, &lt;&lt;"jkl"&gt;&gt;]
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="chars/2">chars(Character, Number) -&gt; Stream</h3>
+
+
+<div class="description">
+
+<p>See <a href="#chars/3" class="seealso">chars/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="chars/3">chars(Character, Number, Tail) -&gt; Stream</h3>
+
+
+<div class="description">
+
+<p>Returns a stream consisting of <CODE>Number</CODE> of characters
+  <CODE>Character</CODE>.  Optionally, the stream can end with the stream
+  <CODE>Tail</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+        <STRONG><CODE>Tail = Stream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Number = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="copies/2">copies(Stream, Number) -&gt; Copies</h3>
+
+
+<div class="description">
+
+<p>Returns a stream containing <CODE>Stream</CODE> repeated
+  <CODE>Number</CODE> times.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Copies = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Number = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="words/1">words(Stream) -&gt; Count</h3>
+
+
+<div class="description">
+
+<p>See <a href="#words/2" class="seealso">words/2</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="words/2">words(Stream, Character) -&gt; Count</h3>
+
+
+<div class="description">
+
+<p>Returns the number of words in <CODE>Stream</CODE>, separated by blanks
+  or <CODE>Character</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:words(&lt;&lt;" Hello old boy!"&gt;&gt;, $o).
+  4
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="sub_word/2">sub_word(Stream, Number) -&gt; Word</h3>
+
+
+<div class="description">
+
+<p>See <a href="#sub_word/3" class="seealso">sub_word/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="sub_word/3">sub_word(S::Stream, Offset::Number, C::Character) -&gt; Word</h3>
+
+
+<div class="description">
+
+<p>Returns the word in position <CODE>Number</CODE> of <CODE>Stream</CODE>.
+  Words are separated by blanks or <CODE>Characters</CODE>.</p>
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Word = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+        <STRONG><CODE>Number = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:sub_word(&lt;&lt;" Hello old boy!"&gt;&gt;, 3, $o).
+  &lt;&lt;"ld b"&gt;&gt;
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="strip/1">strip(Stream) -&gt; Stripped</h3>
+
+
+<div class="description">
+
+<p>See <a href="#strip/3" class="seealso">strip/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/2">strip(Stream, X2::Direction) -&gt; Stripped</h3>
+
+
+<div class="description">
+
+<p>See <a href="#strip/3" class="seealso">strip/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/3">strip(S::Stream, X2::Direction, Char::Character) -&gt; Stripped</h3>
+
+
+<div class="description">
+
+<p>Returns a stream, where leading and/or trailing blanks or a number of
+  <CODE>Character</CODE> have been removed.  <CODE>Direction</CODE> can be
+  <CODE>left</CODE>, <CODE>right</CODE>, or <CODE>both</CODE> and indicates
+  from which direction blanks are to be removed.  The function
+  <CODE>strip/1</CODE> is equivalent to <CODE>strip(String, both)</CODE>.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Stripped = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Direction = left | right | both</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:strip(&lt;&lt;"...Hello....."&gt;&gt;, both, $.).
+  &lt;&lt;"Hello"&gt;&gt;
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="left/2">left(Stream, Number) -&gt; Left</h3>
+
+
+<div class="description">
+
+<p>See <a href="#left/3" class="seealso">left/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="left/3">left(Stream, Number, Character) -&gt; Left</h3>
+
+
+<div class="description">
+
+<p>Returns the <CODE>Stream</CODE> with the length adjusted in accordance
+  with <CODE>Number</CODE>.  The left margin is fixed. If the
+  length(<CODE>Stream</CODE>) &lt; <CODE>Number</CODE>, <CODE>Stream</CODE> is
+  padded with blanks or <CODE>Characters</CODE>.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Left = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Number = integer()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:left(&lt;&lt;"Hello"&gt;&gt;, 10, $.).
+  &lt;&lt;"Hello....."&gt;&gt;
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="right/2">right(Stream, Number) -&gt; Right</h3>
+
+
+<div class="description">
+
+<p>See <a href="#right/3" class="seealso">right/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="right/3">right(Stream, Number, Character) -&gt; Right</h3>
+
+
+<div class="description">
+
+<p>Returns the <CODE>Stream</CODE> with the length adjusted in accordance
+  with <CODE>Number</CODE>.  The right margin is fixed. If the
+  length(<CODE>Stream</CODE>) &lt; <CODE>Number</CODE>, <CODE>Stream</CODE> is
+  padded with blanks or <CODE>Characters</CODE>.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Right = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Number = integer()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:right(&lt;&lt;"Hello"&gt;&gt;, 10, $.).
+  &lt;&lt;".....Hello"&gt;&gt;
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="centre/2">centre(Stream, Number) -&gt; Center</h3>
+
+
+<div class="description">
+
+<p>See <a href="#center/3" class="seealso">center/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="centre/3">centre(Stream, Number, Character) -&gt; Center</h3>
+
+
+<div class="description">
+
+<p>Returns a stream, where <CODE>Stream</CODE> is centred in the stream and
+  surrounded by blanks or <CODE>Characters</CODE>.  The resulting stream will
+  have the length <CODE>Number</CODE>.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Center = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Number = integer()</CODE></STRONG><BR />
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="sub_stream/2">sub_stream(Stream, Start) -&gt; SubStream</h3>
+
+
+<div class="description">
+
+<p>See <a href="#sub_stream/3" class="seealso">sub_stream/3</a> for details.</p>
+</div></div>
+<div class="function">
+<h3 id="sub_stream/3">sub_stream(Stream, Start, Stop) -&gt; SubStream</h3>
+
+
+<div class="description">
+
+<p>Returns a substream of <CODE>Stream</CODE>, starting at the position
+  <CODE>Start</CODE> to the end of the stream, or to and including the
+  <CODE>Stop</CODE> position.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = SubStream = binary()</CODE></STRONG><BR />
+        <STRONG><CODE>Start = Stop = integer()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV></p>
+ 
+  <p><DIV CLASS="REFBODY">
+  For example:
+  <P>
+  <PRE>
+  &gt; stream:sub_stream(&lt;&lt;"Hello World"&gt;&gt;, 4, 8).
+  &lt;&lt;"lo Wo"&gt;&gt;
+  </PRE>
+  </P>
+  </DIV></p>
+</div></div>
+<div class="function">
+<h3 id="member/2">member(Character, X2::Stream) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Returns <CODE>true</CODE> if <CODE>Character</CODE> is contained in the
+  binary <CODE>Stream</CODE>, otherwise <CODE>false</CODE>.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Character = char()</CODE></STRONG><BR />
+        <STRONG><CODE>Stream = binary()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reverse/1">reverse(Stream) -&gt; Reversed</h3>
+
+
+<div class="description">
+
+<p>Returns a binary with the top level bytes in <CODE>Stream</CODE> in  
+reverse order.</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Reversed = binary()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="to_lower/1">to_lower(Stream) -&gt; Result</h3>
+
+
+<div class="description">
+
+<p>The given stream is converted to lower case. Note that the supported  
+character set is ISO/IEC 8859-1 (a.k.a. Latin 1), all values outside this set  
+is unchanged</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Result = binary()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="to_upper/1">to_upper(Stream) -&gt; Result</h3>
+
+
+<div class="description">
+
+<p>The given stream is converted to upper case. Note that the supported  
+character set is ISO/IEC 8859-1 (a.k.a. Latin 1), all values outside this set  
+is unchanged</p>
+ 
+ 
+  <p><DIV CLASS="REFBODY"><P>Types:</P>
+    <DIV CLASS="REFTYPES">
+      <P>
+        <STRONG><CODE>Stream = Result = binary()</CODE></STRONG><BR />
+      </P>
+    </DIV>
+  </DIV>
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Christopher Faulet</aname>
+<email>christopher.faulet@capflam.org</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

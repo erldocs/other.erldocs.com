@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-amqp1.0','rabbitmq-amqp1.0','[application]'],['mod','rabbitmq-amqp1.0','rabbit_amqp1_0_session_sup_sup',[]],['fun','rabbitmq-amqp1.0','rabbit_amqp1_0_session_sup_sup:init/1',[]],['fun','rabbitmq-amqp1.0','rabbit_amqp1_0_session_sup_sup:start_link/0',[]],['fun','rabbitmq-amqp1.0','rabbit_amqp1_0_session_sup_sup:start_session/2',[]]];

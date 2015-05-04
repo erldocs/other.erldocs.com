@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mimemail (gen_smtp_client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mimemail</h1>
+<h2 class="modsummary">A module for decoding/encoding MIME 1.0 email.</h2>
+<div class="description">
+<p>A module for decoding/encoding MIME 1.0 email.
+  The encoder and decoder operate on the same datastructure, which is as follows:
+  A 5-tuple with the following elements: <code>{Type, SubType, Headers, Parameters, Body}</code>.</p>
+ 
+  <p><code>Type</code> and <code>SubType</code> are the MIME type of the email, examples are <code>text/plain</code> or
+  <code>multipart/alternative</code>. The decoder splits these into 2 fields so you can filter by  
+the main type or by the subtype.</p>
+ 
+  <p><code>Headers</code> consists of a list of key/value pairs of binary values eg.
+  <code>{&lt;&lt;"From"&gt;&gt;, &lt;&lt;"Andrew Thompson &lt;andrew@hijacked.us&gt;"&gt;&gt;}</code>. There is no parsing of  
+the header aside from un-wrapping the lines and splitting the header name from the  
+header value.</p>
+ 
+  <p><code>Parameters</code> is a list of 3 key/value tuples. The 3 keys are <code>&lt;&lt;"content-type-params"&gt;&gt;</code>,
+  <code>&lt;&lt;"dispisition"&gt;&gt;</code> and <code>&lt;&lt;"disposition-params"&gt;&gt;</code>.
+  <code>content-type-params</code> is a key/value list of parameters on the content-type header, this
+  usually consists of things like charset and the format parameters. <code>disposition</code> indicates
+  how the data wants to be displayed, this is usually 'inline'. <code>disposition-params</code> is a list of  
+disposition information, eg. the filename this section should be saved as, the modification  
+date the file should be saved with, etc.</p>
+ 
+  <p>Finally, <code>Body</code> can be one of several different types, depending on the structure of the email.  
+For a simple email, the body will usually be a binary consisting of the message body, In the  
+case of a multipart email, its a list of these 5-tuple MIME structures. The third possibility,  
+in the case of a message/rfc822 attachment, body can be a single 5-tuple MIME structure.</p>
+ 
+  <p>You should see the relevant RFCs (2045, 2046, 2047, etc.) for more information.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-mimetuple">mimetuple() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{binary(), binary()}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{binary(), binary()}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary() |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{binary(), binary()}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{binary(), binary()}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary() | [tuple()]}] |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tuple()}</h3></div>
+    <div class="type"><h3 id="type-options">options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{encoding, binary()} | {decode_attachment, boolean()}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="decode/1">decode(Email::binary()) -&gt; mimetuple()</h3>
+
+
+<div class="description">
+
+<p>Decode a MIME email from a binary.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(Email::binary(), Options::options()) -&gt; mimetuple()</h3>
+
+
+<div class="description">
+
+<p>Decode with custom options</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1">encode(MimeMail::mimetuple()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encode a MIME tuple to a binary.</p>
+</div></div>
+<div class="function">
+<h3 id="get_header_value/1">get_header_value(Needle::binary(), Headers::[{binary(), binary()}], Default::any()) -&gt; binary() | any()</h3>
+
+
+<div class="description">
+
+<p>Do a case-insensitive header lookup to return that header's value, or the specified default.</p>
+</div></div>
+<div class="function">
+<h3 id="get_header_value/1-1">get_header_value(Needle::binary(), Headers::[{binary(), binary()}]) -&gt; binary() | undefined</h3>
+
+
+<div class="description">
+
+<p>Do a case-insensitive header lookup to return the header's value, or <code>undefined</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_headers/1">parse_headers(Body::binary()) -&gt; {[{binary(), binary()}], binary()}</h3>
+
+
+<div class="description">
+
+<p>Parse the headers off of a message and return a list of headers and the trailing body.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','master-workers-simulation','master-workers-simulation','[application]'],['mod','master-workers-simulation','system',[]],['fun','master-workers-simulation','system:start/0','Starts the worker simulation.']];

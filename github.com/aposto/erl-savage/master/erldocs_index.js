@@ -1,0 +1,1 @@
+var index = [['app','erl-savage','erl-savage','[application]'],['mod','erl-savage','lang',[]],['fun','erl-savage','lang:for/2',[]],['fun','erl-savage','lang:for/3',[]],['fun','erl-savage','lang:test/0',[]]];

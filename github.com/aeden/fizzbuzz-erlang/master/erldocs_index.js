@@ -1,0 +1,1 @@
+var index = [['app','fizzbuzz-erlang','fizzbuzz-erlang','[application]'],['mod','fizzbuzz-erlang','fizzbuzz',[]],['fun','fizzbuzz-erlang','fizzbuzz:run/0',[]]];

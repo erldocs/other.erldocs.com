@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_manager_api (leo_manager) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_manager_api</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-system_status">system_status() = running | stop</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_system_config/0">get_system_config() -&gt; {ok, #system_conf{version=integer(), n=integer(), r=integer(), w=integer(), d=integer(), bit_of_ring=integer()}} | atom() | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve system configuration from mnesia(localdb).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_system_status/0">get_system_status() -&gt; system_status() | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_members/0">get_members() -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve members from mnesia(localdb).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_node_status/1">get_node_status(Node0::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve cluster-node-status from each server.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_routing_table_chksum/0">get_routing_table_chksum() -&gt; {ok, any()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve ring checksums from redundant-manager.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_nodes/0">get_nodes() -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve list of cluster nodes from mnesia.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach/1">attach(Node::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Attach an storage-node into the cluster.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="suspend/1">suspend(Node::string()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Suspend a node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="detach/1">detach(Node::string()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Remove a storage-node from the cluster.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="resume/1">resume(Node::atom()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Resume a storage-node when its status is 'RUNNING' OR 'DOWNED'.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Launch the leo-storage, but exclude Gateway(s).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="rebalance/0">rebalance() -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Do Rebalance which affect all storage-nodes in operation.
+  [process flow]
+      1. Judge that "is exist attach-node OR detach-node" ?
+      2. Create RING (redundant-manager).
+      3. Distribute each storage node. (from manager to storages)
+      4. Confirm callback.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="register/2">register(RequestedTimes::first | again, Pid::pid(), Node::atom(), Type::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Register Pid of storage-node and Pid of gateway-node into the manager-monitors.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="notify/2">notify(X1::error | launched | rebalance | synchronized, Node::atom(), X3::nodedown) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Notified "Server Error", "Server Launch" and "Rebalance Progress" from cluster-nods.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="notify/4">notify(X1, VNodeId, Node, TotalOfObjects) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="whereis/1">whereis(Key::list(), HasRoutingTable::boolean()) -&gt; {ok, any()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve assigned file information.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="compact/1">compact(Node::string() | atom()) -&gt; {ok, list()} | {error, any}</h3>
+
+
+<div class="description">
+
+<p>Do compact.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stats/2">stats(Mode::summary | detail, Node::string() | atom()) -&gt; {ok, list()} | {error, any}</h3>
+
+
+<div class="description">
+
+<p>get storage stats.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="synchronize/1">synchronize(Type) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Synchronize Members and Ring (both New and Old).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="synchronize/3">synchronize(Type, Node, Members) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="synchronize/2">synchronize(Type, Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>From manager-node
+ </p>
+</div></div>
+<div class="function">
+<h3 id="purge/1">purge(Path::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>purge an object.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

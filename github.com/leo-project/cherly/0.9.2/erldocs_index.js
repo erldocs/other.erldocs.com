@@ -1,0 +1,1 @@
+var index = [['app','cherly','cherly','[application]'],['mod','cherly','cherly_app','.'],['fun','cherly','cherly_app:start/2','This function is called whenever an application  '],['fun','cherly','cherly_app:stop/1','This function is called whenever an application  ']];

@@ -1,0 +1,1 @@
+var index = [['app','debutten','debutten','[application]'],['mod','debutten','debutten','Debutten is a simple data validator.'],['fun','debutten','debutten:validate/1','Validate data against a pattern.'],['fun','debutten','debutten:validate_or_throw/1','Validate data against a pattern.']];

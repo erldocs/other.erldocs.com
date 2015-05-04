@@ -1,0 +1,1 @@
+var index = [['app','nsplit','nsplit','[application]'],['mod','nsplit','npmap',[]],['mod','nsplit','nsplit',[]],['fun','nsplit','npmap:npmap/1',[]],['fun','nsplit','nsplit:list_nsplit/1',[]],['fun','nsplit','nsplit:npmap/1',[]],['fun','nsplit','nsplit:pmap/1',[]]];

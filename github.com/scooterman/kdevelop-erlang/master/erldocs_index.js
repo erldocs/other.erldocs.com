@@ -1,0 +1,1 @@
+var index = [['app','kdevelop-erlang','kdevelop-erlang','[application]'],['mod','kdevelop-erlang','debug_interpreter',[]],['fun','kdevelop-erlang','debug_interpreter:start/0',[]],['fun','kdevelop-erlang','debug_interpreter:start_loop/0',[]]];

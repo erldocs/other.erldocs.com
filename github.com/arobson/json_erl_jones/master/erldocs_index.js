@@ -1,0 +1,1 @@
+var index = [['app','json_erl_jones','json_erl_jones','[application]'],['mod','json_erl_jones','json','     Working with JSON in Erlang hurts.'],['fun','json_erl_jones','json:decode/1',[]],['fun','json_erl_jones','json:encode/1',[]],['fun','json_erl_jones','json:encode/2',[]]];

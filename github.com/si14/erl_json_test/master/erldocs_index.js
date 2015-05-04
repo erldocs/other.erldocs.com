@@ -1,0 +1,1 @@
+var index = [['app','erl_json_test','erl_json_test','[application]'],['mod','erl_json_test','erl_json_test',[]],['fun','erl_json_test','erl_json_test:start/0',[]]];

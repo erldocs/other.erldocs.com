@@ -1,0 +1,1 @@
+var index = [['app','cowboot','cowboot','[application]'],['mod','cowboot','cowboot_app','.'],['mod','cowboot','cowboot_sup','.'],['fun','cowboot','cowboot_sup:start_link/0','  Starts the supervisor.']];

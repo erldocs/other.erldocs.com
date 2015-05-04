@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etsdb_aee (etsdb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etsdb_aee</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = module()</h3></div>
+    <div class="type"><h3 id="type-index">index() = <a href="vnode.html#type-index" class="seealso">vnode:index()</a></h3></div>
+    <div class="type"><h3 id="type-kv">kv() = {binary(), binary()}</h3></div>
+    <div class="type"><h3 id="type-kv_list">kv_list() = [<a href="#type-kv" class="seealso">kv()</a>]</h3></div>
+    <div class="type"><h3 id="type-partition">partition() = <a href="etsdb_vnode.html#type-aee_partition" class="seealso">etsdb_vnode:aee_partition()</a></h3></div>
+    <div class="type"><h3 id="type-remote_fun">remote_fun() = term()</h3></div>
+    <div class="type"><h3 id="type-start_option">start_option() = {granularity, <a href="#type-time_interval" class="seealso">time_interval()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {reahsh_interval, <a href="#type-time_interval" class="seealso">time_interval()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {granularity_intervals_to_expire,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {path, string()}</h3></div>
+    <div class="type"><h3 id="type-start_options">start_options() = [<a href="#type-start_option" class="seealso">start_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-time_interval">time_interval() = <a href="zont_pretty_time.html#type-time_interval" class="seealso">zont_pretty_time:time_interval()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Opts::start_options(), Index::index()) -&gt; {ok, pid()} | ignore | {error, Reason::term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lookup/1">lookup(Index::index()) -&gt; pid()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="insert/1">insert(Index::index(), Bucket::bucket(), Value::kv_list()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expire/1">expire(Index::index(), Bucket::bucket(), Keys::[binary()]) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_exchange_fun/1">get_exchange_fun(LocalPartition::partition(), RemotePartition::partition(), Remote::remote_fun()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_exchange_remote/1">get_exchange_remote(X1::partition(), X2::partition()) -&gt; remote_fun()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="merge/1">merge(Index::index(), Update::term()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; {ok, StateName::atom(), StateData::#state{vnode_index=undefined | index(), opts=any(), trees=any(), rehash_timer_ref=undefined | reference(), current_xchg_partition=undefined | partition(), postpone=any()}} | {ok, StateName::atom(), StateData::#state{vnode_index=undefined | index(), opts=any(), trees=any(), rehash_timer_ref=undefined | reference(), current_xchg_partition=undefined | partition(), postpone=any()}, timeout() | hibernate} | {stop, Reason::term()} | ignore</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_hashtree/2">init_hashtree(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_cmd/2">wait_cmd(Insert_event, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_cmd/3">wait_cmd(Start_exchange_remote_event, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exchanging/2">exchanging(Insert_event, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rehashing/2">rehashing(Insert_event, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rehashing/3">rehashing(Start_exchnage_event, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rehash/1">rehash(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(Event, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(Event, From, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/3">handle_info(Info, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/3">terminate(Reason, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>sidorov</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

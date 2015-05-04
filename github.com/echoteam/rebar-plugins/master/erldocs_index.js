@@ -1,0 +1,1 @@
+var index = [['app','rebar-plugins','rebar-plugins','[application]'],['mod','rebar-plugins','rebar_genappup_plugin',[]],['fun','rebar-plugins','rebar_genappup_plugin:post_clean/2',[]],['fun','rebar-plugins','rebar_genappup_plugin:post_compile/2',[]]];

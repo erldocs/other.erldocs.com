@@ -1,0 +1,1 @@
+var index = [['app','erlsiphash','erlsiphash','[application]'],['mod','erlsiphash','siphash','Pure Erlang implementation of the SipHash-2-4 PRF.'],['fun','erlsiphash','siphash:hash/1',[]]];

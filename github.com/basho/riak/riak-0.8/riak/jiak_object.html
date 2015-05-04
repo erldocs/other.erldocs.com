@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jiak_object (riak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jiak_object</h1>
+<h2 class="modsummary">jiak_object is a set of utilities for dealing with objects
+       in the format that jiak uses.</h2>
+<div class="description">
+<p>jiak_object is a set of utilities for dealing with objects
+       in the format that <url href="/home/pete/wefwefwef/docs/other/9263215347/repo/riak-0.8/.xml/riak/./jiak.xml">jiak</url> uses.</p>
+ 
+       <p>Jiak's objects take the pre-JSON-encoding form expected
+       by mochijson2.  Thus, a simple object looks something like:
+ </p><pre class="sh_erlang">       {struct,
+        [{&lt;&lt;"bucket"&gt;&gt;, &lt;&lt;"foo"&gt;&gt;},
+         {&lt;&lt;"key"&gt;&gt;, &lt;&lt;"123"&gt;&gt;},
+         {&lt;&lt;"object"&gt;&gt;,
+          {struct,
+           [{&lt;&lt;"barField"&gt;&gt;, &lt;&lt;"barValue"&gt;&gt;},
+            {&lt;&lt;"bazField"&gt;&gt;, 42},
+           ]}},
+         {&lt;&lt;"links"&gt;&gt;,
+          [[&lt;&lt;"quuxLink"&gt;&gt;, &lt;&lt;"quuxKey"&gt;&gt;, &lt;&lt;"quuxTag"&gt;&gt;],
+           [&lt;&lt;"abcLink"&gt;&gt;, &lt;&lt;"abcKey"&gt;&gt;, &lt;&lt;"abcTag"&gt;&gt;]
+          ]},
+         {&lt;&lt;"vclock"&gt;&gt;, &lt;&lt;"opaque-riak-vclock"&gt;&gt;},
+         {&lt;&lt;"lastmod"&gt;&gt;, &lt;&lt;"Mon, 03 Aug 2009 18:49:42 GMT"&gt;&gt;}
+        ]}</pre><p>        
+This format can be great for Erlang pattern matching,        
+but can get in the way in some circumstances.  To aid use,        
+this module provides functions like new/2,3,4 for creating        
+new Jiak objects, bucket/1 and key/1 for top-level details,        
+getp/2,3 and setp/3 for getting and modifying fields in the        
+"object" structure, and links/1,2,3 for searching the        
+links field.</p>
+ 
+        <p>For example, if the jiak_object above were bound to O, then
+ </p><pre class="sh_erlang">        foo = jiak_object:bucket(O).
+        &lt;&lt;"barValue"&gt;&gt; = jiak_object:getp(O, &lt;&lt;"barField"&gt;&gt;).
+        3 = jiak_object:getp(
+              jiak_object:setp(O, &lt;&lt;"bazField"&gt;&gt;, 3)).
+        [[&lt;&lt;"linkBucket"&gt;&gt;, &lt;&lt;"linkKey"&gt;&gt;, &lt;&lt;"linkTag"&gt;&gt;]] =
+          jiak_object:links(O, &lt;&lt;"linkBucket"&gt;&gt;).</pre><p>
+        are all true.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-link_bucket">link_bucket() = bucket() (see module riak_object) | '_'</h3></div>
+    <div class="type"><h3 id="type-link_tag">link_tag() = term() | '_'</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(B::bucket() (see module riak_object), K::key() (see module riak_object)) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>produces an empty jiak object</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(B::bucket() (see module riak_object), K::key() (see module riak_object), O::mochijson2()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>produces a new jiak object with no links</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-2">new(B::bucket() (see module riak_object), K::key() (see module riak_object), O::mochijson2(), L::[link()]) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>produces empty jiak object, a mochijson2 structure that
+       would encode to the JSON structure:
+        {
+         "bucket":B,
+         "key"   :K,
+         "object":O,
+         "links" :L
+        }
+      Important: O should be a valid mochijson2 object</p>
+</div></div>
+<div class="function">
+<h3 id="from_riak_object/1">from_riak_object(RiakObject::riak_object() (see module riak_object)) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>produce a jiak object from a riak object
+       output will have form described in new/3, with the
+       addition of "vclock" and "lastmod" fields</p>
+</div></div>
+<div class="function">
+<h3 id="to_riak_object/1">to_riak_object(JiakObject::jiak_object()) -&gt; riak_object() (see module riak_object)</h3>
+
+
+<div class="description">
+
+<p>produce a riak object from a jiak object</p>
+</div></div>
+<div class="function">
+<h3 id="bucket/1">bucket(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="key/1">key(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vclock/1">vclock(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lastmod/1">lastmod(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vtag/1">vtag(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="object/1">object(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="links/1">links(JiakObject) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_object/1">set_object(JiakObject::jiak_object(), NewObj::struct() (see module mochijson2)) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Set the value of the "object" structure.</p>
+</div></div>
+<div class="function">
+<h3 id="set_links/1">set_links(JiakObject::jiak_object(), NewLinks::[link()]) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Set the value of the "links" array.</p>
+</div></div>
+<div class="function">
+<h3 id="setf/3">setf(X1, Field, Val) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getp/1">getp(JiakObject::jiak_object(), Prop::binary()) -&gt; term() | undefined</h3>
+
+
+<div class="description">
+
+<p>Get the value of the field Prop in the "object" structure.</p>
+</div></div>
+<div class="function">
+<h3 id="getp/1-1">getp(JiakObject::jiak_object(), Prop::binary(), Default::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get the value of the field Prop in the "object" structure,
+       returning Default if Prop is not present.</p>
+</div></div>
+<div class="function">
+<h3 id="setp/1">setp(JiakObject::jiak_object(), Prop::binary(), Val::mochijson2()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Set the value of the field Prop in the "object" structure.</p>
+</div></div>
+<div class="function">
+<h3 id="removep/1">removep(JiakObject::jiak_object(), Prop::binary()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Remove any setting for the field Prop in the "object"
+       structure.</p>
+</div></div>
+<div class="function">
+<h3 id="props/1">props(JiakObject::jiak_object()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Get the list of fields defined in the "object" structure.</p>
+</div></div>
+<div class="function">
+<h3 id="links/1-1">links(JiakObject::jiak_object(), Bucket::bucket() (see module riak_object)) -&gt; [link()]</h3>
+
+
+<div class="description">
+
+<p>Get all links in this object that point to objects in
+       the bucket Bucket.  Pass the atom '_' to match any
+       bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="links/1-2">links(JiakObject::jiak_object(), Bucket::bucket() (see module riak_object), Tag::term()) -&gt; [link()]</h3>
+
+
+<div class="description">
+
+<p>Get all links in this object tagged Tag that point
+       to the bucket Bucket.  Pass the atom '_' to match any
+       bucket or tag.</p>
+</div></div>
+<div class="function">
+<h3 id="add_link/1">add_link(JiakObject::jiak_object(), NewLink::link()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Add NewLink to the object's links.  If the link is already in
+       JiakObject, then JiakObject is not modified.</p>
+</div></div>
+<div class="function">
+<h3 id="add_link/1-1">add_link(JiakObject::jiak_object(), Bucket::bucket() (see module riak_object), Key::binary(), Tag::term()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#add_link/2" class="seealso">add_link(JiakObject, [Bucket, Key, Tag])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_link/1">remove_link(JiakObject::jiak_object(), RemLink::link()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+
+<p>Remove RemLink from JiakObject.  Has no effect if RemLink is
+       not in JiakObject.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_link/2">remove_link(JiakObject::jiak_object, Bucket::bucket() (see module riak_object), Key::key() (see module riak_object), Tag::term()) -&gt; jiak_object()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#remove_link/2" class="seealso">remove_link(JiakObject, [Bucket, Key, Tag])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="mapreduce_linkfun/1">mapreduce_linkfun(RiakObject::riak_object() (see module riak_object), X2::term(), X3::{link_bucket(), link_tag()}) -&gt; [{{atom(), binary()}, binary()}]</h3>
+
+
+<div class="description">
+
+<p>This function implements the map phase to which link
+       map/reduce specs are mapped.  The atom '_' means "match all",
+       so for example, {&lt;&lt;"foo"&gt;&gt;, '_'} would match all
+       links to bucket 'foo' with any tag, while
+       {&lt;&lt;"foo"&gt;&gt;, &lt;&lt;"bar"&gt;&gt;} would match
+       only links to bucket 'foo' with tag 'bar'.  The tags of the
+       links will be included as the "KeyData" for the bucket-key
+       pair returned.  Keys that were inputs to this phase that
+       reference non-existent objects are ignored
+       (i.e. {error,notfound} =&gt; []).</p>
+</div></div>
+<div class="function">
+<h3 id="mapreduce_identity/1">mapreduce_identity(RiakObject::riak_object() (see module riak_object), KeyData::term(), X3::term()) -&gt; [jiak_object() | {jiak_object(), term()}]</h3>
+
+
+<div class="description">
+
+<p>A simple map/reduce phase function for just getting jiak_object()s.
+       It attempts to be smart, in that if KeyData is the atom
+       'undefined', then just the jiak_object is put in the result, but
+       if it's anything else, then {jiak_object(), KeyData} is put in
+       the result.  Use it like:
+       {map, {modfun, jiak_object, mapreduce_identity}, none, boolean()}
+       Keys that were inputs to this phase that reference non-existent
+       objects are ignored (i.e. {error,notfound} =&gt; []).</p>
+</div></div>
+<div class="function">
+<h3 id="mapreduce_wrap_fun/1">mapreduce_wrap_fun(RiakObject::riak_object() (see module riak_object), KeyData::term(), X3::{mapreduce_funterm(), term()}) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>A simple map/reduce phase function for wraping the jiak_object()
+       creation outside your real map function.  FunTerm will be called
+       with either the tuple {error, notfound} or a jiak_object(), as
+       well as the KeyData and Arg, as if it were a first-level map
+       phase function.  Use it like:
+       {map, {modfun, jiak_object, mapreduce_wrap_fun},
+             {{modfun, foo_module, bar_function}, term()}, boolean()}</p>
+</div></div>
+<div class="function">
+<h3 id="undefined/0">undefined() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get the sentinal value used by diff/2 to indicate a
+       non-defined value in an object diff.</p>
+</div></div>
+<div class="function">
+<h3 id="diff/1">diff(FromObj::undefined | jiak_object(), ToObj::jiak_object()) -&gt; diff() (see module jiak_resource)</h3>
+
+
+<div class="description">
+
+<p>Compute the set of changes needed to transform FromObj
+       into ToObj.  Pass the atom 'undefined' as FromObj to
+       diff against an empty object.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

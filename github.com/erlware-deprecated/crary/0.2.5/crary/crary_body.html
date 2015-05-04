@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>crary_body (crary) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>crary_body</h1>
+<h2 class="modsummary">This module provides functions for detecting, reading, and   
+writing HTTP bodies and encodings such as chunking.</h2>
+<div class="description">
+<p>This module provides functions for detecting, reading, and   
+writing HTTP bodies and encodings such as chunking.</p>
+  
+   If you try to do chunked writes for a pre-http-1.1 client, this
+   module will do it by falling back to writing a streamed body with
+   no <code>content-length</code>. Obviously the connection has to be closed to
+   end the data stream. This means you can using a stream to
+   incrementally generate a webpage, or write out a large file, and
+   browsers such as w3m and lynx will still be able to work fine.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-reader">reader() = pid()</h3></div>
+    <div class="type"><h3 id="type-writer">writer() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="has_body/1">has_body(Req::crary_req() (see module crary)) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Does this request have a body that needs to be read? It determins
+  this by checking for <code>content-length</code> or <code>transfer-encoding</code> headers.</p>
+</div></div>
+<div class="function">
+<h3 id="new_reader/1">new_reader(Req::crary_req() (see module crary)) -&gt; reader()</h3>
+
+
+<div class="description">
+
+<p>Return a new chunk reader.</p>
+</div></div>
+<div class="function">
+<h3 id="new_writer/1">new_writer(Req::crary_req() (see module crary)) -&gt; writer()</h3>
+
+
+<div class="description">
+
+<p>Return a new chunk writer.</p>
+ 
+  <p>It may be observed that currently this call just returns the same
+  <code>Req</code> that was passed to it. Don't depend on this, it will likely
+  be changed to a pid() or similar in the future for supporting
+  buffering or other encodings.</p>
+<p><em>See also:</em> <a href="#with_writer/2" class="seealso">with_writer/2</a>, <a href="crary.html#r/4" class="seealso">crary:r/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="with_writer/1">with_writer(Req::crary_req() (see module crary), F::function()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Call <code>F(Writer)</code> with a new writer, automatically closing the
+  writer when <code>F</code> returns, and writing an error message if <code>F</code> throws  
+an exception.</p>
+ 
+  <p>Since the response line has almost certainly already been writen
+  out, the best this function can do is append an error message into
+  the output, and hope that it will be seen. If this is not good
+  behavior for your application, use a try/catch form in <code>F</code> to keep
+  errors from making it down the stack to here.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(S::reader()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Read and return the next available chunk.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1-1">read(S::reader(), Len::integer()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Read and return <code>Len</code> bytes.</p>
+</div></div>
+<div class="function">
+<h3 id="read_all/1">read_all(Req::crary_req() (see module crary)) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Read and return the full body. It doesn't matter if the body
+  is chunked or fixed length, this will read it all in and return it
+  as one binary. Probably great for <code>PUT</code> bodies for forms. Probably
+  not great for reading in a large amount of data.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(Req::writer(), Data::iolist()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Write a chunk of data. At the moment, this data is immediately
+  written as a chunk, regardless of the size. In the future writes
+  may get buffered, probably with a configurable buffer size.</p>
+</div></div>
+<div class="function">
+<h3 id="done_writing/1">done_writing(Crary_req::writer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Writing the closing chunk. For pre-http-1.1 streaming this also
+  closes the socket.</p>
+</div></div>
+<div class="function">
+<h3 id="done_writing/1-1">done_writing(Req::writer(), Trailers::headerish() (see module crary_headers)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Writing the <code>Trailers</code> and the closing chunk.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Scott Parish</aname>
+<email>srp@srparish.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

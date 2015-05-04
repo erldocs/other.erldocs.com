@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smpp_log (oserl13) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>smpp_log</h1>
+<h2 class="modsummary">SMPP Log.</h2>
+<div class="description">
+<p>SMPP Log.</p>
+  
+   <p>A SMPP <code>gen_event</code> manager for SMPP PDU operation logging.</p>
+  
+   <p>This module provides two independent event handlers for SMPP PDU
+   logging:</p>
+  
+   <list>
+     <item><p>A <url href="http://www.erlang.se/doc/doc-5.4.3/lib/kernel-2.10.3/doc/html/disk_log.html">disk_log</url> based handler.
+     </p></item>
+     <item><p>An <url href="http://www.erlang.se/doc/doc-5.4.3/lib/kernel-2.10.3/doc/html/error_logger.html">error_logger</url> handler.
+     </p></item>
+   </list>
+  
+   <p>These handlers may be added and swapped dynamically.  By defining the
+   appropriated logging predicate (see <a href="#add_disk_log/1" class="seealso">
+   add_disk_log/1</a> and <a href="#add_error_logger/1" class="seealso">add_error_logger/1</a>
+   for further details and default predicates) you can control which PDUs
+   should be logged by each handler.</p>
+  
+   <p>The <i>disk_log</i> stores by default PDUs in binary format within
+   tuples <code>{Now,BinaryPdu,From}</code>.  <code>Now</code> is the timestamp in the
+   format returned by the BIF <code>now()</code>.  <code>BinaryPdu</code> is the SMPP
+   PDU in binary format and <code>From</code> indicates who issued the operation,
+   <code>self</code> if the operation was issued by our SMPP entity, <code>peer</code>
+   in case the peer SMPP entity was the originator.</p>
+  
+   <p>The format of the term stored by the <i>disk_log</i> can be redefined
+   using a custom <code>Format</code> predicated.  In such a case, PDUs are
+   stored as <code>{Now, Format(BinaryPdu), From}</code>.</p>
+  
+   <p>In the same way, the format of the output dumped by the
+   <i>error_logger</i> handler can be redefined by the user.  By default the
+   complete parameters list of the selected SMPP PDUs is sent.</p>
+  
+   <p>This module provides also a set of functions for inspecting the
+   <i>disk_log</i>:  <a href="#count/3" class="seealso">count/3</a>, <a href="#match/3" class="seealso">
+   match/3</a> and <a href="#match/4" class="seealso">match/4</a>.  Again, by defining the
+   search predicate, any set of PDUs is easily extracted.</p>
+  
+  
+   <em>Usage</em>
+  
+   <p>During <url href="gen_esme.html">gen_esme</url> and <url href="gen_smsc.html">
+   gen_esme</url> startup the <i>smpp_log</i> manager is started, although no
+   event handler is added at that point, thus no logging is done until a
+   handler is explicitly added from the ESME/SMSC implementation by calling
+   the functions <a href="#add_disk_log_handler/1" class="seealso">add_disk_log_handler/1</a>
+   and/or <a href="#add_error_logger_handler/1" class="seealso">add_error_logger_handler/1
+   </a>.</p>
+  
+   <p>Every time a PDU is packed at the session layer the function
+   <a href="#notify_self_operation/1" class="seealso">notify_self_operation/1</a> is
+   called.  The same applies before unpacking for the
+   <a href="#notify_peer_operation/1" class="seealso">notify_peer_operation/1</a> function.
+   If no log handler was added to the <i>smpp_log</i> manager, these calls
+   have no effect.</p>
+  
+   <p>The <i>error_logger</i> handler is very useful for debugging purposes.
+   The logging predicate can be set accordingly to filter the type of
+   information you need to inspect at runtime. The information sent to the
+   <i>error_logger</i> can also be formatted at your own wish.</p>
+  
+   <p>The <i>disk_log</i> handler is suitable for PDU storage.</p>
+  
+  
+   <em>Disk log example</em>
+  
+   <p>The <i>disk_log</i> was designed to store SMPP operations on disk.  By
+   default PDUs are efficiently stored in binary format.  Storage format can
+   be easily customizable.  It is also possible to define which set of PDUs
+   should be stored.  For example, to store only <i>submit_sm</i> and
+   <i>deliver_sm</i> PDUs on disk do:</p>
+  
+   <pre class="sh_erlang">
+   File = "/home/otpuser/otp/log/smpp_log",
+   Pred = fun(BinaryPdu) -&gt;
+              case pdu_syntax:command_id(BinaryPdu) of
+                  ?COMMAND_ID_SUBMIT_SM -&gt;
+                      true;
+                  ?COMMAND_ID_DELIVER_SM -&gt;
+                      true;
+                  _CommandId -&gt;
+                      false
+              end
+          end,
+   smpp_log:add_disk_log_handler([{file, File}, {pred, Pred}]),
+   </pre>
+  
+   <p>By default every PDU operation other than <i>enquire_link</i> and
+   <i>enquire_link_resp</i> are logged.</p>
+  
+  
+   <em>Error logger example</em>
+  
+   <p>During runtime you may need to inspect <i>deliver_sm</i> operations
+   originated by a given <i>source_addr</i>.  You can dump this information
+   to the error_logger by adding or swapping the error_logger handler at any
+   time:</p>
+  
+   <pre class="sh_erlang">
+   SourceAddr = "1234",
+   Pred = fun(BinaryPdu) -&gt;
+              case pdu_syntax:command_id(BinaryPdu) of
+                  ?COMMAND_ID_DELIVER_SM -&gt;
+                      case operation:unpack(BinaryPdu) of
+                          {ok, Pdu} -&gt;
+                               case operation:get_param(source_addr, Pdu) of
+                                   {ok, SourceAddr} -&gt;
+                                       true;
+                                   _Otherwise -&gt;
+                                       false
+                               end;
+                           Error -&gt;
+                               false
+                      end;
+                  _CommandId -&gt;
+                      false
+              end
+          end,
+   smpp_log:add_error_logger_handler([{pred, Pred}]),
+   </pre>
+  
+   <p>By default the information sent to the error_logger is the complete PDU
+   parameters list, you could for instance send the PDU in hex format by
+   simply redefining the format function:</p>
+  
+   <pre class="sh_erlang">
+   Format = fun(BinaryPdu) -&gt; binary:to_hexlist(BinaryPdu) end,
+   smpp_log:swap_error_logger_handler([{format, Format}]),
+   </pre>
+  
+   <p>Once finished with the debugging you can delete or swap the
+   <i>error_logger</i> handler back to the defaults.  Default logging
+   predicate sends to the <i>error_logger</i> only those PDU responses with
+   an error code other than 0.</p>
+  
+   <em>Changes 1.3 -&gt; 1.4</em>
+  
+   <p>[11 Jul 2007]</p>
+  
+   <list>
+     <item><p>Add name to disk_log.  Having a name let us starting several ESMEs
+        in the same node, each ESME with a different disk_log.
+     </p></item>
+     <item><p>Use proplists module.</p></item>
+   </list>
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, Pid} | {error, Error}</code></li><li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid}</code></li></ul>
+<div class="description">
+
+<p>Starts the server.
+ </p>
+<p><em>See also:</em> <a href="gen_event.html#start/1" class="seealso">gen_event:start/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, Pid} | {error, Error}</code></li><li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid}</code></li></ul>
+<div class="description">
+
+<p>Starts the server and links to it.
+ </p>
+<p><em>See also:</em> <a href="gen_event.html#start_link/1" class="seealso">gen_event:start_link/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="add_disk_log_handler/2">add_disk_log_handler(Pid, Args) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Args = [Arg]</code></li><li><code>Arg = {name, Name} | {file, File} | {pred, Pred} | {size, Size} | {format, Format}</code></li><li><code>Result = ok | {'EXIT', Reason} | term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Adds the disk log event handler.</p>
+ 
+  <list>
+    <item><p><em>Name:</em> disk log name.  Default is <i>smpp_log</i>.</p></item>
+    <item><p><em>File:</em> disk log file name.  Default is <i>smpp_log</i>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be logged.  <code>fun(BinaryPdu) -&gt; bool()</code>.  Default predicate
+      logs every PDU operation other than <i>enquire_link</i> and
+      <i>enquire_link_resp</i>.
+    </p></item>
+    <item><p><em>Size:</em> a pair <code>{MaxNoBytes, MaxNoFiles}</code> as given by the
+      <url href="http://www.erlang.se/doc/doc-5.4.3/lib/kernel-2.10.3/doc/html/disk_log.html">disk_log:open/1</url> option <code>size</code>.  The default size is
+      <code>{10485760, 20}</code> (10M x 20).  Assuming 256 bytes for each PDU.
+      Individual log files of the wrap disk log can store up to 40960 PDUs
+      for the default value.  Having 20 files on the wrap log, the total PDU
+      capacity, before wrapping to the first log, is about 819200.
+    </p></item>
+    <item><p><em>Format:</em> a fun <code>fun(BinaryPdu) -&gt; term()</code> that gets
+      the binary PDU as input and returns the term sent to the disk_log.
+      Default format function stores the binary PDU as is.
+    </p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="gen_event.html#add_handler/3" class="seealso">gen_event:add_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="add_error_logger_handler/2">add_error_logger_handler(Pid, Args) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Args = [Arg]</code></li><li><code>Arg = {file, File} | {pred, Pred} | {format, Format}</code></li><li><code>Result = ok | {'EXIT', Reason} | term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Adds the error logger event handler.</p>
+ 
+  <list>
+    <item><p><em>File:</em> error_logger logfile.  If not defined or equals to the
+      atom <code>undefined</code>, then no logfile is used.
+    </p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be logged.  <code>fun(BinaryPdu) -&gt; bool()</code>.  Default predicate
+      logs only response PDUs with a <i>command_status</i> other than 0x0.
+    </p></item>
+    <item><p><em>Format:</em> a fun <code>fun(BinaryPdu) -&gt; term()</code> that gets
+      the binary PDU as input and returns the term sent to the error_logger.
+      Default format function shows the complete parameters list of the PDU.
+    </p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="gen_event.html#add_handler/3" class="seealso">gen_event:add_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="count/4">count(Pid, Date, From, Pred) -&gt; int()</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Date = any | {from, Time} | {until, Time} | {lapse, FromTime, ToTime}</code></li><li><code>Time = {{Year, Month, Day}, {Hour, Minutes, Seconds}}</code></li><li><code>FromTime = Time</code></li><li><code>ToTime = Time</code></li><li><code>From = any | self | peer</code></li><li><code>Pred = function()</code></li></ul>
+<div class="description">
+
+<p>PDUs are logged in the disk log as <code>{Now, BinaryPdu, From}</code>
+  terms.  This function counts logged PDUs matching the given
+  <code>Date</code>, <code>From</code> and <code>Pred</code>.</p>
+ 
+  <list>
+    <item><p><em>Date:</em> <code>any</code>, <code>{from, Time}</code>, <code>{until, Time}
+      </code> or <code>{lapse, FromTime,ToTime}</code>.</p></item>
+    <item><p><em>From:</em> <code>self</code>, <code>peer</code> or <code>any</code>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be matched.  <code>fun(BinaryPdu) -&gt; bool()</code>.</p></item>
+  </list><p>
+ </p>
+<p><em>See also:</em> <a href="#match/3" class="seealso">match/3</a>, <a href="#match/4" class="seealso">match/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_disk_log_handler/1">delete_disk_log_handler(Pid) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Result = ok | {'EXIT', Reason} | term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Deletes the disk log event handler
+ </p>
+<p><em>See also:</em> <a href="gen_event.html#delete_handler/3" class="seealso">gen_event:delete_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_error_logger_handler/1">delete_error_logger_handler(Pid) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Result = ok | {'EXIT', Reason} | term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Deletes the disk log event handler
+ </p>
+<p><em>See also:</em> <a href="gen_event.html#delete_handler/3" class="seealso">gen_event:delete_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="match/4">match(Pid, Date, From, Pred) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Date = any | {from, Time} | {until, Time} | {lapse, FromTime, ToTime}</code></li><li><code>Time = {{Year, Month, Day}, {Hour, Minutes, Seconds}}</code></li><li><code>FromTime = Time</code></li><li><code>ToTime = Time</code></li><li><code>From = any | self | peer</code></li><li><code>Pred = function()</code></li><li><code>Continuation = start | cont()</code></li><li><code>Result = {Continuation2, List} | {Continuation2, List, Badbytes} | eof | {error, Reason}</code></li><li><code>List = [{Now, BinaryPdu, From}]</code></li><li><code>Now = {MegaSecs, Secs, Microsecs}</code></li><li><code>BinaryPdu = binary()</code></li></ul>
+<div class="description">
+
+<p>PDUs are logged in the disk log as <code>{Now, BinaryPdu, From}</code>
+  terms.  This function gets the list of logged PDUs matching the given
+  <code>Date</code>, <code>From</code> and <code>Pred</code>.</p>
+ 
+  <list>
+    <item><p><em>Date:</em> <code>any</code>, <code>{from, Time}</code>, <code>{until, Time}
+      </code> or <code>{lapse, FromTime,ToTime}</code>.</p></item>
+    <item><p><em>From:</em> <code>self</code>, <code>peer</code> or <code>any</code>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be matched.  <code>fun(BinaryPdu) -&gt; bool()</code>.</p></item>
+  </list>
+ 
+  <p>This function internally calls <a href="#match/4" class="seealso">match/4</a> with
+  <code>start</code> as the <code>Continuation</code> parameters.</p>
+ 
+<p><em>See also:</em> <a href="#match/4" class="seealso">match/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="match/5">match(Pid, Date, From, Pred, Continuation) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Date = any | {from, Time} | {until, Time} | {lapse, FromTime, ToTime}</code></li><li><code>Time = {{Year, Month, Day}, {Hour, Minutes, Seconds}}</code></li><li><code>FromTime = Time</code></li><li><code>ToTime = Time</code></li><li><code>From = any | self | peer</code></li><li><code>Pred = function()</code></li><li><code>Continuation = start | cont()</code></li><li><code>Result = {Continuation2, List} | {Continuation2, List, Badbytes} | eof | {error, Reason}</code></li><li><code>List = [{Now, BinaryPdu, From}]</code></li><li><code>Now = {MegaSecs, Secs, Microsecs}</code></li><li><code>BinaryPdu = binary()</code></li></ul>
+<div class="description">
+
+<p>PDUs are logged in the disk log as <code>{Now, BinaryPdu, From}</code>
+  terms.  This function gets the list of logged PDUs matching the given
+  <code>Date</code>, <code>From</code> and <code>Pred</code>.</p>
+ 
+  <list>
+    <item><p><em>Date:</em> <code>any</code>, <code>{from, Time}</code>, <code>{until, Time}
+      </code> or <code>{lapse, FromTime,ToTime}</code>.</p></item>
+    <item><p><em>From:</em> <code>self</code>, <code>peer</code> or <code>any</code>.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be matched.  <code>fun(BinaryPdu) -&gt; bool()</code>.</p></item>
+  </list>
+ 
+  <p>This function uses <url href="http://www.erlang.se/doc/doc-5.4.3/lib/kernel-2.10.3/doc/html/disk_log.html">disk_log:chunk/2</url> to read the terms
+  appended to the disk log.  <code>Continuation</code> parameter and result
+  meanings are those documented in that function.</p>
+ 
+<p><em>See also:</em> <a href="disk_log.html#chunk/2" class="seealso">disk_log:chunk/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="notify_peer_operation/2">notify_peer_operation(Pid, Pdu) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Pdu = binary()</code></li></ul>
+<div class="description">
+
+<p>Notifies peer SMPP operations to the log.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="notify_self_operation/2">notify_self_operation(Pid, Pdu) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Pdu = binary()</code></li></ul>
+<div class="description">
+
+<p>Notifies self SMPP operations to the log.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="swap_disk_log_handler/2">swap_disk_log_handler(Pid, Args) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Args = [Arg]</code></li><li><code>Arg = {file, File} | {pred, Pred} | {size, Size}</code></li><li><code>Result = ok | {'EXIT', Reason} | term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Swaps the disk log event handler.</p>
+ 
+  <list>
+    <item><p><em>File:</em> disk log file name.</p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be logged.  <code>fun(BinaryPdu) -&gt; bool()</code>.
+    </p></item>
+    <item><p><em>Size:</em> a pair <code>{MaxNoBytes, MaxNoFiles}</code> as given by the
+      <url href="http://www.erlang.se/doc/doc-5.4.3/lib/kernel-2.10.3/doc/html/disk_log.html">disk_log:open/1</url> option <code>size</code>.
+    </p></item>
+    <item><p><em>Format:</em> a fun <code>fun(BinaryPdu) -&gt; term()</code> that gets
+      the binary PDU as input and returns the term sent to the disk_log.
+      Default format function stores the binary PDU as is.
+    </p></item>
+  </list>
+ 
+  <p>If a parameter is unspecified, the value of the old disk_log handler
+  is used.</p>
+ 
+<p><em>See also:</em> <a href="gen_event.html#swap_handler/3" class="seealso">gen_event:swap_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="swap_error_logger_handler/2">swap_error_logger_handler(Pid, Args) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Args = [Arg]</code></li><li><code>Arg = {file, File} | {pred, Pred} | {format, Format}</code></li><li><code>Result = ok | {'EXIT', Reason} | term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Swaps the error logger event handler.</p>
+ 
+  <list>
+    <item><p><em>File:</em> error_logger logfile.  If not defined or equals to the
+      atom <code>undefined</code>, then no logfile is used.
+    </p></item>
+    <item><p><em>Pred:</em> a predicate the binary PDUs must satisfy in order to
+      be logged.  <code>fun(BinaryPdu) -&gt; bool()</code>.  Default predicate
+      logs only response PDUs with a <i>command_status</i> other than 0x0.
+    </p></item>
+    <item><p><em>Format:</em> a fun <code>fun(BinaryPdu) -&gt; term()</code> that gets
+      the binary PDU as input and returns the term sent to the error_logger.
+      Default format function shows the complete parameters list of the PDU.
+    </p></item>
+  </list>
+ 
+  <p>If a parameter is unspecified, the value of the old disk_log handler
+  is used.</p>
+ 
+<p><em>See also:</em> <a href="gen_event.html#swap_handler/3" class="seealso">gen_event:swap_handler/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li></ul>
+<div class="description">
+
+<p>Stops the smpp_log event manager with the given <code>Pid</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args) -&gt; {ok, State}</h3>
+
+<ul class="type">
+<li><code>Args = term()</code></li><li><code>State = term()</code></li></ul>
+<div class="description">
+
+<p>Initialize the event handler</p>
+</div></div>
+<div class="function">
+<h3 id="handle_event/2">handle_event(X1::Event, S::State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = term()</code></li><li><code>State = term()</code></li><li><code>Result = {ok, NewState} | {swap_handler, Args1, NewState, Handler2, Args2} | remove_handler</code></li><li><code>NewState = term()</code></li><li><code>Args1 = term()</code></li><li><code>Args2 = term()</code></li><li><code>Handler2 = Module2 | {Module2, Id}</code></li><li><code>Module2 = atom()</code></li><li><code>Id = term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/2">handle_call(Request, S::State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Request = term()</code></li><li><code>State = term()</code></li><li><code>Result = {ok, Reply, State} | {swap_handler, Reply, Args1, NewState, Handler2, Args2} | {remove_handler, Reply}</code></li><li><code>Reply = term()</code></li><li><code>NewState = term()</code></li><li><code>Args1 = term()</code></li><li><code>Args2 = term()</code></li><li><code>Handler2 = Module2 | {Module2, Id}</code></li><li><code>Module2 = atom()</code></li><li><code>Id = term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, S::State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Info = term()</code></li><li><code>State = term()</code></li><li><code>Result = {ok, NewState} | {swap_handler, Args1, NewState, Handler, Args2} | remove_handler</code></li><li><code>NewState = term()</code></li><li><code>Args1 = term()</code></li><li><code>Args2 = term()</code></li><li><code>Handler2 = Module2 | {Module2, Id}</code></li><li><code>Module2 = atom()</code></li><li><code>Id = term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason::Arg, State) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Arg = Args | {stop, Reason} | stop | remove_handler | {error, {'EXIT', Reason}} | {error, Reason}</code></li><li><code>Reason = term()</code></li><li><code>State = term()</code></li></ul>
+<div class="description">
+
+<p>Shutdown the server.</p>
+ 
+  <p>Return value is ignored by the server.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; {ok, NewState}</h3>
+
+<ul class="type">
+<li><code>OldVsn = undefined | term()</code></li><li><code>State = term()</code></li><li><code>Extra = term</code></li><li><code>NewState = term()</code></li></ul>
+<div class="description">
+
+<p>Convert process state when code is changed</p>
+</div></div></div>
+
+<authors>
+
+<aname>Enrique Marcote Peña</aname>
+<email>mpquique_at_users.sourceforge.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

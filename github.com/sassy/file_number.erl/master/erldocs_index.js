@@ -1,0 +1,1 @@
+var index = [['app','file_number.erl','file_number.erl','[application]'],['mod','file_number.erl','file_number',[]],['fun','file_number.erl','file_number:add_file_number/2',[]]];

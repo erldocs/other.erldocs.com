@@ -1,0 +1,1 @@
+var index = [['app','uart','uart','[application]'],['mod','uart','uart_devices','      Server that keep track on uart/tty devices '],['mod','uart','uart_win32_devices','      Enumerate devices on win32.'],['fun','uart','uart_devices:start/0',[]],['fun','uart','uart_devices:start_link/0','  Starts the server.'],['fun','uart','uart_devices:stop/0',[]]];

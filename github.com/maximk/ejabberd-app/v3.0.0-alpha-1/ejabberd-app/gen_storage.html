@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_storage (ejabberd-app) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_storage</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-attributedef">attributedef() = [{Column::atom(), columndef()}]</h3></div>
+    <div class="type"><h3 id="type-columndef">columndef() = text | int | tuple()</h3></div>
+    <div class="type"><h3 id="type-lock_kind">lock_kind() = read | write | sticky_write</h3></div>
+    <div class="type"><h3 id="type-matchrule">matchrule() = {'and', <a href="#type-matchrule" class="seealso">matchrule()</a>, <a href="#type-matchrule" class="seealso">matchrule()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'andalso', <a href="#type-matchrule" class="seealso">matchrule()</a>, <a href="#type-matchrule" class="seealso">matchrule()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'or', <a href="#type-matchrule" class="seealso">matchrule()</a>, <a href="#type-matchrule" class="seealso">matchrule()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'orelse', <a href="#type-matchrule" class="seealso">matchrule()</a>, <a href="#type-matchrule" class="seealso">matchrule()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'=', Attribute :: atom(), <a href="#type-matchvalue" class="seealso">matchvalue()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'=/=', Attribute :: atom(), <a href="#type-matchvalue" class="seealso">matchvalue()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {like, Attribute :: atom(), <a href="#type-matchvalue" class="seealso">matchvalue()</a>}</h3></div>
+    <div class="type"><h3 id="type-matchvalue">matchvalue() = '_' | integer() | string()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {odbc_host, string()} | {Table::atom(), [tabdef()]}</h3></div>
+    <div class="type"><h3 id="type-options">options() = [option()]</h3></div>
+    <div class="type"><h3 id="type-storage_host">storage_host() = binary()</h3></div>
+    <div class="type"><h3 id="type-storage_table">storage_table() = atom()</h3></div>
+    <div class="type"><h3 id="type-tabdef">tabdef() = {attributes, AtomList} | {record_name, atom()} | {types, attributedef()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="all_table_hosts/1">all_table_hosts(Tab::atom()) -&gt; [storage_host()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="table_info/3">table_info(Host::storage_host, Tab::storage_table, InfoKey::atom()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_table/1">create_table(X1::backend(), Host::binary(), Name::atom(), Def::options()) -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_table/1">delete_table(Host::storage_host(), Tab::storage_table()) -&gt; {atomic, ok}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_table_copy/1">add_table_copy(Host::storage_host(), Tab::storage_table(), Node::node(), Type::atom()) -&gt; {atomic, ok}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_table_index/1">add_table_index(Host::storage_host(), Tab::storage_table(), Attribute::atom()) -&gt; {atomic, ok}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read/1">read(Host::storage_host(), X2::{storage_table(), any()}) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read/1-1">read(Host::storage_host(), Tab::storage_table(), Key::any(), LockKind::lock_kind()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_read/1">dirty_read(Host::storage_host(), X2::{storage_table(), any()}) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_read/1-1">dirty_read(Host::storage_host(), Tab::storage_table(), Key::any()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/1">select(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()]) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/1-1">select(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()], Lock::lock_kind()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/1-2">select(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()], N::integer(), Lock::lock_kind()) -&gt; {[tuple()], any()} | '$end_of_table'</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="select/1-3">select(X1::{storage_host(), storage_table()}, Cont::any()) -&gt; {[tuple()], any()} | '$end_of_table'</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_select/1">dirty_select(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()]) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_count_records/1">dirty_count_records(Host::storage_host(), Tab::storage_table()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_count_records/1-1">dirty_count_records(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()]) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="count_records/1">count_records(Host::storage_host(), Tab::storage_table()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="count_records/1-1">count_records(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()]) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write/1">write(Host::storage_host(), Rec::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write/1-1">write(Host::storage_host(), Tab::storage_table(), Rec::tuple(), LockKind::lock_kind()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_write/1">dirty_write(Host::storage_host(), Rec::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_write/1-1">dirty_write(Host::storage_host(), Tab::storage_table(), Rec::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1">delete(Host::storage_host(), X2::{storage_table(), any()}) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(Host::storage_host(), Tab::storage_table(), Key::any(), LockKind::lock_kind()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_delete/1">dirty_delete(Host::storage_host(), X2::{storage_table(), any()}) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_delete/1-1">dirty_delete(Host::storage_host(), Tab::storage_table(), Key::any()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_object/1">delete_object(Host::storage_host(), Rec::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_object/1-1">delete_object(Host::storage_host(), Tab::storage_table(), Rec::tuple(), LockKind::lock_kind()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_delete_object/1">dirty_delete_object(Host::storage_host(), Rec::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_delete_object/1-1">dirty_delete_object(Host::storage_host(), Tab::storage_table(), Rec::tuple()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_where/1">delete_where(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()]) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dirty_delete_where/1">dirty_delete_where(Host::storage_host(), Tab::storage_table(), MatchRules::[matchrule()]) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write_lock_table/1">write_lock_table(Host::storage_host(), Tab::storage_table()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transaction/1">transaction(Host::storage_host(), Tab::storage_table(), Fun::function()) -&gt; {atomic, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sync_dirty/1">sync_dirty(Host::storage_host(), Tab::storage_table(), Fun::function()) -&gt; {atomic, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="async_dirty/1">async_dirty(Host::storage_host(), Tab::storage_table(), Fun::function()) -&gt; {atomic, any()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

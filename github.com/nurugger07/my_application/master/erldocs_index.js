@@ -1,0 +1,1 @@
+var index = [['app','my_application','my_application','[application]'],['mod','my_application','my_application_custom_filters',[]],['mod','my_application','my_application_custom_tags',[]],['mod','my_application','my_application_incoming_mail_controller',[]],['mod','my_application','my_application_outgoing_mail_controller',[]]];

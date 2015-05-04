@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jsonrpc2_client (jsonrpc2-erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jsonrpc2_client</h1>
+<h2 class="modsummary">JSON-RPC 2.0 client.</h2>
+<div class="description">
+<p>JSON-RPC 2.0 client</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-batch_req">batch_req() = [<a href="#type-call_req" class="seealso">call_req()</a> | <a href="#type-notification_req" class="seealso">notification_req()</a>]</h3></div>
+    <div class="type"><h3 id="type-call_req">call_req() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="jsonrpc2.html#type-method" class="seealso">jsonrpc2:method()</a>, <a href="jsonrpc2.html#type-params" class="seealso">jsonrpc2:params()</a>, <a href="jsonrpc2.html#type-id" class="seealso">jsonrpc2:id()</a>}</h3></div>
+    <div class="type"><h3 id="type-json_decode">json_decode() = fun((binary()) -> <a href="jsonrpc2.html#type-json" class="seealso">jsonrpc2:json()</a>)</h3></div>
+    <div class="type"><h3 id="type-json_encode">json_encode() = fun((<a href="jsonrpc2.html#type-json" class="seealso">jsonrpc2:json()</a>) -> binary())</h3></div>
+    <div class="type"><h3 id="type-notification_req">notification_req() = {<a href="jsonrpc2.html#type-method" class="seealso">jsonrpc2:method()</a>, <a href="jsonrpc2.html#type-params" class="seealso">jsonrpc2:params()</a>}</h3></div>
+    <div class="type"><h3 id="type-request">request() = <a href="#type-call_req" class="seealso">call_req()</a> | <a href="#type-notification_req" class="seealso">notification_req()</a> | <a href="#type-batch_req" class="seealso">batch_req()</a></h3></div>
+    <div class="type"><h3 id="type-response">response() = {ok, <a href="jsonrpc2.html#type-json" class="seealso">jsonrpc2:json()</a>} | {error, <a href="jsonrpc2.html#type-error" class="seealso">jsonrpc2:error()</a>}</h3></div>
+    <div class="type"><h3 id="type-transportfun">transportfun() = fun((binary()) -&gt; binary())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create_request/1">create_request(Reqs::request()) -&gt; json() (see module jsonrpc2)</h3>
+
+
+<div class="description">
+
+<p>Creates a call, notification or batch request, depending on the parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_response/1">parse_response(Response::json() (see module jsonrpc2)) -&gt; [{id() (see module jsonrpc2), response()}]</h3>
+
+
+<div class="description">
+
+<p>Parses a structured response (already json-decoded) and returns a list of pairs, with id
+  and a tuple {ok, Reply} or {error, Error}.</p>
+</div></div>
+<div class="function">
+<h3 id="batch_call/1">batch_call(MethodsAndParams::[{method() (see module jsonrpc2), params() (see module jsonrpc2)}], TransportFun::transportfun(), JsonDecode::json_decode(), JsonEncode::json_encode(), FirstId::integer()) -&gt; [response()]</h3>
+
+
+<div class="description">
+
+<p>Calls multiple methods as a batch call and returns the results in the same order.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

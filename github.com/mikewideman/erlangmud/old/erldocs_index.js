@@ -1,0 +1,1 @@
+var index = [['app','erlangmud','erlangmud','[application]'],['mod','erlangmud','client',[]],['mod','erlangmud','server',[]],['fun','erlangmud','client:loop/1',[]],['fun','erlangmud','client:start/1',[]],['fun','erlangmud','client:startConnection/1',[]],['fun','erlangmud','server:loop/1',[]],['fun','erlangmud','server:start/2',[]],['fun','erlangmud','server:stop/1',[]]];

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>esql (esql) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>esql</h1>
+<h2 class="modsummary">Erlang Database Connection Framework.</h2>
+<div class="description">
+<p>Erlang Database Connection Framework</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-connection">connection() = tuple()</h3></div>
+    <div class="type"><h3 id="type-description">description() = term()</h3></div>
+    <div class="type"><h3 id="type-driver">driver() = module()</h3></div>
+    <div class="type"><h3 id="type-name">name() = atom() | string() | binary()</h3></div>
+    <div class="type"><h3 id="type-sql">sql() = iolist()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Other) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/1">open(Driver::driver(), Args::list()) -&gt; {ok, connection()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Open a connection to the database
+ </p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Esql_connection::connection()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Close the connection.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start_transaction/1">start_transaction(Esql_connection::connection()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start a transaction</p>
+</div></div>
+<div class="function">
+<h3 id="commit/1">commit(Esql_connection::connection()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Close the transaction and store all changes.</p>
+</div></div>
+<div class="function">
+<h3 id="rollback/1">rollback(Esql_connection::connection()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Close the transaction and rollback all changes.</p>
+</div></div>
+<div class="function">
+<h3 id="table_exists/1">table_exists(Name::name(), Esql_connection::connection()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Returns true iff the table with Name exists.</p>
+</div></div>
+<div class="function">
+<h3 id="tables/1">tables(Esql_connection::connection()) -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Return a list with tablenames.</p>
+</div></div>
+<div class="function">
+<h3 id="describe_table/1">describe_table(TableName::name(), Esql_connection::connection()) -&gt; description()</h3>
+
+
+<div class="description">
+
+<p>Return a description of table Name.</p>
+</div></div>
+<div class="function">
+<h3 id="column_names/1">column_names(Name::name(), Connection::connection()) -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Get the column names of table Name.</p>
+</div></div>
+<div class="function">
+<h3 id="run/1">run(Sql::sql(), Connection::connection()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Execute the statement, without returning results.</p>
+</div></div>
+<div class="function">
+<h3 id="run/1-1">run(Sql::sql(), Params::list(), Esql_connection::connection()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="execute/1">execute(Sql::sql(), Connection::connection()) -&gt; {ok, [atom()], [tuple]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Execute the statement, return the result</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1-1">execute(Sql::sql(), Params::list(), Esql_connection::connection()) -&gt; {ok, [atom()], [tuple]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Apply the parameters and execute the statement, return the result</p>
+</div></div>
+<div class="function">
+<h3 id="execute1/1">execute1(Sql::sql(), Connection::connection()) -&gt; {ok, [atom()], [tuple]} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="execute1/1-1">execute1(Sql::sql(), Params::list(), Esql_connection::connection()) -&gt; {ok, [atom()], [tuple]} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="execute/4">execute(Sql, Params, Receiver, Esql_connection) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Execute the statement, and return the rows, one by one to the receiver.
+  Testing if this is a good api for asynchronous returning query results.
+  Returns {ok, Ref}
+  Receiver, pid
+  start... -&gt; more , row -&gt; more, row -&gt; more, row, end...
+  Experimental interface.</p>
+</div></div>
+<div class="function">
+<h3 id="step/1">step(Ref) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Retrieve the next answer.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="call/2">call(Function, Connection) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Support for driver specific extensions.</p>
+</div></div>
+<div class="function">
+<h3 id="call/3">call(Function, Args, Esql_connection) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transaction/2">transaction(F, Connection) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+
+</div></div>
+<div class="function">
+<h3 id="map/3">map(F, Sql, Connection) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="map/4">map(F, Sql, Parameters, Connection) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Maas-Maarten Zeeman</aname>
+<email>mmzeeman@xs4all.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

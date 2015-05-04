@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>yapp_handler (yapp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>yapp_handler</h1>
+<h2 class="modsummary">Yaws applications handler.</h2>
+<div class="description">
+<p>Yaws applications handler.
+   </p><p>An easy way to deploy Yaws applications (Yapps) independently of
+   each other. A Yapp is an Erlang application already installed, by for
+   instance erlmerge.
+   </p>
+   <p>
+   To register a Yapp on the virtual server uses the command (example):</p> <code>
+   yapp_handler:add(yapp_handler, "myvirtserverid","/myYappPath", my_app_name)
+   </code>
+   <p>where "myvirtserverid" is the the "server id" set in the opaque variable
+   yapp_server_id in yaws.conf:</p><pre class="sh_erlang">
+          &lt;opaque&gt;
+                  yapp_server_id = myvirtserverid
+          &lt;/opaque&gt; </pre><p>
+   </p>
+   <p>If Yaws is running on a different node use:
+   </p><code>
+   yapp_handler:add({yapp_handler,'node@host'}, "myvirtserverid","/myYappPath", my_app_name)
+   </code>
+   <p>The default yapp_handler implementation is yapp_server.</p>
+   <p>The yapp_handler uses the yapp module to change the configuration on Yaws, and the
+   yapp_registry module implementation to store the configuration.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="list/1">list(YappServer::pid(), YawsServerId::SrvId) -&gt; Yapps | exit()</h3>
+
+<ul class="type">
+<li><code>SrvID = string() | all</code></li><li><code>Yapps = {URL, AppName} | undefined</code></li><li><code>URL = string()</code></li><li><code>AppName = atom()</code></li></ul>
+<div class="description">
+
+<p>Lists all registered Yapps.</p>
+</div></div>
+<div class="function">
+<h3 id="add/1">add(YappServer::pid(), SrvId::string(), YappUrl::string(), AppName::atom()) -&gt; ok | exit()</h3>
+
+
+<div class="description">
+
+<p>Add a Yapp. Adds in the virtual server with the opaque property
+  yapp_server_id = SrvID. The YappUrl is the root path to the Yapp and the AppName is
+  the Name of the application.</p>
+</div></div>
+<div class="function">
+<h3 id="add/1-1">add(YappServer::pid(), SrvId::string(), AppName::atom()) -&gt; ok | exit()</h3>
+
+
+<div class="description">
+
+<p>Add a Yapp. Adds in the virtual server with the opaque property
+  yapp_server_id = SrvID. The root URL will become  "/" ++ atom_to_list(AppName)
+  the Name of the application.</p>
+</div></div>
+<div class="function">
+<h3 id="remove/1">remove(YappServer::pid(), SrvId::string(), YappUrlOrName::string()) -&gt; ok | exit()</h3>
+
+<ul class="type">
+<li><code>YappUrlOrName = string() | atom()</code></li></ul>
+<div class="description">
+
+<p>Remove a Yapp from Yaws. Removes in the virtual server with yapp_server_id = SrvID.
+  The YappUrlOrName is either the root path to the Yapp or the name of it.</p>
+</div></div>
+<div class="function">
+<h3 id="init_yapps/1">init_yapps(YappServer::pid()) -&gt; ok | exit()</h3>
+
+
+<div class="description">
+
+<p>Iinitalizes the Yaws Sconfs list with bootstrap_yapps and Yapps in the
+  the registry. The default name for YappServer is the atom yapp_handler.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="yapp.html" class="seealso">yapp</a>, <a href="yapp_registry.html" class="seealso">yapp_registry</a>, <a href="yapp_server.html" class="seealso">yapp_server</a></p></div>
+<authors>
+
+<aname>Mikael Karlsson</aname>
+<email>mikael@creado.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

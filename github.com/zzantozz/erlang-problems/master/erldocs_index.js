@@ -1,0 +1,1 @@
+var index = [['app','erlang-problems','erlang-problems','[application]'],['mod','erlang-problems','json',[]],['mod','erlang-problems','weather',[]],['mod','erlang-problems','weather_api',[]],['fun','erlang-problems','json:render/1',[]],['fun','erlang-problems','weather:forecast/1',[]],['fun','erlang-problems','weather_api:get_weather/1',[]]];

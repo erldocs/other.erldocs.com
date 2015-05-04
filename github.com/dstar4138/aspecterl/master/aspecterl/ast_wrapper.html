@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ast_wrapper (aspecterl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ast_wrapper</h1>
+<h2 class="modsummary">
+   This module abstracts the usage of the Erlang Abstract Syntax Tree from
+   the injection code.</h2>
+<div class="description">
+<p>
+   This module abstracts the usage of the Erlang Abstract Syntax Tree from
+   the injection code. Please see the aspecterl_injector module for details.
+   AspectErl only provides five methods of injection:
+   </p><list>
+       <item><p> Before - Advice gets called before function execution, will get
+            access to the parameters passed in.</p></item>
+ 
+       <item><p> OnReturn - Advice gets called after function execution, will get
+           access to parameters passed in and return value. Will not get to
+           edit it.</p></item>
+ 
+       <item><p> OnThrow - Advice gets called if function throws an error, will get
+           access to parameters passed in and error code in form
+           <code>{throw, {Er,Rz}}</code>.</p></item>
+ 
+       <item><p> OnFinal - Advice gets called after function execution. If function
+           throws an error, or error handling breaks, Advice still gets
+           executed. Will get access to parameters passed in.</p></item>
+ 
+       <item><p> Around - Advice gets called in place of function. It is up to
+           advice to call the provided <code>?proceed(...)</code> macro to run the
+           function. </p></item>
+   </list></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="before/4">before(Before, X2, Module, AST) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>    
+Modifies the Function forms passed in so that it calls the the Fun before    
+each clause of the Function definition. In otherwords It converts:</p>
+ 
+    <pre class="sh_erlang">        f( X, Y, ... ) -&gt; ...stuff...</pre>
+ 
+    <p>to</p>
+ 
+    <pre class="sh_erlang">    f( P1, P2, ... ) -&gt;
+        Before( {?MODULE, f, [P1,P2,...], f_}, Args),
+        f_@( P1, P2, ... ).
+    f_@( X, Y, ... ) -&gt; ...stuff...</pre>
+</div></div>
+<div class="function">
+<h3 id="around/4">around(Around, X2, Module, AST) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>    
+Modifies the Function forms passed in so that it calls the Fun instead.    
+It is up to the Around Function to call the ?proceed() macro. It converts:</p>
+ 
+    <pre class="sh_erlang">        f( X, Y, ... ) -&gt; ...stuff...</pre>
+ 
+    <p>to</p>
+ 
+    <pre class="sh_erlang">     f( P1, P2, ... ) -&gt; Around( {?MODULE, f, [P1,P2,..] f_}, Args).
+     f_@( X, Y, ... ) -&gt; ...stuff...</pre>
+</div></div>
+<div class="function">
+<h3 id="return/4">return(OnReturn, X2, Module, AST) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>    
+Modifies the Function forms passed in so that it calls Fun after the    
+original function finishes. The result of the old function is weaved around    
+Funs execution and returned. It converts:</p>
+ 
+    <pre class="sh_erlang">        f( X, Y, ... ) -&gt; ...stuff...</pre>
+ 
+    <p>to</p>
+ 
+    <pre class="sh_erlang">     f( P1, P2, ... ) -&gt;
+        R = f_@( P1, P2, ... ),
+        OnReturn( {?MODULE, f, [P1,P2,...], f_}, [{return,R}|Args] ),
+        R.
+     f_@( X, Y, ... ) -&gt; ...stuff..</pre>
+</div></div>
+<div class="function">
+<h3 id="onthrow/4">onthrow(OnThrow, X2, Module, AST) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>    
+Modifies the Function forms passed in so that it calls Fun only if the    
+original function throws an exception. The exception data will be passed    
+to the advice function via the Args. It converts:</p>
+ 
+    <pre class="sh_erlang">        f( X, Y, ... ) -&gt; ...stuff...</pre>
+ 
+    <p>to</p>
+ 
+    <pre class="sh_erlang">     f( P1, P2, ... ) -&gt;
+       try f_@( P1, P2, ... )
+       catch Er:Rz -&gt;
+          Throw = {Er,Rz}
+          OnThrow( {?MODULE, f, [P1,P2,...], f_}, [{throw,Throw}|ThrowArgs])
+       end.
+     f_@( X, Y, ... ) -&gt; ...stuff...</pre>
+</div></div>
+<div class="function">
+<h3 id="final/4">final(OnFinal, X2, Module, AST) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>    
+Modifies the Function forms passed in so that it calls Fun at the end of    
+the function even if an exception is thrown. This advice does not get    
+access to the exception. It converts:</p>
+ 
+    <pre class="sh_erlang">        f( X, Y, ... ) -&gt; ...stuff...</pre>
+ 
+    <p>to</p>
+ 
+    <pre class="sh_erlang">      f( P1, P2, ... ) -&gt;
+         try f_@( P1, P2, ... )
+         after OnFinal( {?MODULE, f, [P1,P2,...], f_}, FinArgs )
+         end.
+      f_@( X, Y, ... ) -&gt; ...stuff...</pre>
+</div></div>
+<div class="function">
+<h3 id="inject_error_fun/4">inject_error_fun(Module, Fun, Arity, AST) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Injects a function into the AST that just throws an error when called.
+    This is useful when a function is automatically added via the
+    'inject_missing' command AspectErl provides.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="aspecterl_injector.html" class="seealso">aspecterl_injector</a></p></div>
+<authors>
+
+<aname>Alexander Dean</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

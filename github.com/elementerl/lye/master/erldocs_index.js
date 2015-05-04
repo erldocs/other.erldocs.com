@@ -1,0 +1,1 @@
+var index = [['app','lye','lye','[application]'],['mod','lye','lye_test_mod',[]],['fun','lye','lye_test_mod:any_spec/1',[]],['fun','lye','lye_test_mod:foo/1',[]]];

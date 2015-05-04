@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>buccupeer_srv (buccupeer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>buccupeer_srv</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-disk_info">disk_info() = list()</h3></div>
+    <div class="type"><h3 id="type-disk_name">disk_name() = string()</h3></div>
+    <div class="type"><h3 id="type-job">job() = <a href="#type-job_opts" class="seealso">job_opts()</a></h3></div>
+    <div class="type"><h3 id="type-job_opt">job_opt() = {src, <a href="file.html#type-filename" class="seealso">file:filename()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {dest, <a href="file.html#type-filename" class="seealso">file:filename()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {copies, integer()}</h3></div>
+    <div class="type"><h3 id="type-job_opts">job_opts() = [<a href="#type-job_opt" class="seealso">job_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-job_ref">job_ref() = term()</h3></div>
+    <div class="type"><h3 id="type-job_report">job_report() = {<a href="#type-job_ref" class="seealso">job_ref()</a>, ok, Info :: any()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-job_ref" class="seealso">job_ref()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, Error :: any()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Info :: any()}</h3></div>
+    <div class="type"><h3 id="type-removed_jobs_on_disk">removed_jobs_on_disk() = {<a href="#type-disk_name" class="seealso">disk_name()</a>, [<a href="#type-job" class="seealso">job()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Starts the server
+ </p>
+</div></div>
+<div class="function">
+<h3 id="list_disks/0">list_disks() -&gt; [{disk_name(), disk_info()}] | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>
+  Returns list of drives available for backupping with backup
+  jobs opts stored on them
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add_job/1">add_job(Opts::job_opts()) -&gt; {ok, job_ref()} | {'already-presents', job_ref()} | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>  
+Adds a backup job</p>
+ 
+  <p>The job record is saved to the meta-file on the disk used for
+  this job.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="remove_job/1">remove_job(JobRef::job_ref()) -&gt; [removed_jobs_on_disk()] | 'not-found' | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>  
+Removes a backup job from the server</p>
+ 
+  <p>The job record is removed from the meta-file stored on the disk
+  used for this job. No backups will be removed from the disk.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="run_jobs/1">run_jobs(DiskName::disk_name(), Timeout::integer() | infinity) -&gt; [job_report()] | 'not-found' | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>
+  Run jobs on disk if available
+ </p>
+</div></div>
+<div class="function">
+<h3 id="last_result/0">last_result() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Aleksandr Vinokurov</aname>
+<email>aleksandr.vin@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

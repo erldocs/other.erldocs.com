@@ -1,0 +1,1 @@
+var index = [['app','erldokan','erldokan','[application]'],['mod','erldokan','erldokan',[]],['fun','erldokan','erldokan:behaviour_info/1',[]],['fun','erldokan','erldokan:reply/2',[]],['fun','erldokan','erldokan:start/3',[]],['fun','erldokan','erldokan:start/4',[]],['fun','erldokan','erldokan:start_link/3',[]],['fun','erldokan','erldokan:start_link/4',[]]];

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mockgyver (mockgyver) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mockgyver</h1>
+<h2 class="modsummary">   
+Mock functions and modules.</h2>
+<div class="description">
+<p>   
+Mock functions and modules</p>
+  
+   <em><marker id="Initiating_mock">Initiating mock</marker></em>
+  
+   <p>In order to use the various macros below, mocking must be
+   initiated using the <code>?MOCK</code> macro or <code>?WITH_MOCKED_SETUP</code>   
+(recommended from eunit tests).</p>
+  
+   <em><marker id="?MOCK_syntax">?MOCK syntax</marker></em>
+   <pre class="sh_erlang">       ?MOCK(Expr)</pre><p>
+   where <code>Expr</code> in a single expression, like a fun.  The rest of the   
+macros in this module can be used within this fun or in a function   
+called by the fun.</p>
+  
+   <em><marker id="?WITH_MOCKED_SETUP_syntax">?WITH_MOCKED_SETUP syntax</marker></em>
+   <pre class="sh_erlang">       ?WITH_MOCKED_SETUP(SetupFun, CleanupFun),
+       ?WITH_MOCKED_SETUP(SetupFun, CleanupFun, ForAllTimeout, PerTcTimeout),
+       ?WITH_MOCKED_SETUP(SetupFun, CleanupFun, ForAllTimeout, PerTcTimeout,
+                          Tests),</pre><p>
+   This is an easy way of using mocks from within eunit tests and is
+   mock-specific version of the <code>?WITH_SETUP</code> macro.  See the docs
+   for the <code>?WITH_SETUP</code> macro in the <code>eunit_addons</code> project for more   
+information on parameters and settings.</p>
+  
+   <em><marker id="Mocking_a_function">Mocking a function</marker></em>
+  
+   <em><marker id="Introduction">Introduction</marker></em><p>   
+By mocking a function, its original side-effects and return value   
+(or throw/exit/error) are overridden and replaced.  This can be used to:</p>
+  
+   <list>
+     <item><p>replace existing functions in existing modules</p></item>
+     <item><p>add new functions to existing modules</p></item>
+     <item><p>add new modules</p></item>
+   </list>
+  
+   <p>BIFs (built-in functions) cannot be mocked.</p>
+  
+   <p>The original module will be renamed (a "^" will be appended to the
+   original module name, i.e. <code>foo</code> will be renamed to <code>'foo^'</code>).   
+A mock can then call the original function just by performing a regular   
+function call.</p>
+  
+   <p>Since WHEN is a macro, and macros don't support argument lists
+   (something like "Arg..."), multi-expression mocks must be
+   surrounded by <code>begin ... end</code> to be treated as one argument by the   
+preprocessor.</p>
+  
+   <p>A mock that was introduced using the ?WHEN macro can be forgotten,
+   i.e. returned to the behaviour of the original module, using the
+   <code>?FORGET_WHEN</code> macro.</p>
+  
+   <em><marker id="?WHEN_syntax">?WHEN syntax</marker></em>
+   <pre class="sh_erlang">       ?WHEN(module:function(Arg1, Arg2, ...) -&gt; Expr),</pre>
+  
+   <p>where <code>Expr</code> is a single expression (like a term) or a series of
+   expressions surrounded by <code>begin</code> and <code>end</code>.</p>
+  
+   <em><marker id="?FORGET_WHEN_syntax">?FORGET_WHEN syntax</marker></em>
+   <pre class="sh_erlang">       ?FORGET_WHEN(module:function(_, _, ...)),</pre>
+  
+   <p>The only things of interest are the name of the module, the name   
+of the function and the arity.  The arguments of the function are   
+ignored and it can be a wise idea to set these to the "don't care"   
+variable: underscore.</p>
+  
+   <em><marker id="Examples">Examples</marker></em><p>   
+Note: Apparently the Erlang/OTP team doesn't want us to redefine   
+PI to 4 anymore :-), since starting at R15B, math:pi/0 is marked as   
+pure which means that the compiler is allowed to replace the   
+math:pi() function call by a constant: 3.14...  This means that   
+even though mockgyver can mock the pi/0 function, a test case will   
+never call math:pi/0 since it will be inlined.  See commit   
+5adf009cb09295893e6bb01b4666a569590e0f19 (compiler: Turn calls to   
+math:pi/0 into constant values) in the otp sources.</p>
+  
+   Redefine pi to 4:
+   <pre class="sh_erlang">       ?WHEN(math:pi() -&gt; 4),</pre>
+   Implement a mock with multiple clauses:
+   <pre class="sh_erlang">       ?WHEN(my_module:classify_number(N) when N &gt;= 0 -&gt; positive;
+             my_module:classify_number(_N)            -&gt; negative),</pre>
+   Call original module:
+   <pre class="sh_erlang">       ?WHEN(math:pi() -&gt; 'math^':pi() * 2),</pre>
+   Use a variable bound outside the mock:
+   <pre class="sh_erlang">       Answer = 42,
+       ?WHEN(math:pi() -&gt; Answer),</pre>
+   Redefine the mock:
+   <pre class="sh_erlang">       ?WHEN(math:pi() -&gt; 4),
+       4 = math:pi(),
+       ?WHEN(math:pi() -&gt; 5),
+       5 = math:pi(),</pre>
+   Let the mock exit with an error:
+   <pre class="sh_erlang">       ?WHEN(math:pi() -&gt; erlang:error(some_error)),</pre>
+   Make a new module:
+   <pre class="sh_erlang">       ?WHEN(my_math:pi() -&gt; 4),
+       ?WHEN(my_math:e() -&gt; 3),</pre>
+   Put multiple clauses in a function's body:
+   <pre class="sh_erlang">       ?WHEN(math:pi() -&gt;
+                 begin
+                     do_something1(),
+                     do_something2()
+                 end),</pre>
+   Revert the pi function to its default behaviour (return value from
+   the original module), any other mocks in the same module, or any
+   other module are left untouched:
+   <pre class="sh_erlang">       ?WHEN(math:pi() -&gt; 4),
+       4 = math:pi(),
+       ?FORGET_WHEN(math:pi()),
+       3.1415... = math:pi(),</pre>
+  
+   <em><marker id="Validating_calls">Validating calls</marker></em>
+  
+   <em><marker id="Introduction">Introduction</marker></em>
+  
+   <p>There are a number of ways to check that a certain function has   
+been called and that works for both mocks and non-mocks.</p>
+  
+   <list>
+     <item><p><code>?WAS_CALLED</code>: Check that a function was called with
+         certain set of parameters a chosen number of times.
+         The validation is done at the place of the macro, consider
+         this when verifying asynchronous procedures
+         (see also <code>?WAIT_CALLED</code>).  Return a list of argument lists,
+         one argument list for each call to the function.  An
+         argument list contains the arguments of a specific call.
+         Will crash with an error if the criteria isn't fulfilled.</p></item>
+     <item><p><code>?WAIT_CALLED</code>: Same as <code>?WAS_CALLED</code>, with a twist: waits for
+         the criteria to be fulfilled which can be useful for
+         asynchrounous procedures.</p></item>
+     <item><p><code>?GET_CALLS</code>: Return a list of argument lists (just like
+         <code>?WAS_CALLED</code> or <code>?WAIT_CALLED</code>) without checking any criteria.</p></item>
+     <item><p><code>?NUM_CALLS</code>: Return the number of calls to a function.</p></item>
+     <item><p><code>?FORGET_CALLS</code>: Forget the calls that have been logged.
+          This exists in two versions:
+          </p><list>
+            <item><p>One which forgets calls to a certain function.
+                Takes arguments and guards into account, i.e. only
+                the calls which match the module name, function
+                name and all arguments as well as any guards will
+                be forgotten, while the rest of the calls remain.</p></item>
+            <item><p>One which forgets all calls to any function.</p></item>
+          </list><p>
+     </p></item>
+   </list>
+  
+   <em><marker id="?WAS_CALLED_syntax">?WAS_CALLED syntax</marker></em>
+   <pre class="sh_erlang">       ?WAS_CALLED(module:function(Arg1, Arg2, ...)),
+           equivalent to ?WAS_CALLED(module:function(Arg1, Arg2, ...), once)
+       ?WAS_CALLED(module:function(Arg1, Arg2, ...), Criteria),
+           Criteria = once | never | {times, N} | {at_least, N} | {at_most, N}
+           N = integer()
+  
+           Result: [CallArgs]
+                   CallArgs = [CallArg]
+                   CallArg = term()</pre>
+   <em><marker id="?WAIT_CALLED_syntax">?WAIT_CALLED syntax</marker></em>
+  
+   <p>See syntax for <code>?WAS_CALLED</code>.</p>
+  
+   <em><marker id="?GET_CALLS_syntax">?GET_CALLS syntax</marker></em>
+   <pre class="sh_erlang">       ?GET_CALLS(module:function(Arg1, Arg2, ...)),
+  
+           Result: [CallArgs]
+                   CallArgs = [CallArg]
+                   CallArg = term()</pre>
+  
+   <em><marker id="?NUM_CALLS_syntax">?NUM_CALLS syntax</marker></em>
+   <pre class="sh_erlang">       ?NUM_CALLS(module:function(Arg1, Arg2, ...)),
+  
+           Result: integer()</pre>
+   <em><marker id="?FORGET_CALLS_syntax">?FORGET_CALLS syntax</marker></em>
+   <pre class="sh_erlang">       ?FORGET_CALLS(module:function(Arg1, Arg2, ...)),
+       ?FORGET_CALLS(),</pre>
+   <em><marker id="Examples">Examples</marker></em>
+   Check that a function has been called once (the two alternatives
+   are equivalent):
+   <pre class="sh_erlang">       ?WAS_CALLED(math:pi()),
+       ?WAS_CALLED(math:pi(), once),</pre>
+   Check that a function has never been called:
+   <pre class="sh_erlang">       ?WAS_CALLED(math:pi(), never),</pre>
+   Check that a function has been called twice:
+   <pre class="sh_erlang">       ?WAS_CALLED(math:pi(), {times, 2}),</pre>
+   Check that a function has been called at least twice:
+   <pre class="sh_erlang">       ?WAS_CALLED(math:pi(), {at_least, 2}),</pre>
+   Check that a function has been called at most twice:
+   <pre class="sh_erlang">       ?WAS_CALLED(math:pi(), {at_most, 2}),</pre>
+   Use pattern matching to check that a function was called with
+   certain arguments:
+   <pre class="sh_erlang">       ?WAS_CALLED(lists:reverse([a, b, c])),</pre>
+   Pattern matching can even use bound variables:
+   <pre class="sh_erlang">       L = [a, b, c],
+       ?WAS_CALLED(lists:reverse(L)),</pre>
+   Use a guard to validate the parameters in a call:
+   <pre class="sh_erlang">       ?WAS_CALLED(lists:reverse(L) when is_list(L)),</pre>
+   Retrieve the arguments in a call while verifying the number of calls:
+   <pre class="sh_erlang">       a = lists:nth(1, [a, b]),
+       d = lists:nth(2, [c, d]),
+       [[1, [a, b]], [2, [c, d]]] = ?WAS_CALLED(lists:nth(_, _), {times, 2}),</pre>
+   Retrieve the arguments in a call without verifying the number of calls:
+   <pre class="sh_erlang">       a = lists:nth(1, [a, b]),
+       d = lists:nth(2, [c, d]),
+       [[1, [a, b]], [2, [c, d]]] = ?GET_CALLS(lists:nth(_, _)),</pre>
+   Retrieve the number of calls:
+   <pre class="sh_erlang">       a = lists:nth(1, [a, b]),
+       d = lists:nth(2, [c, d]),
+       2 = ?NUM_CALLS(lists:nth(_, _)),</pre>
+   Forget calls to functions:
+   <pre class="sh_erlang">       a = lists:nth(1, [a, b, c]),
+       e = lists:nth(2, [d, e, f]),
+       i = lists:nth(3, [g, h, i]),
+       ?WAS_CALLED(lists:nth(1, [a, b, c]), once),
+       ?WAS_CALLED(lists:nth(2, [d, e, f]), once),
+       ?WAS_CALLED(lists:nth(3, [g, h, i]), once),
+       ?FORGET_CALLS(lists:nth(2, [d, e, f])),
+       ?WAS_CALLED(lists:nth(1, [a, b, c]), once),
+       ?WAS_CALLED(lists:nth(2, [d, e, f]), never),
+       ?WAS_CALLED(lists:nth(3, [g, h, i]), once),
+       ?FORGET_CALLS(lists:nth(_, _)),
+       ?WAS_CALLED(lists:nth(1, [a, b, c]), never),
+       ?WAS_CALLED(lists:nth(2, [d, e, f]), never),
+       ?WAS_CALLED(lists:nth(3, [g, h, i]), never),</pre>
+   Forget calls to all functions:
+   <pre class="sh_erlang">       a = lists:nth(1, [a, b, c]),
+       e = lists:nth(2, [d, e, f]),
+       i = lists:nth(3, [g, h, i]),
+       ?WAS_CALLED(lists:nth(1, [a, b, c]), once),
+       ?WAS_CALLED(lists:nth(2, [d, e, f]), once),
+       ?WAS_CALLED(lists:nth(3, [g, h, i]), once),
+       ?FORGET_CALLS(),
+       ?WAS_CALLED(lists:nth(1, [a, b, c]), never),
+       ?WAS_CALLED(lists:nth(2, [d, e, f]), never),
+       ?WAS_CALLED(lists:nth(3, [g, h, i]), never),</pre></div>
+
+
+<authors>
+
+<aname>Klas Johansson</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

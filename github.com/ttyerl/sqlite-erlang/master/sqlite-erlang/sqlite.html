@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sqlite (sqlite-erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sqlite</h1>
+<h2 class="modsummary">Library module for sqlite.</h2>
+<div class="description">
+<p>Library module for sqlite</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Db) -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = atom()</code></li></ul>
+<div class="description">
+
+<p>    
+Opens a sqlite dbase creating one if necessary. The dbase must    
+be called Db.db in the current path. start_link/1 can be use    
+with stop/0, sql_exec/1, create_table/2, list_tables/0,    
+table_info/1, write/2, read/2, delete/2 and drop_table/1.    
+There can be only one start_link call per node.</p>
+ 
+    <p>To open multiple dbases on the same node use open/1 or open/2.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/2">start_link(Db, Options) -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = atom()</code></li></ul>
+<div class="description">
+
+<p>    
+Opens a sqlite dbase creating one if necessary. By default the    
+dbase will be called Db.db in the current path. This can be changed    
+by passing the option {db, DbFile :: String()}. DbFile must be the    
+full path to the sqlite db file. start_link/1 can be use with stop/0,    
+sql_exec/1, create_table/2, list_tables/0, table_info/1, write/2,    
+read/2, delete/2 and drop_table/1. There can be only one start_link    
+call per node.</p>
+ 
+    <p>To open multiple dbases on the same node use open/1 or open/2.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(Db::atom()) -&gt; {ok, Pid::pid()} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+    Opens a sqlite dbase creating one if necessary. The dbase must be
+    called Db.db in the current path. Can be use to open multiple sqlite
+    dbases per node. Must be use in conjunction with stop/1, sql_exec/2,
+    create_table/3, list_tables/1, table_info/2, write/3, read/3, delete/3
+    and drop_table/2.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(Db::atom(), Options::[tuple()]) -&gt; {ok, Pid::pid()} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+    Opens a sqlite dbase creating one if necessary. By default the dbase
+    will be called Db.db in the current path. This can be changed by
+    passing the option {db, DbFile :: String()}. DbFile must be the full
+    path to the sqlite db file. Can be use to open multiple sqlite dbases
+    per node. Must be use in conjunction with stop/1, sql_exec/2,
+    create_table/3, list_tables/1, table_info/2, write/3, read/3, delete/3
+    and drop_table/2.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Db::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+    Closes the Db sqlite dbase.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+    Closes the sqlite dbase.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec/1">sql_exec(Sql::string()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement directly.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec/1-1">sql_exec(Db::atom(), Sql::string()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement directly on the Db dbase. Returns the
+    result of the Sql call.</p>
+</div></div>
+<div class="function">
+<h3 id="create_table/1">create_table(Tbl::atom(), TblInfo::[tuple()]) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table using TblInfo as the table structure. The    
+table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="create_table/1-1">create_table(Db::atom(), Tbl::atom(), TblInfo::[tuple()]) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table in Db using TblInfo as the table structure.    
+The table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="list_tables/0">list_tables() -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>
+    Returns a list of tables.</p>
+</div></div>
+<div class="function">
+<h3 id="list_tables/1">list_tables(Db::atom()) -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>
+    Returns a list of tables for Db.</p>
+</div></div>
+<div class="function">
+<h3 id="table_info/1">table_info(Tbl::atom()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>
+     Returns table schema for Tbl.</p>
+</div></div>
+<div class="function">
+<h3 id="table_info/1-1">table_info(Db::atom(), Tbl::atom()) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p>
+    Returns table schema for Tbl in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(Tbl::atom(), Data) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Data = [{ColName::atom(), ColData::term()}]</code></li></ul>
+<div class="description">
+
+<p>
+    Write Data into Tbl table. ColData must be of the same type as
+    determined from table_info/2.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1-1">write(Db::atom(), Tbl::atom(), Data) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Data = [{ColName::atom(), ColData::term()}]</code></li></ul>
+<div class="description">
+
+<p>
+    Write Data into Tbl table in Db dbase. ColData must be of the
+    same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(Tbl::atom(), Key) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>Key = {ColName::atom(), ColValue::term()}</code></li></ul>
+<div class="description">
+
+<p>
+    Reads a row from Tbl table such that the ColValue matches the
+    value in ColName. Returns only the first match. ColValue must
+    have the same type as determined from table_info/2.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1-1">read(Db::atom(), Tbl::atom(), Key) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>Key = {ColName::atom(), ColValue::term()}</code></li></ul>
+<div class="description">
+
+<p>
+    Reads a row from Tbl table in Db dbase such that the ColValue
+    matches the value in ColName. Returns only the first match.
+    ColValue must have the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Tbl::atom(), Key) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Key = {ColName::atom(), ColValue::term()}</code></li></ul>
+<div class="description">
+
+<p>
+    Delete a row from Tbl table such that the ColValue
+    matches the value in ColName. Removes only the first match.
+    ColValue must have the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(Db::atom(), Tbl::atom(), Key) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Key = {ColName::atom(), ColValue::term()}</code></li></ul>
+<div class="description">
+
+<p>
+    Delete a row from Tbl table in Db dbase such that the ColValue
+    matches the value in ColName. Removes only the first match.
+    ColValue must have the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_table/1">drop_table(Tbl::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+    Drop the table Tbl.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_table/1-1">drop_table(Db::atom(), Tbl::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+    Drop the table Tbl from Db dbase.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Tee Teoh</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pibfi_options (pibfi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pibfi_options</h1>
+<h2 class="modsummary">Options parser for pibfi.</h2>
+<div class="description">
+<p>Options parser for <code>pibfi</code>.</p>
+ 
+  <p><em>Synopsis</em></p>
+ 
+  <p>This module implements collecting options
+  from the command line.</p>
+ 
+  <p>When invoking <code>pibfi</code> from the command line, the
+  following syntax can be used:</p>
+ 
+  <list><code>erl -noshell options -run pibfi run filename</code></list>
+ 
+  <p>The following options are recognized.</p>
+ 
+  <list>
+  <item><p>Options pertaining to the parser:</p>
+ 
+  <list>
+  <item><p><code>-dontstrip s</code>, where <i>s</i> is a string of
+  characters, default null (empty), specifies the set of characters
+  (beyond the 8 basic Brainf*ck instructions)
+  which
+  will not be stripped from the parsed source prior to optimization.
+  Note that if this option if given without an argument, it is assumed
+  to be the set of all applicable characters - in other words, nothing
+  at all will be stripped.</p></item>
+ 
+  <item><p><code>-optimize n</code>, where <i>n</i> is an integer,
+  default 1, sets the optimization level of the parser.
+  At optimization level 0, no optimization occurs.
+  At optimization level 1, run-length encoding is performed on the
+  instructions.  Further optimization levels may be defined in the
+  future.  Note that if this option if given without an argument,
+  it is assumed to be asking for the most thorough yet quickly
+  available optimization.</p></item>
+ 
+  <item><p><code>-statuscmd c</code>, where <i>c</i> may be
+  any single-character string of the term <code>undefined</code>,
+  default "#" (octalthorpe), specifies
+  which symbol, when encountered, is treated
+  as a debugging instruction which displays a status report.</p></item>
+ 
+  <item><p><code>-heredoc c</code>, where <i>c</i> may be
+  a single-character string or the term <code>undefined</code>,
+  default <code>undefined</code>, specifies which symbol when encountered,
+  is treated as the marker that signifies that input is embedded in
+  the program source code following it.  This input will be stripped
+  from the source (even if it contains valid Brainf*ck instructions)
+  and will be made available to <code>-infile heredoc</code> (see
+  below.)  Note that if this option is given with no argument,
+  "!" (exclamation point) is assumed.</p></item>
+ 
+  </list><p>
+  </p></item>
+  <item><p>Options pertaining to the Brainf*ck tape:</p>
+ 
+  <list>
+  <item><p><code>-tapemodule m</code>, where <i>n</i> is the name of
+  an Erlang module conforming to the <code>pibfi_tape</code> behaviour,
+  defaulting to whatever <code>pibfi</code> determines would be optimal
+  for the given sourcecode, (currently always <code>pibfi_tape_ets</code>),
+  names the module which implements the backing for the simulated tape.</p></item>
+ 
+  <item><p><code>-maxcell n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default <code>infinity</code>, sets the
+  highest value that can be placed into a cell on the tape.</p></item>
+ 
+  <item><p><code>-mincell n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default 0, sets the
+  lowest value that can be placed into a cell on the tape.
+  (Note that <code>infinity</code> actually represents negative infinity
+  here.)</p></item>
+ 
+  <item><p><code>-wrapcell b</code>, where <i>b</i> is a boolean
+  (<code>true</code> or <code>false</code>), default <code>false</code>,
+  determines what happens when either limit of any cell in the tape is
+  exceeded.  When <code>-wrapcell</code> is <code>true</code>, the limits
+  will be taken as modulus boundaries, and the value will 'wrap around'
+  to the opposite limit.  When <code>-wrapcell</code> is <code>false</code>,
+  an exception will be generated.  Note that if <i>b</i> is omitted
+  after <code>-wrapcell</code>, <code>true</code> is assumed.
+  Also note that <code>-wrapcell true</code> is not compatible with
+  either <code>-maxcell infinity</code> or <code>-mincell infinity</code>
+  (for what should be obvious reasons.)</p></item>
+ 
+  <item><p><code>-maxtape n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default <code>infinity</code>, sets the
+  rightmost position to which the tape head can move.  Note that the initial
+  position of the tape head is considered position 0.</p></item>
+ 
+  <item><p><code>-mintape n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default 0, sets the
+  leftmost position to which the tape head can move.
+  (Note that <code>infinity</code> actually represents negative infinity
+  here.)</p></item>
+ 
+  <item><p><code>-wraptape b</code>, where <i>b</i> is a boolean,
+  default <code>false</code>, determines what happens when either limit
+  of the tape head is exceeded.  With <code>-wraptape true</code>,
+  the limits will be taken as modulus boundaries,
+  and the position of the tape head will 'wrap around' to the
+  opposite limit.  With <code>-wraptape false</code>,
+  an exception will be generated when this happens.
+  Note that if <i>b</i> is omitted
+  after <code>-wraptape</code>, <code>true</code> is assumed. Also note
+  that <code>-wraptape true</code> is not compatible with either
+  <code>-maxtape infinity</code> or <code>-mintape infinity</code>.</p></item>
+  </list><p>
+  </p></item>
+ 
+  <item><p>Options pertaining to input and output:</p>
+ 
+  <list>
+  <item><p><code>-infile s</code>, where <i>s</i> is a filename or
+  one of the terms <code>tty</code> or <code>heredoc</code>,
+  default <code>tty</code>, sets the
+  source of the input to the Brainf*ck program.
+  <code>tty</code> indicates an interactive terminal session with
+  "standard input".
+  <code>heredoc</code> indicates input will come from the
+  "here-doc" portion of the program source code (note that the
+  <code>-heredoc</code> option must also be given to parse the
+  source code.)
+  Using this option is preferred
+  over redirecting standard I/O with the shell, as it is a hint to the
+  interpreter that the program is not being run interactively.</p></item>
+ 
+  <item><p><code>-outfile s</code>, where <i>s</i> is a filename or
+  the term <code>tty</code>, default <code>tty</code>, sets the
+  destination of the output of the Brainf*ck program.  This is preferred
+  to redirecting standard I/O with the shell, as it is a hint to the
+  interpreter that the program is not being run interactively.</p></item>
+ 
+  <item><p><code>-maxout n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default <code>infinity</code>, sets the
+  maximum character value which can be output.</p></item>
+ 
+  <item><p><code>-minout n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default 0, sets the minimum character
+  value which can be output.
+  (Note that <code>infinity</code> actually represents negative infinity
+  here.)</p></item>
+ 
+  <item><p><code>-wrapout b</code>, where <i>b</i> is a boolean,
+  default <code>false</code>, determines what happens when either limit
+  of character output is exceeded.  With <code>-wrapout true</code>,
+  the limits will be taken as modulus boundaries,
+  and the actual character output will be computed by 'wrapping around'
+  the rquested value to the opposite limit.
+  With <code>-wrapout false</code>,
+  an exception will be generated.  Note that if <i>b</i> is omitted
+  after <code>-wrapout</code>, <code>true</code> is assumed. Also note
+  that <code>-wrapout true</code> is not compatible with either
+  <code>-maxout infinity</code> or <code>-minout infinity</code>.</p></item>
+ 
+  <item><p><code>-maxin n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default <code>infinity</code>, sets the
+  maximum character value which can be input.</p></item>
+ 
+  <item><p><code>-minin n</code>, where <i>n</i> is any integer or the
+  term <code>infinity</code>, default 0, sets the minimum character
+  value which can be input.
+  (Note that <code>infinity</code> actually represents negative infinity
+  here.)</p></item>
+ 
+  <item><p><code>-wrapin b</code>, where <i>b</i> is a boolean,
+  default <code>false</code>, determines what happens when either limit
+  of character input is exceeded.  With <code>-wrapin true</code>,
+  the limits will be taken as modulus boundaries,
+  and the actual character input will be computed by 'wrapping around'
+  the rquested value to the opposite limit.
+  With <code>-wrapin false</code>,
+  an exception will be generated.  Note that if <i>b</i> is omitted
+  after <code>-wrapin</code>, <code>true</code> is assumed. Also note
+  that <code>-wrapin true</code> is not compatible with either
+  <code>-maxin infinity</code> or <code>-minin infinity</code>.</p></item>
+ 
+  <item><p><code>-xlatout s</code>, where <i>s</i> is string
+  in the form given below,
+  default value <code>#10=#nl</code>, specifies a mapping between
+  characters the Brainf*ck program sees itself as sending to output,
+  and the characters that the operating system actually receives.
+  The syntax for the mapping specification is described by this mini-grammar:
+  </p><list><item><p>
+  <code><i>string</i> "=" <i>string</i> ["," <i>string</i> "=" <i>string</i> ]</code>
+  </p></item></list><p>
+  Control and other characters can be embedded in this string by
+  giving their ASCII values in decimal preceded by a <code>#</code>
+  symbol.  A single <code>#</code> symbol can be represented by the
+  sequence <code>#35</code>.  A single <code>=</code> symbol can be
+  represented by the sequence <code>#61</code>.
+  A single <code>,</code> symbol can be
+  represented by the sequence <code>#44</code>.
+  The current operating system newline
+  sequence can be represented by <code>#nl</code>.
+  Note that whitespace is not allowed in this grammar,
+  and must be represented by <code>#32</code>, etc.
+  Note that if the <code>-xlatout</code> option is present
+  with no argument, this means that there should be <i>no</i> translation
+  mapping between Brainf*ck output and operating system output.</p></item>
+ 
+  <item><p><code>-xlatin s</code>, where <i>s</i> is a string
+  in the form given above,
+  default value <code>#nl=#10</code>, specifies a complementary mapping between
+  characters on the operating system's input and
+  the Brainf*ck program's input.
+  Note that if the <code>-xlatin</code> option is present
+  with no argument, this means that there should be no translation
+  mapping of input.</p></item>
+ 
+  <item><p><code>-eof i</code>, where <i>i</i> is any integer
+  or one of the terms <code>halt</code>, <code>stop</code>,
+  or <code>nop</code>, default 0,
+  determines the single ASCII character that will be given repeatedly to
+  the Brainf*ck program during execution of the <code>,</code> instruction
+  at and after the end of input is encountered.
+  If <code>halt</code> is given for <code>eof</code>, the Brainf*ck
+  program will be halted with an error
+  if it attempts to read past the end of user input.
+  If <code>stop</code> is given for <code>eof</code>, the Brainf*ck
+  program will be terminated normally if it attempts to read past
+  the end of user input.
+  If <code>nop</code> is given for <code>eof</code>, the Brainf*ck
+  program will act as if nothing at all happened if it attempts
+  to read past the end of user input (the tape will not be altered in
+  any way.)</p></item>
+  </list><p>
+  </p></item>
+ 
+  <item><p>Debugging and other options:</p></item>
+  <list>
+  <item><p><code>-quiet</code>, if given, suppresses all startup
+  output generated by the interpreter.  It does not suppress
+  status reports.</p></item>
+  <item><p><code>-autopsy</code>, if given, causes the interpreter to
+  issue a status report after the program terminates normally.</p></item>
+  <item><p><code>-statusevery n</code>, where <i>n</i> is an
+  integer specifying a duration or the term <code>undefined</code>,
+  default <code>undefined</code>, tells <code>pibfi</code>
+  to generate periodic status reports at the given interval,
+  if it is not <code>undefined</code>.  If the duration is given
+  as a plain integer, units of milliseconds are assumed.  The
+  duration may also be given as an integer followed immediately
+  by <code>s</code>, <code>m</code>, or <code>h</code>, in which
+  case the units of measurement will be taken to be seconds,
+  minutes, or hours, respectively.</p></item>
+  </list>
+  </list><p>
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_flag/1">get_flag(Switch::atom()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Gets a switch from the command line.</p>
+</div></div>
+<div class="function">
+<h3 id="get_opts/1">get_opts(Options::[atom()]) -&gt; [{atom(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Gets a set of options from the command line.</p>
+</div></div>
+<div class="function">
+<h3 id="get_option/1">get_option(Options::[{atom(), term()}], Option::atom(), Default::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Gets an option from a list of (already parsed) option tuples.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

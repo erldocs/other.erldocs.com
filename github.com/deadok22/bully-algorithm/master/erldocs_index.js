@@ -1,0 +1,1 @@
+var index = [['app','bully-algorithm','bully-algorithm','[application]'],['mod','bully-algorithm','coordinator_server','   A bully algorithm implementation (see http://w'],['fun','bully-algorithm','coordinator_server:start/1',[]]];

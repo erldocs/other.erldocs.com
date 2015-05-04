@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gossip (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gossip</h1>
+<h2 class="modsummary">The behaviour modul (gossip_beh.erl) of the gossiping framework.</h2>
+<div class="description">
+<p>The behaviour modul (gossip_beh.erl) of the gossiping framework.</p>
+ 
+       <p>The framework is designed to allow the implementation of gossip based       
+dissemination and gossip based aggregation protocols. Anti-entropy       
+gossiping was not considered. The communication scheme used by the       
+framework is push-pull gossiping as this offers the best speed of       
+convergence. The membership protocol used for the peer selection is       
+Cyclon.</p>
+ 
+       <p>The gossiping framework comprises three kinds of components:
+       </p><list>
+           <item> The gossiping behaviour (interface) gossip_beh.erl. The
+                behaviour defines the contract that allows the callback module
+                to be used by the behaviour module. The behaviour defines the
+                contract by specifying functions the callback module has to
+                implement. </item>
+           <item> The callback modules. A callback module implements a concrete
+                gossiping protocol by implementing the gossip_beh.erl, i.e. by
+                implementing the functions specified in the gossip_beh.erl.
+                The callback module provides the protocol specific code.
+                For an example callback module see gossip_load.erl.</item>
+           <item> The behaviour module gossip.erl (this module). The behaviour
+                module provides the generic code of the gossiping  framework.
+                It calls the callback functions of the callback modules defined
+                in gossip_beh.erl.</item>
+       </list>
+ 
+       <p>The relation between behaviour and callback modules is modelled as a       
+one-to-many relation. That is to say, the behaviour module is implemented       
+as single process (per node) and all the callback module run in the       
+context of this single process. This has the advantage of reducing the       
+number of spawned processes and allowing for a better grouping of messages.</p>
+ 
+       <p>The framework is started as part of the startup procedure of a dht_node.       
+The framework maintains a list of callback modules in the CBMODULES macro       
+which are started together with the framework. It is also possible to       
+individually start and stop callback modules later.</p>
+ 
+       <p>The pattern for communication between the behaviour module and a callback       
+module is the following: From the behaviour module to a callback module       
+communication occurs as a call to a function of the callback module.       
+These calls have to return quickly, no long-lasting operations, especially       
+no receiving of messages, are allowed. Therefore, the answers to these       
+function calls are mainly realised as messages from the respective       
+callback module to the behaviour module, not as return values of the       
+function calls.</p>
+ 
+       <p><em><marker id="Phases_of_a_Gossiping_Operation">Phases of a Gossiping Operation</marker></em></p>
+ 
+       <p><em><marker id="Prepare-Request_Phase">Prepare-Request Phase</marker></em></p>
+ 
+       <p>The  prepare-request phase consists of peer and data selection. The       
+selection of the peer is usually managed by the framework. At the beginning       
+of every cycle the behaviour module requests a peer from the Cyclon       
+module of Scalaris, which is then used for the data exchange. The peer       
+selection is governed by the select_node() function: returning       
+false causes the behaviour module to handle the peer selection as described.       
+Returning true causes the behaviour module to expect a selected_peer       
+message with a peer to be used by for the exchange. How many peers are       
+contracted for data exchanges every cycle depends on the fanout() config       
+function.</p>
+ 
+       <p>The selection of the exchange data is dependent on the specific gossiping       
+task and therefore done by a callback module. It is initiated by a call       
+to select_data(). When called with select_data(), the respective callback       
+module has to initiate a selected_data message to the behaviour module,       
+containing the selected exchange data. Both peer and data selection are       
+initiated in immediate succession through periodical trigger messages,       
+so they can run concurrently. When both data and peer are received by       
+the behaviour module, a p2p_exch message with the exchange data is sent       
+to the peer, that is to say to the gossip behaviour module of the peer.</p>
+ 
+       <p><em><marker id="Prepare-Reply_Phase">Prepare-Reply Phase</marker></em></p>
+ 
+       <p>Upon receiving a p2p_exch message, a node enters the prepare-reply       
+phase and is now in its passive role as responder. This phase is about       
+the integration of the received data and the preparation of the reply data.       
+Both of these tasks need to be handled by the callback module. The       
+behaviour module passes the received data with a call to select_reply_data(QData)       
+to the correspondent callback module, which merges the data with its own       
+local data and prepares the reply data. The reply data is sent back to       
+the behaviour module with a selected_reply_data message. The behaviour       
+module then sends the reply data as a  p2p_exch_reply message back to       
+the original requester.</p>
+ 
+       <p><em><marker id="Integrate-Reply_Phase">Integrate-Reply Phase</marker></em></p>
+ 
+       <p>The integrate-reply phase is triggered by a p2p_exch_reply message.       
+Every p2p_exch_reply is the response to an earlier p2p_exch (although       
+not necessarily to the last p2p_exch request. The p2p_exch_reply contains       
+the reply data from the peer, which is passed to the correspondent       
+callback module with a call to integrate_data(QData). The callback module       
+processes the received data and signals to the behaviour module the       
+completion with an integrated_data message. On a conceptual level, a full       
+cycle is finished at this point and the behaviour module counts cycles       
+by counting the \inline$integrated_§data$ messages. Due to the uncertainties       
+of message delays and local clock drift it should be clear however, that       
+this can only be an approximation. For instance, a new cycle could have       
+been started before the reply to the current request has been received       
+(phase interleaving) and, respectively, replies from the other cycle could       
+be "wrongly" counted as finishing the current cycle (cycle interleaving).</p>
+ 
+       <p><em><marker id="Instantiation">Instantiation</marker></em></p>
+ 
+       <p>Many of the interactions conducted by the behaviour module are specific       
+to a certain callback module. Therefore, all messages and function       
+concerning a certain callback module need to identify with which callback       
+module the message or call is associated. This is achieved by adding a       
+tuple of the module name and an instance id to all those messages and       
+calls. While the name would be enough to identify the module, adding the       
+instance id allows for multiple instantiation of the same callback module       
+by one behaviour module. This tuple of callback module and instance id       
+is also used to store information specific to a certain callback module       
+in the behaviour module's state.</p>
+ 
+ 
+          <p>Used abbreviations:
+          </p><list>
+             <item><p> cb: callback module (a module implementing the
+                      gossip_beh.erl behaviour)
+             </p></item>
+          </list><p>
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bh_message">bh_message() = {activate_gossip, Range :: <a href="intervals.html#type-interval" class="seealso">intervals:interval()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {start_gossip_task,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Args :: list()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {gossip_trigger,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TriggerInterval :: integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {trigger_action,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TriggerInterval :: integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {update_range, NewRange :: <a href="intervals.html#type-interval" class="seealso">intervals:interval()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {web_debug_info, SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-send_error" class="seealso">send_error()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {bulkowner,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deliver,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id :: <a href="uid.html#type-global_uid" class="seealso">uid:global_uid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Range :: <a href="intervals.html#type-interval" class="seealso">intervals:interval()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Msg :: <a href="comm.html#type-message" class="seealso">comm:message()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parents :: [<a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>, ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove_all_tombstones}</h3></div>
+    <div class="type"><h3 id="type-cb_message">cb_message() = {selected_data,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PData :: <a href="gossip_beh.html#type-exch_data" class="seealso">gossip_beh:exch_data()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {selected_peer,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CyclonMsg ::<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{cy_cache,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RandomNodes :: [<a href="node.html#type-node_type" class="seealso">node:node_type()</a>]}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {p2p_exch,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PData :: <a href="gossip_beh.html#type-exch_data" class="seealso">gossip_beh:exch_data()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OtherRound :: integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {selected_reply_data,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QData :: <a href="gossip_beh.html#type-exch_data" class="seealso">gossip_beh:exch_data()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Round :: integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {p2p_exch_reply,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QData :: <a href="gossip_beh.html#type-exch_data" class="seealso">gossip_beh:exch_data()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OtherRound :: integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {integrated_data,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_round}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {new_round,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewRound :: integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {cb_reply,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Msg :: <a href="comm.html#type-message" class="seealso">comm:message()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_values_best,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_values_all,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stop_gossip_task, CBModule :: <a href="#type-cb_module" class="seealso">cb_module()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| no_msg</h3></div>
+    <div class="type"><h3 id="type-cb_module">cb_module() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Module :: <a href="#type-cb_module_name" class="seealso">cb_module_name()</a>, Id :: <a href="#type-cb_module_id" class="seealso">cb_module_id()</a>}</h3></div>
+    <div class="type"><h3 id="type-cb_module_id">cb_module_id() = atom() | <a href="uid.html#type-global_uid" class="seealso">uid:global_uid()</a></h3></div>
+    <div class="type"><h3 id="type-cb_module_name">cb_module_name() = module()</h3></div>
+    <div class="type"><h3 id="type-message">message() = <a href="#type-bh_message" class="seealso">bh_message()</a> | <a href="#type-cb_message" class="seealso">cb_message()</a></h3></div>
+    <div class="type"><h3 id="type-send_error">send_error() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{send_error,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_Pid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Msg :: <a href="#type-message" class="seealso">message()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason :: atom()}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <a href="ets.html#type-tab" class="seealso">ets:tab()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(DHTNodeGroup::groupname() (see module pid_groups)) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the process of the gossip module. <br />
+       Called by sup_dht_node, calls gen_component:start_link to start the process.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; state()</h3>
+
+
+<div class="description">
+
+<p>Initialises the state of the gossip module. <br />
+       Called by gen_component, results in on_inactive handler.</p>
+</div></div>
+<div class="function">
+<h3 id="activate/1">activate(Range::interval() (see module intervals)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Activate the gossip module. <br />
+       Called by dht_node_join. Activates process (when only node of the system)
+       or subscribes to the rm to activate on slide_finished messages. <br />
+       Result of the activation is to switch to the on_active handler.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/0">deactivate() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deactivates all gossip processes.</p>
+</div></div>
+<div class="function">
+<h3 id="start_gossip_task/2">start_gossip_task(CBModule, Args) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>CBModule = cb_module_name() | cb_module()</code></li><li><code>Args = list()</code></li></ul>
+<div class="description">
+
+<p>Globally starts a gossip task identified by CBModule. <br />
+       Args is passed to the init function of the callback module. <br />
+       CBModule is either the name of a callback module or an name-instance_id
+       tuple.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_gossip_task/1">stop_gossip_task(CBModule::cb_module()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Globally stop a gossip task.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_all_tombstones/0">remove_all_tombstones() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Globally removes all tombstones from previously stopped callback modules.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_filter_slide_msg/3">rm_filter_slide_msg(Neighbors, Neighbors, Reason) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>Neighbors = neighborhood() (see module nodelist)</code></li><li><code>Reason = reason() (see module rm_loop)</code></li></ul>
+<div class="description">
+
+<p>Checks whether the received notification is a {slide_finished, succ} or
+       {slide_finished, pred} msg. Used as filter function for the ring maintanance.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_send_activation_msg/5">rm_send_activation_msg(Subscriber, X2::gossip, Neighbours, Neighbours, Reason) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Subscriber = pid()</code></li><li><code>Neighbours = neighborhood() (see module nodelist)</code></li><li><code>Reason = reason() (see module rm_loop)</code></li></ul>
+<div class="description">
+
+<p>Sends the activation message to the behaviour module (this module)
+       Used to subscribe to the ring maintenance for {slide_finished, succ} or
+       {slide_finished, pred} msg.</p>
+</div></div>
+<div class="function">
+<h3 id="on_inactive/1">on_inactive(Msg::message(), State::state()) -&gt; state()</h3>
+
+
+<div class="description">
+
+<p>Message handler during the startup of the gossip module.</p>
+</div></div>
+<div class="function">
+<h3 id="on_active/1">on_active(Msg::message(), State::state()) -&gt; state()</h3>
+
+
+<div class="description">
+
+<p>Message handler during the normal operation of the gossip module.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_my_range_changed/1">rm_my_range_changed(OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), IsSlide::reason() (see module rm_loop)) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether the node's range has changed, i.e. either the node
+       itself or its pred changed.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_send_new_range/1">rm_send_new_range(Subscriber::pid(), Tag::gossip, OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), Reason::reason() (see module rm_loop)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notifies the node's gossip process of a changed range.
+       Used to subscribe to the ring maintenance.</p>
+</div></div>
+<div class="function">
+<h3 id="tester_create_state/9">tester_create_state(Status, Range, Interval, CBState, CBStatus, ExchData, Round, TriggerLock, Cycles) -&gt; state()</h3>
+
+<ul class="type">
+<li><code>Status = init | uninit</code></li><li><code>Range = interval() (see module intervals)</code></li><li><code>Interval = pos_integer()</code></li><li><code>CBState = any()</code></li><li><code>CBStatus = started | tombstone</code></li><li><code>ExchData = any()</code></li><li><code>Round = non_neg_integer()</code></li><li><code>TriggerLock = free | locked</code></li><li><code>Cycles = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Value creater for type_check_SUITE</p>
+</div></div>
+<div class="function">
+<h3 id="tester_create_cb_module_names/1">tester_create_cb_module_names(X1::1) -&gt; cb_module_name()</h3>
+
+
+<div class="description">
+
+<p>Value creater for type_check_SUITE.</p>
+</div></div>
+<div class="function">
+<h3 id="is_state/1">is_state(State::state()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Type checker for type_check SUITE</p>
+</div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Check the config of the gossip module. <br />
+       Calls the check_config functions of all callback modules.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jens V. Fischer</aname>
+<email>jensvfischer@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

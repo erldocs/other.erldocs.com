@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erodlib_indices (erodlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erodlib_indices</h1>
+<h2 class="modsummary">TODO: Document module erodlib_indices.</h2>
+<div class="description">
+<p>TODO: Document module erodlib_indices.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-compare_fun">compare_fun() = fun((term(), term()) -&gt; boolean())</h3></div>
+    <div class="type"><h3 id="type-indice">indice() = {erodlib_indices, term()}</h3></div>
+    <div class="type"><h3 id="type-map_fun">map_fun() = fun(({term(), term()}) -&gt; term())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; Indice</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li></ul>
+<div class="description">
+
+<p>Creates a new empty indice.</p>
+</div></div>
+<div class="function">
+<h3 id="from_ordset/1">from_ordset(Keys) -&gt; Indice</h3>
+
+<ul class="type">
+<li><code>Keys = [term()]</code></li><li><code>Indice = indice()</code></li></ul>
+<div class="description">
+
+<p>Creates a new indice from an ordered list of keys.</p>
+</div></div>
+<div class="function">
+<h3 id="from_orddict/1">from_orddict(Items) -&gt; Indice</h3>
+
+<ul class="type">
+<li><code>Items = [{Key, Value}] | []</code></li><li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>Indice = indice()</code></li></ul>
+<div class="description">
+
+<p>Creates a new indice from an ordered list of items.</p>
+</div></div>
+<div class="function">
+<h3 id="for_map/2">for_map(CompareFun, Map) -&gt; indice()</h3>
+
+<ul class="type">
+<li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li></ul>
+<div class="description">
+
+<p>Creates an indice for a map using a custom comparison function.</p>
+</div></div>
+<div class="function">
+<h3 id="keys/1">keys(Indice) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li><li><code>Result = [term()] | []</code></li></ul>
+<div class="description">
+
+<p>Gives the keys in indice order.</p>
+</div></div>
+<div class="function">
+<h3 id="values/2">values(Map, Indice) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Result = [term()] | []</code></li></ul>
+<div class="description">
+
+<p>Gives the specified map's values in indice order.</p>
+ 
+  <p>Assumes all the indice keys are present in the given map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="items/2">items(Map, Indice) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Result = [{Key, Value}] | []</code></li><li><code>Key = term()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Gives key-value pairs of specified map in the indice order.</p>
+ 
+  <p>Assumes all the indice keys are present in the given map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="map/3">map(MapFun, Map, Indice) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>MapFun = map_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Result = [term()] | []</code></li></ul>
+<div class="description">
+
+<p>Gives the list resulting of mapping a function on each elements  
+of specified map in indice order.</p>
+ 
+  <p>Assumes all the indice keys are present in the given map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(Indice) -&gt; Size</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li><li><code>Size = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Gives the numer of keys of the indice.</p>
+</div></div>
+<div class="function">
+<h3 id="position/4">position(Key, CompareFun, Map, Indice) -&gt; Position</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Position = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Gives the position of a key in the indice for a given map  
+and comparison function.</p>
+ 
+  <p>Assumes that the key is present in the indice an map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="position/5">position(Key, Value, CompareFun, Map, Indice) -&gt; Position</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Position = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Gives the position of a key in the indice for a given map  
+and comparison function.</p>
+ 
+  <p>Assumes that the key is present in the indice an map, crashes otherwise.</p>
+ 
+  <p>This function is just a shortcut for the <a href="#position/4" class="seealso">position/4</a> function
+  when the caller already knows the value associated with the key.
+  If the given value is NOT the value associated with the key in
+  the given map, the behavior of the function is undefined.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/4">insert(Key, CompareFun, Map, Indice) -&gt; {Position, Indice}</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Position = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Inserts a key in the indice using the comparison function  
+and the values in the given map to find out its position.  
+Returns the new indice and the position where the key has been inserted.</p>
+ 
+  <p>Assumes that the key is not present in the indice and map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/5">insert(Key, Value, CompareFun, Map, Indice) -&gt; {Position, Indice}</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Position = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Inserts a key in the indice using the comparison function  
+and the values in the given map to find out its position.  
+Returns the new indice and the position where the key has been inserted.</p>
+ 
+  <p>Assumes that the key is not present in the indice and map, crashes otherwise.</p>
+ 
+  <p>This function is just a shortcut for the <a href="#insert/4" class="seealso">insert/4</a> function
+  when the caller already knows the value associated with the key.
+  If the given value is NOT the value associated with the key in
+  the given map, the behavior of the function is undefined.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/4">delete(Key, CompareFun, Map, Indice) -&gt; {Position, Indice}</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Position = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Removes the key from the indice for given map and comparison function.  
+Returns the new indice and the position from where the key has been deleted.</p>
+ 
+  <p>Assumes that the key is present in the indice an map, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/5">delete(Key, Value, CompareFun, Map, Indice) -&gt; {Position, Indice}</h3>
+
+<ul class="type">
+<li><code>Key = term()</code></li><li><code>Value = term()</code></li><li><code>CompareFun = compare_fun()</code></li><li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Position = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Removes the key from the indice for given map and comparison function.  
+Returns the new indice and the position from where the key has been deleted.</p>
+ 
+  <p>Assumes that the key is present in the indice an map, crashes otherwise.</p>
+ 
+  <p>This function is just a shortcut for the <a href="#delete/4" class="seealso">delete/4</a> function
+  when the caller already knows the value associated with the key.
+  If the given value is NOT the value associated with the key in
+  the given map, the behavior of the function is undefined.</p>
+</div></div>
+<div class="function">
+<h3 id="smallest_key/1">smallest_key(Indice) -&gt; Key</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the smallest indice key.</p>
+ 
+  <p>Assumes the indice is not empty, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="smallest_value/2">smallest_value(Map, Indice) -&gt; Value</h3>
+
+<ul class="type">
+<li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the map value with the smallest indice key.</p>
+ 
+  <p>Assumes the indice is not empty and the key is present in the given map,
+  crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="take_smallest_key/1">take_smallest_key(Indice) -&gt; {Key, Indice}</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Removes and returns the smallest indice key.</p>
+ 
+  <p>Assumes the indice is not empty, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="take_smallest_value/2">take_smallest_value(Map, Indice) -&gt; {Value, Indice}</h3>
+
+<ul class="type">
+<li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Removes the smallest indice key and returns the map value with this key.</p>
+ 
+  <p>Assumes the indice is not empty and the key is present in the given map,
+  crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="take_smallest_keys/2">take_smallest_keys(Count, Indice) -&gt; {Keys, Indice}</h3>
+
+<ul class="type">
+<li><code>Count = pos_integer()</code></li><li><code>Indice = indice()</code></li><li><code>Keys = [Key] | []</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Removes and returns the N smallest indice keys.
+  If there is not enough keys, all keys are returned.</p>
+</div></div>
+<div class="function">
+<h3 id="largest_key/1">largest_key(Indice) -&gt; Key</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the largest indice key.</p>
+ 
+  <p>Assumes the indice is not empty, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="largest_value/2">largest_value(Map, Indice) -&gt; Value</h3>
+
+<ul class="type">
+<li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Gives the map value with the largest indice key.</p>
+ 
+  <p>Assumes the indice is not empty and the key is present in the given map,
+  crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="take_largest_key/1">take_largest_key(Indice) -&gt; {Key, Indice}</h3>
+
+<ul class="type">
+<li><code>Indice = indice()</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Removes and returns the largest indice key.</p>
+ 
+  <p>Assumes the indice is not empty, crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="take_largest_value/2">take_largest_value(Map, Indice) -&gt; {Value, Indice}</h3>
+
+<ul class="type">
+<li><code>Map = emap() (see module erodlib)</code></li><li><code>Indice = indice()</code></li><li><code>Value = term()</code></li></ul>
+<div class="description">
+
+<p>Removes the largest indice key and returns the map value with this key.</p>
+ 
+  <p>Assumes the indice is not empty and the key is present in the given map,
+  crashes otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="take_largest_keys/2">take_largest_keys(Count, Indice) -&gt; {Keys, Indice}</h3>
+
+<ul class="type">
+<li><code>Count = pos_integer()</code></li><li><code>Indice = indice()</code></li><li><code>Keys = [Key] | []</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>Removes and returns the N largest indice keys.
+  If there is not enough keys, all keys are returned.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Sebastien Merle</aname>
+<email>s.merle@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

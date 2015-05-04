@@ -1,0 +1,1 @@
+var index = [['app','unlatin','unlatin','[application]'],['mod','unlatin','unlatin',[]],['fun','unlatin','unlatin:to_utf8/1','Convert a Latin-1 encoded binary or iolist into UT']];

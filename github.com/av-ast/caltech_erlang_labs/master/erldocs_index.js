@@ -1,0 +1,1 @@
+var index = [['app','caltech_erlang_labs','caltech_erlang_labs','[application]'],['mod','caltech_erlang_labs','lab1',[]],['fun','caltech_erlang_labs','lab1:fib_g/1',[]],['fun','caltech_erlang_labs','lab1:fib_p/1',[]],['fun','caltech_erlang_labs','lab1:tail_fib/1',[]]];

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ecouch (ecouch) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ecouch</h1>
+<h2 class="modsummary">
+  Elang API to CouchDb
+  eCouch is an application that provides an API to a CouchDb server
+  It uses the rfc4627 module from LShift
+  The design was inspired in the article Building a Non-blocking TCP server using OTP principles
+  and assumes that inets application is running.</h2>
+<div class="description">
+<p>
+  <em>Elang API to CouchDb</em>
+  eCouch is an application that provides an API to a CouchDb server
+  It uses the <url href="http://www.lshift.net/blog/2007/02/17/json-and-json-rpc-for-erlang">rfc4627</url> module from <url href="http://www.lshift.net/">LShift</url>
+  The design was inspired in the article <url href="http://www.trapexit.org/Building_a_Non-blocking_TCP_server_using_OTP_principles">Building a Non-blocking TCP server using OTP principles</url>
+  and assumes that <url href="http://www.erlang.org/doc/apps/inets/index.html">inets</url> application is running.
+  todo:
+  Accept a list of servers and implement load distribution algorithms <br />
+  Implement views
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-array">array() = [val()]</h3></div>
+    <div class="type"><h3 id="type-host">host() = string()</h3></div>
+    <div class="type"><h3 id="type-json">json() = obj() | array() | num() | str() | true | false | null</h3></div>
+    <div class="type"><h3 id="type-key">key() = str() | atom()</h3></div>
+    <div class="type"><h3 id="type-num">num() = int() | float()</h3></div>
+    <div class="type"><h3 id="type-obj">obj() = {obj, [{key(), val()}]}</h3></div>
+    <div class="type"><h3 id="type-startargs">startargs() = {host(), tcp_port()}</h3></div>
+    <div class="type"><h3 id="type-str">str() = bin()</h3></div>
+    <div class="type"><h3 id="type-tcp_port">tcp_port() = int()</h3></div>
+    <div class="type"><h3 id="type-val">val() = obj() | array() | num() | str() | true | false | null</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/2">start(Type::_Type, StartArgs::startargs()) -&gt; {ok, Pid} | {ok, Pid, State} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function is called whenever an application
+  is started using application:start/1,2, and should start the processes
+  of the application. If the application is structured according to the
+  OTP design principles as a supervision tree, this means starting the
+  top supervisor of the tree.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(State) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>This function is called whenever an application
+  has stopped. It is intended to be the opposite of Module:start/2 and
+  should do any necessary cleaning up. The return value is ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="db_create/1">db_create(DatabaseName::string()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Create a database</p>
+</div></div>
+<div class="function">
+<h3 id="db_delete/1">db_delete(DatabaseName::string()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Delete a database</p>
+</div></div>
+<div class="function">
+<h3 id="db_list/0">db_list() -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>List databases</p>
+</div></div>
+<div class="function">
+<h3 id="db_info/1">db_info(DatabaseName::string()) -&gt; {ok, Info::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Database info</p>
+</div></div>
+<div class="function">
+<h3 id="doc_create/1">doc_create(DatabaseName::string(), Doc::json()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Create document</p>
+</div></div>
+<div class="function">
+<h3 id="doc_create/1-1">doc_create(DatabaseName::string(), DocName::string(), Doc::json()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Create a named document</p>
+</div></div>
+<div class="function">
+<h3 id="doc_bulk_create/1">doc_bulk_create(DatabaseName::string(), DocList) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+<ul class="type">
+<li><code>DocList = [json()]</code></li></ul>
+<div class="description">
+
+<p>Batch create a set of documents.</p>
+</div></div>
+<div class="function">
+<h3 id="doc_update/1">doc_update(DatabaseName::string(), DocName::string(), Doc::json()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Update document</p>
+</div></div>
+<div class="function">
+<h3 id="doc_bulk_update/1">doc_bulk_update(DatabaseName::string(), DocListRev) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+<ul class="type">
+<li><code>DocListRev = [json()]</code></li></ul>
+<div class="description">
+
+<p>Batch update a set of documents</p>
+</div></div>
+<div class="function">
+<h3 id="doc_delete/1">doc_delete(DatabaseName::string(), DocName::string(), Rev::string()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Delete document</p>
+</div></div>
+<div class="function">
+<h3 id="doc_get/1">doc_get(DatabaseName::string(), DocName::string) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Get document</p>
+</div></div>
+<div class="function">
+<h3 id="doc_get/1-1">doc_get(DatabaseName::string(), DocName::string(), Options::options()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Get document</p>
+</div></div>
+<div class="function">
+<h3 id="doc_get_all/1">doc_get_all(DatabaseName::string()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Get all documents</p>
+</div></div>
+<div class="function">
+<h3 id="doc_get_all/1-1">doc_get_all(DatabaseName::string(), Options::options()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Get all documents</p>
+</div></div>
+<div class="function">
+<h3 id="view_adhoc/1">view_adhoc(DatabaseName::string(), Fun::json()) -&gt; {ok, Response::json()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Access an adhoc view</p>
+</div></div>
+<div class="function">
+<h3 id="view_adhoc/1-1">view_adhoc(DatabaseName::string(), Fun::json(), Options::options()) -&gt; {ok, Response::json} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Access an adhoc view</p>
+</div></div></div>
+
+<authors>
+
+<aname>Vitor Rodrigues</aname>
+<email>vitor@tarpipe.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

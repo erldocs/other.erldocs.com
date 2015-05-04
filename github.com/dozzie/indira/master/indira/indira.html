@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>indira (indira) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>indira</h1>
+<h2 class="modsummary">
+     Indira interface for escript scripts.</h2>
+<div class="description">
+<p>
+     Indira interface for <code>escript</code> scripts.</p>
+  
+     <p>This module contains functions to be called from <code>escript</code> script and
+     utility functions for <a href="gen_indira_listener.html" class="seealso">listeners</a>. It also
+     documents how to configure Indira (<a href="#Indira_configuration" class="seealso">Indira configuration</a>) and
+     the protocol to communicate with <a href="#Command_executor" class="seealso">Command executor</a>.</p>
+  
+     <em><marker id="Indira_configuration">Indira configuration</marker></em>
+  
+     <p>Indira uses two configuration keys (<a href="application.html#get_env/2" class="seealso">application:get_env/2</a>):
+     <i>listen</i> and <i>commander</i>.</p>
+  
+     <p>The value of <i>commander</i> is a name (atom) under which your
+     <a href="#Command_executor" class="seealso">Command executor</a> will be registered. If you configure Indira
+     with <a href="application.html#set_env/3" class="seealso">application:set_env/3</a>, you can provide raw PID, but it's     
+generally not a good idea (think of dying processes).</p>
+  
+     <p>The value of <i>listen</i> is a list of pairs <code>{Mod,Args}</code>. <code>Mod</code> is
+     a name (atom) of module which is considered to be listener's entry
+     point. <code>Args</code> is an argument passed to <code>Mod:child_spec/2</code>. All listeners
+     must start successfully (this may became configurable in the future).
+     For more details see <a href="gen_indira_listener.html" class="seealso">gen_indira_listener</a>.</p>
+  
+     A file passed to <i>-config</i> VM option could look like this:
+     <pre class="sh_erlang">     [
+       {indira, [
+         {listen, [
+           {indira_tcp, {"localhost", 16667}},
+           {indira_unix, "/var/run/my_app.sock"}
+         ]},
+         {commander, my_app_command}
+       ]},
+       % ...
+     ].</pre>
+  
+     <em><marker id="Command_executor">Command executor</marker></em>
+  
+     <p>Command executor is a process that receives messages of following
+     structure: <code>{command,ReplyTo,ChannelID,Command}</code>. It should reply with
+     tuple <code>{result,ChannelID,Reply}</code> to <code>ReplyTo</code> process.</p>
+  
+     <p>Data in <code>Reply</code> should be jsx-like structured. Short reference is here:
+     <a href="#Data_structure_(jsx)" class="seealso">Data structure (jsx)</a>.</p>
+  
+     <p>Data in <code>Command</code> has either jsx-like structure if the command was
+     encoded as JSON (<a href="#JSON_command" class="seealso">JSON command</a>) or is a tuple if the command
+     was a <a href="#simple_command" class="seealso">simple command</a>.</p>
+  
+     <p>Command executor is responsible for logging commands it has received.     
+It's highly recommended to log the commands being executed in the     
+application.</p>
+  
+     Some proposals for commands:
+     <list>
+       <item><p><i>stop</i>, shutdown the daemon (initscript)</p></item>
+       <item><p><i>is daemon running?</i>, wait for daemon to start
+           (initscript)</p></item>
+       <item><p><i>reload</i>, reload configuration stored in a file</p></item>
+       <item><p><i>netconfig</i>, setup distributed Erlang (epmd, cookie and
+           <i>-(s)name</i>)</p></item>
+     </list>
+  
+     <em><marker id="Example_executor">Example executor</marker></em>
+  
+     This is the simplest (and the dumbest) command executor:
+     <pre class="sh_erlang">     start_command_executor() -&gt;
+       spawn(fun() -&gt;
+         register(my_app_command, self()),
+         command_executor()
+       end).
+  
+     command_executor() -&gt;
+       receive
+         {command, ReplyTo, ChannelID, Command} -&gt;
+           error_logger:info_report(my_app_command, [
+             {message, "got a command"},
+             {command, Command}, {channel, ChannelID}
+           ]),
+           ReplyTo ! {result, ChannelID, ok},
+           command_executor();
+         _Any -&gt;
+           % ignore
+           command_executor()
+       end.</pre>
+  
+     <p>For real world applications, the executor will probably implement
+     <a href="gen_server.html" class="seealso">gen_server</a> behaviour and be started as a part of application's     
+supervision tree.</p>
+  
+     <p>Note: when handling commands, remember to add support for unrecognized     
+commands. You don't want your command executor crashed when talking to     
+buggy client.</p>
+  
+     <em><marker id="Communication_protocol">Communication protocol</marker></em>
+  
+     <p>The protocol to communicate with the world outside of Erlang VM is     
+line-based. There can be various ways of delivering the line (e.g. HTTP     
+POST); they won't be covered here. Instead, this section focuses on the     
+format of the line itself.</p>
+  
+     <p>Request line is either a simple command or JSON document.</p>
+  
+     <p>When command executor sent something that couldn't be serialized, the
+     response line will be "<code>bad result</code>". Otherwise, the response will     
+always be single-line JSON document.</p>
+  
+     <em><marker id="simple_command">simple command</marker></em>
+  
+     <p>A simple command line is composed of a word denoting the command and
+     list of options (possibly empty) separated with spaces. Option is a word
+     or assignment. Assignment is composed of word, "<code>=</code>" sign and a word,     
+JSON string or JSON number. Word is a sequence of letters, digits,     
+underscore, hyphen and period, beginning with a letter or underscore.</p>
+  
+     Some examples:
+     <pre class="sh_erlang">     command_word
+     also.a.word this_is_an_option
+     some_cmd option=value option2="spaces and\nnewlines allowed in strings"</pre>
+  
+     <p>Simple command is sent to command executor as a tuple of
+     <code>{&lt;&lt;"command"&gt;&gt;, Options}</code>, where <code>Options</code> is a list (possibly empty)
+     of binaries (word option) or pairs <code>{Name,Value}</code> (assignment; <code>Name</code>
+     will be a binary, <code>Value</code> will be a binary, integer or float, depending     
+on the assigned value).</p>
+  
+     Commands from example above will be passed to command executor as:
+     <pre class="sh_erlang">     {&lt;&lt;"command_word"&gt;&gt;, []}.
+     {&lt;&lt;"also.a.word"&gt;&gt;, [&lt;&lt;"this_is_an_option"&gt;&gt;]}.
+     {&lt;&lt;"some_cmd"&gt;&gt;, [
+       {&lt;&lt;"option"&gt;&gt;, &lt;&lt;"value"&gt;&gt;},
+       {&lt;&lt;"option2"&gt;&gt;, &lt;&lt;"spaces and\nnewlines allowed in strings"&gt;&gt;}
+     ]}.</pre>
+  
+     <em><marker id="JSON_command">JSON command</marker></em>
+  
+     <p>JSON command consists of a valid single-line JSON document.</p>
+  
+     Erlang representation is based on jsx.
+     <list>
+       <item><p><i>object</i> is encoded as <code>[{}]</code> (empty object) or a list of
+           <code>{Key,Value}</code> pairs, where <code>Key</code> is always a binary and <code>Value</code> is
+           JSON value</p></item>
+       <item><p><i>array</i> is encoded as a list</p></item>
+       <item><p><i>string</i> is encoded as a binary (UTF-8 encoding)</p></item>
+       <item><p><i>number</i> is encoded as integer (if possible) or float</p></item>
+       <item><p><code>true</code>, <code>false</code> and <code>null</code> are encoded as corresponding atoms</p></item>
+     </list>
+  
+     <em><marker id="Data_structure_(jsx)">Data structure (jsx)</marker></em>
+  
+     Serializable data is:
+     <list>
+       <item><p><code>[{}]</code>, encoded as empty JSON object</p></item>
+       <item><p><code>[{K,V}, ...]</code>, encoded as JSON object; <code>V</code> can be any
+           serializable data, <code>K</code> is an atom, string (list) or a binary</p></item>
+       <item><p><code>[]</code>, <code>[V,...]</code>, encoded as a JSON array; <code>V</code> can be any
+           serializable data</p></item>
+       <item><p>integer is encoded as a number (no periods or "e" letters)</p></item>
+       <item><p>float is encoded as a number (containing period, "e", or
+           both)</p></item>
+       <item><p>atoms <code>null</code>, <code>true</code> and <code>false</code> are encoded as corresponding JSON
+           values</p></item>
+       <item><p>atom other than above-mentioned three is encoded as a string</p></item>
+       <item><p>binary is encoded as a string</p></item>
+     </list><p>     
+Note that Erlang strings are generally recognized as arrays of integers,     
+except for being a key in proplist.</p>
+  
+     Note also that tuples alone are not allowed. They can only compose
+     proplists that will be serialized to JSON object.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-error_logger_event">error_logger_event() = {info_msg | warning_msg | error,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GroupLeader :: pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{EventOrigin :: pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Format :: string() | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data :: list()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {info_report |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;warning_report |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error_report,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{EventOrigin :: pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report :: term()}}</h3></div>
+    <div class="type"><h3 id="type-event_filter_fun">event_filter_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="#type-error_logger_event" class="seealso">error_logger_event()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok | {replace, <a href="#type-error_logger_event" class="seealso">error_logger_event()</a>} | ignore)</h3></div>
+    <div class="type"><h3 id="type-log_destination">log_destination() = stdout<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stderr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stdout, color | colour}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stderr, color | colour}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {file, Filename :: string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| syslog<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {syslog,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DestHost :: atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {syslog,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Host :: atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port :: integer()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| lager<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {lager, Config :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {gen_event,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Args :: term()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start Indira application. Function intended to be called from command
+    line:
+  </p><pre class="sh_erlang">  $ erl \
+      -indira listen '[{indira_tcp, {any,5500}}]' \
+      -indira commander some_module \
+      -s indira \
+      other args ...</pre>
+</div></div>
+<div class="function">
+<h3 id="set_commander/1">set_commander(Commander) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Set commander address.</p>
+ 
+    <p>This function is intended to be called before
+    <code>application:start(indira)</code> and is a simple wrapper over
+    <a href="application.html#set_env/3" class="seealso">application:set_env/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="add_listener/2">add_listener(Module, Arg) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Add listener to list of listeners started with Indira.</p>
+ 
+    <p>This function is intended to be called before
+    <code>application:start(indira)</code> and is a simple wrapper over
+    <a href="application.html#set_env/3" class="seealso">application:set_env/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_environment/1">set_environment(Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Set list of configuration options for appropriate applications.</p>
+</div></div>
+<div class="function">
+<h3 id="set_option/3">set_option(App, Option, Value) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Set configuration option for specified application.</p>
+</div></div>
+<div class="function">
+<h3 id="load_app_config/1">load_app_config(File::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Load application configuration file (suitable for <i>-config</i> VM    
+option).</p>
+ 
+    <p>Note that <i>unloading</i> an application mentioned in the file loaded by
+    this function may make the configuration to be lost. Please don't unload
+    applications.</p>
+</div></div>
+<div class="function">
+<h3 id="sleep_forever/0">sleep_forever() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Sleep forever. Function intended for use in <code>main()</code> function in
+    <code>escript</code> code.</p>
+</div></div>
+<div class="function">
+<h3 id="start_rec/1">start_rec(App) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start application along with all its dependencies.
+    This function is intended for being run from <code>escript</code> code.</p>
+ 
+    <p><em>NOTE</em>: Application start type is <code>permanent</code>.</p>
+<p><em>See also:</em> <a href="application.html#start/2" class="seealso">application:start/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_rec/2">start_rec(App, StartType) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start application along with all its dependencies.
+    This function is intended for being run from <code>escript</code> code.</p>
+<p><em>See also:</em> <a href="application.html#start/2" class="seealso">application:start/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write_pidfile/1">write_pidfile(Filename) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Write PID file.</p>
+</div></div>
+<div class="function">
+<h3 id="chdir/0">chdir() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Change directory to <code>/</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="chdir/1">chdir(Directory) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Change directory.</p>
+</div></div>
+<div class="function">
+<h3 id="setup_logging/1">setup_logging(DaemonName::atom() | string(), Options::[redirect_stdio | log_destination() | {filter, event_filter_fun(), log_destination()}]) -&gt; ok | {error, [Reasons]}</h3>
+
+
+<div class="description">
+
+<p>Setup logging.
+    In addition to setting up logging sinks, Indira can redirect
+    <code>standard_io</code> to <a href="error_logger.html" class="seealso">error_logger</a> (option <code>redirect_stdio</code>).</p>
+ 
+    <p><code>DaemonName</code> is a name of this daemon. It's used for shared logging    
+infrastructure, like syslog.</p>
+ 
+    <p>Indira tries to start all the logging channels. Errors, if any, are
+    reported at the very end by returning <code>{error,Errors}</code> tuple with list
+    of problems. The errors will be also logged to <a href="error_logger.html" class="seealso">error_logger</a>.
+    Logging errors are not considered critical by Indira. User can, of
+    course, make them critical by appropriately treating <code>{error,_}</code> result.</p>
+ 
+    <p><em>NOTE</em>: Indira assumes here that a single Erlang VM only hosts
+    a single daemon, that is, there is one main function of the VM instance.
+    There could be other functions, but they're considered auxiliary.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="distributed/1">distributed(Name) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Configure Erlang networking (distributed Erlang).</p>
+</div></div>
+<div class="function">
+<h3 id="distributed/2">distributed(Name, NameType) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Configure Erlang networking (distributed Erlang).</p>
+</div></div>
+<div class="function">
+<h3 id="distributed/1-1">distributed(Name::node(), NameType::shortnames | longnames, Cookie::atom() | string() | binary() | {file, Path::string()}) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Configure Erlang networking (distributed Erlang).</p>
+ 
+    <p>When providing cookie in the form of <code>{file,Path}</code>, only the first line
+    (with <code>"\n"</code> stripped) will be used as cookie.
+ </p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="indira_tcp.html" class="seealso">indira_tcp</a>, <a href="indira_udp.html" class="seealso">indira_udp</a>, <a href="indira_unix.html" class="seealso">indira_unix</a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

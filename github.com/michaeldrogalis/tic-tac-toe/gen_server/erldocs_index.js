@@ -1,0 +1,1 @@
+var index = [['app','tic-tac-toe','tic-tac-toe','[application]'],['mod','tic-tac-toe','core',[]],['fun','tic-tac-toe','core:game_loop/1',[]],['fun','tic-tac-toe','core:main/1',[]],['fun','tic-tac-toe','core:player_a/0',[]],['fun','tic-tac-toe','core:player_b/0',[]],['fun','tic-tac-toe','core:update_board/4',[]]];

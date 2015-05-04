@@ -1,0 +1,50 @@
+ :: Extracting meta information
+$ 5000  `git ls-remote --heads --tags 'https://github.com/manpages/saloon'  2>&1`
+>>> [repo] 1 branches, 0 tags
+ :: Writing meta to "/home/pete/wefwefwef/docs/other/5746379319/meta.txt"
+ :: Processing https://github.com/manpages/saloon	{rev,branch,"master","afc238e48ddb625e54188ab1db2dc6337fb48ab1",undefined,[],[]}
+ :: Fetching repo code
+$ cd "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon"
+$ infinity  `curl --fail --silent --show-error --location --output 'master.zip' 'https://github.com/manpages/saloon/archive/master.zip'  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon"
+$ 5000  `find 'saloon-master' -mindepth 1 -maxdepth 1 -exec mv -t . -- {} +  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+ :: Getting dependencies
+$ cd "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon"
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/rebar_deps' get-deps  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon"
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+$ cd "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon"
+$ 5000  `ls -1 deps/  2>&1`
+$ cd "/home/pete/wefwefwef/docs/erldocs_other.git"
+>>> [rebar] deps = ["cowboy"]
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/5746379319/repo/master
+Building saloon
+Generating XML for application saloon "/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon" -> "/home/pete/wefwefwef/docs/other/5746379319/repo/master/.xml/saloon"
+/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/site/src/saloon_main_view.erl: at line 5: can't find include file "conf/locale.hrl"
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/site/src/saloon_main_view.erl': {'EXIT',
+                                                                                                                              error}.
+/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/core/saloon/src/saloon_util.erl: at line 35: syntax error before: '.'
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/core/saloon/src/saloon_util.erl': {'EXIT',
+                                                                                                                                error}.
+/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/deps/cowboy/src/cowboy_protocol.erl: at line 57: can't find include lib "cowlib/include/cow_inline.hrl"
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/deps/cowboy/src/cowboy_protocol.erl': {'EXIT',
+                                                                                                                                    error}.
+/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/deps/cowboy/examples/markdown_middleware/src/erlmarkdown.erl, in module header: at line 19: multiple @copyright tag.
+edoc: skipping source file '/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master/saloon/deps/cowboy/examples/markdown_middleware/src/erlmarkdown.erl': {'EXIT',
+                                                                                                                                                             error}.
+edoc: error in doclet 'edoc_doclet': {'EXIT',error}.
+Error generating saloon XMLs. Using fallback ...
+No documentation was generated!
+Woot, finished in 0 Minutes 2 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5746379319/saloon-branch-master'  2>&1`
+ :: Finishing up
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5746379319/saloon'  2>&1`
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5746379319/repo/master'  2>&1`

@@ -1,0 +1,1 @@
+var index = [['app','erlang-cdb','erlang-cdb','[application]'],['mod','erlang-cdb','cdb','This module implements the creation and reading of'],['fun','erlang-cdb','cdb:create/2',[]],['fun','erlang-cdb','cdb:dump/1',[]],['fun','erlang-cdb','cdb:from_dict/1',[]],['fun','erlang-cdb','cdb:get/2',[]]];

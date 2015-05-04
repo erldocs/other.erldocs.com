@@ -1,0 +1,1 @@
+var index = [['app','erlang_ttt','erlang_ttt','[application]'],['mod','erlang_ttt','board',[]],['mod','erlang_ttt','computer',[]],['mod','erlang_ttt','configuration',[]],['mod','erlang_ttt','console_io',[]],['mod','erlang_ttt','game_rules',[]],['mod','erlang_ttt','human',[]],['mod','erlang_ttt','runner',[]]];

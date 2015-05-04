@@ -1,0 +1,1 @@
+var index = [['app','elli_fileserve','elli_fileserve','[application]'],['mod','elli_fileserve','elli_fileserve','Elli fileserve overview.'],['fun','elli_fileserve','elli_fileserve:file_size/1',[]],['fun','elli_fileserve','elli_fileserve:handle/2',[]],['fun','elli_fileserve','elli_fileserve:handle_event/3',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','kata_erlang_fizzbuzz','kata_erlang_fizzbuzz','[application]'],['mod','kata_erlang_fizzbuzz','fizzbuzz',[]]];

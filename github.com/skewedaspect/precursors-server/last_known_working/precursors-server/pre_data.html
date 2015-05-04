@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pre_data (precursors-server) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pre_data</h1>
+<h2 class="modsummary">The game state engine - handles syncing of game state to the database and between nodes.</h2>
+<div class="description">
+<p>The game state engine - handles syncing of game state to the database and between nodes</p>
+  
+   -------------------------------------------------------------------------------------------------------------------</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-json">json() = <a href="#type-json_pod" class="seealso">json_pod()</a> | <a href="#type-json_array" class="seealso">json_array()</a> | <a href="#type-json_object" class="seealso">json_object()</a></h3></div>
+    <div class="type"><h3 id="type-json_array">json_array() = [<a href="#type-json" class="seealso">json()</a>]</h3></div>
+    <div class="type"><h3 id="type-json_key">json_key() = binary() | atom()</h3></div>
+    <div class="type"><h3 id="type-json_object">json_object() = [{<a href="#type-json_key" class="seealso">json_key()</a>, <a href="#type-json" class="seealso">json()</a>}, ...] | [{} | []]</h3></div>
+    <div class="type"><h3 id="type-json_pod">json_pod() = binary() | number() | boolean() | null</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_riak_conn/0">get_riak_conn() -&gt; RiakConn::pid()</h3>
+
+
+<div class="description">
+
+<p>Gets the current connection to riak.</p>
+ 
+  <p>This returns the current connection to riak.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Bucket::binary(), Key::binary()) -&gt; {ok, Value::json()} | not_found | {error, Msg::list()}</h3>
+
+
+<div class="description">
+
+<p>Gets the contents of Bucket/Key.</p>
+ 
+  <p>This returns the value from the local ETS cache, or queries Riak and caches the value if the value was not already
+  in the cache.</p>
+</div></div>
+<div class="function">
+<h3 id="get_cache/1">get_cache(Bucket::binary(), Key::binary()) -&gt; {ok, Value::json()} | not_found | {error, Msg::list()}</h3>
+
+
+<div class="description">
+
+<p>Gets the contents of Bucket/Key from the local cache.</p>
+ 
+  <p>This returns the value from the local ETS cache, returning 'not_found' if it was not found.</p>
+</div></div>
+<div class="function">
+<h3 id="get_checked/1">get_checked(Bucket::binary(), Key::binary()) -&gt; {ok, Value::json()} | not_found | {error, Msg::list()}</h3>
+
+
+<div class="description">
+
+<p>Gets the contents of Bucket/Key from Riak, skipping the cache.</p>
+ 
+  <p>This queries Riak for the given value, and returns it.</p>
+</div></div>
+<div class="function">
+<h3 id="get_with_meta/1">get_with_meta(Bucket::binary(), Key::binary()) -&gt; {ok, Value::json(), Metadata::dict()} | not_found | {error, Msg::list()}</h3>
+
+
+<div class="description">
+
+<p>Gets the contents and metadata of Bucket/Key from Riak, skipping the cache.</p>
+ 
+  <p>This queries Riak for the given value, and returns the value and the metadata</p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(Bucket::binary(), Key::binary(), Value::json()) -&gt; ok | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Sets the contents of Bucket/Key to Value.</p>
+ 
+  <p>This sets the value in the ETS cache, sends an update to the peer servers, and sets the value in Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="set_cache/1">set_cache(Bucket::binary(), Key::binary(), Value::json()) -&gt; ok | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Sets the contents of Bucket/Key to Value in the local cache.</p>
+ 
+  <p>This sets the value in the ETS cache and sends an update to the peer servers, but skips Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="set_cache/1-1">set_cache(Bucket::binary(), Key::binary(), Value::json(), NotifyPeers::boolean()) -&gt; ok | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Sets the contents of Bucket/Key to Value in the local cache.</p>
+ 
+  <p>This sets the value in the ETS cache and sends an update to the peer servers, but skips Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="set_checked/1">set_checked(Bucket::binary(), Key::binary(), Value::json()) -&gt; ok | {siblings, SiblingValues::[json()]} | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Sets the contents of Bucket/Key to Value, checking to see whether the write succeeds and whether a sibling was  
+created.</p>
+ 
+  <p>This sets the value in Riak, and if no siblings were created, sets the value in the ETS cache and sends an update to
+  the peer servers.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Bucket::binary(), Key::binary()) -&gt; ok | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Deletes the contents of Bucket/Key.</p>
+ 
+  <p>This deletes the value in the ETS cache, sends a delete to the peer servers, and deletes the value in Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_cache/1">delete_cache(Bucket::binary(), Key::binary()) -&gt; ok | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Deletes the contents of Bucket/Key from the local cache.</p>
+ 
+  <p>This deletes the value from the local ETS cache and sends a delete to the peer servers, but skips Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_cache/1-1">delete_cache(Bucket::binary(), Key::binary(), NotifyPeers::boolean()) -&gt; ok | {error, Msg::string()}</h3>
+
+
+<div class="description">
+
+<p>Deletes the contents of Bucket/Key from the local cache.</p>
+ 
+  <p>This deletes the value from the local ETS cache and sends a delete to the peer servers, but skips Riak.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_checked/1">delete_checked(Bucket::binary(), Key::binary()) -&gt; ok | {newer_version, NewVersion::json()} | {error, Msg::list()}</h3>
+
+
+<div class="description">
+
+<p>Deletes the contents of Bucket/Key, checking to see whether the delete succeeds.</p>
+ 
+  <p>This attempts to delete the value from the ETS cache and from Riak; if it succeeds, it sends a delete to the peer
+  servers.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Gets the value of Bucket/Key from riak.</p>
+ 
+  <p>This gets the object specified by Bucket, Key from the riak database.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVersion, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

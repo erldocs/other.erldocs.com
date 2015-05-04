@@ -1,0 +1,1 @@
+var index = [['app','nicedecimal','nicedecimal','[application]'],['mod','nicedecimal','nicedecimal',[]],['fun','nicedecimal','nicedecimal:format/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','echat','echat','[application]'],['mod','echat','chat_client',[]],['mod','echat','simple_window',[]],['fun','echat','simple_window:start/0',[]]];

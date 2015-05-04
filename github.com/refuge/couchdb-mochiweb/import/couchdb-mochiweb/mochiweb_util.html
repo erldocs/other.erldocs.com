@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mochiweb_util (couchdb-mochiweb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mochiweb_util</h1>
+<h2 class="modsummary">Utilities for parsing and quoting.</h2>
+<div class="description">
+<p>Utilities for parsing and quoting.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-encoding">encoding() = string()</h3></div>
+    <div class="type"><h3 id="type-media_type">media_type() = string()</h3></div>
+    <div class="type"><h3 id="type-qvalue">qvalue() = {media_type() | encoding(), float()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="partition/2">partition(String, Sep) -&gt; {String, [], []} | {Prefix, Sep, Postfix}</h3>
+
+
+<div class="description">
+
+<p>Inspired by Python 2.5's str.partition:
+       partition("foo/bar", "/") = {"foo", "/", "bar"},
+       partition("foo", "/") = {"foo", "", ""}.</p>
+</div></div>
+<div class="function">
+<h3 id="safe_relative_path/1">safe_relative_path(P::string()) -&gt; string() | undefined</h3>
+
+
+<div class="description">
+
+<p>Return the reduced version of a relative path or undefined if it
+       is not safe. safe relative paths can be joined with an absolute path
+       and will result in a subdirectory of the absolute path. Safe paths
+       never contain a backslash character.</p>
+</div></div>
+<div class="function">
+<h3 id="shell_quote/1">shell_quote(L::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Quote a string according to UNIX shell quoting rules, returns a string
+       surrounded by double quotes.</p>
+</div></div>
+<div class="function">
+<h3 id="cmd_port/1">cmd_port(Argv::[string()], Options) -&gt; port()</h3>
+
+
+<div class="description">
+
+<p>open_port({spawn, mochiweb_util:cmd_string(Argv)}, Options).</p>
+</div></div>
+<div class="function">
+<h3 id="cmd/1">cmd(Argv::[string()]) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>os:cmd(cmd_string(Argv)).</p>
+</div></div>
+<div class="function">
+<h3 id="cmd_string/1">cmd_string(Argv::[string()]) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Create a shell quoted command string from a list of arguments.</p>
+</div></div>
+<div class="function">
+<h3 id="cmd_status/1">cmd_status(Argv::[string()]) -&gt; {ExitStatus::integer(), Stdout::binary()}</h3>
+
+
+<div class="description">
+
+<p>Accumulate the output and exit status from the given application, will be
+       spawned with cmd_port/2.</p>
+</div></div>
+<div class="function">
+<h3 id="join/1">join(Strings::[iolist()], Separator::iolist()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>Join a list of strings or binaries together with the given separator
+       string or char or binary. The output is flattened, but may be an
+       iolist() instead of a string() if any of the inputs are binary().</p>
+</div></div>
+<div class="function">
+<h3 id="quote_plus/1">quote_plus(Atom::atom() | integer() | float() | string() | binary()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>URL safe encoding of the given term.</p>
+</div></div>
+<div class="function">
+<h3 id="urlencode/2">urlencode(Props::[{Key, Value}]) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>URL encode the property list.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_qs/1">parse_qs(Binary::string() | binary()) -&gt; [{Key, Value}]</h3>
+
+
+<div class="description">
+
+<p>Parse a query string or application/x-www-form-urlencoded.</p>
+</div></div>
+<div class="function">
+<h3 id="unquote/1">unquote(Binary::string() | binary()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Unquote a URL encoded string.</p>
+</div></div>
+<div class="function">
+<h3 id="urlsplit/1">urlsplit(Url) -&gt; {Scheme, Netloc, Path, Query, Fragment}</h3>
+
+
+<div class="description">
+
+<p>Return a 5-tuple, does not expand % escapes. Only supports HTTP style
+       URLs.</p>
+</div></div>
+<div class="function">
+<h3 id="path_split/1">path_split(S::string()) -&gt; {Part, Rest}</h3>
+
+
+<div class="description">
+
+<p>Split a path starting from the left, as in URL traversal.
+       path_split("foo/bar") = {"foo", "bar"},
+       path_split("/foo/bar") = {"", "foo/bar"}.</p>
+</div></div>
+<div class="function">
+<h3 id="urlunsplit/5">urlunsplit(X1::{Scheme, Netloc, Path, Query, Fragment}) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Assemble a URL from the 5-tuple. Path must be absolute.</p>
+</div></div>
+<div class="function">
+<h3 id="urlunsplit_path/3">urlunsplit_path(X1::{Path, Query, Fragment}) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Assemble a URL path from the 3-tuple.</p>
+</div></div>
+<div class="function">
+<h3 id="urlsplit_path/1">urlsplit_path(Path::Url) -&gt; {Path, Query, Fragment}</h3>
+
+
+<div class="description">
+
+<p>Return a 3-tuple, does not expand % escapes. Only supports HTTP style
+       paths.</p>
+</div></div>
+<div class="function">
+<h3 id="guess_mime/1">guess_mime(File::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p> Guess the mime type of a file by the extension of its filename.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_header/1">parse_header(String::string()) -&gt; {Type, [{K, V}]}</h3>
+
+
+<div class="description">
+
+<p> Parse a Content-Type like header, return the main Content-Type
+        and a property list of options.</p>
+</div></div>
+<div class="function">
+<h3 id="record_to_proplist/2">record_to_proplist(Record, Fields) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>calls record_to_proplist/3 with a default TypeKey of '__record'</p>
+</div></div>
+<div class="function">
+<h3 id="record_to_proplist/3">record_to_proplist(Record, Fields, TypeKey) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Return a proplist of the given Record with each field in the
+       Fields list set as a key with the corresponding value in the Record.
+       TypeKey is the key that is used to store the record type
+       Fields should be obtained by calling record_info(fields, record_type)
+       where record_type is the record type of Record</p>
+</div></div>
+<div class="function">
+<h3 id="parse_qvalues/1">parse_qvalues(QValuesStr::string()) -&gt; [qvalue()] | invalid_qvalue_string</h3>
+
+
+<div class="description">
+
+<p>Parses a list (given as a string) of elements with Q values associated       
+to them. Elements are separated by commas and each element is separated       
+from its Q value by a semicolon. Q values are optional but when missing       
+the value of an element is considered as 1.0. A Q value is always in the       
+range [0.0, 1.0]. A Q value list is used for example as the value of the       
+HTTP "Accept" and "Accept-Encoding" headers.</p>
+ 
+       <p>Q values are described in section 2.9 of the RFC 2616 (HTTP 1.1).</p>
+ 
+       <p>Example:</p>
+ 
+       <p>parse_qvalues("gzip; q=0.5, deflate, identity;q=0.0") -&gt;
+           [{"gzip", 0.5}, {"deflate", 1.0}, {"identity", 0.0}]
+ </p>
+</div></div>
+<div class="function">
+<h3 id="pick_accepted_encodings/1">pick_accepted_encodings(AcceptedEncs::[qvalue()], SupportedEncs::[encoding()], DefaultEnc::encoding()) -&gt; [encoding()]</h3>
+
+
+<div class="description">
+
+<p>Determines which encodings specified in the given Q values list are       
+valid according to a list of supported encodings and a default encoding.</p>
+ 
+       <p>The returned list of encodings is sorted, descendingly, according to the       
+Q values of the given list. The last element of this list is the given       
+default encoding unless this encoding is explicitily or implicitily       
+marked with a Q value of 0.0 in the given Q values list.       
+Note: encodings with the same Q value are kept in the same order as             
+found in the input Q values list.</p>
+ 
+       <p>This encoding picking process is described in section 14.3 of the       
+RFC 2616 (HTTP 1.1).</p>
+ 
+       <p>Example:</p>
+ 
+       <p>pick_accepted_encodings(
+           [{"gzip", 0.5}, {"deflate", 1.0}],
+           ["gzip", "identity"],
+           "identity"
+       ) -&gt;
+           ["gzip", "identity"]
+ </p>
+</div></div>
+<div class="function">
+<h3 id="make_io/1">make_io(Atom) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Bob Ippolito</aname>
+<email>bob@mochimedia.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','yellow5','yellow5','[application]'],['mod','yellow5','yellow5',[]],['mod','yellow5','yellow5_app',[]],['mod','yellow5','yellow5_sup',[]],['fun','yellow5','yellow5:start/0',[]],['fun','yellow5','yellow5_app:start/2',[]],['fun','yellow5','yellow5_app:stop/1',[]],['fun','yellow5','yellow5_sup:init/1',[]],['fun','yellow5','yellow5_sup:start_link/0',[]]];

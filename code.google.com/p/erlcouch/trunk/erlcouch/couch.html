@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>couch (erlcouch) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>couch</h1>
+<h2 class="modsummary">   
+The contents of this file are subject to the Erlang Public License,   
+Version 1.1, (the "License"); you may not use this file except in   
+compliance with the License.</h2>
+<div class="description">
+<p>   
+The contents of this file are subject to the Erlang Public License,   
+Version 1.1, (the "License"); you may not use this file except in   
+compliance with the License. You should have received a copy of the   
+Erlang Public License along with this software. If not, it can be   
+retrieved via the world wide web at http://www.erlang.org/.</p>
+  
+   Software distributed under the License is distributed on an "AS IS"
+   basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+   the License for the specific language governing rights and limitations
+   under the License.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-json_object">json_object() = {json_object, proplist()}</h3></div>
+    <div class="type"><h3 id="type-raw_json">raw_json() = string()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_host/1">get_host(Options::OptionList) -&gt; Host::pid()</h3>
+
+<ul class="type">
+<li><code>OptionList = [Option]</code></li><li><code>Option = {host, string()} | {port, integer()} | {ibrowse, true}</code></li></ul>
+<div class="description">
+
+<p>        
+Retrievs a CouchDB host.</p>
+ 
+        <p>Required options: host, port</p>
+ 
+        <p>If you specify {ibrowse, true}, ibrowse will be used instead of inets</p>
+</div></div>
+<div class="function">
+<h3 id="all_dbs/1">all_dbs(Host::pid()) -&gt; {DatabaseList, raw_json()}</h3>
+
+<ul class="type">
+<li><code>DatabaseList = tuple()</code></li></ul>
+<div class="description">
+
+<p>
+ 
+        Retrieves all dbs on the host</p>
+</div></div>
+<div class="function">
+<h3 id="all_dbs/2">all_dbs(Host, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_db/1">get_db(Host::pid(), DBName::string()) -&gt; DB::pid() | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves specified db from the host</p>
+</div></div>
+<div class="function">
+<h3 id="get_db/3">get_db(Host, DBName, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_db/1">create_db(Host::pid(), DBName::string()) -&gt; DB::pid() | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>Creates specified db on the host</p>
+</div></div>
+<div class="function">
+<h3 id="create_db/3">create_db(Host, DBName, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_db/1">delete_db(Host::pid(), DBName::string()) -&gt; DB::pid() | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>Deletes specified db on the host</p>
+</div></div>
+<div class="function">
+<h3 id="delete_db/3">delete_db(Host, DBName, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="all_docs/1">all_docs(DB::pid()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves info on all docs available on the host</p>
+</div></div>
+<div class="function">
+<h3 id="all_docs/2">all_docs(DB, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_doc/1">get_doc(DB::pid(), DocName::string()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>Retrieves the entire contents of the specified document</p>
+</div></div>
+<div class="function">
+<h3 id="get_doc/3">get_doc(DB, DocName, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_doc_rev/1">get_doc_rev(DB::pid(), DocName::string(), Rev::integer()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>
+     Retrieves the entire contents of the specified document for the specified revision</p>
+</div></div>
+<div class="function">
+<h3 id="get_doc_rev/4">get_doc_rev(DB, DocName, Rev, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="save_doc/1">save_doc(DB::pid(), Doc::proplist()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>
+     Saves a doc to the database. The doc is assigned a server-generated ID</p>
+</div></div>
+<div class="function">
+<h3 id="save_doc/1-1">save_doc(DB::pid(), DocName::string(), Doc::proplist()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>
+     Saves a doc to the database with a user-supplied ID</p>
+</div></div>
+<div class="function">
+<h3 id="save_doc/4">save_doc(DB, DocName, Doc, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_doc/1">update_doc(DB::pid(), DocName::string(), Rev::integer(), Doc::proplist()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>
+     Save a doc when the doc's revision is known</p>
+</div></div>
+<div class="function">
+<h3 id="update_doc/5">update_doc(DB, DocName, Rev, Doc, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_doc/1">delete_doc(DB::pid(), DocName::string()) -&gt; {json_object(), raw_json()} | {error, json_object(), raw_json()}</h3>
+
+
+<div class="description">
+
+<p>
+     Delete a doc from the database</p>
+</div></div>
+<div class="function">
+<h3 id="delete_doc/3">delete_doc(DB, DocName, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

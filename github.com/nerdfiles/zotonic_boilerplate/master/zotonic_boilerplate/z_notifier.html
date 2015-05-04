@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>z_notifier (zotonic_boilerplate) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>z_notifier</h1>
+<h2 class="modsummary">Simple implementation of an observer/notifier.</h2>
+<div class="description">
+<p>Simple implementation of an observer/notifier. Relays events to observers of that event.
+  Also implements map and fold operations over the observers.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(SiteProps) -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Starts the notification server</p>
+</div></div>
+<div class="function">
+<h3 id="start_tests/0">start_tests() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start a notifier server for unit testing</p>
+</div></div>
+<div class="function">
+<h3 id="observe/3">observe(Event, Observer, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Subscribe to an event. Observer is a {M,F} or pid()</p>
+</div></div>
+<div class="function">
+<h3 id="observe/4">observe(Event, Observer, Priority, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Subscribe to an event. Observer is a {M,F} or pid()</p>
+</div></div>
+<div class="function">
+<h3 id="detach_all/2">detach_all(Event, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Detach all observers and delete the event</p>
+</div></div>
+<div class="function">
+<h3 id="detach/3">detach(Event, Observer, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Unsubscribe from an event. Observer is a {M,F} or pid()</p>
+</div></div>
+<div class="function">
+<h3 id="get_observers/2">get_observers(Msg, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return all observers for a particular event</p>
+</div></div>
+<div class="function">
+<h3 id="notify/2">notify(Msg, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Cast the event to all observers. The prototype of the observer is: f(Msg, Context) -&gt; void</p>
+</div></div>
+<div class="function">
+<h3 id="notify1/2">notify1(Msg, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Cast the event to the first observer. The prototype of the observer is: f(Msg, Context) -&gt; void</p>
+</div></div>
+<div class="function">
+<h3 id="first/2">first(Msg, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Call all observers till one returns something else than undefined. The prototype of the observer is: f(Msg, Context)</p>
+</div></div>
+<div class="function">
+<h3 id="map/2">map(Msg, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Call all observers, return the list of answers. The prototype of the observer is: f(Msg, Context)</p>
+</div></div>
+<div class="function">
+<h3 id="foldl/3">foldl(Msg, Acc0, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Do a fold over all observers, prio 1 observers first. The prototype of the observer is: f(Msg, Acc, Context)</p>
+</div></div>
+<div class="function">
+<h3 id="foldr/3">foldr(Msg, Acc0, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Do a fold over all observers, prio 1 observers last</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args) -&gt; {ok, State} | {ok, State, Timeout} | ignore | {stop, Reason}</h3>
+
+
+<div class="description">
+
+<p>Initiates the server, creates a new observer list</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Message::Request, From, State) -&gt; {reply, Reply, State} | {reply, Reply, State, Timeout} | {noreply, State} | {noreply, State, Timeout} | {stop, Reason, Reply, State} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Trap unknown calls</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Message::Msg, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Add an observer to an event</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Handle timer ticks</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>This function is called by a gen_server when it is about to
+  terminate. It should be the opposite of Module:init/1 and do any necessary
+  cleaning up. When it returns, the gen_server terminates with Reason.
+  The return value is ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; {ok, NewState}</h3>
+
+
+<div class="description">
+
+<p>Convert process state when code is changed</p>
+</div></div>
+<div class="function">
+<h3 id="notify_observer/4">notify_observer(Msg, X2, IsCall, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Notify an observer of an event</p>
+</div></div></div>
+
+<authors>
+
+<aname>Marc Worrell</aname>
+<email>marc@worrell.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

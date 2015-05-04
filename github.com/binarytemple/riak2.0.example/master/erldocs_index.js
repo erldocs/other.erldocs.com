@@ -1,0 +1,1 @@
+var index = [['app','riak2.0.example','riak2.0.example','[application]'],['mod','riak2.0.example','example',[]],['fun','riak2.0.example','example:run/0',[]],['fun','riak2.0.example','example:run/1',[]]];

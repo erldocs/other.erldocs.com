@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cowboy_filter (erlang_cas_client_cowboy) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cowboy_filter</h1>
+<h2 class="modsummary">Cowboy request filter middleware.</h2>
+<div class="description">
+<p>Cowboy request filter middleware.</p>
+ 
+  <p>Execute request filters (cowboy middleware modules) based on the filtering
+  information found in the <em>filters</em> environment value.  If no filters  
+match or if all matching filters return {ok, Req, Env}, then request  
+processing will continue.</p>
+ 
+  <p>This may be used, for example, to apply authentication or authorization  
+filters to specific URLs or handlers only.</p>
+ 
+  <p>This middleware may be injected either before or after the router middleware,  
+with the caveat that Handler matching will only work if this is injected  
+after the router middleware.</p>
+ 
+  <p>The <em>filters</em> environment value should contain the output of
+  <em>cowboy_filter:compile()</em>.  The general structure for the input to
+  <em>cowboy_filter:compile()</em> is:
+  </p><pre class="sh_erlang">  Filters = [Match1, Match2, ... ].</pre>
+ 
+  <p>Each Match is either a URL or Handler matching rule that maps to Filter
+  Modules and middleware environment values to use when a match occurs:
+  </p><pre class="sh_erlang">  Match1 = {url, {URLMatch}}.
+  Match2 = {handler, Handler, HandlerOpts, Filter, FilterEnv}.</pre>
+ 
+  <p>The URLMatch structure is the same as the Host structure used in Routes,  
+except that the Handler field is used as the Filter, and the Opts field is  
+used as the FilterEnv.</p>
+ 
+  <p>In Handler matching rules, the Handler or HandlerOpts value may be '_' to  
+match any Handler or HandlerOpts.</p>
+ 
+  <p>FilterEnv is a list of tuples containing names/values to be added to the
+  middleware environment:
+  </p><pre class="sh_erlang">  FilterEnv = [{Name1, Value1}, {Name2, Value2}, ... ].</pre>
+ 
+  <p>For example, to authenticate requests to
+  https://cowboy.example.org/login/[...] as well as any requests that are being
+  routed to the admin_handler:
+  </p><pre class="sh_erlang">  cowboy_filter:compile([
+    {url, {"cowboy.example.org", [{"/login/[...]", auth_filter, []}]}},
+    {handler, admin_handler, '_', auth_filter, []}
+  ])</pre><p>
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-compiled_filters">compiled_filters()</h3></div>
+    <div class="type"><h3 id="type-constraints">constraints() = <a href="cowboy_router.html#type-constraints" class="seealso">cowboy_router:constraints()</a></h3></div>
+    <div class="type"><h3 id="type-filter_rule">filter_rule() = {url, <a href="#type-route_rule" class="seealso">route_rule()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {handler,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Handler :: <a href="#type-handler_match" class="seealso">handler_match()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HandlerOpts :: any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter :: module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FilterEnv :: any()}</h3></div>
+    <div class="type"><h3 id="type-filters">filters() = [<a href="#type-filter_rule" class="seealso">filter_rule()</a>]</h3></div>
+    <div class="type"><h3 id="type-handler_match">handler_match() = '_' | module()</h3></div>
+    <div class="type"><h3 id="type-route_match">route_match() = '_' | iodata()</h3></div>
+    <div class="type"><h3 id="type-route_path">route_path() = {Path :: <a href="#type-route_match" class="seealso">route_match()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Handler :: module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opts :: any()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Path :: <a href="#type-route_match" class="seealso">route_match()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-constraints" class="seealso">constraints()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Handler :: module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Opts :: any()}</h3></div>
+    <div class="type"><h3 id="type-route_rule">route_rule() = {Host :: <a href="#type-route_match" class="seealso">route_match()</a>, Paths :: [<a href="#type-route_path" class="seealso">route_path()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Host :: <a href="#type-route_match" class="seealso">route_match()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-constraints" class="seealso">constraints()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paths :: [<a href="#type-route_path" class="seealso">route_path()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="compile/1">compile(Filters::filters()) -&gt; compiled_filters()</h3>
+
+
+<div class="description">
+
+<p>Compile a list of filters.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

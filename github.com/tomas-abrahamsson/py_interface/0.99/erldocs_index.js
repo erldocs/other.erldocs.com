@@ -1,0 +1,1 @@
+var index = [['app','py_interface','py_interface','[application]'],['mod','py_interface','test_erl_node_pingpong',[]],['fun','py_interface','test_erl_node_pingpong:start/0',[]],['fun','py_interface','test_erl_node_pingpong:start/1',[]]];

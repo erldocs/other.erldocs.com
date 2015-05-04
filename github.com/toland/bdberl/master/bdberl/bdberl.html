@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bdberl (bdberl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bdberl</h1>
+<h2 class="modsummary">
+  Erlang interface to BerkeleyDB.</h2>
+<div class="description">
+<p>
+  Erlang interface to BerkeleyDB.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open/2">open(Name, Type) -&gt; {ok, Db} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Name = string()</code></li><li><code>Type = btree | hash</code></li><li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Open a database file, creating it if it does not exist.
+ </p>
+<p><em>See also:</em> <a href="#open/3" class="seealso">open/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="open/3">open(Name, Type, Opts) -&gt; {ok, Db} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Name = string()</code></li><li><code>Type = btree | hash | unknown</code></li><li><code>Opts = [atom()]</code></li><li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>  
+Open a database file.</p>
+ 
+  <p>This function opens the database represented by the <code>Name</code> parameter
+  for both reading and writing. The <code>Type</code> parameter specifies the
+  database file format. The currently supported file formats (or access
+  methods) are <code>btree</code> and <code>hash</code>. The <code>btree</code> format is a
+  representation of a sorted, balanced tree structure. The <code>hash</code>  
+format is an extensible, dynamic hashing scheme.</p>
+ 
+  <p>Calling open is a relatively expensive operation, and maintaining a  
+set of open databases will normally be preferable to repeatedly  
+opening and closing the database for each new query.</p>
+ 
+  <p>This function returns <code>{ok, Db}</code> on success. <code>Db</code> is a handle that
+  must be used when performing operations on this database. If open
+  fails, the close function is called automatically to discard the <code>Db</code>  
+handle.</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <p>The <code>Opts</code> parameter takes a list of flags that will modify the  
+behavior of bdberl when accessing this file. The following flags are  
+recognized:</p>
+ 
+  <taglist>
+    <dt>create</dt>
+    <item><p>Create the database if it does not exist.</p></item>
+    <dt>exclusive</dt>
+    <item><p>Return an error if the database already exists. Only
+        meaningful when used with <code>create</code>.</p></item>
+    <dt>multiversion</dt>
+    <item><p>Open the database with support for multiversion concurrency
+        protocol.</p></item>
+    <dt>no_mmap</dt>
+    <item><p>Do not map this database into process memory.</p></item>
+    <dt>readonly</dt>
+    <item><p>Open the database for reading only. Any attempt to modify items
+        in the database will fail.</p></item>
+    <dt>read_uncommitted</dt>
+    <item><p>Support transactional read operations with degree 1
+        isolation. Read operations on the database may request the
+        return of modified but not yet committed data.</p></item>
+    <dt>truncate</dt>
+    <item><p>Physically truncate the underlying file, discarding all
+        previous databases it might have held.</p></item>
+  </taglist>
+ 
+  <p>Additionally, the driver supports the <code>auto_commit</code> and <code>threaded</code>
+  flags which are always enabled. Specifying either flag in <code>Opts</code> is
+  safe, but does not alter the behavior of bdberl.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Db) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Close a database file with default options.
+ </p>
+<p><em>See also:</em> <a href="#close/2" class="seealso">close/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="close/2">close(Db, Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Close a database file.</p>
+ 
+  <p>This function flushes any cached database information to disk, closes  
+any open cursors, frees any allocated resources, and closes any  
+underlying files.</p>
+ 
+  <p>The <code>Db</code> handle should not be closed while any other handle that refers  
+to it is not yet closed; for example, database handles must not be  
+closed while cursor handles into the database remain open, or  
+transactions that include operations on the database have not yet  
+been committed or aborted.</p>
+ 
+  <p>Because key/data pairs are cached in memory, failing to sync the file
+  with the <code>close</code> function may result in inconsistent or lost  
+information.</p>
+ 
+  <p>The <code>Db</code> handle may not be accessed again after this function is  
+called, regardless of its return.</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>no_sync</dt>
+    <item><p>Do not flush cached information to disk.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_begin/0">txn_begin() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Begin a transaction with default options.
+ </p>
+<p><em>See also:</em> <a href="#txn_begin/1" class="seealso">txn_begin/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="txn_begin/1">txn_begin(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Begin a transaction.</p>
+ 
+  <p>This function creates a new transaction in the environment. Calling
+  the <code>abort</code> or <code>commit</code> functions will end the transaction.</p>
+ 
+  <p>Transactions may only span threads if they do so serially; that is,  
+each transaction must be active in only a single thread of control at  
+a time. This restriction holds for parents of nested transactions as  
+well; no two children may be concurrently active in more than one  
+thread of control at any one time.</p>
+ 
+  <p>Cursors may not span transactions; that is, each cursor must be  
+opened and closed within a single transaction.</p>
+ 
+  <p>A parent transaction may not issue any Berkeley DB operations --
+  except for <code>txn_begin</code>, <code>abort</code> and <code>commit</code> -- while it has active  
+child transactions (child transactions that have not yet been  
+committed or aborted).</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>read_committed</dt>
+    <item><p>This transaction will have degree 2 isolation. This provides
+        for cursor stability but not repeatable reads. Data items which
+        have been previously read by this transaction may be deleted or
+        modified by other transactions before this transaction
+        completes.</p></item>
+    <dt>read_uncommitted</dt>
+    <item><p>This transaction will have degree 1 isolation. Read operations
+        performed by the transaction may read modified but not yet
+        committed data. Silently ignored if the <code>read_uncommitted</code>
+        option was not specified when the underlying database was
+        opened.</p></item>
+    <dt>txn_no_sync</dt>
+    <item><p>Do not synchronously flush the log when this transaction
+        commits. This means the transaction will exhibit the ACI
+        (atomicity, consistency, and isolation) properties, but not D
+        (durability); that is, database integrity will be maintained
+        but it is possible that this transaction may be undone during
+        recovery.</p></item>
+    <dt>txn_no_wait</dt>
+    <item><p>If a lock is unavailable for any Berkeley DB operation
+        performed in the context of this transaction, cause the
+        operation to return <code>deadlock</code> or <code>lock_not_granted</code>.</p></item>
+    <dt>txn_snapshot</dt>
+    <item><p>This transaction will execute with snapshot isolation. For
+        databases with the <code>multiversion</code> flag set, data values will be
+        read as they are when the transaction begins, without taking
+        read locks. Silently ignored for operations on databases with
+        <code>multiversion</code> not set on the underlying database (read locks
+        are acquired). The error <code>deadlock</code> will be returned from
+        update operations if a snapshot transaction attempts to update
+        data which was modified after the snapshot transaction read it.
+        </p></item>
+     <dt>txn_sync</dt>
+     <item><p>Synchronously flush the log when this transaction commits.
+         This means the transaction will exhibit all of the ACID
+         (atomicity, consistency, isolation, and durability)
+         properties. This behavior is the default.</p></item>
+     <dt>txn_wait</dt>
+     <item><p>If a lock is unavailable for any operation performed in the
+         context of this transaction, wait for the lock. This behavior
+         is the default.</p></item>
+     <dt>txn_write_nosync</dt>
+     <item><p>Write, but do not synchronously flush, the log when this
+         transaction commits. This means the transaction will exhibit
+         the ACI (atomicity, consistency, and isolation) properties,
+         but not D (durability); that is, database integrity will be
+         maintained, but if the system fails, it is possible some
+         number of the most recently committed transactions may be
+         undone during recovery. The number of transactions at risk is
+         governed by how often the system flushes dirty buffers to disk
+         and how often the log is flushed or checkpointed.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_commit/0">txn_commit() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Commit a transaction with default options.
+ </p>
+<p><em>See also:</em> <a href="#txn_commit/1" class="seealso">txn_commit/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="txn_commit/1">txn_commit(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Commit a transaction.</p>
+ 
+  <p>This function ends the transaction. In the case of nested  
+transactions, if the transaction is a parent transaction, committing  
+the parent transaction causes all unresolved children of the parent  
+to be committed. In the case of nested transactions, if the  
+transaction is a child transaction, its locks are not released, but  
+are acquired by its parent. Although the commit of the child  
+transaction will succeed, the actual resolution of the child  
+transaction is postponed until the parent transaction is committed or  
+aborted; that is, if its parent transaction commits, it will be  
+committed; and if its parent transaction aborts, it will be aborted.</p>
+ 
+  <p>All cursors opened within the transaction must be closed before the  
+transaction is committed.</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>txn_no_sync</dt>
+    <item><p>Do not synchronously flush the log. This means the transaction
+        will exhibit the ACI (atomicity, consistency, and isolation)
+        properties, but not D (durability); that is, database integrity
+        will be maintained but it is possible that this transaction may
+        be undone during recovery.</p></item>
+     <dt>txn_sync</dt>
+     <item><p>Synchronously flush the log. This means the transaction will
+         exhibit all of the ACID (atomicity, consistency, isolation,
+         and durability) properties. This behavior is the default.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_abort/0">txn_abort() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>  
+Abort a transaction.</p>
+ 
+  <p>This function causes an abnormal termination of the transaction. The  
+log is played backward, and any necessary undo operations are  
+performed. Before this function returns, any locks held by the  
+transaction will have been released.</p>
+ 
+  <p>In the case of nested transactions, aborting a parent transaction  
+causes all children (unresolved or not) of the parent transaction to  
+be aborted.</p>
+ 
+  <p>All cursors opened within the transaction must be closed before the
+  transaction is aborted.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="transaction/1">transaction(Fun) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Fun = function()</code></li></ul>
+<div class="description">
+
+<p>
+  Execute a fun inside of a transaction.
+ </p>
+<p><em>See also:</em> <a href="#transaction/4" class="seealso">transaction/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="transaction/2">transaction(Fun, Retries) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Fun = function()</code></li><li><code>Retries = infinity | integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Execute a fun inside of a transaction.
+ </p>
+<p><em>See also:</em> <a href="#transaction/4" class="seealso">transaction/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="transaction/3">transaction(Fun, Retries, Opts) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Fun = function()</code></li><li><code>Retries = infinity | integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>
+  Execute a fun inside of a transaction.
+ </p>
+<p><em>See also:</em> <a href="#transaction/4" class="seealso">transaction/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="transaction/4">transaction(Fun, Retries, TimeLeft, Opts) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Fun = function()</code></li><li><code>Retries = infinity | integer()</code></li><li><code>TimeLeft = infinity | integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Execute a fun inside of a transaction.</p>
+ 
+  <p>This function executes a user-supplied function inside the scope of a
+  transaction. If the function returns normally, then the transaction
+  is committed and the value returned by the function is returned. If
+  the function returns the value <code>abort</code> then the transaction will be  
+aborted.</p>
+ 
+  <p>If the transaction deadlocks on commit, the function will be executed
+  again until the commit succeeds or the number of retries exceeds the
+  value of the <code>Retries</code> parameter or <code>TimeLeft</code> microseconds have elapsed  
+(the accounting isn't perfect - it just measures time in the txn).</p>
+ 
+  <p>The 'Opts' parameter is used to set flags for the call to txn_begin/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put/3">put(Db, Key, Value) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Store a value in a database file.
+ </p>
+<p><em>See also:</em> <a href="#put/4" class="seealso">put/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="put/4">put(Db, Key, Value, Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Store a value in a database file.</p>
+ 
+  <p>This function stores key/data pairs in the database. The default  
+behavior is to enter the new key/data pair, replacing any previously  
+existing key if duplicates are disallowed, or adding a duplicate data  
+item if duplicates are allowed. If the database supports duplicates,  
+this function adds the new data value at the end of the duplicate  
+set. If the database supports sorted duplicates, the new data value  
+is inserted at the correct sorted location.</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>no_duplicate</dt>
+    <item><p>enter the new key/data pair only if it does not already appear
+        in the database. This option may only be specified if the
+        underlying database has been configured to support sorted
+        duplicates. The <code>put</code> function will return <code>key_exist</code> if
+        this option is set and the key/data pair already appears in the
+        database.</p></item>
+    <dt>no_overwrite</dt>
+    <item><p>Enter the new key/data pair only if the key does not already
+        appear in the database. The <code>put</code> function call with this
+        option set will fail if the key already exists in the database,
+        even if the database supports duplicates. In this case the
+        <code>put</code> function will return <code>key_exist</code>.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put_r/3">put_r(Db, Key, Value) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Store a value in a database file raising an exception on failure.
+ </p>
+<p><em>See also:</em> <a href="#put_r/4" class="seealso">put_r/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="put_r/4">put_r(Db, Key, Value, Opts) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Store a value in a database file raising an exception on failure.</p>
+ 
+  <p>This function is the same as put/4 except that it raises an exception
+  on failure instead of returning an error tuple.
+ </p>
+<p><em>See also:</em> <a href="#put/4" class="seealso">put/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="put_commit/3">put_commit(Db, Key, Value) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Store a value in a database file and commit the transaction.
+ </p>
+<p><em>See also:</em> <a href="#put_commit/4" class="seealso">put_commit/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="put_commit/4">put_commit(Db, Key, Value, Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Store a value in a database file and commit the transaction.</p>
+ 
+  <p>This function is logically the equicalent of calling <code>put</code> followed
+  by <code>txn_commit</code> except that it is implemented with the driver and is
+  therefore more efficient.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put_commit_r/3">put_commit_r(Db, Key, Value) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Store a value in a database file and commit the transaction.
+ </p>
+<p><em>See also:</em> <a href="#put_commit_r/4" class="seealso">put_commit_r/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="put_commit_r/4">put_commit_r(Db, Key, Value, Opts) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = any()</code></li><li><code>Value = any()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Store a value in a database file and commit the transaction.</p>
+ 
+  <p>This function is the same as put_commit/4 except that it raises an
+  exception on failure instead of returning an error tuple.
+ </p>
+<p><em>See also:</em> <a href="#put_commit/4" class="seealso">put_commit/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get/2">get(Db, Key) -&gt; not_found | {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>
+  Retrieve a value based on key.
+ </p>
+<p><em>See also:</em> <a href="#get/3" class="seealso">get/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get/3">get(Db, Key, Opts) -&gt; not_found | {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve a value based on key.</p>
+ 
+  <p>This function retrieves key/data pairs from the database. In the  
+presence of duplicate key values, this function will return the first  
+data item for the designated key. Duplicates are sorted by insert  
+order, except where this order has been overridden by cursor  
+operations. Retrieval of duplicates requires the use of cursor  
+operations.</p>
+ 
+  <p>This function will return <code>not_found</code> if the specified key is not in  
+the database.</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>read_committed</dt>
+    <item><p>Configure a transactional get operation to have degree 2
+        isolation (the read is not repeatable).</p></item>
+    <dt>read_uncommitted</dt>
+    <item><p>Configure a transactional get operation to have degree 1
+        isolation, reading modified but not yet committed data.
+        Silently ignored if the <code>read_uncommitted</code> flag was not
+        specified when the underlying database was opened.</p></item>
+    <dt>rmw</dt>
+    <item><p>Acquire write locks instead of read locks when doing the read,
+        if locking is configured. Setting this flag can eliminate
+        deadlock during a read-modify-write cycle by acquiring the
+        write lock during the read part of the cycle so that another
+        thread of control acquiring a read lock for the same item, in
+        its own read-modify-write cycle, will not result in deadlock.
+        This option is meaningful only in the presence of transactions.
+        </p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_r/2">get_r(Db, Key) -&gt; not_found | {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li></ul>
+<div class="description">
+
+<p>
+  Retrieve a value based on key.
+ </p>
+<p><em>See also:</em> <a href="#get_r/3" class="seealso">get_r/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_r/3">get_r(Db, Key, Opts) -&gt; not_found | {ok, Value}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve a value based on key.</p>
+ 
+  <p>This function is the same as get/3 except that it raises an
+  exception on failure instead of returning an error tuple.
+ </p>
+<p><em>See also:</em> <a href="#get/3" class="seealso">get/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/3">update(Db, Key, Fun) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Fun = function()</code></li></ul>
+<div class="description">
+
+<p>
+  Updates the value of a key by executing a fun.
+ </p>
+<p><em>See also:</em> <a href="#update/7" class="seealso">update/7</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/4">update(Db, Key, Fun, Args) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Fun = function()</code></li><li><code>Args = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Updates the value of a key by executing a fun.
+ </p>
+<p><em>See also:</em> <a href="#update/7" class="seealso">update/7</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/5">update(Db, Key, Fun, Args, Opts) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Fun = function()</code></li><li><code>Args = any()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>
+  Updates the value of a key by executing a fun.
+ </p>
+<p><em>See also:</em> <a href="#update/7" class="seealso">update/7</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/6">update(Db, Key, Fun, Args, Retries, Opts) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Fun = function()</code></li><li><code>Args = any()</code></li><li><code>Retries = integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>
+  Updates the value of a key by executing a fun.
+ </p>
+<p><em>See also:</em> <a href="#update/7" class="seealso">update/7</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/7">update(Db, Key, Fun, Args, Retries, TimeLeft, Opts) -&gt; {ok, Value} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Key = term()</code></li><li><code>Fun = function()</code></li><li><code>Args = any()</code></li><li><code>Retries = integer()</code></li><li><code>TimeLeft = integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Updates the value of a key by executing a fun.</p>
+ 
+  <p>This function updates a key/value pair by calling the provided
+  function and passing in the key and value as they are
+  currently. Additional arguments can be provided to the function by
+  passing them in the <code>Args</code> parameter. The entire operation is  
+executed within the scope of a new transaction.</p>
+ 
+  <p>The 'Opts' parameter is used to pass flags to transaction/3.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="truncate/0">truncate() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>  
+Truncates all of the open databases.</p>
+ 
+  <p>This function is equivalent to calling truncate/1 for every open
+  database.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="truncate/1">truncate(Db) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>  
+Truncates a database.</p>
+ 
+  <p>This function empties the database, discarding all records it  
+contains.</p>
+ 
+  <p>It is an error to call this function on a database with open cursors.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cursor_open/1">cursor_open(Db) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>  
+Opens a cursor on a database.</p>
+ 
+  <p>This function creates a database cursor. Cursors may span threads,
+  but only serially, that is, the application must serialize access to
+  the cursor handle.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cursor_next/0">cursor_next() -&gt; not_found | {ok, Key, Value} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>  
+Retrieves key/data pairs from the database.</p>
+ 
+  <p>The cursor is moved to the next key/data pair of the database, and  
+that pair is returned. In the presence of duplicate key values, the  
+value of the key may not change.</p>
+ 
+  <p>Modifications to the database during a sequential scan will be  
+reflected in the scan; that is, records inserted behind a cursor will  
+not be returned while records inserted in front of a cursor will be  
+returned.</p>
+ 
+  <p>If this function fails for any reason, the state of the cursor will
+  be unchanged.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cursor_prev/0">cursor_prev() -&gt; not_found | {ok, Key, Value} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>  
+Retrieves key/data pairs from the database.</p>
+ 
+  <p>The cursor is moved to the previous key/data pair of the database,  
+and that pair is returned. In the presence of duplicate key values,  
+the value of the key may not change.</p>
+ 
+  <p>Modifications to the database during a sequential scan will be  
+reflected in the scan; that is, records inserted behind a cursor will  
+not be returned while records inserted in front of a cursor will be  
+returned.</p>
+ 
+  <p>If this function fails for any reason, the state of the cursor will
+  be unchanged.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cursor_current/0">cursor_current() -&gt; not_found | {ok, Key, Value} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>  
+Retrieves key/data pairs from the database.</p>
+ 
+  <p>Returns the key/data pair to which the cursor refers.</p>
+ 
+  <p>Modifications to the database during a sequential scan will be  
+reflected in the scan; that is, records inserted behind a cursor will  
+not be returned while records inserted in front of a cursor will be  
+returned.</p>
+ 
+  <p>If this function fails for any reason, the state of the cursor will
+  be unchanged.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cursor_close/0">cursor_close() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>  
+Closes the cursor.</p>
+ 
+  <p>This function discards the cursor.</p>
+ 
+  <p>It is possible for this function to return <code>deadlock</code>, signaling that  
+any enclosing transaction should be aborted. If the application is  
+already intending to abort the transaction, this error should be  
+ignored, and the application should proceed.</p>
+ 
+  <p>After this function has been called, regardless of its return, the
+  cursor handle may not be used again.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_database/1">delete_database(Filename) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Filename = string()</code></li></ul>
+<div class="description">
+
+<p>  
+Delete a database file.</p>
+ 
+  <p>This function removes the database specified by the filename  
+parameter.</p>
+ 
+  <p>Applications should never remove databases with open handles. For
+  example, some architectures do not permit the removal of files with
+  open system handles. On these architectures, attempts to remove
+  databases currently in use by any thread of control in the system may
+  fail.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_data_dirs/0">get_data_dirs() -&gt; [DirName] | {error, Error}</h3>
+
+<ul class="type">
+<li><code>DirName = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the list of directories that bdberl searches to find databases.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_data_dirs_info/0">get_data_dirs_info() -&gt; {ok, [{DirName, Fsid, MbytesAvail}]} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>DirName = string()</code></li><li><code>Fsid = binary()</code></li><li><code>MbytesAvail = integer()</code></li><li><code>Reason = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the list of directories that bdberl searches to find databases
+  with the number of megabytes available for each dir.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_lg_dir_info/0">get_lg_dir_info() -&gt; {ok, DirName, Fsid, MbytesAvail} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>DirName = string()</code></li><li><code>Fsid = binary()</code></li><li><code>MbytesAvail = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the log directory info (name and megabytes available)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_cache_size/0">get_cache_size() -&gt; {ok, Gbytes, Mbytes, NumCaches} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Gbytes = integer()</code></li><li><code>Mbytes = integer()</code></li><li><code>NumCaches = integer()</code></li></ul>
+<div class="description">
+
+<p>  
+Returns the size of the in-memory cache.</p>
+ 
+  <p>The cache size is returned as a three element tuple representing the
+  number of gigabytes and megabytes and the number of caches.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_txn_timeout/0">get_txn_timeout() -&gt; {ok, Timeout} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Timeout = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns the transaction timeout value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stat/2">stat(Db, Opts) -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve database stats</p>
+ 
+  <p>This function retrieves database statistics</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>fast_stat</dt>
+    <item><p>Return only the values which do not require traversal of the database.
+        Among  other things, this flag makes it possible for applications to
+        request key and record counts without incurring the performance
+        penalty of traversing the entire database.</p></item>
+    <dt>read_committed</dt>
+    <item><p>Database items read during a transactional call will have degree 2
+        isolation. This ensures the stability of the data items read during
+        the stat operation but permits that data to be modified or deleted by
+        other transactions prior to the commit of the specified
+        transaction.</p></item>
+    <dt>read_uncommitted</dt>
+    <item><p>Database items read during a transactional call will have degree 1
+        isolation, including modified but not yet committed data. Silently
+        ignored if the read_committed flag was not specified when the
+        underlying database was opened.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stat/1">stat(Db) -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Retrieve database stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stat_print/2">stat_print(Db, Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li><li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print database stats</p>
+ 
+  <p>This function prints statistics from the database to wherever  
+BDB messages are being sent</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>fast_stat</dt>
+    <item><p>Return only the values which do not require traversal of the database.
+        Among  other things, this flag makes it possible for applications to
+        request key and record counts without incurring the performance
+        penalty of traversing the entire database.</p></item>
+    <dt>read_committed</dt>
+    <item><p>Database items read during a transactional call will have degree 2
+        isolation. This ensures the stability of the data items read during
+        the stat operation but permits that data to be modified or deleted by
+        other transactions prior to the commit of the specified transaction.
+        </p></item>
+    <dt>read_uncommitted</dt>
+    <item><p>Database items read during a transactional call will have degree 1
+        isolation, including modified but not yet committed data. Silently
+        ignored if the read_committed flag was not specified when the
+        underlying database was opened.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stat_print/1">stat_print(Db) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Db = integer()</code></li></ul>
+<div class="description">
+
+<p>
+  Print database stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="lock_stat/1">lock_stat(Opts) -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve lock stats</p>
+ 
+  <p>This function retrieves lock statistics from the database.</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after returning their values</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="lock_stat/0">lock_stat() -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieve lock stats with no flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="lock_stat_print/1">lock_stat_print(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print lock stats</p>
+ 
+  <p>This function prints lock statistics to wherever  
+BDB messages are being sent</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_all</dt>
+    <item><p>Display all available information.</p></item>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after displaying their values.</p></item>
+    <dt>stat_lock_conf</dt>
+    <item><p>Display the lock conflict matrix.</p></item>
+    <dt>stat_lock_lockers</dt>
+    <item><p>Display the lockers within hash chains.</p></item>
+    <dt>stat_lock_objects</dt>
+    <item><p>Display the lock objects within hash chains.</p></item>
+    <dt>stat_lock_params</dt>
+    <item><p>Display the locking subsystem parameters.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="lock_stat_print/0">lock_stat_print() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Print lock stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="log_stat/1">log_stat(Opts) -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve log stats</p>
+ 
+  <p>This function retrieves bdb log statistics</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after returning their values</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="log_stat/0">log_stat() -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieve log stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="log_stat_print/1">log_stat_print(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print log stats</p>
+ 
+  <p>This function prints bdb log statistics to wherever  
+BDB messages are being sent</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_all</dt>
+    <item><p>Display all available information.</p></item>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after displaying their values.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="log_stat_print/0">log_stat_print() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Print log stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="memp_stat/1">memp_stat(Opts) -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve memory pool stats</p>
+ 
+  <p>This function retrieves bdb mpool statistics</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after returning their values</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="memp_stat/0">memp_stat() -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieve memory pool stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="memp_stat_print/1">memp_stat_print(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print memory pool stats</p>
+ 
+  <p>This function prints bdb mpool statistics to wherever  
+BDB messages are being sent</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_all</dt>
+    <item><p>Display all available information.</p></item>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after displaying their values.</p></item>
+    <dt>stat_memp_hash</dt>
+    <item><p>Display the buffers with hash chains.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="memp_stat_print/0">memp_stat_print() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Print memory pool stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="mutex_stat/1">mutex_stat(Opts) -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve mutex stats</p>
+ 
+  <p>This function retrieves mutex statistics</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after returning their values</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="mutex_stat/0">mutex_stat() -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieve mutex stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="mutex_stat_print/1">mutex_stat_print(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print mutex stats</p>
+ 
+  <p>This function prints mutex statistics to wherever  
+BDB messages are being sent</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_all</dt>
+    <item><p>Display all available information.</p></item>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after displaying their values.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="mutex_stat_print/0">mutex_stat_print() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Print mutex stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_stat/1">txn_stat(Opts) -&gt; {ok, [{atom(), number()}], [[{atom(), number()}]]} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Retrieve transaction stats</p>
+ 
+  <p>This function retrieves transaction statistics</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after returning their values</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_stat/0">txn_stat() -&gt; {ok, [{atom(), number()}], [[{atom(), number()}]]} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieve transaction stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_stat_print/1">txn_stat_print(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print transaction stats</p>
+ 
+  <p>This function prints transaction statistics to wherever  
+BDB messages are being sent</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_all</dt>
+    <item><p>Display all available information.</p></item>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after displaying their values.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="txn_stat_print/0">txn_stat_print() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Print transaction stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="env_stat_print/1">env_stat_print(Opts) -&gt; ok | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Opts = [atom()]</code></li></ul>
+<div class="description">
+
+<p>  
+Print environment stats</p>
+ 
+  <p>This function prints environment statistics to wherever  
+BDB messages are being sent.  There is no documented way  
+to get this programatically</p>
+ 
+  <p><em><marker id="Options">Options</marker></em></p>
+ 
+  <taglist>
+    <dt>stat_all</dt>
+    <item><p>Display all available information.</p></item>
+    <dt>stat_clear</dt>
+    <item><p>Reset statistics after displaying their values.</p></item>
+    <dt>stat_subsystem</dt>
+    <item><p>Display information for all configured subsystems.</p></item>
+  </taglist><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="env_stat_print/0">env_stat_print() -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Print environment stats with empty flags
+ </p>
+</div></div>
+<div class="function">
+<h3 id="driver_info/0">driver_info() -&gt; {ok, [{atom(), number()}]} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieve driver info
+ </p>
+</div></div>
+<div class="function">
+<h3 id="register_logger/0">register_logger() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Registers the port owner pid to receive any BDB err/msg events. Note
+  that this is global registration -- ALL BDB err/msg events for this
+  VM instance will be routed to the pid.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Stop bdberl - stops the bdberl_logger process so that when
+  all processes using bdberl terminate then the driver will be unloaded.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Dave "dizzyd" Smith</aname>
+<email>dizzyd@dizzyd.com</email>
+<aname>Phil Toland</aname>
+<email>phil.toland@gmail.com</email>
+<aname>Jon Meredith</aname>
+<email>jon@jonmeredith.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

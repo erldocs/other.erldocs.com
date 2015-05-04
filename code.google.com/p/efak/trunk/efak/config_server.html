@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>config_server (efak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>config_server</h1>
+<h2 class="modsummary">A server for managing distributed application configuration		 
+in an erlang cluster.</h2>
+<div class="description">
+<p>A server for managing distributed application configuration		 
+in an erlang cluster.</p>
+ 
+  <p><em><marker id="Introduction">Introduction</marker></em></p>
+ 
+  <p>The config_server is made to be included in erlang applications that operate on different nodes. The config_server represent a solution for having a human-readable and easy changeable configuration file in your application.</p>
+ 
+  <p>The config_server provides an API to load, save and query the configuration file whithin your distributed application and, if configuration data is expected to change often, the config_server can also inform registered processes on configuration updates.</p>
+ 
+  <p>Application configuration is expected to be included in an XML file that must be stored at least on one node. The configuration file can be inspected by interested processes using XPath queries (<url href="http://www.w3.org/TR/xpath">http://www.w3.org/TR/xpath</url>).</p>
+ 
+  <p><em><marker id="Usage">Usage</marker></em></p>
+ 
+  <p><em><marker id="How_to_include_the_config_server_in_your_application">How to include the config_server in your application</marker></em></p>
+ 
+  <p>The config_server is an OTP gen_server that can be included in your main application supervisor. The config_server should be included in every node of your application cluster.
+ During the start-up phase the config_server try to load the XML configuration file specified in the application parameter <code>config_server</code>. Possible values of the <code>config_server</code> parameter are the tuples <code>{file, FileName}</code> and <code>{file, none}</code>.  
+If a configuration file is specified and it can not be loaded and/or parsed, the config_server will stop with an error. If no configuration file is provided, the config_server will try to load the configuration file via other config_server  running on other nodes of your application cluster.</p>
+ 
+  <p>An example .app file follows</p>
+ 
+ <pre class="sh_erlang">
+ {application, your_app,
+  [{description, "Best App Ever"},
+   {vsn, "1"},
+   {modules, [your_app, your_sup, your_module]},
+   {registered, [your_module]},
+   {applications, [kernel, stdlib, sasl]},
+   {mod, {your_app,[]}},
+   {env, [{config_server, {file, "~/your_conf.xml"}}]}
+  ]}.
+ </pre>
+ 
+  <p><em><marker id="How_to_interac_with_the_configuration">How to interac with the configuration</marker></em></p>
+ 
+  <p>The XML configuration file can have an arbitrary structure but must be a valid XML file. According to the structure of your XML file you can ask the config_server for all or part of your file using XPath query strings via <url href="/home/pete/wefwefwef/docs/other/9800467992/repo/trunk/.xml/efak/./config_server.xml#query_param-1">config_server:query_param/1</url>.</p>
+ 
+  <p><code>config_server:query_param/1</code> returns a list of matched xmerl_xml elements that can be easily converted into <code>simple_form</code> (tuple representation of xml) for easier parsing with <url href="/home/pete/wefwefwef/docs/other/9800467992/repo/trunk/.xml/efak/./config_server.xml#to_simple_xml-1">config_server:to_simple_xml/1</url>.</p>
+ 
+  <p>New version of the configuration file can be loaded with <url href="/home/pete/wefwefwef/docs/other/9800467992/repo/trunk/.xml/efak/./config_server.xml#load_file-1">config_server:load_file/1</url> and saved with <url href="/home/pete/wefwefwef/docs/other/9800467992/repo/trunk/.xml/efak/./config_server.xml#save-0">config_server:save/0</url>. While saving the current configuration on one node, all nodes will be asked to save the configuration on disk.</p>
+ 
+  <p><url href="/home/pete/wefwefwef/docs/other/9800467992/repo/trunk/.xml/efak/./config_server.xml#register_for_updates-0">config_server:register_for_updates/0</url> may be used by processes to receive notification on updates.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid} | term()</code></li></ul>
+<div class="description">
+
+<p>	Starts the server and registers it locally on the current node.</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Pid = pid()</code></li><li><code>Error = {already_started, Pid} | term()</code></li></ul>
+<div class="description">
+
+<p>	Starts the server as a stand-alone process and registers it locally on the current node.</p>
+ 
+ 			<p>Stand-alone interface is provided for debugging and maintenance purposes, allowing interaction with the current configuration from the erlang interpreter.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>	Stops the server when started as a stand-alone process.</p>
+</div></div>
+<div class="function">
+<h3 id="register_for_updates/0">register_for_updates() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>	Registers the calling process for receiving notification in case of updates to the configuration.			 
+The calling process will be notified with a {config_server, update} message.			 
+OTP style processes (gen_server,gen_fsm,gen_event) can trap notifications via</p>
+ 
+ 			<p><code>handle_info({config_server, update}, State)</code></p>
+ 
+ 			<p>callback function and then query the config_server for parameters.
+ 			Registered processes gets linked to the config_server.</p>
+</div></div>
+<div class="function">
+<h3 id="to_simple_xml/1">to_simple_xml(Doc) -&gt; term() | list()</h3>
+
+<ul class="type">
+<li><code>Doc = term() | [term()]</code></li></ul>
+<div class="description">
+
+<p>	Converts xmerl parsed XML into XML Simple Form as defined in the xmerl module.
+ 			Doc may be a list() of parsed XML elements, in such case a list of Simple Form terms is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="query_param/1">query_param(String) -&gt; [term()] | {error, noconf}</h3>
+
+<ul class="type">
+<li><code>String = string()</code></li></ul>
+<div class="description">
+
+<p>	Executes the XPath query defined in String on the XML configuration file and returns the matched elements.</p>
+</div></div>
+<div class="function">
+<h3 id="load_file/1">load_file(FileName) -&gt; {ok, Replies}</h3>
+
+<ul class="type">
+<li><code>FileName = string()</code></li><li><code>Replies = [{Node, Reply}]</code></li><li><code>Node = atom()</code></li><li><code>Reply = ok | ko</code></li></ul>
+<div class="description">
+
+<p>	Loads the new configuration file FileName on the current and connected nodes. A list of successfully updated nodes is returned in Replies.
+ 			Processes registered for update will be notified.</p>
+</div></div>
+<div class="function">
+<h3 id="save/0">save() -&gt; {Replies, BadNodes}</h3>
+
+<ul class="type">
+<li><code>Replies = [{Node, Reply}]</code></li><li><code>Node = atom()</code></li><li><code>Reply = ok | {error, Reason}</code></li><li><code>BadNodes = [Node]</code></li><li><code>Reason = posix()</code></li></ul>
+<div class="description">
+
+<p>	Saves the current configuration in the XML files on all connected nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="get_attr_value/2">get_attr_value(Name, AttrList) -&gt; Value</h3>
+
+<ul class="type">
+<li><code>Name = atom()</code></li><li><code>AttrList = [Attr]</code></li><li><code>Attr = {Name, Value}</code></li></ul>
+<div class="description">
+
+<p>    Search for an attribute value from an attribute list.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_params/1">parse_params(X1::Param) -&gt; {Key, Value2}</h3>
+
+<ul class="type">
+<li><code>Param = {Key, Value}</code></li><li><code>Key = atom()</code></li><li><code>Value = string()</code></li><li><code>Value2 = int() | atom() | ip_address()</code></li></ul>
+<div class="description">
+
+<p>    Convert string values according to parameter Key.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

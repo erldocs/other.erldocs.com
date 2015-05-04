@@ -1,0 +1,1 @@
+var index = [['app','mod_term_feed','mod_term_feed','[application]'],['mod','mod_term_feed','mod_term_feed','Adds support for external term feed generation.']];

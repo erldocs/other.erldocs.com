@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_socket_sup (proto) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_socket_sup</h1>
+<h2 class="modsummary">Generic socket listener supervisor.</h2>
+<div class="description">
+<p>Generic socket listener supervisor. See:
+        <url href="http://www.trapexit.org/index.php/Building_a_Non-blocking_TCP_server_using_OTP_principles">http://www.trapexit.org/index.php/Building_a_Non-blocking_TCP_server_using_OTP_principles</url></p>
+  
+   <p>gen_socket provides a non-blocking generic socket server that can   
+be used with TCP and UNIX domain sockets. The server is implemented   
+as an OTP supervisor tree. The main supervisor creates a listening   
+server that accepts incoming connections. A secondary supervisor   
+creates and manages user-provided processes for each accepted   
+connection.</p>
+  
+   <pre class="sh_erlang">
+      Here is how to add this server to a supervision tree:
+  
+      init([]) -&gt;
+          % Socket Server supervisor specification
+          SupSpec =
+              gen_socket_sup:get_supervisor_spec(
+                  _NamePrefix    = "myserver",
+                  _ListenPort    = 9999,
+                  _HandlerModule = client_handling_module,
+                  _Args          = ServerArgs::list()
+              ),
+  
+          {ok, {_SupFlags = {one_for_one, 3, 60}, [SupSpec]} }.
+   </pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_supervisor_spec/5">get_supervisor_spec(SupNamePrefix, Port, HandlerModule, ServerArgs, Options) -&gt; SupSpec::tuple()</h3>
+
+<ul class="type">
+<li><code>SupNamePrefix = string()</code></li><li><code>Port = integer() | [integer()]</code></li><li><code>HandlerModule = atom()</code></li><li><code>ServerArgs = [term()]</code></li><li><code>Options = list()</code></li></ul>
+<div class="description">
+
+<p>Generates the supervisor specification that can be used by the
+       application top supervisor's init/1 callback function that
+       wants to link socket server under its supervision tree.
+       <code>SupNamePrefix</code> is the prefix used for naming the main supervisor       
+(SupNamePrefix ++ "gen_socket_sup") and the connection supervisor       
+(SupNamePrefix ++ "connection_sup").</p>
+ 
+       <p><code>HandlerModule</code> is the module implementing a user protocol process,
+       whose <code>start_link</code> function should accept <code>ServerArgs</code>.</p>
+ 
+       <p><code>Options</code> is a list of options that will be passed to the
+       listener server.</p>
+<p><em>See also:</em> <a href="gen_socket_listener.html#start_link/5" class="seealso">gen_socket_listener:start_link/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_supervisor_spec/4">get_supervisor_spec(SupNamePrefix, Port, HandlerModule, ServerArgs) -&gt; SupSpec::tuple()</h3>
+
+
+<div class="description">
+
+<p>This is equivalent to get_supervisor_spec/5 with an empty
+  set of options.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_socket/3">handle_socket(SupNamePrefix, HandlerModule, Socket) -&gt; {ok, Pid}</h3>
+
+
+<div class="description">
+
+<p>Given a socket (made from, e.g., gen_tcp:connect), start a handler
+  module on the socket. This function must be called by the socket owner.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/6">start_link(RegisteredName, SupNamePrefix, Port, HandlerModule, ServerArgs, Options) -&gt; {ok, Pid}</h3>
+
+<ul class="type">
+<li><code>RegisteredName = string()</code></li><li><code>SupNamePrefix = atom()</code></li><li><code>Port = integer() | [integer()]</code></li><li><code>HandlerModule = atom()</code></li><li><code>ServerArgs = [term()]</code></li><li><code>Options = list()</code></li></ul>
+<div class="description">
+
+<p>To be called by the top-level application supervisor to  
+start socket server listener.</p>
+ 
+  <p><code>RegisteredName</code> is the registered name of the socket server's supervisor.</p>
+<p><em>See also:</em> <a href="#get_supervisor_spec/5" class="seealso">get_supervisor_spec/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/5">start_link(RegisteredName, SupNamePrefix, Port, HandlerModule, ServerArgs) -&gt; {ok, Pid}</h3>
+
+
+<div class="description">
+
+<p>This is equivalent to start_link/6 with an empty set of options.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

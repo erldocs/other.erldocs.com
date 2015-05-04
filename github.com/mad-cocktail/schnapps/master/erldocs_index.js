@@ -1,0 +1,1 @@
+var index = [['app','schnapps','schnapps','[application]'],['mod','schnapps','schnapps',[]],['fun','schnapps','schnapps:parse_transform/2',[]]];

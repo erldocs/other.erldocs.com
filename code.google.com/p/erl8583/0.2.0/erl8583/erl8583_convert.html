@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erl8583_convert (erl8583) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erl8583_convert</h1>
+<h2 class="modsummary">This module provides a number of functions for converting
+       between representations of data common in ISO 8583.</h2>
+<div class="description">
+<p>This module provides a number of functions for converting
+       between representations of data common in ISO 8583.
+       Particular data representations are ASCII and EBCDIC strings,
+       BCD encoding and the encoding used for track 2 data.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="string_to_ascii_hex/1">string_to_ascii_hex(Str::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a string() of characters to a list containing
+       the ASCII hex character codes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_string/1">ascii_hex_to_string(HexStr::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a string() containing ASCII hex characters
+       to an equivalent ASCII string().
+ </p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_string/1">integer_to_string(Value::integer(), Length::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts an integer to an ASCII string of fixed length with
+       leading zeroes if necessary.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="pad_with_trailing_spaces/1">pad_with_trailing_spaces(List::string(), Length::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Pads an ASCII string with a number of spaces so that the
+       resultant string has specified length.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="binary_to_ascii_hex/1">binary_to_ascii_hex(Bin::binary()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns the ASCII hex encoding of a binary value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_binary/1">ascii_hex_to_binary(List::string()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Returns the binary value corresponding to an ASCII hex string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_bcd/1">integer_to_bcd(Value::integer(), Length::integer()) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Converts an integer to a list of specified length
+       of BCD encoded bytes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_bcd/1">ascii_hex_to_bcd(Value::string(), PaddingChar::char()) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Converts an ASCII hex encoded string to a list of BCD
+       encoded bytes padded with a specified padding character
+       if the string has odd length.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bcd_to_integer/1">bcd_to_integer(Bcd::[byte()]) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Converts a list of BCD encoded bytes to an integer.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bcd_to_ascii_hex/1">bcd_to_ascii_hex(Bcd::[byte()], Length::integer(), PaddingChar::char()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a BCD encoding of a value of specified length, possibly
+       padded with a padding character, to an ASCII hex string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="track2_to_string/1">track2_to_string(Data::[byte()], Length::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a list of track 2 nibbles to a string containing
+       an ASCII encoding of the same data.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="string_to_track2/1">string_to_track2(Data::string()) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Converts a string of ASCII characters to a track 2
+       encoding.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_hex_to_digit/1">ascii_hex_to_digit(X1::string()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Converts a string containing 1 ASCII hex character
+       to its value.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="digit_to_ascii_hex/1">digit_to_ascii_hex(D::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a value in the range 0-15 to a 1 character
+       ASCII string containing the equivalent hexadecimal digit.
+       Values 10 - 15 are converted to the upper case letters
+       'A' - 'F'.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="strip_trailing_spaces/1">strip_trailing_spaces(Str::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Strips trailing spaces from an ASCII string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="strip_leading_zeroes/1">strip_leading_zeroes(Tail::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Strips leading zeroes from an ASCII string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ascii_to_ebcdic/1">ascii_to_ebcdic(Str::string()) -&gt; [byte()]</h3>
+
+
+<div class="description">
+
+<p>Converts an ASCII string to an EBCDIC string.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ebcdic_to_ascii/1">ebcdic_to_ascii(EbcdicStr::[byte()]) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts an EBCDIC binary to an ASCII string.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>CA Meijer</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

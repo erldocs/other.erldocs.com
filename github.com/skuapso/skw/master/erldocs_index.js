@@ -1,0 +1,1 @@
+var index = [['app','skw','skw','[application]'],['mod','skw','skw_app',[]],['mod','skw','skw_inets',[]],['mod','skw','skw_sup','.'],['fun','skw','skw_app:start/2',[]],['fun','skw','skw_app:stop/1',[]],['fun','skw','skw_inets:do/1',[]],['fun','skw','skw_sup:start_link/0','  Starts the supervisor.']];

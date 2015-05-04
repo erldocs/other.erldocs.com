@@ -1,0 +1,1 @@
+var index = [['app','ping-of-death-client','ping-of-death-client','[application]'],['mod','ping-of-death-client','ping_of_death_chalkboard',[]],['fun','ping-of-death-client','ping_of_death_chalkboard:answer/2',[]]];

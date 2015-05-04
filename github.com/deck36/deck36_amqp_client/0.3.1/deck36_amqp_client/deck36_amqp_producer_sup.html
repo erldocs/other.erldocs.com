@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>deck36_amqp_producer_sup (deck36_amqp_client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>deck36_amqp_producer_sup</h1>
+<h2 class="modsummary">Supervisor for producers.</h2>
+<div class="description">
+<p>Supervisor for producers.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-producer_def">producer_def() = [<a href="deck36_amqp_producer.html#type-start_opt" class="seealso">deck36_amqp_producer:start_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-reason">reason() = term()</h3></div>
+    <div class="type"><h3 id="type-server_ref">server_ref() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-start_ret">start_ret() = {error, <a href="#type-reason" class="seealso">reason()</a>} | {ok, pid()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Ref::singleton | unnamed | atom()) -&gt; startlink_ret() (see module supervisor)</h3>
+
+
+<div class="description">
+
+<p>Start linked, (named, unnamed or singleton) supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Ref::singleton | unnamed | atom(), Producers::[producer_def()]) -&gt; start_ret()</h3>
+
+
+<div class="description">
+
+<p>Start singleton supervisor and all Producers</p>
+</div></div>
+<div class="function">
+<h3 id="start_producers/1">start_producers(Producers::[producer_def()]) -&gt; [start_ret()]</h3>
+
+
+<div class="description">
+
+<p>Start producers by singleton supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="start_producers/1-1">start_producers(Ref::server_ref(), Producers::[producer_def()]) -&gt; [start_ret()]</h3>
+
+
+<div class="description">
+
+<p>Start producers by supervisor identified by Ref</p>
+</div></div>
+<div class="function">
+<h3 id="start_producer/1">start_producer(Opts::[start_opt() (see module deck36_amqp_producer)]) -&gt; start_ret()</h3>
+
+
+<div class="description">
+
+<p>Start producer (transient) by singleton server</p>
+</div></div>
+<div class="function">
+<h3 id="start_producer/1-1">start_producer(Ref::server_ref(), Opts::[start_opt() (see module deck36_amqp_producer)]) -&gt; start_ret()</h3>
+
+
+<div class="description">
+
+<p>Start producer (transient) by supervisor identified by Ref</p>
+</div></div>
+<div class="function">
+<h3 id="stop_producers/0">stop_producers() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop all producers of singleton supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="stop_producers/1">stop_producers(Ref::server_ref()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop all producers of supervisor identified by Ref</p>
+</div></div>
+<div class="function">
+<h3 id="which_producers/0">which_producers() -&gt; [pid()]</h3>
+
+
+<div class="description">
+
+<p>Get list of running producers from singleton supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="which_producers/1">which_producers(Ref::server_ref()) -&gt; [pid()]</h3>
+
+
+<div class="description">
+
+<p>Get list of running producers from supervisor identified by Ref</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, {SupervisionPolicy, [ChildSpec]}} | ignore</code></li><li><code>SupervisionPolicy = {RestartStrategy, MaxR::non_neg_integer(), MaxT::pos_integer()}</code></li><li><code>RestartStrategy = one_for_all | one_for_one | rest_for_one | simple_one_for_one</code></li><li><code>ChildSpec = {Id::term(), StartFunc, RestartPolicy, Type::worker | supervisor, Modules}</code></li><li><code>StartFunc = {M::module(), F::atom(), A::[term()] | undefined}</code></li><li><code>RestartPolicy = permanent | transient | temporary</code></li><li><code>Modules = [module()] | dynamic</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/supervisor.html#Module:init-1">supervisor:init/1</url></p>
+</div></div></div>
+
+<authors>
+
+<aname>Bjoern Kortuemm (@uuid0)</aname>
+<email>bjoern.kortuemm@deck36.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

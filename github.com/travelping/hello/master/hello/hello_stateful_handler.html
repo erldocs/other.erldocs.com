@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>hello_stateful_handler (hello) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>hello_stateful_handler</h1>
+<h2 class="modsummary">Stateful RPC handler behaviour.</h2>
+<div class="description">
+<p>Stateful RPC handler behaviour.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-context">context()</h3></div>
+    <div class="type"><h3 id="type-from_context">from_context()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Other::callbacks) -&gt; [{atom(), integer()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_idle_timeout/1">set_idle_timeout(Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#set_idle_timeout/2" class="seealso">set_idle_timeout(self(), Timeout)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_idle_timeout/1-1">set_idle_timeout(HandlerPid::pid(), Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the idle timeout of a handler.
+    The handler will exit when no request arrives before the given timeout.
+    This only needs to be set once, any incoming request will restart the timer.</p>
+</div></div>
+<div class="function">
+<h3 id="notify/1">notify(Context::context() | from_context(), Method::method() (see module hello_client), Args::[value() (see module hello_json)]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an RPC notification with positional parameters to the client.</p>
+</div></div>
+<div class="function">
+<h3 id="notify_np/1">notify_np(Context::context() | from_context(), Method::method() (see module hello_client), Args::[{string(), value() (see module hello_json)}] | json_object() (see module hello_json)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an RPC notification with named parameters to the client.</p>
+</div></div>
+<div class="function">
+<h3 id="reply/1">reply(From_context::from_context(), Reply) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Reply = {ok, value() (see module hello_json)} | Error</code></li><li><code>Error = {error, ErrorCode} | {error, ErrorCode, ErrorMessage} | {error, ErrorCode, ErrorMessage, ErrorData}</code></li><li><code>ErrorCode = integer()</code></li><li><code>ErrorMessage = binary()</code></li><li><code>ErrorData = value() (see module hello_json)</code></li></ul>
+<div class="description">
+
+<p>Send an asynchronous reply to an RPC request.
+    If you want to use asynchronous replies,  your handler module must
+    return <code>{noreply, State}</code> from <code>handle_request/4</code>.
+    <code>reply/2</code> can be called from any process, not just the handler process.</p>
+</div></div>
+<div class="function">
+<h3 id="transport_param/1">transport_param(Key::context() | from_context(), Context::atom()) -&gt; any()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#transport_param/3" class="seealso">transport_param(Key, Context, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="transport_param/1-1">transport_param(Key::atom(), Context::context() | from_context(), Default::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Get the value of a transport parameter.
+    The list of supported transport parameters will vary between transport implementations.<br />
+    If you rely on transport parameters, your RPC handler <em>will no longer be transport-agnostic</em>.
+    Please take this into consideration when designing your system.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

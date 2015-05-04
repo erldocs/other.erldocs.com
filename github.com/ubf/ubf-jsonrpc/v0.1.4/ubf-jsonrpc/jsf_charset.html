@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jsf_charset (ubf-jsonrpc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jsf_charset</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="classify/1">classify(In::binary()) -&gt; ascii | jis | utf8 | '8bit'</h3>
+
+
+<div class="description">
+
+<p>looks at the In and tries to classify the string as either
+  'ascii' (7bit), 'jis' (7bit) or 'utf8' or '8bit'. Classification is
+  strict and fails quickly to 8bit if an 8bit byte is found. @see
+  classify2/2 for a less strict classifier.</p>
+</div></div>
+<div class="function">
+<h3 id="classify2/1">classify2(In::binary()) -&gt; {'7bit' | '8bit' | 'iso-2022' | utf8, non_neg_integer()}</h3>
+
+
+<div class="description">
+
+<p>classify2 runs through a binary byte-by-byte and tries to classify
+  if as either '7bit','8bit','iso-2022' or 'utf8'. For big data a max number
+  of bytes can be specified to reduce the overhead. Classification allows
+  for a certain amount of misc-bytes in the data so for example a bad byte
+  in what is otherwise perfect utf-8 will still be classified as utf8.</p>
+</div></div>
+<div class="function">
+<h3 id="classify2/1-1">classify2(In::binary(), Max::pos_integer() | undefined) -&gt; {'7bit' | '8bit' | 'iso-2022' | utf8, non_neg_integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="valid8/1">valid8(In::binary()) -&gt; {true, binary()} | false | fuzzy</h3>
+
+
+<div class="description">
+
+<p>Checks if the Input starts with a valid utf8 character. If it is
+  utf8 it returns true and a binary starting from the next byte following
+  that utf8 character. If it is not utf8, then it returns false. If the
+  stream ends with a truncated potential utf-8, it returns 'fuzzy' as its
+  not certain if it would be a utf-8 character if we had more data or not.</p>
+</div></div>
+<div class="function">
+<h3 id="force_to_utf8/1">force_to_utf8(In::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

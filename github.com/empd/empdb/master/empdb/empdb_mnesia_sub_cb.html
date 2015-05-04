@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>empdb_mnesia_sub_cb (empdb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>empdb_mnesia_sub_cb</h1>
+<h2 class="modsummary">
+   This module contains all of the callbacks for the subscription management
+   portion of the EMP Database callback list.</h2>
+<div class="description">
+<p>
+   This module contains all of the callbacks for the subscription management
+   portion of the EMP Database callback list.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-BINARYSTRING">BINARYSTRING() = binary()</h3></div>
+    <div class="type"><h3 id="type-EMPCOMMAND">EMPCOMMAND() = #command{pid=undefined | UUID(), cid=undefined | UUID(), name=undefined | BINARYSTRING(), func=undefined | function(), dparams=[EMPPARAM()], rettype=undefined | EMPTYPEDEF()}</h3></div>
+    <div class="type"><h3 id="type-EMPEVENT">EMPEVENT() = #command{pid=undefined | UUID(), cid=undefined | UUID(), name=undefined | BINARYSTRING(), func=undefined | function(), dparams=[EMPPARAM()], rettype=undefined | EMPTYPEDEF()}</h3></div>
+    <div class="type"><h3 id="type-EMPPARAM">EMPPARAM() = #param{name=undefined | BINARYSTRING(), default=undefined | json_valid_value(), type=undefined | EMPTYPEDEF()}</h3></div>
+    <div class="type"><h3 id="type-EMPPLUGINDEF">EMPPLUGINDEF() = #plugindef{id=undefined | UUID(), module=undefined | atom(), state=undefined | [{BINARYSTRING(), any()}], commands=undefined | EMPCOMMAND()}</h3></div>
+    <div class="type"><h3 id="type-EMPSUBSCRIPTION">EMPSUBSCRIPTION() = #subscription{event=undefined | EMPEVENT(), command=undefined | EMPCOMMAND(), temp=boolean(), mapping=[tuple()]}</h3></div>
+    <div class="type"><h3 id="type-EMPTYPEDEF">EMPTYPEDEF() = [0..3] | [4..5 | EMPTYPEDEF()] | [6 | atom()] | [7 | binary()] | [8] | [9 | atom() | EMPTYPEDEF()]</h3></div>
+    <div class="type"><h3 id="type-EMPUSER">EMPUSER() = #user{uid=undefined | UUID(), name=BINARYSTRING()}</h3></div>
+    <div class="type"><h3 id="type-UUID">UUID() = binary()</h3></div>
+    <div class="type"><h3 id="type-json_valid_value">json_valid_value() = null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {[{binary(), <a href="#type-json_valid_value" class="seealso">json_valid_value()</a>}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-json_valid_value" class="seealso">json_valid_value()</a>]</h3></div>
+    <div class="type"><h3 id="type-possible_failure">possible_failure(Success) = Success | {error, Reason::any()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add_subscription/1">add_subscription(User::EMPUSER(), TriggerPlug::EMPPLUGINDEF(), HandlePlug::EMPPLUGINDEF(), Subscription::EMPSUBSCRIPTION()) -&gt; possible_failure({ok, UUID()})</h3>
+
+
+<div class="description">
+
+<p>Add a subscription to the database.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_subscription/1">rm_subscription(SubscriptionId::UUID()) -&gt; possible_failure(ok)</h3>
+
+
+<div class="description">
+
+<p>Remove a subscription by ID from the database.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subscriptions/1">get_subscriptions(User::EMPUSER(), HandlePlug::EMPPLUGINDEF()) -&gt; possible_failure([EMPSUBSCRIPTION()])</h3>
+
+
+<div class="description">
+
+<p>Get all the subscriptions for a particular plugin/user combination.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="empdb.html" class="seealso"><em>EMP DB Module</em>
+ </a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

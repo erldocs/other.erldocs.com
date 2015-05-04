@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_pipe_fitting (riak_pipe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_pipe_fitting</h1>
+<h2 class="modsummary">The process that hold the details for the fitting.</h2>
+<div class="description">
+<p>The process that hold the details for the fitting.  This
+       process also manages the end-of-inputs synchronization for
+       this stage of the pipeline.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-details">details() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#fitting_details{fitting = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #fitting{pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| reference(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chashfun = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-chashfun" class="seealso">riak_pipe_vnode:chashfun()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nval = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-nval" class="seealso">riak_pipe_vnode:nval()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arg = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #fitting{pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| reference(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chashfun = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-chashfun" class="seealso">riak_pipe_vnode:chashfun()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nval = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-nval" class="seealso">riak_pipe_vnode:nval()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options = undefined | <a href="riak_pipe.html#type-exec_opts" class="seealso">riak_pipe:exec_opts()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q_limit = undefined | integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Builder::pid(), Spec::fitting_spec() (see module riak_pipe), Output::fitting() (see module riak_pipe), Options::exec_opts() (see module riak_pipe)) -&gt; {ok, pid(), fitting() (see module riak_pipe)} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start the fitting, according to the <code>Spec</code> given.  The fitting
+       will register with <code>Builder</code> and will request its outputs to
+       be processed under the <code>Output</code> fitting.</p>
+</div></div>
+<div class="function">
+<h3 id="eoi/1">eoi(Fitting::fitting() (see module riak_pipe)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an end-of-inputs message to the specified fitting process.</p>
+</div></div>
+<div class="function">
+<h3 id="get_details/1">get_details(Fitting::fitting() (see module riak_pipe), Partition::partition() (see module riak_pipe_vnode)) -&gt; {ok, details()} | gone</h3>
+
+
+<div class="description">
+
+<p>Request the details about this fitting.  The ring partition
+       index of the vnode requesting the details is included such
+       that the fitting can inform the vnode of end-of-inputs later.
+       This function assumes that it is being called from the vnode
+       process, so the <code>self()</code> can be used to give the fitting
+       a pid to monitor.</p>
+</div></div>
+<div class="function">
+<h3 id="worker_done/1">worker_done(Fitting::fitting() (see module riak_pipe)) -&gt; ok | gone</h3>
+
+
+<div class="description">
+
+<p>Tell the fitting that this worker is done.  This function
+       assumes that it is being called from the vnode process, so
+       that <code>self()</code> can be used to inform the fitting of which
+       worker is done.</p>
+</div></div>
+<div class="function">
+<h3 id="workers/1">workers(Fitting::pid()) -&gt; {ok, [partition() (see module riak_pipe_vnode)]} | gone</h3>
+
+
+<div class="description">
+
+<p>Get the list of ring partition indexes (vnodes) that are doing
+       work for this fitting.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[pid() | fitting_spec() (see module riak_pipe) | fitting() (see module riak_pipe) | exec_opts() (see module riak_pipe)]) -&gt; {ok, wait_upstream_eoi, state()}</h3>
+
+
+<div class="description">
+
+<p>Initialize the fitting process.  This function monitors the
+       builder process, so it will tear down if the builder exits.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_upstream_eoi/2">wait_upstream_eoi(X1::eoi, State::state()) -&gt; {stop, normal, state()} | {next_state, wait_workers_done, state()}</h3>
+
+
+<div class="description">
+
+<p>The fitting is just hanging out, serving details and waiting       
+for end-of-inputs.</p>
+ 
+       <p>When it gets eoi, it forwards the signal to its workers, and
+       then begins waiting for them to respond done.  If it has no
+       workers when it receives end-of-inputs, the fitting stops
+       immediately.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_upstream_eoi/2-1">wait_upstream_eoi(M::{get_details, partition() (see module riak_pipe_vnode), pid()}, From::term(), State::state()) -&gt; {reply, {ok, details()}, wait_upstream_eoi, state()}</h3>
+
+
+<div class="description">
+
+<p>The fitting is just hanging out, serving details and waiting       
+for end-of-inputs.</p>
+ 
+       <p>When it gets a request for the fitting's details, it sets up       
+a monitor for the working vnode, and responds with details.</p>
+ 
+       <p>The fitting may receive a <code>done</code> message from a vnode before
+       eoi has been sent, if handoff causes the worker to relocate.
+       In this case, the fitting simply demonitors the vnode, and
+       removes it from its worker list.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_workers_done/2">wait_workers_done(M::{get_details, partition() (see module riak_pipe_vnode), pid()}, From::term(), State::state()) -&gt; {reply, {ok, details()}, wait_workers_done, state()}</h3>
+
+
+<div class="description">
+
+<p>The fitting has forwarded the end-of-inputs signal to all of       
+the vnodes working for it, and is waiting for done responses.</p>
+ 
+       <p>When the fitting receives a done response, it demonitors the       
+vnode that sent it, and removes it from its worker list.       
+If there are no more responses to wait for, the fitting       
+forwards the end-of-inputs signal to the fitting that follows,       
+and then shuts down normally.</p>
+ 
+       <p>If the fitting receives a request for details from a vnode
+       while in this state, it responds with the detail as usual,
+       but also immediately sends end-of-inputs to that vnode.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_event/1">handle_event(Event::term(), StateName::atom(), State::state()) -&gt; {next_state, atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_sync_event/2">handle_sync_event(Event::workers, From::term(), StateName::atom(), State::state()) -&gt; {reply, [partition() (see module riak_pipe_vnode)], atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>The only sync event handled in all states is <code>workers</code>, which
+       retrieves a list of ring partition indexes that have requested
+       this fittings details (i.e. that are doing work for this
+       fitting).</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info::{'DOWN', reference(), term(), term(), term()}, StateName::atom(), State::state()) -&gt; {next_state, atom(), state()} | {stop, normal, state()}</h3>
+
+
+<div class="description">
+
+<p>The non-gen_fsm message that this process expects is 'DOWN'.</p>
+ 
+       <p>'DOWN' messages are received when monitored vnodes exit.  In
+       that case, the vnode is removed from the worker list.  If that
+       was also the last vnode we were waiting on a <code>done</code> message
+       from, also forward <code>eoi</code> and shut down the fitting.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), StateName::atom(), State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVsn::term(), StateName::atom(), State::state(), Extra::term()) -&gt; {ok, atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_fitting/1">validate_fitting(Fitting_spec::fitting_spec() (see module riak_pipe)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Ensure that a fitting specification is valid.  This function
+       will check that the module is an atom that names a valid
+       module (see <url href="/home/pete/wefwefwef/docs/other/698964177/repo/1.3.0/.xml/riak_pipe/./riak_pipe_v.xml#validate_module-2">riak_pipe_v:validate_module/2</url>), that the
+       arg is valid for the module (see <a href="#validate_argument/2" class="seealso">validate_argument/2</a>),
+       and that the partition function is of the proper form (see
+       <a href="#validate_chashfun/1" class="seealso">validate_chashfun/1</a>).  It also checks that nval is       
+undefined or a postive integer.</p>
+ 
+       <p>If all components are valid, the atom <code>ok</code> is returned.  If
+       any piece is invalid, <code>{badarg, #fitting_spec.name, ErrorMsg}</code>
+       is thrown.</p>
+</div></div>
+<div class="function">
+<h3 id="format_name/1">format_name(Name::term()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>Coerce a fitting name into a printable string.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

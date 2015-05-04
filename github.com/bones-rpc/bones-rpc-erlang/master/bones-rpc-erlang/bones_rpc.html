@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bones_rpc (bones-rpc-erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bones_rpc</h1>
+<h2 class="modsummary">Convenience API to start and stop TCP/SSL clients and listeners.</h2>
+<div class="description">
+<p>Convenience API to start and stop TCP/SSL clients and listeners.
+  </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-acknowledge">acknowledge() = {1, <a href="#type-message_id" class="seealso">message_id()</a>, boolean()}</h3></div>
+    <div class="type"><h3 id="type-adapter">adapter() = binary()</h3></div>
+    <div class="type"><h3 id="type-error">error() = any()</h3></div>
+    <div class="type"><h3 id="type-message_id">message_id() = integer()</h3></div>
+    <div class="type"><h3 id="type-method">method() = any()</h3></div>
+    <div class="type"><h3 id="type-notify">notify() = {2, <a href="#type-method" class="seealso">method()</a>, <a href="#type-params" class="seealso">params()</a>}</h3></div>
+    <div class="type"><h3 id="type-params">params() = [any()]</h3></div>
+    <div class="type"><h3 id="type-request">request() = {0, <a href="#type-message_id" class="seealso">message_id()</a>, <a href="#type-method" class="seealso">method()</a>, <a href="#type-params" class="seealso">params()</a>}</h3></div>
+    <div class="type"><h3 id="type-response">response() = {1, <a href="#type-message_id" class="seealso">message_id()</a>, nil, <a href="#type-request" class="seealso">request()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {1, <a href="#type-message_id" class="seealso">message_id()</a>, <a href="#type-error" class="seealso">error()</a>, nil}</h3></div>
+    <div class="type"><h3 id="type-result">result() = any()</h3></div>
+    <div class="type"><h3 id="type-synchronize">synchronize() = {0, <a href="#type-message_id" class="seealso">message_id()</a>, <a href="#type-adapter" class="seealso">adapter()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="manual_start/0">manual_start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/1">connect(List) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect/3">connect(Host, Port, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="disconnect/1">disconnect(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_listener/1">start_listener(Ref::ref() (see module ranch), NbAcceptors::non_neg_integer(), Transport::module(), TransOpts::any(), Options::any(), Handler::module(), HandlerOpts::any()) -&gt; {ok, pid()} | {error, badarg}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop_listener/1">stop_listener(Ref::ref() (see module ranch)) -&gt; ok | {error, not_found}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="child_spec/1">child_spec(Ref::ref() (see module ranch), NbAcceptors::non_neg_integer(), Transport::module(), TransOpts::any(), Options::any(), Handler::module(), HandlerOpts::any()) -&gt; child_spec() (see module supervisor)</h3>
+
+
+<div class="description">
+
+<p>Return a child spec suitable for embedding.</p>
+ 
+  <p>When you want to embed Bones RPC in another application, you can use this
+  function to create a <em>ChildSpec</em> suitable for use in a supervisor.
+  The parameters are the same as in <em>start_listener/7</em> but rather
+  than hooking the listener to the Ranch internal supervisor, it just returns
+  the spec.</p>
+</div></div>
+<div class="function">
+<h3 id="new_cluster/1">new_cluster(Cluster) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rm_cluster/1">rm_cluster(Cluster) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_cluster/1">delete_cluster(Cluster) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply/2">reply(X1, Message) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Andrew Bennett</aname>
+<email>andrew@pagodabox.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

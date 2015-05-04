@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>twitter_client (erlang_twitter) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>twitter_client</h1>
+<h2 class="modsummary">Provides access to the Twitter web service.</h2>
+<div class="description">
+<p>Provides access to the Twitter web service. Mostly through the  
+clever use of REST-like requests and XML parsing.</p>
+ 
+  <p>This module attempts to provide complete access to the Twitter API. In  
+addition, it provides a simple gen_server process template to allow calls  
+to be made on behalf of a named user without having to send a username  
+and password each time.</p>
+ 
+  <p>When the gen_server feature is used to make Twitter API calls for a user,  
+a gen_server process is spawned locally and its name is prefixed to  
+prevent named process collision.</p>
+ 
+  <p><em>Make sure you start inets (<code>inets:start().</code>) before you do
+  anything.</em></p>
+ 
+  <p><em>Quick start</em>
+  </p><pre class="sh_erlang">
+  1&gt; inets:start().
+  2&gt; twitter_client:start("myname", "pass").
+  3&gt; twitter_client:account_verify_credentials("myname", "pass", []).
+    OR
+  3&gt; twitter_client:call("myname", account_verify_credentials).
+  4&gt; twitter_client:call("myname", user_timeline).
+  5&gt; twitter_client:call("myname", status_update, [{"status", "Testing the erlang_twitter twitter_client.erl library."}]).
+  6&gt; twitter_client:call("myname", user_timeline).
+  </pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, pid()} | Error</code></li></ul>
+<div class="description">
+
+<p>Start a twitter_client gen_server process for a Twitter user.</p>
+</div></div>
+<div class="function">
+<h3 id="add_session/2">add_session(Login, Password) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Login = string()</code></li><li><code>Password = string()</code></li></ul>
+<div class="description">
+
+<p>Start a twitter_client gen_server process for a Twitter user.</p>
+</div></div>
+<div class="function">
+<h3 id="set/2">set(X1, Value) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/0">info() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delay/0">delay() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="call/2">call(Client, Method) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#call/3" class="seealso">call(Client, Method, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/3">call(Client, Method, Args) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Client = string() | atom()</code></li><li><code>Method = atom()</code></li><li><code>Args = [{any(), any()}]</code></li><li><code>Result = any()</code></li></ul>
+<div class="description">
+
+<p>Make a request to a twitter_client gen_server process for a user.  
+This function attempts to call the named gen_server process for the given  
+client (usern). The method called maps directly to the available methods  
+provided by this module. Please refer to the specific methods for their  
+required and optional arguments. In most (all) cases the arguments  
+defined in the Twitter API documentation can be passed in directly as  
+string/string tuples.</p>
+ 
+  <p>Calling this method does not verify that the given gen_server process
+  exists or is running.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status_public_timeline/4">status_public_timeline(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a list of the most recent tweets as per the public timeline.
+  This API call ignores the login and password strings given.</p>
+</div></div>
+<div class="function">
+<h3 id="status_friends_timeline/4">status_friends_timeline(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status_user_timeline/4">status_user_timeline(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status_show/4">status_show(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status_update/4">status_update(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status_replies/4">status_replies(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status_destroy/4">status_destroy(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_verify_credentials/4">account_verify_credentials(RootUrl, Login, Password, X4) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_end_session/4">account_end_session(RootUrl, Login, Password, X4) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_archive/4">account_archive(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="collect_account_archive/6">collect_account_archive(RootUrl, Login, Password, Page, Args, Acc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_update_location/4">account_update_location(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_update_delivery_device/4">account_update_delivery_device(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_rate_limit_status/4">account_rate_limit_status(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="direct_messages/4">direct_messages(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="collect_direct_messages/6">collect_direct_messages(RootUrl, Login, Password, Page, LowID, Acc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="direct_new/4">direct_new(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="direct_sent/4">direct_sent(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="direct_destroy/4">direct_destroy(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="favorites_favorites/4">favorites_favorites(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="collect_favorites/5">collect_favorites(RootUrl, Login, Password, Page, Acc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="favorites_create/4">favorites_create(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="favorites_destroy/4">favorites_destroy(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="friendship_exists/4">friendship_exists(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="friendship_create/4">friendship_create(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="friendship_destroy/4">friendship_destroy(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_friends/4">user_friends(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_followers/4">user_followers(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="collect_user_followers/5">collect_user_followers(RootUrl, Login, Password, Page, Acc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_featured/4">user_featured(RootUrl, X2, X3, X4) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="user_show/4">user_show(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notification_follow/4">notification_follow(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notification_leave/4">notification_leave(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="block_create/4">block_create(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="block_destroy/4">block_destroy(RootUrl, Login, Password, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="help_test/4">help_test(RootUrl, X2, X3, X4) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Nick Gerakines</aname>
+<email>nick@gerakines.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','gen_nb_server','gen_nb_server','[application]'],['mod','gen_nb_server','gen_nb_server',[]],['fun','gen_nb_server','gen_nb_server:start_link/4','Start server listening on IpAddr:Port.'],['fun','gen_nb_server','gen_nb_server:start_link/5','Start server listening on IpAddr:Port registered a']];

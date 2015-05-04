@@ -1,0 +1,1 @@
+var index = [['app','sassy','sassy','[application]'],['mod','sassy','sassy',[]],['fun','sassy','sassy:compile/1','  Compile a string.'],['fun','sassy','sassy:compile_file/1','  Compile a file given the pathname.']];

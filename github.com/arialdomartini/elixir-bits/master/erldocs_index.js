@@ -1,0 +1,1 @@
+var index = [['app','elixir-bits','elixir-bits','[application]'],['mod','elixir-bits','gcd',[]],['mod','elixir-bits','geom',[]],['mod','elixir-bits','powers',[]],['fun','elixir-bits','gcd:gcd/2',[]],['fun','elixir-bits','geom:area/1',[]],['fun','elixir-bits','geom:area/3',[]],['fun','elixir-bits','powers:raise/2',[]]];
