@@ -31,8 +31,8 @@ script:
   - git cherry-pick $TRAVIS_COMMIT_RANGE
   - echo '' >$ToDo
   - git add -A .
-  - git commit -m "Close successfully applied PR $TRAVIS_PULL_REQUEST"
-  - git pull origin gh-pages --no-edit
+  - "git commit -m \"Successfully applied Pull Request \#$TRAVIS_PULL_REQUEST\""
+  - git pull --no-edit --force origin gh-pages
   - git push origin gh-pages
 after_success:
   - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l
