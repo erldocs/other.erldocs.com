@@ -6,11 +6,8 @@ env:
   global:
     - secure: "aoyYDVQ7fmBNkKUzW54gwZbiUL9J9TP6bHp6BB/YwQ8dA//aNdWXXg8Xanvqb9w2u7K8buCyMLLlyVy8dBqsba76yMmTnkN1tLiFMc9+TZeuK4bNv5ieZurOHPer3nFF8OPvJiBfYxsSnrrbjxeav4p71jPv8hcCtEJLMupVA/s="
 script:
-  - bash -c "[[ $TRAVIS_PULL_REQUEST == false ]]"
-after_success:
-  - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l _
-after_failure:
   - set -e
+  - bash -c "[[ $TRAVIS_PULL_REQUEST != false ]]"
   - ToDo=todo.txt
   - Gen=gen
   - cd $TRAVIS_BUILD_DIR
@@ -33,5 +30,7 @@ after_failure:
   - git config user.name 'Travis CI'
   - git checkout gh-pages -- $ToDo
   - git add -A .
-  - git commit -m "Close PR $TRAVIS_PULL_REQUEST: successfully applied"
+  - git commit -m 'Close PR $TRAVIS_PULL_REQUEST: successfully applied'
   - git push origin gh-pages
+after_success:
+  - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l _
