@@ -9,28 +9,28 @@ env:
     - secure: "aoyYDVQ7fmBNkKUzW54gwZbiUL9J9TP6bHp6BB/YwQ8dA//aNdWXXg8Xanvqb9w2u7K8buCyMLLlyVy8dBqsba76yMmTnkN1tLiFMc9+TZeuK4bNv5ieZurOHPer3nFF8OPvJiBfYxsSnrrbjxeav4p71jPv8hcCtEJLMupVA/s="
 script:
   - set -e  # Fail if cmd|pipe returns ≠ 0
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && ToDo=todo.txt
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && Gen=gen
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && cd $TRAVIS_BUILD_DIR
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && [[ ! -f $ToDo ]] && exit 3
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && mkdir other
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && cp $ToDo $Gen
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && export PR_commit=$TRAVIS_COMMIT
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git checkout gh-pages
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git clone https://github.com/erldocs/erldocs_other.git erldocs_other.git
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && cd erldocs_other.git
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && make -j app
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && ./gen.escript $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/other $TRAVIS_BUILD_DIR/$Gen
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && cd $TRAVIS_BUILD_DIR
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && rm -rf other/ erldocs_other.git/ $ToDo $Gen
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && echo 'apps = [' >apps.js
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && find . -name meta.txt | cut -c3- | sed 's/.........$/",/' | sed 's/^/"/' | tr -d '\n' >>apps.js
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && echo '];' >>apps.js
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git remote set-url --push origin https://$GHT@github.com/erldocs/other.erldocs.com.git
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git config user.email travis@atdot.dot
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git config user.name 'Travis CI'
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git merge "$PR_commit" --no-ff --no-edit --stat
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && echo '' >$ToDo
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git add -A .
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git commit -m "Close PR #$TRAVIS_PULL_REQUEST: successfully applied"
-  - [[ $TRAVIS_PULL_REQUEST != false ]] && git push origin gh-pages
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || ToDo=todo.txt
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || Gen=gen
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || cd $TRAVIS_BUILD_DIR
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || [[ ! -f $ToDo ]] && exit 3
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || mkdir other
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || cp $ToDo $Gen
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || export PR_commit=$TRAVIS_COMMIT
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git checkout gh-pages
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git clone https://github.com/erldocs/erldocs_other.git erldocs_other.git
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || cd erldocs_other.git
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || make -j app
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || ./gen.escript $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/other $TRAVIS_BUILD_DIR/$Gen
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || cd $TRAVIS_BUILD_DIR
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || rm -rf other/ erldocs_other.git/ $ToDo $Gen
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || echo 'apps = [' >apps.js
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || find . -name meta.txt | cut -c3- | sed 's/.........$/",/' | sed 's/^/"/' | tr -d '\n' >>apps.js
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || echo '];' >>apps.js
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git remote set-url --push origin https://$GHT@github.com/erldocs/other.erldocs.com.git
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git config user.email travis@atdot.dot
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git config user.name 'Travis CI'
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git merge "$PR_commit" --no-ff --no-edit --stat
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git checkout gh-pages -- $ToDo
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git add -A .
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git commit -m "Close PR #$TRAVIS_PULL_REQUEST: successfully applied"
+  - [[ $TRAVIS_PULL_REQUEST == false ]] && true || git push origin gh-pages
