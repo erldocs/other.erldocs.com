@@ -1,0 +1,1 @@
+var index = [['app','erl_notify','erl_notify','[application]'],['mod','erl_notify','erl_notify_app','.'],['mod','erl_notify','erl_notify_sup','.'],['fun','erl_notify','erl_notify_sup:start_link/0','  Starts the supervisor.']];

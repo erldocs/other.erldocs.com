@@ -1,0 +1,1 @@
+var index = [['app','mineol','mineol','[application]'],['mod','mineol','ajax','.'],['fun','mineol','ajax:ets_info/0',[]],['fun','mineol','ajax:post_ajax_call/2',[]],['fun','mineol','ajax:quote/2',[]],['fun','mineol','ajax:start_link/0','  Starts the server.'],['fun','mineol','ajax:unquote/2',[]]];

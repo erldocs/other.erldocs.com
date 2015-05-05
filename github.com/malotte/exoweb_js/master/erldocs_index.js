@@ -1,0 +1,1 @@
+var index = [['app','exoweb_js','exoweb_js','[application]'],['mod','exoweb_js','exoweb_sup','      exoweb application supervisor.'],['fun','exoweb_js','exoweb_sup:start_link/1','  Starts the supervisor.'],['fun','exoweb_js','exoweb_sup:stop/1','  Stops the supervisor.']];

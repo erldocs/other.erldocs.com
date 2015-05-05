@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jc (j_cache) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jc</h1>
+<h2 class="modsummary">This module wraps the mnesia-interacting, lower-level functions
+   implemented in jc_store to provide the public,   
+transactionaly correct, j_cache api.</h2>
+<div class="description">
+<p>This module wraps the mnesia-interacting, lower-level functions
+   implemented in <a href="jc_store.html" class="seealso">jc_store</a> to provide the public,   
+transactionaly correct, j_cache api.</p>
+  
+   <p>jc can be called directly by Erlang clients; or
+   Java node -&gt; JInterface -&gt; <a href="jc_bridge.html" class="seealso">jc_bridge</a> -&gt; jc</p>
+  
+   Eviction is implemented using timers (erlang:send_after/3).
+   The jc_eviction_manager subscribes to the underlying Mnesia tables and,
+   therefore, can create and delete timers as necessary. The exception is a
+   'get' which extends a timer, so when jc:get is called, this module asks
+   the jc_eviciton_manager to extend the timer for the relevant record.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-key">key() = any()</h3></div>
+    <div class="type"><h3 id="type-map_name">map_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-rec_ref">rec_ref() = reference()</h3></div>
+    <div class="type"><h3 id="type-seconds">seconds() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-ttl">ttl() = <a href="#type-seconds" class="seealso">seconds()</a></h3></div>
+    <div class="type"><h3 id="type-value">value() = any()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop the cache at this node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cache_size/0">cache_size() -&gt; {size, [{TableNm::atom(), RecCnt::integer(), Words::integer()}]}</h3>
+
+
+<div class="description">
+
+<p>Returns table size information in records and words.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="up/0">up() -&gt; {uptime, [tuple()]}</h3>
+
+
+<div class="description">
+
+<p>Returns the date of cluster creation and uptime.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="cache_nodes/0">cache_nodes() -&gt; {nodes, {active, [node()]}, {configured, [node()]}}</h3>
+
+
+<div class="description">
+
+<p>Return all nodes that offer the JCache service.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(Map::map_name(), Key::key(), Value::value()) -&gt; {ok, {key, key()}}</h3>
+
+
+<div class="description">
+
+<p>Put the entry into the cache with a TTL of infinity.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put/1-1">put(Map::map_name(), Key::key(), Value::value(), TTL::ttl()) -&gt; {ok, {key, key()}}</h3>
+
+
+<div class="description">
+
+<p>Put the entry into the cache with the given TTL.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put_all/1">put_all(Map::map_name(), KVList::[tuple()]) -&gt; {ok, non_neg_integer()}</h3>
+
+
+<div class="description">
+
+<p>Put all the {K,V} pairs contained in the list. Return the number of
+  successes. Use infinity for the ttl.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="put_all/1-1">put_all(Map::map_name(), KVList::[tuple()], TTL::ttl()) -&gt; {ok, non_neg_integer()}</h3>
+
+
+<div class="description">
+
+<p>Put all the {K,V} pairs contained in the list. Return the number of
+  successes.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="clear/1">clear(Map::map_name()) -&gt; {ok}</h3>
+
+
+<div class="description">
+
+<p>Evict an entire <a href="#type-map_name" class="seealso">Map</a>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="evict/1">evict(Map::map_name(), Key::key()) -&gt; {ok}</h3>
+
+
+<div class="description">
+
+<p>Evict <a href="#type-map_name" class="seealso">Map</a>, <a href="#type-key" class="seealso">Key</a>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="evict_match/1">evict_match(Map::map_name(), Criteria::string()) -&gt; {ok}</h3>
+
+
+<div class="description">
+
+<p>Evict Map/Key from the cache for Key's whose value matches the criteria.
+  Assumes the Value is JSON and the criteria is path = JSON term as in
+  "a.b.c=true" or "a.b.c = \"SomeString\""
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_record_by_ref/1">delete_record_by_ref(RecRef::rec_ref()) -&gt; ok | {error, mnesia_abort}</h3>
+
+
+<div class="description">
+
+<p>Delete the cache element by its record reference. Used by
+  <a href="jc_eviction_manager.html" class="seealso">jc_eviction_manager</a>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="flush/0">flush() -&gt; {ok}</h3>
+
+
+<div class="description">
+
+<p>Remove all existing items from the cache.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="contains_key/1">contains_key(Map::map_name(), Key::key()) -&gt; {true} | {false}</h3>
+
+
+<div class="description">
+
+<p>Return true if the <a href="#type-key" class="seealso">Key</a> is in the map, else false.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Map::map_name(), Key::key()) -&gt; {ok, value()} | {miss}</h3>
+
+
+<div class="description">
+
+<p>Retrieve the data associated with Key, extend the TTL timer an aditional
+  amount equal to the initial TTL.
+</p>
+</div></div>
+<div class="function">
+<h3 id="get_all/2">get_all(Map::map_name, Keys::[key()]) -&gt; {ok, [value()]} | {miss}</h3>
+
+
+<div class="description">
+
+<p>Retrieve the data associated with the keys in the list in the same
+  order as the list. If any miss, return miss.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="key_set/1">key_set(Map::map_name()) -&gt; {ok, Result::[key()]}</h3>
+
+
+<div class="description">
+
+<p>Return all the keys for a given map.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="map_size/1">map_size(Map::map_name()) -&gt; {records, non_neg_integer()}</h3>
+
+
+<div class="description">
+
+<p>Returns the number of objects in the map.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="values/1">values(Map::map_name()) -&gt; {ok, [value()]}</h3>
+
+
+<div class="description">
+
+<p>Return all values in the given map.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="values_match/1">values_match(Map::map_name(), Criteria::string()) -&gt; {ok, [{key(), value()}]}</h3>
+
+
+<div class="description">
+
+<p>Return the Values where the value matches the supplied criteria.
+  Assumes the Value is JSON and the criteria is path = JSON term as in
+  "a.b.c=true" or "a.b.c = \"SomeString\""
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Jim Rosenblum</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>x509 (erl_sec) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>x509</h1>
+<h2 class="modsummary">   The x509 module provides operations for working with X.509           
+certificates.</h2>
+<div class="description">
+<p>   The x509 module provides operations for working with X.509           
+certificates.</p>
+ 
+   <p>Include <code>x509.hrl</code> if needed, but the constants it contains are of
+   questionable value outside the implementation of X.509 operations.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-certchain">certchain() = [<a href="#type-certificate" class="seealso">certificate()</a>]</h3></div>
+    <div class="type"><h3 id="type-certificate">certificate() = <a href="#type-otp_cert" class="seealso">otp_cert()</a> | <a href="#type-plain_cert" class="seealso">plain_cert()</a></h3></div>
+    <div class="type"><h3 id="type-certinfo">certinfo() = [<a href="#type-cirec" class="seealso">cirec()</a>]</h3></div>
+    <div class="type"><h3 id="type-certrequest">certrequest() = #'CertificationRequest'{}</h3></div>
+    <div class="type"><h3 id="type-ci_any">ci_any() = {atom(), term()}</h3></div>
+    <div class="type"><h3 id="type-ci_cansign">ci_cansign() = {cansign, boolean()}</h3></div>
+    <div class="type"><h3 id="type-ci_capriv">ci_capriv() = {capriv, term()}</h3></div>
+    <div class="type"><h3 id="type-ci_cert">ci_cert() = {cert, <a href="#type-certificate" class="seealso">certificate()</a>}</h3></div>
+    <div class="type"><h3 id="type-ci_certfile">ci_certfile() = {certfile, <a href="file.html#type-filename" class="seealso">file:filename()</a>}</h3></div>
+    <div class="type"><h3 id="type-ci_certurl">ci_certurl() = {certurl, <a href="http_uri.html#type-uri" class="seealso">http_uri:uri()</a>}</h3></div>
+    <div class="type"><h3 id="type-ci_key">ci_key() = {key, <a href="#type-privatekey" class="seealso">privatekey()</a>}</h3></div>
+    <div class="type"><h3 id="type-ci_keyfile">ci_keyfile() = {keyfile, <a href="file.html#type-filename" class="seealso">file:filename()</a>}</h3></div>
+    <div class="type"><h3 id="type-ci_name">ci_name() = {name, string}</h3></div>
+    <div class="type"><h3 id="type-ci_selfsigned">ci_selfsigned() = {selfsigned, boolean()}</h3></div>
+    <div class="type"><h3 id="type-cirec">cirec() = <a href="#type-ci_name" class="seealso">ci_name()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_cansign" class="seealso">ci_cansign()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_selfsigned" class="seealso">ci_selfsigned()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_certfile" class="seealso">ci_certfile()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_certurl" class="seealso">ci_certurl()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_keyfile" class="seealso">ci_keyfile()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_cert" class="seealso">ci_cert()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_key" class="seealso">ci_key()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_capriv" class="seealso">ci_capriv()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-ci_any" class="seealso">ci_any()</a></h3></div>
+    <div class="type"><h3 id="type-gsecs_ts">gsecs_ts() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-otp_cert">otp_cert() = #'OTPCertificate'{}</h3></div>
+    <div class="type"><h3 id="type-plain_cert">plain_cert() = #'Certificate'{}</h3></div>
+    <div class="type"><h3 id="type-posix_ts">posix_ts() = integer()</h3></div>
+    <div class="type"><h3 id="type-privatekey">privatekey() = <a href="public_key.html#type-private_key" class="seealso">public_key:private_key()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_cert_valid_times/1">get_cert_valid_times(Cert::certificate()) -&gt; {Begin::gsecs_ts(), End::gsecs_ts()}</h3>
+
+
+<div class="description">
+
+<p>   Retrieve the begin and end validity times for a certificate,
+           as Gregorian seconds.
+ </p>
+<p><em>See also:</em> <a href="#type-gsecs_ts" class="seealso">gsecs_ts()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_valid_now/1">is_valid_now(Cert::certificate()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>   Reports whether the specified certificate is within its validity
+           period at this instant.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="current_gsecs/0">current_gsecs() -&gt; gsecs_ts()</h3>
+
+
+<div class="description">
+
+<p>   Retrieves the system time in Gregorian seconds.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="current_psecs/0">current_psecs() -&gt; posix_ts()</h3>
+
+
+<div class="description">
+
+<p>   Retrieves the system time in POSIX seconds.
+ </p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="public_key.html" class="seealso">public_key</a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

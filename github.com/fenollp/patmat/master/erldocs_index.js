@@ -1,0 +1,1 @@
+var index = [['app','patmat','patmat','[application]'],['mod','patmat','patmat',[]],['mod','patmat','patmat_gen',[]],['fun','patmat','patmat_gen:file/1',[]],['fun','patmat','patmat_gen:file/2',[]]];

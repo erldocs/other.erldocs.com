@@ -1,0 +1,1 @@
+var index = [['app','typeclass','typeclass','[application]'],['mod','typeclass','dynamic_compile',[]],['mod','typeclass','typeclass',[]],['fun','typeclass','dynamic_compile:from_string/1',[]],['fun','typeclass','dynamic_compile:from_string/2',[]],['fun','typeclass','typeclass:do/0',[]]];

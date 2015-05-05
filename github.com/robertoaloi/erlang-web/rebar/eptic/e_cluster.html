@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>e_cluster (eptic) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>e_cluster</h1>
+<h2 class="modsummary">Module responsible for managing the backend nodes of the Erlang Web cluster.</h2>
+<div class="description">
+<p>Module responsible for managing the backend nodes of the Erlang Web cluster.
+   All the functions should be called from the backend server.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="dispatcher_reload/0">dispatcher_reload() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Updates the dispatcher entries on the all frontend nodes.
+  In order to keep the dispatcher rules consistent all over the Erlang
+  Web cluster it is strongly recommended to change it only on the backend
+  (even if it is not used there) and trigger the update by calling the
+  <i>dispatcher_reload/0</i> function.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="invalidate/1">invalidate(List0::Entries) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Entries = [Url]</code></li><li><code>Url = string()</code></li></ul>
+<div class="description">
+
+<p>Removes the selected urls from the cache on all frontend servers.
+  <i>Url</i> is a regular expression describing the URL that should be
+  removed from cache (as they are no longer valid, e.g. the model has
+  changed). <br />
+  The regular expression must be in the PCRE format (described in the
+  Erlang manual - http://www.erlang.org/doc/man/re.html).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="invalidate_groups/1">invalidate_groups(Groups) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Groups = [Group]</code></li><li><code>Group = string()</code></li></ul>
+<div class="description">
+
+<p>Removes all the cache contents that belongs at least to one of the <i>Group</i>.
+  <i>Group</i> must be a string which labels and categorizes the cache entry.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="synchronize_docroot/1">synchronize_docroot(Filename::string()) -&gt; WorkerPid::pid()</h3>
+
+
+<div class="description">
+
+<p>Sends the file with the <i>Filename</i> to the all frontend servers.
+  Since uploaded files are stored on the backend node this function must
+  be called after successful saving to synchronize the state on all nodes.<br />
+  The path to the file should be relative to the server root.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_conf.xml.html#server_root/0" class="seealso">e_conf:server_root/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="invalidate/4">invalidate(Regexps, Mod, Fun, FunResult) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="invalidate_if/4">invalidate_if(X1, Mod, Fun, FunResult) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="invalidate_groups/4">invalidate_groups(Groups, Mod, Fun, FunResult) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="invalidate_groups_if/4">invalidate_groups_if(X1, Mod, Fun, FunResult) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="backend_call/4">backend_call(X1, Mod, Fun, FunArgs) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Michal Ptaszek</aname>
+<email>michal.ptaszek@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

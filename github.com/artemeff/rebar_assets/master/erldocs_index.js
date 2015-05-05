@@ -1,0 +1,1 @@
+var index = [['app','rebar_assets','rebar_assets','[application]'],['mod','rebar_assets','rebar_assets',[]],['fun','rebar_assets','rebar_assets:assets-serve/2',[]],['fun','rebar_assets','rebar_assets:assets-watch/2',[]],['fun','rebar_assets','rebar_assets:assets/2',[]]];

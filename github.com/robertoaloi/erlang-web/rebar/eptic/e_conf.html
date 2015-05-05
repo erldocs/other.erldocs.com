@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>e_conf (eptic) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>e_conf</h1>
+<h2 class="modsummary">Module responsible for managing the project configuration.</h2>
+<div class="description">
+<p>Module responsible for managing the project configuration.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="install/0">install() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Loads the configuration from the default path.</p>
+<p><em>See also:</em> <a href="#load_conf/0" class="seealso">load_conf/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="reinstall/0">reinstall() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Loads the configuration from the default path.</p>
+<p><em>See also:</em> <a href="#load_conf/0" class="seealso">load_conf/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="load_conf/0">load_conf() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Loads the configuration from the default path.
+  The default path is
+  <i>e_conf:server_root()/config/project.conf</i>.</p>
+<p><em>See also:</em> <a href="#load_conf/1" class="seealso">load_conf/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="load_conf/1">load_conf(Filename::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Loads the configuration from the given file.
+  The previous configuration is overwritten.
+  File given as a parameter must be parsable by the file:consult call.<br />
+  The content of the configuration is stored inside the
+  <em>e_conf</em> ets table.</p>
+</div></div>
+<div class="function">
+<h3 id="upload_dir/0">upload_dir() -&gt; UploadDir::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the path to the upload directory.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {upload_dir, Path}</pre><p>
+  where <em>Path</em> is a relative path from the server root
+  directory. <br />
+  The default value is
+  <i>e_conf:server_root()/docroot/upload</i></p>
+</div></div>
+<div class="function">
+<h3 id="default_language/0">default_language() -&gt; DefaultLanguage::atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the default language of the project.
+  During the translation process, if no language is set
+  inside the session variable, this one will be selected.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {default_language, Lan}</pre><p>
+  where <em>Lan</em> is the atom representing the default language.<br />
+  The default value is <i>en</i>.</p>
+</div></div>
+<div class="function">
+<h3 id="cache_dir/0">cache_dir() -&gt; CacheDirPath::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the directory for disk cache.
+  All cached files will be kept there.
+  The specified directory must be writeable for the server.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {cache_dir, Dir}</pre><p>
+  where <em>Dir</em> is the path to the desired cache directory.
+  Path is relative to the server root.<br />
+  The default value is <i>templates/cache</i>.<br />
+  This option is used only if the disk cache engine is selected.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_cache.xml.html" class="seealso">e_cache</a>, <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_cache_disk.xml.html" class="seealso">e_cache_disk</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="host/0">host() -&gt; Hostname::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the host the server is running on.
+  It could be useful for redirections to the other ports on the
+  same server. The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {host, Host}</pre><p>
+  where <em>Host</em> is the string name of the host.<br />
+  The default value is <i>localhost</i>.</p>
+</div></div>
+<div class="function">
+<h3 id="debug_mode/0">debug_mode() -&gt; IsDebugMode::boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks if the server is running in the debug mode.
+  If so, all the errors will be displayed in the browser
+  instead of the nice error 404/501 pages.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {debug_mode, Bool}</pre><p>
+  where <em>Bool</em> is either true or false atom.<br />
+  The default value is <i>false</i>.</p>
+</div></div>
+<div class="function">
+<h3 id="primitive_types/0">primitive_types() -&gt; List</h3>
+
+<ul class="type">
+<li><code>List = [atom()]</code></li></ul>
+<div class="description">
+
+<p>Returns the list of all available primitive types.
+  Each provided type should add at least two modules:
+  <i>wpart_<em>Name</em></i> and <i>wtype_<em>Name</em></i>.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {primitive_types, List}</pre><p>
+  where <em>List</em> is a list of the user provided primitive types<br />
+  The default value is <i>[]</i>.</p>
+<p><em>See also:</em> <a href="../http///www.erlang.org/edoc/doc/wpart/doc/wpart.xml.html" class="seealso">//wpart/wpart</a>, <a href="../http///www.erlang.org/edoc/doc/wpart/doc/wtype.xml.html" class="seealso">//wpart/wtype</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="http_port/0">http_port() -&gt; Port::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the http port for the server.
+  The specified port will be used for server to bind to.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {http_port, Port}</pre><p>
+  where <em>Port</em> is a http port number.<br />
+  The default value is <i>80</i>.</p>
+</div></div>
+<div class="function">
+<h3 id="https_port/0">https_port() -&gt; Port::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the https port for the server.
+  The specified port will be used for server to bind to.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {https_port, Port}</pre><p>
+  where <em>Port</em> is a https port number.<br />
+  The default value is <i>443</i>.</p>
+</div></div>
+<div class="function">
+<h3 id="project_name/0">project_name() -&gt; Name::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of the project we are working on.
+  This name is used in naming databases with objects and ids
+  in e_db_couchdb module.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {project_name, Name}</pre><p>
+  where <em>Name</em> is the name of the project.<br />
+  The default value is <i>erlangweb</i>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_db_couchdb.xml.html" class="seealso">e_db_couchdb</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="couchdb_address/0">couchdb_address() -&gt; URL::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the URL of the CouchDB server.
+  The address is used during the connection to the CouchDB server.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {couchdb_address, URL}</pre><p>
+  where <em>URL</em> is the CouchDB address.<br />
+  The default value is <i>http://localhost:5984/</i>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_db_couchdb.xml.html" class="seealso">e_db_couchdb</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dbms/0">dbms() -&gt; DatabaseEngineCallbackModule::atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of the callback module for the database engine.
+  The currently supported engines are for Mnesia and CouchDB (experimental)
+  databases.
+  The project.conf tuple which sets it should look like:
+  </p><pre class="sh_erlang">     {dbms, DBMS}</pre><p>
+  where <em>DBMS</em> is atom: </p><list>
+  <item><p>mnesia - for Mnesia support</p></item>
+  <item><p>couchdb - for CouchDB support</p></item>
+  </list><p>
+  The default value is <i>mnesia</i>.
+  The callback modules could be either e_db_mnesia or e_db_couchdb.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_db.xml.html" class="seealso">e_db</a>, <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_db_couchdb.xml.html" class="seealso">e_db_couchdb</a>, <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_db_mnesia.xml.html" class="seealso">e_db_mnesia</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="template_cache_mod/0">template_cache_mod() -&gt; CacheModule::atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of the callback module for the XML records cache.
+  XML scanned files are stored either in the internal memory storage
+  or on disk (in the directory specified by <i>cache_dir</i> option).<br />
+  The possible values are <i>ets</i> and <i>disk</i>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/25fe9738dc75198e97ec86e5078dfb61/repo/rebar/.xml/eptic/./e_cache.xml.html" class="seealso">e_cache</a>, <a href="#cache_dir/0" class="seealso">cache_dir/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="template_expander/0">template_expander() -&gt; TemplateExpanderCallbackModule::atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of the callback module for templates expanding.
+  This option could be changed by providing the application environment variable
+  template_expander.
+  Currently now <i>wpart_xs</i> is supported.</p>
+<p><em>See also:</em> <a href="../http///www.erlang.org/edoc/doc/wpart/doc/wpart_xs.xml.html" class="seealso">//wpart/wpart_xs</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="template_root/0">template_root() -&gt; TemplateRootDir::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the path to the root of the template directory.
+  The templates which should be expanded must be placed there.
+  This option could be changed by providing the application environment variable
+  template_root.<br />
+  The default value is <i>server_root()/templates</i>.</p>
+</div></div>
+<div class="function">
+<h3 id="server_root/0">server_root() -&gt; ServerRootDir::string()</h3>
+
+
+<div class="description">
+
+<p>Returns the path to the server root directory.
+  This option could be changed by providing the application environment variable
+  server_root.<br />
+  The default value is the parent directory of the eptic application.</p>
+</div></div>
+<div class="function">
+<h3 id="ecomponents/0">ecomponents() -&gt; Ecomponents::[{atom(), [tuple()]}] | []</h3>
+
+
+<div class="description">
+
+<p>Returns the list of declared ecomponents with the provided configuration.
+  The ecomponents should be declared inside the <i>project.conf</i> file:
+  </p><pre class="sh_erlang">     {ecomponents, [{name_of_ecomponent1, [ListOfConfiguration]},
+                    {name_of_ecomponent2, [ListOfConfiguration]},
+                    ...
+                    {name_of_ecomponentN, [ListOfConfiguration]}]}.</pre><p>
+  All declared components will be started during the system start (in the order
+  of listing in configuration file). <br />
+  If no ecomponents are declared, the empty list is returned.</p>
+<p><em>See also:</em> <a href="../http///www.erlang.org/edoc/doc/ecomponent/doc/ecompontent.xml.html" class="seealso">//ecomponent/ecompontent</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_conf/1">get_conf(Key::term()) -&gt; Configuration::term()</h3>
+
+
+<div class="description">
+
+<p>Returns the configuration associated with the given <i>Key</i>.
+  If no configuration has been found, the <i>undefined</i>
+  atom is returned.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_conf/1">set_conf(Key::term(), Val::term()) -&gt; true</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_conf/1-1">get_conf(Key::term(), Default::term()) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Michal Ptaszek</aname>
+<email>michal.ptaszek@erlang.consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

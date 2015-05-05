@@ -1,0 +1,1 @@
+var index = [['app','erlscratchpad','erlscratchpad','[application]'],['mod','erlscratchpad','echotest',[]],['fun','erlscratchpad','echotest:start_client/1',[]],['fun','erlscratchpad','echotest:start_server/0',[]]];

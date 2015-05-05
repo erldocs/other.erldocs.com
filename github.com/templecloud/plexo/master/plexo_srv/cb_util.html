@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cb_util (plexo_srv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cb_util</h1>
+<h2 class="modsummary">   
+The cb_util module provides some Plexo specific helper functions relating   
+to the Cowboy webserver and libraries.</h2>
+<div class="description">
+<p>   
+The cb_util module provides some Plexo specific helper functions relating   
+to the Cowboy webserver and libraries.</p>
+  
+   <em><marker id="Notes">Notes</marker></em>
+  
+   <list>
+     <item>
+       The current implementation uses the
+       <a href="../https///github.com/ninenines/cowboy.html" class="seealso">Cowboy</a> http server
+       libraries.
+     </item>
+   </list></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="is_authorized/1">is_authorized(Req::req() (see module cowboy_req), State::any()) -&gt; {{true, Req::req() (see module cowboy_req), User::{binary(), binary()}}, Req::req() (see module cowboy_req), State::any()} | {{false, Realm::binary()}, Req::req() (see module cowboy_req), State::any()}</h3>
+
+
+<div class="description">
+
+<p>  
+A centralized authorization method for Cowboy HTTP/REST Handlers.</p>
+ 
+  <p>This method currently builds a RestAction entity (that is a map of relevant
+  HTTP Request parameters extracted from the Cowboy Req object), and passes it
+  to the <a href="core_auth.html#restful_auth/1" class="seealso">core_auth:restful_auth/1</a> for authentication and
+  authorization.</p>
+</div></div>
+<div class="function">
+<h3 id="build_rest_action/1">build_rest_action(Req::req() (see module cowboy_req)) -&gt; Built::rest_action() (see module core_rest)</h3>
+
+
+<div class="description">
+
+<p>  
+Build a map of selected HTTP parameters associated with this HTTP request.</p>
+ 
+  <p>The results can be used for a vareity of purposes such as authentication,  
+fine-grained authorisation, auditing, etc.</p>
+ 
+  <p><em><marker id="Example_Ouput">Example Ouput</marker></em>
+    </p><pre class="sh_erlang">    #{
+      auth =&gt; #{
+        user =&gt; &lt;&lt;"Temple"&gt;&gt;,
+        pass =&gt; &lt;&lt;"Wibble2Wobble"&gt;&gt;,
+        type =&gt; &lt;&lt;"basic"&gt;&gt;
+      },
+      action =&gt; #{
+        version =&gt; 'HTTP/1.1'
+        url =&gt; &lt;&lt;"http://localhost:8877/api/app/sasl"&gt;&gt;,
+        method =&gt; &lt;&lt;"PUT"&gt;&gt;,
+        path =&gt; &lt;&lt;"/api/app/sasl"&gt;&gt;,
+        pathInfo =&gt; undefined,
+        urlQuery =&gt; &lt;&lt;&gt;&gt;,
+      },
+      host =&gt; #{
+        url =&gt; &lt;&lt;"http://localhost:8877"&gt;&gt;,
+        name =&gt; &lt;&lt;"localhost"&gt;&gt;,
+        port =&gt; 8877,
+        info =&gt; undefined
+      },
+      peer =&gt; #{
+        ip =&gt; {127,0,0,1},
+        port =&gt; 51591
+      }
+    }</pre>
+</div></div>
+<div class="function">
+<h3 id="build_auth/1">build_auth(Req::req() (see module cowboy_req)) -&gt; auth() (see module core_rest) | undefined</h3>
+
+
+<div class="description">
+
+<p>  
+Build a map of selected HTTP 'authentication header' parameters associated  
+with this HTTP request.</p>
+ 
+  <p>The results can be used for a vareity of purposes such as authentication,  
+fine-grained authorisation, auditing, etc.</p>
+ 
+  <p>NB: If no credentials are specified then the result is undefined.</p>
+ 
+  <p><em><marker id="Example_Ouput">Example Ouput</marker></em>
+    </p><pre class="sh_erlang">    #{
+      user =&gt; &lt;&lt;"Temple"&gt;&gt;,
+      passwd =&gt; &lt;&lt;"Wibble2Wobble"&gt;&gt;,
+      type =&gt; &lt;&lt;"basic"&gt;&gt;
+    }</pre>
+</div></div>
+<div class="function">
+<h3 id="build_action/1">build_action(Req::req() (see module cowboy_req)) -&gt; action() (see module core_rest)</h3>
+
+
+<div class="description">
+
+<p>  
+Build a map of selected HTTP request parameters associated with this HTTP  
+request.</p>
+ 
+  <p>The results can be used for a vareity of purposes such as authentication,  
+fine-grained authorisation, auditing, etc.</p>
+ 
+  <p><em><marker id="Example_Ouput">Example Ouput</marker></em>
+    </p><pre class="sh_erlang">    #{
+      version =&gt; 'HTTP/1.1'
+      url =&gt; &lt;&lt;"http://localhost:8877/api/app/sasl"&gt;&gt;,
+      method =&gt; &lt;&lt;"PUT"&gt;&gt;,
+      path =&gt; &lt;&lt;"/api/app/sasl"&gt;&gt;,
+      pathInfo =&gt; undefined,
+      urlQuery =&gt; &lt;&lt;&gt;&gt;,
+    }</pre>
+</div></div>
+<div class="function">
+<h3 id="build_host/1">build_host(Req::req() (see module cowboy_req)) -&gt; host() (see module core_rest)</h3>
+
+
+<div class="description">
+
+<p>  
+Build a map of selected HTTP 'host' parameters associated with this HTTP  
+request.</p>
+ 
+  <p>The results can be used for a vareity of purposes such as authentication,  
+fine-grained authorisation, auditing, etc.</p>
+ 
+  <p><em><marker id="Example_Ouput">Example Ouput</marker></em>
+    </p><pre class="sh_erlang">    #{
+      url =&gt; &lt;&lt;"http://localhost:8877"&gt;&gt;,
+      name =&gt; &lt;&lt;"localhost"&gt;&gt;,
+      port =&gt; 8877,
+      info =&gt; undefined,
+    }</pre>
+</div></div>
+<div class="function">
+<h3 id="build_peer/1">build_peer(Req::req() (see module cowboy_req)) -&gt; peer() (see module core_rest) | undefined</h3>
+
+
+<div class="description">
+
+<p>  
+Build a map of selected HTTP 'peer' parameters associated with this HTTP  
+request.</p>
+ 
+  <p>The results can be used for a vareity of purposes such as authentication,  
+fine-grained authorisation, auditing, etc.</p>
+ 
+  <p><em><marker id="Example_Ouput">Example Ouput</marker></em>
+    </p><pre class="sh_erlang">    #{
+      ip =&gt; {127,0,0,1},
+      port =&gt; 51591
+    }</pre>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="erts_apps.html" class="seealso">erts_apps</a></p></div>
+<authors>
+
+<aname>Temple</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

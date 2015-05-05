@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>moyo_list (moyo) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>moyo_list</h1>
+<h2 class="modsummary">リストに関する処理を集めたユーティリティモジュール.</h2>
+<div class="description">
+<p>リストに関する処理を集めたユーティリティモジュール.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="delete_all/2">delete_all(Element, List1) -&gt; List2</h3>
+
+<ul class="type">
+<li><code>Element = term()</code></li><li><code>List1 = [Element]</code></li><li><code>List2 = [Element]</code></li></ul>
+<div class="description">
+
+<p><code>List</code>内に存在する全ての<code>Element</code>を削除する</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:delete_all(aaa, [aaa, bbb, ccc, bbb, aaa]).
+  [bbb, ccc, bbb]</pre>
+</div></div>
+<div class="function">
+<h3 id="find_if/2">find_if(PredFun, List) -&gt; {ok, Element} | error</h3>
+
+<ul class="type">
+<li><code>PredFun = (Element) -&gt; boolean()</code></li><li><code>List = [Element]</code></li><li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p><code>PredFun</code>の結果が<code>true</code>となる<code>List</code>内の最初の要�&nbsp;を検索する</p>
+</div></div>
+<div class="function">
+<h3 id="take/2">take(Element, List1) -&gt; {ok, List2} | error</h3>
+
+<ul class="type">
+<li><code>Element = term()</code></li><li><code>List1 = [Element]</code></li><li><code>List2 = [Element]</code></li></ul>
+<div class="description">
+
+<p><code>Element</code>と一致する最初の要�&nbsp;を検索し、その値を除いたリストを返す</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:take(bbb, [aaa, bbb, ccc]).
+  {ok, [aaa, ccc]}.
+ 
+  &gt; moyo_list:take(bbb, [111, 222, 333]).
+  error</pre>
+</div></div>
+<div class="function">
+<h3 id="take_if/2">take_if(PredFun, List1) -&gt; {ok, Element, List2} | error</h3>
+
+<ul class="type">
+<li><code>PredFun = (Element) -&gt; boolean()</code></li><li><code>List1 = [Element]</code></li><li><code>Element = term()</code></li><li><code>List2 = [Element]</code></li></ul>
+<div class="description">
+
+<p><code>PredFun</code>の結果が<code>true</code>となる<code>List</code>内の最初の要�&nbsp;を検索し, その値とその値を除いたリストを返す.</p>
+</div></div>
+<div class="function">
+<h3 id="replace_if/2">replace_if(PredFun, Value::term(), List::list()) -&gt; list()</h3>
+
+<ul class="type">
+<li><code>PredFun = (term()) -&gt; boolean()</code></li></ul>
+<div class="description">
+
+<p><code>PredFun</code>の結果が<code>true</code>となった最初の要�&nbsp;を<code>Value</code>で置換する</p>
+</div></div>
+<div class="function">
+<h3 id="position/1">position(Value::term(), List::list()) -&gt; {ok, Position::pos_integer()} | error</h3>
+
+
+<div class="description">
+
+<p><code>List</code>内で最初に<code>Value</code>が出現する位置を返す</p>
+ 
+  <p><code>Value</code>が存在しない�&nbsp;�合は<code>error</code>が返される</p>
+</div></div>
+<div class="function">
+<h3 id="shuffle/1">shuffle(Element::[Element]) -&gt; [Element]</h3>
+
+<ul class="type">
+<li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p>入力リストの�&nbsp;�番を無作為に並べ替える</p>
+</div></div>
+<div class="function">
+<h3 id="foldl_while/2">foldl_while(Fun, Initial::term(), List) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Fun = (Element, Acc::term()) -&gt; {true, Result} | {false, Result}</code></li><li><code>List = [Element]</code></li><li><code>Element = term()</code></li><li><code>Result = term()</code></li></ul>
+<div class="description">
+
+<p>lists:foldl/3 の中断機能追�&nbsp;版: 関数適用後の結果が<code>{false, _}</code>となった�&nbsp;�合は、そこで走査が中断される.</p>
+ 
+  <p><code>Fun</code>の結果は<code>{true, Result}</code> or <code>{false, Result}</code>のいずれかである必要がある.</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_foldl/2">maybe_foldl(Fun, Initial::term(), List) -&gt; {ok, Result::term()} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Fun = (Element, Acc::term()) -&gt; {ok, AccNext::term()} | {error, Reason}</code></li><li><code>List = [Element]</code></li><li><code>Element = term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>lists:foldl/3 の maybe版: 関数適用結果が<code>{error, Reason}</code>となる要�&nbsp;があれば、そこで走査が中断される.</p>
+ 
+  <p><code>Fun</code>の結果は <code>{ok, Result}</code> or <code>{error, Reason}</code> のいずれかである必要がある.</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_foldr/2">maybe_foldr(Fun, Initial::term(), List) -&gt; {ok, Result::term()} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Fun = (Element, Acc::term()) -&gt; {ok, AccNext::term()} | {error, Reason}</code></li><li><code>List = [Element]</code></li><li><code>Element = term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>lists:foldr/3 の maybe版: 関数適用結果が<code>{error, Reason}</code>となる要�&nbsp;があれば、そこで走査が中断される.</p>
+ 
+  <p><code>Fun</code>の結果は <code>{ok, Result}</code> or <code>{error, Reason}</code> のいずれかである必要がある.</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_map/2">maybe_map(Fun, List) -&gt; {ok, Result} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Fun = (Element) -&gt; {ok, PerResult} | {error, Reason}</code></li><li><code>List = [Element]</code></li><li><code>Element = term()</code></li><li><code>Result = [PerResult]</code></li><li><code>PerResult = term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>lists:map/2 の maybe版: 関数適用結果が<code>{error, Reason}</code>となる要�&nbsp;があれば、そこで走査が中断される.</p>
+ 
+  <p><code>Fun</code>の結果は <code>{ok, Result}</code> or <code>{error, Reason}</code> のいずれかである必要がある.</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_foreach/2">maybe_foreach(Fun, List) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Fun = (Element) -&gt; {error, Reason} | any()</code></li><li><code>List = [Element]</code></li><li><code>Element = term()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>lists:foreach/2 の maybe版: 関数適用結果が<code>{error, Reason}</code>となる要�&nbsp;があれば、そこで走査が中断される.</p>
+ 
+  <p><code>Fun</code>の結果が<code>{error, Reason}</code>の�&nbsp;�合はそこで走査が中断され、それ以外の�&nbsp;�合は継続される.</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_pmap/2">maybe_pmap(Fun, List) -&gt; {ok, Values} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Fun = (Arg) -&gt; {ok, Value} | {error, Reason}</code></li><li><code>List = [Arg]</code></li><li><code>Values = [Value]</code></li><li><code>Arg = term()</code></li><li><code>Value = term()</code></li><li><code>Reason = ExitError | term()</code></li><li><code>ExitError = {'EXIT', {ExitReason::term(), StackTrace::term()}}</code></li></ul>
+<div class="description">
+
+<p><a href="#maybe_map/2" class="seealso">maybe_map/2</a>の並列版.</p>
+ 
+  <p><code>Fun</code>の実行中のエラーが発生した�&nbsp;�合は<code>ExitError</code>が結果として返される.</p>
+</div></div>
+<div class="function">
+<h3 id="longest_common_prefix/1">longest_common_prefix(Lists) -&gt; LongestCommonPrefixLength</h3>
+
+<ul class="type">
+<li><code>Lists = [List]</code></li><li><code>List = [term()]</code></li><li><code>LongestCommonPrefixLength = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p><code>Lists</code>内のリスト群のLongestCommonPrefixの長さを返す</p>
+ 
+  <p><a href="binary.html#longest_common_prefix/1" class="seealso">binary:longest_common_prefix/1</a>のリスト版</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:longest_common_prefix(["erlang", "ergonomy"]).
+  2
+ 
+  &gt; moyo_list:longest_common_prefix(["erlang", "perl"]).
+  0</pre>
+</div></div>
+<div class="function">
+<h3 id="split_longest_common_prefix/1">split_longest_common_prefix(Lists) -&gt; {LongestCommonPrefix, [Suffix]}</h3>
+
+<ul class="type">
+<li><code>Lists = [List]</code></li><li><code>List = [term()]</code></li><li><code>LongestCommonPrefix = List</code></li><li><code>Suffix = List</code></li></ul>
+<div class="description">
+
+<p><code>Lists</code>内の各リストを'LongestCommonPrefix部分'と'それ以降のSuffix部分'に分割する</p>
+ 
+  <p>なお'LongestCommonPrefix部分'は全てのリストで共通のため、結果では一つにまとめられている</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:split_longest_common_prefix(["erlang", "ergonomy"]).
+  {"er", ["lang", "gonomy"]}
+ 
+  &gt; moyo_list:split_longest_common_prefix(["erlang", "perl"]).
+  {"", ["erlang", "perl"]}</pre>
+</div></div>
+<div class="function">
+<h3 id="inits/1">inits(Element::[Element]) -&gt; [[Element]]</h3>
+
+<ul class="type">
+<li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p><code>List</code>の全ての先�&nbsp;�部分リストを長さの増�&nbsp;する�&nbsp;�に並べて返す</p>
+ 
+  <p>関数名およびインタフェースはHaskellの<code>Data.List.inits関数</code>に倣った</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:inits("abc").
+  ["", "a", "ab", "abc"]</pre>
+</div></div>
+<div class="function">
+<h3 id="tails/1">tails(Element::[Element]) -&gt; [[Element]]</h3>
+
+<ul class="type">
+<li><code>Element = term()</code></li></ul>
+<div class="description">
+
+<p><code>List</code>の全ての末尾部分リストを長さの減少する�&nbsp;�に並べて返す</p>
+ 
+  <p>関数名およびインタフェースはHaskellの<code>Data.List.tails関数</code>に倣った</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:tails("abc").
+  ["abc", "ab", "a", ""]</pre>
+</div></div>
+<div class="function">
+<h3 id="adjacent_uniq/1">adjacent_uniq(List::[term()]) -&gt; [term()]</h3>
+
+
+<div class="description">
+
+<p><code>List</code>内で連接する重複要�&nbsp;を削除する</p>
+ 
+  <p>リスト全体を通して各要�&nbsp;をユニークにしたい�&nbsp;�合は、事前にリストをソートしておくか、
+  この関数の代わりに<a href="lists.html#usort/1" class="seealso">lists:usort/1</a>を使う必要がある。</p>
+ 
+  <p>なお、要�&nbsp;の一致判定は<code>=:=</code>にて行われる (<code>1.0</code>と<code>1</code>は別要�&nbsp;扱い)</p>
+ 
+  <pre class="sh_erlang">  &gt; moyo_list:adjacent_uniq([a, a, b, b, c, c]).
+  [a, b, c]
+ 
+  &gt; moyo_list:adjacent_uniq([a, a, b, b, a, a]).
+  [a, b, a]</pre>
+</div></div>
+<div class="function">
+<h3 id="group_by/1">group_by(N::non_neg_integer(), TupleList::[tuple()]) -&gt; [{term(), [tuple()]}]</h3>
+
+
+<div class="description">
+
+<p>tuple の N 番目の値でグループ化する.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

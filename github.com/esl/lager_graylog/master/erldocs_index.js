@@ -1,0 +1,1 @@
+var index = [['app','lager_graylog','lager_graylog','[application]'],['mod','lager_graylog','lager_gelf_formatter',[]],['mod','lager_graylog','lager_udp_backend',[]],['fun','lager_graylog','lager_gelf_formatter:format/1',[]],['fun','lager_graylog','lager_gelf_formatter:format/1',[]]];

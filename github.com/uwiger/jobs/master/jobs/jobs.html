@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jobs (jobs) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jobs</h1>
+<h2 class="modsummary">
+  This is the public API of the JOBS framework.</h2>
+<div class="description">
+<p>
+  This is the public API of the JOBS framework.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ask/1">ask(Type) -&gt; {ok, Opaque} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Asks permission to run a job of Type. Returns when permission granted.</p>
+ 
+  <p>The simplest way to have jobs regulated is to spawn a request per job.
+  The process should immediately call this function, and when granted
+  permission, execute the job, and then terminate.
+  If for some reason the process needs to remain, to execute more jobs,
+  it should explicitly call <code>jobs:done(Opaque)</code>.
+  This is not strictly needed when regulation is rate-based, but as the
+  regulation strategy may change over time, it is the prudent thing to do.</p>
+</div></div>
+<div class="function">
+<h3 id="done/1">done(Opaque) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Signals completion of an executed task.</p>
+ 
+  <p>This is used when the current process wants to submit more jobs to load
+  regulation. It is mandatory when performing counter-based regulation
+  (unless the process terminates after completing the task). It has no
+  effect if the job type is purely rate-regulated.</p>
+</div></div>
+<div class="function">
+<h3 id="run/2">run(Queue::Type, Function::function()) -&gt; Result</h3>
+
+
+<div class="description">
+
+<p>Executes Function() when permission has been granted by job regulator.</p>
+ 
+  <p>This is equivalent to performing the following sequence:
+  </p><pre class="sh_erlang">
+  case jobs:ask(Type) of
+     {ok, Opaque} -&gt;
+        try Function()
+          after
+            jobs:done(Opaque)
+        end;
+     {error, Reason} -&gt;
+        erlang:error(Reason)
+  end.
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="enqueue/2">enqueue(Queue, Item) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Inserts <code>Item` into a passive queue.
+ 
+  Note that this function only works on passive queues. An exception will be
+  raised if the queue doesn</code>t exist, or isn't passive.</p>
+ 
+  <p>Returns <code>ok</code> if <code>Item</code> was successfully entered into the queue,
+  <code>{error, Reason}</code> otherwise (e.g. if the queue is full).</p>
+</div></div>
+<div class="function">
+<h3 id="dequeue/2">dequeue(Queue, N) -&gt; [{JobID, Item}]</h3>
+
+
+<div class="description">
+
+<p>Extracts up to <code>N</code> items from a passive queue</p>
+ 
+  <p>Note that this function only works on passive queues. An exception will be  
+raised if the queue doesn't exist, or if it isn't passive.</p>
+ 
+  <p>This function will block until at least one item can be extracted from the
+  queue (see <a href="#enqueue/2" class="seealso">enqueue/2</a>). No more than <code>N</code> items will be extracted.</p>
+ 
+  <p>The items returned are on the form <code>{JobID, Item}</code>, where <code>JobID</code> is in
+  the form of a microsecond timestamp
+  (see <a href="jobs_lib.html#timestamp_to_datetime/1" class="seealso">jobs_lib:timestamp_to_datetime/1</a>), and <code>Item</code> is whatever was
+  provided in <a href="#enqueue/2" class="seealso">enqueue/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="job_info/1">job_info(X1::Opaque) -&gt; undefined | Info</h3>
+
+
+<div class="description">
+
+<p>Retrieves job-specific information from the <code>Opaque</code> data object.</p>
+ 
+  <p>The queue could choose to return specific information that is passed to a
+  granted job request. This could be used e.g. for load-balancing strategies.</p>
+</div></div>
+<div class="function">
+<h3 id="add_queue/1">add_queue(Name::any(), Options::[{Key, Value}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Installs a new queue in the load regulator on the current node.</p>
+ 
+  <p>Valid options are:</p>
+ 
+  <p>* <code>{regulators, Rs}</code>, where <code>Rs</code> is a list of rate- or counter-based  
+regulators. Valid regulators listed below. Default: [].</p>
+ 
+  <p>* <code>{type, Type}</code> - type of queue. Valid types listed below. Default: <code>fifo</code>.</p>
+ 
+  <p>* <code>{action, Action}</code> - automatic action to perform for each request.
+  Valid actions described below. Default: <code>undefined</code>.</p>
+ 
+  <p>* <code>{check_interval, I}</code> - If specified (in ms), this overrides the interval  
+derived from any existing rate regulator. Note that regardless of how often  
+the queue is checked, enough jobs will be dispatched at each interval to  
+maintain the highest allowed rate possible, but the check interval may  
+thus affect how many jobs are dispatched at the same time. Normally, this  
+should not have to be specified.</p>
+ 
+  <p>* <code>{max_time, T}</code>, specifies how long (in ms) a job is allowed to wait  
+in the queue before it is automatically rejected.</p>
+ 
+  <p>* <code>{max_size, S}</code>, indicates how many items can be queued before requests  
+are automatically rejected. Strictly speaking, size is whatever the queue  
+behavior reports as the size; in the default queue behavior, it is the  
+number of elements in the queue.</p>
+ 
+  <p>* <code>{mod, M}</code>, indicates which queue behavior to use. Default is <code>jobs_queue</code>.</p>
+ 
+  <p>In addition, some 'abbreviated' options are supported:</p>
+ 
+  <p>* <code>{standard_rate, R}</code> - equivalent to
+  <code>[{regulators,[{rate,[{limit,R}, {modifiers,[{cpu,10},{memory,10}]}]}]}]</code></p>
+ 
+  <p>* <code>{standard_counter, C}</code> - equivalent to
+  <code>[{regulators,[{counter,[{limit,C}, {modifiers,[{cpu,10},{memory,10}]}]}]}]</code></p>
+ 
+  <p>* <code>{producer, F}</code> - equivalent to <code>{type, {producer, F}}</code></p>
+ 
+  <p>* <code>passive</code> - equivalent to <code>{type, {passive, fifo}}</code></p>
+ 
+  <p>* <code>approve | reject</code> - equivalent to <code>{action, approve | reject}</code></p>
+ 
+  <p><em>Regulators</em></p>
+ 
+  <p>* <code>{rate, Opts}</code> - rate regulator. Valid options are
+  </p><list>
+   <item><code>{limit, Limit}</code> where <code>Limit</code> is the maximum rate (requests/sec)</item>
+  <item><code>{modifiers, Mods}</code>, control feedback-based regulation. See below.</item>
+  <item><code>{name, Name}</code>, optional. The default name for the regulator is
+  <code>{rate, QueueName, N}</code>, where <code>N</code> is an index indicating which rate regulator
+  in the list is referred. Currently, at most one rate regulator is allowed,
+  so <code>N</code> will always be <code>1</code>.</item>
+  </list>
+ 
+  <p>* <code>{counter, Opts}</code> - counter regulator. Valid options are
+  </p><list>
+   <item><code>{limit, Limit}</code>, where <code>Limit</code> is the number of concurrent jobs
+  allowed.</item>
+   <item><code>{increment, Incr}</code>, increment per job. Default is <code>1</code>.</item>
+   <item><code>{modifiers, Mods}</code>, control feedback-based regulation. See below.</item>
+  </list>
+ 
+  <p>* <code>{named_counter, Name, Incr}</code>, use an existing counter, incrementing it
+  with <code>Incr</code> for each job. <code>Name</code> can either refer to a named top-level
+  counter (see <a href="#add_counter/2" class="seealso">add_counter/2</a>), or a queue-specific counter
+  (these are named <code>{counter,Qname,N}</code>, where <code>N</code> is an index specifying  
+their relative position in the regulators list - e.g. first or second  
+counter).</p>
+ 
+  <p>* <code>{group_rate, R}</code>, refers to a top-level group rate <code>R</code>.
+  See <a href="#add_group_rate/2" class="seealso">add_group_rate/2</a>.</p>
+ 
+  <p><em>Types</em></p>
+ 
+  <p>* <code>fifo | lifo</code> - these are the types supported by the default queue  
+behavior. While lifo may sound like an odd choice, it may have benefits  
+for stochastic traffic with time constraints: there is no point to  
+'fairness', since requests cannot control their place in the queue, and  
+choosing the 'freshest' job may increase overall goodness critera.</p>
+ 
+  <p>* <code>{producer, F}</code>, the queue is not for incoming requests, but rather
+  generates jobs. Valid options for <code>F</code> are
+  (for details, see <a href="jobs_prod_simpe.html" class="seealso">jobs_prod_simpe</a>):
+  </p><list>
+   <item>A fun of arity 0, indicating a stateless producer</item>
+   <item>A fun of arity 2, indicating a stateful producer</item>
+   <item><code>{M, F, A}</code>, indicating a stateless producer</item>
+   <item><code>{Mod, Args}</code> indicating a stateful producer</item>
+  </list>
+ 
+  <p>* <code>{action, approve | reject}</code>, specifies an automatic response to every
+  request. This can be used to either block a queue (<code>reject</code>) or set it as  
+a pass-through ('approve').</p>
+ 
+  <p><em>Modifiers</em></p>
+ 
+  <p>Jobs supports feedback-based modification of regulators.</p>
+ 
+  <p>The sampler framework sends feedback messages of type
+  <code>[{Modifier, Local, Remote::[{node(), Level}]}]</code>.</p>
+ 
+  <p>Each regulator can specify a list of modifier instructions:</p>
+ 
+  <p>* <code>{Modifier, Local, Remote}</code> - <code>Modifier</code> can be any label used by the
+  samplers (see <a href="jobs_sampler.html" class="seealso">jobs_sampler</a>). <code>Local</code> and <code>Remote</code> indicate
+  increments in percent by which to reduce the limit of the given regulator.
+  The <code>Local</code> increment is used for feedback info pertaining to the local
+  node, and the <code>Remote</code> increment is used for remote indicators. <code>Local</code>
+  is given as a percentage value (e.g. <code>10</code> for <code>10 %</code>). The <code>Remote</code>
+  increment is either <code>{avg, Percent}</code> or <code>{max, Percent}</code>, indicating whether
+  to respond to the average load of other nodes or to the most loaded node.
+  The correction from <code>Local</code> and the correction from <code>Remote</code> are summed  
+before applying to the regulator limit.</p>
+ 
+  <p>* <code>{Modifier, Local}</code> - same as above, but responding only to local  
+indications, ignoring the load on remote nodes.</p>
+ 
+  <p>* <code>{Modifier, F::function((Local, Remote) -&gt; integer())}</code> - the function
+  <code>F(Local, Remote)</code> is applied and expected to return a correction value,  
+in percentage units.</p>
+ 
+  <p>* <code>{Modifier, {Module, Function}}</code> - <code>Module:Function(Local Remote)</code>  
+is applied an expected to return a correction value in percentage units.</p>
+ 
+  <p>For example, if a rate regulator has a limit of <code>100</code> and has a modifier,
+  <code>{cpu, 10}</code>, then a feedback message of <code>{cpu, 2, _Remote}</code> will reduce
+  the rate limit by <code>2*10</code> percent, i.e. down to <code>80</code>.</p>
+ 
+  <p>Note that modifiers are always applied to the <em>preset</em> limit,
+  not the current limit. Thus, the next round of feedback messages in our
+  example will be applied to the preset limit of <code>100</code>, not the <code>80</code> that
+  resulted from the previous feedback messages. A correction value of <code>0</code>  
+will reset the limit to the preset value.</p>
+ 
+  <p>If there are more than one modifier with the same name, the last one in the
+  list will be the one used.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="modify_queue/1">modify_queue(Name::any(), Options::[{Key, Value}]) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Modifies queue parameters of existing queue.</p>
+ 
+  <p>The queue parameters that can be modified are <code>max_size</code> and <code>max_time</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_queue/1">delete_queue(Name) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Deletes the named queue from the load regulator on the current node.
+  Returns <code>true</code> if there was in fact such a queue; <code>false</code> otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="ask_queue/2">ask_queue(QueueName, Request) -&gt; Reply</h3>
+
+
+<div class="description">
+
+<p>Sends a synchronous request to a specific queue.</p>
+ 
+  <p>This function is mainly intended to be used for back-end processes that act
+  as custom extensions to the load regulator itself. It should not be used by
+  regular clients. Sophisticated queue behaviours could export gen_server-like
+  logic allowing them to respond to synchronous calls, either for special
+  inspection, or for influencing the queue state.</p>
+</div></div>
+<div class="function">
+<h3 id="add_counter/2">add_counter(Name, Options) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds a named counter to the load regulator on the current node.
+  Fails if there already is a counter the name <code>Name</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_counter/1">delete_counter(Name) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Deletes a named counter from the load regulator on the current node.
+  Returns <code>true</code> if there was in fact such a counter; <code>false</code> otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="add_group_rate/2">add_group_rate(Name, Options) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds a group rate regulator to the load regulator on the current node.
+  Fails if there is already a group rate regulator of the same name.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_group_rate/1">delete_group_rate(Name) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/1">info(Item) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_info/1">queue_info(Name) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_info/2">queue_info(Name, Item) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="modify_regulator/4">modify_regulator(Type, QName, RegName, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="modify_counter/2">modify_counter(CName, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="modify_group_rate/2">modify_group_rate(GRName, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>: Ulf Wiger</aname>
+<email>ulf@wiger.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

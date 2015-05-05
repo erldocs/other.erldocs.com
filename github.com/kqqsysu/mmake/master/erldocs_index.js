@@ -1,0 +1,1 @@
+var index = [['app','mmake','mmake','[application]'],['mod','mmake','mmake',[]],['fun','mmake','mmake:all/1',[]],['fun','mmake','mmake:all/2',[]],['fun','mmake','mmake:files/2',[]],['fun','mmake','mmake:files/3',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','ets_mon','ets_mon','[application]'],['mod','ets_mon','ets_mon','.'],['fun','ets_mon','ets_mon:acquire_table/1','  Creates a table, if necessary, and returns it t'],['fun','ets_mon','ets_mon:start_link/1','  Starts the server.']];

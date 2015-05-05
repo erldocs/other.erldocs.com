@@ -1,0 +1,1 @@
+var index = [['app','errd','errd','[application]'],['mod','errd','errd',[]],['fun','errd','errd:create/1',' rrdtool create.'],['fun','errd','errd:dump/2',' rrdtool dump.'],['fun','errd','errd:dump_delayed/2',' Given a directory, apply dump on all files examp'],['fun','errd','errd:update/1',' rrdtool update.']];

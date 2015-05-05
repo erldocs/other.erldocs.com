@@ -1,0 +1,1 @@
+var index = [['app','getoptex','getoptex','[application]'],['mod','getoptex','getoptex',[]]];

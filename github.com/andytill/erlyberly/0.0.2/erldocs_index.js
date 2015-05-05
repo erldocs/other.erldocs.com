@@ -1,0 +1,1 @@
+var index = [['app','erlyberly','erlyberly','[application]'],['mod','erlyberly','erlyberly',[]],['fun','erlyberly','erlyberly:collect_trace_logs/0',[]],['fun','erlyberly','erlyberly:erlyberly_tcollector/0',[]],['fun','erlyberly','erlyberly:module_functions/0',[]],['fun','erlyberly','erlyberly:process_info/0',[]],['fun','erlyberly','erlyberly:start_trace/4',[]]];

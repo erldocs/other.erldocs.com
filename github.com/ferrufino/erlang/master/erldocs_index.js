@@ -1,0 +1,1 @@
+var index = [['app','erlang','erlang','[application]'],['mod','erlang','doble',[]],['mod','erlang','ej1',[]],['mod','erlang','math1',[]],['fun','erlang','doble:doble/1',[]],['fun','erlang','ej1:formula_general/3',[]],['fun','erlang','ej1:mapea/2',[]],['fun','erlang','ej1:secuencia/1',[]],['fun','erlang','math1:factorial/1',[]]];

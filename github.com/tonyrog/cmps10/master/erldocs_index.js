@@ -1,0 +1,1 @@
+var index = [['app','cmps10','cmps10','[application]'],['mod','cmps10','cmps10','      Interface for reading the registers.'],['fun','cmps10','cmps10:read/3',[]],['fun','cmps10','cmps10:version/1',[]],['fun','cmps10','cmps10:write/3',[]]];

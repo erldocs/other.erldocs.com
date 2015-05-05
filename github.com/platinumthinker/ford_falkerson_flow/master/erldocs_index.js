@@ -1,0 +1,1 @@
+var index = [['app','ford_falkerson_flow','ford_falkerson_flow','[application]'],['mod','ford_falkerson_flow','graph',[]],['fun','ford_falkerson_flow','graph:main/1',[]],['fun','ford_falkerson_flow','graph:read_config/1',[]]];

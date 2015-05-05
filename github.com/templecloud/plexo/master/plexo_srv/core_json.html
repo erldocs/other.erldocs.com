@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>core_json (plexo_srv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>core_json</h1>
+<h2 class="modsummary">   
+The core_json module provides centralised Erlang Term / JSON conversion   
+routines.</h2>
+<div class="description">
+<p>   
+The core_json module provides centralised Erlang Term / JSON conversion   
+routines.</p>
+  
+   <em><marker id="Notes">Notes</marker></em>
+  
+   <list>
+     <item>
+       The current implementation uses the
+       <a href="../https///github.com/talentdeficit/jsx.html" class="seealso">JSX</a> and
+       <a href="../https///github.com/talentdeficit/jsx.html" class="seealso">JSXN</a> and
+       libraries to perform the marshalling operations.
+     </item>
+   </list></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="to_json/1">to_json(Term::#{} | list()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>  
+Encode the specified 'Erlang term' into a JSON encoded binary. All 'string'  
+entities in the specified term must be binary encoded.</p>
+ 
+  <p><em><marker id="Example_Input_(Map_Term)">Example Input (Map Term)</marker></em>
+    </p><pre class="sh_erlang">    #{&lt;&lt;"app_nfo"&gt;&gt; =&gt; #{
+      &lt;&lt;"description"&gt;&gt; =&gt; &lt;&lt;"ERTS  CXC 138 10"&gt;&gt;,
+      &lt;&lt;"name"&gt;&gt; =&gt; &lt;&lt;"kernel"&gt;&gt;,
+      &lt;&lt;"version"&gt;&gt; =&gt; &lt;&lt;"3.0.1"&gt;&gt;
+      }
+    }</pre>
+ 
+  <p><em><marker id="Example_Output_(JSON_Binary)">Example Output (JSON Binary)</marker></em>
+    </p><pre class="sh_erlang">    &lt;&lt;"{
+      \"app_nfo\":{
+        \"description\":\"ERTS  CXC 138 10\",
+        \"name\":\"kernel\",
+        \"version\":\"3.0.1\"
+      }
+    }"&gt;&gt;</pre>
+</div></div>
+<div class="function">
+<h3 id="from_json/1">from_json(Json::binary()) -&gt; #{} | [#{}]</h3>
+
+
+<div class="description">
+
+<p>  
+Decode the specified JSON encoded binary into an 'Erlang term'. All 'string'  
+entities in the specified term will remain binary encoded.</p>
+ 
+  <p>NB: All keys must be of a string type and will be converted to atoms upon      
+conversion.</p>
+ 
+  <p><em><marker id="Example_Input_(JSON_Binary)">Example Input (JSON Binary)</marker></em>
+    </p><pre class="sh_erlang">    &lt;&lt;"{
+      \"app_nfo\":{
+        \"description\":\"ERTS  CXC 138 10\",
+        \"name\":\"kernel\",
+        \"version\":\"3.0.1\"
+      }
+    }"&gt;&gt;</pre>
+ 
+  <p><em><marker id="Example_Output_(Map_Term)">Example Output (Map Term)</marker></em>
+    </p><pre class="sh_erlang">    #{app_nfo =&gt; #{
+      description =&gt; &lt;&lt;"ERTS  CXC 138 10"&gt;&gt;,
+      name =&gt; &lt;&lt;"kernel"&gt;&gt;,
+      version =&gt; &lt;&lt;"3.0.1"&gt;&gt;
+      }
+    }</pre>
+</div></div></div>
+
+<authors>
+
+<aname>Temple</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

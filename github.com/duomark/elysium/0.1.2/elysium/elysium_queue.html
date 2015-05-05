@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>elysium_queue (elysium) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>elysium_queue</h1>
+<h2 class="modsummary">     
+Elysium_fsm is a gen_fsm that owns a FIFO queue of available     
+Cassandra hosts and a FIFO queue of pre-allocated Cassandra     
+sessions.</h2>
+<div class="description">
+<p>     
+Elysium_fsm is a gen_fsm that owns a FIFO queue of available     
+Cassandra hosts and a FIFO queue of pre-allocated Cassandra     
+sessions. This FSM is started before any of the Cassandra     
+connections so that the ets_buffer queues can be owned by     
+a process which is less volatile than the individual connections.     
+A containing application can crash a connection without disrupting     
+other connections, nor disrupting the smooth flow of connection     
+checkin / checkout.</p>
+  
+     <p>To further support fault tolerance and load balancing, the configuration     
+data identifies a list of Cassandra hosts to which live sessions     
+may be established. The list of hosts is kept in a queue so that     
+every attempt to connect or reconnect is a round-robin request against     
+a different host, skipping any that cannot successfully accept a new     
+connection request. Coupled with stochastic decay of existing connections     
+the active sessions will automatically adapt to the spontaneous     
+availability of Cassandra cluster client nodes for transactions.</p>
+  
+     There currently may only be one elysium_queue per application
+     because it is a registered name and there is only one worker
+     configuration. In future it is hoped that the registered
+     ets table name constraint will be removed so that multiple
+     independent Cassandra clusters may be used in a single
+     application, however, this may prove difficult to do without
+     introducing a serial bottleneck or highly contended ets table.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-config_type">config_type() = {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-max_sessions">max_sessions() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-session_queue_name">session_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Config::config_type()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Create an ets_buffer dedicated FIFO queue using the configured queue name.</p>
+</div></div>
+<div class="function">
+<h3 id="register_connection_supervisor/1">register_connection_supervisor(Connection_Sup::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Register the connection supervisor so that it can be manually controlled.</p>
+</div></div>
+<div class="function">
+<h3 id="activate/0">activate() -&gt; Max_Allowed::max_sessions()</h3>
+
+
+<div class="description">
+
+<p>Change to the active state, creating new Cassandra sessions.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/0">deactivate() -&gt; {Num_Terminated::max_sessions(), Max_Allowed::max_sessions()}</h3>
+
+
+<div class="description">
+
+<p>Change to the inactive state, deleting Cassandra sessions.</p>
+</div></div>
+<div class="function">
+<h3 id="idle_connections/1">idle_connections(Config::config_type()) -&gt; {session_queue_name(), Idle_Count, Max_Count}</h3>
+
+<ul class="type">
+<li><code>Idle_Count = max_sessions()</code></li><li><code>Max_Count = max_sessions()</code></li></ul>
+<div class="description">
+
+<p>Idle connections are those in the queue, not checked out.</p>
+</div></div>
+<div class="function">
+<h3 id="checkout/1">checkout(Config::config_type()) -&gt; pid() | none_available</h3>
+
+
+<div class="description">
+
+<p>    
+Allocate a seestar_session to the caller by popping an entry    
+from the front of the connection queue. This function either    
+returns a live pid(), or none_available to indicate that all    
+connections to Cassandra are currently checked out.</p>
+ 
+    <p>If there are internal delays on the ets_buffer FIFO queue,    
+this function will retry. If the session handed back is no    
+longer live, it is tossed and a new session is fetched. In    
+both cases, up to Config_Module:checkout_max_retry attempts    
+are tried before returning none_available.</p>
+ 
+    <p>If the queue is actually empty, no retries are performed.    
+It is left to the application in this case to decide when    
+and how often to retry.</p>
+ 
+    <p>The configuration parameter is not validated because this
+    function should be a hotspot and we don't want it to slow
+    down or become a concurrency bottleneck.</p>
+</div></div>
+<div class="function">
+<h3 id="checkin/1">checkin(Config::config_type(), Session_Id::pid()) -&gt; {boolean(), {session_queue_name(), Idle_Count, Max_Count}}</h3>
+
+<ul class="type">
+<li><code>Idle_Count = max_sessions() | buffer_error() (see module ets_buffer)</code></li><li><code>Max_Count = max_sessions() | buffer_error() (see module ets_buffer)</code></li></ul>
+<div class="description">
+
+<p>    
+Checkin a seestar_session by putting it at the end of the    
+available connection queue. Returns whether the checkin was    
+successful (it fails if the process is dead when checkin is    
+attempted), and how many connections are available after the    
+checkin.</p>
+ 
+    <p>Sessions have a fixed probability of failure on checkin.    
+The decay probability is a number of chances of dying per    
+1 Million checkin attempts. If the session is killed, it    
+will be replaced by the supervisor automatically spawning    
+a new worker and placing it at the end of the queue.</p>
+ 
+    <p>The configuration parameter is not validated because this
+    function should be a hotspot and we don't want it to slow
+    down or become a concurrency bottleneck.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jay Nelson</aname>
+<email>jay@duomark.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

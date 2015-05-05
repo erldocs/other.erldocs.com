@@ -1,0 +1,1 @@
+var index = [['app','erlang-otp-app-template','erlang-otp-app-template','[application]'],['mod','erlang-otp-app-template','abc_app',[]],['mod','erlang-otp-app-template','abc_sup',[]],['fun','erlang-otp-app-template','abc_sup:start_link/0','  Starts the supervisor.']];
