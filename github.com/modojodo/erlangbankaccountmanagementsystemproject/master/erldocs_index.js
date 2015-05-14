@@ -1,0 +1,1 @@
+var index = [['app','erlangbankaccountmanagementsystemproject','erlangbankaccountmanagementsystemproject','[application]'],['mod','erlangbankaccountmanagementsystemproject','accounts',[]],['mod','erlangbankaccountmanagementsystemproject','current',[]],['mod','erlangbankaccountmanagementsystemproject','savings',[]]];

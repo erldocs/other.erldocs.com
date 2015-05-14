@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_core_util (riak_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_core_util</h1>
+<h2 class="modsummary">Various functions that are useful throughout Riak.</h2>
+<div class="description">
+<p>Various functions that are useful throughout Riak.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-load_file_response">load_file_response() = {module, Module::atom()} | {error, term()}</h3></div>
+    <div class="type"><h3 id="type-purge_response">purge_response() = boolean()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="moment/0">moment() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get the current "moment".  Current implementation is the
+       number of seconds from year 0 to now, universal time, in
+       the gregorian calendar.</p>
+</div></div>
+<div class="function">
+<h3 id="compare_dates/1">compare_dates(A::string(), B::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Compare two RFC1123 date strings or two now() tuples (or one
+       of each).  Return true if date A is later than date B.</p>
+</div></div>
+<div class="function">
+<h3 id="make_tmp_dir/0">make_tmp_dir() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Create a unique directory in /tmp.  Returns the path
+       to the new directory.</p>
+</div></div>
+<div class="function">
+<h3 id="replace_file/1">replace_file(FN::string(), Data::iodata()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Atomically/safely (to some reasonable level of durablity)
+  replace file <code>FN</code> with <code>Data</code>. NOTE: since 2.0.3 semantic changed
+  slightly: If <code>FN</code> cannot be opened, will not error with a
+  <code>badmatch</code>, as before, but will instead return <code>{error, Reason}</code></p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_list/1">integer_to_list(Integer::integer(), Base::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Convert an integer to its string representation in the given
+       base.  Bases 2-62 are supported.</p>
+</div></div>
+<div class="function">
+<h3 id="sha/1">sha(Bin) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="md5/1">md5(Bin) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unique_id_62/0">unique_id_62() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Create a random identifying integer, returning its string
+       representation in base 62.</p>
+</div></div>
+<div class="function">
+<h3 id="reload_all/1">reload_all(Module::atom()) -&gt; [{purge_response(), load_file_response()}]</h3>
+
+
+<div class="description">
+
+<p>Ask each member node of the riak ring to reload the given
+       Module.  Return is a list of the results of code:purge/1
+       and code:load_file/1 on each node.</p>
+</div></div>
+<div class="function">
+<h3 id="mkclientid/1">mkclientid(RemoteNode::term()) -&gt; ClientID::list()</h3>
+
+
+<div class="description">
+
+<p>Create a unique-enough id for vclock clients.</p>
+</div></div>
+<div class="function">
+<h3 id="chash_key/1">chash_key(BKey::bkey() (see module riak_object)) -&gt; index() (see module chash)</h3>
+
+
+<div class="description">
+
+<p>Create a binary used for determining replica placement.</p>
+</div></div>
+<div class="function">
+<h3 id="chash_key/1-1">chash_key(BKey::bkey() (see module riak_object), BucketProps::[{atom(), any()}]) -&gt; index() (see module chash)</h3>
+
+
+<div class="description">
+
+<p>Create a binary used for determining replica placement.</p>
+</div></div>
+<div class="function">
+<h3 id="chash_std_keyfun/1">chash_std_keyfun(BKey::bkey() (see module riak_object)) -&gt; index() (see module chash)</h3>
+
+
+<div class="description">
+
+<p>Default object/ring hashing fun, direct passthrough of bkey.</p>
+</div></div>
+<div class="function">
+<h3 id="chash_bucketonly_keyfun/1">chash_bucketonly_keyfun(BKey::bkey() (see module riak_object)) -&gt; index() (see module chash)</h3>
+
+
+<div class="description">
+
+<p>Object/ring hashing fun that ignores Key, only uses Bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="str_to_node/1">str_to_node(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_app_deps/1">start_app_deps(App::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Start depedent applications of App.</p>
+</div></div>
+<div class="function">
+<h3 id="pmap/2">pmap(F, L1) -&gt; L2</h3>
+
+<ul class="type">
+<li><code>F = (A) -&gt; B</code></li><li><code>L1 = [A]</code></li><li><code>L2 = [B]</code></li></ul>
+<div class="description">
+
+<p>Invoke function <code>F</code> over each element of list <code>L</code> in parallel,
+       returning the results in the same order as the input list.</p>
+</div></div>
+<div class="function">
+<h3 id="pmap/1">pmap(Fun::function(), List::list(), MaxP::integer()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Parallel map with a cap on the number of concurrent worker processes.
+  Note: Worker processes are linked to the parent, so a crash propagates.</p>
+</div></div>
+<div class="function">
+<h3 id="safe_rpc/1">safe_rpc(Node::node(), Module::atom(), Function::atom(), Args::[any()]) -&gt; {badrpc, any()} | any()</h3>
+
+
+<div class="description">
+
+<p>Wraps an rpc:call/4 in a try/catch to handle the case where the
+       'rex' process is not running on the remote node. This is safe in
+       the sense that it won't crash the calling process if the rex
+       process is down.</p>
+</div></div>
+<div class="function">
+<h3 id="safe_rpc/1-1">safe_rpc(Node::node(), Module::atom(), Function::atom(), Args::[any()], Timeout::timeout()) -&gt; {badrpc, any()} | any()</h3>
+
+
+<div class="description">
+
+<p>Wraps an rpc:call/5 in a try/catch to handle the case where the
+       'rex' process is not running on the remote node. This is safe in
+       the sense that it won't crash the calling process if the rex
+       process is down.</p>
+</div></div>
+<div class="function">
+<h3 id="rpc_every_member/1">rpc_every_member(Module::atom(), Function::atom(), Args::[term()], Timeout::integer() | infinity) -&gt; {Results::[term()], BadNodes::[node()]}</h3>
+
+
+<div class="description">
+
+<p>Make an RPC call to the given module and function on each
+       member of the cluster.  See rpc:multicall/5 for a description
+       of the return value.</p>
+</div></div>
+<div class="function">
+<h3 id="rpc_every_member_ann/4">rpc_every_member_ann(Module, Function, Args, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Same as rpc_every_member/4, but annotate the result set with
+       the name of the node returning the result.</p>
+</div></div>
+<div class="function">
+<h3 id="multi_rpc/1">multi_rpc(Nodes::[node()], Mod::module(), Fun::atom(), Args::[any()]) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>Perform an RPC call to a list of nodes in parallel, returning the
+       results in the same order as the input list.</p>
+</div></div>
+<div class="function">
+<h3 id="multi_rpc/1-1">multi_rpc(Nodes::[node()], Mod::module(), Fun::atom(), Args::[any()], Timeout::timeout()) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>Perform an RPC call to a list of nodes in parallel, returning the
+       results in the same order as the input list.</p>
+</div></div>
+<div class="function">
+<h3 id="multi_rpc_ann/1">multi_rpc_ann(Nodes::[node()], Mod::module(), Fun::atom(), Args::[any()]) -&gt; [{node(), any()}]</h3>
+
+
+<div class="description">
+
+<p>Perform an RPC call to a list of nodes in parallel, returning the
+       results in the same order as the input list. Each result is tagged
+       with the corresponding node name.</p>
+</div></div>
+<div class="function">
+<h3 id="multi_rpc_ann/1-1">multi_rpc_ann(Nodes::[node()], Mod::module(), Fun::atom(), Args::[any()], Timeout::timeout()) -&gt; [{node(), any()}]</h3>
+
+
+<div class="description">
+
+<p>Perform an RPC call to a list of nodes in parallel, returning the
+       results in the same order as the input list. Each result is tagged
+       with the corresponding node name.</p>
+</div></div>
+<div class="function">
+<h3 id="multicall_ann/1">multicall_ann(Nodes::[node()], Mod::module(), Fun::atom(), Args::[any()]) -&gt; {Results::[{node(), any()}], Down::[node()]}</h3>
+
+
+<div class="description">
+
+<p>Similar to <a href="rpc.html#multicall/4" class="seealso">rpc:multicall/4</a>. Performs an RPC call to a list
+       of nodes in parallel, returning a list of results as well as a list
+       of nodes that are down/unreachable. The results will be returned in
+       the same order as the input list, and each result is tagged with the
+       corresponding node name.</p>
+</div></div>
+<div class="function">
+<h3 id="multicall_ann/1-1">multicall_ann(Nodes::[node()], Mod::module(), Fun::atom(), Args::[any()], Timeout::timeout()) -&gt; {Results::[{node(), any()}], Down::[node()]}</h3>
+
+
+<div class="description">
+
+<p>Similar to <a href="rpc.html#multicall/6" class="seealso">rpc:multicall/6</a>. Performs an RPC call to a list
+       of nodes in parallel, returning a list of results as well as a list
+       of nodes that are down/unreachable. The results will be returned in
+       the same order as the input list, and each result is tagged with the
+       corresponding node name.</p>
+</div></div>
+<div class="function">
+<h3 id="build_tree/1">build_tree(N::integer(), Nodes::[term()], Opts::[term()]) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Convert a list of elements into an N-ary tree. This conversion
+       works by treating the list as an array-based tree where, for
+       example in a binary 2-ary tree, a node at index i has children
+       2i and 2i+1. The conversion also supports a "cycles" mode where
+       the array is logically wrapped around to ensure leaf nodes also
+       have children by giving them backedges to other elements.</p>
+</div></div>
+<div class="function">
+<h3 id="orddict_delta/2">orddict_delta(A, B) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="shuffle/1">shuffle(L) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_arch/1">is_arch(Arch::atom()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="format_ip_and_port/2">format_ip_and_port(Ip, Port) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="peername/2">peername(Socket, Transport) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sockname/2">sockname(Socket, Transport) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_fold_req/1">make_fold_req(Riak_core_fold_req_v1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert a #riak_core_fold_req_v? record to the cluster's maximum
+       supported record version.</p>
+</div></div>
+<div class="function">
+<h3 id="make_fold_req/2">make_fold_req(FoldFun, Acc0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_fold_req/4">make_fold_req(FoldFun, Acc0, Forwardable, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_newest_fold_req/1">make_newest_fold_req(Riak_core_fold_req_v1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Force a #riak_core_fold_req_v? record to the latest version,
+       regardless of cluster support</p>
+</div></div>
+<div class="function">
+<h3 id="proxy_spawn/1">proxy_spawn(Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spawn an intermediate proxy process to handle errors during gen_xxx
+       calls.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

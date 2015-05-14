@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eg_pdf_lib (ngerlguten) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eg_pdf_lib</h1>
+<h2 class="modsummary">ErlGuten PDF library routines.</h2>
+<div class="description">
+<p>ErlGuten PDF library routines</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-pdfobject">pdfobject() = {objkey(), pdftype()}</h3></div>
+    <div class="type"><h3 id="type-pdfobjects">pdfobjects() = [pdfobject()]</h3></div>
+    <div class="type"><h3 id="type-pdftype">pdftype() = dict() | stream() | ptr() | name() | array() | pdfstring() | boolean() | date() | number() | null()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="search_object/2">search_object(Ref::Key, Objects::pdfobjects()) -&gt; {value, Object} | false</h3>
+
+<ul class="type">
+<li><code>Key = objkey() | ptr() | integer()</code></li><li><code>Object = pdfobject()</code></li></ul>
+<div class="description">
+
+<p>Find PDFItem related object reference.
+  All pdftypes are <code>{Key, Value}</code> tuples where the Key indicates
+  the type.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_object/1">delete_object(Key::objkey(), Objects::pdfobjects()) -&gt; pdfobjects()</h3>
+
+<ul class="type">
+<li><code>Key = objkey() | ptr() | integer()</code></li></ul>
+<div class="description">
+
+<p>deletes a PDF object</p>
+</div></div>
+<div class="function">
+<h3 id="store_object/2">store_object(Object::Objects, Objects1::pdfobjects()) -&gt; pdfobjects()</h3>
+
+<ul class="type">
+<li><code>Objects = Object | [Object]</code></li><li><code>Object = pdfobject()</code></li></ul>
+<div class="description">
+
+<p>Returns a copy of Objects1 with Objects added or, if the object's
+  reference already is present, replacing the old object.</p>
+</div></div>
+<div class="function">
+<h3 id="add_object/1">add_object(PDFItem::pdftype(), Objects::pdfobjects()) -&gt; {Ref, NewObjects}</h3>
+
+<ul class="type">
+<li><code>Ref = integer()</code></li><li><code>NewObjects = pdfobjects()</code></li></ul>
+<div class="description">
+
+<p>Makes a new object from PDFItem, and adds it to Objects .
+  Returns the Reference number for the added object and the new Object list</p>
+</div></div>
+<div class="function">
+<h3 id="pdf_item/1">pdf_item(Key::objkey(), Objects::pdfobjects()) -&gt; pdftype()</h3>
+
+
+<div class="description">
+
+<p>Returns the PDFItem for the Object corresponding to Key.
+  If no object is found and exception is generated.</p>
+</div></div>
+<div class="function">
+<h3 id="pdf_item/1-1">pdf_item(Object::pdfobject()) -&gt; pdftype()</h3>
+
+
+<div class="description">
+
+<p>Returns the PDFItem for the Object.</p>
+</div></div>
+<div class="function">
+<h3 id="find_in_dict/1">find_in_dict(Key::string(), Dict::dict()) -&gt; pdftype() | undefined</h3>
+
+
+<div class="description">
+
+<p>Finds a item in a PDF dictionary with Key</p>
+</div></div>
+<div class="function">
+<h3 id="store_in_dict/3">store_in_dict(A::{Key, Value}, Dict::dict()) -&gt; dict()</h3>
+
+<ul class="type">
+<li><code>Key = string()</code></li><li><code>Value = pdftype()</code></li></ul>
+<div class="description">
+
+<p>Stores a new item in a PDF dictionary, replacing the old
+  one if it exists.</p>
+</div></div>
+<div class="function">
+<h3 id="get_ref/1">get_ref(Object::pdfobject()) -&gt; Ref</h3>
+
+<ul class="type">
+<li><code>Ref = integer()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_next_ref/1">get_next_ref(Objects::pdfobjects()) -&gt; Ref</h3>
+
+<ul class="type">
+<li><code>Ref = integer()</code></li></ul>
+<div class="description">
+
+<p>returns next available Reference count</p>
+</div></div>
+<div class="function">
+<h3 id="make_object/1">make_object(Ref::integer(), PDFItem::pdftype()) -&gt; pdfobject()</h3>
+
+
+<div class="description">
+
+<p>Returns a PDF Object with Reference number Ref and PDFItem</p>
+</div></div>
+<div class="function">
+<h3 id="make_object_key/1">make_object_key(Ref::integer()) -&gt; objkey()</h3>
+
+
+<div class="description">
+
+<p>Returns an Object Key with Reference number Ref</p>
+</div></div>
+<div class="function">
+<h3 id="serialise2bin/1">serialise2bin(L::Objects) -&gt; binary()</h3>
+
+<ul class="type">
+<li><code>Objects = pdfobject() | [pdfobject()]</code></li></ul>
+<div class="description">
+
+<p>Returns a serialised object as a binary</p>
+</div></div>
+<div class="function">
+<h3 id="serialise/1">serialise(Object::pdfobject()) -&gt; deeplist()</h3>
+
+<ul class="type">
+<li><code>deeplist() | string()</code></li></ul>
+<div class="description">
+
+<p>Returns a serialised object as a deep list of strings</p>
+ 
+  <p>For example,
+  </p><pre class="sh_erlang">
+ 
+  {obj,1, 0,
+   {stream,
+     {dict,
+       {"Type",{name,"XObject"}},
+       {"Subtype",{name,"Image"}},
+       {"Width", 997},
+       {"Height", 744},
+       {"Filter",{name,"FlateDecode"},
+       {"DecodeParms", {dict,[{"Predictor", 15},
+                       {"Colors", 3},
+                       {"BitsPerComponent", 8},
+                       {"Columns", 997}]}},
+       {"ColorSpace",{name,"DeviceRGB}},
+                       {"BitsPerComponent", 8},
+                       {"Columns", 997}}
+  }}}</pre>
+ 
+  <p><em>becomes</em></p>
+ 
+  <pre class="sh_erlang">
+  1 0 obj
+  &lt;&lt;
+  /Type  /XObject
+  /Subtype  /Image
+  /Width  997
+  /Height  744
+  /Filter  /FlateDecode
+  /DecodeParms &lt;&lt;
+  /Predictor  15
+  /Colors  3
+  /BitsPerComponent  8
+  /Columns  997
+  &gt;&gt;
+  /ColorSpace  /DeviceRGB
+  /BitsPerComponent  8
+  /Length  1412674
+  &gt;&gt;
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="pdf_object_dict_item/1">pdf_object_dict_item(Key::string(), Object::pdfobject()) -&gt; ObjectType</h3>
+
+<ul class="type">
+<li><code>ObjectType = pdftype() | undefined | not_dict</code></li></ul>
+<div class="description">
+
+<p>Returns the value corresponding to Key from a PDF Objects dictionary.
+  ("Pages", "Page", "Font", etc).
+  If the Key is missing undefined is returned
+  If the Object is not a dictionary not_dict is returned</p>
+</div></div>
+<div class="function">
+<h3 id="is_pdf_object_type/1">is_pdf_object_type(Type::string(), Object::pdfobject()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Returns true if the object has the type name Type, otherwise false.
+  PDF object types are ("Pages", "Page", "Font", etc).</p>
+</div></div>
+<div class="function">
+<h3 id="get_objects_of_type/1">get_objects_of_type(Type::string(), Objects::pdfobjects()) -&gt; pdfobjects()</h3>
+
+
+<div class="description">
+
+<p>Returns a list of objects with dictionary key "Type" = Type
+  PDF object types are ("Pages", "Page", "Font", etc).</p>
+</div></div>
+<div class="function">
+<h3 id="export/1">export(InfoRef::integer(), Objects::pdfobjects()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Make a pdf document ready for export to
+  file or any other media (network etc.).</p>
+</div></div>
+<div class="function">
+<h3 id="showGrid/2">showGrid(PDF, Paper) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="moveAndShow/4">moveAndShow(PDF, X, Y, Str) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="moveAndShowRot/5">moveAndShowRot(PDF, X, Y, Str, Rot) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="moveAndShow/5">moveAndShow(PDF, X, Y, Str, Scale) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="moveAndShowRight/5">moveAndShowRight(PDF, X2, X, Y, Str) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="draw_box/6">draw_box(PDF, X, Y, Measure, Lines, MaxRows) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code128/1">code128(String0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

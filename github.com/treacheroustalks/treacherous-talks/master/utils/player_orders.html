@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>player_orders (utils) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>player_orders</h1>
+<h2 class="modsummary">player_orders.</h2>
+<div class="description">
+<p>player_orders</p>
+  
+   A module for recognizing play move orders in email body
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse_orders/1">parse_orders(EmailBody) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>parse player's orders to a list of order terms.   
+Return {ok, {OrderList, ErrorList}}</p>
+ 
+   <p>Example:   
+Input:  "F boh -&gt; nwy         \n            
+A vie H              \n            
+A mun S A bor -&gt; swe "</p>
+ 
+   <p>Output: {ok, {[#move{...},                  
+#hold{...},                  
+#support_move{...}],                 
+[{error, ...},                  
+{error, ...}]}}</p>
+ 
+   <p>Valid Order Example: (case insensitive)</p>
+ 
+  <p>----the following unit types are equivalent----------------      
+A = Army      
+F = Fleet      
+A Lon-&gt;Nrg = Army Lon-&gt;Nrg</p>
+ 
+  <p>----the following move orders are equivalent----------------      
+A Lon-&gt;Nrg      
+A Lon-Nrg      
+A Lon m Nrg      
+A Lon move Nrg</p>
+ 
+  <p>---the following convoy orders are equivalent-----------------      
+F Nth C A Lon-Nrg      
+F Nth Convoy A Lon-Nrg</p>
+ 
+  <p>---the following hold orders are equivalent-----------------      
+A Bre H      
+A Bre Hold</p>
+ 
+  <p>---the following support orders are equivalent-----------------      
+F Fin S Bre      
+F Fin Support Bre</p>
+ 
+  <p>---the following remove orders are equivalent-----------------      
+Disband A mun      
+D A mun</p>
+ 
+  <p>---the following build orders are equivalent-----------------
+      Build A mun
+      B A mun
+ </p>
+</div></div>
+<div class="function">
+<h3 id="interpret_str_orders/1">interpret_str_orders(MailLines) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>interpret each mail line to erlang terms   
+Example:   
+Input :["F boh -&gt; nwy         \r",           
+"A vie H              ",           
+"A mun S A bor -&gt; swe "]</p>
+ 
+   <p>Output: [#move{...},
+            #hold{...},
+            #support_move{...}]</p>
+</div></div>
+<div class="function">
+<h3 id="interpret_order_line/1">interpret_order_line(OrderLine) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>interpret a single player order string line to erlang terms   
+Example:   
+Input :"F boh -&gt; nwy         \r"</p>
+ 
+   <p>Output: #move{subj_unit=fleet, subj_loc=boh, subj_dst=nwy}</p>
+</div></div>
+<div class="function">
+<h3 id="translate_location/1">translate_location(Loc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="translate_abbv_to_fullname_atom/1">translate_abbv_to_fullname_atom(Key) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','gentpass_yawssite','gentpass_yawssite','[application]'],['mod','gentpass_yawssite','test','.'],['fun','gentpass_yawssite','test:test/1',[]]];

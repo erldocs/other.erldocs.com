@@ -1,0 +1,1 @@
+var index = [['app','longuerl','longuerl','[application]'],['mod','longuerl','longuerl',[]],['fun','longuerl','longuerl:expand_url/1',[]]];

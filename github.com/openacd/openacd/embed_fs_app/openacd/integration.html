@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>integration (openacd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>integration</h1>
+<h2 class="modsummary">Helper module to facilitate speaking to an integration gen_server.</h2>
+<div class="description">
+<p>Helper module to facilitate speaking to an integration gen_server.  The
+  integration server is assumed to have already been started with the name of
+  <code>integration</code>.  If it has not, the functions will return
+  <code>{error, nointegration}</code>.</p>
+ 
+  <p>This tries to enforce valid returns from the integration server.  If it
+  detects an invalid reply, it will throw an exection with a tuple; the first
+  element being <code>badreturn</code>.</p>
+ 
+  <p>A module attempting to act as an integration point MUST respond properly
+  to handle_call, otherwise it might as well not event run.
+  </p>
+ 	
+  		<em>Message</em>
+ 		<em>Reply</em>
+ 	<br />
+  	
+ 		<code>{agent_exists, LoginName :: string()}</code>
+ 		<code>true | false</code>
+ 	<br />
+ 	
+ 		<code>{agent_auth, LoginName :: string(), PlainPassword :: string(), Extended :: [any()]}</code>
+ 		<code>deny | destroy | {ok, Id :: string(), Profile :: string(), agent | admin | supervisor, Extended :: [any()]}</code>
+ 	<br />
+ 	
+  		<code>{client_exists, id, Id :: string()}</code>
+ 		<code>true | false</code>
+ 	<br />
+ 	
+ 		<code>{client_exists, label, Label :: string()}</code>
+ 		<code>true | false</code>
+ 	<br />
+ 	
+ 		<code>{get_client, id, Id :: string()}</code>
+ 		<code>none | {ok, Id :: string(), Label :: string(), Options :: [any()]}</code>
+ 	<br />
+ 	
+ 		<code>{get_client, label, Label :: string()}</code>
+ 		<code>none | {ok, Id :: string(), Label :: string(), Options :: [any()]}</code>
+ 	<br />
+ 	
+ 		<code>{get_queue, Queue :: string()}</code>
+ 		<code>none | {ok, Name :: string(), Weight :: non_neg_integer(), Skills :: [skill()], HoldMusic :: string() | undefined, Group :: string()}</code>
+ 	<br />
+ 	
+ 		<code>{get_queue_group, QueueGroup :: string()}</code>
+ 		<code>none | {ok, Name :: string(), Recipe :: recipe(), Skills :: [skill()], Sort :: non_neg_integer(), Protected :: boolean()}</code>
+ 	<br />
+ 	
+ 		<code>{get_skill, Skill :: atom()}</code>
+ 		<code>none | {ok, SkillAtom :: atom(), Name :: string(), Protected :: boolean(), Desc :: string(), Group :: string()}</code>
+ 	<br />
+ 	
+ 		<code>{get_profile, Name :: string()}</code>
+ 		<code>none | {ok, Name :: string(), Id :: string(), Order :: non_neg_integer(), Skills :: [skill()]}</code>
+ 	<br />
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-client_id">client_id() = string()</h3></div>
+    <div class="type"><h3 id="type-client_key">client_key() = label | id</h3></div>
+    <div class="type"><h3 id="type-client_option">client_option() = <a href="#type-url_option" class="seealso">url_option()</a></h3></div>
+    <div class="type"><h3 id="type-client_options">client_options() = [<a href="#type-client_option" class="seealso">client_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-label">label() = string()</h3></div>
+    <div class="type"><h3 id="type-profile">profile() = string()</h3></div>
+    <div class="type"><h3 id="type-profile_data">profile_data() = {<a href="#type-profile" class="seealso">profile()</a>, <a href="#type-skill_list" class="seealso">skill_list()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-profile" class="seealso">profile()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-skill_list" class="seealso">skill_list()</a></h3></div>
+    <div class="type"><h3 id="type-recipe">recipe() = [<a href="#type-recipe_step" class="seealso">recipe_step()</a>]</h3></div>
+    <div class="type"><h3 id="type-recipe_comment">recipe_comment() = binary()</h3></div>
+    <div class="type"><h3 id="type-recipe_comparison">recipe_comparison() = '&lt;' | '&gt;' | '='</h3></div>
+    <div class="type"><h3 id="type-recipe_condition">recipe_condition() = {ticks, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {eligible_agents,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {available_agents,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {queue_position,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {calls_queued,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-recipe_operation">recipe_operation() = {add_skills, [atom(), ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove_skills, [atom(), ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {set_priority, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {prioritize, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {deprioritize, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {voicemail, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {announce, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {add_recipe, tuple()}</h3></div>
+    <div class="type"><h3 id="type-recipe_runs">recipe_runs() = run_once | run_many</h3></div>
+    <div class="type"><h3 id="type-recipe_step">recipe_step() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{[<a href="#type-recipe_condition" class="seealso">recipe_condition()</a>, ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-recipe_operation" class="seealso">recipe_operation()</a>, ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_runs" class="seealso">recipe_runs()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comment" class="seealso">recipe_comment()</a>}</h3></div>
+    <div class="type"><h3 id="type-security">security() = admin | agent | supervisor</h3></div>
+    <div class="type"><h3 id="type-skill">skill() = atom() | {atom(), any()}</h3></div>
+    <div class="type"><h3 id="type-skill_list">skill_list() = [<a href="#type-skill" class="seealso">skill()</a>]</h3></div>
+    <div class="type"><h3 id="type-url_option">url_option() = {url_pop, string()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="agent_exists/1">agent_exists(Agent::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if an agent with the loging <code>Agent</code> exists, <code>false</code>
+  otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="agent_auth/1">agent_auth(Agent::string(), Password::string(), Extended::[{atom(), any()}]) -&gt; {ok, string(), profile_data(), security(), [{atom(), any()}]} | deny | destroy | {error, nointegration}</h3>
+
+
+<div class="description">
+
+<p>Attempts to authenticate <code>Agent</code> with plaintext password <code>Password</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="client_exists/1">client_exists(Label::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Same as <code>client_exists(label, Label)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="client_exists/1-1">client_exists(Key::client_key(), Value::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p><code>true</code> or <code>false</code> based on the existance of a client who's <code>Key</code> is <code>Value</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_client/1">get_client(Key::client_key(), Value::string()) -&gt; none | {ok, client_id(), label(), client_options()} | {error, nointegration}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a client who's unique Attribute (label or comboid) is Value.</p>
+</div></div>
+<div class="function">
+<h3 id="get_queue/1">get_queue(Name::string()) -&gt; none | {ok, string(), non_neg_integer(), [atom()], recipe() | undefined, string()} | {error, nointegration}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a queue by name</p>
+</div></div>
+<div class="function">
+<h3 id="get_queue_group/1">get_queue_group(Name::string()) -&gt; none | {ok, string(), recipe(), [atom()], boolean()} | {error, nointegration}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a queue by name</p>
+</div></div>
+<div class="function">
+<h3 id="get_skill/1">get_skill(Atom::atom()) -&gt; none | {ok, atom(), string(), boolean(), string(), string()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a skill</p>
+</div></div>
+<div class="function">
+<h3 id="get_profile/1">get_profile(Profile) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Retrieve a profile (agent group)</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

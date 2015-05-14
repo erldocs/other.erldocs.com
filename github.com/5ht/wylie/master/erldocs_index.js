@@ -1,1 +1,1 @@
-var index = [['app','wylie','wylie','[application]'],['mod','wylie','wylie',[]]];
+var index = [['app','wylie','wylie','[application]'],['mod','wylie','wylie',[]],['mod','wylie','wylie_routes',[]],['fun','wylie','wylie_routes:finish/2',[]],['fun','wylie','wylie_routes:init/2',[]]];

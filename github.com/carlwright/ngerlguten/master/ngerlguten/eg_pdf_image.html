@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eg_pdf_image (ngerlguten) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eg_pdf_image</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="mk_images/4">mk_images(T::Images, I::Count, Is::[], Os::[]) -&gt; {Free, XObjects, O0s}</h3>
+
+
+<div class="description">
+
+<p>mk_images takes a list of images and turns them into PDF XObjects
+  to go into the PDF document.</p>
+</div></div>
+<div class="function">
+<h3 id="get_head_info/1">get_head_info(File::Filepath) -&gt; {jpeg_head, {Width, Height, Number_of_components, Precision}}</h3>
+
+<ul class="type">
+<li><code>Filepath = string()</code></li><li><code>Width = integer()</code></li><li><code>Height = integer()</code></li><li><code>Number_of_components = integer()</code></li><li><code>Precision = integer()</code></li></ul>
+<div class="description">
+
+<p>When called with a file path string, this returns a tuple of info
+  on the jpeg at the file path location. The tuple is like the following <br />
+  { jpeg_head, { Width(pixels), Height(pixels),
+  Number_of_color_components(1, 3, 4), Data_precision(bits size)}} </p>
+</div></div>
+<div class="function">
+<h3 id="process_header/1">process_header(Any::Jpeg) -&gt; {jpeg_head, {Width, Height, Number_of_components, Precision}}</h3>
+
+<ul class="type">
+<li><code>Jpeg = binary()</code></li><li><code>Width = integer()</code></li><li><code>Height = integer()</code></li><li><code>Number_of_components = integer()</code></li><li><code>Precision = integer()</code></li></ul>
+<div class="description">
+
+<p>It can also follow the following pattern:</p>
+ 
+   <p>process_header(image content) -&gt;{png_head,{Width, Height, Color_type, Data_precision}},                     
+{params, Compression, Filter_method, Interface_method},                     
+Palette, Image, Alpha_channel].</p>
+ 
+  <p>Same as get_head_info except it is called with a binary that holds the
+  content of a JPG file. This returns a tuple of info
+  on the jpeg. The tuple is like the following <br />
+  { jpeg_head, { Width(pixels), Height(pixels),
+  Number_of_color_components(1, 3, 4), Data_precision(bits size)}} </p>
+</div></div>
+<div class="function">
+<h3 id="get_png_content/1">get_png_content(File) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>opens the PNG file indicated by the calling parameter and returns a
+  tuple like [Params, MoreParams, Palette, Image2 , Alpha_channel]. This has the
+  Parameters that descibe the image and the content of the image as appropriate
+  for the type of PNG. Palette has the color palatte for indexed color images.
+  Image2 has the image pixels. Alpha_channel has the transparaency overlay to control
+  the display of the Image2 pixels.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="inflate_stream/1">inflate_stream(Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Decompress a bit stream using the zlib/deflate algorithm
+ </p>
+</div></div>
+<div class="function">
+<h3 id="deflate_stream/1">deflate_stream(Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Compress a bit stream using the zlib/deflate algorithm
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

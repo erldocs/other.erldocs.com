@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_yessir_backend (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_yessir_backend</h1>
+<h2 class="modsummary">riak_kv_yessir_backend is a backend for benchmarking Riak without       
+any disk I/O or RAM constraints.</h2>
+<div class="description">
+<p>riak_kv_yessir_backend is a backend for benchmarking Riak without       
+any disk I/O or RAM constraints.</p>
+ 
+  <p>Riak: "Store this key/value pair."  
+Backend: "Yes, sir!"  
+Riak: "Get me that key/value pair."  
+Backend: "Yes, sir!"</p>
+ 
+  <p>This backend uses zero disk resources and uses constant memory.</p>
+ 
+  <p>* All put requests are immediately acknowledged 'ok'.  No
+    data about the put request is stored.
+  * All get requests are fulfilled by creating a constant binary for
+    the value.  No attempt is made to correlate get keys with
+    previously-put keys or to correlate get values with previously-put
+    values.
+    - Get operation keys that are formatted in with the convention
+      <code>&lt;&lt;"yessir.{integer}.anything"&gt;&gt;</code> will use integer (interpreted in      
+base 10) as the returned binary's Size.</p>
+ 
+  <p>fold_keys and fold_objects are implemented for both sync and async.  
+Each will return the same deterministic set of results for every call,  
+given the same set of configuration parameters. The size of the object  
+folded over is controlled by the "default_size" config var. The number  
+of keys folded over is controlled by the "key_count" config var. Folding  
+over the keys and objects will each return the same set of keys, so if  
+you fold over the keys and collect the list; and then you fold over the  
+objects and collect the list of keys again, the two lists will match.</p>
+ 
+  <p>This backend is the Riak storage manager equivalent of:</p>
+ 
+  <list>
+  <item><p><code>cat &gt; /dev/null</code></p></item>
+  <item><p><code>cat &lt; /dev/zero</code></p></item>
+  </list>
+ 
+  <p><em><marker id="Configuration_Options">Configuration Options</marker></em></p>
+ 
+  <p>The following configuration options are available for the yessir backend.
+  The options should be specified in the <code>riak_kv</code> section of your  
+app.config file.</p>
+ 
+  <list>
+  <item><p><code>yessir_return_same_r_obj</code> - Fastest and dumbest mode.  Return
+                                   exactly the same object, regardless of
+                                   the BKey asked for.  The returned object's
+                                   BKey is constant, so any part of Riak that
+                                   cares about matching/valid BKey inside of
+                                   the object will be confused and/or break.</p></item>
+  <item><p><code>yessir_aae_mode_encoding</code> - Specify which mode of behavior to
+                                   use when interacting with Riak KV's
+                                   anti-entropy mode for put and put_object
+                                   calls.
+    </p><list>
+    <item><p><code>constant_binary</code> - The default mode: lie to AAE by returning
+                            a constant binary, <code>&lt;&lt;&gt;&gt;</code>. This will cause
+                            AAE to maintain a tiny tree of order-size(1).
+                            This is the fastest mode but also causes the
+                            least amount of AAE work and thus may or may
+                            not meet all users' needs. </p></item>
+    <item><p><code>bkey</code> - Return term_to_binary({Bucket, Key}), which will
+                       cause AAE's tree to churn with order-size(NumKeys)
+                       but will be much smaller than the entire serialized
+                       #r_object{}, so AAE will spend less CPU time during
+                       its processing. </p></item>
+    <item><p><code>r_object</code> - Serialize the entire #r_object{}, like Riak KV
+                           does in normal operation.  This mode has the
+                           highest overhead per operation. </p></item>
+    </list></item>
+  <item><p><code>yessir_default_size</code> - The number of bytes of generated data for the value.</p></item>
+  <item><p><code>yessir_key_count</code>    - The number of keys that will be folded over, e.g. list_keys().</p></item>
+  <item><p><code>yessir_bucket_prefix_list</code>  - A list {BucketPrefixBin, {Module, Fun}}
+                               tuples, where Module:Fun/3 is called if a
+                               Bucket's name matches BucketPrefixBin.</p></item>
+  </list>
+ 
+  <p>TODO list:</p>
+ 
+  <p>* Add configuration option for random percent of not_found replies for get
+    - Anything non-zero would trigger read-repair, which could be useful
+      for some simulations.
+  * Is there a need for simulations for get to return different vclocks?
+  * Add variable latency before responding.  This callback API is
+    synchronous, but adding constant- and uniform- and pareto-distributed
+    delays would simulate disk <code>I/O</code> latencies because all other backend
+    APIs are also synchronous.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-config">config() = [{atom(), term()}]</h3></div>
+    <div class="type"><h3 id="type-index_spec">index_spec() = {add, Index, SecondaryKey}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove, Index, SecondaryKey}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{aae_mode = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constant_r_object = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;same_r_object = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;same_r_object_bin = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_get = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default_size = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_count = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bprefix_list = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op_get = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op_put = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op_delete = any()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="api_version/0">api_version() -&gt; {ok, integer()}</h3>
+
+
+<div class="description">
+
+<p>Return the major version of the
+  current API.</p>
+</div></div>
+<div class="function">
+<h3 id="capabilities/1">capabilities(X1::state()) -&gt; {ok, [atom()]}</h3>
+
+
+<div class="description">
+
+<p>Return the capabilities of the backend.</p>
+</div></div>
+<div class="function">
+<h3 id="capabilities/1-1">capabilities(X1::bucket() (see module riak_object), X2::state()) -&gt; {ok, [atom()]}</h3>
+
+
+<div class="description">
+
+<p>Return the capabilities of the backend.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(Partition::integer(), Config::config()) -&gt; {ok, state()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start this backend, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stop this backend, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Bucket::bucket() (see module riak_object), Key::key() (see module riak_object), State::state()) -&gt; {ok, any(), state()}</h3>
+
+
+<div class="description">
+
+<p>Get a fake object, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="get_object/4">get_object(Bucket, Key, WantsBinary, S) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="put/1">put(Bucket::bucket() (see module riak_object), PKey::key() (see module riak_object), IndexSpecs::[index_spec()], Val::binary(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Store an object, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="put_object/5">put_object(Bucket, PKey, IndexSpecs, RObj, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1">delete(Bucket::bucket() (see module riak_object), Key::key() (see module riak_object), IndexSpecs::[index_spec()], State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Delete an object, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="fold_buckets/1">fold_buckets(FoldBucketsFun::fold_buckets_fun() (see module riak_kv_backend), Acc::any(), Opts::[], S::state()) -&gt; {ok, any()}</h3>
+
+
+<div class="description">
+
+<p>Fold over all the buckets, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="fold_keys/1">fold_keys(FoldKeysFun::fold_keys_fun() (see module riak_kv_backend), Accum::any(), Opts::[{atom(), term()}], State::state()) -&gt; {ok, term()}</h3>
+
+
+<div class="description">
+
+<p>Fold over all the keys for one or all buckets, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="fold_objects/1">fold_objects(FoldObjectsFun::fold_objects_fun() (see module riak_kv_backend), Accum::any(), Opts::[{atom(), term()}], State::state()) -&gt; {ok, any()} | {async, function()}</h3>
+
+
+<div class="description">
+
+<p>Fold over all the objects for one or all buckets, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="drop/1">drop(S::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Delete all objects from this backend, yes, sir!</p>
+</div></div>
+<div class="function">
+<h3 id="is_empty/1">is_empty(S::state()) -&gt; false</h3>
+
+
+<div class="description">
+
+<p>Returns true if this bitcasks backend contains any
+  non-tombstone values; otherwise returns false.</p>
+</div></div>
+<div class="function">
+<h3 id="status/1">status(State::state()) -&gt; [{atom(), term()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="callback/1">callback(Ref::reference(), Whatever::any(), S::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Register an asynchronous callback</p>
+</div></div>
+<div class="function">
+<h3 id="make_riak_safe_obj/3">make_riak_safe_obj(Bucket, Key, Bin) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_riak_safe_obj/4">make_riak_safe_obj(Bucket, Key, Bin, Metas) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

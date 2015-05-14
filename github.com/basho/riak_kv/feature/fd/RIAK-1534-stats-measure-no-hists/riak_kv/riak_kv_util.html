@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_util (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_util</h1>
+<h2 class="modsummary">Various functions that are useful throughout riak_kv.</h2>
+<div class="description">
+<p>Various functions that are useful throughout riak_kv.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-index">index() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-index_n">index_n() = {<a href="#type-index" class="seealso">index()</a>, integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-partition">partition() = <a href="chash.html#type-index_as_int" class="seealso">chash:index_as_int()</a></h3></div>
+    <div class="type"><h3 id="type-riak_core_ring">riak_core_ring() = <a href="riak_core_ring.html#type-riak_core_ring" class="seealso">riak_core_ring:riak_core_ring()</a></h3></div>
+    <div class="type"><h3 id="type-sender">sender() = {<a href="#type-sender_type" class="seealso">sender_type()</a>, reference() | tuple(), pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {server, undefined, undefined}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {fsm, undefined, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ignore</h3></div>
+    <div class="type"><h3 id="type-sender_type">sender_type() = fsm | server | raw</h3></div>
+    <div class="type"><h3 id="type-vnode_req">vnode_req() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="is_x_deleted/1">is_x_deleted(Obj::riak_object() (see module riak_object)) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>'true' if all contents of the input object are marked
+       as deleted; 'false' otherwise</p>
+</div></div>
+<div class="function">
+<h3 id="obj_not_deleted/1">obj_not_deleted(Obj::riak_object() (see module riak_object)) -&gt; undefined | riak_object() (see module riak_object)</h3>
+
+
+<div class="description">
+
+<p>Determine whether all contents of an object are marked as
+       deleted.  Return is the atom 'undefined' if all contents
+       are marked deleted, or the input Obj if any of them are not.</p>
+</div></div>
+<div class="function">
+<h3 id="try_cast/1">try_cast(Msg::term(), UpNodes::[node()], Targets::[{Index::term(), Node::node()}]) -&gt; {[{Index::term(), Node::node(), Node::node()}], [{Index::term(), Node::node()}]}</h3>
+
+
+<div class="description">
+
+<p>Cast {Cmd, {Index,Node}, Msg} at riak_kv_vnode_master on Node
+       if Node is in UpNodes.  The list of successful casts is the
+       first element of the return tuple, and the list of unavailable
+       nodes is the second element.  Used in riak_kv_put_fsm and riak_kv_get_fsm.</p>
+</div></div>
+<div class="function">
+<h3 id="fallback/1">fallback(Cmd::term(), UpNodes::term(), Pangs::[{Index::term(), Node::node()}], Fallbacks::[{any(), Fallback::node()}]) -&gt; [{Index::term(), Node::node(), Fallback::node()}]</h3>
+
+
+<div class="description">
+
+<p>Cast {Cmd, {Index,Node}, Msg} at a node in the Fallbacks list
+       for each node in the Pangs list.  Pangs should have come
+       from the second element of the response tuple of a call to
+       try_cast/3.
+       Used in riak_kv_put_fsm and riak_kv_get_fsm</p>
+</div></div>
+<div class="function">
+<h3 id="make_request/1">make_request(Request::vnode_req(), Index::partition()) -&gt; #riak_vnode_req_v1{index=undefined | partition(), sender=sender(), request=undefined | vnode_req()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expand_value/3">expand_value(Type, Value, BucketProps) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="expand_rw_value/4">expand_rw_value(Type, Val, BucketProps, N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="normalize_rw_value/2">normalize_rw_value(RW, N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="consistent_object/1">consistent_object(Bucket::binary() | {binary(), binary()}) -&gt; true | false | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_fast_path/1">get_fast_path(Bucket::binary() | {binary(), binary()}) -&gt; true | false | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_index_n/1">get_index_n(X1::{binary(), binary()}) -&gt; index_n()</h3>
+
+
+<div class="description">
+
+<p>Given a bucket/key, determine the associated preflist index_n.</p>
+</div></div>
+<div class="function">
+<h3 id="preflist_siblings/1">preflist_siblings(Index::index()) -&gt; [index()]</h3>
+
+
+<div class="description">
+
+<p>Given an index, determine all sibling indices that participate in one
+       or more preflists with the specified index.</p>
+</div></div>
+<div class="function">
+<h3 id="responsible_preflists/1">responsible_preflists(Index::index()) -&gt; [index_n()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="responsible_preflists/1-1">responsible_preflists(Index::index(), Ring::riak_core_ring()) -&gt; [index_n()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fix_incorrect_index_entries/0">fix_incorrect_index_entries() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fix_incorrect_index_entries/1">fix_incorrect_index_entries(Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_vtag/1">make_vtag(Now::timestamp() (see module erlang)) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>vtag creation function</p>
+</div></div>
+<div class="function">
+<h3 id="overload_reply/1">overload_reply(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="puts_active/0">puts_active() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exact_puts_active/0">exact_puts_active() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="gets_active/0">gets_active() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_backend_config/3">get_backend_config(Key, Config, Category) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get backend config for backends without an associated application
+  eg, yessir, memory</p>
+</div></div>
+<div class="function">
+<h3 id="is_modfun_allowed/2">is_modfun_allowed(Mod, Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Is the Module/Function from a mapreduce {modfun, ...} tuple allowed by
+  the security rules? This is to help prevent against attacks like the one
+  described in
+  http://aphyr.com/posts/224-do-not-expose-riak-directly-to-the-internet
+  by whitelisting the code path for 'allowed' mapreduce modules, which we
+  assume the user has written securely.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

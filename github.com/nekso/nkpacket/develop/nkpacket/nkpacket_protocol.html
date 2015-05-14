@@ -68,17 +68,17 @@
   listener transports, and will fail for outbound connections.</p>
 </div></div>
 <div class="function">
-<h3 id="unparse/1">unparse(X1::term(), X2::nkport() (see module nkpacket)) -&gt; {ok, incoming() (see module nkpacket)} | continue | {error, term()}</h3>
+<h3 id="encode/1">encode(X1::term(), X2::nkport() (see module nkpacket)) -&gt; {ok, outcoming() (see module nkpacket)} | continue | {error, term()}</h3>
 
 
 <div class="description">
 
-<p>Implement this function to provide a 'quick' unparse function,
-  in case you don't need the connection state to perform the unparse.
-  Do not implement it or return 'continue' to call conn_unparse/2</p>
+<p>Implement this function to provide a 'quick' encode function,
+  in case you don't need the connection state to perform the encode.
+  Do not implement it or return 'continue' to call conn_encode/2</p>
 </div></div>
 <div class="function">
-<h3 id="conn_init/1">conn_init(X1::nkport() (see module nkpacket)) -&gt; {ok, conn_state()}</h3>
+<h3 id="conn_init/1">conn_init(X1::nkport() (see module nkpacket)) -&gt; {ok, conn_state()} | {stop, term()}</h3>
 
 
 <div class="description">
@@ -94,7 +94,7 @@
 <p>This function is called when a new message arrives to the connection</p>
 </div></div>
 <div class="function">
-<h3 id="conn_unparse/1">conn_unparse(Term::term(), ConnState::conn_state()) -&gt; {ok, incoming() (see module nkpacket), conn_state()} | {error, term(), conn_state()} | {stop, Reason::term()}</h3>
+<h3 id="conn_encode/1">conn_encode(Term::term(), ConnState::conn_state()) -&gt; {ok, outcoming() (see module nkpacket), conn_state()} | {error, term(), conn_state()} | {stop, Reason::term()}</h3>
 
 
 <div class="description">
@@ -142,7 +142,7 @@
 <p>Called when the connection stops</p>
 </div></div>
 <div class="function">
-<h3 id="listen_init/1">listen_init(X1::nkport() (see module nkpacket)) -&gt; listen_state()</h3>
+<h3 id="listen_init/1">listen_init(X1::nkport() (see module nkpacket)) -&gt; {ok, listen_state()}</h3>
 
 
 <div class="description">

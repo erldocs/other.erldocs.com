@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>controller (controller_app) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>controller</h1>
+<h2 class="modsummary">Provides an API for the Treacherous Talks frontend.</h2>
+<div class="description">
+<p>Provides an API for the Treacherous Talks frontend</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-command">command() = register<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| login<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| get_session_user<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| update_user<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| create_game<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| get_game<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| reconfig_game<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| game_order<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| join_game<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| game_overview<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| games_current<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| user_msg<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| game_msg<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| assign_moderator<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| power_msg<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stop_game<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| get_presence<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| send_report<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| get_reports<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| mark_report_as_done<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| set_push_receiver<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| blacklist<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| whitelist<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unknown_command</h3></div>
+    <div class="type"><h3 id="type-date">date() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{integer(), integer(), integer()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{integer(), integer(), integer()}}</h3></div>
+    <div class="type"><h3 id="type-role">role() = disabled | user | moderator | operator</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="handle_action/1">handle_action(ParsedData::{command(), {ok, any()}} | {command(), {ok, SessionId::string()}} | {command(), {ok, SessionId::string(), any()}} | {command(), {error, any()}} | {command(), Error::string()} | string() | unknown_command, X2::{CallbackFun::function(), Args::[any()]}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>  
+Main controller function. Expects a command from the frontend,  
+a callback function, and its arguments. The callback is called  
+with the results of the given command. The callback function  
+must be of arity 3:</p>
+ 
+  <p>CallbackFun(Args, {Type::command(), Result::result()},                     
+ResultData::any()) -&gt; ok.</p>
+ 
+  <p>result() :: success | parse_error | invalid_data | invalid_session              
+| access_denied | error.</p>
+ 
+  <p>Standard return (error) values for invalid_data.
+  register -&gt;          [nick_already_exists]
+  login -&gt;             [nick_not_unique,
+                        invalid_login_data,
+                        simultaneous_login]
+  get_session_user -&gt;  []
+  update_user -&gt;       [does_not_exist]
+  create_game -&gt;       []
+  get_game -&gt;          [game_does_not_exist]
+  reconfig_game -&gt;     [game_does_not_exist,
+                        game_started_already,
+                        not_game_creator]
+  game_order -&gt;         [game_id_not_exist,
+                        user_not_playing_this_game,
+                        game_not_waiting]
+  join_game -&gt;         [country_not_available,
+                        user_already_joined]
+  game_overview -&gt;     [user_not_playing_this_game]
+  logout -&gt;            []
+  user_msg -&gt;          [send_msg_to_yourself,
+                        nick_not_unique,
+                        black_listed,
+                        invalid_nick]
+  games_current -&gt;     []
+  game_search -&gt;       []
+  game_msg -&gt;          [not_allowed_send_msg,
+                        game_does_not_exist,
+                        game_phase_not_ongoing]
+  get_db_stats -&gt;      [get_stats_body_fail,
+                        get_stats_timeout,
+                        get_stats_tcp_error,
+                        get_stats_start_socket_fail,
+                        not_operator]
+  power_msg -&gt;         [game_does_not_exist,
+                        game_phase_not_ongoing]
+  assign_moderator -&gt;  [user_not_found]
+  get_system_status -&gt; []
+  stop_game -&gt;         []
+  get_games_ongoing -&gt; []
+  get_presence -&gt;      [user_not_found]
+  send_report -&gt;       []
+  get_reports -&gt;       []
+  mark_report_as_done -&gt; [notfound]
+  set_push_receiver -&gt; []
+  blacklist -&gt;         [user_not_found]
+  whitelist -&gt;         [user_not_found]
+ </p>
+</div></div>
+<div class="function">
+<h3 id="push_event/1">push_event(UserId::integer(), Push_event::#push_event{type=undefined | off_game_msg | in_game_msg | {phase_change, ok} | {logout, ok}, data=undefined | any()}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Pushes an event to the user with given id, if online.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_push_event/1">sync_push_event(UserId::integer(), Push_event::#push_event{type=undefined | off_game_msg | in_game_msg | {phase_change, ok} | {logout, ok}, data=undefined | any()}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Pushes an event to the user with given id, if online, synchronously.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1">register(User::#user{id=undefined | integer(), nick=undefined | nonempty_string(), email=undefined | nonempty_string(), password=undefined | nonempty_string(), name=undefined | nonempty_string(), role=role(), channel=undefined | atom(), last_ip=undefined | {integer(), integer(), integer(), integer()}, last_login=undefined | date() | never, score=integer(), date_created=undefined | date(), date_updated=undefined | date(), last_session=undefined | string()}) -&gt; {ok, #user{id=undefined | integer(), nick=undefined | nonempty_string(), email=undefined | nonempty_string(), password=undefined | nonempty_string(), name=undefined | nonempty_string(), role=role(), channel=undefined | atom(), last_ip=undefined | {integer(), integer(), integer(), integer()}, last_login=undefined | date() | never, score=integer(), date_created=undefined | date(), date_updated=undefined | date(), last_session=undefined | string()}} | {error, nick_already_exists} | {{error, any()}}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>only for eunit</p>
+
+<p>register/1</p>
+ 
+  <p>API for creation of a user</p>
+</div></div>
+<div class="function">
+<h3 id="register_operator/1">register_operator(User::#user{id=undefined | integer(), nick=undefined | nonempty_string(), email=undefined | nonempty_string(), password=undefined | nonempty_string(), name=undefined | nonempty_string(), role=role(), channel=undefined | atom(), last_ip=undefined | {integer(), integer(), integer(), integer()}, last_login=undefined | date() | never, score=integer(), date_created=undefined | date(), date_updated=undefined | date(), last_session=undefined | string()}) -&gt; {ok, #user{id=undefined | integer(), nick=undefined | nonempty_string(), email=undefined | nonempty_string(), password=undefined | nonempty_string(), name=undefined | nonempty_string(), role=role(), channel=undefined | atom(), last_ip=undefined | {integer(), integer(), integer(), integer()}, last_login=undefined | date() | never, score=integer(), date_created=undefined | date(), date_updated=undefined | date(), last_session=undefined | string()}} | {error, nick_already_exists} | {{error, any()}}</h3>
+
+
+<div class="description">
+
+<p>
+     this function is used to register an operator</p>
+</div></div>
+<div class="function">
+<h3 id="register_operator/1-1">register_operator(Nick::string(), Password::string()) -&gt; {ok, #user{id=undefined | integer(), nick=undefined | nonempty_string(), email=undefined | nonempty_string(), password=undefined | nonempty_string(), name=undefined | nonempty_string(), role=role(), channel=undefined | atom(), last_ip=undefined | {integer(), integer(), integer(), integer()}, last_login=undefined | date() | never, score=integer(), date_created=undefined | date(), date_updated=undefined | date(), last_session=undefined | string()}} | {error, nick_already_exists} | {{error, any()}}</h3>
+
+
+<div class="description">
+
+<p>
+     this function is used to register an operator to make register_operator
+     easer in backend. It only gets nick and password and fill the other value
+     and register an operator.</p>
+</div></div>
+<div class="function">
+<h3 id="login/1">login(Data::{#user{id=undefined | integer(), nick=undefined | nonempty_string(), email=undefined | nonempty_string(), password=undefined | nonempty_string(), name=undefined | nonempty_string(), role=role(), channel=undefined | atom(), last_ip=undefined | {integer(), integer(), integer(), integer()}, last_login=undefined | date() | never, score=integer(), date_created=undefined | date(), date_updated=undefined | date(), last_session=undefined | string()}, #push_receiver{pid=undefined | pid(), args=undefined | any(), type=undefined | im | mail | web}}) -&gt; {ok, SessionId::string()} | {error, nick_not_unique} | {error, invalid_login_data} | {error, simultaneous_login}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>only for eunit</p>
+
+<p>login/2</p>
+ 
+  <p>API for logging in a user
+ </p>
+</div></div>
+<div class="function">
+<h3 id="system_stats/1">system_stats(OutputType::atom()) -&gt; any() | {ok, string()}</h3>
+
+
+<div class="description">
+
+<p>system_stats</p>
+ 
+  <p>API for getting system statistics
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Tiina Loukusa</aname>
+<email>loukusa@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

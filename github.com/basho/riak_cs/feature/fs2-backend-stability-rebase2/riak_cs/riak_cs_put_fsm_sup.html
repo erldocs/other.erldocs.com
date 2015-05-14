@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_cs_put_fsm_sup (riak_cs) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_cs_put_fsm_sup</h1>
+<h2 class="modsummary">Supervisor for riak_cs_put_fsm</h2>
+<div class="description">
+<p>Supervisor for <code>riak_cs_put_fsm</code></p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-acl">acl() = #acl_v1{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #acl_v2{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}</h3></div>
+    <div class="type"><h3 id="type-acl_grant">acl_grant() = {<a href="#type-acl_grantee" class="seealso">acl_grantee()</a>, <a href="#type-acl_perms" class="seealso">acl_perms()</a>}</h3></div>
+    <div class="type"><h3 id="type-acl_grantee">acl_grantee() = {string(), string()} | <a href="#type-group_grant" class="seealso">group_grant()</a></h3></div>
+    <div class="type"><h3 id="type-acl_owner">acl_owner() = <a href="#type-acl_owner/2" class="seealso">acl_owner2()</a> | <a href="#type-acl_owner/3" class="seealso">acl_owner3()</a></h3></div>
+    <div class="type"><h3 id="type-acl_owner2">acl_owner2() = {string(), string()}</h3></div>
+    <div class="type"><h3 id="type-acl_owner3">acl_owner3() = {string(), string(), string()}</h3></div>
+    <div class="type"><h3 id="type-acl_perm">acl_perm() = 'READ'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'WRITE'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'READ_ACP'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'WRITE_ACP'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'FULL_CONTROL'</h3></div>
+    <div class="type"><h3 id="type-acl_perms">acl_perms() = [<a href="#type-acl_perm" class="seealso">acl_perm()</a>]</h3></div>
+    <div class="type"><h3 id="type-group_grant">group_grant() = 'AllUsers' | 'AuthUsers'</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>API for starting the supervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="start_put_fsm/1">start_put_fsm(Node::node(), ArgList::[{binary(), binary(), non_neg_integer(), binary(), term(), pos_integer(), acl(), timeout(), pid(), pid()}]) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start a <code>riak_cs_put_fsm</code> child process.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; {ok, {{strategy() (see module supervisor), pos_integer(), pos_integer()}, [child_spec() (see module supervisor)]}}</h3>
+
+
+<div class="description">
+
+<p>Initialize this supervisor. This is a <code>simple_one_for_one</code>,
+       whose child spec is for starting <code>riak_cs_put_fsm</code> processes.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

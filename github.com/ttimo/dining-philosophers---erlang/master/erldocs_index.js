@@ -1,0 +1,1 @@
+var index = [['app','dining-philosophers---erlang','dining-philosophers---erlang','[application]'],['mod','dining-philosophers---erlang','conductor',[]],['fun','dining-philosophers---erlang','conductor:conductor_function/0',[]],['fun','dining-philosophers---erlang','conductor:philosopher/1',[]],['fun','dining-philosophers---erlang','conductor:start/0',[]]];

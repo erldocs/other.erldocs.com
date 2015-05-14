@@ -1,0 +1,1 @@
+var index = [['app','gauss','gauss','[application]'],['mod','gauss','imprime',[]],['mod','gauss','validar',[]],['fun','gauss','imprime:print/2',[]],['fun','gauss','validar:funcion/1',[]]];

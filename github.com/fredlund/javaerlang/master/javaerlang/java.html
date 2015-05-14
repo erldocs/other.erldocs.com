@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>java (javaerlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>java</h1>
+<h2 class="modsummary">This module implements a facility for invoking Java code
+  (methods, constructors, fields) from Erlang, using the JInterface library.</h2>
+<div class="description">
+<p>This module implements a facility for invoking Java code
+  (methods, constructors, fields) from Erlang, using the JInterface library.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-array_type">array_type() = {array, <a href="#type-type" class="seealso">type()</a>, integer()}</h3></div>
+    <div class="type"><h3 id="type-array_value">array_value() = string() | [<a href="#type-value" class="seealso">value()</a>]</h3></div>
+    <div class="type"><h3 id="type-attribute_name">attribute_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-class_name">class_name() = atom() | string()</h3></div>
+    <div class="type"><h3 id="type-float_type">float_type() = float | double</h3></div>
+    <div class="type"><h3 id="type-int_type">int_type() = int | long | short | char | byte</h3></div>
+    <div class="type"><h3 id="type-java_number">java_number() = integer() | float()</h3></div>
+    <div class="type"><h3 id="type-loglevel">loglevel() = all<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| none<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| alert<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| critical<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| debug<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| emergency<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| info<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| notice<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| warning</h3></div>
+    <div class="type"><h3 id="type-method_name">method_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-node_id">node_id()</h3></div>
+    <div class="type"><h3 id="type-number_type">number_type() = <a href="#type-int_type" class="seealso">int_type()</a> | <a href="#type-float_type" class="seealso">float_type()</a></h3></div>
+    <div class="type"><h3 id="type-object_ref">object_ref()</h3></div>
+    <div class="type"><h3 id="type-object_type">object_type()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {symbolic_name, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {java_class, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {add_to_java_classpath, [string()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {java_classpath, [string()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {java_exception_as_value, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {java_verbose, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {java_executable, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {erlang_remote, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {log_level, <a href="#type-loglevel" class="seealso">loglevel()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {enable_gc, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {java_options, [string()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {enable_proxies, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {call_timeout, integer() | infinity}</h3></div>
+    <div class="type"><h3 id="type-primitive_type">primitive_type() = <a href="#type-int_type" class="seealso">int_type()</a> | <a href="#type-float_type" class="seealso">float_type()</a></h3></div>
+    <div class="type"><h3 id="type-type">type() = <a href="#type-primitive_type" class="seealso">primitive_type()</a> | <a href="#type-class_name" class="seealso">class_name()</a> | <a href="#type-array_type" class="seealso">array_type()</a></h3></div>
+    <div class="type"><h3 id="type-value">value() = <a href="#type-object_ref" class="seealso">object_ref()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| number()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| true<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| false<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| void<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-array_value" class="seealso">array_value()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-value_spec" class="seealso">value_spec()</a></h3></div>
+    <div class="type"><h3 id="type-value_spec">value_spec() = {<a href="#type-int_type" class="seealso">int_type()</a>, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-float_type" class="seealso">float_type()</a>, float()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {class_name, <a href="#type-object_ref" class="seealso">object_ref()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-array_type" class="seealso">array_type()</a>, <a href="#type-array_value" class="seealso">array_value()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_node/0">start_node() -&gt; {ok, node_id()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Starts a Java node and establises the connection
+  to Erlang. Returns a Java library "node identifier" (not a normal
+  Erlang node identifier).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start_node/1">start_node(UserOptions::[option()]) -&gt; {ok, node_id()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Starts a Java node and establishes the connection
+  to Erlang. UserOptions provides options for how
+  Java is started.
+  Returns a "Java library node identifier" (not a normal
+  Erlang node identifier).
+  To make your Java classes (and Jar files) visible to the library
+  the option <code>add_to_java_classpath</code> should be provided to
+  <code>java:start_node/1</code>. An example:<br />
+  </p><pre class="sh_erlang">  {ok,NodeId} = java:start_node([{add_to_java_classpath,["classes"]}]).</pre><p>
+  Adds the directory <code>classes</code>
+  to the classpath of the started Java interpreter.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="connect/1">connect(NodeName::atom(), UserOptions::[option()]) -&gt; {ok, node_id()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Connects to an already started Java node.
+  Returns a Java library "node identifier" (not a normal
+  Erlang node identifier).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="report_java_exception/1">report_java_exception(Other) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/1">new(NodeId::node_id(), ClassName::class_name(), Args::[value()]) -&gt; object_ref()</h3>
+
+
+<div class="description">
+
+<p>
+  Calls the constructor of a Java class.
+  Returns an object reference.
+  </p><p>
+  Example: <code>java:new(NodeId,'java.util.HashSet',[])</code>,
+  corresponding to the statement <code>new HashSet()</code>.
+  </p>
+  <p>
+  Due to the rules of Java method application (see explanation note in
+  module description)
+  it is possible that the correct constructor
+  for its arguments cannot be found. In that case,
+  <code>new/4</code> should be used intead.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(NodeId::node_id(), ClassName::class_name(), ArgTypes::[type()], Args::[value()]) -&gt; object_ref()</h3>
+
+
+<div class="description">
+
+<p>
+  Calls the constructor of a Java class, explicitely selecting
+  a particular constructor.
+  Returns an object reference.
+  </p><p>
+  Example:
+      <code>java:new(NodeId,'java.lang.Integer',[int],[42])</code>,
+  corresponding to the statement
+  <code>new Integer(42)</code>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Object::object_ref(), Method::method_name(), Args::[value()]) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Calls a Java instance method.
+  Example:
+      <code>java:call(Object,toString,[])</code>,
+  corresponding to the call <code>Object.toString()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Object::object_ref(), Method::method_name(), ArgTypes::[type()], Args::[value()]) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Calls a Java instance method, explicitely
+  selecting a particular method, using the type argument to
+  distinguish between methods of the same arity.</p>
+</div></div>
+<div class="function">
+<h3 id="call_static/1">call_static(NodeId::node_id(), ClassName::class_name(), Method::method_name(), Args::[value()]) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Calls a Java static method (a class method).
+  Example:
+      <code>java:call_static(NodeId,'java.lang.Integer',reverseBytes,[22])</code>,
+  corresponding to the call <code>Integer.reverseBytes(22)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="call_static/1-1">call_static(NodeId::node_id(), ClassName::class_name(), Method::method_name(), ArgTypes::[type()], Args::[value()]) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Calls a Java static method (a class method). Explicitely
+  selects which method to call using the types argument.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Object::object_ref(), Field::attribute_name()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieves the value of an instance attribute.
+  Example:
+  <code>java:get(Object,v)', corresponding to 'Object.v</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_static/1">get_static(NodeId::node_id(), ClassName::class_name(), Field::attribute_name()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Retrieves the value of a class attribute.
+  Example:
+  <code>java:get_static(NodeId,'java.lang.Integer','SIZE')</code>,
+  corresponding to <code>Integer.SIZE</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(Object::object_ref(), Field::attribute_name(), Value::value()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Modifies the value of an instance attribute.</p>
+</div></div>
+<div class="function">
+<h3 id="set_static/1">set_static(NodeId::node_id(), ClassName::class_name(), Field::attribute_name(), Value::value()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>
+  Modifies the value of a static, i.e., class attribute.</p>
+</div></div>
+<div class="function">
+<h3 id="eq/1">eq(X1::object_ref(), X2::object_ref()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  Checks if two Java objects references refer to the same object.
+  Note that using normal Erlang term equality is not safe.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(UserOptions::[option()]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Initializes the Java interface library
+  providing default options.
+  It is called automatically by <code>start_node/0</code> and
+  <code>standard_node/1</code>. Calling <code>init/1</code> explicitely is
+  useful to customize the library when multiple
+  Java connections are used.</p>
+</div></div>
+<div class="function">
+<h3 id="default_options/0">default_options() -&gt; [option()]</h3>
+
+
+<div class="description">
+
+<p>
+  Returns a list with the default options.</p>
+</div></div>
+<div class="function">
+<h3 id="version/0">version() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the version number of the JavaErlang library.</p>
+</div></div>
+<div class="function">
+<h3 id="node_id/1">node_id(X1::object_ref()) -&gt; node_id()</h3>
+
+
+<div class="description">
+
+<p>Returns the node where the object argument is located.</p>
+</div></div>
+<div class="function">
+<h3 id="nodes/0">nodes() -&gt; [node_id()]</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the set of active Java nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="reset/1">reset(NodeId::node_id()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Resets the state of a Java node, i.e.,
+  the object proxy is reset.
+  This operation will cause all Java object references
+  existing to become invalid (i.e., not referring to
+  any Java object), but references to Java methods, constructors
+  or fields are not affected. In addition all threads created are
+  eventually stopped, and a new thread created to service future
+  calls. Note that the function call may return before all threads
+  have stopped.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(NodeId::node_id()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Shuts down and terminates the connection to a Java node.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate_all/0">terminate_all() -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Shuts down and terminates the connection to all known Java nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="brutally_terminate/1">brutally_terminate(NodeId::node_id()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Brutally shuts down and terminates the connection to a Java node.
+  Does not send a termination message to the Java node, instead it
+  attempts to kill the Unix process corresponding to the Java runtime system
+  of the node. This will obviously only work under Unix/Linux.</p>
+</div></div>
+<div class="function">
+<h3 id="recreate_node/1">recreate_node(NodeId::node_id()) -&gt; {ok, node_id()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>
+  Recreates a possibly dead node. Obviously any ongoing computations,
+  object bindings, and so on are forgotten, but the classpaths
+  and other node options are restored.</p>
+</div></div>
+<div class="function">
+<h3 id="free/1">free(Object::object_ref()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Lets Java know that an object can be freed.</p>
+</div></div>
+<div class="function">
+<h3 id="set_timeout/1">set_timeout(Timeout::integer() | infinity) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Sets the timeout value for Java calls.
+  Calls to Java from the current Erlang process will henceforth
+  fail after Timeout seconds (or never is the argument is
+  the atom infinity).
+  Implementation note: this function stores data in the Erlang
+  process dictionary.</p>
+</div></div>
+<div class="function">
+<h3 id="is_object_ref/1">is_object_ref(X1::any()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns true if its argument is a Java object reference, false otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="array_to_list/1">array_to_list(ArrayObj::object_ref()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the elements of the (one-dimensional) array object argument
+  as an Erlang list of objects.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_array/1">list_to_array(NodeId::node_id(), List::[value()], Type::type()) -&gt; object_ref()</h3>
+
+
+<div class="description">
+
+<p>
+  Creates a one-dimensional Java array populated with the elements
+  from the Erlang list argument, using the type specification
+  as an element recipe. Example:
+  <code>java:list_to_array(NodeId,"Hello World!",char).</code></p>
+</div></div>
+<div class="function">
+<h3 id="string_to_list/1">string_to_list(String::object_ref()) -&gt; [char()]</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the elements of the Java String as an Erlang list.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_string/1">list_to_string(NodeId::node_id(), List::string()) -&gt; object_ref()</h3>
+
+
+<div class="description">
+
+<p>
+  Converts the Erlang string argument to a Java string.
+  This function is for convenience only; it is implementable using
+  the rest of the Java API.</p>
+</div></div>
+<div class="function">
+<h3 id="convert/1">convert(NodeId::node_id(), Class::number_type(), Number::java_number()) -&gt; java_number()</h3>
+
+
+<div class="description">
+
+<p>Widens or narrows a number.</p>
+</div></div>
+<div class="function">
+<h3 id="instanceof/1">instanceof(Obj::object_ref(), ClassName::class_name()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns true if the first parameter (a Java object) is an instant
+  of the class named by the second parameter.
+  This function is for convenience only; it is implementable using
+  the rest of the Java API.</p>
+</div></div>
+<div class="function">
+<h3 id="is_subtype/1">is_subtype(NodeId::node_id(), Class1::class_name(), Class2::class_name()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Convenience method for determining subype relationship.
+  Returns true if the first argument is a subtype of the second.</p>
+</div></div>
+<div class="function">
+<h3 id="getClassName/1">getClassName(Object::object_ref()) -&gt; class_name()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the classname (as returned by the method getName() in
+  java.lang.Class)
+  of Java object parameter.
+  This function is for convenience only; it is implementable using
+  the rest of the Java API.</p>
+</div></div>
+<div class="function">
+<h3 id="getSimpleClassName/1">getSimpleClassName(Object::object_ref()) -&gt; class_name()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the simple classname (as returned by the method getSimplename() in
+  java.lang.Class)
+  of Java object parameter.
+  This function is for convenience only; it is implementable using
+  the rest of the Java API.</p>
+</div></div>
+<div class="function">
+<h3 id="print_stacktrace/1">print_stacktrace(Exception::object_ref()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Prints the Java stacktrace on the standard error file error descriptor
+  that resulted in the throwable object argument.
+  This function is for convenience only; it is implementable using
+  the rest of the Java API.</p>
+</div></div>
+<div class="function">
+<h3 id="get_stacktrace/1">get_stacktrace(Exception::object_ref()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the Java stacktrace as an Erlang list.
+  This function is for convenience only; it is implementable using
+  the rest of the Java API.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_usage/0">memory_usage() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns an integer corresponding to the number of Java object that are
+  currently known to the Erlang part of the java library.</p>
+</div></div>
+<div class="function">
+<h3 id="memory_usage/1">memory_usage(NodeId::node_id()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns an integer corresponding to the number of Java object that are
+  currently known to the Java part of the java library, at the node argument.</p>
+</div></div>
+<div class="function">
+<h3 id="set_loglevel/1">set_loglevel(Level::loglevel()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  Determines how much debugging information is displayed.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Lars-Ake Fredlund (lfredlund@fi.upm.es)</aname>
+<email>Lars-Ake Fredlund (lfredlund@fi.upm.es)</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

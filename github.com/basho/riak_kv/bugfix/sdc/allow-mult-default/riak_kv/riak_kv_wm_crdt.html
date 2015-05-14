@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_wm_crdt (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_wm_crdt</h1>
+<h2 class="modsummary">Resource for serving data-types over HTTP.</h2>
+<div class="description">
+<p>Resource for serving data-types over HTTP.</p>
+ 
+  <p>Available operations:</p>
+ 
+  <p><code>GET /types/BucketType/buckets/Bucket/datatypes/Key</code></p>
+ 
+    <p>Get the current value of the data-type at <code>BucketType</code>, <code>Bucket</code>, <code>Key</code>.</p>
+ 
+    <p>Result is a JSON body with a structured value, or <code>404 Not Found</code> if no    
+datatype exists at that resource location.</p>
+ 
+    <p>The format of the JSON response will be roughly
+    <code>{"type":..., "value":..., "context":...}</code>, where the
+    <code>type</code> is a string designating which data-type is presented, the
+    <code>value</code> is a representation of the data-type's value (see below),
+    and the <code>context</code> is the opaque context, if needed or requested.</p>
+ 
+    <p>The type and structure of the <code>value</code> field in the response
+    depends on the <code>type</code> field.
+    </p><taglist>
+      <dt>counter</dt><item><p>an integer</p></item>
+      <dt>set</dt><item><p>an array of strings</p></item>
+      <dt>map</dt><item><p>an object where the fields are as described below.</p></item>
+    </taglist>
+ 
+    <p>The format of a field name in the map value determines both the
+    name of the entry and the type, joined with an underscore. For
+    example, a <code>register</code> with name <code>firstname</code> would be
+    <code>"firstname_register"</code>. Valid types embeddable in a map are
+    <code>counter</code>, <code>flag</code>, <code>register</code>, <code>set</code>, and <code>map</code>.</p>
+ 
+    <p>The following query params are accepted:</p>
+ 
+    <taglist>
+      <dt>r</dt><item><p>Read quorum. See below for defaults and values.</p></item>
+      <dt>pr</dt><item><p>Primary read quorum. See below for defaults and values.</p></item>
+      <dt>basic_quorum</dt><item><p>Boolean. Return as soon as a quorum of responses are received
+                               if true. Default is the bucket default, if absent.</p></item>
+      <dt>notfound_ok</dt><item><p>Boolean. A <code>not_found` response from a vnode counts toward
+                              `r</code> quorum if true. Default is the bucket default, if absent.</p></item>
+      <dt>include_context</dt><item><p>Boolean. If the datatype requires the opaque "context" for
+                                  safe removal, include it in the response. Defaults to <code>true</code>.</p></item>
+    </taglist>
+ 
+  <pre class="sh_erlang">  POST /types/BucketType/buckets/Bucket/datatypes
+  POST /types/BucketType/buckets/Bucket/datatypes/Key</pre>
+ 
+    <p>Mutate the data-type at <code>BucketType</code>, <code>Bucket</code>, <code>Key</code> by applying
+    the submitted operation contained in a JSON payload. If <code>Key</code> is
+    not specified, one will be generated for the client and included
+    in the returned <code>Location</code> header.</p>
+ 
+    <p>The format of the operation payload depends on the data-type.
+    </p><taglist>
+      <dt>counter</dt><item><p>An integer, or an object containing a single field, either
+                          <code>"increment"</code> or <code>"decrement"</code>, and an associated integer value.</p></item>
+      <dt>set</dt><item><p>An object containing any combination of <code>"add"</code>, <code>"add_all"</code>,
+                      <code>"remove"</code>, <code>"remove_all"</code> fields. <code>"add"</code> and <code>"remove"</code> should refer to
+                      single string values, while <code>"add_all"</code> and <code>"remove_all"</code> should be arrays
+                      of strings. The <code>"context"</code> field may be included.</p></item>
+      <dt>map</dt><item><p>An object containing any of the fields <code>"remove"</code>, or <code>"update"</code>.
+                      <code>"remove"</code> should be a list of field names as described above.
+                      <code>"update"` should be an object containing fields and the operation to apply
+                      to the type associated with the field.&lt;/dd&gt;
+      &lt;dt&gt;register (embedded in map only)&lt;/dt&gt;&lt;dd&gt;`{"assign":Value}</code> where <code>Value</code> is the new string
+                                                  value of the register.</p></item>
+      <dt>flag (embedded in map only)</dt><item><p>The string "enable" or "disable".</p></item>
+    </taglist>
+ 
+    <p>The following query params are accepted (see <url href="/home/pete/wefwefwef/docs/other/c94408376b755f24b026086c91fef124/repo/bugfix/sdc/allow-mult-default/.xml/riak_kv/./riak_kv_wm_object.xml">riak_kv_wm_object</url> docs, too):</p>
+ 
+    <taglist>
+      <dt>w</dt><item><p>The write quorum. See below for defaults and values.</p></item>
+      <dt>pw</dt><item><p>The primary write quorum. See below for defaults and values.</p></item>
+      <dt>dw</dt><item><p>The durable write quorum. See below for default and values.</p></item>
+      <dt>returnbody</dt><item><p>Boolean. Default is <code>false</code> if not provided. When <code>true</code>
+                              the response body will be the value of the datatype.</p></item>
+      <dt>include_context</dt><item><p>Boolean. Default is <code>true</code> if not provided. When <code>true</code>
+                              and <code>returnbody</code> is <code>true</code>, the opaque context will be included.</p></item>
+    </taglist>
+ 
+    <p><em><marker id="Quorum_values_(r/pr/w/pw/dw)">Quorum values (r/pr/w/pw/dw)</marker></em>
+      </p><taglist>
+       <dt>default</dt><item><p>Whatever the bucket default is. This is the value used
+                           for any absent value.</p></item>
+       <dt>quorum</dt><item><p>(Bucket N val / 2) + 1</p></item>
+       <dt>all</dt><item><p>All replicas must respond</p></item>
+       <dt>one</dt><item><p>Any one response is enough</p></item>
+       <dt>Integer</dt><item><p>That specific number of vnodes must respond. Must be <code>=&lt;</code> N</p></item>
+     </taglist>
+ 
+  <p>Please see <url href="http://docs.basho.com">http://docs.basho.com</url> for details of all the quorum values and their effects.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Props) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="service_available/2">service_available(RD, Ctx0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="allowed_methods/2">allowed_methods(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_authorized/2">is_authorized(ReqData, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="malformed_request/2">malformed_request(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="forbidden/2">forbidden(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="content_types_provided/2">content_types_provided(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encodings_provided/2">encodings_provided(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="resource_exists/2">resource_exists(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="process_post/2">process_post(RD0, Ctx0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="produce_json/2">produce_json(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>meck (meck) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>meck</h1>
+<h2 class="modsummary">Module mocking library for Erlang.</h2>
+<div class="description">
+<p>Module mocking library for Erlang.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-history">history() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{<a href="#type-meck_mfa" class="seealso">meck_mfa()</a>, Result :: term()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-meck_mfa" class="seealso">meck_mfa()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class :: exit | error | throw,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reason :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stacktrace :: [mfa()]}]</h3></div>
+    <div class="type"><h3 id="type-meck_mfa">meck_mfa() = {Mod :: atom(), Func :: atom(), Args :: [term()]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Mod::atom() | [atom()]) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#new/2" class="seealso">new(Mod, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1-1">new(Mod::atom() | [atom()], Options::[term()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates new mocked module(s).</p>
+ 
+  <p>This replaces the current version (if any) of the modules in <code>Mod</code>  
+with an empty module.</p>
+ 
+  <p>Since this library is intended to use from test code, this  
+function links a process for each mock to the calling process.</p>
+ 
+  <p>The valid options are:
+  </p><taglist>
+    <dt><code>passthrough</code></dt><item><p>Retains the original functions, if not
+                              mocked by meck.</p></item>
+    <dt><code>no_link</code></dt>    <item><p>Does not link the meck process to the caller
+                              process (needed for using meck in rpc calls).
+                          </p></item>
+  </taglist>
+</div></div>
+<div class="function">
+<h3 id="expect/1">expect(Mod::atom() | [atom()], Func::atom(), Expect::function()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add expectation for a function <code>Func</code> to the mocked modules <code>Mod</code>.</p>
+ 
+  <p>An expectation is a fun that is executed whenever the function
+  <code>Func</code> is called.</p>
+ 
+  <p>It affects the validation status of the mocked module(s). If an
+  expectation is called with the wrong number of arguments or invalid
+  arguments the mock module(s) is invalidated. It is also invalidated if
+  an unexpected exception occurs.</p>
+</div></div>
+<div class="function">
+<h3 id="expect/1-1">expect(Mod::atom() | [atom()], Func::atom(), Arity::pos_integer(), Result::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds an expectation with the supplied arity and return value.</p>
+ 
+  <p>This creates an expectation which takes <code>Arity</code> number of functions
+  and always returns <code>Result</code>.
+ </p>
+<p><em>See also:</em> <a href="#expect/3" class="seealso">expect/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Mod::atom() | [atom()], Func::atom(), Arity::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes an expectation.</p>
+ 
+  <p>Deletes the expectation for the function <code>Func</code> with the matching
+  arity <code>Arity</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="exception/2">exception(Class::throw | error | exit, Reason::term()) -&gt; no_return()</h3>
+
+
+<div class="description">
+
+<p>Throws an expected exception inside an expect fun.</p>
+ 
+  <p>This exception will get thrown without invalidating the mocked  
+module. That is, the code using the mocked module is expected to  
+handle this exception.</p>
+ 
+  <p><em>Note: this code should only be used inside an expect fun.</em></p>
+</div></div>
+<div class="function">
+<h3 id="passthrough/1">passthrough(Args::[term()]) -&gt; no_return()</h3>
+
+
+<div class="description">
+
+<p>Calls the original function (if existing) inside an expectation fun.</p>
+ 
+  <p>This call does not return, thus everything after this call inside  
+an expectation fun will be ignored.</p>
+ 
+  <p><em>Note: this code should only be used inside an expect fun.</em></p>
+</div></div>
+<div class="function">
+<h3 id="validate/1">validate(Mod::atom() | [atom()]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Validate the state of the mock module(s).</p>
+ 
+  <p>The function returns <code>true</code> if the mocked module(s) has been used
+  according to its expectations. It returns <code>false</code> if a call has  
+failed in some way. Reasons for failure are wrong number of  
+arguments or non-existing function (undef), wrong arguments  
+(function clause) or unexpected exceptions.</p>
+ 
+  <p>Use the <a href="#history/1" class="seealso">history/1</a> function to analyze errors.</p>
+</div></div>
+<div class="function">
+<h3 id="history/1">history(Mod::atom()) -&gt; history()</h3>
+
+
+<div class="description">
+
+<p>Return the call history of the mocked module.</p>
+ 
+  <p>Returns a list of calls to the mocked module and their
+  results. Results can be either normal Erlang terms or exceptions
+  that occurred.</p>
+</div></div>
+<div class="function">
+<h3 id="unload/0">unload() -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Unloads all mocked modules from memory.</p>
+ 
+  <p>The function returns the list of mocked modules that were unloaded
+  in the process.</p>
+</div></div>
+<div class="function">
+<h3 id="unload/1">unload(Mod::atom() | [atom()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unload a mocked module or a list of mocked modules.</p>
+ 
+  <p>This will purge and delete the module(s) from the Erlang virtual
+  machine. If the mocked module(s) replaced an existing module, this
+  module will still be in the Erlang load path and can be loaded
+  manually or when called.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Adam Lindberg</aname>
+<email>eproxus@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

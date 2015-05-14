@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_wm_index (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_wm_index</h1>
+<h2 class="modsummary">Resource for running queries on secondary indexes.</h2>
+<div class="description">
+<p>Resource for running queries on secondary indexes.</p>
+ 
+  <p>Available operations:</p>
+ 
+  <p>GET /buckets/Bucket/index/IndexName/Key  
+GET /buckets/Bucket/index/IndexName/Start/End    
+Run an index lookup, return the results as JSON.</p>
+ 
+  <p>GET /types/Type/buckets/Bucket/index/IndexName/Key  
+GET /types/Type/buckets/Bucket/index/IndexName/Start/End    
+Run an index lookup over the Bucket in BucketType, returning the    
+results in JSON.</p>
+ 
+  <p>Both URL formats support the following query-string options:
+    * max_results=Integer
+          limits the number of results returned
+    * stream=true
+          streams the results back in multipart/mixed chunks
+    * continuation=C
+          the continuation returned from the last query, used to
+          fetch the next "page" of results.
+    * return_terms=true
+          when querying with a range, returns the value of the index
+          along with the key.
+    * pagination_sort=true|false
+          whether the results will be sorted. Ignored when max_results
+          is set, as pagination requires sorted results.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-context">context() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Props::proplist()) -&gt; {ok, context()}</h3>
+
+
+<div class="description">
+
+<p>Initialize this resource.</p>
+</div></div>
+<div class="function">
+<h3 id="service_available/1">service_available(RD::reqdata(), Ctx0::context()) -&gt; {boolean(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether or not a connection to Riak
+       can be established. Also, extract query params.</p>
+</div></div>
+<div class="function">
+<h3 id="is_authorized/2">is_authorized(ReqData, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="forbidden/2">forbidden(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="malformed_request/1">malformed_request(RD::reqdata(), Ctx::context()) -&gt; {boolean(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether query parameters are badly-formed.
+       Specifically, we check that the index operation is of
+       a known type.</p>
+</div></div>
+<div class="function">
+<h3 id="content_types_provided/1">content_types_provided(RD::reqdata(), Ctx::context()) -&gt; {[{ContentType::string(), Producer::atom()}], reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>List the content types available for representing this resource.
+       "application/json" is the content-type for bucket lists.</p>
+</div></div>
+<div class="function">
+<h3 id="encodings_provided/1">encodings_provided(RD::reqdata(), Ctx::context()) -&gt; {[{Encoding::string(), Producer::function()}], reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>List the encodings available for representing this resource.
+       "identity" and "gzip" are available for bucket lists.</p>
+</div></div>
+<div class="function">
+<h3 id="resource_exists/2">resource_exists(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="produce_index_results/1">produce_index_results(RD::reqdata(), Ctx::context()) -&gt; {binary(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Produce the JSON response to an index lookup.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>vbucket_map_mirror (ns_server) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>vbucket_map_mirror</h1>
+<h2 class="modsummary">This service maintains public ETS table that's caching node to  
+active vbuckets mapping and node to capi base url mapping.</h2>
+<div class="description">
+<p>This service maintains public ETS table that's caching node to  
+active vbuckets mapping and node to capi base url mapping.</p>
+ 
+  <p>Implementation is using ns_config_events subscription for cache  
+invalidation and dedicated worker.</p>
+ 
+  <p>NOTE: that while public ETS table could in principle be updated  
+independently, we're not doing that. Instead any ETS table mutation  
+is done on worker. This is because otherwise it would be possible  
+for cache invalidation to be 'overtaken' by cache update that used  
+vbucket map prior to cache invalidation event.</p>
+ 
+  <p>Here's how I think correctness of this approach can be proved.
+  Lets assume that cache has stale information. That means cache
+  invalidation event was either lost (should not be possible) or it
+  caused cache invalidation prior to cache update. So lets assume
+  cache update happened after cache invalidation request was
+  performed. But that implies that cache update could not see old
+  vbucket map (i.e. one that preceded cache invalidation), because at
+  the moment of cache invalidation request was made new vbucket map
+  was already set in config. That gives us contradiction which
+  implies 'badness' cannot happen.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket_name">bucket_name() = nonempty_string()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="submit_full_reset/0">submit_full_reset() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="node_vbuckets_dict_or_not_present/1">node_vbuckets_dict_or_not_present(BucketName::bucket_name()) -&gt; dict() | no_map | not_present</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="node_vbuckets_dict/1">node_vbuckets_dict(BucketName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="node_to_inner_capi_base_url/3">node_to_inner_capi_base_url(Node, User, Password) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="node_to_capi_base_url/1">node_to_capi_base_url(Node::node() | {ssl, node()}, LocalAddr::iolist() | binary()) -&gt; undefined | binary()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Couchbase</aname>
+<email>info@couchbase.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

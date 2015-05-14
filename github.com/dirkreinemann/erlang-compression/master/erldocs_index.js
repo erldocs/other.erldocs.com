@@ -1,0 +1,1 @@
+var index = [['app','erlang-compression','erlang-compression','[application]'],['mod','erlang-compression','rle',[]]];

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_cs_wm_utils (riak_cs) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_cs_wm_utils</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-access">access() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#access_v1{method = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'PUT'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'GET'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'POST'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'DELETE'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'HEAD',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bucket = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;req = any()}</h3></div>
+    <div class="type"><h3 id="type-acl">acl() = #acl_v1{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #acl_v2{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}</h3></div>
+    <div class="type"><h3 id="type-acl_grant">acl_grant() = {<a href="#type-acl_grantee" class="seealso">acl_grantee()</a>, <a href="#type-acl_perms" class="seealso">acl_perms()</a>}</h3></div>
+    <div class="type"><h3 id="type-acl_grantee">acl_grantee() = {DisplayName :: string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CanonicalID :: string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-group_grant" class="seealso">group_grant()</a></h3></div>
+    <div class="type"><h3 id="type-acl_or_error">acl_or_error() = {ok,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#acl_v2{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, invalid_argument}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, unresolved_grant_email}</h3></div>
+    <div class="type"><h3 id="type-acl_owner">acl_owner() = <a href="#type-acl_owner/2" class="seealso">acl_owner2()</a> | <a href="#type-acl_owner/3" class="seealso">acl_owner3()</a></h3></div>
+    <div class="type"><h3 id="type-acl_owner2">acl_owner2() = {string(), string()}</h3></div>
+    <div class="type"><h3 id="type-acl_owner3">acl_owner3() = {string(), string(), string()}</h3></div>
+    <div class="type"><h3 id="type-acl_perm">acl_perm() = 'READ'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'WRITE'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'READ_ACP'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'WRITE_ACP'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'FULL_CONTROL'</h3></div>
+    <div class="type"><h3 id="type-acl_perms">acl_perms() = [<a href="#type-acl_perm" class="seealso">acl_perm()</a>]</h3></div>
+    <div class="type"><h3 id="type-authorized_response">authorized_response() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-halt_or_bool" class="seealso">halt_or_bool()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RD :: #wm_reqdata{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ctx ::<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#context{start_time = undefined | <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auth_bypass = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user = undefined | <a href="#type-moss_user" class="seealso">moss_user()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user_object = undefined | <a href="riakc_obj.html#type-riakc_obj" class="seealso">riakc_obj:riakc_obj()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bucket = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acl = undefined | <a href="#type-acl" class="seealso">acl()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requested_perm = undefined | <a href="#type-acl_perm" class="seealso">acl_perm()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;riak_client = undefined | <a href="#type-riak_client" class="seealso">riak_client()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rc_pool = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_rc_close = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;submodule = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exports_fun = undefined | function(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auth_module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;policy_module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local_context = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;api = undefined | atom()}}</h3></div>
+    <div class="type"><h3 id="type-cluster_id">cluster_id() = undefined | binary()</h3></div>
+    <div class="type"><h3 id="type-cs_bucket">cs_bucket() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#moss_bucket_v1{name = undefined | string() | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_action = undefined | created | deleted,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_date = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modification_time = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acl = undefined | <a href="#type-acl" class="seealso">acl()</a>}</h3></div>
+    <div class="type"><h3 id="type-cs_uuid">cs_uuid() = binary()</h3></div>
+    <div class="type"><h3 id="type-group_grant">group_grant() = 'AllUsers' | 'AuthUsers'</h3></div>
+    <div class="type"><h3 id="type-halt_or_bool">halt_or_bool() = {halt, integer() &gt;= 1} | boolean()</h3></div>
+    <div class="type"><h3 id="type-lfs_manifest">lfs_manifest() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#lfs_manifest_v3{version = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block_size = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bkey = undefined | {binary(), binary()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metadata = undefined | <a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;created = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uuid = undefined | <a href="#type-cs_uuid" class="seealso">cs_uuid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_length = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_type = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_md5 = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| writing<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| active<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pending_delete<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| scheduled_delete<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| deleted<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| archived,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write_start_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_block_written_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write_blocks_remaining = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="ordsets.html#type-ordset" class="seealso">ordsets:ordset</a>(integer()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete_marked_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_block_deleted_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete_blocks_remaining = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="ordsets.html#type-ordset" class="seealso">ordsets:ordset</a>(integer()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduled_delete_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acl = undefined | <a href="#type-acl" class="seealso">acl()</a> | no_acl_yet,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props = undefined | <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cluster_id = undefined | <a href="#type-cluster_id" class="seealso">cluster_id()</a>}</h3></div>
+    <div class="type"><h3 id="type-moss_user">moss_user() = #rcs_user_v2{name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_secret = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canonical_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buckets = [<a href="#type-cs_bucket" class="seealso">cs_bucket()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status = enabled | disabled}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #moss_user_v1{name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_name = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_secret = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canonical_id = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buckets = [<a href="#type-cs_bucket" class="seealso">cs_bucket()</a>]}</h3></div>
+    <div class="type"><h3 id="type-policy">policy() = <a href="riak_cs_s3_policy.html#type-policy/1" class="seealso">riak_cs_s3_policy:policy1()</a></h3></div>
+    <div class="type"><h3 id="type-rcs_user">rcs_user() = #rcs_user_v2{name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_secret = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canonical_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buckets = [<a href="#type-cs_bucket" class="seealso">cs_bucket()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status = enabled | disabled}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #moss_user_v1{name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key_secret = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;canonical_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buckets = [<a href="#type-cs_bucket" class="seealso">cs_bucket()</a>]}</h3></div>
+    <div class="type"><h3 id="type-riak_client">riak_client() = pid()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="service_available/2">service_available(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="service_available/3">service_available(Pool, RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_and_auth_user/3">find_and_auth_user(RD, ICtx, Next) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Lookup the user specified by the access headers, and call
+  <code>Next(RD, NewCtx)</code> if there is no auth error.</p>
+ 
+  <p>If a user was successfully authed, the <code>user</code> and <code>user_object</code>
+  fields in the <code>#context</code> record passed to <code>Next</code> will be filled.  
+If the access is instead anonymous, those fields will be left as  
+they were passed to this function.</p>
+ 
+  <p>If authorization fails (a bad key or signature is given, or the
+  Riak lookup fails), a tuple suitable for returning from a
+  webmachine resource's <code>forbidden/2</code> function is returned, with
+  appropriate error message included.</p>
+</div></div>
+<div class="function">
+<h3 id="find_and_auth_user/4">find_and_auth_user(RD, ICtx, Next, AnonymousOk) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_and_auth_user/5">find_and_auth_user(RD, Context, Next, Conv2KeyCtx, AnonymousOk) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_and_auth_admin/3">find_and_auth_admin(RD, Ctx, AuthBypass) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate_auth_header/2">validate_auth_header(Wm_reqdata::#wm_reqdata{}, AuthBypass::term(), RcPid::riak_client(), Ctx::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()} | undefined) -&gt; {ok, rcs_user(), riakc_obj() (see module riakc_obj)} | {error, bad_auth | notfound | no_user_key | term()}</h3>
+
+
+<div class="description">
+
+<p>Look for an Authorization header in the request, and validate
+  it if it exists.  Returns <code>{ok, User, UserObj}</code> if validation
+  succeeds, or <code>{error, KeyId, Reason}</code> if any step fails.</p>
+</div></div>
+<div class="function">
+<h3 id="ensure_doc/1">ensure_doc(KeyCtx::term(), RcPid::riak_client()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Utility function for building #key_contest
+  Spawns manifest FSM</p>
+</div></div>
+<div class="function">
+<h3 id="respond_api_error/3">respond_api_error(RD, Ctx, ErrorAtom) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Produce an api error by using response_module.</p>
+</div></div>
+<div class="function">
+<h3 id="deny_access/2">deny_access(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Produce an access-denied error message from a webmachine
+  resource's <code>forbidden/2</code> function.</p>
+</div></div>
+<div class="function">
+<h3 id="deny_invalid_key/2">deny_invalid_key(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Prodice an invalid-access-keyid error message from a
+  webmachine resource's <code>forbidden/2</code> function.</p>
+</div></div>
+<div class="function">
+<h3 id="shift_to_owner/2">shift_to_owner(Wm_reqdata::#wm_reqdata{}, Context::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}, OwnerId::string(), RcPid::riak_client()) -&gt; {boolean(), #wm_reqdata{}, #context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}}</h3>
+
+
+<div class="description">
+
+<p>In the case is a user is authorized to perform an operation on
+  a bucket but is not the owner of that bucket this function can be used
+  to switch to the owner's record if it can be retrieved</p>
+</div></div>
+<div class="function">
+<h3 id="streaming_get/6">streaming_get(RcPool, RcPid, FsmPid, StartTime, UserName, BFile_str) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="iso_8601_datetime/0">iso_8601_datetime() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Get an ISO 8601 formatted timestamp representing
+  current time.</p>
+</div></div>
+<div class="function">
+<h3 id="iso_8601_datetime/1">iso_8601_datetime(X1::datetime() (see module calendar)) -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_iso_8601/1">to_iso_8601(Date::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Convert an RFC 1123 date into an ISO 8601 formatted timestamp.</p>
+</div></div>
+<div class="function">
+<h3 id="to_rfc_1123/1">to_rfc_1123(Date::string()) -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="iso_8601_to_rfc_1123/1">iso_8601_to_rfc_1123(Date::binary() | string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Convert an ISO 8601 date to RFC 1123 date. This function
+  assumes the input time is already in GMT time.</p>
+</div></div>
+<div class="function">
+<h3 id="iso_8601_to_erl_date/1">iso_8601_to_erl_date(Date::binary() | string()) -&gt; datetime() (see module calendar)</h3>
+
+
+<div class="description">
+
+<p>Convert an ISO 8601 date to Erlang datetime format.
+  This function assumes the input time is already in GMT time.</p>
+</div></div>
+<div class="function">
+<h3 id="extract_key/2">extract_key(Wm_reqdata::#wm_reqdata{}, Context::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}) -&gt; #context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}</h3>
+
+
+<div class="description">
+
+<p>Return a new context where the bucket and key for the s3 object
+  have been inserted.</p>
+</div></div>
+<div class="function">
+<h3 id="extract_name/1">extract_name(User) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="maybe_update_context_with_acl_from_headers/2">maybe_update_context_with_acl_from_headers(Wm_reqdata::#wm_reqdata{}, Context::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}) -&gt; {error, {{halt, term()}, #wm_reqdata{}, #context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}}} | {ok, #context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}}</h3>
+
+
+<div class="description">
+
+<p>Add an ACL to the context, from parsing the headers. If there is
+  an error parsing the header, halt the request. If there is no ACL
+  information in the headers, use the default ACL.</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_acl_from_context_and_request/2">maybe_acl_from_context_and_request(Wm_reqdata::#wm_reqdata{}, Context::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}, BucketObj::riakc_obj() (see module riakc_obj)) -&gt; {ok, acl_or_error()} | error</h3>
+
+
+<div class="description">
+
+<p>Return an ACL if one can be parsed from the headers. If there
+  are no ACL headers, return <code>error</code>. In this case, it's not unexpected
+  to get the <code>error</code> value back, but it's name is used for convention.
+  It could also reasonable be called <code>nothing</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="acl_from_headers/1">acl_from_headers(Headers::list(), Owner::acl_owner(), BucketOwner::undefined | acl_owner(), RcPid::riak_client()) -&gt; acl_or_error()</h3>
+
+
+<div class="description">
+
+<p>Create an acl from the request headers. At this point, we should
+  have already verified that there is only a canned acl header or specific
+  header grants.</p>
+</div></div>
+<div class="function">
+<h3 id="extract_acl_headers/1">extract_acl_headers(Headers::term()) -&gt; [{acl_perm(), string()}]</h3>
+
+
+<div class="description">
+
+<p>Extract the ACL-related headers from a list of headers.</p>
+</div></div>
+<div class="function">
+<h3 id="has_acl_header_and_body/1">has_acl_header_and_body(Wm_reqdata::#wm_reqdata{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if the request has both:
+  1. an ACL-related header
+  2. a non-empty request body</p>
+</div></div>
+<div class="function">
+<h3 id="has_acl_header/1">has_acl_header(Wm_reqdata::#wm_reqdata{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if the request has either
+  a canned ACL header, or a specific-grant header.</p>
+</div></div>
+<div class="function">
+<h3 id="has_canned_acl_and_header_grant/1">has_canned_acl_and_header_grant(Wm_reqdata::#wm_reqdata{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if the request has _both_ a
+  a canned header ACL and a specific-grant header.</p>
+</div></div>
+<div class="function">
+<h3 id="has_canned_acl_header/1">has_canned_acl_header(Wm_reqdata::#wm_reqdata{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if the request uses a canned ACL header.</p>
+</div></div>
+<div class="function">
+<h3 id="has_specific_acl_header/1">has_specific_acl_header(Wm_reqdata::#wm_reqdata{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if the request has at least one
+  specific-grant header.</p>
+</div></div>
+<div class="function">
+<h3 id="has_body/1">has_body(Wm_reqdata::#wm_reqdata{}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if the request has a non-empty body.</p>
+</div></div>
+<div class="function">
+<h3 id="extract_amazon_headers/1">extract_amazon_headers(Headers) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_user_metadata/1">extract_user_metadata(Wm_reqdata::#wm_reqdata{}) -&gt; proplist() (see module proplists)</h3>
+
+
+<div class="description">
+
+<p>Extract user metadata from request header
+  Expires, Content-Disposition, Content-Encoding, Cache-Control and x-amz-meta-*</p>
+</div></div>
+<div class="function">
+<h3 id="normalize_headers/1">normalize_headers(RD) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bucket_access_authorize_helper/1">bucket_access_authorize_helper(AccessType::atom(), Deletable::boolean(), RD::term(), Ctx::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="object_access_authorize_helper/1">object_access_authorize_helper(AccessType::atom(), Deletable::boolean(), RD::#wm_reqdata{}, Ctx::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}) -&gt; authorized_response()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="object_access_authorize_helper/1-1">object_access_authorize_helper(AccessType::atom(), Deletable::boolean(), SkipAcl::boolean(), RD::#wm_reqdata{}, Ctx::#context{start_time=undefined | timestamp() (see module erlang), auth_bypass=undefined | atom(), user=undefined | moss_user(), user_object=undefined | riakc_obj() (see module riakc_obj), bucket=undefined | binary(), acl=undefined | acl(), requested_perm=undefined | acl_perm(), riak_client=undefined | riak_client(), rc_pool=undefined | atom(), auto_rc_close=boolean(), submodule=undefined | atom(), exports_fun=undefined | function(), auth_module=undefined | atom(), response_module=undefined | atom(), policy_module=undefined | atom(), local_context=undefined | term(), api=undefined | atom()}) -&gt; authorized_response()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_object_authorization/1">check_object_authorization(Access::access(), SkipAcl::boolean(), ObjectAcl::undefined | acl(), Policy::policy(), CanonicalId::undefined | string(), PolicyMod::atom(), RcPid::riak_client(), BucketObj::riakc_obj() (see module riakc_obj)) -&gt; {ok, actor_is_owner_and_allowed_policy | {actor_is_not_owner_but_allowed_policy, string()} | just_allowed_by_policy} | {error, actor_is_owner_but_denied_policy | {actor_is_not_owner_and_denied_policy, string()} | access_denied}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_canonical_id/1">extract_canonical_id(Rcs_user_v2::rcs_user() | undefined) -&gt; undefined | string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_object_acl/1">extract_object_acl(Manifest::notfound | lfs_manifest()) -&gt; undefined | acl()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="translate_bucket_policy/1">translate_bucket_policy(PolicyMod::atom(), BucketObj::riakc_obj() (see module riakc_obj)) -&gt; policy() | undefined | {error, multiple_bucket_owners} | {error, notfound}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fetch_bucket_owner/1">fetch_bucket_owner(Bucket::binary(), RcPid::riak_client()) -&gt; undefined | acl_owner()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bucket_owner/1">bucket_owner(BucketObj::undefined | riakc_obj() (see module riakc_obj)) -&gt; undefined | acl_owner()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

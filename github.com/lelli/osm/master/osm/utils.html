@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>utils (osm) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>utils</h1>
+<h2 class="modsummary">A small collection of utility functions.</h2>
+<div class="description">
+<p>A small collection of utility functions.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="line/1">line(N) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="printList/1">printList(T) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decToBase/2">decToBase(Dec, Base) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="seqs/1">seqs(N::integer()) -&gt; [[integer()]]</h3>
+
+
+<div class="description">
+
+<p>Generates a list of lists of increasing sequences of integers
+  starting with the empty list and ending with [1,2, ..., N].
+  <em><marker id="Example">Example</marker></em>
+  <div class="example"><pre class="sh_erlang">  &gt; utils:seqs(5).
+  [[],[1],[1,2],[1,2,3],[1,2,3,4],[1,2,3,4,5]]</pre>
+  </div></p>
+</div></div>
+<div class="function">
+<h3 id="filter/2">filter(Preds, List1) -&gt; List2</h3>
+
+<ul class="type">
+<li><code>Preds = [Pred]</code></li><li><code>Pred = (Elem::T) -&gt; boolean()</code></li><li><code>List1 = [T]</code></li><li><code>List2 = [[T]]</code></li><li><code>T = term()</code></li></ul>
+<div class="description">
+
+<p>Each list in List2 contains the elements Elem in List1 for  
+which one of the Pred(Elem) returns true. The order of the lists in  
+List2 is the same as the order of the predicates. In each list in  
+List2, the relative order of the elements are the same as in the  
+original List1.</p>
+ 
+  <p><em><marker id="Example">Example</marker></em>
+  <div class="example"><pre class="sh_erlang">  1&gt; L = [1,2,3,4,5,6,7,8,9,10].
+  [1,2,3,4,5,6,7,8,9,10]
+  2&gt; P1 = fun(X) -&gt; X rem 2 == 1 end.
+  #Fun&lt;erl_eval.6.111823515&gt;
+  3&gt; P2 = fun(X) -&gt; not P1(X) end.
+  #Fun&lt;erl_eval.6.111823515&gt;
+  4&gt; P3 = fun(X) -&gt; X &gt; 3 andalso X &lt; 7 end.
+  #Fun&lt;erl_eval.6.111823515&gt;
+  5&gt; utils:filter([P1,P2,P3], L).
+  [[1,3,5,7,9],[2,4,6,8,10],[4,5,6]]</pre>
+  </div></p>
+</div></div>
+<div class="function">
+<h3 id="split/2">split(List, N) -&gt; Lists</h3>
+
+<ul class="type">
+<li><code>List = [T]</code></li><li><code>Lists = [List]</code></li><li><code>T = term()</code></li><li><code>N = integer()</code></li></ul>
+<div class="description">
+
+<p>Split List into N Lists such that all Lists have approximately the same number of elements.</p>
+ 
+  <p>Let Len = length(List), Q = Len div N and R = Len rem N.</p>
+ 
+  <p>If R = 0, then all of the lists in Lists will be of length Q.</p>
+ 
+  <p>If R =/= 0, then R of the lists in Lists will have  
+lenght Q + 1.</p>
+ 
+  <p><em><marker id="Example">Example</marker></em></p>
+ 
+  <p><div class="example"><pre class="sh_erlang">  1&gt; L = [1,2,3,4,5,6,7,8,9,10].
+  [1,2,3,4,5,6,7,8,9,10]
+  2&gt; utils:split(L, 4).
+  [[1,2],[3,4],[5,6,7],[8,9,10]]
+  3&gt; lists:concat(utils:split(L,3)).
+  [1,2,3,4,5,6,7,8,9,10]</pre>
+  </div></p>
+</div></div></div>
+
+<authors>
+
+<aname>Karl Marklund</aname>
+<email>karl.marklund@it.uu.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

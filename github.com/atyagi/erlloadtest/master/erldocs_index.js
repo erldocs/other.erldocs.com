@@ -1,0 +1,1 @@
+var index = [['app','erlloadtest','erlloadtest','[application]'],['mod','erlloadtest','configurator',[]],['fun','erlloadtest','configurator:create_config/3',[]]];

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riaknostic_check (riaknostic) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riaknostic_check</h1>
+<h2 class="modsummary">Enforces a common API among all diagnostic modules and
+  provides some automation around their execution.</h2>
+<div class="description">
+<p>Enforces a common API among all diagnostic modules and
+  provides some automation around their execution.</p>
+  <em>Behaviour Specification</em>
+ 
+  <p><em>description/0</em>
+  </p><pre class="sh_erlang">-spec description() -&gt; iodata().</pre><p>
+  </p><p>A short description of what the diagnostic does, which will be
+  printed when the script is given the <code>-l</code> flag.</p>
+ 
+  <p><em>valid/0</em>
+  </p><pre class="sh_erlang">-spec valid() -&gt; boolean().</pre><p>
+  </p><p>Whether the diagnostic is valid to run. For example, some checks
+  require connectivity to the Riak node and hence call <url href="/home/pete/wefwefwef/docs/other/6fdd1bf25b807cebae6eb82a6a5a4fc3/repo/refactor/bjs-remove-export/.xml/riaknostic/./riaknostic_node.xml#can_connect-0">riaknostic_node:can_connect()</url>.</p>
+ 
+  <p><em>check/0</em>
+  </p><pre class="sh_erlang">-spec check() -&gt; [{lager:log_level(), term()}].</pre><p>
+  </p><p>Runs the diagnostic, returning a list of pairs, where the first
+  is a severity level and the second is any term that is understood
+  by the <code>format/1</code> callback.</p>
+ 
+  <p><em>format/1</em>
+  </p><pre class="sh_erlang">-spec format(term()) -&gt; iodata() | {io:format(), [term()]}.</pre><p>
+  </p><p>Formats terms that were returned from <code>check/0</code> for
+  output to the console. Valid return values are an iolist (string,
+  binary, etc) or a pair of a format string and a list of terms, as
+  you would pass to <a href="io.html#format/2" class="seealso">io:format/2</a>.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(X1::atom()) -&gt; undefined | [{atom(), arity()}]</h3>
+
+
+<div class="description">
+
+<p>The behaviour definition for diagnostic modules.</p>
+</div></div>
+<div class="function">
+<h3 id="check/1">check(Module::module()) -&gt; [{log_level() (see module lager), module(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Runs the diagnostic in the given module, if it is valid. Returns a
+  list of messages that will be printed later using print/1.</p>
+</div></div>
+<div class="function">
+<h3 id="modules/0">modules() -&gt; [module()]</h3>
+
+
+<div class="description">
+
+<p>Collects a list of diagnostic modules included in the
+  riaknostic application.</p>
+</div></div>
+<div class="function">
+<h3 id="print/1">print(X1::{Level::log_level() (see module lager), Module::module(), Data::term()}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Formats and prints the given message via lager:log/3,4. The diagnostic
+  module's format/1 function will be called to provide a
+  human-readable message. It should return an iolist() or a 2-tuple
+  consisting of a format string and a list of terms.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','hackerrank','hackerrank','[application]'],['mod','hackerrank','solution',[]],['fun','hackerrank','solution:main/0',[]],['fun','hackerrank','solution:prepareMemory/2',[]],['fun','hackerrank','solution:setData/3',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','sbeezg','sbeezg','[application]'],['mod','sbeezg','sbeezg',[]],['fun','sbeezg','sbeezg:run/1',[]],['fun','sbeezg','sbeezg:test/1',[]]];

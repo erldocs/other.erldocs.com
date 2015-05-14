@@ -1,0 +1,1 @@
+var index = [['app','lager_journald_backend','lager_journald_backend','[application]'],['mod','lager_journald_backend','lager_journald_backend','Journald backend for lager.']];

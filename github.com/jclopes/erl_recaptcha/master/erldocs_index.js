@@ -1,0 +1,1 @@
+var index = [['app','erl_recaptcha','erl_recaptcha','[application]'],['mod','erl_recaptcha','erl_recaptcha',[]],['fun','erl_recaptcha','erl_recaptcha:display_html/3',[]],['fun','erl_recaptcha','erl_recaptcha:submit/4',[]]];

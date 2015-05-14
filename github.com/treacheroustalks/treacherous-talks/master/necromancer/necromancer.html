@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>necromancer (necromancer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>necromancer</h1>
+<h2 class="modsummary">
+   Makes it possible to 'watch' a erlang VM by name.</h2>
+<div class="description">
+<p>
+   Makes it possible to 'watch' a erlang VM by name.
+   A watched VM has the possibility to store data about it's processes
+   persistently (in a place where other VMs have access) as long as
+   everything is fine. Every stored blob of data is called a 'corpse'.<br />
+   A corpse (see the type definition below!) consists of the owner-node, the
+   module that has it's <code>handle_corpse</code> function and of the data, that function
+   needs in order to rebuild it.<br />
+   If the watched VM dies, the watching VM will call the supplied <code>get_corpses</code>
+   function which gives it a list of corpses that where written by that node.
+   The necromancer module will take care of giving those corpses to the other,
+   still living nodes, whose <code>handle_corpse</code> functions are responsible for
+   cleaning the mess up or resurrecting the processes.
+   They also have to <em>remove</em> the corpse after cleanup. <br />
+   This module does not know anything about how you store your data - and it
+   doesn't want to! All it needs is your implementation of a <code>get_corpses</code>
+   function and that you save all the information that you need to
+   clean up again.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-corpse">corpse() = {node(), module(), Data :: any()}</h3></div>
+    <div class="type"><h3 id="type-get_corpses_fun">get_corpses_fun() = fun((Node :: node()) -> [<a href="#type-corpse" class="seealso">corpse()</a>] | [])</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(GetCorpsesFun) -&gt; {ok, pid()}</h3>
+
+<ul class="type">
+<li><code>GetCorpsesFun = get_corpses_fun()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="watch/1">watch(N::[node()] | node()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  adds one or several nodes to the list of watched nodes.
+  If the node is not running yet, a process will be spawned that will wait for
+  the node to appear and then add it. It's fire-and-forget.</p>
+</div></div>
+<div class="function">
+<h3 id="get_watched/0">get_watched() -&gt; [node()] | []</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unwatch/1">unwatch(N::[node()] | node()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  removes one or several nodes from the list of watched nodes.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

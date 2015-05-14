@@ -1,0 +1,1 @@
+var index = [['app','erlangsocksproxy','erlangsocksproxy','[application]'],['mod','erlangsocksproxy','entry',[]],['fun','erlangsocksproxy','entry:start_socks/0',[]],['fun','erlangsocksproxy','entry:start_socks/1',[]]];

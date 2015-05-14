@@ -31,14 +31,14 @@
 <div class="description">
 <p>The gen_server process for the process of a mq's consumer as part of a supervision tree</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-event_of_compaction">event_of_compaction() = run<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| diagnose<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| lock<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| suspend<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| resume<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| finish<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| state<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| incr_interval<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| decr_interval<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| incr_batch_of_msgs<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| decr_batch_of_msgs</h3></div>
+    <div class="type"><h3 id="type-event_of_compaction">event_of_compaction() = run<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| diagnose<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| lock<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| suspend<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| resume<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| finish<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| state<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| increase<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| decrease</h3></div>
     <div class="type"><h3 id="type-state_of_mq">state_of_mq() = idling | running | suspending</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/3">start_link(Id, PublisherId, Props) -&gt; {ok, pid()} | {error, any()}</h3>
+<h3 id="start_link/4">start_link(Id, PublisherId, Props, WorkerSeqNum) -&gt; {ok, pid()} | {error, any()}</h3>
 
 <ul class="type">
-<li><code>Id = atom()</code></li><li><code>PublisherId = atom()</code></li><li><code>Props = #mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}</code></li></ul>
+<li><code>Id = atom()</code></li><li><code>PublisherId = atom()</code></li><li><code>Props = #mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}</code></li><li><code>WorkerSeqNum = non_neg_integer()</code></li></ul>
 <div class="description">
 
 <p>Creates a gen_fsm process as part of a supervision tree</p>
@@ -94,40 +94,22 @@
        which contains number of objects and so on.</p>
 </div></div>
 <div class="function">
-<h3 id="incr_interval/1">incr_interval(Id) -&gt; {ok, state_of_mq()}</h3>
+<h3 id="increase/1">increase(Id) -&gt; {ok, state_of_mq()}</h3>
 
 <ul class="type">
 <li><code>Id = atom()</code></li></ul>
 <div class="description">
 
-<p>Increase waiting-time in order to down load of processing</p>
+<p>Increase comsumption processing</p>
 </div></div>
 <div class="function">
-<h3 id="decr_interval/1">decr_interval(Id) -&gt; {ok, state_of_mq()}</h3>
+<h3 id="decrease/1">decrease(Id) -&gt; {ok, state_of_mq()}</h3>
 
 <ul class="type">
 <li><code>Id = atom()</code></li></ul>
 <div class="description">
 
-<p>Decrease waiting-time in order to up consuming speed</p>
-</div></div>
-<div class="function">
-<h3 id="incr_batch_of_msgs/1">incr_batch_of_msgs(Id) -&gt; {ok, state_of_mq()}</h3>
-
-<ul class="type">
-<li><code>Id = atom()</code></li></ul>
-<div class="description">
-
-<p>Increase batch-processes in order to  up consuming speed</p>
-</div></div>
-<div class="function">
-<h3 id="decr_batch_of_msgs/1">decr_batch_of_msgs(Id) -&gt; {ok, state_of_mq()}</h3>
-
-<ul class="type">
-<li><code>Id = atom()</code></li></ul>
-<div class="description">
-
-<p>Decrease batch-processes in order to down load of processing</p>
+<p>Decrease comsumption processing</p>
 </div></div>
 <div class="function">
 <h3 id="init/1">init(X1) -&gt; term()
@@ -201,7 +183,7 @@
 <h3 id="idling/3">idling(EventInfo, From, State) -&gt; {next_state, idling | running, State}</h3>
 
 <ul class="type">
-<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>From = {pid(), Tag::atom()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
+<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>From = {pid(), Tag::atom()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
 <div class="description">
 
 <p>State of 'idle'
@@ -211,20 +193,20 @@
 <h3 id="idling/2">idling(EventInfo, State) -&gt; {next_state, idling, State}</h3>
 
 <ul class="type">
-<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
+<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">
 <h3 id="running/2">running(EventInfo, State) -&gt; {next_state, running, State}</h3>
 
 <ul class="type">
-<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
+<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
 <div class="description">
 
 <p>State of 'running'</p>
 </div></div>
 <div class="function">
-<h3 id="running/1">running(Event_info::term(), From::term(), State::#state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}) -&gt; {next_state, running, #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}}</h3>
+<h3 id="running/1">running(Event_info::term(), From::term(), State::#state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}) -&gt; {next_state, running, #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}}</h3>
 
 
 <div class="description">
@@ -233,7 +215,7 @@
 <h3 id="suspending/2">suspending(EventInfo, State) -&gt; {next_state, suspending, State}</h3>
 
 <ul class="type">
-<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
+<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
 <div class="description">
 
 <p>State of 'suspend'
@@ -243,7 +225,7 @@
 <h3 id="suspending/3">suspending(EventInfo, From, State) -&gt; {next_state, suspending | running, State}</h3>
 
 <ul class="type">
-<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>From = {pid(), Tag::atom()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
+<li><code>EventInfo = #event_info{id=undefined | atom(), event=event_of_compaction()}</code></li><li><code>From = {pid(), Tag::atom()}</code></li><li><code>State = #state{id=undefined | atom(), status=state_of_mq(), publisher_id=undefined | atom(), named_mqdb_pid=undefined | atom(), mq_properties=#mq_properties{publisher_id=undefined | atom(), consumer_id=undefined | atom(), mod_callback=undefined | module(), db_name=undefined | atom(), db_procs=integer(), root_path=string(), mqdb_id=undefined | atom(), mqdb_path=string(), max_interval=pos_integer(), min_interval=pos_integer(), regular_interval=pos_integer(), step_interval=pos_integer(), max_batch_of_msgs=pos_integer(), min_batch_of_msgs=pos_integer(), regular_batch_of_msgs=pos_integer(), step_batch_of_msgs=pos_integer()}, worker_seq_num=non_neg_integer(), interval=non_neg_integer(), batch_of_msgs=non_neg_integer(), start_datetime=non_neg_integer()}</code></li></ul>
 <div class="description">
  </div></div>
 <div class="function">

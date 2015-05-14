@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_cs_manifest_utils (riak_cs) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_cs_manifest_utils</h1>
+<h2 class="modsummary">Module for choosing and manipulating lists (well, orddict) of manifests.</h2>
+<div class="description">
+<p>Module for choosing and manipulating lists (well, orddict) of manifests</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-acl">acl() = #acl_v1{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #acl_v2{owner = <a href="#type-acl_owner" class="seealso">acl_owner()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grants = [<a href="#type-acl_grant" class="seealso">acl_grant()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creation_time = <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}</h3></div>
+    <div class="type"><h3 id="type-acl_grant">acl_grant() = {<a href="#type-acl_grantee" class="seealso">acl_grantee()</a>, <a href="#type-acl_perms" class="seealso">acl_perms()</a>}</h3></div>
+    <div class="type"><h3 id="type-acl_grantee">acl_grantee() = {string(), string()} | <a href="#type-group_grant" class="seealso">group_grant()</a></h3></div>
+    <div class="type"><h3 id="type-acl_owner">acl_owner() = <a href="#type-acl_owner/2" class="seealso">acl_owner2()</a> | <a href="#type-acl_owner/3" class="seealso">acl_owner3()</a></h3></div>
+    <div class="type"><h3 id="type-acl_owner2">acl_owner2() = {string(), string()}</h3></div>
+    <div class="type"><h3 id="type-acl_owner3">acl_owner3() = {string(), string(), string()}</h3></div>
+    <div class="type"><h3 id="type-acl_perm">acl_perm() = 'READ'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'WRITE'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'READ_ACP'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'WRITE_ACP'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'FULL_CONTROL'</h3></div>
+    <div class="type"><h3 id="type-acl_perms">acl_perms() = [<a href="#type-acl_perm" class="seealso">acl_perm()</a>]</h3></div>
+    <div class="type"><h3 id="type-cluster_id">cluster_id() = undefined | binary()</h3></div>
+    <div class="type"><h3 id="type-cs_uuid">cs_uuid() = binary()</h3></div>
+    <div class="type"><h3 id="type-cs_uuid_and_manifest">cs_uuid_and_manifest() = {<a href="#type-cs_uuid" class="seealso">cs_uuid()</a>, <a href="#type-lfs_manifest" class="seealso">lfs_manifest()</a>}</h3></div>
+    <div class="type"><h3 id="type-group_grant">group_grant() = 'AllUsers' | 'AuthUsers'</h3></div>
+    <div class="type"><h3 id="type-lfs_manifest">lfs_manifest() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#lfs_manifest_v3{version = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block_size = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bkey = undefined | {binary(), binary()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metadata = undefined | <a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;created = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uuid = undefined | <a href="#type-cs_uuid" class="seealso">cs_uuid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_length = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_type = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content_md5 = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| writing<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| active<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pending_delete<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| scheduled_delete<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| deleted,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write_start_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_block_written_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write_blocks_remaining = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="ordsets.html#type-ordset" class="seealso">ordsets:ordset</a>(integer()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete_marked_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_block_deleted_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete_blocks_remaining = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="ordsets.html#type-ordset" class="seealso">ordsets:ordset</a>(integer()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scheduled_delete_time = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acl = undefined | <a href="#type-acl" class="seealso">acl()</a> | no_acl_yet,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props = undefined | <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cluster_id = undefined | <a href="#type-cluster_id" class="seealso">cluster_id()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new_dict/1">new_dict(UUID::binary(), Manifest::lfs_manifest()) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Return a new orddict of manifest (only
+  one in this case). Used when storing something
+  in Riak when the previous GET returned notfound,
+  so we're (maybe) creating a new object.</p>
+</div></div>
+<div class="function">
+<h3 id="active_manifest/1">active_manifest(Dict::orddict() (see module orddict)) -&gt; {ok, lfs_manifest()} | {error, no_active_manifest}</h3>
+
+
+<div class="description">
+
+<p>Return the current active manifest
+  from an orddict of manifests.</p>
+</div></div>
+<div class="function">
+<h3 id="active_manifests/1">active_manifests(Dict::orddict() (see module orddict)) -&gt; [lfs_manifest()] | []</h3>
+
+
+<div class="description">
+
+<p>Return all active manifests</p>
+</div></div>
+<div class="function">
+<h3 id="active_and_writing_manifests/1">active_and_writing_manifests(Dict::orddict() (see module orddict)) -&gt; [lfs_manifest()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of all manifests in the
+  <code>active</code> or <code>writing</code> state</p>
+</div></div>
+<div class="function">
+<h3 id="writing_manifests/1">writing_manifests(Dict::orddict() (see module orddict)) -&gt; [lfs_manifest()] | []</h3>
+
+
+<div class="description">
+
+<p>Return all writing manifests</p>
+</div></div>
+<div class="function">
+<h3 id="overwritten_UUIDs/1">overwritten_UUIDs(Dict::orddict() (see module orddict)) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Extract all manifests that are not "the most active"
+       and not actively writing (within the leeway period).</p>
+</div></div>
+<div class="function">
+<h3 id="mark_scheduled_delete/1">mark_scheduled_delete(Dict::orddict() (see module orddict), UUIDsToMark::[binary()]) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Return <code>Dict</code> with the manifests in
+  <code>UUIDsToMark</code> with their state changed to
+  <code>scheduled_delete</code></p>
+</div></div>
+<div class="function">
+<h3 id="mark_deleted/1">mark_deleted(Dict::orddict() (see module orddict), UUIDsToMark::[binary()]) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Return <code>Dict</code> with the manifests in
+  <code>UUIDsToMark</code> with their state changed to
+  <code>pending_delete</code> and {deleted, true} added to props.</p>
+</div></div>
+<div class="function">
+<h3 id="mark_pending_delete/1">mark_pending_delete(Dict::orddict() (see module orddict), UUIDsToMark::[binary()]) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Return <code>Dict</code> with the manifests in
+  <code>UUIDsToMark</code> with their state changed to
+  <code>pending_delete</code></p>
+</div></div>
+<div class="function">
+<h3 id="mark_dead/1">mark_dead(Dict::orddict() (see module orddict), UUIDsToMark::[binary()]) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Return <code>Dict</code> with the manifests in
+  <code>UUIDsToMark</code> with a {dead, true} in the props
+  member to signify that the writing manifests should be garbage
+  collected immediately after being made active.</p>
+</div></div>
+<div class="function">
+<h3 id="manifests_to_gc/1">manifests_to_gc(PendingDeleteUUIDs::[cs_uuid()], Manifests::orddict() (see module orddict)) -&gt; [cs_uuid_and_manifest()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of manifests that are either
+  in <code>PendingDeleteUUIDs</code> or are in the <code>pending_delete</code>
+  state and have been there for longer than the retry
+  interval.</p>
+</div></div>
+<div class="function">
+<h3 id="prune/1">prune(Dict::orddict() (see module orddict)) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+
+<p>Remove all manifests that require pruning,
+       see needs_pruning() for definition of needing pruning.</p>
+</div></div>
+<div class="function">
+<h3 id="prune/1-1">prune(Dict::orddict() (see module orddict), Time::timestamp() (see module erlang)) -&gt; orddict() (see module orddict)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upgrade_wrapped_manifests/1">upgrade_wrapped_manifests(ListofOrdDicts::[orddict() (see module orddict)]) -&gt; [orddict() (see module orddict)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upgrade_manifest/1">upgrade_manifest(Lfs_manifest_v2::lfs_manifest() | #lfs_manifest_v2{version=integer(), block_size=undefined | integer(), bkey=undefined | {binary(), binary()}, metadata=undefined | orddict() (see module orddict), created=any(), uuid=undefined | cs_uuid(), content_length=undefined | non_neg_integer(), content_type=undefined | binary(), content_md5=undefined | term(), state=undefined | writing | active | pending_delete | scheduled_delete | deleted, write_start_time=undefined | term(), last_block_written_time=undefined | term(), write_blocks_remaining=undefined | ordset(integer()) (see module ordsets), delete_marked_time=undefined | term(), last_block_deleted_time=undefined | term(), delete_blocks_remaining=undefined | ordset(integer()) (see module ordsets), acl=undefined | acl(), props=proplist() (see module proplists), cluster_id=undefined | cluster_id()}) -&gt; lfs_manifest()</h3>
+
+
+<div class="description">
+
+<p>Upgrade the manifest to the most recent
+  version of the manifest record. This is so that
+  _most_ of the codebase only has to deal with
+  the most recent version of the record.</p>
+</div></div>
+<div class="function">
+<h3 id="deleted_while_writing/1">deleted_while_writing(Manifests::orddict() (see module orddict)) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Return all active manifests that have timestamps before the latest deletion
+  This happens when a manifest is still uploading while the key is deleted by a client.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

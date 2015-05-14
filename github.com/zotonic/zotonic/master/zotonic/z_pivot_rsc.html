@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>z_pivot_rsc (zotonic) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>z_pivot_rsc</h1>
+<h2 class="modsummary">Pivoting server for the rsc table.</h2>
+<div class="description">
+<p>Pivoting server for the rsc table. Takes care of full text indices. Polls the pivot queue for any changed resources.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="poll/1">poll(Context) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>Poll the pivot queue for the database in the context</p>
+</div></div>
+<div class="function">
+<h3 id="pivot/2">pivot(Id, Context) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>An immediate pivot request for a resource</p>
+</div></div>
+<div class="function">
+<h3 id="pivot_resource_update/4">pivot_resource_update(Id, UpdateProps, RawProps, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a modified property list with fields that need immediate pivoting on an update.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_all/1">queue_all(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Rebuild the search index by queueing all resources for pivot.</p>
+</div></div>
+<div class="function">
+<h3 id="insert_queue/2">insert_queue(Id, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Insert a rsc_id in the pivot queue</p>
+</div></div>
+<div class="function">
+<h3 id="insert_task/3">insert_task(Module, Function, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Insert a slow running pivot task. For example syncing category numbers after an category update.</p>
+</div></div>
+<div class="function">
+<h3 id="insert_task/4">insert_task(Module, Function, UniqueKey, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Insert a slow running pivot task. Use the UniqueKey to prevent double queued tasks.</p>
+</div></div>
+<div class="function">
+<h3 id="insert_task/5">insert_task(Module, Function, UniqueKey, Args, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Insert a slow running pivot task with unique key and arguments.</p>
+</div></div>
+<div class="function">
+<h3 id="insert_task_after/6">insert_task_after(SecondsOrDate, Module, Function, UniqueKey, Args, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Insert a slow running pivot task with unique key and arguments that should start after Seconds seconds.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_task/3">delete_task(Module, Function, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_task/4">delete_task(Module, Function, UniqueKey, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(SiteProps) -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Starts the server</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(SiteProps::Args) -&gt; {ok, State} | {ok, State, Timeout} | ignore | {stop, Reason}</h3>
+
+
+<div class="description">
+
+<p>Initiates the server.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Message::Request, From, State) -&gt; {reply, Reply, State} | {reply, Reply, State, Timeout} | {noreply, State} | {noreply, State, Timeout} | {stop, Reason, Reply, State} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Trap unknown calls</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Message::Msg, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Poll the queue for the default host</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Handling all non call/cast messages</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>This function is called by a gen_server when it is about to
+  terminate. It should be the opposite of Module:init/1 and do any necessary
+  cleaning up. When it returns, the gen_server terminates with Reason.
+  The return value is ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; {ok, NewState}</h3>
+
+
+<div class="description">
+
+<p>Convert process state when code is changed</p>
+</div></div>
+<div class="function">
+<h3 id="pivot_resource/2">pivot_resource(Id, Context) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>Pivot a resource, collect all texts for indexing and some extra to be indexed fields.</p>
+</div></div>
+<div class="function">
+<h3 id="get_pivot_title/2">get_pivot_title(Id, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Fetch the first title from the record for sorting.</p>
+</div></div>
+<div class="function">
+<h3 id="get_pivot_title/1">get_pivot_title(Props) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_pivot_data/2">get_pivot_data(Id, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pg_lang/1">pg_lang(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Translate a language to a language string as used by
+  postgresql. This language list is the intersection of the default
+  catalogs of postgres with the languages supported by
+  mod_translation.</p>
+</div></div>
+<div class="function">
+<h3 id="define_custom_pivot/2">define_custom_pivot(Module, Columns::columns(), Context) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Let a module define a custom pivot
+  columns() -&gt; [column()]
+  column()  -&gt; {ColumName::atom(), ColSpec::string()} | {atom(), string(), options::list()}</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_custom_pivot/4">lookup_custom_pivot(Module, Column, Value, Context) -&gt; Id | undefined</h3>
+
+
+<div class="description">
+
+<p>Lookup a custom pivot; give back the Id based on a column. Will always return the first Id found.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Marc Worrell</aname>
+<email>marc@worrell.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

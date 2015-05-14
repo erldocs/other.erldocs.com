@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_index (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_index</h1>
+<h2 class="modsummary">central module for indexing.</h2>
+<div class="description">
+<p>central module for indexing.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucketname">bucketname() = binary()</h3></div>
+    <div class="type"><h3 id="type-continuation">continuation() = binary() | undefined</h3></div>
+    <div class="type"><h3 id="type-data_type_def">data_type_def() = {MatchFunction::function(), ParseFunction::function()}</h3></div>
+    <div class="type"><h3 id="type-data_type_defs">data_type_defs() = [data_type_def()]</h3></div>
+    <div class="type"><h3 id="type-failure_reason">failure_reason() = {unknown_field_type, Field::binary()} | {field_parsing_failed, {Field::binary(), Value::binary()}}</h3></div>
+    <div class="type"><h3 id="type-index_field">index_field() = binary()</h3></div>
+    <div class="type"><h3 id="type-index_value">index_value() = binary() | integer()</h3></div>
+    <div class="type"><h3 id="type-query_def">query_def() = {ok, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {term(), {error, term()}}</h3></div>
+    <div class="type"><h3 id="type-query_element">query_element() = {eq, index_field(), index_value()} | {range, index_field(), index_value(), index_value()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="mapred_index/2">mapred_index(Dest, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mapred_index/3">mapred_index(Pipe, X2, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_object_hook/1">parse_object_hook(RObj::riak_object() (see module riak_object)) -&gt; riak_object() (see module riak_object) | {fail, [failure_reason()]}</h3>
+
+
+<div class="description">
+
+<p>Parse the index fields stored in object metadata. Conforms to
+       the pre-commit hook interface. Return the new object with
+       parsed fields stuffed into the matadata if validation was
+       successful, or {fail, [Reasons]} if validation failed. Reason
+       is either <code>{unknown_field_type, Field}</code> or
+       <code>{field_parsing_failed, {Field, Value}}.</code></p>
+</div></div>
+<div class="function">
+<h3 id="parse_object/1">parse_object(RObj::riak_object() (see module riak_object)) -&gt; {ok, [{Field::binary(), Val::term()}]} | {error, [failure_reason()]}</h3>
+
+
+<div class="description">
+
+<p>Pull out index fields stored in the metadata of the provided
+       Riak Object. Parse the fields, and return {ok, [{Field,
+       Value}]} if successful, or {error, [Reasons]} on error. Reason
+       is either <code>{unknown_field_type, Field}</code> or
+       <code>{field_parsing_failed, {Field, Value}}.</code></p>
+</div></div>
+<div class="function">
+<h3 id="parse_fields/1">parse_fields(IndexFields::[Field::{Key::binary(), Value::binary()}]) -&gt; {ok, [{Field::binary(), Value::term()}]} | {error, [failure_reason()]}</h3>
+
+
+<div class="description">
+
+<p>Parse the provided index fields. Returns {ok, Fields} if the
+       parsing was successful, or {error, Reasons} if parsing
+       failed. Reason is either <code>{unknown_field_type, Field}</code> or
+       <code>{field_parsing_failed, {Field, Value}}.</code></p>
+</div></div>
+<div class="function">
+<h3 id="format_failure_reason/1">format_failure_reason(FailureReason::{atom(), term()}) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Given a failure reason, turn it into a human-readable string.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/0">timestamp() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Get a timestamp, the number of milliseconds returned by
+       erlang:now().</p>
+</div></div>
+<div class="function">
+<h3 id="to_index_query/2">to_index_query(OldVersion, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_index_query/1">to_index_query(Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upgrade_query/1">upgrade_query(Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>upgrade a query to the current latest version</p>
+</div></div>
+<div class="function">
+<h3 id="return_terms/2">return_terms(X1, Riak_kv_index_v3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Should index terms be returned in a result
+  to the client. Requires both that they are wanted (arg1)
+  and available (arg2)</p>
+</div></div>
+<div class="function">
+<h3 id="return_body/1">return_body(Riak_kv_index_v3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Should the object body of an indexed key
+  be returned with the result?</p>
+</div></div>
+<div class="function">
+<h3 id="index_key_in_range/3">index_key_in_range(IK, Bucket, Riak_kv_index_v3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>is an index key in range for a 2i query?</p>
+</div></div>
+<div class="function">
+<h3 id="object_key_in_range/3">object_key_in_range(OK, Bucket, Riak_kv_index_v3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Is a {bucket, key} pair in range for an index query</p>
+</div></div>
+<div class="function">
+<h3 id="make_continuation/1">make_continuation(L::list()) -&gt; continuation()</h3>
+
+
+<div class="description">
+
+<p>To enable pagination.
+  returns an opaque value that
+  must be passed to
+  <code>to_index_query/3</code> to
+  get a query that will "continue"
+  from the given last result</p>
+</div></div>
+<div class="function">
+<h3 id="add_timeout_opt/2">add_timeout_opt(Timeout, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>add the <code>timeout</code> option tuple to the
+  <code>Opts</code> proplist. if <code>Timeout</code> is undefined
+  then the <code>app.config</code> property
+  <code>{riak_kv, seconady_index timeout}</code> is used
+  If that config property is defined, then
+  a default of <code>infinity</code>  is used.
+  We use <code>infinity</code> as the default to
+  match the behavior pre 1.4</p>
+</div></div>
+<div class="function">
+<h3 id="normalize_index_field/1">normalize_index_field(V) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

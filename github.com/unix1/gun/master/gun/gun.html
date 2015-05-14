@@ -31,11 +31,13 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-conn_type">conn_type() = ssl | tcp | tcp_spdy</h3></div>
     <div class="type"><h3 id="type-headers">headers() = [{binary(), iodata()}]</h3></div>
-    <div class="type"><h3 id="type-opts">opts() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{http, <a href="gun_http.html#type-opts" class="seealso">gun_http:opts()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{keepalive, integer() >= 1} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{retry, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{retry_timeout, integer() >= 1} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{type, <a href="#type-conn_type" class="seealso">conn_type()</a>}]</h3></div>
+    <div class="type"><h3 id="type-http_opts">http_opts() = #{}</h3></div>
+    <div class="type"><h3 id="type-opts">opts() = #{}</h3></div>
+    <div class="type"><h3 id="type-spdy_opts">spdy_opts() = #{}</h3></div>
     <div class="type"><h3 id="type-ws_close_code">ws_close_code() = 1000..4999</h3></div>
-    <div class="type"><h3 id="type-ws_frame">ws_frame() = close<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ping<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pong<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {text | binary | close | ping | pong, iodata()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {close, <a href="#type-ws_close_code" class="seealso">ws_close_code()</a>, iodata()}</h3></div></div>
+    <div class="type"><h3 id="type-ws_frame">ws_frame() = close<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ping<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pong<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {text | binary | close | ping | pong, iodata()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {close, <a href="#type-ws_close_code" class="seealso">ws_close_code()</a>, iodata()}</h3></div>
+    <div class="type"><h3 id="type-ws_opts">ws_opts() = #{}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="open/1">open(Host::hostname() (see module inet), Port::port_number() (see module inet)) -&gt; {ok, pid()} | {error, any()}</h3>
@@ -206,6 +208,24 @@
 <div class="description">
  </div></div>
 <div class="function">
+<h3 id="await_up/1">await_up(ServerPid::pid()) -&gt; {ok, http | spdy} | {error, atom()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="await_up/1-1">await_up(ServerPid::pid(), MRef::reference() | timeout()) -&gt; {ok, http | spdy} | {error, atom()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="await_up/1-2">await_up(ServerPid::pid(), Timeout::timeout(), MRef::reference()) -&gt; {ok, http | spdy} | {error, atom()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
 <h3 id="flush/1">flush(ServerPid::pid() | reference()) -&gt; ok</h3>
 
 
@@ -218,13 +238,19 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="ws_upgrade/1">ws_upgrade(ServerPid::pid(), Path::iodata()) -&gt; ok</h3>
+<h3 id="ws_upgrade/1">ws_upgrade(ServerPid::pid(), Path::iodata()) -&gt; reference()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="ws_upgrade/1-1">ws_upgrade(ServerPid::pid(), Path::iodata(), Headers::headers()) -&gt; ok</h3>
+<h3 id="ws_upgrade/1-1">ws_upgrade(ServerPid::pid(), Path::iodata(), Headers::headers()) -&gt; reference()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ws_upgrade/1-2">ws_upgrade(ServerPid::pid(), Path::iodata(), Headers::headers(), Opts::ws_opts()) -&gt; reference()</h3>
 
 
 <div class="description">

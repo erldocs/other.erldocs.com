@@ -1,0 +1,1 @@
+var index = [['app','erqueue','erqueue','[application]'],['mod','erqueue','stack','stack code by erlang   Created :  9 Jan 2014  --'],['fun','erqueue','stack:delete/1',[]],['fun','erqueue','stack:empty/1',[]],['fun','erqueue','stack:new/1',[]],['fun','erqueue','stack:pop/1',[]],['fun','erqueue','stack:push/2',[]],['fun','erqueue','stack:top/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlstream','erlstream','[application]'],['mod','erlstream','server',[]],['fun','erlstream','server:start/0','Listens for commands and sends back the appropriat']];

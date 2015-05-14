@@ -1,0 +1,1 @@
+var index = [['app','99problems_erlang','99problems_erlang','[application]'],['mod','99problems_erlang','arithmatic',[]],['mod','99problems_erlang','binarytree',[]],['mod','99problems_erlang','lists_11_20',[]],['mod','99problems_erlang','lists_1_10',[]],['mod','99problems_erlang','lists_21_30',[]]];

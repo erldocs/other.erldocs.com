@@ -1,0 +1,1 @@
+var index = [['app','erlangtraceanalyzer','erlangtraceanalyzer','[application]'],['mod','erlangtraceanalyzer','big',[]],['fun','erlangtraceanalyzer','big:bang/1',[]],['fun','erlangtraceanalyzer','big:bang2/1',[]]];

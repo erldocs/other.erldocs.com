@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>synctree (riak_ensemble) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>synctree</h1>
+<h2 class="modsummary">  
+This module implements a self-validating hashtree that is used within  
+riak_ensemble as the primary data integrity mechanism.</h2>
+<div class="description">
+<p>  
+This module implements a self-validating hashtree that is used within  
+riak_ensemble as the primary data integrity mechanism. This tree is  
+designed similar to the hashtree used in file systems such as ZFS, with  
+parent nodes containing the hash of their children. Thus, during traversal  
+a tree path can be completely verified from the root node to the endpoint.</p>
+ 
+  <p>This tree is designed to be replicated on multiple nodes and provides  
+built-in exchange logic that efficiently determines the differences between  
+two trees -- thus trees can exchange with peers and heal missing/corrupted  
+data.</p>
+ 
+  <p>To perform an exchange, trees must be of the same shape regardless of the  
+data inserted. Thus, the tree implemented by this module has a fixed  
+structure and is therefore more akin to a hash trie. To enable this fixed  
+structure, data inserted into the tree is uniformly mapped to one of a fixed  
+number of segments. These segments are sorted key/value lists. Hashes are  
+computed over each segment, with each hash being stored as a leaf in the  
+actual hash tree. Since there are a fixed number of segments, there is a  
+fixed number of leaf hashes. The remaining levels in the hash tree are then  
+generated on top of these leaf hashes as normal.</p>
+ 
+  <p>This design is therefore similar to hashtree.erl from riak_core.</p>
+ 
+  <p>The main high-levels differences are as follows:    
+1. The synctree is built entirely on pure key/value (get/put) operations,       
+there is no concept of iteration nor any needed for a sorted backend.</p>
+ 
+    <p>2. The synctree is always up-to-date. An insert into the tree immediately       
+updates the appropriate segment and relevant tree path. There is no       
+concept of a delayed, bulk update as used by hashtree.erl</p>
+ 
+    <p>3. All operations on the tree are self-validating. Every traversal through       
+the tree whether for reads, inserts, or exchanges verifies the hashes       
+down all encountered tree paths.</p>
+ 
+    <p>4. The synctree supports pluggable backends. It was originally designed       
+and tested against both orddict and ETS backends, and then later       
+extended with a LevelDB backend for persistent storage as used in       
+riak_ensemble.</p>
+ 
+  <p>Most of the differences from hashtree.erl are not strictly better, but  
+rather are designed to address differences between Riak AAE (which uses  
+hashtree) and riak_ensemble integrity checking (which uses synctree).</p>
+ 
+  <p>Specifically, AAE is designed to be a fast, mostly background process
+  with limited impact on normal Riak operations. While the integrity logic
+  requires an always up-to-date tree that is used to verify every get/put
+  operation as they occur, ensuring 100% validity. In other terms, for AAE
+  the hashtree is not expected to be the truth but rather a best-effort
+  projection of the truth (the K/V backend is the truth). Whereas for the
+  integrity logic, the synctree is the truth -- if the backend differs, it's
+  wrong and we consider the backend data corrupted.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="newdb/1">newdb(Id) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="newdb/2">newdb(Id, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/0">new() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/1">new(Id) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/3">new(Id, Width, Segments) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/4">new(Id, Width, Segments, Mod) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new/5">new(Id, Width, Segments, Mod, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="height/1">height(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="top_hash/1">top_hash(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="insert/3">insert(Key, Value, Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/2">get(Key, Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exchange_get/3">exchange_get(Level, Bucket, Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="corrupt/2">corrupt(Key, Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="direct_exchange/1">direct_exchange(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="local_compare/2">local_compare(T1, T2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compare/3">compare(Height, Local, Remote) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compare/4">compare(Height, Local, Remote, AccFun) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compare/5">compare(Height, Local, Remote, AccFun, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="m_batch/2">m_batch(Update, Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="m_flush/1">m_flush(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rehash_upper/1">rehash_upper(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rehash/1">rehash(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verify_upper/1">verify_upper(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verify/1">verify(Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

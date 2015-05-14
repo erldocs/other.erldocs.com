@@ -1,0 +1,1 @@
+var index = [['app','erlang-hash-guesser','erlang-hash-guesser','[application]'],['mod','erlang-hash-guesser','echo',[]],['mod','erlang-hash-guesser','hash',[]],['mod','erlang-hash-guesser','math2',[]],['fun','erlang-hash-guesser','echo:loop/0',[]],['fun','erlang-hash-guesser','echo:start/0',[]],['fun','erlang-hash-guesser','math2:f/1',[]]];

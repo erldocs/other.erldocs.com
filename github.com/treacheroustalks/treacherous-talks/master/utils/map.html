@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>map (utils) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>map</h1>
+<h2 class="modsummary">  
+map contains the representation of a map, including where units stand.</h2>
+<div class="description">
+<p>  
+map contains the representation of a map, including where units stand.</p>
+ 
+  <p>The module covers only what a real game-board would do, it knows nothing
+  about the rules.
+  The module uses dictionaries to store random information for each unit,
+  use the set/get_unit/province_info functions for this task.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-prov_id">prov_id() = any()</h3></div>
+    <div class="type"><h3 id="type-unit">unit() = {<a href="#type-unit_type" class="seealso">unit_type()</a>, Owner :: any()}</h3></div>
+    <div class="type"><h3 id="type-unit_type">unit_type() = any()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add_province/2">add_province(Map::#{}, Id::prov_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Add a province to a Map.</p>
+</div></div>
+<div class="function">
+<h3 id="get_provinces/1">get_provinces(Map) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_units/1">get_units(Map) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_units_histogram/1">get_units_histogram(Map::#{}) -&gt; dict()</h3>
+
+
+<div class="description">
+
+<p>   
+returns a nation -&gt; number-of-units mapping.</p>
+ 
+   <p>Keys <code>:: nation ()</code> <br />
+   Values <code>:: pos_integer()</code> <br />
+  Nations with 0 units don't show up</p>
+</div></div>
+<div class="function">
+<h3 id="set_province_info/2">set_province_info(Map::#{}, Id::prov_id(), Key::any(), Value::any()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_province_info/2">get_province_info(Map::#{}, Id::prov_id(), Key::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_province_info/2-1">get_province_info(Map::#{}, Id::prov_id(), Key::any(), Default::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_unit_info/2">get_unit_info(Map::#{}, Unit::unit(), Id::prov_id(), Key::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_unit_info/2-1">get_unit_info(Map::#{}, Unit::unit(), Id::prov_id(), Key::any(), Default::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="remove_unit_info/4">remove_unit_info(Map, Unit, Id, Key) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_unit_info/5">set_unit_info(Map, Unit, Id, Key, Value) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_unit/2">add_unit(Map::#{}, Unit::unit(), To::prov_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  adds a unit to a province without any checking. Assumes that you know where
+  you are placing it</p>
+</div></div>
+<div class="function">
+<h3 id="unit_exists/3">unit_exists(Map, Id, Unit) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>Map = #{}</code></li><li><code>Id = prov_id()</code></li><li><code>Unit = unit()</code></li></ul>
+<div class="description">
+
+<p>
+  Checks for a certain unit in a given province</p>
+</div></div>
+<div class="function">
+<h3 id="remove_unit/3">remove_unit(Map, Unit, From) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Map = #{}</code></li><li><code>Unit = unit()</code></li><li><code>From = prov_id()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="move_unit/4">move_unit(Map, Unit, From, To) -&gt; ok | no_return()</h3>
+
+<ul class="type">
+<li><code>Map = #{}</code></li><li><code>Unit = unit()</code></li><li><code>From = prov_id()</code></li><li><code>To = prov_id()</code></li></ul>
+<div class="description">
+
+<p>
+  Moves a unit from one province to another.
+  exist.</p>
+</div></div>
+<div class="function">
+<h3 id="get_units/2">get_units(Map, Id) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_reachable/3">get_reachable(Map, From, UnitType) -&gt; [prov_id()]</h3>
+
+<ul class="type">
+<li><code>Map = #{}</code></li><li><code>From = prov_id()</code></li><li><code>UnitType = unit_type()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_reachable/4">is_reachable(Map, From, To, UnitType) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_reachable/4">get_reachable(Map, From, UnitType, Degree) -&gt; [prov_id()]</h3>
+
+<ul class="type">
+<li><code>Map = #{}</code></li><li><code>From = prov_id()</code></li><li><code>UnitType = unit_type()</code></li><li><code>Degree = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>
+  returns every province that is reachable within <code>Degree</code> moves</p>
+</div></div>
+<div class="function">
+<h3 id="get_distance/3">get_distance(Map, A, B) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connect_provinces/4">connect_provinces(Map, Id1, Id2, Types) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Map = #{}</code></li><li><code>Id1 = prov_id()</code></li><li><code>Id2 = prov_id()</code></li><li><code>Types = [unit_type()]</code></li></ul>
+<div class="description">
+
+<p>
+  Create a connection (two-way) between two provinces</p>
+</div></div></div>
+
+<authors>
+
+<aname>stephan.brandauer@gmail.com</aname>
+<email>stephan.brandauer@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
