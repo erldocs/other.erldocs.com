@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_entropy_info (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_entropy_info</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-index">index() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-index_n">index_n() = {<a href="#type-index" class="seealso">index()</a>, integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-repair_stats">repair_stats() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Last :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mean :: integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-riak_core_ring">riak_core_ring() = <a href="riak_core_ring.html#type-riak_core_ring" class="seealso">riak_core_ring:riak_core_ring()</a></h3></div>
+    <div class="type"><h3 id="type-t_now">t_now() = <a href="calendar.html#type-t_now" class="seealso">calendar:t_now()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="tree_built/2">tree_built(Index, Time) -&gt; term()
+</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#tree_built/3" class="seealso">tree_built/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="tree_built/1">tree_built(Type::atom(), Index::index(), Time::t_now()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Store AAE tree build time</p>
+</div></div>
+<div class="function">
+<h3 id="exchange_complete/1">exchange_complete(Index::index(), RemoteIdx::index(), IndexN::index_n(), Repaired::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#exchange_complete/5" class="seealso">exchange_complete/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="exchange_complete/1-1">exchange_complete(Type::atom(), Index::index(), RemoteIdx::index(), IndexN::index_n(), Repaired::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Store information about a just-completed AAE exchange</p>
+</div></div>
+<div class="function">
+<h3 id="create_table/0">create_table() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Called by <url href="/home/pete/wefwefwef/docs/other/f0a34d461844a90499d23163be93d173/repo/jira/lrb/riak-1802/.xml/riak_kv/./riak_kv_sup.xml">riak_kv_sup</url> to create public ETS table used for
+       holding AAE information for reporting. Table will be owned by
+       the <code>riak_kv_sup</code> to ensure longevity.</p>
+</div></div>
+<div class="function">
+<h3 id="dump/0">dump() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return state of ets_riak_kv_entropy table as a list</p>
+</div></div>
+<div class="function">
+<h3 id="compute_exchange_info/0">compute_exchange_info() -&gt; [{index(), Last::t_now(), All::t_now(), repair_stats()}]</h3>
+
+
+<div class="description">
+
+<p>
+  Return a list containing information about exchanges for all locally owned
+  indices. For each index, return a tuple containing time of most recent
+  exchange; time since the index completed exchanges with all sibling indices;
+  as well as statistics about repairs triggered by different exchanges.</p>
+</div></div>
+<div class="function">
+<h3 id="compute_exchange_info/1">compute_exchange_info(Type::atom(), X2::{atom(), atom()}) -&gt; [{index(), Last::t_now(), All::t_now(), repair_stats()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compute_tree_info/0">compute_tree_info() -&gt; term()
+</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#compute_tree_info/1" class="seealso">compute_tree_info/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="compute_tree_info/1">compute_tree_info(Type::atom()) -&gt; [{index(), t_now()}]</h3>
+
+
+<div class="description">
+
+<p>Return a list of AAE build times for each locally owned index.</p>
+</div></div>
+<div class="function">
+<h3 id="exchanges/2">exchanges(Index, IndexN) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="all_exchanges/1">all_exchanges(Ring::riak_core_ring(), Index::index()) -&gt; {index(), [{index(), index_n()}]}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
