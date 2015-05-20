@@ -31,8 +31,8 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-host">host() = string()</h3></div>
-    <div class="type"><h3 id="type-node_id">node_id() = string()</h3></div></div>
+    <div class="type"><h3 id="type-node_id">node_id() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-node_type">node_type() = {devrel, <a href="filelib.html#type-dirname" class="seealso">filelib:dirname()</a>}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="admin/1">admin(Node::node(), Args::[term()]) -&gt; {ok, term()} | error() (see module rt_util)</h3>
@@ -40,7 +40,8 @@
 
 <div class="description">
 
-<p>Call 'bin/riak-admin' command on <code>Node</code> with arguments <code>Args</code></p>
+<p>Call 'bin/riak-admin' command on <code>Node</code> with arguments <code>Args</code>
+ </p>
 </div></div>
 <div class="function">
 <h3 id="admin/1-1">admin(Node::node(), Args::[term()], Options::[term()]) -&gt; {ok, term()} | error() (see module rt_util)</h3>
@@ -50,16 +51,8 @@
 
 <p>Call 'bin/riak-admin' command on <code>Node</code> with arguments <code>Args</code>.
   The third parameter is a list of options. Valid options are:
-     * <code>return_exit_code</code> - Return the exit code along with the command output</p>
-</div></div>
-<div class="function">
-<h3 id="assert_singleton/1">assert_singleton(Node::node()) -&gt; boolean()</h3>
-
-
-<div class="description">
-
-<p>Ensure that the specified node is a singleton node/cluster -- a node
-       that owns 100% of the ring.</p>
+     * <code>return_exit_code</code> - Return the exit code along with the command output
+ </p>
 </div></div>
 <div class="function">
 <h3 id="attach/1">attach(Node::node(), Expected::{expect, list()} | {send, list()}) -&gt; {ok, term()} | error() (see module rt_util)</h3>
@@ -87,7 +80,7 @@ These tuples are processed in order.</p>
 <div class="description">
 
 <p>Runs 'riak attach-direct' on a specific node</p>
-<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/cf28bf2f037ecf517846814ccfc2c815/repo/feature/mixed-mode-riak-test/.xml/riak_test/./rt_riak_node.xml.html#attach/2" class="seealso">rt_riak_node:attach/2</a>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/202fee566535189b058bea5dc4da9c03/repo/feature/mixed-mode-riak-test/.xml/riak_test/./rt_riak_node.xml.html#attach/2" class="seealso">rt_riak_node:attach/2</a>.</p>
 </div></div>
 <div class="function">
 <h3 id="brutal_kill/1">brutal_kill(Node::node()) -&gt; result() (see module rt_util)</h3>
@@ -96,6 +89,16 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
+<h3 id="check_singleton/1">check_singleton(Node::node()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Ensure that the specified node is a singleton node/cluster -- a node
+       that owns 100% of the ring.
+ </p>
+</div></div>
+<div class="function">
 <h3 id="claimant_according_to/1">claimant_according_to(Node) -&gt; term()
 </h3>
 
@@ -103,7 +106,8 @@ These tuples are processed in order.</p>
 <div class="description">
 
 <p>Return a list of nodes that own partitions according to the ring
-       retrieved from the specified node.</p>
+       retrieved from the specified node.
+ </p>
 </div></div>
 <div class="function">
 <h3 id="clean_data_dir/1">clean_data_dir(Node::node()) -&gt; result() (see module rt_util)</h3>
@@ -124,7 +128,7 @@ These tuples are processed in order.</p>
 <div class="description">
 
 <p>Runs <code>riak console</code> on a specific node</p>
-<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/cf28bf2f037ecf517846814ccfc2c815/repo/feature/mixed-mode-riak-test/.xml/riak_test/./rt_riak_node.xml.html#attach/2" class="seealso">rt_riak_node:attach/2</a>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/202fee566535189b058bea5dc4da9c03/repo/feature/mixed-mode-riak-test/.xml/riak_test/./rt_riak_node.xml.html#attach/2" class="seealso">rt_riak_node:attach/2</a>.</p>
 </div></div>
 <div class="function">
 <h3 id="commit/1">commit(Node::node()) -&gt; result() (see module rt_util)</h3>
@@ -133,15 +137,31 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_ring/1">get_ring(Node::node()) -&gt; term()</h3>
+<h3 id="cookie/1">cookie(Node::node()) -&gt; atom() | error() (see module rt_util)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="copy_logs/1">copy_logs(Node::node(), ToDir::string()) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">
 
-<p>Get the raw ring for <code>Node</code>.</p>
+<p>Copy all logs from the passed node, <code>Node</code>, to the directory, <code>ToDir</code>
+ </p>
 </div></div>
 <div class="function">
-<h3 id="is_allocated/1">is_allocated(Node::node()) -&gt; boolean</h3>
+<h3 id="get_ring/1">get_ring(Node::node()) -&gt; {ok, term()} | error() (see module rt_util)</h3>
+
+
+<div class="description">
+
+<p>Get the raw ring for <code>Node</code>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="ip/1">ip(Node::node() | string()) -&gt; string()</h3>
 
 
 <div class="description">
@@ -159,7 +179,19 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
+<h3 id="host/1">host(Node::node()) -&gt; host() (see module rt_host)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
 <h3 id="join/1">join(Node::node(), ToNode::node()) -&gt; result() (see module rt_util)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="maybe_wait_for_changes/1">maybe_wait_for_changes(Node::node()) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">
@@ -171,7 +203,8 @@ These tuples are processed in order.</p>
 <div class="description">
 
 <p>Return a list of cluster members according to the ring retrieved from
-       the specified node.</p>
+       the specified node.
+ </p>
 </div></div>
 <div class="function">
 <h3 id="owners_according_to/1">owners_according_to(Node::node()) -&gt; [term()]</h3>
@@ -180,7 +213,8 @@ These tuples are processed in order.</p>
 <div class="description">
 
 <p>Return a list of nodes that own partitions according to the ring
-       retrieved from the specified node.</p>
+       retrieved from the specified node.
+ </p>
 </div></div>
 <div class="function">
 <h3 id="partitions/1">partitions(Node::node()) -&gt; [term()]</h3>
@@ -188,7 +222,8 @@ These tuples are processed in order.</p>
 
 <div class="description">
 
-<p>Get list of partitions owned by node (primary).</p>
+<p>Get list of partitions owned by node (primary).
+ </p>
 </div></div>
 <div class="function">
 <h3 id="ping/1">ping(Node::node()) -&gt; boolean()</h3>
@@ -203,12 +238,23 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
+<h3 id="release/1">release(Node::node()) -&gt; result() (see module rt_util)</h3>
+
+
+<div class="description">
+
+<p>Releases the <code>Node</code> for use by another cluster.  This function ensures
+  that the node is stopped before returning it for use by another cluster.
+ </p>
+</div></div>
+<div class="function">
 <h3 id="riak/1">riak(Node::node(), Args::[term()]) -&gt; {ok, term()} | error() (see module rt_util)</h3>
 
 
 <div class="description">
 
-<p>Call 'bin/riak' command on <code>Node</code> with arguments <code>Args</code></p>
+<p>Call 'bin/riak' command on <code>Node</code> with arguments <code>Args</code>
+ </p>
 </div></div>
 <div class="function">
 <h3 id="riak_repl/1">riak_repl(Node::node(), Args::[term()]) -&gt; {ok, term()} | error() (see module rt_util)</h3>
@@ -216,10 +262,23 @@ These tuples are processed in order.</p>
 
 <div class="description">
 
-<p>Call 'bin/riak' command on <code>Node</code> with arguments <code>Args</code></p>
+<p>Call 'bin/riak' command on <code>Node</code> with arguments <code>Args</code>
+ </p>
 </div></div>
 <div class="function">
 <h3 id="search_cmd/1">search_cmd(Node::node(), Args::[term()]) -&gt; {ok, term()} | error() (see module rt_util)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_cookie/1">set_cookie(Node::node(), NewCookie::atom()) -&gt; result() (see module rt_util)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="staged_join/1">staged_join(Node::node(), ToNode::node()) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">
@@ -231,13 +290,13 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="start/1-1">start(Node::node(), Wait::boolean()) -&gt; result() (see module rt_util)</h3>
+<h3 id="start/1-1">start(Node::node(), X2::boolean()) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="start_link/1">start_link(Host::host(), NodeId::node_id(), NodeName::node(), Configuration::#configuration{one=undefined | proplist() (see module proplists), two=undefined | proplist() (see module proplists)}, Version::string()) -&gt; {ok, pid()} | ignore | error() (see module rt_util)</h3>
+<h3 id="start_link/1">start_link(Hostname::hostname() (see module rt_host), NodeType::node_type(), NodeId::node_id(), Config::proplist() (see module proplists), Version::version() (see module rt_util)) -&gt; {ok, node()} | ignore | error() (see module rt_util)</h3>
 
 
 <div class="description">
@@ -253,7 +312,8 @@ These tuples are processed in order.</p>
 <div class="description">
 
 <p>Return the cluster status of <code>Member</code> according to the ring
-       retrieved from <code>Node</code>.</p>
+       retrieved from <code>Node</code>.
+ </p>
 </div></div>
 <div class="function">
 <h3 id="stop/1">stop(Node::node()) -&gt; result() (see module rt_util)</h3>
@@ -262,44 +322,49 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="stop/1-1">stop(Node::node(), Wait::boolean()) -&gt; result() (see module rt_util)</h3>
+<h3 id="stop/1-1">stop(Node::node(), X2::boolean()) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="upgrade/2">upgrade(Node, NewVersion) -&gt; term()
-</h3>
+<h3 id="upgrade/1">upgrade(Node::node(), NewVersion::version() (see module rt_util)) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="wait_for_service/1">wait_for_service(Node::node(), Services::[string()]) -&gt; result() (see module rt_util)</h3>
+<h3 id="wait_for_service/1">wait_for_service(Node::node(), Services::atom() | [atom()]) -&gt; wait_result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="wait_until_pingable/1">wait_until_pingable(Node::node()) -&gt; result() (see module rt_util)</h3>
+<h3 id="wait_until_pingable/1">wait_until_pingable(Node::node()) -&gt; wait_result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="wait_until_registered/1">wait_until_registered(Node::node(), Name::atom()) -&gt; result() (see module rt_util)</h3>
+<h3 id="wait_until_registered/1">wait_until_registered(Node::node(), Name::atom()) -&gt; wait_result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="wait_until_unpingable/1">wait_until_unpingable(Node::node()) -&gt; result() (see module rt_util)</h3>
+<h3 id="wait_until_unpingable/1">wait_until_unpingable(Node::node()) -&gt; wait_result() (see module rt_util)</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="version/1">version(Node) -&gt; term()
+<h3 id="version/1">version(Node::node()) -&gt; version() (see module rt_util)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="invalid/3">invalid(Event, From, State) -&gt; term()
 </h3>
 
 
@@ -313,8 +378,35 @@ These tuples are processed in order.</p>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="ready/3">ready(X1, From, State) -&gt; term()
+<h3 id="started/3">started(Event, From, State) -&gt; term()
 </h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ready/3">ready(Event, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stopped/2">stopped(Event, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ready/2">ready(Event, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_riak_daemon/1">start_riak_daemon(Host::host() (see module rt_host), Node::node(), StartCommand::command() (see module rt_host)) -&gt; result() (see module rt_util)</h3>
 
 
 <div class="description">

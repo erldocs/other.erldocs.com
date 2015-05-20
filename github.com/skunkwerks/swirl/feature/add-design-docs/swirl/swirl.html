@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>swirl (swirl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>swirl</h1>
+<h2 class="modsummary">Library for PPSPP over UDP, aka Swift protocol.</h2>
+<div class="description">
+<p>Library for PPSPP over UDP, aka Swift protocol
+  </p><p>Wrapper to support running directly from escript.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Start the swirl application in a stand-alone fashion.
+  This should only be used for testing and in the erlang shell.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Stop the swirl application and all dependent swarms and peers.
+  Allows swirl to terminate any peer connections if necessary.
+  end</p>
+</div></div>
+<div class="function">
+<h3 id="quit/0">quit() -&gt; no_return()</h3>
+
+
+<div class="description">
+
+<p>Stop the swirl application, all dependent swarms and peers, and
+  the entire BEAM virtual machine too.</p>
+</div></div>
+<div class="function">
+<h3 id="start_peer/0">start_peer() -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>start a PPSPP listener (peer) on a given port, or the default port,
+  using the supplied hash and default PPSPP swarm options, or no hash at all
+  for an inert peer that can subsequently be controlled by multiple swarms.</p>
+</div></div>
+<div class="function">
+<h3 id="start_peer/1">start_peer(Swarm_id::string() | swarm_id() (see module ppspp_options)) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_peer/1-1">start_peer(Port::port_number() (see module inet), Swarm_Options::options() (see module ppspp_options)) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_pool/1">start_pool(First::port_number() (see module inet), Last::port_number() (see module inet)) -&gt; [{{ok, pid()}, port_number() (see module inet) | {error, term()}}]</h3>
+
+
+<div class="description">
+
+<p>start multiple PPSPP listeners (peers) quickly on a given range of
+  ports. Note there is no guarantee of success nor error checking but it
+  looks great for demos.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_peer/0">stop_peer() -&gt; ok | {error, ppspp_peer_worker_not_found}</h3>
+
+
+<div class="description">
+
+<p>stop a PPSPP peer on a given port, or the default port.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_peer/1">stop_peer(Port::port_number() (see module inet)) -&gt; ok | {error, ppspp_peer_worker_not_found}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop_pool/1">stop_pool(First::port_number() (see module inet), Last::port_number() (see module inet)) -&gt; [{ok | {error, term()}, port_number() (see module inet)}]</h3>
+
+
+<div class="description">
+
+<p>stop multiple PPSPP peers on a given range of ports.</p>
+</div></div>
+<div class="function">
+<h3 id="start_swarm/1">start_swarm(Swarm_id::string() | swarm_id() (see module ppspp_options) | options() (see module ppspp_options)) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>start a PPSPP swarm, using the supplied hash and PPSPP swarm options.
+  If either a string (root hash), or a binary (swarm id) are supplied, then
+  start_swarm will do the right thing and assume default PPSPP options. Note
+  that the hashing algorithm and chunk size must match for this to work.
+  -- caveat coder</p>
+</div></div>
+<div class="function">
+<h3 id="stop_swarm/1">stop_swarm(Swarm::string() | swarm_id() (see module ppspp_options)) -&gt; ok | {error, ppspp_swarm_worker_not_found}</h3>
+
+
+<div class="description">
+
+<p>stop a PPSPP swarm for a given root_hash or swarm_id.</p>
+</div></div>
+<div class="function">
+<h3 id="help/0">help() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>help for console users
+  Provides a summary of available commands options within the erlang console</p>
+</div></div>
+<div class="function">
+<h3 id="main/1">main(X1::any()) -&gt; no_return()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
