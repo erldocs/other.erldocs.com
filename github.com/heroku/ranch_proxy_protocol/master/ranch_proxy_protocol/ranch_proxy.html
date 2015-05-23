@@ -31,32 +31,30 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-proxy_opts">proxy_opts() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{source_address, <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{source_port, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{dest_address, <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{source_port, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}]</h3></div>
-    <div class="type"><h3 id="type-proxy_protocol_info">proxy_protocol_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}}</h3></div>
-    <div class="type"><h3 id="type-proxy_socket">proxy_socket()</h3></div></div>
+    <div class="type"><h3 id="type-proxy_opts">proxy_opts() = <a href="ranch_proxy_protocol.html#type-proxy_opts" class="seealso">ranch_proxy_protocol:proxy_opts()</a></h3></div>
+    <div class="type"><h3 id="type-proxy_protocol_info">proxy_protocol_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ranch_proxy_protocol.html#type-proxy_protocol_info" class="seealso">ranch_proxy_protocol:proxy_protocol_info()</a></h3></div>
+    <div class="type"><h3 id="type-proxy_socket">proxy_socket() = <a href="ranch_proxy_protocol.html#type-proxy_socket" class="seealso">ranch_proxy_protocol:proxy_socket()</a></h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="name/0">name() -&gt; term()
-</h3>
+<h3 id="name/0">name() -&gt; atom()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="secure/0">secure() -&gt; false</h3>
+<h3 id="secure/0">secure() -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="messages/0">messages() -&gt; term()
-</h3>
+<h3 id="messages/0">messages() -&gt; tuple()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="match_port/1">match_port(Proxy_socket::proxy_socket()) -&gt; port()</h3>
+<h3 id="match_port/1">match_port(ProxySocket::proxy_socket()) -&gt; port()</h3>
 
 
 <div class="description">
@@ -68,7 +66,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="accept/1">accept(Proxy_socket::proxy_socket(), Timeout::timeout()) -&gt; {ok, proxy_socket()} | {error, closed | timeout | not_proxy_protocol | {timeout, proxy_handshake} | atom()}</h3>
+<h3 id="accept/1">accept(ProxySocket::proxy_socket(), Timeout::timeout()) -&gt; {ok, proxy_socket()} | {error, closed | timeout | not_proxy_protocol | {timeout, proxy_handshake} | atom()}</h3>
 
 
 <div class="description">
@@ -92,13 +90,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="recv/1">recv(Proxy_socket::proxy_socket(), Length::non_neg_integer(), Timeout::timeout()) -&gt; {ok, any()} | {error, closed | atom()}</h3>
+<h3 id="recv/1">recv(ProxySocket::proxy_socket(), Length::non_neg_integer(), Timeout::timeout()) -&gt; {ok, any()} | {error, closed | atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="send/1">send(Proxy_socket::proxy_socket(), Packet::iodata()) -&gt; ok | {error, atom()}</h3>
+<h3 id="send/1">send(ProxySocket::proxy_socket(), Packet::iodata()) -&gt; ok | {error, atom()}</h3>
 
 
 <div class="description">
@@ -116,63 +114,67 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="sendfile/1-2">sendfile(Proxy_socket::proxy_socket(), Filename::name_all() (see module file) | fd() (see module file), Offset::non_neg_integer(), Bytes::non_neg_integer(), Opts::[{chunk_size, non_neg_integer()}]) -&gt; {ok, non_neg_integer()} | {error, atom()}</h3>
+<h3 id="sendfile/1-2">sendfile(ProxySocket::proxy_socket(), Filename::name_all() (see module file) | fd() (see module file), Offset::non_neg_integer(), Bytes::non_neg_integer(), Opts::[{chunk_size, non_neg_integer()}]) -&gt; {ok, non_neg_integer()} | {error, atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="setopts/1">setopts(Proxy_socket::proxy_socket(), Opts::list()) -&gt; ok | {error, atom()}</h3>
+<h3 id="setopts/1">setopts(ProxySocket::proxy_socket(), Opts::list()) -&gt; ok | {error, atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="controlling_process/1">controlling_process(Proxy_socket::proxy_socket(), Pid::pid()) -&gt; ok | {error, closed | not_owner | atom()}</h3>
+<h3 id="controlling_process/1">controlling_process(ProxySocket::proxy_socket(), Pid::pid()) -&gt; ok | {error, closed | not_owner | atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="peername/1">peername(Proxy_socket::proxy_socket()) -&gt; {ok, {ip_address() (see module inet), port_number() (see module inet)}} | {error, atom()}</h3>
+<h3 id="peername/1">peername(ProxySocket::proxy_socket()) -&gt; {ok, {ip_address() (see module inet), port_number() (see module inet)}} | {error, atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="proxyname/1">proxyname(Proxy_socket::proxy_socket()) -&gt; {ok, proxy_protocol_info()}</h3>
+<h3 id="proxyname/1">proxyname(ProxySocket::proxy_socket()) -&gt; {ok, proxy_protocol_info()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="sockname/1">sockname(Proxy_socket::proxy_socket()) -&gt; {ok, {ip_address() (see module inet), port_number() (see module inet)}} | {error, atom()}</h3>
+<h3 id="sockname/1">sockname(ProxySocket::proxy_socket()) -&gt; {ok, {ip_address() (see module inet), port_number() (see module inet)}} | {error, atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="shutdown/1">shutdown(Proxy_socket::proxy_socket(), How::read | write | read_write) -&gt; ok | {error, atom()}</h3>
+<h3 id="shutdown/1">shutdown(ProxySocket::proxy_socket(), How::read | write | read_write) -&gt; ok | {error, atom()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="close/1">close(Proxy_socket::proxy_socket()) -&gt; ok</h3>
+<h3 id="close/1">close(ProxySocket::proxy_socket()) -&gt; ok</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="opts_from_socket/2">opts_from_socket(Transport, Socket) -&gt; term()
-</h3>
+<h3 id="bearer_port/1">bearer_port(ProxySocket::proxy_socket()) -&gt; port()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="bearer_port/1">bearer_port(Proxy_socket) -&gt; term()
-</h3>
+<h3 id="listen_port/1">listen_port(ProxySocket::proxy_socket()) -&gt; port()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="opts_from_socket/1">opts_from_socket(Transport::atom(), Socket::proxy_socket()) -&gt; proxy_opts() (see module ranch_proxy_protocol)</h3>
 
 
 <div class="description">
