@@ -317,7 +317,7 @@ on-disk, that script is used instead.</p>
  
   <p>* delete modules that existed in the old version, but not in the new.</p>
  
-  <p>The purge method used is <code>brutal_purge</code> - see <a href="/home/pete/wefwefwef/docs/other/9154a2d9a206274429a251a420701408/setup-branch-master/sasl/doc/appup.html" class="seealso">//sasl/appup</a>.</p>
+  <p>The purge method used is <code>brutal_purge</code> - see <a href="/home/pete/wefwefwef/docs/other/6511155676823fad3eaef744942985ef/setup-branch-master/sasl/doc/appup.html" class="seealso">//sasl/appup</a>.</p>
  
   <p>For details on how the new version is chosen, see <a href="#find_app/1" class="seealso">find_app/1</a> and
   <a href="#pick_vsn/3" class="seealso">pick_vsn/3</a>.</p>
@@ -362,12 +362,26 @@ in the same order as the applications appear in the boot script
 <p>Find all setup hooks for <code>Mode</code> in <code>Applications</code>.</p>
 </div></div>
 <div class="function">
+<h3 id="mode/0">mode() -&gt; normal | atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the current "setup mode".</p>
+ 
+  <p>The mode can be defined using the <code>setup</code> environment variable <code>mode</code>.
+  The default value is <code>normal</code>. The mode is used to select which setup
+  hooks to execute when starting the <code>setup</code> application.</p>
+</div></div>
+<div class="function">
 <h3 id="run_hooks/0">run_hooks() -&gt; ok</h3>
 
 
 <div class="description">
 
 <p>Execute all setup hooks for current mode in order.</p>
+ 
+  <p>See <a href="#find_hooks/0" class="seealso">find_hooks/0</a> for details on the order of execution.</p>
 </div></div>
 <div class="function">
 <h3 id="run_hooks/1">run_hooks(Apps::Applications) -&gt; ok</h3>
@@ -376,6 +390,8 @@ in the same order as the applications appear in the boot script
 <div class="description">
 
 <p>Execute setup hooks for current mode in <code>Applications</code> in order.</p>
+ 
+  <p>See <a href="#find_hooks/0" class="seealso">find_hooks/0</a> for details on the order of execution.</p>
 </div></div>
 <div class="function">
 <h3 id="run_hooks/2">run_hooks(Mode, Apps::Applications) -&gt; ok</h3>
@@ -384,6 +400,10 @@ in the same order as the applications appear in the boot script
 <div class="description">
 
 <p>Execute setup hooks for <code>Mode</code> in <code>Applications</code> in order</p>
+ 
+  <p>Note that no assumptions can be made about which process each setup hook
+  runs in, nor whether it runs in the same process as the previous hook.
+  See <a href="#find_hooks/0" class="seealso">find_hooks/0</a> for details on the order of execution.</p>
 </div></div>
 <div class="function">
 <h3 id="lib_dirs/0">lib_dirs() -&gt; [string()]</h3>

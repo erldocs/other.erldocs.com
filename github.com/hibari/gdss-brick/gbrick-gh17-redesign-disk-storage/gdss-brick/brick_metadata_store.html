@@ -36,6 +36,8 @@
     <div class="type"><h3 id="type-impl">impl() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#brick_metadata_store{impl_mod = undefined | module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brick_name = undefined | <a href="#type-brickname" class="seealso">brickname()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid = undefined | pid()}</h3></div>
     <div class="type"><h3 id="type-key">key() = binary()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| iolist()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| '$start_of_table'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| '$end_of_table'</h3></div>
     <div class="type"><h3 id="type-len">len() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-storage_location">storage_location() = no_blob | tuple()</h3></div>
+    <div class="type"><h3 id="type-ts">ts() = integer() &gt;= 0</h3></div>
     <div class="type"><h3 id="type-wal_entry">wal_entry() = term()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
@@ -52,6 +54,12 @@
  </div></div>
 <div class="function">
 <h3 id="get_metadata_store/1">get_metadata_store(BrickName::brickname()) -&gt; {ok, impl()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="live_keys/1">live_keys(Keys::[key()], Brick_metadata_store::impl()) -&gt; [key()]</h3>
 
 
 <div class="description">
@@ -82,6 +90,12 @@
  </div></div>
 <div class="function">
 <h3 id="writeback_to_stable_storage/1">writeback_to_stable_storage(WalEntries::[wal_entry()], IsLastBatch::boolean(), Brick_metadata_store::impl()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract_location_info/1">extract_location_info(WalEntries::[wal_entry()]) -&gt; [{key(), ts(), storage_location()}]</h3>
 
 
 <div class="description">
