@@ -1,1 +1,1 @@
-var index = [['app','erlang-rust-nif','erlang-rust-nif','[application]'],['mod','erlang-rust-nif','er',[]],['fun','erlang-rust-nif','er:f/2',[]],['fun','erlang-rust-nif','er:load/0',[]]];
+var index = [['app','erlang-rust-nif','erlang-rust-nif','[application]'],['mod','erlang-rust-nif','er',[]],['fun','erlang-rust-nif','er:f/2',[]],['fun','erlang-rust-nif','er:load/0',[]],['fun','erlang-rust-nif','er:test/0',[]]];
