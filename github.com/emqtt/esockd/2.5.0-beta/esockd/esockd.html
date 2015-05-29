@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>esockd (esockd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>esockd</h1>
+<h2 class="modsummary">
+   esockd main api.</h2>
+<div class="description">
+<p>
+   esockd main api.
+  </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-mfargs">mfargs() = atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {module(), atom(), [term()]}</h3></div>
+    <div class="type"><h3 id="type-option">option() = {acceptors, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {max_clients, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {access, [<a href="esockd_access.html#type-rule" class="seealso">esockd_access:rule()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {shutdown, brutal_kill | infinity | integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {tune_buffer, false | true}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {logger, atom() | {atom(), atom()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ssl, [<a href="ssl.html#type-ssloption" class="seealso">ssl:ssloption()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="gen_tcp.html#type-listen_option" class="seealso">gen_tcp:listen_option()</a></h3></div>
+    <div class="type"><h3 id="type-sock_args">sock_args() = {atom(), <a href="inet.html#type-socket" class="seealso">inet:socket()</a>, <a href="#type-sock_fun" class="seealso">sock_fun()</a>}</h3></div>
+    <div class="type"><h3 id="type-sock_fun">sock_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="inet.html#type-socket" class="seealso">inet:socket()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ok, <a href="inet.html#type-socket" class="seealso">inet:socket()</a> | <a href="#type-ssl_socket" class="seealso">ssl_socket()</a>} | {error, any()})</h3></div>
+    <div class="type"><h3 id="type-ssl_socket">ssl_socket() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ssl_socket{tcp = undefined | <a href="inet.html#type-socket" class="seealso">inet:socket()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ssl = undefined | <a href="ssl.html#type-sslsocket" class="seealso">ssl:sslsocket()</a>}</h3></div>
+    <div class="type"><h3 id="type-tune_fun">tune_fun() = fun((<a href="inet.html#type-socket" class="seealso">inet:socket()</a>) -> ok | {error, any()})</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Start esockd application.</p>
+</div></div>
+<div class="function">
+<h3 id="open/4">open(Protocol, Port, Options, MFArgs) -&gt; {ok, pid()} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Protocol = atom()</code></li><li><code>Port = port_number() (see module inet)</code></li><li><code>Options = [option()]</code></li><li><code>MFArgs = mfargs()</code></li></ul>
+<div class="description">
+
+<p>Open a listener.</p>
+</div></div>
+<div class="function">
+<h3 id="close/2">close(X1::{Protocol, Port}) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Protocol = atom()</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Close the listener</p>
+</div></div>
+<div class="function">
+<h3 id="close/2-1">close(Protocol, Port) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Protocol = atom()</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="listeners/0">listeners() -&gt; [{atom(), port_number() (see module inet)}]</h3>
+
+
+<div class="description">
+
+<p>Get listeners</p>
+</div></div>
+<div class="function">
+<h3 id="listener/1">listener(X1::{atom(), port_number() (see module inet)}) -&gt; pid() | undefined</h3>
+
+
+<div class="description">
+
+<p>Get one listener</p>
+</div></div>
+<div class="function">
+<h3 id="get_stats/1">get_stats(X1::{atom(), port_number() (see module inet)}) -&gt; [{atom(), non_neg_integer()}]</h3>
+
+
+<div class="description">
+
+<p>Get stats</p>
+</div></div>
+<div class="function">
+<h3 id="get_acceptors/1">get_acceptors(LSup::{atom(), port_number() (see module inet)}) -&gt; undefined | pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Get acceptors number</p>
+</div></div>
+<div class="function">
+<h3 id="get_max_clients/1">get_max_clients(LSup::{atom(), port_number() (see module inet)}) -&gt; undefined | pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Get max clients</p>
+</div></div>
+<div class="function">
+<h3 id="set_max_clients/1">set_max_clients(LSup::{atom(), port_number() (see module inet)}, MaxClients::pos_integer()) -&gt; undefined | pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Set max clients</p>
+</div></div>
+<div class="function">
+<h3 id="get_current_clients/1">get_current_clients(LSup::{atom(), port_number() (see module inet)}) -&gt; undefined | pos_integer()</h3>
+
+
+<div class="description">
+
+<p>Get current clients</p>
+</div></div>
+<div class="function">
+<h3 id="get_access_rules/1">get_access_rules(LSup::{atom(), port_number() (see module inet)}) -&gt; [rule() (see module esockd_access)] | undefined</h3>
+
+
+<div class="description">
+
+<p>Get access rules</p>
+</div></div>
+<div class="function">
+<h3 id="allow/1">allow(X1::{atom(), port_number() (see module inet)}, CIDR::all | cidr() (see module esockd_access)) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Allow access address</p>
+</div></div>
+<div class="function">
+<h3 id="deny/1">deny(X1::{atom(), port_number() (see module inet)}, CIDR::all | cidr() (see module esockd_access)) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Deny access address</p>
+</div></div>
+<div class="function">
+<h3 id="ulimit/0">ulimit() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>System 'ulimit -n'</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
