@@ -32,11 +32,18 @@
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-check_fun">check_fun() = fun((any()) -&gt; any()) | {module(), atom()}</h3></div>
+    <div class="type"><h3 id="type-db_type">db_type() = odbc | mnesia | riak</h3></div>
     <div class="type"><h3 id="type-opts">opts() = [{atom(), any()}]</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start/0">start() -&gt; term()
 </h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_modules/1">start_modules(Host::binary()) -&gt; any()</h3>
 
 
 <div class="description">
@@ -48,7 +55,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="start_module/1-1">start_module(Host::binary(), Module::atom(), Opts::opts()) -&gt; any()</h3>
+<h3 id="start_module/1-1">start_module(Host::binary(), Module::atom(), Opts0::opts()) -&gt; any()</h3>
 
 
 <div class="description">
@@ -58,35 +65,33 @@
 
 
 <div class="description">
-
-<p>Stop the module in a host, and forget its configuration.</p>
-</div></div>
+ </div></div>
 <div class="function">
 <h3 id="stop_module_keep_config/1">stop_module_keep_config(Host::binary(), Module::atom()) -&gt; error | ok</h3>
 
 
 <div class="description">
-
-<p>Stop the module in a host, but keep its configuration.
-  As the module configuration is kept in the Mnesia local_config table,
-  when ejabberd is restarted the module will be started again.
-  This function is useful when ejabberd is being stopped
-  and it stops all modules.</p>
-</div></div>
+ </div></div>
 <div class="function">
-<h3 id="get_opt/1">get_opt(Opt::atom(), Opts::opts(), F::check_fun()) -&gt; any()</h3>
+<h3 id="get_opt/1">get_opt(Opt::atom() | {atom(), binary() | global}, Opts::opts(), F::check_fun()) -&gt; any()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_opt/1-1">get_opt(Opt::atom(), Opts::opts(), F::check_fun(), Default::any()) -&gt; any()</h3>
+<h3 id="get_opt/1-1">get_opt(Opt::atom() | {atom(), binary() | global}, Opts::opts(), F::check_fun(), Default::any()) -&gt; any()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_module_opt/1">get_module_opt(Host::global | binary(), Module::atom(), Opt::atom(), F::check_fun(), Default::any()) -&gt; any()</h3>
+<h3 id="get_module_opt/1">get_module_opt(Host::global | binary(), Module::atom(), Opt::atom(), F::check_fun()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_module_opt/1-1">get_module_opt(Host::global | binary(), Module::atom(), Opt::atom(), F::check_fun(), Default::any()) -&gt; any()</h3>
 
 
 <div class="description">
@@ -104,19 +109,25 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="db_type/1">db_type(Opts::opts()) -&gt; odbc | mnesia | riak</h3>
+<h3 id="v_db/1">v_db(X1::db_type() | internal) -&gt; db_type()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="db_type/1-1">db_type(Host::binary() | global, Module::atom() | opts()) -&gt; odbc | mnesia | riak</h3>
+<h3 id="db_type/1">db_type(Opts::opts()) -&gt; db_type()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="default_db/1">default_db(Host::binary() | global) -&gt; odbc | mnesia | riak</h3>
+<h3 id="db_type/1-1">db_type(Host::binary() | global, Module::atom() | opts()) -&gt; db_type()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="default_db/1">default_db(Host::binary() | global) -&gt; db_type()</h3>
 
 
 <div class="description">
@@ -147,6 +158,13 @@
  </div></div>
 <div class="function">
 <h3 id="is_loaded/1">is_loaded(Host::binary(), Module::atom()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="opt_type/1">opt_type(X1) -&gt; term()
+</h3>
 
 
 <div class="description">
