@@ -31,7 +31,6 @@
 <div class="description">
 <p>   Slide operation structure for node moves, joins and leaves.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-erlang_timestamp">erlang_timestamp() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{MegaSecs :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Secs :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MicroSecs :: integer() >= 0}</h3></div>
     <div class="type"><h3 id="type-id">id() = <a href="uid.html#type-global_uid" class="seealso">uid:global_uid()</a></h3></div>
     <div class="type"><h3 id="type-next_op">next_op() = {slide, continue, Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {jump, continue, Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {leave, continue}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {slide,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred | succ,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tag :: any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a> | null}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {jump,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tag :: any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a> | null}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {leave, SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a> | null}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {none}</h3></div>
     <div class="type"><h3 id="type-phase">phase() = <a href="#type-phase_plain" class="seealso">phase_plain()</a> | {wait_for_continue, <a href="#type-phase_plain" class="seealso">phase_plain()</a>}</h3></div>
@@ -286,7 +285,7 @@
 <p>Returns whether the given slide op is part of an incremental slide.</p>
 </div></div>
 <div class="function">
-<h3 id="get_time_last_send/1">get_time_last_send(SlideOp::slide_op()) -&gt; erlang_timestamp() | never</h3>
+<h3 id="get_time_last_send/1">get_time_last_send(SlideOp::slide_op()) -&gt; timestamp() (see module erlang) | never</h3>
 
 
 <div class="description">
@@ -294,7 +293,7 @@
 <p>Returns the time of the last send operation.</p>
 </div></div>
 <div class="function">
-<h3 id="get_time_next_warn/1">get_time_next_warn(SlideOp::slide_op()) -&gt; erlang_timestamp() | never</h3>
+<h3 id="get_time_next_warn/1">get_time_next_warn(SlideOp::slide_op()) -&gt; timestamp() (see module erlang) | never</h3>
 
 
 <div class="description">
@@ -303,7 +302,7 @@
        operation occurs.</p>
 </div></div>
 <div class="function">
-<h3 id="set_time_last_send/1">set_time_last_send(SlideOp::slide_op(), X::erlang_timestamp()) -&gt; slide_op()</h3>
+<h3 id="set_time_last_send/1">set_time_last_send(SlideOp::slide_op(), X::timestamp() (see module erlang)) -&gt; slide_op()</h3>
 
 
 <div class="description">
@@ -311,7 +310,7 @@
 <p>Sets the time of the last send operation.</p>
 </div></div>
 <div class="function">
-<h3 id="set_time_next_warn/1">set_time_next_warn(SlideOp::slide_op(), X::erlang_timestamp()) -&gt; slide_op()</h3>
+<h3 id="set_time_next_warn/1">set_time_next_warn(SlideOp::slide_op(), X::timestamp() (see module erlang)) -&gt; slide_op()</h3>
 
 
 <div class="description">

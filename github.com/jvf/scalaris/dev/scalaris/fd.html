@@ -31,32 +31,12 @@
 <div class="description">
 <p>   Failure detector based on Guerraoui.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-cookie">cookie() = {pid(), '$fd_nil'} | any()</h3></div>
+    <div class="type"><h3 id="type-event">event() = crash | atom()</h3></div>
     <div class="type"><h3 id="type-reason">reason() = 'DOWN' | noconnection | term()</h3></div>
     <div class="type"><h3 id="type-state">state() = [HBPid :: pid()]</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="subscribe_pid/1">subscribe_pid(Monitored::mypid() (see module comm) | [mypid() (see module comm)], Subscriber::mypid() (see module comm)) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Generate a failure detector for the Subscriber pid on the Monitored pids
-  (Subscribers can be self(), pid() or an envelop as created by
-  comm:reply_as/3).</p>
-</div></div>
-<div class="function">
-<h3 id="subscribe_pid/1-1">subscribe_pid(Monitored::mypid() (see module comm) | [mypid() (see module comm)], Subscriber::mypid() (see module comm), Cookie::cookie()) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Generate a failure detector for the Subscriber pid and cookie on the Monitored pids
-  (Subscribers can be self(), pid() or an envelop as created by
-  comm:reply_as/3).</p>
-</div></div>
-<div class="function">
-<h3 id="subscribe/1">subscribe(GlobalPids::mypid() (see module comm) | [mypid() (see module comm)]) -&gt; ok</h3>
+<h3 id="subscribe/1">subscribe(Subscriber::erl_local_pid() (see module comm), WatchedPids::[mypid() (see module comm)]) -&gt; ok</h3>
 
 
 <div class="description">
@@ -64,42 +44,17 @@
 <p>Generates a failure detector for the calling process on the given pid.</p>
 </div></div>
 <div class="function">
-<h3 id="subscribe/1-1">subscribe(GlobalPids::mypid() (see module comm) | [mypid() (see module comm)], Cookie::cookie()) -&gt; ok</h3>
+<h3 id="subscribe_refcount/1">subscribe_refcount(Subscriber::erl_local_pid() (see module comm), WatchedPids::[mypid() (see module comm)]) -&gt; ok</h3>
 
 
 <div class="description">
 
-<p>Generates a failure detector for the calling process and cookie on the
-       given pid.</p>
-</div></div>
-<div class="function">
-<h3 id="subscribe_refcount/1">subscribe_refcount(GlobalPids::mypid() (see module comm) | [mypid() (see module comm)], Cookie::cookie()) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Generates a failure detector for the calling process and cookie on the
+<p>Generates a failure detector for the calling process on the
        given pid - uses reference counting to be subscribed to a pid only once.
-       Unsubscribe with unsubscribe_refcount/2!</p>
+       Unsubscribe with unsubscribe_refcount/3!</p>
 </div></div>
 <div class="function">
-<h3 id="unsubscribe_pid/1">unsubscribe_pid(Monitored::mypid() (see module comm) | [mypid() (see module comm)], Subscriber::mypid() (see module comm)) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Deletes the failure detector for the given pid and subscriber.</p>
-</div></div>
-<div class="function">
-<h3 id="unsubscribe_pid/1-1">unsubscribe_pid(Monitored::mypid() (see module comm) | [mypid() (see module comm)], Subscriber::mypid() (see module comm), Cookie::cookie()) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Deletes the failure detector for the given pid, subscriber and cookie.</p>
-</div></div>
-<div class="function">
-<h3 id="unsubscribe/1">unsubscribe(GlobalPids::mypid() (see module comm) | [mypid() (see module comm)]) -&gt; ok</h3>
+<h3 id="unsubscribe/1">unsubscribe(Subscriber::erl_local_pid() (see module comm), WatchedPids::[mypid() (see module comm)]) -&gt; ok</h3>
 
 
 <div class="description">
@@ -107,45 +62,27 @@
 <p>Deletes the failure detector for the given pid.</p>
 </div></div>
 <div class="function">
-<h3 id="unsubscribe/1-1">unsubscribe(GlobalPids::mypid() (see module comm) | [mypid() (see module comm)], Cookie::cookie()) -&gt; ok</h3>
+<h3 id="unsubscribe_refcount/1">unsubscribe_refcount(Subscriber::erl_local_pid() (see module comm), WatchedPids::[mypid() (see module comm)]) -&gt; ok</h3>
 
 
 <div class="description">
 
-<p>Deletes the failure detector for the given pid and cookie.</p>
-</div></div>
-<div class="function">
-<h3 id="unsubscribe_refcount/1">unsubscribe_refcount(GlobalPids::mypid() (see module comm) | [mypid() (see module comm)], Cookie::cookie()) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Deletes the failure detector for the given pid and cookie - uses
+<p>Deletes the failure detector for the given pid - uses
        reference counting to be subscribed to a pid only once.
-       Subscribe with subscribe_refcount/2!</p>
+       Subscribe with subscribe_refcount/3!</p>
 </div></div>
 <div class="function">
-<h3 id="update_subscriptions_pid/1">update_subscriptions_pid(OldPids::[mypid() (see module comm)], NewPids::[mypid() (see module comm)], Subscriber::mypid() (see module comm)) -&gt; ok</h3>
+<h3 id="update_subscriptions/1">update_subscriptions(Subscriber::erl_local_pid() (see module comm), OldWatchedPids::[mypid() (see module comm)], NewWatchedPids::[mypid() (see module comm)]) -&gt; ok</h3>
 
 
 <div class="description">
 
-<p>Unsubscribes Subscriber from the pids in OldPids but not in NewPids and subscribes
-       to the pids in NewPids but not in OldPids
-       (Subscribers can be self(), pid() or an envelop as created by
-       comm:reply_as/3).</p>
+<p>Unsubscribes Subscriber from the pids in OldPids but not in NewPids
+       and subscribes to the pids in NewPids but not in OldPids
+       (Subscribers can be pid() or an envelop as created by comm:reply_as/3).</p>
 </div></div>
 <div class="function">
-<h3 id="update_subscriptions/1">update_subscriptions(OldPids::[mypid() (see module comm)], NewPids::[mypid() (see module comm)]) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Unsubscribes from the pids in OldPids but not in NewPids and subscribes
-       to the pids in NewPids but not in OldPids.</p>
-</div></div>
-<div class="function">
-<h3 id="report_my_crash/1">report_my_crash(Reason::reason()) -&gt; ok</h3>
+<h3 id="report/1">report(Event::event(), LocalPids::[pid()], Data::term()) -&gt; ok</h3>
 
 
 <div class="description">

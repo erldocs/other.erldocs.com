@@ -129,6 +129,23 @@ to provide the path to configure:</p>
 <p>Returns the name of the DB specified in @see new/1.</p>
 </div></div>
 <div class="function">
+<h3 id="is_available/0">is_available() -&gt; boolean() | [atom()]</h3>
+
+
+<div class="description">
+
+<p>Checks for modules required for this DB backend. Returns true if no
+       modules are missing, or else a list of missing modules</p>
+</div></div>
+<div class="function">
+<h3 id="supports_feature/1">supports_feature(Feature::atom()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns true if the DB support a specific feature (e.g. recovery), false otherwise.</p>
+</div></div>
+<div class="function">
 <h3 id="get_load/1">get_load(DB::db()) -&gt; non_neg_integer()</h3>
 
 
@@ -191,6 +208,24 @@ to provide the path to configure:</p>
        encountered in Interval. On the first call AccIn == Acc0. The iteration
        stops as soon as MaxNum elements have been encountered.
        Returns a potentially larger-than-memory dataset. Use with care.</p>
+</div></div>
+<div class="function">
+<h3 id="foldl_unordered/1">foldl_unordered(DB::db(), Fun::(Entry::entry(), AccIn::A) -&gt; AccOut::A, Acc0::A) -&gt; Acc1::A</h3>
+
+
+<div class="description">
+
+<p>Works similar to foldl/3 but uses toke_drv:fold instead of our own implementation.
+  The order in which will be iterated over is unspecified, but using this fuction
+  might be faster than foldl/3 if it does not matter.</p>
+</div></div>
+<div class="function">
+<h3 id="tab2list/1">tab2list(Table_name::db()) -&gt; [Entries::entry()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all objects in the table Table_name.</p>
 </div></div></div>
 
 <authors>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ppspp_options (swirl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ppspp_options</h1>
+<h2 class="modsummary">Library for PPSPP over UDP, aka Swift protocol.</h2>
+<div class="description">
+<p>Library for PPSPP over UDP, aka Swift protocol
+  </p><p>This module implements a library of functions necessary to
+  handle parsing PPSPP options wire-protocol of PPSPP over UDP, including
+  functions for encoding and decoding.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-content_integrity_protection_method">content_integrity_protection_method()</h3></div>
+    <div class="type"><h3 id="type-merkle_tree_hash_function">merkle_tree_hash_function()</h3></div>
+    <div class="type"><h3 id="type-option">option()</h3></div>
+    <div class="type"><h3 id="type-options">options()</h3></div>
+    <div class="type"><h3 id="type-swarm_id">swarm_id()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="unpack/1">unpack(Maybe_Options::binary()) -&gt; {binary(), options()} | {error, atom()}</h3>
+
+
+<div class="description">
+
+<p>unpack PPPSPP options as encoded in wire format into an orddict
+  </p><p>
+  Unwrap PPSPP option wire format into orddict.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_chunk_addressing_method/1">get_chunk_addressing_method(Options::options()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>get_chunk_addressing_method/1 returns chunking method for the swarm
+  </p><p>Provides a clean interface for other modules to retrieve PPSP options.</p>
+</div></div>
+<div class="function">
+<h3 id="get_content_integrity_check_method/1">get_content_integrity_check_method(Options::options()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>content_integrity_check_method/1 returns CIPM for the provided swarm
+  </p><p>Provides a clean interface for other modules to retrieve PPSP options.</p>
+</div></div>
+<div class="function">
+<h3 id="get_merkle_hash_tree_function/1">get_merkle_hash_tree_function(Options::options()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>get_merkle_hash_function/1 returns the hash function for the provided swarm
+  </p><p>Provides a clean interface for other modules to retrieve PPSP options.</p>
+</div></div>
+<div class="function">
+<h3 id="get_minimum_version/1">get_minimum_version(Options::options()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>get_minimum_version/1 returns the lowest accepted PPSP version for the swarm
+  </p><p>Provides a clean interface for other modules to retrieve PPSP options.</p>
+</div></div>
+<div class="function">
+<h3 id="get_swarm_id/1">get_swarm_id(Options::options()) -&gt; swarm_id()</h3>
+
+
+<div class="description">
+
+<p>get_swarm_id/1 returns the lowest accepted PPSP version for the swarm
+  </p><p>Provides a clean interface for other modules to retrieve PPSP options.</p>
+</div></div>
+<div class="function">
+<h3 id="get_maximum_supported_version/1">get_maximum_supported_version(Options::options()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>get_maximum_supported_/1 returns the highest accepted PPSP version
+  for the swarm.
+  </p><p>Provides a clean interface for other modules to retrieve PPSP options.</p>
+</div></div>
+<div class="function">
+<h3 id="use_minimum_options/0">use_minimum_options() -&gt; options()</h3>
+
+
+<div class="description">
+
+<p>use_minimum_options/0 and use_default_options/0,1 provides standard
+  options set within the PPSP draft as an erlang term data structure.
+  </p><p> Provides a clean interface for other modules to retrieve PPSP options.
+  Takes 1 optional parameter, a binary representing the root hash, or a string
+  in hex. Blank swarm options are used for starting peer_workers that may
+  handle many peer swarms concurrently on different channels.
+  The returned options and values are:
+  </p><list>
+  <item><p>swarm_id: Swarm_id</p></item>
+  <item><p>chunk_addressing_method: chunk_32bit_chunks</p></item>
+  <item><p>content_integrity_check_method: merkle_hash_tree</p></item>
+  <item><p>merkle_hash_tree_function: sha</p></item>
+  <item><p>minimum_version: 1</p></item>
+  <item><p>version: 1</p></item>
+  </list><p>
+  use_minimum_options/0 simply provides the smallest functional set of options
+  to use during parsing of handshake messages. In all other message types, one
+  can expect a full set of valid options to be retrieved from the mutually
+  agreed swarm options that are assigned to this particular swarm / channel.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="use_default_options/0">use_default_options() -&gt; options()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="use_default_options/1">use_default_options(Hex_String::string() | swarm_id()) -&gt; options()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pack/1">pack(X1::options()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>pack an orddict of ppspp erlang terms into a binary PPSPP message segment
+  </p><p>  Deconstruct PPSPP UDP datagram into multiple erlang terms, including
+  </p><list>
+  <item><p>orddicts for Transport</p></item>
+  <item><p>orddicts for Options</p></item>
+  <item><p>list of Messages</p></item>
+  </list><p>
+  </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

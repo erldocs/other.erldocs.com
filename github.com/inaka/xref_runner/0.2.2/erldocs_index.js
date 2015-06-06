@@ -1,0 +1,1 @@
+var index = [['app','xref_runner','xref_runner','[application]'],['mod','xref_runner','xrefr',[]],['fun','xref_runner','xrefr:help/0',[]],['fun','xref_runner','xrefr:main/1','Allows us to runs xref_runner as script.'],['fun','xref_runner','xrefr:process_options/1','Identifies the argument and executes the correspon']];

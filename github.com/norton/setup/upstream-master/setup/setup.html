@@ -29,7 +29,76 @@
 <h1>setup</h1>
 <h2 class="modsummary">Setup utility for erlang applications.</h2>
 <div class="description">
-<p>Setup utility for erlang applications</p></div>
+<p>Setup utility for erlang applications</p>
+ 
+  <p>This API contains:
+  * Support functions for system install (<a href="#find_hooks/0" class="seealso">find_hooks/0</a>,
+    <a href="#run_hooks/0" class="seealso">run_hooks/0</a>, <a href="#lib_dirs/0" class="seealso">lib_dirs/0</a>).
+  * Functions for managing and inspecting the system environment
+    (<a href="#home/0" class="seealso">home/0</a>, <a href="#log_dir/0" class="seealso">log_dir/0</a>, <a href="#data_dir/0" class="seealso">data_dir/0</a>,
+     <a href="#verify_directories/0" class="seealso">verify_directories/0</a>, <a href="#verify_dir/0" class="seealso">verify_dir/0</a>).
+  * Support functions for application environments (<a href="#get_env/2" class="seealso">get_env/2</a>,
+    <a href="#get_all_env/1" class="seealso">get_all_env/1</a>, <a href="#find_env_vars/1" class="seealso">find_env_vars/1</a>, <a href="#expand_value/2" class="seealso">expand_value/2</a>).
+  * Functions for controlling dynamic load/upgrade of applications
+    (<a href="#find_app/1" class="seealso">find_app/1</a>, <a href="#pick_vsn/3" class="seealso">pick_vsn/3</a>, <a href="#reload_app/1" class="seealso">reload_app/1</a>,
+     <a href="#patch_app/1" class="seealso">patch_app/1</a>).</p>
+ 
+  <p><em><marker id="Variable_expansion">Variable expansion</marker></em></p>
+ 
+  <p>Setup supports variable substitution in application environments. It provides
+  some global variables, <code>"$HOME", "$DATA_DIR", "$LOG_DIR"</code>, corresponding to
+  the API functions <a href="#home/0" class="seealso">home/0</a>, <a href="#data_dir/0" class="seealso">data_dir/0</a> and <a href="log_dir.html" class="seealso">log_dir</a>,
+  as well as some application-specific variables, <code>"$APP", "$PRIV_DIR",
+  "$LIB_DIR".
+ 
+  The normal way to use these variables is by embedding them in file names,
+  e.g. `{my_logs, "$LOG_DIR/$APP"}</code>, but a variable can also be referenced as:
+  * <code>{'$value',Var}</code> - The variable's value is used as-is (which means that
+    <code>{'$value', "$APP"}</code> expands to an atom corresponding to the current
+    app name.)
+  * <code>{'$string', Var}</code> - The value is represented as a string (list). If the
+    value isn't a "string type", <code>io_lib:format("~w",[Value])</code> is used.
+  * <code>{'$binary', Var}</code> - Like <code>'$string</code>', but using binary representation.</p>
+ 
+  <p>Custom variables can be defined by using either:
+  * *global scope* - The <code>setup</code> environment variable <code>vars</code>, containing a
+    list of <code>{VarName, Definition}</code> tuples
+  * *application-local scope* - Defining an application-local environment
+    variable <code>'$setup_vars</code>', on the same format as above.</p>
+ 
+  <p>The <code>VarName</code> shall be a string, e.g. <code>"MYVAR"</code> (no <code>$</code> prefix).
+  <code>Definition</code> can be one of:
+  * <code>{value, Val}</code> - the value of the variable is exactly <code>Val</code>
+  * <code>{expand, Val}</code> - <code>Val</code> is expanded in its turn
+  * <code>{apply, M, F, A}</code> - Use the return value of <code>apply(M, F, A)</code>.</p>
+ 
+  <p>When using a variable expansion, either insert the variable reference in
+  a string (or binary), or use one of the following formats:
+  * <code>'{'$value', Var}</code>' - Use value as-is
+  * <code>'{'$string', Var}</code>' - Use the string representation of the value
+  * <code>'{'$binary', Var}</code>' - Use the binary representation of the value.</p>
+ 
+  <p><em><marker id="Customizing_setup">Customizing setup</marker></em>
+  The following environment variables can be used to customize <code>setup</code>:
+  * <code>{home, Dir}</code> - The topmost directory of the running system. This should
+     be a writeable area.
+  * <code>{data_dir, Dir}</code> - A directory where applications are allowed to create
+     their own subdirectories and save data. Default is <code>Home/data.Node</code>.
+  * <code>{log_dir, Dir}</code> - A directory for logging. Default is <code>Home/log.Node</code>.
+  * <code>{stop_when_done, true|false}</code> - When invoking <code>setup</code> for an install,
+     <code>setup</code> normally remains running, allowing for other operations to be
+     performed from the shell or otherwise. If <code>{stop_when_done, true}</code>, the
+     node is shut down once <code>setup</code> is finished.
+  * <code>{abort_on_error, true|false}</code> - When running install or upgrade hooks,
+     <code>setup</code> will normally keep going even if some hooks fail. A more strict
+     semantics can be had by setting <code>{abort_on_error, true}</code>, in which case
+     <code>setup</code> will raise an exception if an error occurs.
+  * <code>{mode, atom()}</code> - Specifies the context for running 'setup'. Default is
+    <code>normal</code>. The <code>setup</code> mode has special significance, since it's the default
+     mode for setup hooks, if no other mode is specified. In theory, one may
+     specify any atom value, but it's probably wise to stick to the values
+     'normal', 'setup' and 'upgrade' as global contexts, and instead trigger
+     other mode hooks by explicitly calling <a href="#run_hooks/1" class="seealso">run_hooks/1</a>.</p></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start/2">start(X1::Type, Args) -&gt; {ok, pid()}</h3>
@@ -81,7 +150,8 @@
 <div class="description">
 
 <p>Ensures that essential directories exist and are writable.
-  Currently, only the log directory is verified.</p>
+  Currently, the directories corresponding to <a href="#home/0" class="seealso">home/0</a>,
+  <a href="#log_dir/0" class="seealso">log_dir/0</a> and <a href="#data_dir/0" class="seealso">data_dir/0</a> are verified.</p>
 </div></div>
 <div class="function">
 <h3 id="verify_dir/1">verify_dir(Directory::Dir) -&gt; Dir</h3>
@@ -106,11 +176,8 @@
 
 <p>Searches all loaded apps for instances of the <code>Env</code> environment variable.</p>
  
-  <p>The environment variables may contain instances of
-  <code>$APP</code>, <code>$PRIV_DIR</code>, <code>$LIB_DIR</code>, <code>$DATA_DIR</code>, <code>$LOG_DIR</code>, <code>$HOME</code>,
-  inside strings or binaries, and these will be replaced with actual values
-  for the current system (<code>$APP</code> simply expands to the name of the current
-  application).</p>
+  <p>The environment variables are expanded according to the rules outlined in
+  <a href="#Variable_expansion" class="seealso">Variable expansion</a></p>
 </div></div>
 <div class="function">
 <h3 id="get_env/2">get_env(A, Key) -&gt; term()
@@ -120,12 +187,34 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="expand_value/2">expand_value(App, Value) -&gt; term()
+<h3 id="get_env/3">get_env(A, Key, Default) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
+<div class="function">
+<h3 id="get_all_env/1">get_all_env(A::atom()) -&gt; [{atom(), any()}]</h3>
+
+
+<div class="description">
+
+<p>Like <code>application:get_all_env/1</code>, but with variable expansion.</p>
+ 
+  <p>The variable expansion is performed according to the rules outlined in
+  <a href="#Variable_expansion" class="seealso">Variable expansion</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="expand_value/1">expand_value(App::atom(), Value::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Expand <code>Value</code> using global variables and the variables of <code>App</code></p>
+ 
+  <p>The variable expansion is performed according to the rules outlined in
+  <a href="#Variable_expansion" class="seealso">Variable expansion</a>.</p>
+</div></div>
 <div class="function">
 <h3 id="patch_app/1">patch_app(AppName::atom()) -&gt; true | {error, Reason}</h3>
 
@@ -228,7 +317,7 @@ on-disk, that script is used instead.</p>
  
   <p>* delete modules that existed in the old version, but not in the new.</p>
  
-  <p>The purge method used is <code>brutal_purge</code> - see <a href="/home/pete/wefwefwef/docs/other/0f8643a99876dfc229d25b46570ca35d/setup-branch-upstream-master/sasl/doc/appup.html" class="seealso">//sasl/appup</a>.</p>
+  <p>The purge method used is <code>brutal_purge</code> - see <a href="/home/pete/wefwefwef/docs/other/7d7a4f6ef18072a872c5526fa42330d3/setup-branch-upstream-master/sasl/doc/appup.html" class="seealso">//sasl/appup</a>.</p>
  
   <p>For details on how the new version is chosen, see <a href="#find_app/1" class="seealso">find_app/1</a> and
   <a href="#pick_vsn/3" class="seealso">pick_vsn/3</a>.</p>
@@ -241,8 +330,9 @@ on-disk, that script is used instead.</p>
 
 <p>Finds all custom setup hooks in all applications.
   The setup hooks must be of the form
-  </p><pre class="sh_erlang">{'$setup_hooks', [{PhaseNo, {M, F, A}}]}</pre><p>,  
-where PhaseNo should be (but doesn't have to be) an integer.</p>
+  <code>{'$setup_hooks', [{PhaseNo, {M, F, A}} | {Mode, [{PhaseNo, {M,F,A}}]}]}</code>,
+  where PhaseNo should be (but doesn't have to be) an integer.
+  If <code>Mode</code> is not specified, the hook will pertain to the <code>setup</code> mode.</p>
  
   <p>The hooks will be called in order:  
 - The phase numbers will be sorted.  
@@ -272,12 +362,26 @@ in the same order as the applications appear in the boot script
 <p>Find all setup hooks for <code>Mode</code> in <code>Applications</code>.</p>
 </div></div>
 <div class="function">
+<h3 id="mode/0">mode() -&gt; normal | atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the current "setup mode".</p>
+ 
+  <p>The mode can be defined using the <code>setup</code> environment variable <code>mode</code>.
+  The default value is <code>normal</code>. The mode is used to select which setup
+  hooks to execute when starting the <code>setup</code> application.</p>
+</div></div>
+<div class="function">
 <h3 id="run_hooks/0">run_hooks() -&gt; ok</h3>
 
 
 <div class="description">
 
 <p>Execute all setup hooks for current mode in order.</p>
+ 
+  <p>See <a href="#find_hooks/0" class="seealso">find_hooks/0</a> for details on the order of execution.</p>
 </div></div>
 <div class="function">
 <h3 id="run_hooks/1">run_hooks(Apps::Applications) -&gt; ok</h3>
@@ -286,6 +390,8 @@ in the same order as the applications appear in the boot script
 <div class="description">
 
 <p>Execute setup hooks for current mode in <code>Applications</code> in order.</p>
+ 
+  <p>See <a href="#find_hooks/0" class="seealso">find_hooks/0</a> for details on the order of execution.</p>
 </div></div>
 <div class="function">
 <h3 id="run_hooks/2">run_hooks(Mode, Apps::Applications) -&gt; ok</h3>
@@ -294,13 +400,17 @@ in the same order as the applications appear in the boot script
 <div class="description">
 
 <p>Execute setup hooks for <code>Mode</code> in <code>Applications</code> in order</p>
+ 
+  <p>Note that no assumptions can be made about which process each setup hook
+  runs in, nor whether it runs in the same process as the previous hook.
+  See <a href="#find_hooks/0" class="seealso">find_hooks/0</a> for details on the order of execution.</p>
 </div></div>
 <div class="function">
 <h3 id="lib_dirs/0">lib_dirs() -&gt; [string()]</h3>
 
 
 <div class="description">
-<p>Equivalent to <a href="#lib_dirs/1" class="seealso">lib_dirs(concat("ERL_SETUP_LIBS", "ERL_LIBS"))</a>.</p>
+<p>Equivalent to <a href="#union/2" class="seealso">union(lib_dirs("ERL_SETUP_LIBS"), lib_dirs("ERL_LIBS"))</a>.</p>
 </div></div>
 <div class="function">
 <h3 id="lib_dirs/1">lib_dirs(Env::string()) -&gt; [string()]</h3>

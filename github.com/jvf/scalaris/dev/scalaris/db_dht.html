@@ -32,13 +32,13 @@
 <p>   DB back-end for DHTs storing db_entry:entry() objects.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-client_version">client_version() = integer() &gt;= 0</h3></div>
-    <div class="type"><h3 id="type-db">db() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{KeyValueDB :: <a href="db_ets.html#type-db" class="seealso">db_ets:db()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscribers :: <a href="db_ets.html#type-db" class="seealso">db_ets:db()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SnaphotInfo ::<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="db_ets.html#type-db" class="seealso">db_ets:db()</a> | false,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LiveLockCount :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SnapLockCount :: integer() >= 0}}</h3></div>
+    <div class="type"><h3 id="type-db">db() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{KeyValueDB :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscribers :: <a href="db_ets.html#type-db" class="seealso">db_ets:db()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SnaphotInfo ::<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{term() | false,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LiveLockCount :: integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SnapLockCount :: integer() >= 0}}</h3></div>
     <div class="type"><h3 id="type-db_as_list">db_as_list() = [<a href="db_entry.html#type-entry" class="seealso">db_entry:entry()</a>]</h3></div>
     <div class="type"><h3 id="type-value">value() = <a href="rdht_tx.html#type-encoded_value" class="seealso">rdht_tx:encoded_value()</a></h3></div>
     <div class="type"><h3 id="type-version">version() = <a href="#type-client_version" class="seealso">client_version()</a></h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="new/0">new() -&gt; db()</h3>
+<h3 id="new/1">new(DBName::nonempty_string() | atom()) -&gt; db()</h3>
 
 
 <div class="description">
@@ -47,6 +47,15 @@
 </div></div>
 <div class="function">
 <h3 id="close/1">close(State::db()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Closes the given DB (it may be recoverable using open/1 depending on
+       the DB back-end).</p>
+</div></div>
+<div class="function">
+<h3 id="close_and_delete/1">close_and_delete(State::db()) -&gt; true</h3>
 
 
 <div class="description">
@@ -78,6 +87,12 @@
 
 <p>Returns all (including empty, but not null) DB entries.</p>
 </div></div>
+<div class="function">
+<h3 id="get_data/1-1">get_data(DB::db(), FilterFun::(entry() (see module db_entry)) -&gt; boolean(), ValueFun::(entry() (see module db_entry)) -&gt; V) -&gt; [V]</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="get_entry/1">get_entry(X1::db(), Key::key() (see module rt_chord)) -&gt; entry() (see module db_entry)</h3>
 
