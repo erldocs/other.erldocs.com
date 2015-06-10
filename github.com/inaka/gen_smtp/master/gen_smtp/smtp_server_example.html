@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smtp_server_example (gen_smtp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>smtp_server_example</h1>
+<h2 class="modsummary">A simple example callback module for gen_smtp_server_session that also serves as
+  documentation for the required callback API.</h2>
+<div class="description">
+<p>A simple example callback module for <code>gen_smtp_server_session</code> that also serves as
+  documentation for the required callback API.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-error_message">error_message() = {error, string(), #state{options = list()}}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Hostname::binary(), SessionCount::non_neg_integer(), Address::tuple(), Options::list()) -&gt; {ok, string(), #state{options=list()}} | {stop, any(), string()}</h3>
+
+
+<div class="description">
+
+<p>Initialize the callback module's state for a new session.
+  The arguments to the function are the SMTP server's hostname (for use in the SMTP anner),
+  The number of current sessions (eg. so you can do session limiting), the IP address of the
+  connecting client, and a freeform list of options for the module. The Options are extracted
+  from the <code>callbackoptions</code> parameter passed into the <code>gen_smtp_server_session</code> when it was  
+started.</p>
+ 
+  <p>If you want to continue the session, return <code>{ok, Banner, State}</code> where Banner is the SMTP
+  banner to send to the client and State is the callback module's state. The State will be passed
+  to ALL subsequent calls to the callback module, so it can be used to keep track of the SMTP
+  session. You can also return <code>{stop, Reason, Message}</code> where the session will exit with Reason
+  and send Message to the client.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_HELO/1">handle_HELO(Hostname::binary(), State::#state{options=list()}) -&gt; {ok, pos_integer(), #state{options=list()}} | {ok, #state{options=list()}} | error_message()</h3>
+
+
+<div class="description">
+
+<p>Handle the HELO verb from the client. Arguments are the Hostname sent by the client as  
+part of the HELO and the callback State.</p>
+ 
+  <p>Return values are <code>{ok, State}</code> to simply continue with a new state, <code>{ok, MessageSize, State}</code>
+  to continue with the SMTP session but to impose a maximum message size (which you can determine
+  , for example, by looking at the IP address passed in to the init function) and the new callback
+  state. You can reject the HELO by returning <code>{error, Message, State}</code> and the Message will be
+  sent back to the client. The reject message MUST contain the SMTP status code, eg. 554.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_EHLO/1">handle_EHLO(Hostname::binary(), Extensions::list(), State::#state{options=list()}) -&gt; {ok, list(), #state{options=list()}} | error_message()</h3>
+
+
+<div class="description">
+
+<p>Handle the EHLO verb from the client. As with EHLO the hostname is provided as an argument,  
+but in addition to that the list of ESMTP Extensions enabled in the session is passed. This list  
+of extensions can be modified by the callback module to add/remove extensions.</p>
+ 
+  <p>The return values are <code>{ok, Extensions, State}</code> where Extensions is the new list of extensions
+  to use for this session or <code>{error, Message, State}</code> where Message is the reject message as
+  with handle_HELO.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_MAIL/1">handle_MAIL(From::binary(), State::#state{options=list()}) -&gt; {ok, #state{options=list()}} | error_message()</h3>
+
+
+<div class="description">
+
+<p>Handle the MAIL FROM verb. The From argument is the email address specified by the
+  MAIL FROM command. Extensions to the MAIL verb are handled by the <code>handle_MAIL_extension</code>  
+function.</p>
+ 
+  <p>Return values are either <code>{ok, State}</code> or <code>{error, Message, State}</code> as before.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_MAIL_extension/1">handle_MAIL_extension(Extension::binary(), State::#state{options=list()}) -&gt; {ok, #state{options=list()}} | error</h3>
+
+
+<div class="description">
+
+<p>Handle an extension to the MAIL verb. Return either <code>{ok, State}</code> or <code>error</code> to reject
+  the option.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_RCPT/1">handle_RCPT(To::binary(), State::#state{options=list()}) -&gt; {ok, #state{options=list()}} | {error, string(), #state{options=list()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_RCPT_extension/1">handle_RCPT_extension(Extension::binary(), State::#state{options=list()}) -&gt; {ok, #state{options=list()}} | error</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_DATA/1">handle_DATA(From::binary(), To::[binary(), ...], Data::binary(), State::#state{options=list()}) -&gt; {ok, string(), #state{options=list()}} | {error, string(), #state{options=list()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_RSET/1">handle_RSET(State::#state{options=list()}) -&gt; #state{options=list()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_VRFY/1">handle_VRFY(Address::binary(), State::#state{options=list()}) -&gt; {ok, string(), #state{options=list()}} | {error, string(), #state{options=list()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_other/1">handle_other(Verb::binary(), Args::binary(), State::#state{options=list()}) -&gt; {string(), #state{options=list()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_AUTH/2">handle_AUTH(Type::login | plain | 'cram-md5', Username::binary(), Password::binary() | {binary(), binary()}, State::#state{options=list()}) -&gt; {ok, #state{options=list()}} | error</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_STARTTLS/1">handle_STARTTLS(State::#state{options=list()}) -&gt; #state{options=list()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVsn::any(), State::#state{options=list()}, Extra::any()) -&gt; {ok, #state{options=list()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::any(), State::#state{options=list()}) -&gt; {ok, any(), #state{options=list()}}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
