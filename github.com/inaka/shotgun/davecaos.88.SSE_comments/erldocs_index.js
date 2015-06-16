@@ -1,0 +1,1 @@
+var index = [['app','shotgun','shotgun','[application]'],['mod','shotgun','shotgun_app',[]],['mod','shotgun','shotgun_sup',[]],['fun','shotgun','shotgun_app:start/1',[]],['fun','shotgun','shotgun_app:stop/1',[]],['fun','shotgun','shotgun_sup:init/1',[]],['fun','shotgun','shotgun_sup:start_link/0',[]]];

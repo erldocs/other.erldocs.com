@@ -1236,7 +1236,21 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Computes the factorial of a number. </p><pre class="sh_erlang">  1&gt; sc:factorial(2).
+  2
+ 
+  2&gt; sc:factorial(3).
+  6
+ 
+  3&gt; sc:factorial(4).
+  24
+ 
+  4&gt; [ sc:factorial(X) || X &lt;- lists:seq(1,20) ].
+  [1, 2, 6, 24, 120, 720, 5040, 40320, 362880,
+   3628800, 39916800, 479001600, 6227020800,
+   87178291200, 1307674368000, 20922789888000,
+   355687428096000, 6402373705728000,
+   121645100408832000, 2432902008176640000]</pre>
 </div></div>
 <div class="function">
 <h3 id="additive_factorial/1">additive_factorial(X) -&gt; term()
@@ -1245,7 +1259,21 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Computes the additive factorial of a number. </p><pre class="sh_erlang">  507&gt; sc:additive_factorial(1).
+  1
+ 
+  508&gt; sc:additive_factorial(2).
+  3
+ 
+  509&gt; sc:additive_factorial(3).
+  6
+ 
+  510&gt; sc:additive_factorial(4).
+  10
+ 
+  511&gt; [ sc:additive_factorial(X) || X &lt;- lists:seq(1,20) ].
+  [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105,
+   120, 136, 153, 171, 190,210]</pre>
 </div></div>
 <div class="function">
 <h3 id="ceil/1">ceil(X) -&gt; term()
@@ -1512,7 +1540,7 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Gives the count of entrypoints, function labels, and function points in a module.</p>
 </div></div>
 <div class="function">
 <h3 id="function_point_count/1">function_point_count(Module) -&gt; term()
@@ -1584,7 +1612,16 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Takes the clustering of an indexed key into a list, for bucketing (similar to a histogram.) </p><pre class="sh_erlang">  1&gt; sc:key_cluster(1,[]).
+  []
+ 
+  2&gt; sc:key_cluster(1, [{monster,kobold}, {player,joe}, {monster,snake}, {player, tim}]).
+  [ {monster, [{monster,kobold}, {monster,snake}]},
+    {player,  [{player,joe}, {player,tim}]}]
+ 
+  3&gt; sc:key_cluster(2, [{central,alive},{west,alive},{east,alive},{europe,outage},{asia,outage}]).
+  [{alive,  [{central,alive}, {west,alive}, {east,alive}]},
+   {outage, [{europe,outage}, {asia,outage}]}]</pre>
 </div></div>
 <div class="function">
 <h3 id="distinct_neighbor_pairs/1">distinct_neighbor_pairs(List) -&gt; term()
@@ -1602,7 +1639,17 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Returns every pair of items in a list as a tuple; throws on odd-lengthed lists. </p><pre class="sh_erlang">  1&gt; sc:distinct_neighbor_pairs([1,2,3,4,5,6]).
+  [{1,2}, {3,4}, {5,6}]
+ 
+  2&gt; sc:distinct_neighbor_pairs([1,2,3,4,5,6,1,2]).
+  [{1,2}, {3,4}, {5,6}, {1,2}]
+ 
+  3&gt; sc:distinct_neighbor_pairs([1,2,3,4,5,6,1]).
+  ** exception error: no function clause matching
+                      sc:distinct_neighbor_pairs([1],
+                                                 [{5,6},{3,4},{1,2}],
+                                                 make_tuples) (/projects/scutil.github.com/src/sc.erl, line 4199)</pre>
 </div></div>
 <div class="function">
 <h3 id="all_neighbor_pairs/1">all_neighbor_pairs(List) -&gt; term()
@@ -1703,7 +1750,20 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Returns a list of lists, where the sublists are of size up to the length specified. </p><pre class="sh_erlang">  1&gt; sc:split_at(1, [1,2,3]).
+  [[1],[2],[3]]
+ 
+  2&gt; sc:split_at(2, [1,2,3,4,5,6,7,8]).
+  [[1,2],[3,4],[5,6],[7,8]]
+ 
+  3&gt; sc:split_at(3, [1,2,3,4,5,6,7,8]).
+  [[1,2,3],[4,5,6],[7,8]]
+ 
+  4&gt; sc:split_at(4, [1,2,3,4,5,6,7,8]).
+  [[1,2,3,4],[5,6,7,8]]
+ 
+  5&gt; sc:split_at(5, [1,2,3,4,5,6,7,8]).
+  [[1,2,3,4,5],[6,7,8]]</pre>
 </div></div>
 <div class="function">
 <h3 id="is_postfix/2">is_postfix(Postfix, String) -&gt; term()
@@ -1712,7 +1772,20 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Checks whether the first argument is a list postfix of the second argument, complementary to lists:prefix/2. </p><pre class="sh_erlang">  1&gt; sc:is_postfix([4,5,6], [1,2,3,4,5,6]).
+  true
+ 
+  2&gt; sc:is_postfix([4,5], [1,2,3,4,5,6]).
+  false
+ 
+  3&gt; sc:is_postfix([5,6], [1,2,3,4,5,6]).
+  true
+ 
+  4&gt; sc:is_postfix("house", "Brick house").
+  true
+ 
+  5&gt; sc:is_postfix([], []).
+  true</pre>
 </div></div>
 <div class="function">
 <h3 id="reverse_map_filter/3">reverse_map_filter(Workload, MapFun, FilterFun) -&gt; term()
@@ -2544,7 +2617,11 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Returns the tuple from a list of tuples whose nth indexed item has the maximal value for the column. </p><pre class="sh_erlang">  1&gt; sc:key_max(1, [{1,100}, {2,50}, {1,90}, {2,60}]).
+  {2,50}
+ 
+  2&gt; sc:key_max(2, [{1,100}, {2,50}, {1,90}, {2,60}]).
+  {1,100}</pre>
 </div></div>
 <div class="function">
 <h3 id="key_min/1">key_min(List) -&gt; term()
@@ -2553,7 +2630,11 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Returns the tuple from a list of tuples whose nth indexed item has the minimal value for the column. </p><pre class="sh_erlang">  1&gt; sc:key_min(1, [{1,100}, {2,50}, {1,90}, {2,60}]).
+  {1,100}
+ 
+  2&gt; sc:key_min(2, [{1,100}, {2,50}, {1,90}, {2,60}]).
+  {2,50}</pre><p>
  </p>
 </div></div>
 <div class="function">
@@ -2571,7 +2652,14 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Returns the sum of the numeric elements of a tuple, treating non-numeric elements as zero. </p><pre class="sh_erlang">  1&gt;</pre><p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Returns the sum of the numeric elements of a tuple. </p><pre class="sh_erlang">  1&gt; sc:tuple_sum({1,2,3}).
+  6
+ 
+  2&gt; sc:tuple_sum({}).
+  0
+ 
+  3&gt; sc:tuple_sum({1,2.2,3}).
+  6.2</pre><p>
  </p>
 </div></div>
 <div class="function">
@@ -2581,7 +2669,14 @@ via Naive Bayes Likelihood.</p>
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Sorts the elements of a tuple.  </p><pre class="sh_erlang">  1&gt; sc:tuple_sort({}).
+  {}
+ 
+  2&gt; sc:tuple_sort({1,3,2}).
+  {1,2,3}
+ 
+  3&gt; sc:tuple_sort({1,2,5,three,4}).
+  {1,2,4,5,three}</pre>
 </div></div>
 <div class="function">
 <h3 id="tuple_member/1">tuple_member(E::any(), T::tuple()) -&gt; true | false</h3>
@@ -2954,7 +3049,7 @@ and returns the tuple of the remainder and then a list of all results from the f
 
 <div class="description">
 
-<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span></p>
+<p><span style="color:red;font-style:italic">Untested</span> <span style="color:orange;font-style:italic">Stoch untested</span> Trivial io:format wrapper for a single term.</p>
 </div></div>
 <div class="function">
 <h3 id="to_list/1">to_list(X) -&gt; term()

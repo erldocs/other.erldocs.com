@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>router (router) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>router</h1>
+<h2 class="modsummary">In-memory trie router for fast parallel path lookups with wildcards.</h2>
+<div class="description">
+<p>In-memory trie router for fast parallel path lookups with wildcards.
+  Copyright 2014-2015 Maas-Maarten Zeeman
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-destination">destination() = any()</h3></div>
+    <div class="type"><h3 id="type-multi_level_wildcard">multi_level_wildcard() = '#'</h3></div>
+    <div class="type"><h3 id="type-path">path() = [<a href="#type-path_entry" class="seealso">path_entry()</a>]</h3></div>
+    <div class="type"><h3 id="type-path_entry">path_entry() = binary() | integer() | <a href="#type-wildcard" class="seealso">wildcard()</a></h3></div>
+    <div class="type"><h3 id="type-route">route() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#route{destination = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bound_args = undefined | [<a href="proplists.html#type-property" class="seealso">proplists:property()</a>]}</h3></div>
+    <div class="type"><h3 id="type-router">router()</h3></div>
+    <div class="type"><h3 id="type-single_level_wildcard">single_level_wildcard() = '+'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'+', atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'+', atom(), binary()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'+', atom(), {atom(), atom()}}</h3></div>
+    <div class="type"><h3 id="type-wildcard">wildcard() = <a href="#type-single_level_wildcard" class="seealso">single_level_wildcard()</a> | <a href="#type-multi_level_wildcard" class="seealso">multi_level_wildcard()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; router()</h3>
+
+
+<div class="description">
+
+<p>Create a new router. Creates ets table owned by the calling process.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(Name::atom()) -&gt; router()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/1">info(Router) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get usage statistics
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Name::router()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Delete the router. Deletes the all the ets tables.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="add/1">add(Router::router(), Path::path(), Destination::destination()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add a path to the router. Important: Make sure add is called synchronized.
+</p>
+</div></div>
+<div class="function">
+<h3 id="remove/1">remove(Router::router(), Destination::destination()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Remove a destination. All paths to the destinations are removed. Important:
+ make sure remove is called synchronized.
+</p>
+</div></div>
+<div class="function">
+<h3 id="remove_path/3">remove_path(Router, Path, Destination) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Remove path</p>
+</div></div>
+<div class="function">
+<h3 id="paths/1">paths(Router::router()) -&gt; [path()]</h3>
+
+
+<div class="description">
+
+<p>Get all paths registered in the router.</p>
+</div></div>
+<div class="function">
+<h3 id="get_paths/1">get_paths(Router::router(), MatchSpec::term()) -&gt; [{path(), destination()}]</h3>
+
+
+<div class="description">
+
+<p>Get the associated paths from a match spec.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="match/1">match(Router::router(), Path::path()) -&gt; [path()]</h3>
+
+
+<div class="description">
+
+<p>Return matching paths.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="match/1-1">match(Router::router(), Path::path(), Args::term()) -&gt; [path()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="route/1">route(Router::router(), Path::path()) -&gt; [route()]</h3>
+
+
+<div class="description">
+
+<p>Return matching destinations. and
+ </p>
+</div></div>
+<div class="function">
+<h3 id="route/1-1">route(Router::router(), Path::path(), Args::term()) -&gt; [route()]</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Maas-Maarten Zeeman</aname>
+<email>mmzeeman@xs4all.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cowboy_req (cowboy) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cowboy_req</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-body_opts">body_opts() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{continue, boolean()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{length, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{read_length, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{read_timeout, timeout()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{transfer_decode, <a href="#type-transfer_decode_fun" class="seealso">transfer_decode_fun()</a>, any()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{content_decode, <a href="#type-content_decode_fun" class="seealso">content_decode_fun()</a>}]</h3></div>
+    <div class="type"><h3 id="type-content_decode_fun">content_decode_fun() = fun((binary()) -&gt; binary())</h3></div>
+    <div class="type"><h3 id="type-cookie_opts">cookie_opts() = <a href="cow_cookie.html#type-cookie_opts" class="seealso">cow_cookie:cookie_opts()</a></h3></div>
+    <div class="type"><h3 id="type-req">req()</h3></div>
+    <div class="type"><h3 id="type-resp_body_fun">resp_body_fun() = fun((any(), module()) -&gt; ok)</h3></div>
+    <div class="type"><h3 id="type-resp_chunked_fun">resp_chunked_fun() = fun((<a href="#type-send_chunk_fun" class="seealso">send_chunk_fun()</a>) -> ok)</h3></div>
+    <div class="type"><h3 id="type-send_chunk_fun">send_chunk_fun() = fun((iodata()) -&gt; ok)</h3></div>
+    <div class="type"><h3 id="type-transfer_decode_fun">transfer_decode_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((binary(), any()) -> <a href="cow_http_te.html#type-decode_ret" class="seealso">cow_http_te:decode_ret()</a>)</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Socket::any(), Transport::module(), Peer::undefined | {ip_address() (see module inet), port_number() (see module inet)}, Method::binary(), Path::binary(), Query::binary(), Version::http_version() (see module cowboy), Headers::http_headers() (see module cowboy), Host::binary(), Port::port_number() (see module inet) | undefined, Buffer::binary(), CanKeepalive::boolean(), Compress::boolean(), OnResponse::undefined | onresponse_fun() (see module cowboy)) -&gt; req()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="method/1">method(Req::req()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="version/1">version(Req::req()) -&gt; http_version() (see module cowboy)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="peer/1">peer(Req::req()) -&gt; {ip_address() (see module inet), port_number() (see module inet)} | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="host/1">host(Req::req()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="host_info/1">host_info(Req::req()) -&gt; tokens() (see module cowboy_router) | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="port/1">port(Req::req()) -&gt; port_number() (see module inet)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="path/1">path(Req::req()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="path_info/1">path_info(Req::req()) -&gt; tokens() (see module cowboy_router) | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="qs/1">qs(Req::req()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_qs/1">parse_qs(Http_req::req()) -&gt; [{binary(), binary() | true}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match_qs/1">match_qs(Fields::fields() (see module cowboy), Req::req()) -&gt; #{}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="host_url/1">host_url(Http_req::req()) -&gt; undefined | binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="url/1">url(Req::req()) -&gt; undefined | binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="binding/1">binding(Name::atom(), Req::req()) -&gt; any() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="binding/1-1">binding(Name::atom(), Req::req(), Default) -&gt; any() | Default</h3>
+
+<ul class="type">
+<li><code>Default = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bindings/1">bindings(Req::req()) -&gt; [{atom(), any()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="header/1">header(Name::binary(), Req::req()) -&gt; binary() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="header/1-1">header(Name::binary(), Req::req(), Default) -&gt; binary() | Default</h3>
+
+<ul class="type">
+<li><code>Default = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="headers/1">headers(Req::req()) -&gt; http_headers() (see module cowboy)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_header/1">parse_header(Name::binary(), Req) -&gt; any()</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_header/1-1">parse_header(Name::binary(), Req, Default::any()) -&gt; any()</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_cookies/1">parse_cookies(Req::req()) -&gt; [{binary(), binary()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match_cookies/1">match_cookies(Fields::fields() (see module cowboy), Req::req()) -&gt; #{}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="meta/1">meta(Name::atom(), Req::req()) -&gt; any() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="meta/1-1">meta(Name::atom(), Req::req(), Default::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_meta/1">set_meta(Name::atom(), Value::any(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="has_body/1">has_body(Req::req()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body_length/1">body_length(Req::req()) -&gt; undefined | non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body/1">body(Req) -&gt; {ok, binary(), Req} | {more, binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body/2">body(Req, Opts::body_opts()) -&gt; {ok, binary(), Req} | {more, binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body_qs/1">body_qs(Req) -&gt; {ok, [{binary(), binary() | true}], Req} | {badlength, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body_qs/2">body_qs(Req, Opts::body_opts()) -&gt; {ok, [{binary(), binary() | true}], Req} | {badlength, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="part/1">part(Req) -&gt; {ok, headers() (see module cow_multipart), Req} | {done, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="part/2">part(Req, Opts::body_opts()) -&gt; {ok, headers() (see module cow_multipart), Req} | {done, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="part_body/1">part_body(Req) -&gt; {ok, binary(), Req} | {more, binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="part_body/2">part_body(Req, Opts::body_opts()) -&gt; {ok, binary(), Req} | {more, binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_resp_cookie/1">set_resp_cookie(Name::iodata(), Value::iodata(), Opts::cookie_opts(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_resp_header/1">set_resp_header(Name::binary(), Value::iodata(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_resp_body/1">set_resp_body(Body::iodata(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_resp_body_fun/1">set_resp_body_fun(StreamFun::resp_body_fun(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_resp_body_fun/1-1">set_resp_body_fun(StreamLen::non_neg_integer(), StreamFun::resp_body_fun(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="has_resp_header/1">has_resp_header(Name::binary(), Http_req::req()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="has_resp_body/1">has_resp_body(Http_req::req()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_resp_header/1">delete_resp_header(Name::binary(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply/1">reply(Status::http_status() (see module cowboy), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply/1-1">reply(Status::http_status() (see module cowboy), Headers::http_headers() (see module cowboy), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply/1-2">reply(Status::http_status() (see module cowboy), Headers::http_headers() (see module cowboy), Body::iodata() | resp_body_fun() | {non_neg_integer(), resp_body_fun()} | {chunked, resp_chunked_fun()}, Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chunked_reply/1">chunked_reply(Status::http_status() (see module cowboy), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chunked_reply/1-1">chunked_reply(Status::http_status() (see module cowboy), Headers::http_headers() (see module cowboy), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chunk/1">chunk(Data::iodata(), Http_req::req()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upgrade_reply/1">upgrade_reply(Status::http_status() (see module cowboy), Headers::http_headers() (see module cowboy), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="continue/1">continue(Http_req::req()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="maybe_reply/1">maybe_reply(Stacktrace::[{module(), atom(), arity() | [term()], term()}], Req::req()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ensure_response/1">ensure_response(Http_req::req(), Status::http_status() (see module cowboy)) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="append_buffer/1">append_buffer(Suffix::binary(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/1">get(List::atom(), Req::req()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set/1">set(Tail::[{atom(), any()}], Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_bindings/1">set_bindings(HostInfo::tokens() (see module cowboy_router), PathInfo::tokens() (see module cowboy_router), Bindings::bindings() (see module cowboy_router), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lock/1">lock(Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(Req::req()) -&gt; [{atom(), any()}]</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

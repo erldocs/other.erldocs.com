@@ -32,6 +32,7 @@
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-append_request">append_request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#append_entries{term = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;epoch = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request_ref = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_log_index = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_log_term = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entries = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commit_index = any()}</h3></div>
+    <div class="type"><h3 id="type-csession">csession() = term()</h3></div>
     <div class="type"><h3 id="type-from_peer_addr">from_peer_addr() = {<a href="#type-peer_id" class="seealso">peer_id()</a>, pid()}</h3></div>
     <div class="type"><h3 id="type-index">index() = integer() &gt;= 0</h3></div>
     <div class="type"><h3 id="type-install_snapshot_reply">install_snapshot_reply() = #install_snapshot_reply{}</h3></div>
@@ -64,6 +65,26 @@
 <p>Query data form user backend.</p>
 </div></div>
 <div class="function">
+<h3 id="query/1-1">query(PeerID::peer_id(), WatchRef::term(), Query::term(), Timeout::timeout()) -&gt; {ok, term()} | {leader, peer_id()} | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Query data form user backend and set watch for future change.</p>
+</div></div>
+<div class="function">
+<h3 id="async_query/1">async_query(PeerID::peer_id(), From::term(), Query::term(), Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="async_query/1-1">async_query(PeerID::peer_id(), From::term(), WatchRef::term(), Query::term(), Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
 <h3 id="get_conf/1">get_conf(PeerID::peer_id(), Timeout::timeout()) -&gt; {ok, term()} | {leader, peer_id()} | retry | {error, term()}</h3>
 
 
@@ -80,7 +101,7 @@
 <p>Write data to user backend</p>
 </div></div>
 <div class="function">
-<h3 id="send_swrite/1">send_swrite(PeerID::peer_id(), SWrite::session_write()) -&gt; reference()</h3>
+<h3 id="send_swrite/1">send_swrite(Peer::peer_id() | from_peer_addr(), SWrite::session_write()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -142,7 +163,7 @@
 <p>Generate initial peer state.</p>
 </div></div>
 <div class="function">
-<h3 id="sync_peer/1">sync_peer(P::from_peer_addr(), Sync::true | false) -&gt; ok</h3>
+<h3 id="sync_peer/1">sync_peer(P::from_peer_addr(), Sync::{SyncType::atom(), ConfID::index(), term()}) -&gt; ok</h3>
 
 
 <div class="description">
@@ -160,7 +181,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="make_snapshot_info/1">make_snapshot_info(Peer::from_peer_addr(), From::pid(), Index::index()) -&gt; ok</h3>
+<h3 id="make_snapshot_info/1">make_snapshot_info(Peer::from_peer_addr(), From::{reference(), pid()}, Index::index()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -270,7 +291,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="read_request/3">read_request(State, From, Request) -&gt; term()
+<h3 id="read_request/4">read_request(State, From, Watcher, Request) -&gt; term()
 </h3>
 
 
@@ -278,6 +299,13 @@
  </div></div>
 <div class="function">
 <h3 id="get_conf_request/2">get_conf_request(State, From) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply_caller/2">reply_caller(From, Msg) -&gt; term()
 </h3>
 
 

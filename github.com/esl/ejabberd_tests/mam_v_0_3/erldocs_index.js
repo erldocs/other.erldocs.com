@@ -1,1 +1,1 @@
-var index = [['app','ejabberd_tests','ejabberd_tests','[application]'],['mod','ejabberd_tests','run_common_test',[]],['fun','ejabberd_tests','run_common_test:cover_summary/0',[]],['fun','ejabberd_tests','run_common_test:main/1',[]]];
+var index = [['app','ejabberd_tests','ejabberd_tests','[application]'],['mod','ejabberd_tests','run_common_test',[]],['fun','ejabberd_tests','run_common_test:analyze/0',[]],['fun','ejabberd_tests','run_common_test:main/1',[]]];
