@@ -46,15 +46,18 @@ completely acknowledged.</p>
    <p>4. all qos1, qos2 messages published to when client is disconnected.      
 QoS 1 and QoS 2 messages pending transmission to the Client.</p>
   
-   5. Optionally, QoS 0 messages pending transmission to the Client.
+   <p>5. Optionally, QoS 0 messages pending transmission to the Client.</p>
+  
+   State of Message:  newcome, inflight, pending
   </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-mqtt_clientid">mqtt_clientid() = binary()</h3></div>
     <div class="type"><h3 id="type-mqtt_message">mqtt_message() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#mqtt_message{topic = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from = undefined | binary() | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qos = 0 | 1 | 2,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retain = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dup = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msgid = undefined | <a href="#type-mqtt_msgid" class="seealso">mqtt_msgid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | binary()}</h3></div>
     <div class="type"><h3 id="type-mqtt_msgid">mqtt_msgid() = undefined | 1..65535</h3></div>
     <div class="type"><h3 id="type-mqtt_qos">mqtt_qos() = 0 | 1 | 2</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/1">start_link(CleanSess::boolean(), ClientId::binary(), ClientPid::pid()) -&gt; {ok, pid()} | {error, any()}</h3>
+<h3 id="start_link/1">start_link(CleanSess::boolean(), ClientId::mqtt_clientid(), ClientPid::pid()) -&gt; {ok, pid()} | {error, any()}</h3>
 
 
 <div class="description">
@@ -62,7 +65,7 @@ QoS 1 and QoS 2 messages pending transmission to the Client.</p>
 <p>Start a session.</p>
 </div></div>
 <div class="function">
-<h3 id="resume/1">resume(Session::pid(), ClientId::binary(), ClientPid::pid()) -&gt; ok</h3>
+<h3 id="resume/1">resume(Session::pid(), ClientId::mqtt_clientid(), ClientPid::pid()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -70,7 +73,7 @@ QoS 1 and QoS 2 messages pending transmission to the Client.</p>
 <p>Resume a session.</p>
 </div></div>
 <div class="function">
-<h3 id="destroy/1">destroy(Session::pid(), ClientId::binary()) -&gt; ok</h3>
+<h3 id="destroy/1">destroy(Session::pid(), ClientId::mqtt_clientid()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -86,7 +89,7 @@ QoS 1 and QoS 2 messages pending transmission to the Client.</p>
 <p>Subscribe Topics</p>
 </div></div>
 <div class="function">
-<h3 id="publish/1">publish(Session::pid(), Msg::{mqtt_qos(), mqtt_message()}) -&gt; ok</h3>
+<h3 id="publish/1">publish(Session::pid(), Msg::mqtt_message()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -142,7 +145,7 @@ QoS 1 and QoS 2 messages pending transmission to the Client.</p>
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+<h3 id="handle_cast/2">handle_cast(Msg, Session) -&gt; term()
 </h3>
 
 
