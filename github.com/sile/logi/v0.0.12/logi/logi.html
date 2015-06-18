@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>logi (logi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>logi</h1>
+<h2 class="modsummary">ログ出力用の各種機能を提供するモジュール.</h2>
+<div class="description">
+<p>ログ出力用の各種機能を提供するモジュール</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-context">context() = <a href="logi_context.html#type-context" class="seealso">logi_context:context()</a></h3></div>
+    <div class="type"><h3 id="type-context_id">context_id() = atom()</h3></div>
+    <div class="type"><h3 id="type-context_ref">context_ref() = <a href="#type-context" class="seealso">context()</a> | <a href="#type-context_id" class="seealso">context_id()</a></h3></div>
+    <div class="type"><h3 id="type-frequency_policy">frequency_policy() = always<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| once<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {once_in_times, Times :: integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {interval,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MilliSeconds :: integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-header">header() = {<a href="#type-header_key" class="seealso">header_key()</a>, <a href="#type-header_value" class="seealso">header_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-header_key">header_key() = term()</h3></div>
+    <div class="type"><h3 id="type-header_value">header_value() = term()</h3></div>
+    <div class="type"><h3 id="type-headers">headers() = [<a href="#type-header" class="seealso">header()</a>]</h3></div>
+    <div class="type"><h3 id="type-log_level">log_level() = debug<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| verbose<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| info<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| notice<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| warning<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| critical<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| alert<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| emergency</h3></div>
+    <div class="type"><h3 id="type-log_option">log_option() = {headers, <a href="#type-headers" class="seealso">headers()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {metadata, <a href="#type-metadata" class="seealso">metadata()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {frequency, <a href="#type-frequency_policy" class="seealso">frequency_policy()</a>}</h3></div>
+    <div class="type"><h3 id="type-log_options">log_options() = [<a href="#type-log_option" class="seealso">log_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-logger">logger() = atom()</h3></div>
+    <div class="type"><h3 id="type-metadata">metadata() = [<a href="#type-metadata_entry" class="seealso">metadata_entry()</a>]</h3></div>
+    <div class="type"><h3 id="type-metadata_entry">metadata_entry() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-metadata_entry_key" class="seealso">metadata_entry_key()</a>, <a href="#type-metadata_entry_value" class="seealso">metadata_entry_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-metadata_entry_key">metadata_entry_key() = term()</h3></div>
+    <div class="type"><h3 id="type-metadata_entry_value">metadata_entry_value() = term()</h3></div>
+    <div class="type"><h3 id="type-severity">severity() = <a href="#type-log_level" class="seealso">log_level()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="default_logger/0">default_logger() -&gt; logger()</h3>
+
+
+<div class="description">
+
+<p>デフォルトのロガーを返す</p>
+ 
+  <p>このロガーはlogiアプリケーションの開始に合わせて自動的に起動される</p>
+</div></div>
+<div class="function">
+<h3 id="log_levels/0">log_levels() -&gt; [log_level()]</h3>
+
+
+<div class="description">
+
+<p>利用可能なログレベル一覧を返す</p>
+ 
+  <p>結果の並び�&nbsp;�はログレベルの昇�&nbsp;�</p>
+</div></div>
+<div class="function">
+<h3 id="start_logger/1">start_logger(LoggerId::logger()) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = already_started | term()</code></li></ul>
+<div class="description">
+
+<p>ロガーを起動する</p>
+ 
+  <p>既に同名のロガーが起動している�&nbsp;�合は<code>{error, already_started}</code>が返される</p>
+</div></div>
+<div class="function">
+<h3 id="ensure_logger_started/1">ensure_logger_started(LoggerId::logger()) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>ま�&nbsp;未起動の�&nbsp;�合は、指定のロガーを起動する</p>
+</div></div>
+<div class="function">
+<h3 id="stop_logger/1">stop_logger(LoggerId::logger()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>ロガーを停止する</p>
+ 
+  <p>指定のロガーが存在しない�&nbsp;�合でもエラーとはならずに単に無視される</p>
+</div></div>
+<div class="function">
+<h3 id="which_loggers/0">which_loggers() -&gt; [logger()]</h3>
+
+
+<div class="description">
+
+<p>起動中のロガー一覧を取得する</p>
+</div></div>
+<div class="function">
+<h3 id="set_backend/1">set_backend(BackendSpec::spec() (see module logi_backend), ConditionSpec::spec() (see module logi_condition)) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#set_backend/3" class="seealso">set_backend(default_logger(), BackendSpec,
+	    ConditionSpec)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_backend/1-1">set_backend(LoggerId::logger(), BackendSpec::spec() (see module logi_backend), ConditionSpec::spec() (see module logi_condition)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>バックエンドを登録する</p>
+ 
+  <p>既に同じIDのバックエンドが登録済みの�&nbsp;�合は、内容が更新される</p>
+</div></div>
+<div class="function">
+<h3 id="delete_backend/1">delete_backend(BackendId::id() (see module logi_backend)) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#delete_backend/2" class="seealso">delete_backend(default_logger(), BackendId)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_backend/1-1">delete_backend(LoggerId::logger(), BackendId::id() (see module logi_backend)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>バックエンドを削除する</p>
+ 
+  <p>存在しないバックエンドが指定された�&nbsp;�合でもエラーとはならずに単に無視される</p>
+</div></div>
+<div class="function">
+<h3 id="find_backend/1">find_backend(BackendId::id() (see module logi_backend)) -&gt; {ok, backend() (see module logi_backend)} | {error, not_found}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#find_backend/2" class="seealso">find_backend(default_logger(), BackendId)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="find_backend/1-1">find_backend(LoggerId::logger(), BackendId::id() (see module logi_backend)) -&gt; {ok, backend() (see module logi_backend)} | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>バックエンドを検索する</p>
+</div></div>
+<div class="function">
+<h3 id="which_backends/0">which_backends() -&gt; [backend() (see module logi_backend)]</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#which_backends/1" class="seealso">which_backends(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="which_backends/1">which_backends(LoggerId::logger()) -&gt; [backend() (see module logi_backend)]</h3>
+
+
+<div class="description">
+
+<p>登録されているバックエンド一覧を取得する</p>
+</div></div>
+<div class="function">
+<h3 id="get_condition/1">get_condition(BackendId::id() (see module logi_backend)) -&gt; {ok, condition() (see module logi_condition)} | {error, not_found}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#get_condition/2" class="seealso">get_condition(default_logger(), BackendId)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_condition/1-1">get_condition(LoggerId::logger(), BackendId::id() (see module logi_backend)) -&gt; {ok, condition() (see module logi_condition)} | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>バックエンドのログ出力条件を取得する</p>
+</div></div>
+<div class="function">
+<h3 id="set_condition/1">set_condition(BackendId::id() (see module logi_backend), ConditionSpec::spec() (see module logi_condition)) -&gt; ok | {error, not_found}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#set_condition/3" class="seealso">set_condition(default_logger(), BackendId,
+	      ConditionSpec)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_condition/1-1">set_condition(LoggerId::logger(), BackendId::id() (see module logi_backend), ConditionSpec::spec() (see module logi_condition)) -&gt; ok | {error, not_found}</h3>
+
+
+<div class="description">
+
+<p>バックエンドのログ出力条件を設定する</p>
+</div></div>
+<div class="function">
+<h3 id="log/1">log(Severity::severity(), Location::location() (see module logi_location), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#log/6" class="seealso">log(default_logger(), Severity, Location, Format, Args,
+    Options)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="log/1-1">log(ContextRef::context_ref(), Severity::severity(), Location::location() (see module logi_location), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>ログを出力する</p>
+ 
+  <p>通常は<code>logi_transform</code>モジュールが適用する関数マクロ群を通してログ出力を行い、この関数は直接は使用されない</p>
+</div></div>
+<div class="function">
+<h3 id="make_context/0">make_context() -&gt; context()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#make_context/1" class="seealso">make_context(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_context/1">make_context(LoggerId::logger()) -&gt; context()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#make_context/2" class="seealso">make_context(LoggerId, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="make_context/1-1">make_context(LoggerId::logger(), Options) -&gt; context()</h3>
+
+<ul class="type">
+<li><code>Options = [Option]</code></li><li><code>Option = {headers, headers()} | {metadata, metadata()}</code></li></ul>
+<div class="description">
+
+<p>ログ出力コンテキストを生成する</p>
+</div></div>
+<div class="function">
+<h3 id="save_context/1">save_context(Context::context()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#save_context/2" class="seealso">save_context(default_logger(), Context)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="save_context/1-1">save_context(ContextId::context_id(), Context::context()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>ログ出力コンテキストをプロセス辞書に保存する</p>
+</div></div>
+<div class="function">
+<h3 id="load_context/0">load_context() -&gt; context()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#load_context/1" class="seealso">load_context(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="load_context/1">load_context(ContextId::context_id()) -&gt; context()</h3>
+
+
+<div class="description">
+
+<p>ログ出力コンテキストをプロセス辞書からロードする</p>
+ 
+  <p>指定されたIDのコンテキストが存在しない�&nbsp;�合は<code>make_context(ContextId)</code>が代わりのデフォルト値として使用される。<br /></p>
+</div></div>
+<div class="function">
+<h3 id="which_contexts/0">which_contexts() -&gt; [{context_id(), context()}]</h3>
+
+
+<div class="description">
+
+<p>保存されているコンテキスト一覧を取得する</p>
+</div></div>
+<div class="function">
+<h3 id="set_headers/1">set_headers(Headers::headers()) -&gt; context_id()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#set_headers/2" class="seealso">set_headers(default_logger(), Headers)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_headers/1-1">set_headers(ContextRef::context_ref(), Headers::headers()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>ヘッダ群を設定する</p>
+ 
+  <p>キー名が同じヘッダが存在する�&nbsp;�合は値が上書きされる. <br />
+  それ以外の既存のヘッダは、そのまま保持され続ける.</p>
+</div></div>
+<div class="function">
+<h3 id="get_headers/0">get_headers() -&gt; headers()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#get_headers/1" class="seealso">get_headers(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_headers/1">get_headers(ContextRef::context_ref()) -&gt; headers()</h3>
+
+
+<div class="description">
+
+<p>ヘッダ群を取得する</p>
+</div></div>
+<div class="function">
+<h3 id="delete_headers/1">delete_headers(Keys::[header_key()]) -&gt; context_id()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#default_logger/2" class="seealso">default_logger(default_logger(), Keys)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_headers/1-1">delete_headers(ContextRef::context_ref(), Keys::[header_key()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>指定されたキーを保持するヘッダ群の削除する</p>
+</div></div>
+<div class="function">
+<h3 id="clear_headers/0">clear_headers() -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#clear_headers/1" class="seealso">clear_headers(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="clear_headers/1">clear_headers(ContextRef::context_ref()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>ヘッダ群をクリアする</p>
+</div></div>
+<div class="function">
+<h3 id="set_metadata/1">set_metadata(MetaData::metadata()) -&gt; context_id()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#set_metadata/2" class="seealso">set_metadata(default_logger(), MetaData)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_metadata/1-1">set_metadata(ContextRef::context_ref(), MetaData::metadata()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>ヘッダ群を設定する</p>
+ 
+  <p>キー名が同じエントリが存在する�&nbsp;�合は値が上書きされる. <br />
+  それ以外の既存のエントリは、そのまま保持され続ける.</p>
+</div></div>
+<div class="function">
+<h3 id="get_metadata/0">get_metadata() -&gt; metadata()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#get_metadata/1" class="seealso">get_metadata(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_metadata/1">get_metadata(ContextRef::context_ref()) -&gt; metadata()</h3>
+
+
+<div class="description">
+
+<p>メタデータを取得する</p>
+</div></div>
+<div class="function">
+<h3 id="delete_metadata/1">delete_metadata(Keys::[header_key()]) -&gt; context_id()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#delete_metadata/2" class="seealso">delete_metadata(default_logger(), Keys)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_metadata/1-1">delete_metadata(ContextRef::context_ref(), Keys::[header_key()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>メタデータから指定されたキーのエントリ群の削除する</p>
+</div></div>
+<div class="function">
+<h3 id="clear_metadata/0">clear_metadata() -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#clear_metadata/1" class="seealso">clear_metadata(default_logger())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="clear_metadata/1">clear_metadata(ContextRef::context_ref()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+
+<p>メタデータをクリアする</p>
+</div></div>
+<div class="function">
+<h3 id="debug/1">debug(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug/1-1">debug(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug/1-2">debug(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug_opt/1">debug_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug_opt/1-1">debug_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="debug_opt/1-2">debug_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verbose/1">verbose(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verbose/1-1">verbose(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verbose/1-2">verbose(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verbose_opt/1">verbose_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verbose_opt/1-1">verbose_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="verbose_opt/1-2">verbose_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/1">info(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/1-1">info(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info/1-2">info(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info_opt/1">info_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info_opt/1-1">info_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="info_opt/1-2">info_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notice/1">notice(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notice/1-1">notice(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notice/1-2">notice(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notice_opt/1">notice_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notice_opt/1-1">notice_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="notice_opt/1-2">notice_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="warning/1">warning(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="warning/1-1">warning(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="warning/1-2">warning(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="warning_opt/1">warning_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="warning_opt/1-1">warning_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="warning_opt/1-2">warning_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/1">error(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/1-1">error(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error/1-2">error(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error_opt/1">error_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error_opt/1-1">error_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="error_opt/1-2">error_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="critical/1">critical(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="critical/1-1">critical(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="critical/1-2">critical(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="critical_opt/1">critical_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="critical_opt/1-1">critical_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="critical_opt/1-2">critical_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alert/1">alert(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alert/1-1">alert(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alert/1-2">alert(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alert_opt/1">alert_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alert_opt/1-1">alert_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alert_opt/1-2">alert_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="emergency/1">emergency(Format::format() (see module io)) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="emergency/1-1">emergency(Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="emergency/1-2">emergency(ContextRef::context_ref(), Format::format() (see module io), Args::[term()]) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="emergency_opt/1">emergency_opt(Format::format() (see module io), Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="emergency_opt/1-1">emergency_opt(Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="emergency_opt/1-2">emergency_opt(ContextRef::context_ref(), Format::format() (see module io), Args::[term()], Options::log_options()) -&gt; context_ref()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
