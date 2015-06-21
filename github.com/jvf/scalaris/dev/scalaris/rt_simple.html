@@ -205,7 +205,7 @@
 <p>There are no custom messages here.</p>
 </div></div>
 <div class="function">
-<h3 id="check/1">check(OldRT::rt(), NewRT::rt(), Neighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; ok</h3>
+<h3 id="check/1">check(OldRT::rt(), NewRT::rt(), OldERT::external_rt(), Neighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; NewERT::external_rt()</h3>
 
 
 <div class="description">
@@ -214,7 +214,7 @@
        Provided for convenience (see check/5).</p>
 </div></div>
 <div class="function">
-<h3 id="check/1-1">check(OldRT::rt(), NewRT::rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; ok</h3>
+<h3 id="check/1-1">check(OldRT::rt(), NewRT::rt(), OldERT::external_rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; NewERT::external_rt()</h3>
 
 
 <div class="description">
@@ -231,12 +231,21 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="next_hop/1">next_hop(State::state() (see module dht_node_state), Key::key()) -&gt; {succ | other, mypid() (see module comm)}</h3>
+<h3 id="next_hop/1">next_hop(Neighbors::neighborhood() (see module nodelist), RT::external_rt() (see module rt_chord), Id::key()) -&gt; succ | mypid() (see module comm)</h3>
 
 
 <div class="description">
 
 <p>Returns the next hop to contact for a lookup.</p>
+</div></div>
+<div class="function">
+<h3 id="succ/1">succ(ERT::external_rt(), Neighbors::neighborhood() (see module nodelist)) -&gt; mypid() (see module comm)</h3>
+
+
+<div class="description">
+
+<p>Return the succ
+       No need to lookup the succ in the ERT, only dht_node pids are used anyway.</p>
 </div></div>
 <div class="function">
 <h3 id="export_rt_to_dht_node/1">export_rt_to_dht_node(RT::rt(), Neighbors::neighborhood() (see module nodelist)) -&gt; external_rt()</h3>
@@ -248,17 +257,17 @@
        are the same here.</p>
 </div></div>
 <div class="function">
-<h3 id="to_list/1">to_list(State::state() (see module dht_node_state)) -&gt; snodelist() (see module nodelist)</h3>
+<h3 id="to_list/1">to_list(State::state() (see module dht_node_state)) -&gt; [{key(), mypid() (see module comm)}]</h3>
 
 
 <div class="description">
 
 <p>Converts the (external) representation of the routing table to a list
-       in the order of the fingers, i.e. first=succ, second=shortest finger,
-       third=next longer finger,...</p>
+       {Id, Pid} tuples in the order of the fingers, i.e. first=succ,
+       second=shortest finger, third=next longer finger,...</p>
 </div></div>
 <div class="function">
-<h3 id="wrap_message/1">wrap_message(Key::key(), Msg::message() (see module comm), State::state() (see module dht_node_state), Hops::non_neg_integer()) -&gt; message() (see module comm)</h3>
+<h3 id="wrap_message/1">wrap_message(Key::key(), Msg::message() (see module comm), MyERT::external_rt(), Neighbors::neighborhood() (see module nodelist), Hops::non_neg_integer()) -&gt; message() (see module comm)</h3>
 
 
 <div class="description">

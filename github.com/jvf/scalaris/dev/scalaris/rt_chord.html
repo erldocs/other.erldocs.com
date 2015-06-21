@@ -218,19 +218,7 @@
        'rt_get_node' messages.</p>
 </div></div>
 <div class="function">
-<h3 id="check/1">check(OldRT::rt(), NewRT::rt(), Neighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; ok</h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
-<h3 id="check/1-1">check(OldRT::rt(), NewRT::rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; ok</h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
-<h3 id="check_tmp/1">check_tmp(OldRT::rt(), NewRT::rt(), OldERT::external_rt(), Neighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; NewERT::external_rt()</h3>
+<h3 id="check/1">check(OldRT::rt(), NewRT::rt(), OldERT::external_rt(), Neighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; NewERT::external_rt()</h3>
 
 
 <div class="description">
@@ -239,7 +227,7 @@
        Provided for convenience (see check/5).</p>
 </div></div>
 <div class="function">
-<h3 id="check_tmp/1-1">check_tmp(OldRT::rt(), NewRT::rt(), OldERT::external_rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; NewERT::external_rt()</h3>
+<h3 id="check/1-1">check(OldRT::rt(), NewRT::rt(), OldERT::external_rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; NewERT::external_rt()</h3>
 
 
 <div class="description">
@@ -255,24 +243,24 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="next_hop/1">next_hop(State::state() (see module dht_node_state), Id::key()) -&gt; {succ | other, mypid() (see module comm)}</h3>
+<h3 id="next_hop/1">next_hop(Neighbors::neighborhood() (see module nodelist), RT::external_rt() (see module rt_chord), Id::key()) -&gt; succ | mypid() (see module comm)</h3>
 
 
 <div class="description">
 
 <p>Returns the next hop to contact for a lookup.
-       If the routing table has less entries than the rt_size_use_neighbors
-       config parameter, the neighborhood is also searched in order to find a
-       proper next hop.
        Note, that this code will be called from the dht_node process and
        it will thus have an external_rt!</p>
 </div></div>
 <div class="function">
-<h3 id="next_hop/1-1">next_hop(Neighbors::neighborhood() (see module nodelist), RT::external_rt() (see module rt_chord), Id::key()) -&gt; succ | mypid() (see module comm)</h3>
+<h3 id="succ/1">succ(ERT::external_rt(), Neighbors::neighborhood() (see module nodelist)) -&gt; mypid() (see module comm)</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Return the succ, but get the pid from ERT if possible
+       (to hopefully get a rt_loop pid instead of a dht_node state pid)</p>
+</div></div>
 <div class="function">
 <h3 id="export_rt_to_dht_node/1">export_rt_to_dht_node(RT::rt(), Neighbors::neighborhood() (see module nodelist)) -&gt; external_rt()</h3>
 
@@ -280,7 +268,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="to_list/1">to_list(State::state() (see module dht_node_state)) -&gt; snodelist() (see module nodelist)</h3>
+<h3 id="to_list/1">to_list(State::state() (see module dht_node_state)) -&gt; [{key(), mypid() (see module comm)}]</h3>
 
 
 <div class="description">
@@ -290,7 +278,7 @@
        second=shortest finger, third=next longer finger,...</p>
 </div></div>
 <div class="function">
-<h3 id="wrap_message/1">wrap_message(Key::key(), Msg::message() (see module comm), State::state() (see module dht_node_state), Hops::non_neg_integer()) -&gt; message() (see module comm)</h3>
+<h3 id="wrap_message/1">wrap_message(Key::key(), Msg::message() (see module comm), MyERT::external_rt(), Neighbors::neighborhood() (see module nodelist), Hops::non_neg_integer()) -&gt; message() (see module comm)</h3>
 
 
 <div class="description">
