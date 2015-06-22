@@ -27,13 +27,12 @@
         
 
 <h1>swarm_worker</h1>
-<h2 class="modsummary">Library for PPSPP over UDP, aka Swift protocol.</h2>
+<h2 class="modsummary">A managed PPSPP Swarm server.</h2>
 <div class="description">
-<p>Library for PPSPP over UDP, aka Swift protocol</p>
+<p>A managed PPSPP Swarm server.</p>
  
-  <p>This module implements a library of functions necessary to
-  handle the wire-protocol of PPSPP over UDP, including
-  functions for encoding and decoding messages.</p></div>
+  <p>This modules implements a PPSPP swarm server, including registering
+  the unique swarm id, and associated PPPSPP options.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{swarm_id = undefined | <a href="ppspp_options.html#type-swarm_id" class="seealso">ppspp_options:swarm_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options = undefined | <a href="ppspp_options.html#type-options" class="seealso">ppspp_options:options()</a>}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
@@ -43,8 +42,8 @@
 
 <div class="description">
 
-<p>start the server with a given set of options which includes
-  the root hash.</p>
+<p>Start the server with a given set of PPSPP options including the
+  root hash.</p>
 </div></div>
 <div class="function">
 <h3 id="stop/1">stop(Swarm_id::swarm_id() (see module ppspp_options)) -&gt; ok | {error, any()}</h3>
@@ -68,7 +67,8 @@
 
 <div class="description">
 
-<p>Looks up the swarm options for a given swarm id, either as string or binary.</p>
+<p>Given a swarm id, either as string or binary, returns the associated
+  PPSPP options from the <code>gproc</code> registry.</p>
 </div></div>
 <div class="function">
 <h3 id="init/1">init(X1::[swarm_id() (see module ppspp_options) | options() (see module ppspp_options)]) -&gt; {ok, state()}</h3>
@@ -81,31 +81,41 @@
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API</p>
+</div></div>
 <div class="function">
 <h3 id="handle_call/1">handle_call(Message::any(), From::{pid(), any()}, State::state()) -&gt; {reply, ok, state()}</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API</p>
+</div></div>
 <div class="function">
 <h3 id="handle_info/1">handle_info(Message::term(), State::state()) -&gt; {noreply, state()} | {stop, {error, {unknown_info, term()}}, term()}</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API</p>
+</div></div>
 <div class="function">
 <h3 id="code_change/1">code_change(OldVsn::term(), State::state(), Extra::term()) -&gt; {ok, state()}</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API</p>
+</div></div>
 <div class="function">
 <h3 id="terminate/1">terminate(Reason::term(), State::state()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div></div>
+
+<p>Closes down the <code>swarm_worker</code>. Returns reason and brief statistics.</p>
+</div></div></div>
 
 <authors>
 <aname> </aname>
