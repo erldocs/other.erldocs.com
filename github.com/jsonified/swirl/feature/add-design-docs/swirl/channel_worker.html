@@ -27,13 +27,18 @@
         
 
 <h1>channel_worker</h1>
-<h2 class="modsummary">Manages state for a specific channel.</h2>
+<h2 class="modsummary">A managed PPSPP Channel that represents a remote PPSPP Peer.</h2>
 <div class="description">
-<p>Manages state for a specific channel.</p>
+<p>A managed PPSPP Channel that represents a remote PPSPP Peer.</p>
  
   <p>The state for a specific channel includes the associated remote peer,
   the swarm, and the channel itself. Within swirl, these three are bound
-  together as a unique value, and the channel ID as the key.</p></div>
+  together as a unique value, and the channel ID as the key. The
+  <code>channel_worker</code> provides registration and lookups to allow a given
+  <code>peer_worker</code> to route messages for a specific remote peer to it, given
+  only the correct <code>channel_id</code>. This functionality is used extensively
+  by other modules to decode, process, encode, and send PPSPP datagrams
+  over the wire.</p></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start_link/1">start_link(Peer::endpoint() (see module ppspp_datagram), Swarm_id::swarm_id() (see module ppspp_options)) -&gt; ignore | {error, term()} | {ok, pid()}</h3>
@@ -41,8 +46,8 @@
 
 <div class="description">
 
-<p>start the channel using provided peer info (typically the udp endpoint)
-  for channel 0, i.e. the initial handshake contact from a remote peer, we
+<p>Start the channel using provided peer info (typically the udp endpoint)
+  for channel 0, i.e. the initial handshake contact from a remote peer. We
   effectively block any re-registration by registering this name, until the
   first received registration completes successfully.</p>
 </div></div>
@@ -52,7 +57,7 @@
 
 <div class="description">
 
-<p>Stops the server.</p>
+<p>Stops the server, given a channel.</p>
 </div></div>
 <div class="function">
 <h3 id="init/1">init(Swarm_id::swarm() (see module ppspp_options)) -&gt; {ok, channel() (see module ppspp_channel)}</h3>
@@ -60,10 +65,12 @@
 
 <div class="description">
 
-<p>as the channel id is not known at time of process spawning, it is
+<p>As the channel id is not known at time of process spawning, it is
   done during init phase, using gproc. The following values are registered:
-  - {{peer, Peer URI}, Peer}
-  - {{channel, Channel id}, Swarm ID}
+  </p><pre lang="erlang">
+  {{peer, Peer URI}, Peer}
+  {{channel, Channel id}, Swarm ID}
+  </pre><p>
   Peer is the opaque data type used in the datagram module that uniquely
   identifies a remote peer.
   TODO change registration of peers to allow multiplexed peers per remote
@@ -77,35 +84,45 @@
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API.</p>
+</div></div>
 <div class="function">
 <h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API.</p>
+</div></div>
 <div class="function">
 <h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API.</p>
+</div></div>
 <div class="function">
 <h3 id="terminate/2">terminate(Reason, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Default <code>gen_server</code> API.</p>
+</div></div>
 <div class="function">
 <h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div></div>
+
+<p>Default <code>gen_server</code> API.</p>
+</div></div></div>
 
 <authors>
 <aname> </aname>

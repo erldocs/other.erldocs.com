@@ -32,7 +32,9 @@
 <p>A managed PPSPP Swarm server.</p>
  
   <p>This modules implements a PPSPP swarm server, including registering
-  the unique swarm id, and associated PPPSPP options.</p></div>
+  the unique <code>swarm_id</code> and associated PPPSPP options, and provides
+  lookup services to locate the <code>swarm_worker</code>, and retrieve configuration
+  such as swarm options.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{swarm_id = undefined | <a href="ppspp_options.html#type-swarm_id" class="seealso">ppspp_options:swarm_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options = undefined | <a href="ppspp_options.html#type-options" class="seealso">ppspp_options:options()</a>}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
@@ -42,8 +44,8 @@
 
 <div class="description">
 
-<p>Start the server with a given set of PPSPP options including the
-  root hash.</p>
+<p>Start the server with a given set of PPSPP options that must include
+  the swarm's root hash.</p>
 </div></div>
 <div class="function">
 <h3 id="stop/1">stop(Swarm_id::swarm_id() (see module ppspp_options)) -&gt; ok | {error, any()}</h3>
@@ -75,14 +77,16 @@
 
 
 <div class="description">
- </div></div>
+
+<p>Starts a <code>swarm_worker</code> with given swarm id and PPSPP options.</p>
+</div></div>
 <div class="function">
 <h3 id="handle_cast/1">handle_cast(Message::stop | any(), State::state()) -&gt; {noreply, state()}</h3>
 
 
 <div class="description">
 
-<p>Default <code>gen_server</code> API</p>
+<p>Default <code>gen_server</code> API.</p>
 </div></div>
 <div class="function">
 <h3 id="handle_call/1">handle_call(Message::any(), From::{pid(), any()}, State::state()) -&gt; {reply, ok, state()}</h3>
@@ -90,7 +94,7 @@
 
 <div class="description">
 
-<p>Default <code>gen_server</code> API</p>
+<p>Default <code>gen_server</code> API.</p>
 </div></div>
 <div class="function">
 <h3 id="handle_info/1">handle_info(Message::term(), State::state()) -&gt; {noreply, state()} | {stop, {error, {unknown_info, term()}}, term()}</h3>
@@ -98,7 +102,7 @@
 
 <div class="description">
 
-<p>Default <code>gen_server</code> API</p>
+<p>Default <code>gen_server</code> API.</p>
 </div></div>
 <div class="function">
 <h3 id="code_change/1">code_change(OldVsn::term(), State::state(), Extra::term()) -&gt; {ok, state()}</h3>
@@ -106,7 +110,7 @@
 
 <div class="description">
 
-<p>Default <code>gen_server</code> API</p>
+<p>Default <code>gen_server</code> API.</p>
 </div></div>
 <div class="function">
 <h3 id="terminate/1">terminate(Reason::term(), State::state()) -&gt; ok</h3>
