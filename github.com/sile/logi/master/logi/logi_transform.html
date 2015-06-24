@@ -27,10 +27,37 @@
         
 
 <h1>logi_transform</h1>
-<h2 class="modsummary">TODO.</h2>
+<h2 class="modsummary">logi用のparse_transformモジュール.</h2>
 <div class="description">
-<p>TODO</p></div>
+<p>logi用のparse_transformモジュール</p>
+ 
+  <p><a href="logi.html#location/0" class="seealso">logi:location/0</a>や<a href="logi.html#info/2" class="seealso">logi:info/2</a>等の呼び出しに自動で以下の位置情�&nbsp;�を追�&nbsp;するために使用される:  
+- アプリケーション名  
+- モジュール名  
+- 関数名  
+- 行番号</p>
+ 
+  <p>対象モジュールのコンパイルオプションに<code>{parse_transform, logi_transform}</code>を追�&nbsp;することで、この機能が有効となる。</p>
+ 
+  <p><code>logi_transform</code>を有効にせずに<code>logi</code>を使用することは可能�&nbsp;が、有益な情�&nbsp;�がログから失われてしまうので推奨はされない。</p>
+ 
+  <p>parse_transformに関しては以下も参考となる:
+  - http://www.erlang.org/doc/man/erl_id_trans.html
+  - http://www.erlang.org/doc/apps/erts/absform.html</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-clause">clause() = {clause, <a href="#type-line" class="seealso">line()</a>, [term()], [term()], [<a href="#type-expr" class="seealso">expr()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="erl_parse.html#type-abstract_clause" class="seealso">erl_parse:abstract_clause()</a></h3></div>
+    <div class="type"><h3 id="type-expr">expr() = <a href="#type-expr_call_remote" class="seealso">expr_call_remote()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-expr_var" class="seealso">expr_var()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="erl_parse.html#type-abstract_expr" class="seealso">erl_parse:abstract_expr()</a></h3></div>
+    <div class="type"><h3 id="type-expr_call_remote">expr_call_remote() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{call, <a href="#type-line" class="seealso">line()</a>, {remote, <a href="#type-line" class="seealso">line()</a>, <a href="#type-expr" class="seealso">expr()</a>, <a href="#type-expr" class="seealso">expr()</a>}, [<a href="#type-expr" class="seealso">expr()</a>]}</h3></div>
+    <div class="type"><h3 id="type-expr_var">expr_var() = {var, <a href="#type-line" class="seealso">line()</a>, atom()}</h3></div>
+    <div class="type"><h3 id="type-form">form() = {attribute, <a href="#type-line" class="seealso">line()</a>, atom(), term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {function,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-line" class="seealso">line()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-clause" class="seealso">clause()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="erl_parse.html#type-abstract_form" class="seealso">erl_parse:abstract_form()</a></h3></div>
+    <div class="type"><h3 id="type-line">line() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse_transform/1">parse_transform(AbstractForms::[form()], Options::[option() (see module compile)]) -&gt; [form()]</h3>
 
+
+<div class="description">
+ </div></div></div>
 
 <authors>
 <aname> </aname>

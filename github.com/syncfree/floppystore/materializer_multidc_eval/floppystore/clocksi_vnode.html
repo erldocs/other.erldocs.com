@@ -76,7 +76,9 @@
 
 <div class="description">
 
-<p>Sends a read request to the Node that is responsible for the Key</p>
+<p>Sends a read request to the Node that is responsible for the Key
+       this does not actually touch the vnode, instead reads directly
+       from the ets table to allow for concurrency</p>
 </div></div>
 <div class="function">
 <h3 id="prepare/2">prepare(ListofNodes, TxId) -&gt; term()
@@ -139,7 +141,12 @@
 
 
 <div class="description">
- </div></div>
+
+<p>The table holding the prepared transactions is shared with concurrent
+       readers, so they can safely check if a key they are reading is being updated.
+       This function checks whether or not all tables have been intialized or not yet.
+       Returns true if the have, false otherwise.</p>
+</div></div>
 <div class="function">
 <h3 id="handle_command/3">handle_command(Message, Sender, SD0) -&gt; term()
 </h3>

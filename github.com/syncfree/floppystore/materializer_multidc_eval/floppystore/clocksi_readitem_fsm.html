@@ -55,7 +55,15 @@
 
 
 <div class="description">
- </div></div>
+
+<p>This starts a gen_server responsible for servicing reads to key
+       handled by this Partition.  To allow for read concurrency there
+       can be multiple copies of these servers per parition, the Id is
+       used to distinguish between them.  Since these servers will be
+       reading from ets tables shared by the clock_si and materializer
+       vnodes, they should be started on the same physical nodes as
+       the vnodes with the same partition.</p>
+</div></div>
 <div class="function">
 <h3 id="start_read_servers/1">start_read_servers(Partition) -&gt; term()
 </h3>
@@ -83,7 +91,11 @@
 
 
 <div class="description">
- </div></div>
+
+<p>This checks all partitions in the system to see if all read
+       servers have been started up.
+       Returns true if they have been, false otherwise.</p>
+</div></div>
 <div class="function">
 <h3 id="check_partition_ready/3">check_partition_ready(Node, Partition, Num) -&gt; term()
 </h3>
