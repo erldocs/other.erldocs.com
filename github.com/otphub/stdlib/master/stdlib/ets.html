@@ -1446,7 +1446,7 @@ is_integer(X), is_integer(Y), X + Y &lt; 4711</pre>
     </div>
     <div class="function">
       <h3 id="tab2file/3">tab2file(Tab, Filename, Options) -&gt; ok | {error, Reason}</h3>
-      <ul class="type_desc"><li><code>Tab = <a href="#type-tab" class="seealso">tab()</a></code></li><li><code>Filename = <a href="file.html#type-name" class="seealso">file:name()</a></code></li><li><code>Options = [Option]</code></li><li><code>Option = {extended_info, [ExtInfo]}</code></li><li><code>ExtInfo = md5sum | object_count</code></li><li><code>Reason = term()</code></li></ul>
+      <ul class="type_desc"><li><code>Tab = <a href="#type-tab" class="seealso">tab()</a></code></li><li><code>Filename = <a href="file.html#type-name" class="seealso">file:name()</a></code></li><li><code>Options = [Option]</code></li><li><code>Option = {extended_info, [ExtInfo]} | {sync, boolean()}</code></li><li><code>ExtInfo = md5sum | object_count</code></li><li><code>Reason = term()</code></li></ul>
       
       <div class="description">
         <p>Dumps the table <code><anno>Tab</anno></code> to the file <code><anno>Filename</anno></code>.</p>
@@ -1482,7 +1482,9 @@ is_integer(X), is_integer(Y), X + Y &lt; 4711</pre>
 	<p>Whenever the <code>extended_info</code> option is used, it
 	results in a file not readable by versions of ets prior to
 	that in stdlib-1.15.1</p> 
-
+        <p>The <code>sync</code> option, if set to <code>true</code>, ensures that
+	the content of the file is actually written to the disk before
+	<code>tab2file</code> returns. Default is <code>{sync, false}</code>.</p>
       </div>
     </div>
     <div class="function">

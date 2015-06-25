@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ppspp_channel (swirl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ppspp_channel</h1>
+<h2 class="modsummary">Library for PPSPP over UDP, aka Swift protocol.</h2>
+<div class="description">
+<p>Library for PPSPP over UDP, aka Swift protocol</p>
+ 
+  <p>This module implements a library of functions necessary to
+  handle the wire-protocol of PPSPP over UDP, including
+  functions for encoding and decoding messages.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-channel">channel()</h3></div>
+    <div class="type"><h3 id="type-channel_option">channel_option()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="unpack_with_rest/1">unpack_with_rest(X1::binary()) -&gt; {channel(), binary()}</h3>
+
+
+<div class="description">
+
+<p>unpack a channel message
+  </p><p>  Deconstruct PPSPP UDP datagram into multiple erlang terms, including
+  parsing any additional data within the same segment. Any parsing failure
+  is fatal and will propagate back to the attempted datagram unpacking.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="unpack_channel/1">unpack_channel(Binary::binary()) -&gt; channel()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_channel_id/1">get_channel_id(Channel::channel()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pack/1">pack(Message::message() (see module ppspp_message)) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="acquire/1">acquire(Swarm_id::swarm_id() (see module ppspp_options)) -&gt; channel()</h3>
+
+
+<div class="description">
+
+<p>allow requesting channel_worker to register an unused channel
+  </p><p> Ensure that the channel can  be searched for using the swarm id.
+  A increasing delay is imposed on requesting channels as usage increases
+  proportional to the previous failed tries, as a way of controlling overall
+  load for new requesters. The timeout is approximately 60 seconds.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="release/1">release(Channel::channel()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>allow requesting process to release an assigned channel
+  </p><p> This function will crash if the channel was not registered to this
+  process, as gproc returns badarg in this case.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="is_channel_zero/1">is_channel_zero(X1::channel()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>compare given channel for the handshake channel
+  </p><p> All other channels must be assigned to a specific swarm or the datagram
+  unpacker will reject them. Channel zero is the channel used during initial
+  handshaking to negotiate and agree a dedicated channel. </p>
+</div></div>
+<div class="function">
+<h3 id="where_is/1">where_is(Channel::channel()) -&gt; {ok, pid()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>looks up pid of the owning swarm for a given channel
+  </p><p> Channels are only registered to swarm_workers; and peer_worker however
+  may receive inbound packets for a particular swarm and will use the received
+  channel to look it up before retrieving swarm options. It is used to locate
+  the owning swarm in a channel when unpacking messages.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_swarm_id/1">get_swarm_id(Channel::channel()) -&gt; {ok, swarm_id() (see module ppspp_options)} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Looks up the swarm options for a given channel.</p>
+</div></div>
+<div class="function">
+<h3 id="handle/1">handle(Message::message() (see module ppspp_message)) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
