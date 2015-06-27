@@ -83,24 +83,36 @@ stateful serializing structure.</p>
      that single configuration continuously.
   </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-audit_ets_name">audit_ets_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
-    <div class="type"><h3 id="type-config_type">config_type() = {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-audit_ets_name">audit_ets_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-cassandra_node">cassandra_node() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Ip_Or_Hostname :: <a href="inet.html#type-hostname" class="seealso">inet:hostname()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port :: <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-config_type">config_type() = config_app_config<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-connection_count_error">connection_count_error() = <a href="ets_buffer.html#type-buffer_error" class="seealso">ets_buffer:buffer_error()</a></h3></div>
+    <div class="type"><h3 id="type-connection_queue_name">connection_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
     <div class="type"><h3 id="type-decay_prob">decay_prob() = integer() &gt;= 0</h3></div>
-    <div class="type"><h3 id="type-host_list">host_list() = [{Ip_Addr :: string(), Port :: integer() &gt;= 1}]</h3></div>
-    <div class="type"><h3 id="type-lb_queue_name">lb_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
+    <div class="type"><h3 id="type-host_list">host_list() = [<a href="#type-cassandra_node" class="seealso">cassandra_node()</a>]</h3></div>
+    <div class="type"><h3 id="type-lb_queue_name">lb_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
+    <div class="type"><h3 id="type-max_connections">max_connections() = integer() >= 1 | <a href="#type-connection_count_error" class="seealso">connection_count_error()</a></h3></div>
     <div class="type"><h3 id="type-max_retries">max_retries() = integer() &gt;= 0</h3></div>
-    <div class="type"><h3 id="type-max_sessions">max_sessions() = integer() &gt;= 1</h3></div>
-    <div class="type"><h3 id="type-requests_queue_name">requests_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
-    <div class="type"><h3 id="type-session_queue_name">session_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
+    <div class="type"><h3 id="type-queue_name">queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a> | atom()</h3></div>
+    <div class="type"><h3 id="type-request_peers_frequency">request_peers_frequency() = <a href="#type-timeout_in_ms" class="seealso">timeout_in_ms()</a></h3></div>
+    <div class="type"><h3 id="type-requests_queue_name">requests_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
     <div class="type"><h3 id="type-timeout_in_ms">timeout_in_ms() = integer() &gt;= 1</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="all_config_atoms/0">all_config_atoms() -&gt; [atom()]</h3>
+<h3 id="all_config_atoms_ordered/0">all_config_atoms_ordered() -&gt; [atom()]</h3>
 
 
 <div class="description">
 
-<p>Get a list of all the configuration parameter keys as atoms.</p>
+<p>Get a list of all the configuration parameter keys as atoms in the order needed by make_vbisect_config/17.</p>
+</div></div>
+<div class="function">
+<h3 id="all_config_atoms_sorted/0">all_config_atoms_sorted() -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all the configuration parameter keys as atoms sorted alphabetically.</p>
 </div></div>
 <div class="function">
 <h3 id="all_config_bins/0">all_config_bins() -&gt; [binary()]</h3>
@@ -135,13 +147,23 @@ stateful serializing structure.</p>
 <p>Verify that a binary dictionary contains all the keys corresponding to configuration parameters.</p>
 </div></div>
 <div class="function">
-<h3 id="make_vbisect_config/1">make_vbisect_config(Enabled::boolean(), Lb_Queue_Name::lb_queue_name(), Buffering_Strategy::buffering() (see module elysium_connection), Audit_Ets_Name::audit_ets_name(), Session_Queue_Name::session_queue_name(), Requests_Queue_Name::requests_queue_name(), Request_Reply_Timeout::timeout_in_ms(), Host_List::host_list(), Connect_Timeout_Millis::timeout_in_ms(), Send_Timeout_Millis::timeout_in_ms(), Restart_Millis::timeout_in_ms(), Max_Sessions::max_sessions(), Max_Retries::max_retries(), Decay_Prob::decay_prob()) -&gt; {vbisect, bindict() (see module vbisect)}</h3>
+<h3 id="make_vbisect_config/1">make_vbisect_config(Enabled::boolean(), Lb_Queue_Name::lb_queue_name(), Buffering_Strategy::buffering() (see module elysium_connection), Audit_Ets_Name::audit_ets_name(), Connection_Queue_Name::connection_queue_name(), Requests_Queue_Name::requests_queue_name(), Request_Reply_Timeout::timeout_in_ms(), Host_List::host_list(), Connect_Timeout_Millis::timeout_in_ms(), Send_Timeout_Millis::timeout_in_ms(), Restart_Millis::timeout_in_ms(), Max_Connections::max_connections(), Max_Retries::max_retries(), Decay_Prob::decay_prob(), Seed_Node::cassandra_node(), Request_Peers_Frequency_Millis::request_peers_frequency(), Default_Port::port_number() (see module inet)) -&gt; {vbisect, bindict() (see module vbisect)}</h3>
 
 
 <div class="description">
 
 <p>
-    Construct a vbisect binary dictionary from an entire set of configuration parameters.
+    Construct a vbisect binary dictionary from individual configuration parameter values.
+    The resulting data structure may be passed as a configuration to any of the elysium functions.</p>
+</div></div>
+<div class="function">
+<h3 id="make_vbisect_config/1-1">make_vbisect_config(Config_Dictionary::proplist() (see module proplists)) -&gt; {vbisect, bindict() (see module vbisect)}</h3>
+
+
+<div class="description">
+
+<p>
+    Construct a vbisect binary dictionary from an entire set of app.config configuration parameters.
     The resulting data structure may be passed as a configuration to any of the elysium functions.</p>
 </div></div>
 <div class="function">
@@ -166,7 +188,7 @@ stateful serializing structure.</p>
 
 <div class="description">
 
-<p>Get the configured name of the ets table used for auditing internals.</p>
+<p>Get the configured name of the buffering strategy.</p>
 </div></div>
 <div class="function">
 <h3 id="audit_ets_name/1">audit_ets_name(X1::config_type()) -&gt; audit_ets_name()</h3>
@@ -177,7 +199,7 @@ stateful serializing structure.</p>
 <p>Get the configured name of the ets table used for auditing internals.</p>
 </div></div>
 <div class="function">
-<h3 id="session_queue_name/1">session_queue_name(X1::config_type()) -&gt; session_queue_name()</h3>
+<h3 id="session_queue_name/1">session_queue_name(X1::config_type()) -&gt; connection_queue_name()</h3>
 
 
 <div class="description">
@@ -185,7 +207,7 @@ stateful serializing structure.</p>
 <p>Get the configured name of the live session queue.</p>
 </div></div>
 <div class="function">
-<h3 id="requests_queue_name/1">requests_queue_name(X1::config_type()) -&gt; session_queue_name()</h3>
+<h3 id="requests_queue_name/1">requests_queue_name(X1::config_type()) -&gt; requests_queue_name()</h3>
 
 
 <div class="description">
@@ -216,7 +238,7 @@ stateful serializing structure.</p>
 
 <p>
     Get the maximum random delay on connection startup. This number of
-    milliseconds times the max_sessions should not exceed the supervisor
+    milliseconds times the max_connections should not exceed the supervisor
     timeout or you risk failing elysium_connection_sup on application
     startup.</p>
 </div></div>
@@ -237,7 +259,7 @@ stateful serializing structure.</p>
 <p>Get the time allowed for sending a request to cassandra before giving up.</p>
 </div></div>
 <div class="function">
-<h3 id="session_max_count/1">session_max_count(X1::config_type()) -&gt; max_sessions()</h3>
+<h3 id="session_max_count/1">session_max_count(X1::config_type()) -&gt; max_connections()</h3>
 
 
 <div class="description">
@@ -259,6 +281,30 @@ stateful serializing structure.</p>
 <div class="description">
 
 <p>Get the number of chances in 1 Million that this session will be stochastically recycled before checkin.</p>
+</div></div>
+<div class="function">
+<h3 id="seed_node/1">seed_node(X1::config_type()) -&gt; cassandra_node()</h3>
+
+
+<div class="description">
+
+<p>Get the seed seestar node from where to retrieve the list of peers.</p>
+</div></div>
+<div class="function">
+<h3 id="request_peers_frequency/1">request_peers_frequency(X1::config_type()) -&gt; request_peers_frequency()</h3>
+
+
+<div class="description">
+
+<p>Get the time between consecutive seestar peers requests.</p>
+</div></div>
+<div class="function">
+<h3 id="default_port/1">default_port(X1::config_type()) -&gt; port_number() (see module inet)</h3>
+
+
+<div class="description">
+
+<p>Get the default port for elysium requests</p>
 </div></div></div>
 
 <authors>

@@ -37,14 +37,18 @@
      cluster on real servers.
   </p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-audit_ets_name">audit_ets_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
+    <div class="type"><h3 id="type-audit_ets_name">audit_ets_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-cassandra_node">cassandra_node() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Ip_Or_Hostname :: <a href="inet.html#type-hostname" class="seealso">inet:hostname()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port :: <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-connection_count_error">connection_count_error() = <a href="ets_buffer.html#type-buffer_error" class="seealso">ets_buffer:buffer_error()</a></h3></div>
+    <div class="type"><h3 id="type-connection_queue_name">connection_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
     <div class="type"><h3 id="type-decay_prob">decay_prob() = integer() &gt;= 0</h3></div>
-    <div class="type"><h3 id="type-host_list">host_list() = [{Ip_Addr :: string(), Port :: integer() &gt;= 1}]</h3></div>
-    <div class="type"><h3 id="type-lb_queue_name">lb_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
+    <div class="type"><h3 id="type-host_list">host_list() = [<a href="#type-cassandra_node" class="seealso">cassandra_node()</a>]</h3></div>
+    <div class="type"><h3 id="type-lb_queue_name">lb_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
+    <div class="type"><h3 id="type-max_connections">max_connections() = integer() >= 1 | <a href="#type-connection_count_error" class="seealso">connection_count_error()</a></h3></div>
     <div class="type"><h3 id="type-max_retries">max_retries() = integer() &gt;= 0</h3></div>
-    <div class="type"><h3 id="type-max_sessions">max_sessions() = integer() &gt;= 1</h3></div>
-    <div class="type"><h3 id="type-requests_queue_name">requests_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
-    <div class="type"><h3 id="type-session_queue_name">session_queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a></h3></div>
+    <div class="type"><h3 id="type-queue_name">queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a> | atom()</h3></div>
+    <div class="type"><h3 id="type-request_peers_frequency">request_peers_frequency() = <a href="#type-timeout_in_ms" class="seealso">timeout_in_ms()</a></h3></div>
+    <div class="type"><h3 id="type-requests_queue_name">requests_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
     <div class="type"><h3 id="type-timeout_in_ms">timeout_in_ms() = integer() &gt;= 1</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
@@ -80,12 +84,12 @@
 <p>Using ets table 'elysium_audit'.</p>
 </div></div>
 <div class="function">
-<h3 id="cassandra_session_queue/0">cassandra_session_queue() -&gt; session_queue_name()</h3>
+<h3 id="cassandra_session_queue/0">cassandra_session_queue() -&gt; connection_queue_name()</h3>
 
 
 <div class="description">
 
-<p>Using session queue 'elysium_connection_queue'.</p>
+<p>Using connection queue 'elysium_connection_queue'.</p>
 </div></div>
 <div class="function">
 <h3 id="cassandra_requests_queue/0">cassandra_requests_queue() -&gt; requests_queue_name()</h3>
@@ -136,7 +140,7 @@
 <p>Timeout when sending requests to Cassandra.</p>
 </div></div>
 <div class="function">
-<h3 id="cassandra_max_sessions/0">cassandra_max_sessions() -&gt; max_sessions()</h3>
+<h3 id="cassandra_max_sessions/0">cassandra_max_sessions() -&gt; max_connections()</h3>
 
 
 <div class="description">
@@ -157,7 +161,33 @@
 
 <div class="description">
 
-<p>Kill a live session 1000 out of 1M times it is used.</p>
+<p>Kill a live session 100,000 out of 1 Billion times it is used.</p>
+</div></div>
+<div class="function">
+<h3 id="cassandra_seed_node/0">cassandra_seed_node() -&gt; cassandra_node()</h3>
+
+
+<div class="description">
+
+<p>
+   The node where elysium requests the full c* node list.
+   There is no default seed node, hence the non-routable address.</p>
+</div></div>
+<div class="function">
+<h3 id="cassandra_request_peers_frequency/0">cassandra_request_peers_frequency() -&gt; request_peers_frequency()</h3>
+
+
+<div class="description">
+
+<p>Check for seestar nodes once a minute</p>
+</div></div>
+<div class="function">
+<h3 id="cassandra_default_port/0">cassandra_default_port() -&gt; port_number() (see module inet)</h3>
+
+
+<div class="description">
+
+<p>The default port for elysium requests</p>
 </div></div></div>
 
 <authors>

@@ -48,8 +48,9 @@ a query crashing the owner of an ets table.</p>
      introducing a serial bottleneck or highly contended ets table.
   </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-config_type">config_type() = {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
-    <div class="type"><h3 id="type-max_sessions">max_sessions() = integer() &gt;= 1</h3></div></div>
+    <div class="type"><h3 id="type-config_type">config_type() = config_app_config<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-connection_count_error">connection_count_error() = <a href="ets_buffer.html#type-buffer_error" class="seealso">ets_buffer:buffer_error()</a></h3></div>
+    <div class="type"><h3 id="type-max_connections">max_connections() = integer() >= 1 | <a href="#type-connection_count_error" class="seealso">connection_count_error()</a></h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start_link/1">start_link(Config::config_type()) -&gt; {ok, pid()}</h3>
@@ -76,7 +77,7 @@ a query crashing the owner of an ets table.</p>
 <p>Get the registered connection supervisor.</p>
 </div></div>
 <div class="function">
-<h3 id="activate/0">activate() -&gt; Max_Allowed::max_sessions()</h3>
+<h3 id="activate/0">activate() -&gt; Max_Allowed::max_connections()</h3>
 
 
 <div class="description">
@@ -84,7 +85,7 @@ a query crashing the owner of an ets table.</p>
 <p>Change to the active state, creating new Cassandra sessions.</p>
 </div></div>
 <div class="function">
-<h3 id="deactivate/0">deactivate() -&gt; {Num_Terminated::max_sessions(), Max_Allowed::max_sessions()}</h3>
+<h3 id="deactivate/0">deactivate() -&gt; {Num_Terminated::max_connections(), Max_Allowed::max_connections()}</h3>
 
 
 <div class="description">
@@ -98,6 +99,14 @@ a query crashing the owner of an ets table.</p>
 <div class="description">
 
 <p>Change disabled to inactive state, allowing new session creation.</p>
+</div></div>
+<div class="function">
+<h3 id="node_change/1">node_change(Nodes::[{hostname() (see module inet), port_number() (see module inet)}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notifies the queue that the node list changed</p>
 </div></div></div>
 
 <authors>

@@ -62,11 +62,13 @@ to work off the backlog of pending requests.</p>
   </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-buffering">buffering() = none | serial | parallel</h3></div>
-    <div class="type"><h3 id="type-config_type">config_type() = {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
-    <div class="type"><h3 id="type-node_attempt">node_attempt() = {Ip :: string(), Port :: integer() &gt;= 1}</h3></div></div>
+    <div class="type"><h3 id="type-buffering_strategy_module">buffering_strategy_module() = module()</h3></div>
+    <div class="type"><h3 id="type-cassandra_node">cassandra_node() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Ip_Or_Hostname :: <a href="inet.html#type-hostname" class="seealso">inet:hostname()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port :: <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-config_type">config_type() = config_app_config<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-connection_id">connection_id() = pid()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/1">start_link(Config::config_type()) -&gt; {ok, pid()} | {error, {cassandra_not_available, [node_attempt()]}}</h3>
+<h3 id="start_link/1">start_link(Config::config_type()) -&gt; {ok, pid()} | {error, {cassandra_not_available, [cassandra_node()]}}</h3>
 
 
 <div class="description">
@@ -83,7 +85,16 @@ the connection to the FIFO queue when they are done.</p>
     when it was allocated for work.</p>
 </div></div>
 <div class="function">
-<h3 id="stop/1">stop(Session_Id::pid()) -&gt; ok</h3>
+<h3 id="start_link/2">start_link(Config, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Restarts do not delay since they are stochastic already.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Connection_Id::connection_id()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -91,7 +102,23 @@ the connection to the FIFO queue when they are done.</p>
 <p>Stop an existing seestar_session.</p>
 </div></div>
 <div class="function">
-<h3 id="get_buffer_strategy_module/1">get_buffer_strategy_module(Config::config_type()) -&gt; {buffering(), module()}</h3>
+<h3 id="one_shot_query/1">one_shot_query(Config::config_type(), Node::cassandra_node(), Query::iodata(), Consistency::consistency() (see module seestar)) -&gt; {ok, result() (see module seestar_result)} | {error, error() (see module seestar_error)}</h3>
+
+
+<div class="description">
+
+<p>Connect, execute raw CQL and close a connection to Cassandra.</p>
+</div></div>
+<div class="function">
+<h3 id="one_shot_query/1-1">one_shot_query(Config::config_type(), Node::cassandra_node(), Query::iodata(), Consistency::consistency() (see module seestar), Reply_Timeout::pos_integer() | infinity) -&gt; {ok, result() (see module seestar_result)} | {error, error() (see module seestar_error)}</h3>
+
+
+<div class="description">
+
+<p>Connect, execute raw CQL and close a connection to Cassandra with a timeout (in ms).</p>
+</div></div>
+<div class="function">
+<h3 id="get_buffer_strategy_module/1">get_buffer_strategy_module(Config::config_type()) -&gt; {buffering(), buffering_strategy_module()}</h3>
 
 
 <div class="description">
@@ -99,7 +126,7 @@ the connection to the FIFO queue when they are done.</p>
 <p>Get the module corresponding to the configured buffering strategy.</p>
 </div></div>
 <div class="function">
-<h3 id="with_connection/1">with_connection(Config::config_type(), Session_Fun::(pid(), Args, Consist) -&gt; Result, Args, Consistency) -&gt; {error, no_db_connections} | Result</h3>
+<h3 id="with_connection/1">with_connection(Config::config_type(), Session_Fun::(pid(), Args, Consist) -&gt; Result, Args, Consistency) -&gt; {error, no_db_connections | {atom(), any()}} | Result</h3>
 
 <ul class="type">
 <li><code>Args = [any()]</code></li><li><code>Consist = consistency() (see module seestar)</code></li><li><code>Consistency = consistency() (see module seestar)</code></li><li><code>Result = any()</code></li></ul>
@@ -111,7 +138,7 @@ the connection to the FIFO queue when they are done.</p>
     requires access to Cassandra.</p>
 </div></div>
 <div class="function">
-<h3 id="with_connection/1-1">with_connection(Config::config_type(), Mod::module(), Fun::atom(), Args::[any()], Consistency::consistency() (see module seestar)) -&gt; {error, no_db_connections} | any()</h3>
+<h3 id="with_connection/1-1">with_connection(Config::config_type(), Mod::module(), Fun::atom(), Args::[any()], Consistency::consistency() (see module seestar)) -&gt; {error, no_db_connections | {atom(), any()}} | any()</h3>
 
 
 <div class="description">
