@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cowboyku_req (cowboyku) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cowboyku_req</h1>
+<h2 class="modsummary">HTTP request manipulation API.</h2>
+<div class="description">
+<p>HTTP request manipulation API.</p>
+ 
+  <p>The functions in this module try to follow this pattern for their
+  return types:
+  </p><taglist>
+  <dt>access:</dt>
+    <item><p><em>{Value, Req}</em></p></item>
+  <dt>action:</dt>
+    <item><p><em>{Result, Req} | {Result, Value, Req} | {error, atom()}</em></p></item>
+  <dt>modification:</dt>
+    <item><p><em>Req</em></p></item>
+  <dt>question (<em>has_*</em> or <em>is_*</em>):</dt>
+    <item><p><em>boolean()</em></p></item>
+  </taglist>
+ 
+  <p>Exceptions include <em>chunk/2</em> which always returns <em>'ok'</em>,
+  and <em>to_list/1</em> which returns a list of key/values.</p>
+ 
+  <p>Also note that all body reading functions perform actions, as Cowboyku  
+doesn't read the request body until they are called.</p>
+ 
+  <p>Whenever <em>Req</em> is returned, it should always be kept in place of
+  the one given as argument in your function call, because it keeps
+  track of the request and response state. Doing so allows Cowboyku to do
+  some lazy evaluation and cache results when possible.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-content_decode_fun">content_decode_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((binary()) -> {ok, binary()} | {error, atom()})</h3></div>
+    <div class="type"><h3 id="type-cookie_opts">cookie_opts() = <a href="cow_cookie.html#type-cookie_opts" class="seealso">cow_cookie:cookie_opts()</a></h3></div>
+    <div class="type"><h3 id="type-req">req()</h3></div>
+    <div class="type"><h3 id="type-resp_body_fun">resp_body_fun() = fun((any(), module()) -&gt; ok)</h3></div>
+    <div class="type"><h3 id="type-transfer_decode_fun">transfer_decode_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((binary(), any()) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ok, binary(), binary(), any()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;more |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{more, integer() >= 0, binary(), any()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{done, integer() >= 0, binary()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{done, binary(), integer() >= 0, binary()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, atom()})</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="method/1">method(Req) -&gt; {binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the HTTP method of the request.</p>
+</div></div>
+<div class="function">
+<h3 id="version/1">version(Req) -&gt; {http_version() (see module cowboyku), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the HTTP version used for the request.</p>
+</div></div>
+<div class="function">
+<h3 id="peer/1">peer(Req) -&gt; {{ip_address() (see module inet), port_number() (see module inet)}, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the peer address and port number of the remote host.</p>
+</div></div>
+<div class="function">
+<h3 id="host/1">host(Req) -&gt; {binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the host binary string.</p>
+</div></div>
+<div class="function">
+<h3 id="host_info/1">host_info(Req) -&gt; {tokens() (see module cowboyku_router) | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the extra host information obtained from partially matching
+  the hostname using <em>'...'</em>.</p>
+</div></div>
+<div class="function">
+<h3 id="port/1">port(Req) -&gt; {port_number() (see module inet), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the port used for this request.</p>
+</div></div>
+<div class="function">
+<h3 id="path/1">path(Req) -&gt; {binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the path binary string.</p>
+</div></div>
+<div class="function">
+<h3 id="path_info/1">path_info(Req) -&gt; {tokens() (see module cowboyku_router) | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the extra path information obtained from partially matching
+  the patch using <em>'...'</em>.</p>
+</div></div>
+<div class="function">
+<h3 id="qs/1">qs(Req) -&gt; {binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the raw query string directly taken from the request.</p>
+</div></div>
+<div class="function">
+<h3 id="qs_val/1">qs_val(Name::binary(), Req) -&gt; {binary() | true | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#qs_val/3" class="seealso">qs_val(Name, Req, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="qs_val/1-1">qs_val(Name::binary(), Req, Default) -&gt; {binary() | true | Default, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li><li><code>Default = any()</code></li></ul>
+<div class="description">
+
+<p>Return the query string value for the given key, or a default if
+  missing.</p>
+</div></div>
+<div class="function">
+<h3 id="qs_vals/1">qs_vals(Req) -&gt; {[{binary(), binary() | true}], Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the full list of query string values.</p>
+</div></div>
+<div class="function">
+<h3 id="host_url/1">host_url(Req) -&gt; {undefined | binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the request URL as a binary without the path and query string.</p>
+ 
+  <p>The URL includes the scheme, host and port only.</p>
+<p><em>See also:</em> <a href="cowboyku_req.html#url/1" class="seealso">cowboyku_req:url/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="url/1">url(Req) -&gt; {undefined | binary(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the full request URL as a binary.</p>
+ 
+  <p>The URL includes the scheme, host, port, path and query string.</p>
+</div></div>
+<div class="function">
+<h3 id="binding/1">binding(Name::atom(), Req) -&gt; {binary() | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#binding/3" class="seealso">binding(Name, Req, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="binding/1-1">binding(Name::atom(), Req, Default) -&gt; {binary() | Default, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li><li><code>Default = any()</code></li></ul>
+<div class="description">
+
+<p>Return the binding value for the given key obtained when matching
+  the host and path against the dispatch list, or a default if missing.</p>
+</div></div>
+<div class="function">
+<h3 id="bindings/1">bindings(Req) -&gt; {[{atom(), binary()}], Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the full list of binding values.</p>
+</div></div>
+<div class="function">
+<h3 id="header/1">header(Name::binary(), Req) -&gt; {binary() | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#header/3" class="seealso">header(Name, Req, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="header/1-1">header(Name::binary(), Req, Default) -&gt; {binary() | Default, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li><li><code>Default = any()</code></li></ul>
+<div class="description">
+
+<p>Return the header value for the given key, or a default if missing.</p>
+</div></div>
+<div class="function">
+<h3 id="headers/1">headers(Req) -&gt; {http_headers() (see module cowboyku), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the full list of headers.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_header/1">parse_header(Name::binary(), Req) -&gt; {ok, any(), Req} | {undefined, binary(), Req} | {error, badarg}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Semantically parse headers.</p>
+ 
+  <p>When the value isn't found, a proper default value for the type
+  returned is used as a return value.</p>
+<p><em>See also:</em> <a href="#parse_header/3" class="seealso">parse_header/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_header/1-1">parse_header(Name::binary(), Req, Default::any()) -&gt; {ok, any(), Req} | {undefined, binary(), Req} | {error, badarg}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Semantically parse headers.</p>
+ 
+  <p>When the header is unknown, the value is returned directly without parsing.</p>
+</div></div>
+<div class="function">
+<h3 id="cookie/1">cookie(Name::binary(), Req) -&gt; {binary() | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#cookie/3" class="seealso">cookie(Name, Req, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="cookie/1-1">cookie(Name::binary(), Req, Default) -&gt; {binary() | Default, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li><li><code>Default = any()</code></li></ul>
+<div class="description">
+
+<p>Return the cookie value for the given key, or a default if
+  missing.</p>
+</div></div>
+<div class="function">
+<h3 id="cookies/1">cookies(Req) -&gt; {[{binary(), binary()}], Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the full list of cookie values.</p>
+</div></div>
+<div class="function">
+<h3 id="meta/1">meta(Name::atom(), Req) -&gt; {any() | undefined, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#meta/3" class="seealso">meta(Name, Req, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="meta/1-1">meta(Name::atom(), Req, Default::any()) -&gt; {any(), Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return metadata information about the request.</p>
+ 
+  <p>Metadata information varies from one protocol to another. Websockets
+  would define the protocol version here, while REST would use it to
+  indicate which media type, language and charset were retained.</p>
+</div></div>
+<div class="function">
+<h3 id="set_meta/1">set_meta(Name::atom(), Value::any(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Set metadata information.</p>
+ 
+  <p>You can use this function to attach information about the request.</p>
+ 
+  <p>If the value already exists it will be overwritten.</p>
+</div></div>
+<div class="function">
+<h3 id="has_body/1">has_body(Req::req()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return whether the request message has a body.</p>
+</div></div>
+<div class="function">
+<h3 id="body_length/1">body_length(Req) -&gt; {undefined | non_neg_integer(), Req} | {error, badarg}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the request message body length, if known.</p>
+ 
+  <p>The length may not be known if Transfer-Encoding is not identity,
+  and the body hasn't been read at the time of the call.</p>
+</div></div>
+<div class="function">
+<h3 id="init_stream/1">init_stream(TransferDecode::transfer_decode_fun(), TransferState::any(), ContentDecode::content_decode_fun(), Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Initialize body streaming and set custom decoding functions.</p>
+ 
+  <p>Calling this function is optional. It should only be used if you  
+need to override the default behavior of Cowboyku. Otherwise you  
+should call stream_body/{1,2} directly.</p>
+ 
+  <p>Two decodings happen. First a decoding function is applied to the  
+transferred data, and then another is applied to the actual content.</p>
+ 
+  <p>Transfer encoding is generally used for chunked bodies. The decoding  
+function uses a state to keep track of how much it has read, which is  
+also initialized through this function.</p>
+ 
+  <p>Content encoding is generally used for compression.</p>
+ 
+  <p>Standard encodings can be found in cowboyku_http.</p>
+</div></div>
+<div class="function">
+<h3 id="stream_body/1">stream_body(Req) -&gt; {ok, binary(), Req} | {done, Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#stream_body/2" class="seealso">stream_body(1000000, Req)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stream_body/1-1">stream_body(MaxLength::non_neg_integer(), Req) -&gt; {ok, binary(), Req} | {done, Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Stream the request's body.</p>
+ 
+  <p>This is the most low level function to read the request body.</p>
+ 
+  <p>In most cases, if they weren't defined before using init_stream/4,  
+this function will guess which transfer and content encodings were  
+used for building the request body, and configure the decoding  
+functions that will be used when streaming.</p>
+ 
+  <p>It then starts streaming the body, returning {ok, Data, Req}  
+for each streamed part, and {done, Req} when it's finished streaming.</p>
+ 
+  <p>You can limit the size of the chunks being returned by using the
+  first argument which is the size in bytes. It defaults to 1000000 bytes.</p>
+</div></div>
+<div class="function">
+<h3 id="buffer_data/1">buffer_data(Length::non_neg_integer(), Timeout::timeout(), Req::req()) -&gt; {error, Reason::term()} | {ok, Req::req()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body/1">body(Req) -&gt; {ok, binary(), Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#body/2" class="seealso">body(8000000, Req)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="body/1-1">body(MaxBodyLength::non_neg_integer() | infinity, Req) -&gt; {ok, binary(), Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the body sent with the request.</p>
+</div></div>
+<div class="function">
+<h3 id="skip_body/1">skip_body(Req) -&gt; {ok, Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="body_qs/1">body_qs(Req) -&gt; {ok, [{binary(), binary() | true}], Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#body_qs/2" class="seealso">body_qs(16000, Req)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="body_qs/1-1">body_qs(MaxBodyLength::non_neg_integer() | infinity, Req) -&gt; {ok, [{binary(), binary() | true}], Req} | {error, atom()}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return the body sent with the request, parsed as an
+  application/x-www-form-urlencoded string.
+  Essentially a POST query string.</p>
+</div></div>
+<div class="function">
+<h3 id="multipart_data/1">multipart_data(Req) -&gt; {headers, http_headers() (see module cowboyku), Req} | {body, binary(), Req} | {end_of_part | eof, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Return data from the multipart parser.</p>
+ 
+  <p>Use this function for multipart streaming. For each part in the request,
+  this function returns <em>{headers, Headers, Req}</em> followed by a sequence of
+  <em>{body, Data, Req}</em> tuples and finally <em>{end_of_part, Req}</em>. When there
+  is no part to parse anymore, <em>{eof, Req}</em> is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="multipart_skip/1">multipart_skip(Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Skip a part returned by the multipart parser.</p>
+ 
+  <p>This function repeatedly calls <em>multipart_data/1</em> until
+  <em>{end_of_part, Req}</em> or <em>{eof, Req}</em> is parsed.</p>
+</div></div>
+<div class="function">
+<h3 id="set_resp_cookie/1">set_resp_cookie(Name::iodata(), Value::iodata(), Opts::cookie_opts(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Add a cookie header to the response.</p>
+ 
+  <p>The cookie name cannot contain any of the following characters:    
+=,;\s\t\r\n\013\014</p>
+ 
+  <p>The cookie value cannot contain any of the following characters:
+    ,; \t\r\n\013\014</p>
+</div></div>
+<div class="function">
+<h3 id="set_resp_header/1">set_resp_header(Name::binary(), Value::iodata(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Add a header to the response.</p>
+</div></div>
+<div class="function">
+<h3 id="set_resp_body/1">set_resp_body(Body::iodata(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Add a body to the response.</p>
+ 
+  <p>The body set here is ignored if the response is later sent using
+  anything other than reply/2 or reply/3. The response body is expected
+  to be a binary or an iolist.</p>
+</div></div>
+<div class="function">
+<h3 id="set_resp_body_fun/1">set_resp_body_fun(StreamFun::resp_body_fun(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Add a body stream function to the response.</p>
+ 
+  <p>The body set here is ignored if the response is later sent using  
+anything other than reply/2 or reply/3.</p>
+ 
+  <p>Setting a response stream function without a length means that the
+  body will be sent until the connection is closed. Cowboyku will make
+  sure that the connection is closed with no extra step required.</p>
+</div></div>
+<div class="function">
+<h3 id="set_resp_body_fun/1-1">set_resp_body_fun(StreamLen::non_neg_integer(), StreamFun::resp_body_fun(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Add a body function to the response.</p>
+ 
+  <p>The body set here is ignored if the response is later sent using  
+anything other than reply/2 or reply/3.</p>
+ 
+  <p>Cowboyku will call the given response stream function after sending the  
+headers. This function must send the specified number of bytes to the  
+socket it will receive as argument.</p>
+ 
+  <p>If the body function crashes while writing the response body or writes
+  fewer bytes than declared the behaviour is undefined.</p>
+</div></div>
+<div class="function">
+<h3 id="has_resp_header/1">has_resp_header(Name::binary(), Http_req::req()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return whether the given header has been set for the response.</p>
+</div></div>
+<div class="function">
+<h3 id="has_resp_body/1">has_resp_body(Http_req::req()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return whether a body has been set for the response.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_resp_header/1">delete_resp_header(Name::binary(), Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Remove a header previously set for the response.</p>
+</div></div>
+<div class="function">
+<h3 id="reply/1">reply(Status::http_status() (see module cowboyku), Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#reply/4" class="seealso">reply(Status, [], [], Req)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="reply/1-1">reply(Status::http_status() (see module cowboyku), Headers::http_headers() (see module cowboyku), Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#reply/4" class="seealso">reply(Status, Headers, [], Req)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="reply/1-2">reply(Status::http_status() (see module cowboyku), Headers::http_headers() (see module cowboyku), Body::iodata() | {non_neg_integer() | resp_body_fun()}, Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Send a reply to the client.</p>
+</div></div>
+<div class="function">
+<h3 id="chunked_reply/1">chunked_reply(Status::http_status() (see module cowboyku), Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#chunked_reply/3" class="seealso">chunked_reply(Status, [], Req)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="chunked_reply/1-1">chunked_reply(Status::http_status() (see module cowboyku), Headers::http_headers() (see module cowboyku), Req) -&gt; {ok, Req}</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Initiate the sending of a chunked reply to the client.</p>
+<p><em>See also:</em> <a href="cowboyku_req.html#chunk/2" class="seealso">cowboyku_req:chunk/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="chunk/1">chunk(Data::iodata(), Http_req::req()) -&gt; ok | {error, atom()}</h3>
+
+
+<div class="description">
+
+<p>Send a chunk of data.</p>
+ 
+  <p>A chunked reply must have been initiated before calling this function.</p>
+</div></div>
+<div class="function">
+<h3 id="compact/1">compact(Req) -&gt; Req</h3>
+
+<ul class="type">
+<li><code>Req = req()</code></li></ul>
+<div class="description">
+
+<p>Compact the request data by removing all non-system information.</p>
+ 
+  <p>This essentially removes the host and path info, query string, bindings,  
+headers and cookies.</p>
+ 
+  <p>Use it when you really need to save up memory, for example when having
+  many concurrent long-running connections.</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(Req::req()) -&gt; [{atom(), any()}]</h3>
+
+
+<div class="description">
+
+<p>Convert the Req object to a list of key/values.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

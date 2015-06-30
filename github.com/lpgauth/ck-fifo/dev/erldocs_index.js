@@ -1,0 +1,1 @@
+var index = [['app','ck-fifo','ck-fifo','[application]'],['mod','ck-fifo','ck_fifo',[]],['fun','ck-fifo','ck_fifo:dequeue/0',[]],['fun','ck-fifo','ck_fifo:enqueue/1',[]],['fun','ck-fifo','ck_fifo:mpmc_test/0',[]]];
