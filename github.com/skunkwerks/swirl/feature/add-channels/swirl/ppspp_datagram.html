@@ -54,7 +54,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="handle_packet/2">handle_packet(X1::{udp, socket() (see module inet), ip_address() (see module inet), port_number() (see module inet), binary()}) -&gt; ok</h3>
+<h3 id="handle_packet/2">handle_packet(X1::{udp, socket() (see module inet), ip_address() (see module inet), port_number() (see module inet), binary()}) -&gt; {ok, any()}</h3>
 
 
 <div class="description">
@@ -64,16 +64,39 @@
   eventually ignored.</p>
 </div></div>
 <div class="function">
-<h3 id="handle_datagram/1">handle_datagram(X1::datagram(), Swarm_Options::options() (see module ppspp_options)) -&gt; ok</h3>
+<h3 id="get_swarm_options/1">get_swarm_options(Datagram::datagram()) -&gt; options() (see module ppspp_options)</h3>
+
+
+<div class="description">
+
+<p>Requested Swarm options should match Available swarm options</p>
+</div></div>
+<div class="function">
+<h3 id="get_endpoint/1">get_endpoint(X1::datagram()) -&gt; endpoint()</h3>
+
+
+<div class="description">
+
+<p>get endpoint from datagram</p>
+</div></div>
+<div class="function">
+<h3 id="get_messages/1">get_messages(X1::datagram()) -&gt; messages() (see module ppspp_message)</h3>
+
+
+<div class="description">
+
+<p>get messages from datagram</p>
+</div></div>
+<div class="function">
+<h3 id="handle_datagram/1">handle_datagram(Datagram::datagram(), Swarm_Options::options() (see module ppspp_options)) -&gt; {ok, any()}</h3>
 
 
 <div class="description">
 
 <p>Handle a fully unpacked datagram.
-  </p><p>  Each PPSPP datagram is complete in itself - relies only on the swarm
-  state for deciding what responses are needed. This handle function could
-  be transferred to a separate channel_worker process dedicated per peer.
-  </p>
+  Each PPSPP datagram is complete in itself - relies only on the swarm
+  state for deciding what responses are needed. This handle function should
+  be transferred to a separate channel_worker process dedicated per peer.</p>
 </div></div>
 <div class="function">
 <h3 id="unpack/1">unpack(Raw_Datagram::binary(), Endpoint::endpoint(), Swarm_Options::options() (see module ppspp_options)) -&gt; datagram()</h3>
@@ -82,15 +105,14 @@
 <div class="description">
 
 <p>unpack a UDP packet into a PPSPP datagram using erlang term format
-  </p><p>  Deconstruct PPSPP UDP datagram into multiple erlang terms, including
+  Deconstruct PPSPP UDP datagram into multiple erlang terms, including
   </p><list>
   <item><p>Endpoint containing opaque information about Transport</p></item>
   <item><p>list of Messages</p></item>
   <item><p>Opaque orddict for Options, within a handshake message</p></item>
   </list><p>
   A single datagram MAY contain multiple PPSPP messages; these will be handled
-  recursively as needed.
-  </p>
+  recursively as needed.</p>
 </div></div>
 <div class="function">
 <h3 id="pack/1">pack(Datagram::datagram()) -&gt; binary()</h3>

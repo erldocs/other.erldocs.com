@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mochiutf8 (couchdb-couch) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mochiutf8</h1>
+<h2 class="modsummary">Algorithm to convert any binary to a valid UTF-8 sequence by ignoring
+       invalid bytes.</h2>
+<div class="description">
+<p>Algorithm to convert any binary to a valid UTF-8 sequence by ignoring
+       invalid bytes.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-unichar">unichar() = <a href="#type-unichar_low" class="seealso">unichar_low()</a> | <a href="#type-unichar_high" class="seealso">unichar_high()</a></h3></div>
+    <div class="type"><h3 id="type-unichar_high">unichar_high() = 57344..1114111</h3></div>
+    <div class="type"><h3 id="type-unichar_low">unichar_low() = 0..55295</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="codepoint_to_bytes/1">codepoint_to_bytes(C::unichar()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Convert a unicode codepoint to UTF-8 bytes.</p>
+</div></div>
+<div class="function">
+<h3 id="codepoints_to_bytes/1">codepoints_to_bytes(L::[unichar()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Convert a list of codepoints to a UTF-8 binary.</p>
+</div></div>
+<div class="function">
+<h3 id="read_codepoint/1">read_codepoint(Bin::binary()) -&gt; {unichar(), binary(), binary()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="codepoint_foldl/1">codepoint_foldl(F::(unichar(), term()) -&gt; term(), Acc::term(), Bin::binary()) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bytes_foldl/1">bytes_foldl(F::(binary(), term()) -&gt; term(), Acc::term(), Bin::binary()) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bytes_to_codepoints/1">bytes_to_codepoints(B::binary()) -&gt; [unichar()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="len/1">len(B::binary()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="valid_utf8_bytes/1">valid_utf8_bytes(B::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return only the bytes in B that represent valid UTF-8. Uses
+       the following recursive algorithm: skip one byte if B does not
+       follow UTF-8 syntax (a 1-4 byte encoding of some number),
+       skip sequence of 2-4 bytes if it represents an overlong encoding
+       or bad code point (surrogate U+D800 - U+DFFF or &gt; U+10FFFF).</p>
+</div></div></div>
+
+<authors>
+
+<aname>Bob Ippolito</aname>
+<email>bob@mochimedia.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
