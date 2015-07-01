@@ -37,7 +37,7 @@
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-message">message()</h3></div>
     <div class="type"><h3 id="type-message_type">message_type()</h3></div>
-    <div class="type"><h3 id="type-messages">messages()</h3></div></div>
+    <div class="type"><h3 id="type-messages">messages() = {messages, [<a href="#type-message" class="seealso">message()</a>]}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="get_messages_from_datagram/1">get_messages_from_datagram(Datagram::[messages()]) -&gt; messages() (see module ppspp_message)</h3>
@@ -53,17 +53,13 @@
 
 <div class="description">
 
-<p>unpack a datagram segment into a PPSPP message using erlang term format
+<p>unpack binary into a PPSPP message using erlang term format.
   Deconstruct PPSPP UDP datagram into multiple erlang terms, including
   parsing any additional data within the same segment. Any parsing failure
-  is fatal and will propagate back to the attempted datagram unpacking.
-  </p><list>
-  <item><p>Message type</p></item>
-  <item><p>orddict for Options</p></item>
-  </list>
+  is fatal and will propagate back to the attempted datagram unpacking.</p>
 </div></div>
 <div class="function">
-<h3 id="pack/1">pack(X1::messages()) -&gt; {ok, iolist()}</h3>
+<h3 id="pack/2">pack(X1::{messages, messages()}) -&gt; {ok, iolist()}</h3>
 
 
 <div class="description">
@@ -73,15 +69,16 @@
 
 
 <div class="description">
- </div></div>
+
+<p>retrieve message type based on IETF spec</p>
+</div></div>
 <div class="function">
 <h3 id="handle/1">handle(Messages::[message()], Swarm_Options::options() (see module ppspp_options), Endpoint::endpoint() (see module ppspp_datagram)) -&gt; ok</h3>
 
 
 <div class="description">
 
-<p>takes an unwrapped list of messages and dispatches them to the
-  right message handler in order.</p>
+<p>dispatch messages to correct handler in received order</p>
 </div></div></div>
 
 <authors>
