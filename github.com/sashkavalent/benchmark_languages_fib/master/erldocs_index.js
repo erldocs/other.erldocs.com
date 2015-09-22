@@ -1,0 +1,1 @@
+var index = [['app','benchmark_languages_fib','benchmark_languages_fib','[application]'],['mod','benchmark_languages_fib','fibonachi',[]],['fun','benchmark_languages_fib','fibonachi:fib/1',[]],['fun','benchmark_languages_fib','fibonachi:fib_numbers/1',[]],['fun','benchmark_languages_fib','fibonachi:tail_fib/1',[]]];

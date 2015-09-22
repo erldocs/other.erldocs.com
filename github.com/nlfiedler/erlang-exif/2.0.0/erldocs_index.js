@@ -1,0 +1,1 @@
+var index = [['app','erlang-exif','erlang-exif','[application]'],['mod','erlang-exif','exif','Reads the Exif data from JPEG images.'],['fun','erlang-exif','exif:read/1','Read the Exif data from a named file (or binary da'],['fun','erlang-exif','exif:read_binary/1','Read the Exif data from a binary.']];

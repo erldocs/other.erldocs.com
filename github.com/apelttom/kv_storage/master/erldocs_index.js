@@ -1,0 +1,1 @@
+var index = [['app','kv_storage','kv_storage','[application]'],['mod','kv_storage','buffer',[]],['mod','kv_storage','core',[]],['fun','kv_storage','core:body/1',[]],['fun','kv_storage','core:start/0',[]]];

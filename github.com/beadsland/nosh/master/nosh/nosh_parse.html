@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nosh_parse (nosh) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nosh_parse</h1>
+<h2 class="modsummary">This is a preliminary draft of the command line parser for nosh.</h2>
+<div class="description">
+<p>This is a preliminary draft of the command line parser for <code>nosh</code>.</p>
+ 
+  <p>Each command line is decomposed into a context tree, representing  
+Execution, Grouping, Quoting, Substitution and Term contexts.</p>
+ 
+  <p><i>Not all parsing rules described below have been implemented.</i></p>
+ 
+  <list>
+  <item><p> <a href="#Execution_Contexts" class="seealso">Execution Contexts</a> </p></item>
+  <item><p> <a href="#Grouping_Contexts" class="seealso">Grouping Contexts</a> </p></item>
+  <item><p> <a href="#Quoting_Contexts" class="seealso">Quoting Contexts</a> </p></item>
+  <item><p> <a href="#Substitution_Contexts" class="seealso">Substitution Contexts</a> </p></item>
+  <item><p> <a href="#Term_Contexts" class="seealso">Term Contexts</a> </p></item>
+  </list>
+ 
+  <p><em><marker id="Execution_Contexts">Execution Contexts</marker></em></p>
+ 
+  <p>The default context of all command lines is Bourne Context, and all  
+grouping, quoting, and substitution contexts are parsed in accordance  
+with Bourne shell syntax.</p>
+ 
+  <p><i>The below discussion of Erlang Context describes functionality
+  yet to be implemented.</i></p>
+ 
+  <p><em><marker id="Erlang_Context">Erlang Context</marker></em></p>
+ 
+  <p>The Erlang Context is invoked with a left-wise conjunction,
+  period (<code>.</code>), which causes all words and subcontexts within the current  
+context to be interpreted according to Erlang syntax.  Erlang Context  
+sequences may be enclosed arbitrarily within grouping contexts.  
+For example:</p>
+ 
+  <p><code>&gt; PARAM='value'; Result = my_mod:my_func($PARAM). &&
+  echo Success</code></p>
+ 
+  <p>This results in a tree of nested contexts that would be evaluated first
+  as an environment variable assignment in Bourne Context, followed by an
+  Erlang Context function call (receiving a parameter by Bourne Context
+  parameter expansion) and single-assignment variable match, and finally
+  followed by an echo command in Bourne Context if and only if the
+  previous, Erlang Context, statement returns the equivalent of a Bourne
+  non-zero exit code (either an Erlang <code>ok</code> atom or <code>{ok, ...}</code> tuple).</p>
+ 
+  <p><em><marker id="Grouping_Contexts">Grouping Contexts</marker></em></p>
+ 
+  <p>Grouping is parsed for entire line prior to evaluation and execution,  
+unlike Bourne standard.  Thus transactional integrity is preserved:  
+command execution only occurs if entire command sequence parses  
+correctly.</p>
+ 
+  <p>The parentheses context is parsed without respect to its function  
+either as a Bourne subshell grouping or an Erlang function parameter  
+list (this distinction being left to the evaluation step.)</p>
+ 
+  <p>The faux within-shell grouping syntax of Bourne shell
+  (<code>{ ...; };</code>)--implemented with the open curly bracket (<code>{</code>) and closed
+  curly bracket (<code>}</code>) as reserved words--is not supported by <code>nosh</code>,
+  curly brackets instead marking <a href="#Tuples" class="seealso">Tuples</a>.</p>
+ 
+  <p>The semicolon (<code>;</code>) conjunction works in <code>nosh</code> as it does in Bourne  
+shell, execution of the command group following the semicolon being  
+deferred until the command group preceding the semicolon has completed.</p>
+ 
+  <p>Likewise, double ampersand (<code>&&</code>) and double vertical bar (<code>||</code>) afford
+  conditional execution.  The command group following a double ampersand
+  executing only on a zero status (or an Erlang return value of <code>ok</code> or
+  <code>{ok, ...}</code>), and the command group following a double vertical bar  
+executing only on a non-zero status (any other Erlang return value).</p>
+ 
+  <p>These <a href="#Bourne_Context" class="seealso">Bourne Context</a> conjunctions are parsed right-wise.  
+That is, everything that follows the conjunction is returned as a  
+subcontext in the last element of the enclosing context.</p>
+ 
+  <p>There are two left-wise conjunctions, the period (<code>.</code>), marking an
+  <a href="#Erlang_Context" class="seealso">Erlang Context</a>, and the <code>&lt;newline&gt;</code>, marking the top-level  
+command line context.</p>
+ 
+  <p><em><marker id="Pipes">Pipes</marker></em></p>
+ 
+  <p>As per Bourne shell, pipes are marked by a single vertical bar (<code>|</code>)  
+conjunction.  Erlang processes may participate in pipe relationships if  
+they implement the Nosh_exec Behaviour.  Otherwise, processes  
+grouped by the single vertical bar will run, but each in an isolated  
+subshell environment without any access to piped standard input and  
+output streams.</p>
+ 
+  <p><em><marker id="Background_Jobs">Background Jobs</marker></em></p>
+ 
+  <p>The single ampersand (<code>&</code>) conjunction marks the preceding command
+  group as a background job as per <code>bash</code> (Bourne Again Shell) syntax.</p>
+ 
+  <p><em><marker id="Quoting_Contexts">Quoting Contexts</marker></em></p>
+ 
+  <p>Single quoted (<code>'...'</code>), double quoted (<code>"..."</code>), and back quoted
+  (<code>`...`</code>) character sequences are supported, as per the
+  Bourne shell, as is use of the backslash (<code>\</code>) to escape special
+  characters.  Additionally, single and double quoted sequences have
+  special meaning in <a href="#Erlang_Context" class="seealso">Erlang Context</a> and when passed as  
+Erlang command parameters.  (Bourne-standard quote removal does not  
+occur in Erlang Context or for Erlang command parameters.)</p>
+ 
+  <p>Single quotes remove the special meaning of all characters they enclose.
+  In addition, single quotes mark the <code>atom()</code> type in Erlang Context and  
+when passed to Erlang functions.</p>
+ 
+  <p>Double quotes remove the special meaning of all characters other than
+  the dollar sign (<code>$</code>), the back quote (<code>`</code>), the
+  backslash (<code>\</code>), and the newline (per <a href="#Multiline_Parsing" class="seealso">Multiline Parsing</a>).
+  Additionally, double quotes indicate the <code>string()</code> type, <i>i.e.</i>
+  a <code>list()</code> of characters, in Erlang Context and when passed as Erlang  
+command parameters.</p>
+ 
+  <p>Strings are passed to Erlang functions only after all embedded
+  <a href="#Substitution_Contexts" class="seealso">Substitution Contexts</a> have been evaluated.</p>
+ 
+  <p>Back quotes mark <a href="#Command_Substitution" class="seealso">Command Substitution</a>, the back quoted  
+character sequence being replaced by the results of the substituted  
+command(s) execution.</p>
+ 
+  <p>The <a href="#Lists" class="seealso">Lists</a> back quote (<code>[`...`]</code>) and
+  <a href="#Tuples" class="seealso">Tuples</a> back quote (<code>{`...`}</code>) are two special
+  constructs for passing command substitution results as
+  Erlang-compatible <a href="#Term_Contexts" class="seealso">Term Contexts</a> rathern than
+  Bourne-standard whitespace delimited <a href="#Words" class="seealso">Words</a>.</p>
+ 
+  <p>The backslash character (<code>\</code>) operates to escape the following  
+character, as per both Bourne and Erlang syntax.</p>
+ 
+  <p><em><marker id="Multiline_Parsing">Multiline Parsing</marker></em></p>
+ 
+  <p>Presently, multi-line parsing is not supported.  Any line ending in a  
+backslash (an escaped carriage return) will result in an error.</p>
+ 
+  <p><em><marker id="Substitution_Contexts">Substitution Contexts</marker></em></p>
+ 
+  <p><em><marker id="Parameter_Expansion">Parameter Expansion</marker></em></p>
+ 
+  <p><i>Not yet implemented.</i></p>
+ 
+  <p><em><marker id="Command_Substitution">Command Substitution</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p><em><marker id="Arithmetic_Expansion">Arithmetic Expansion</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p><em><marker id="Term_Contexts">Term Contexts</marker></em></p>
+ 
+  <p><em><marker id="Words">Words</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p>The simplest <code>nosh</code> command line consists of a command followed by zero
+  or more word contexts, each being delimited by the characters in the
+  <code>IFS</code> environment variable (or <code>&lt;space&gt;</code>, <code>&lt;tab&gt;</code> and <code>&lt;newline&gt;</code>
+  if <code>IFS</code> is undefined).  Each single and/or double quoted context is
+  treated as a word for this purpose (see <a href="#Quoting_Contexts" class="seealso">Quoting Contexts</a>).</p>
+ 
+  <p>Unquoted (<i>i.e.</i> bare) words that begin with a lower case
+  character and single quote contexts are passed to Erlang functions as
+  type <code>atom()</code>, while double quote contexts are passed as type <code>string()</code>.</p>
+ 
+  <p>Bare words that begin with an upper case character are treated as
+  Erlang single-assignment variables as any such variables are defined
+  in the current shell.  (See also <a href="#Parameter_Expansion" class="seealso">Parameter Expansion</a>)</p>
+ 
+  <p><em><marker id="Lists">Lists</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p>Zero or more Term contexts are marked as within a single List context
+  (not to be confused with a <a href="#Parameter_List" class="seealso">Parameter List</a>) when enclosed by
+  an open square bracket (<code>[</code>) and close square bracket (<code>]</code>).  Per
+  Erlang syntax, elements of a List are delimited by commas (<code>,</code>),
+  whitespace is ignored, and <code>IFS</code> specified delimiters have no special  
+meaning.</p>
+ 
+  <p><a href="#Command_Substitution" class="seealso">Command Substitution</a> may be used to generate an Erlang List,
+  through use of the Lists back quote construct (<code>[`...`]</code>).</p>
+ 
+  <p><em><marker id="Function_Parameter_List">Function Parameter List</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p>A Function Parameter List follows Erlang syntax for specifying the
+  parameters (and indirectly, the arity) of a function, and consists of
+  zero or more comma-delimited Term contexts enclosed by an
+  open parentheses (<code>(</code>) and close parentheses (<code>)</code>) rather than square
+  brackets.  A Parameter List may only appear in second position after a
+  command, and only in explicit function mode (see <a href="nosh_exec.html" class="seealso">nosh_exec</a>.</p>
+ 
+  <p>In first position, parenthese denote a <a href="#Grouping_Context" class="seealso">Grouping Context</a>.</p>
+ 
+  <p><em><marker id="Tuples">Tuples</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p>One or more Term contexts are marked as within a single Tuple
+  context when enclosed by an open curly bracket (<code>{</code>) and close curly
+  bracket (<code>}</code>).  Per Erlang syntax, elements of a Tuple are delimited by
+  commas (<code>,</code>), whitespace is ignored, and <code>$IFS</code> specified delimiters  
+have no special meaning.</p>
+ 
+  <p><a href="#Command_Substitution" class="seealso">Command Substitution</a> may be used to generate an Erlang Tuple,
+  through use of the Tuples back quote construct (<code>{`...`}</code>).</p>
+ 
+  <p><em><marker id="Pids">Pids</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p>
+ 
+  <p><em><marker id="Bitstrings">Bitstrings</marker></em></p>
+ 
+  <p><i>Not yet implemented</i>.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-context">context() = nonempty_string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-context_desc" class="seealso">context_desc()</a>, <a href="#type-context_list" class="seealso">context_list()</a>}</h3></div>
+    <div class="type"><h3 id="type-context_desc">context_desc() = {context, <a href="#type-context_type" class="seealso">context_type()</a>}</h3></div>
+    <div class="type"><h3 id="type-context_list">context_list() = [<a href="#type-context" class="seealso">context()</a>]</h3></div>
+    <div class="type"><h3 id="type-context_type">context_type() = <a href="#type-term_type" class="seealso">term_type()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-quote_type" class="seealso">quote_type()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-group_type" class="seealso">group_type()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-exec_type" class="seealso">exec_type()</a></h3></div>
+    <div class="type"><h3 id="type-exec_type">exec_type() = brne | erln</h3></div>
+    <div class="type"><h3 id="type-group_type">group_type() = pren | semi | ifok | ambi | ifnz | pipe</h3></div>
+    <div class="type"><h3 id="type-parse_error">parse_error() = {<a href="#type-parse_error_type" class="seealso">parse_error_type()</a>, string()}</h3></div>
+    <div class="type"><h3 id="type-parse_error_type">parse_error_type() = quote | group</h3></div>
+    <div class="type"><h3 id="type-quote_type">quote_type() = line | back | doub | sing | escp | dbcp</h3></div>
+    <div class="type"><h3 id="type-term_type">term_type() = word | list | plst | tupl | epid | bstr</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse/1">parse(IO::#std{in=pid(), out=pid(), err=pid(), stop=boolean(), echo=boolean()}, Subject::nonempty_string()) -&gt; {ok, context_list()} | {error, parse_error()}</h3>
+
+
+<div class="description">
+
+<p>Parse command line string and return a list of nested contexts,
+  or else <code>failed</code> on a caught syntax exception.</p>
+ 
+  <p>Handle thrown errors for unmatched quoting, grouping, and term context
+  symbols.</p>
+</div></div>
+<div class="function">
+<h3 id="parse/3">parse(Type, Stack, List) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Parse list of strings split on quoting and grouping characters,  
+according to current Stack type.  Return tuple of context tree, context  
+stack and unparsed tail OR tuple of 'close_context', context stack, and  
+trailing context tree.</p>
+ 
+  <p>Throw exception for unmatched quoting or grouping character.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Beads D. Land-Trujillo</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

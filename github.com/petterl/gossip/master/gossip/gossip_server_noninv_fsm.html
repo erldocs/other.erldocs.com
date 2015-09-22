@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gossip_server_noninv_fsm (gossip) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gossip_server_noninv_fsm</h1>
+<h2 class="modsummary">NON-INVITE Server transaction FSM.</h2>
+<div class="description">
+<p>NON-INVITE Server transaction FSM</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-connection_info">connection_info() = term()</h3></div>
+    <div class="type"><h3 id="type-stq_opaque">stq_opaque() = term()</h3></div>
+    <div class="type"><h3 id="type-transaction_id">transaction_id() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Id::transaction_id(), STQ::stq_opaque(), Con::connection_info(), CallBackMods::[atom()], Opts::term()) -&gt; {ok, pid()} | ignore | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Start an FSM for this transaction</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Pid::pid(), STQ::stq_opaque()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an STQ to the network</p>
+</div></div>
+<div class="function">
+<h3 id="recv/1">recv(Pid::pid(), STQ::stq_opaque()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Receive an STQ from the network</p>
+</div></div>
+<div class="function">
+<h3 id="transport_error/1">transport_error(Pid::pid(), Reason::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Receive an transport error from the network</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::{transaction_id(), stq_opaque(), connection_info(), [atom()], Opts::term()}) -&gt; {ok, StateName::atom(), State::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}}</h3>
+
+
+<div class="description">
+
+<p>Initial state, sends INVITE to user and moves to Proceeding state</p>
+</div></div>
+<div class="function">
+<h3 id="trying/1">trying(Event::term(), State::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}) -&gt; {next_state, NextStateName::atom(), NextState::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}}</h3>
+
+
+<div class="description">
+
+<p>Trying state, waiting for TU to send response to network,
+       and move to Proceeding state</p>
+</div></div>
+<div class="function">
+<h3 id="proceeding/1">proceeding(Event::term(), State::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}) -&gt; {next_state, NextStateName::atom(), NextState::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}}</h3>
+
+
+<div class="description">
+
+<p>Proceeding state, waiting for final response from TU
+       and move to Completed state</p>
+</div></div>
+<div class="function">
+<h3 id="completed/1">completed(Event::term(), State::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}) -&gt; {next_state, NextStateName::atom(), NextState::#state{id=undefined | transaction_id(), con=undefined | connection_info(), resp_stq=stq_opaque() | undefined, callback_modules=[atom()], timer1=undefined | integer()}} | {stop, Reason::term(), NewState::atom()}</h3>
+
+
+<div class="description">
+
+<p>Completed state, waiting timerJ to terminate</p>
+</div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(X1, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(Event, From, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/3">handle_info(Info, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/3">terminate(Reason, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Petter Sandholdt</aname>
+<email>petter@sandholdt.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

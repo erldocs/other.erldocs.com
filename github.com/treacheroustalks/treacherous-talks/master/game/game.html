@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>game (game) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>game</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-country">country() = england<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| germany<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| france<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| austria<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| italy<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| russia<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| turkey</h3></div>
+    <div class="type"><h3 id="type-date">date() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{integer(), integer(), integer()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{integer(), integer(), integer()}}</h3></div>
+    <div class="type"><h3 id="type-phase">phase() = order_phase | build_phase | retreat_phase</h3></div>
+    <div class="type"><h3 id="type-role">role() = disabled | user | moderator | operator</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new_game/1">new_game(Game::#game{}) -&gt; {ok, ID::integer} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   creates a new game</p>
+</div></div>
+<div class="function">
+<h3 id="restart_game/1">restart_game(GameID::integer()) -&gt; {ok, ID::integer} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   restarts a game timer</p>
+</div></div>
+<div class="function">
+<h3 id="put_game_order/1">put_game_order(GameId::integer(), UserId::integer(), GameOrder::list()) -&gt; {ok, ID::string()} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   stores a list of game moves to the database</p>
+</div></div>
+<div class="function">
+<h3 id="get_game/1">get_game(Key::integer()) -&gt; {ok, Game::#game{}} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   gets a game from the database and returns it</p>
+</div></div>
+<div class="function">
+<h3 id="get_keys/1">get_keys(Field::any(), Value::any()) -&gt; {ok, Keys::list()} | Error</h3>
+
+
+<div class="description">
+
+<p>
+  Gets Field and Value as arguments, returns {ok, [Key1, Key2, ..., KeyN]}
+  or {error, Error}.
+  Field is #record.field,
+  Value is the value to search for.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_game/1">delete_game(Key::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+   deletes a game from the database</p>
+</div></div>
+<div class="function">
+<h3 id="reconfig_game/1">reconfig_game(Game::#game{}) -&gt; {ok, ID::integer} | Error</h3>
+
+
+<div class="description">
+
+<p>   
+reconfig a game from the database</p>
+ 
+   <p>will reply {ok, GameKey :: Integer()} to the calling process
+  in case of success</p>
+</div></div>
+<div class="function">
+<h3 id="join_game/1">join_game(GameID::integer(), UserID::integer, Country::country()) -&gt; {ok, GameID::integer()} | {error, country_not_available}</h3>
+
+
+<div class="description">
+
+<p>   
+join a player to a game from the database</p>
+ 
+   <p>will reply {ok, GameKey :: Integer()} to the calling process
+  in case of success
+   if country is already taken reply {error, country_not_available}</p>
+</div></div>
+<div class="function">
+<h3 id="get_game_players/1">get_game_players(GameID::integer) -&gt; {ok, GamePlayers::#game_player{}} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   gets a game players from the database and returns it</p>
+</div></div>
+<div class="function">
+<h3 id="get_game_overview/1">get_game_overview(GameID::integer(), UserID::integer()) -&gt; {ok, GameOverview::#game_overview{}} | {error, game_not_started}</h3>
+
+
+<div class="description">
+
+<p>
+  gets a game overview for a given game and a specific user</p>
+</div></div>
+<div class="function">
+<h3 id="get_current_game/1">get_current_game(GameID::integer()) -&gt; {ok, CurrentGame::#game_current{}} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   Get the game_current record for the game with id GameID
+  replies {ok, CurrentGame :: #game_current{}} or Error.</p>
+</div></div>
+<div class="function">
+<h3 id="search/1">search(Query::string()) -&gt; {ok, [integer()]} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   Search game bucket.
+   See http://wiki.basho.com/Riak-Search---Querying.html for query syntax
+   ORed together and NotParams are passed as NOT</p>
+</div></div>
+<div class="function">
+<h3 id="get_games_current/1">get_games_current(UserID::integer()) -&gt; {ok, [#game{}]} | Error</h3>
+
+
+<div class="description">
+
+<p>
+   Get the games for the given user with status = waiting | ongoing</p>
+</div></div>
+<div class="function">
+<h3 id="get_game_search/1">get_game_search(Query) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+   Get the games for the given search query
+  get_game_search(Query :: string()) -&gt;
+      {ok, [#game{}]} | Error</p>
+</div></div>
+<div class="function">
+<h3 id="get_games_ongoing/0">get_games_ongoing() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+   Get the games for the given search query
+  get_games_ongoing() -&gt; {ok, [integer()]} | Error</p>
+</div></div>
+<div class="function">
+<h3 id="operator_game_overview/1">operator_game_overview(GameId) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="operator_get_game_msg/1">operator_get_game_msg(Key::string(), GameId::integer(), Year::integer(), Season::atom(), Phase::atom()) -&gt; {ok, {GameMessage::list(), Order::list()}}</h3>
+
+
+<div class="description">
+
+<p>
+  Allow operator to inspect all game_message and game_order of a player</p>
+</div></div>
+<div class="function">
+<h3 id="game_msg/1">game_msg(Game_message::#game_message{id=undefined | integer(), game_id=undefined | integer(), from_id=undefined | integer(), from_country=undefined | country() | unknown, sender_country=undefined | country(), group_id=undefined | integer(), to_id=undefined | integer(), to_country=undefined | country(), content=undefined | nonempty_string(), date_created=undefined | date(), year=undefined | integer(), season=undefined | spring | fall, phase=undefined | phase()}, ToCountries::list(), Role::role()) -&gt; ok | {error, game_phase_not_ongoing} | {error, user_not_playing_this_game} | {error, not_allowed_send_msg} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>
+    Send in-game message to relevant players</p>
+</div></div>
+<div class="function">
+<h3 id="stop_game/1">stop_game(GameID::integer()) -&gt; {ok, {GameID, stopped}}</h3>
+
+
+<div class="description">
+
+<p>
+   changes the status of a game to stopped and kills its game timer</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

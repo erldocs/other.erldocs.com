@@ -1,0 +1,1 @@
+var index = [['app','dloader','dloader','[application]'],['mod','dloader','dloader','      Loader of nifs and loadble drivers.'],['fun','dloader','dloader:cache_driver/2','    Cache the the driver locally if needed.'],['fun','dloader','dloader:cache_nif/2','    Cache the nif file locally.'],['fun','dloader','dloader:load_driver/2','    Cache and load a driver.']];

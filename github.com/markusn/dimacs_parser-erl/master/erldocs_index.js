@@ -1,0 +1,1 @@
+var index = [['app','dimacs_parser-erl','dimacs_parser-erl','[application]'],['mod','dimacs_parser-erl','dimacs_parser','DIMACS file parser for Erlang.'],['fun','dimacs_parser-erl','dimacs_parser:parse_file/1','Parse file and return result.']];

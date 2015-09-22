@@ -1,0 +1,1 @@
+var index = [['app','rebar3-alias','rebar3-alias','[application]'],['mod','rebar3-alias','alias',[]],['fun','rebar3-alias','alias:do/1',[]],['fun','rebar3-alias','alias:format_error/1',[]],['fun','rebar3-alias','alias:init/1',[]]];

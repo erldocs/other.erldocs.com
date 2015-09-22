@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>emqttd_session (emqtt) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>emqttd_session</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+<p>Session for persistent MQTT client.</p>
+  
+   <p>Session State in the broker consists of:</p>
+  
+   <p>1. The Client’s subscriptions.</p>
+  
+   <p>2. inflight qos1/2 messages sent to the client but unacked, QoS 1 and QoS 2      
+messages which have been sent to the Client, but have not been completely      
+acknowledged.</p>
+  
+   <p>3. inflight qos2 messages received from client and waiting for pubrel. QoS 2      
+messages which have been received from the Client, but have not been      
+completely acknowledged.</p>
+  
+   <p>4. all qos1, qos2 messages published to when client is disconnected.      
+QoS 1 and QoS 2 messages pending transmission to the Client.</p>
+  
+   <p>5. Optionally, QoS 0 messages pending transmission to the Client.</p>
+  
+   State of Message:  newcome, inflight, pending
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-mqtt_client_id">mqtt_client_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-mqtt_message">mqtt_message() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#mqtt_message{msgid = undefined | <a href="#type-mqtt_msgid" class="seealso">mqtt_msgid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pktid = undefined | <a href="#type-mqtt_pktid" class="seealso">mqtt_pktid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topic = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from = undefined | binary() | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qos = 0 | 1 | 2,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retain = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dup = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp = undefined | <a href="erlang.html#type-timestamp" class="seealso">erlang:timestamp()</a>}</h3></div>
+    <div class="type"><h3 id="type-mqtt_msgid">mqtt_msgid() = binary() | undefined</h3></div>
+    <div class="type"><h3 id="type-mqtt_packet_id">mqtt_packet_id() = 1..65535 | undefined</h3></div>
+    <div class="type"><h3 id="type-mqtt_pktid">mqtt_pktid() = 1..65535 | undefined</h3></div>
+    <div class="type"><h3 id="type-mqtt_qos">mqtt_qos() = 0 | 1 | 2</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(CleanSess::boolean(), ClientId::mqtt_client_id(), ClientPid::pid()) -&gt; {ok, pid()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Start a session.</p>
+</div></div>
+<div class="function">
+<h3 id="resume/1">resume(Session::pid(), ClientId::mqtt_client_id(), ClientPid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Resume a session.</p>
+</div></div>
+<div class="function">
+<h3 id="destroy/1">destroy(Session::pid(), ClientId::mqtt_client_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Destroy a session.</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(Session::pid(), TopicTable::[{binary(), mqtt_qos()}]) -&gt; {ok, [mqtt_qos()]}</h3>
+
+
+<div class="description">
+
+<p>Subscribe Topics</p>
+</div></div>
+<div class="function">
+<h3 id="publish/1">publish(Session::pid(), Msg::mqtt_message()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Publish message</p>
+</div></div>
+<div class="function">
+<h3 id="puback/1">puback(Session::pid(), PktId::mqtt_packet_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>PubAck message</p>
+</div></div>
+<div class="function">
+<h3 id="pubrec/1">pubrec(Session::pid(), PktId::mqtt_packet_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pubrel/1">pubrel(Session::pid(), PktId::mqtt_packet_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pubcomp/1">pubcomp(Session::pid(), PktId::mqtt_packet_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unsubscribe/1">unsubscribe(Session::pid(), Topics::[binary()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unsubscribe Topics</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prioritise_call/4">prioritise_call(Msg, From, Len, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prioritise_cast/3">prioritise_cast(Msg, Len, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prioritise_info/3">prioritise_info(Msg, Len, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Req, From, Session) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, Session) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, Session) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, Session) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, Session, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

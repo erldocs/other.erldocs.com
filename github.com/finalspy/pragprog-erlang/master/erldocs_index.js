@@ -1,0 +1,1 @@
+var index = [['app','pragprog-erlang','pragprog-erlang','[application]'],['mod','pragprog-erlang','geometry',[]],['mod','pragprog-erlang','shop',[]],['mod','pragprog-erlang','shop1',[]],['fun','pragprog-erlang','geometry:area/1',[]],['fun','pragprog-erlang','shop1:total/1',[]],['fun','pragprog-erlang','shop:cost/1',[]]];

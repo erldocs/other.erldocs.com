@@ -1,0 +1,1 @@
+var index = [['app','vs','vs','[application]'],['mod','vs','maekawa',[]],['mod','vs','multicast',[]],['mod','vs','snapshot',[]],['fun','vs','maekawa:init/0',[]],['fun','vs','maekawa:initProc/0',[]]];

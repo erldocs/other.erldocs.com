@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>netaccess_fsm (netaccess-erldrv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>netaccess_fsm</h1>
+<h2 class="modsummary">A gen_fsm based behaviour for users of the netaccess application.</h2>
+<div class="description">
+<p>A gen_fsm based behaviour for users of the netaccess application.</p>
+  
+   	<p>This is a behaviour module which emulates a gen_fsm
+   	 behaviour but which provides a cleaner and simpler interface to
+   	the netaccess device driver API.  The binary control messages from
+   	the board are converted to records and sent as events to be received
+   	directly in the user's state handlers.  Data messages are sent as
+   	binaries but are also received as events.</p>
+  
+   	<em>Message format:</em>
+   	<p><code>{Port, L3L4m}</code><br />
+   	<code>{Port, DataBin}</code></p>
+   	<list><item><p><code>Port = pid()</code></p></item>
+   	<item><p><code>L3L4m = <url href="iisdn.html#type-l3_to_l4">l3_to_l4()</url></code></p></item>
+   	<item><p><code>DataBin = binary()</code></p></item></list>
+  
+   	<em>Examples:</em>
+   	<p><code>idle({Port, L3L4m}, StateData) when is_record(L3L4m, l3_to_l4),
+   			L3L4m#l3_to_l4.msgtype == L3L4mSETUP_IND -&gt; </code></p>
+   	<p><code>connected({Port, IFRAME}, StateData)
+   			when is_binary(IFRAME) -&gt; </code></p>
+  
+   	<p>User processes must be started with the provided start
+   	functions.  This module exports the same API as gen_fsm
+   	however you are free to use the gen_fsm functions to communicate
+   	with it once started.</p>
+  
+   	<p><code>{ok, ChannelFsm} = netaccess_fsm:start(UserModule, [], [])<br />
+   	gen_fsm:send_event(ChannelFsm, Event)</code></p>
+  </div>
+
+<div class="section"><h4>See also</h4><p><a href="gen_fsm.html" class="seealso">gen_fsm</a></p></div>
+<authors>
+
+<aname>Vance Shipley</aname>
+<email>vances@motivity.ca</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

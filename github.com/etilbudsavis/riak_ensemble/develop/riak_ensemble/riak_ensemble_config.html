@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_ensemble_config (riak_ensemble) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_ensemble_config</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="tick/0">tick() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The primary ensemble tick that determines the rate at which an elected
+  leader attempts to refresh its lease.</p>
+</div></div>
+<div class="function">
+<h3 id="lease/0">lease() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The leader lease duration. Should be greater than the leader tick to give
+  the leader time to refresh before expiration, but lower than the follower
+  timeout.</p>
+</div></div>
+<div class="function">
+<h3 id="trust_lease/0">trust_lease() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  This setting determines if leader leases are trusted or not. Trusting the
+  lease allows a leader to reply to reads without contacting remote peers
+  as long as its lease has not yet expired.</p>
+</div></div>
+<div class="function">
+<h3 id="follower_timeout/0">follower_timeout() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The follower timeout determines how long a follower waits to hear from
+  the leader before abandoning it.</p>
+</div></div>
+<div class="function">
+<h3 id="election_timeout/0">election_timeout() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The election timeout used for randomized election.</p>
+</div></div>
+<div class="function">
+<h3 id="prefollow_timeout/0">prefollow_timeout() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The prefollow timeout determines how long a peer waits to hear from the
+  preliminary leader before abandoning it.</p>
+</div></div>
+<div class="function">
+<h3 id="pending_timeout/0">pending_timeout() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The pending timeout determines how long a pending peer waits in the pending
+  state to hear from an existing leader.</p>
+</div></div>
+<div class="function">
+<h3 id="probe_delay/0">probe_delay() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The amount of time between probe attempts.</p>
+</div></div>
+<div class="function">
+<h3 id="local_get_timeout/0">local_get_timeout() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>The internal timeout used by peer worker FSMs when performing gets.</p>
+</div></div>
+<div class="function">
+<h3 id="local_put_timeout/0">local_put_timeout() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>The internal timeout used by peer worker FSMs when performing puts.</p>
+</div></div>
+<div class="function">
+<h3 id="alive_ticks/0">alive_ticks() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The number of leader ticks that can go by without hearing from the ensemble
+  backend.</p>
+</div></div>
+<div class="function">
+<h3 id="peer_workers/0">peer_workers() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>The number of peer workers/FSM processes used by the leader.</p>
+</div></div>
+<div class="function">
+<h3 id="storage_delay/0">storage_delay() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The operation delay used by <a href="riak_ensemble_storage.html" class="seealso">riak_ensemble_storage</a> to coalesce
+  multiple local operations into a single disk oepration.</p>
+</div></div>
+<div class="function">
+<h3 id="storage_tick/0">storage_tick() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  The periodic tick at which <a href="riak_ensemble_storage.html" class="seealso">riak_ensemble_storage</a> flushes operations
+  to disk even if there are no explicit sync requests.</p>
+</div></div>
+<div class="function">
+<h3 id="tree_validation/0">tree_validation() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  When true, synctrees are not trusted after a peer restart, requiring an
+  exchange with a trusted majority to become trusted. This provides the
+  strongest guarantees against byzantine faults.</p>
+</div></div>
+<div class="function">
+<h3 id="synchronous_tree_updates/0">synchronous_tree_updates() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  Determines if remote synctree updates are performed synchronously.
+  When true, tree updates are performed before replying to the user.</p>
+</div></div>
+<div class="function">
+<h3 id="get_env/2">get_env(Key, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','nqueens','nqueens','[application]'],['mod','nqueens','queens',[]],['fun','nqueens','queens:main/1',[]]];

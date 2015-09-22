@@ -1,0 +1,1 @@
+var index = [['app','ale','ale','[application]'],['mod','ale','ale',[]],['mod','ale','ale_i18n',[]],['mod','ale','ale_routes_gen',[]]];

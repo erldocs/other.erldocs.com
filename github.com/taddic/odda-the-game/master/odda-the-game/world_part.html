@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>world_part (odda-the-game) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>world_part</h1>
+<h2 class="modsummary">
+  Handles the logic for a specific map area.</h2>
+<div class="description">
+<p>
+  Handles the logic for a specific map area. Keeps track of the area terrain,
+  player position, mobs position and handles communicating with neighbouring
+  areas and players.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-pos">pos() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pos{area = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;area_pid = pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coord = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v = integer()}</h3></div>
+    <div class="type"><h3 id="type-pos">pos() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pos{area = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;area_pid = pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coord = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v = integer()}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{part = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mobs = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;players = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;terrain = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;neighbours = #{}}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{part = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mobs = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;players = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;terrain = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;neighbours = #{}}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(MapPart) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>MapPart = {non_neg_integer(), non_neg_integer()}</code></li><li><code>Result = {ok, pid()}</code></li></ul>
+<div class="description">
+
+<p>
+  Starts a world_part process.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>State = state()</code></li><li><code>Result = {ok, NewState}</code></li><li><code>NewState = state()</code></li></ul>
+<div class="description">
+
+<p>
+  Initializes a world_part process after it has started. Sets up the areas map.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Request = request_players</code></li><li><code>From = {pid(), atom()}</code></li><li><code>State = state()</code></li><li><code>Result = {reply, FinalPos, NewState}</code></li><li><code>FinalPos = pos()</code></li><li><code>NewState = state()</code></li></ul>
+<div class="description">
+
+<p>  
+Callback called when a synchronus message is recieved after a call to  
+gen_server:handle_call/2 is called.</p>
+ 
+  <p>Messages:
+  handle_call({player_move, Pos, W, H, Orient}, _From, State) takes care of
+  calculation of terrain collision when a player is moving.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Msg = {neighbours, Neighbours} | {player_enter, Pid} | {player_exit, Pid}</code></li><li><code>State = state()</code></li><li><code>Neighbours = #{}</code></li><li><code>Pid = pid()</code></li><li><code>Result = {noreply, NewState}</code></li><li><code>NewState = state()</code></li></ul>
+<div class="description">
+
+<p>  
+Callback called when an asynchronus message is recieved after a call to  
+gen_server:handle_cast/2 is called.</p>
+ 
+  <p>Messages:
+  handle_call({neighbours, Neighbours}, State) accepts a map() with area as
+  keys and pid() as values. These are this areas neighbours.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Msg, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Msg = term()</code></li><li><code>State = state()</code></li><li><code>Result = {noreply, State}</code></li></ul>
+<div class="description">
+
+<p>  
+Callback called when a message is recieved when the message is not coming  
+from gen_server:cast/2 or gen_server:call/2.</p>
+ 
+  <p>Messages:
+  handle_info(Msg, State) is a generic receive clause. Handle_info is currently
+  not used in odda-the-game application, but the function still needs to be
+  here to not violate the gen_server behaviour.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Reason = atom()</code></li><li><code>State = state()</code></li><li><code>Result = ok</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when gen_server is about to terminate.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>OldVsn = term()</code></li><li><code>State = state()</code></li><li><code>Extra = term()</code></li><li><code>Result = {ok, State}</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when gen_server code is upgraded.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Taddic</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

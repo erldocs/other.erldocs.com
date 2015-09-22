@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sbroker_time (sbroker) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sbroker_time</h1>
+<h2 class="modsummary">This module provides a behaviour for reading the time and utility  
+functions to get the current time.</h2>
+<div class="description">
+<p>This module provides a behaviour for reading the time and utility  
+functions to get the current time.</p>
+ 
+  <p>The <code>sbroker_time</code> behaviour has two callbacks:
+  </p><pre class="sh_erlang">  -callback monotonic_time() :: Time :: integer().
+  -callback monotonic_time(TimeUnit :: unit()) -&gt; Time :: integer().</pre><p>
+  <code>monotonic_time/1</code> should return the time in the given time unit as an
+  integer. <code>monotonic_time/0</code> should be equivalent to <code>monotonic_time(native)</code>.</p>
+ 
+  <p>The <code>TimeUnit</code> is a named time unit: <code>native</code>, <code>nano_seconds</code>,
+  <code>micro_seconds</code>, <code>milli_seconds</code> or <code>seconds</code>, or a <code>pos_integer()</code>, which
+  is the integer increment for a second. For example <code>1000</code> is equivalent to
+  <code>milli_seconds</code> and <code>1000000</code> is equivalent to <code>micro_seconds</code>.</p>
+ 
+  <p>Prior to 18.0, the <code>native</code> time units will always be <code>micro_seconds</code>. For
+  releases greater than and including 18.0 see the "Time and Time Correction"
+  chapter in the OTP documentation for more information. <code>sbroker</code> is multi
+  time warp safe and designed to be used with multi time warps.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-unit">unit() = native<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| nano_seconds<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| micro_seconds<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| milli_seconds<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| seconds<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer() >= 1</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="monotonic_time/0">monotonic_time() -&gt; Time</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li></ul>
+<div class="description">
+
+<p>Get the time, <code>Time</code>, as an <code>integer()</code> in the <code>native</code> time units.</p>
+ 
+  <p>Uses <code>erlang:monotonic_time/0</code> if it is exported, otherwise falls back to
+  <code>sbroker_legacy:monotonic_time/0</code>.
+ </p>
+<p><em>See also:</em> <a href="erlang.html#monotonic_time/0" class="seealso">erlang:monotonic_time/0</a>, <a href="sbroker_legacy.html#monotonic_time/0" class="seealso">sbroker_legacy:monotonic_time/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="monotonic_time/1">monotonic_time(TimeUnit) -&gt; Time</h3>
+
+<ul class="type">
+<li><code>TimeUnit = unit()</code></li><li><code>Time = integer()</code></li></ul>
+<div class="description">
+
+<p>Get the time, <code>Time</code>, as an <code>integer()</code> in the <code>TimeUnit</code> time units.</p>
+ 
+  <p>Use <code>erlang:monotonic_time/1</code> if it is exported, otherwise falls back to
+  <code>sbroker_legacy:monotonic_time/1</code>.
+ </p>
+<p><em>See also:</em> <a href="erlang.html#monotonic_time/1" class="seealso">erlang:monotonic_time/1</a>, <a href="sbroker_legacy.html#monotonic_time/1" class="seealso">sbroker_legacy:monotonic_time/1</a>.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

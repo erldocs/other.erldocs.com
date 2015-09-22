@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>proto_sched (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>proto_sched</h1>
+<h2 class="modsummary">Allow to centrally schedule all messages involved in a certain
+    protocol execution and calculate the number of possible
+    interleavings for convenience (so one can guess how often the
+    protocol has to be run randomly to cover all possible
+    interleavings).</h2>
+<div class="description">
+<p>Allow to centrally schedule all messages involved in a certain
+    protocol execution and calculate the number of possible
+    interleavings for convenience (so one can guess how often the
+    protocol has to be run randomly to cover all possible
+    interleavings).</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-anypid">anypid() = pid() | <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a></h3></div>
+    <div class="type"><h3 id="type-gc_mpath_msg">gc_mpath_msg() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'$gen_component',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trace_mpath,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-passed_state" class="seealso">passed_state()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Src :: <a href="#type-anypid" class="seealso">anypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dest :: <a href="#type-anypid" class="seealso">anypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-message" class="seealso">comm:message()</a>}</h3></div>
+    <div class="type"><h3 id="type-logger">logger() = {proto_sched, <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>}</h3></div>
+    <div class="type"><h3 id="type-passed_state">passed_state() = {<a href="#type-trace_id" class="seealso">trace_id()</a>, <a href="#type-logger" class="seealso">logger()</a>}</h3></div>
+    <div class="type"><h3 id="type-send_event">send_event() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{log_send,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time :: '_',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-trace_id" class="seealso">trace_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source :: <a href="#type-anypid" class="seealso">anypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dest :: <a href="#type-anypid" class="seealso">anypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-message" class="seealso">comm:message()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local | global}</h3></div>
+    <div class="type"><h3 id="type-state">state() = [{<a href="#type-trace_id" class="seealso">trace_id()</a>, <a href="#type-trace" class="seealso">trace()</a>}]</h3></div>
+    <div class="type"><h3 id="type-trace">trace() = [<a href="#type-send_event" class="seealso">send_event()</a>]</h3></div>
+    <div class="type"><h3 id="type-trace_id">trace_id() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(TraceId::trace_id() | passed_state()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1-1">start(TraceId::trace_id(), Logger::logger()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_deliver/0">start_deliver() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_deliver/1">start_deliver(TraceId::trace_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_infos/0">get_infos() -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_infos/1">get_infos(TraceId::trace_id()) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cleanup/0">cleanup() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cleanup/1">cleanup(TraceId::trace_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="epidemic_reply_msg/1">epidemic_reply_msg(PState::passed_state(), FromPid::anypid(), ToPid::anypid(), Msg::message() (see module comm)) -&gt; gc_mpath_msg()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log_send/1">log_send(PState::passed_state(), FromPid::anypid(), ToPid::anypid(), Msg::message() (see module comm), LocalOrGlobal::local | global) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(ServiceGroup::groupname() (see module pid_groups)) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Arg::any()) -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="on/1">on(X1::send_event() | message() (see module comm), State::state()) -&gt; state()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Florian Schintke</aname>
+<email>schintke@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

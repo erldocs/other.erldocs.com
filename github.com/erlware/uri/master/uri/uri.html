@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>uri (uri) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>uri</h1>
+<h2 class="modsummary">A module for generating, parsing, encoding, and decoding uris.</h2>
+<div class="description">
+<p>A module for generating, parsing, encoding, and decoding uris.</p>
+  
+   At the moment this module isn't very sympathetic to non-http
+   uri's, but that could/should change in the future.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-t">t()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="from_string/1">from_string(Uri::string() | binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Populate a new uri record by parsing the string <code>Uri</code></p>
+</div></div>
+<div class="function">
+<h3 id="to_string/1">to_string(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the string this uri represents. (Same as the <code>raw</code>
+  field)</p>
+</div></div>
+<div class="function">
+<h3 id="from_http_1_1/1">from_http_1_1(Scheme::binary(), HostPort::binary(), Uri::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Populate a new #uri record by using <code>Scheme</code> and parsing
+  <code>HostPort</code> string <code>Uri</code></p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(Scheme::binary(), UserInfo::binary(), Host::binary(), Port::integer() | undefined, Path::binary(), Query::proplist() (see module proplists) | binary(), Frag::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Return a uri record with the given fields. Use <code>""</code> for any field  
+that isn't used.</p>
+ 
+  <p>You probably want <a href="#raw/7" class="seealso">raw/7</a> unless you've parsed a uri yourself.</p>
+</div></div>
+<div class="function">
+<h3 id="query_to_proplist/1">query_to_proplist(Query::binary()) -&gt; proplist() (see module proplists)</h3>
+
+
+<div class="description">
+
+<p>Convert the string or the <code>raw_query</code> portion of <a href="#type-t" class="seealso">t()</a> into a
+       <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a>, where the keys are binaries, the values
+       are binaries, and for valueless keys, the atom <code>true</code> is used as the       
+value.</p>
+ 
+       <p>For example, <code>"range=5-50&printable"</code> would result in the following
+       proplist entries:
+       </p>
+        <em>Key</em><em>Value</em><br />
+        "range""5-50"<br />
+        "printable"true<br />
+       
+ 
+       <p>The string needent have to be from a uri, this method is also
+       useful for decoding the <code>Post</code> body of an HTTP form submission.</p>
+</div></div>
+<div class="function">
+<h3 id="query_foldl/1">query_foldl(F::(property() (see module proplists), Acc::term()) -&gt; term(), Acc, Uri::proplist() (see module proplists) | binary() | t()) -&gt; Acc</h3>
+
+
+<div class="description">
+
+<p>Fold over each element of a query. For instance with the
+       query <code>"range=5-50&printable"</code>, <code>F</code> will be called as
+       <code>F("range", "5-50", Acc)</code> and <code>F("printable", true, Acc)</code>.
+       Both <code>Key</code> and <code>Value</code> are already unquoted when <code>F</code> is called.</p>
+<p><em>See also:</em> <a href="#query_to_dict/1" class="seealso">query_to_dict/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_query/1">to_query(List) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert a dictionary or proplist to an iolist representing the
+  query part of a uri. Keys and values can be binaries, lists, atoms,
+  integers or floats, and will be automatically converted to a string and
+  quoted.</p>
+</div></div>
+<div class="function">
+<h3 id="to_query/1-1">to_query(FoldF::function(), Ds::binary() | proplist() (see module proplist)) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return an binary representing the query part of a uri by
+  folding over <code>Ds</code> by calling the provided <code>FoldF</code>, which should
+  take three arguments: a function, an initial accumulator value, and
+  the datastructure to fold over.</p>
+<p><em>See also:</em> <a href="#to_query/1" class="seealso">to_query/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="unquote/1">unquote(Str::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return <code>Str</code> with all <code>+</code> replaced with space, and <code>%NN</code> replaced
+       with the decoded byte.</p>
+</div></div>
+<div class="function">
+<h3 id="quote/1">quote(Str::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return <code>Str</code> with all reserved or uri-unsafe characters in
+       quoted form. For instance <code>"A Space"</code> becomes <code>"A%20Space"</code>.
+       This is the same as calling <code>quote(Str, any)</code>.</p>
+<p><em>See also:</em> <a href="#quote/2" class="seealso">quote/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="quote/1-1">quote(Str::binary(), Part::atom()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return <code>Str</code> with all reserved or uri-unsafe characters in
+       quoted form. Since rfc-2396 has different reserved characters
+       for different parts of the uri, you can specify <code>Part</code> to
+       obtain a minimally quoted uri for that <code>Part</code>.</p>
+ 
+       <p><code>Part</code> can be one of the following values:
+       </p><taglist>
+        <dt>any</dt>
+        <item><p>Quote any character that is reserved in any potential part.</p></item>
+ 
+        <dt>userinfo</dt>
+        <item><p>Quote for the userinfo part of a uri.</p></item>
+ 
+        <dt>path</dt>
+        <item><p>Quote for the path part of a uri.</p></item>
+ 
+        <dt>segment</dt>
+        <item><p>Quote for a path's segment. This is much like <code>path</code>, but
+            will also quote the <code>/</code> character.</p></item>
+ 
+        <dt>segment_param</dt>
+        <item><p>Quote for path segment's parameters (a fairly obscure part
+            of uris). This is like <code>path</code> but will also quote the characters
+            <code>/</code> and <code>;</code>.</p></item>
+ 
+        <dt>query_ | q</dt>
+        <item><p>Quote for query parts. <code>query</code> is an erlang keyword so you can
+            either use <code>q</code> or <code>query_</code> to specify this part. This
+            will quote characters such as <code>&</code> and <code>=</code>, so it needs to be
+            called on the individual key/value parts of a query. See
+            <a href="#to_query/1" class="seealso">to_query/1</a> and <a href="#to_query/1" class="seealso">to_query/1</a>.</p></item>
+ 
+        <dt>frag</dt>
+        <item><p>Quote for the fragment part of a uri</p></item>
+       </taglist>
+</div></div>
+<div class="function">
+<h3 id="scheme/1">scheme(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the scheme field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="scheme/1-1">scheme(Uri::t(), NewScheme::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the scheme field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="user_info/1">user_info(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the user_info field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="user_info/1-1">user_info(Uri::t(), NewUserInfo::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the user_info field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="host/1">host(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the host field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="host/1-1">host(Uri::t(), NewHost::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the host field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="port/1">port(Uri::t()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return the port field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="port/1-1">port(Uri::t(), NewPort::integer()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the port field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="path/1">path(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the path field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="path/1-1">path(Uri::t(), NewPath::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the path field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_path/1">append_path(Uri::t(), NewPath::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Append a path to the existing path of the system</p>
+</div></div>
+<div class="function">
+<h3 id="raw_query/1">raw_query(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the raw_query field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="raw_query/1-1">raw_query(Uri::t(), NewRawQuery::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the raw_query field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="q/1">q(Uri::t()) -&gt; proplist() (see module proplists)</h3>
+
+
+<div class="description">
+
+<p>Return the query field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="q/1-1">q(Uri::t(), Query::proplist() (see module proplists)) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the query field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="frag/1">frag(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the frag field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="frag/1-1">frag(Uri::t(), NewFrag::binary()) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Set the frag field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="raw/1">raw(Uri::t()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Return the raw field of <a href="#type-t" class="seealso">t()</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Scott Parish</aname>
+<email>srp@srparish.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

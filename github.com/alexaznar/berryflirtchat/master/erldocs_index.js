@@ -1,0 +1,1 @@
+var index = [['app','berryflirtchat','berryflirtchat','[application]'],['mod','berryflirtchat','bf_chat_custom_filters',[]],['mod','berryflirtchat','bf_chat_custom_tags',[]],['mod','berryflirtchat','bf_chat_incoming_mail_controller',[]],['mod','berryflirtchat','bf_chat_main_controller',[]],['mod','berryflirtchat','bf_chat_outgoing_mail_controller',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','safeexec','safeexec','[application]'],['mod','safeexec','safeexec','Interface Module for safeexec command.'],['fun','safeexec','safeexec:get_safeexec_path/0',[]],['fun','safeexec','safeexec:open_port/2',[]]];

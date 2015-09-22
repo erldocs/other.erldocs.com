@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>diplomacy_rules (game) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>diplomacy_rules</h1>
+<h2 class="modsummary">  
+The rules are implemented here, the rule engine merely executes them.</h2>
+<div class="description">
+<p>  
+The rules are implemented here, the rule engine merely executes them.</p>
+ 
+  <p>Possible Orders:
+  <code>diplomacy_rules</code> can process a certain syntax of rules.  
+They  are documented as type specs in this file, go to the "Data Types"  
+section below.</p>
+ 
+  <p><code>rules:process/4</code> will return replies that are implemented in this module.  
+depending on the game phase, we have different possibilities.  
+Most important are:</p>
+ 
+  
+    
+      <code>order_phase</code>
+      <code>{dislodge, unit(), province ()}</code>
+      
+        the unit needs to be moved in retreat phase or it will be disbanded
+      
+    <br />
+    
+      <code>count_phase</code>
+      <code>{has_builds, nation(), integer()}</code>
+      the nation is allowed to build / has to disband that many units
+    <br />
+    
+      <code>count_phase</code>
+      <code>game_over}</code>
+      the game is finished
+    <br />
+  
+ 
+  <p>look for return values with {reply, Something} if you wonder why stuff is
+  in <a href="rules.html#process/4" class="seealso">rules:process/4</a>'s return list.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-build_order">build_order() = {build, <a href="#type-unit" class="seealso">unit()</a>, <a href="#type-province" class="seealso">province()</a>}</h3></div>
+    <div class="type"><h3 id="type-convoy_order">convoy_order() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{convoy,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fleet :: <a href="#type-unit" class="seealso">unit()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Where :: <a href="#type-province" class="seealso">province()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Army :: <a href="#type-unit" class="seealso">unit()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From :: <a href="#type-province" class="seealso">province()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To :: <a href="#type-province" class="seealso">province()</a>}</h3></div>
+    <div class="type"><h3 id="type-disband_order">disband_order() = {disband, <a href="#type-unit" class="seealso">unit()</a>, <a href="#type-province" class="seealso">province()</a>}</h3></div>
+    <div class="type"><h3 id="type-hold_order">hold_order() = {hold, <a href="#type-unit" class="seealso">unit()</a>}</h3></div>
+    <div class="type"><h3 id="type-move_order">move_order() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{move, <a href="#type-unit" class="seealso">unit()</a>, From :: <a href="#type-province" class="seealso">province()</a>, To :: <a href="#type-province" class="seealso">province()</a>}</h3></div>
+    <div class="type"><h3 id="type-nation">nation() = russia<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| turkey<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| austria<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| italy<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| germany<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| france<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| england</h3></div>
+    <div class="type"><h3 id="type-order">order() = <a href="#type-hold_order" class="seealso">hold_order()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-build_order" class="seealso">build_order()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-disband_order" class="seealso">disband_order()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-move_order" class="seealso">move_order()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-support_order" class="seealso">support_order()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-convoy_order" class="seealso">convoy_order()</a></h3></div>
+    <div class="type"><h3 id="type-phase">phase() = order_phase<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| retreat_phase<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| count_phase<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| build_phase</h3></div>
+    <div class="type"><h3 id="type-province">province() = atom()</h3></div>
+    <div class="type"><h3 id="type-support_order">support_order() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{support,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fleet :: <a href="#type-unit" class="seealso">unit()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Province :: <a href="#type-province" class="seealso">province()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MoveOrHold :: <a href="#type-order" class="seealso">order()</a>}</h3></div>
+    <div class="type"><h3 id="type-unit">unit() = {<a href="#type-unit_type" class="seealso">unit_type()</a>, <a href="#type-nation" class="seealso">nation()</a>}</h3></div>
+    <div class="type"><h3 id="type-unit_type">unit_type() = army | fleet</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create/2">create(GameType, GamePhase) -&gt; [tuple()]</h3>
+
+<ul class="type">
+<li><code>GameType = standard_game</code></li><li><code>GamePhase = order_phase | retreat_phase | count_phase | build_phase</code></li></ul>
+<div class="description">
+
+<p>
+  creates the rules for a game type.
+  The first parameter decides the game type, the second one the game phase
+  currently, the only supported game type is the atom </p><pre class="sh_erlang">standard_game</pre><p>
+  through clauses that differ in the game phase parameter, you can use a
+  different set of rules for each game phase.</p>
+</div></div>
+<div class="function">
+<h3 id="do_process/1">do_process(Phase::phase(), Map::#{}, Order::order()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

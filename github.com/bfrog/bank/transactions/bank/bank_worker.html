@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bank_worker (bank) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bank_worker</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-batch_fun">batch_fun() = fun((any()) -&gt; any())</h3></div>
+    <div class="type"><h3 id="type-error_result">error_result() = {error, <a href="#type-error_result_type" class="seealso">error_result_type()</a>, string()}</h3></div>
+    <div class="type"><h3 id="type-error_result_type">error_result_type() = timeout | sql | connection | programming</h3></div>
+    <div class="type"><h3 id="type-opts">opts() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{client, <a href="bank_client.html#type-client" class="seealso">bank_client:client()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{client_opts, any()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{keepalive, integer() >= 0}]</h3></div>
+    <div class="type"><h3 id="type-prepare_result">prepare_result() = ok</h3></div>
+    <div class="type"><h3 id="type-query_result">query_result() = {ok, integer() >= 0, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {rows, [<a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Ref::any(), Opts::opts()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the gen_server.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(ServerPid::pid()) -&gt; stopped</h3>
+
+
+<div class="description">
+
+<p>Stop the gen_server.</p>
+</div></div>
+<div class="function">
+<h3 id="batch/1">batch(ServerPid::pid(), Fun::batch_fun()) -&gt; error_result() | any()</h3>
+
+
+<div class="description">
+
+<p>Run a batch job using this worker.</p>
+</div></div>
+<div class="function">
+<h3 id="transaction/1">transaction(ServerPid::pid(), Fun::batch_fun()) -&gt; error_result() | any()</h3>
+
+
+<div class="description">
+
+<p>Run a batch job in a transaction using this worker.</p>
+</div></div>
+<div class="function">
+<h3 id="prepare/1">prepare(ServerPid::pid(), Stmt::any(), Query::string(), Timeout::non_neg_integer()) -&gt; prepare_result() | error_result()</h3>
+
+
+<div class="description">
+
+<p>Setup a prepared statement.</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1">execute(ServerPid::pid(), Stmt::any(), Params::list(), Timeout::non_neg_integer()) -&gt; query_result() | error_result()</h3>
+
+
+<div class="description">
+
+<p>Execute a prepared statement.</p>
+</div></div>
+<div class="function">
+<h3 id="query/1">query(ServerPid::pid(), Query::string() | binary(), Params::list(), Timeout::non_neg_integer()) -&gt; query_result() | error_result()</h3>
+
+
+<div class="description">
+
+<p>Run a single SQL query using this worker.</p>
+</div></div>
+<div class="function">
+<h3 id="set_client_state/1">set_client_state(Ref::any(), Client::client() (see module bank_client), ClientState::state() (see module bank_client)) -&gt; {any(), #state{ref=any(), client=client() (see module bank_client), client_state=state() (see module bank_client), connect_retry=non_neg_integer(), keepalive=non_neg_integer()}}</h3>
+
+
+<div class="description">
+
+<p>Set a process dictionary value containing the client state.</p>
+</div></div>
+<div class="function">
+<h3 id="get_client_state/1">get_client_state(Ref::any()) -&gt; undefined | {client() (see module bank_client), state() (see module bank_client)}</h3>
+
+
+<div class="description">
+
+<p>Get a process dictionary value containing the client state.</p>
+</div></div>
+<div class="function">
+<h3 id="erase_client_state/1">erase_client_state(Ref::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Erase a process dictionary value containing the client state.</p>
+</div></div>
+<div class="function">
+<h3 id="do_batch/1">do_batch(Fun::batch_fun(), Ref::any(), Client::client() (see module bank_client), ClientState::state() (see module bank_client)) -&gt; {any(), state() (see module bank_client)}</h3>
+
+
+<div class="description">
+
+<p>Run a batch job using the client.</p>
+</div></div>
+<div class="function">
+<h3 id="do_transaction/1">do_transaction(Fun::batch_fun(), Ref::any(), Client::client() (see module bank_client), ClientState::state() (see module bank_client)) -&gt; {any(), state() (see module bank_client)}</h3>
+
+
+<div class="description">
+
+<p>Run a batch job in a transaction using the client.</p>
+</div></div>
+<div class="function">
+<h3 id="do_prepare/1">do_prepare(Stmt::any(), Query::string(), Timeout::non_neg_integer(), Client::client() (see module bank_client), ClientState::state() (see module bank_client)) -&gt; prepare_result() (see module bank_client) | error_result() (see module bank_client)</h3>
+
+
+<div class="description">
+
+<p>Setup a prepared statement using the client.</p>
+</div></div>
+<div class="function">
+<h3 id="do_execute/1">do_execute(Stmt::any(), Params::params() (see module bank_client), Timeout::non_neg_integer(), Client::client() (see module bank_client), ClientState::state() (see module bank_client)) -&gt; query_result() (see module bank_client) | error_result() (see module bank_client)</h3>
+
+
+<div class="description">
+
+<p>Execute a prepared query using the client.</p>
+</div></div>
+<div class="function">
+<h3 id="do_query/1">do_query(Query::any(), Params::params() (see module bank_client), Timeout::non_neg_integer(), Client::client() (see module bank_client), ClientState::state() (see module bank_client)) -&gt; query_result() (see module bank_client) | error_result() (see module bank_client)</h3>
+
+
+<div class="description">
+
+<p>Query using the client.</p>
+</div></div>
+<div class="function">
+<h3 id="client_result/1">client_result(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Seperate the result and the next query state from a client return.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Request, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

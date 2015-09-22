@@ -1,0 +1,1 @@
+var index = [['app','ejabberd_harbor','ejabberd_harbor','[application]'],['mod','ejabberd_harbor','auth_harbor_test',[]]];

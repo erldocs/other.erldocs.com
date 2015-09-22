@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_core_bg_manager (riak_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_core_bg_manager</h1>
+<h2 class="modsummary">  
+We use two ETS tables to store critical data.</h2>
+<div class="description">
+<p>  
+We use two ETS tables to store critical data. In the event this process crashes,  
+the tables will be given back to the table manager and we can reclaim them when  
+we restart. Thus, limits and states are maintained across restarts of the  
+module, but not of the application. Since we are supervised by riak_core_sup,  
+that's fine.</p>
+ 
+  <p><em><marker id="Info_Table">Info Table</marker></em></p><p>  
+The table must be a set and is best if private. See ?BG_INFO_ETS_OPTS in MODULE.hrl.  
+Table Schema...  
+KEY                     Data                      Notes  
+---                     ----                      -----  
+{info, Resource}        #resource_info            One token object per key.  
+bypassed                boolean()  
+enabled                 boolean()</p>
+ 
+  <p><em><marker id="Entries_Table">Entries Table</marker></em></p><p>  
+The table must be a bag and is best if private. See ?BG_ENTRY_ETS_OPTS in MODULE.hrl.  
+KEY                     Data                      Notes  
+---                     ----                      -----  
+{given, Resource}       #resource_entry           Multiple objects per key.</p>
+ 
+  <p>-------------------------------------------------------------------</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bg_concurrency_limit">bg_concurrency_limit() = integer() &gt;= 0 | infinity</h3></div>
+    <div class="type"><h3 id="type-bg_consumer">bg_consumer() = {pid, [<a href="#type-bg_meta" class="seealso">bg_meta()</a>]}</h3></div>
+    <div class="type"><h3 id="type-bg_count">bg_count() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-bg_lock">bg_lock() = any()</h3></div>
+    <div class="type"><h3 id="type-bg_meta">bg_meta() = {atom(), any()}</h3></div>
+    <div class="type"><h3 id="type-bg_period">bg_period() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-bg_rate">bg_rate() = undefined | {<a href="#type-bg_period" class="seealso">bg_period()</a>, <a href="#type-bg_count" class="seealso">bg_count()</a>}</h3></div>
+    <div class="type"><h3 id="type-bg_resource">bg_resource() = <a href="#type-bg_token" class="seealso">bg_token()</a> | <a href="#type-bg_lock" class="seealso">bg_lock()</a></h3></div>
+    <div class="type"><h3 id="type-bg_resource_type">bg_resource_type() = lock | token</h3></div>
+    <div class="type"><h3 id="type-bg_stat_live">bg_stat_live() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#bg_stat_live{resource = undefined | <a href="#type-bg_resource" class="seealso">bg_resource()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type = undefined | <a href="#type-bg_resource_type" class="seealso">bg_resource_type()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;owner = undefined | <a href="#type-bg_consumer" class="seealso">bg_consumer()</a>}</h3></div>
+    <div class="type"><h3 id="type-bg_token">bg_token() = any()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | ignore | {error, term}</h3>
+
+
+<div class="description">
+
+<p>Starts the server</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bypass/1">bypass(Switch::boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Global kill switch - causes all locks/tokens to be given out freely without limits.
+  Nothing will be tracked or recorded.</p>
+</div></div>
+<div class="function">
+<h3 id="bypassed/0">bypassed() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return bypass state as boolean.</p>
+</div></div>
+<div class="function">
+<h3 id="enable/0">enable() -&gt; enabled | bypassed</h3>
+
+
+<div class="description">
+
+<p>Enable handing out of all locks and tokens</p>
+</div></div>
+<div class="function">
+<h3 id="disable/0">disable() -&gt; disabled | bypassed</h3>
+
+
+<div class="description">
+
+<p>Disable handing out of all locks and tokens</p>
+</div></div>
+<div class="function">
+<h3 id="enabled/0">enabled() -&gt; enabled | disabled | bypassed</h3>
+
+
+<div class="description">
+
+<p>Return global enabled status.</p>
+</div></div>
+<div class="function">
+<h3 id="enable/1">enable(Resource::bg_resource()) -&gt; enabled | unregistered | bypassed</h3>
+
+
+<div class="description">
+
+<p>Enable handing out resources of the kind specified. If the resource
+       has not already been registered, this will have no effect.</p>
+</div></div>
+<div class="function">
+<h3 id="disable/1">disable(Resource::bg_resource()) -&gt; disabled | unregistered | bypassed</h3>
+
+
+<div class="description">
+
+<p>Disable handing out resource of the given kind.</p>
+</div></div>
+<div class="function">
+<h3 id="enabled/1">enabled(Resource::bg_resource()) -&gt; enabled | disabled | bypassed</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="disable/1-1">disable(Resource::bg_resource(), Kill::boolean()) -&gt; disabled | unregistered | bypassed</h3>
+
+
+<div class="description">
+
+<p>Disable handing out resource of the given kind. If kill == true,
+       processes that currently hold the given resource will be killed.</p>
+</div></div>
+<div class="function">
+<h3 id="query_resource/1">query_resource(Resource::bg_resource() | all, Types::[bg_resource_type()]) -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>Query the current set of registered resources by name and types.
+       The special atom 'all' querys all resources. A list of types allows
+       selective query.</p>
+</div></div>
+<div class="function">
+<h3 id="all_resources/0">all_resources() -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all resources of all types in all states</p>
+</div></div>
+<div class="function">
+<h3 id="all_given/0">all_given() -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all resources of all kinds in the given state</p>
+</div></div>
+<div class="function">
+<h3 id="concurrency_limit/1">concurrency_limit(Lock::bg_lock()) -&gt; bg_concurrency_limit() | undefined</h3>
+
+
+<div class="description">
+
+<p>Get the current maximum concurrency for the given lock type.
+       If the background manager is unavailable, undefined is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="set_concurrency_limit/1">set_concurrency_limit(Lock::bg_lock(), Limit::bg_concurrency_limit()) -&gt; bg_concurrency_limit() | undefined | unregistered</h3>
+
+
+<div class="description">
+
+<p>same as <code>set_concurrency_limit(Type, Limit, false)</code></p>
+</div></div>
+<div class="function">
+<h3 id="set_concurrency_limit/1-1">set_concurrency_limit(Lock::bg_lock(), Limit::bg_concurrency_limit(), Kill::boolean()) -&gt; bg_concurrency_limit() | undefined | unregistered</h3>
+
+
+<div class="description">
+
+<p>Set a new maximum concurrency for the given lock type and return
+       the previous maximum or default. If more locks are held than the new
+       limit how they are handled depends on the value of <code>Kill</code>. If <code>true</code>,
+       then the extra locks are released by killing processes with reason <code>max_concurrency</code>.
+       If <code>false</code>, then the processes holding the extra locks are aloud to do so until they
+       are released.</p>
+</div></div>
+<div class="function">
+<h3 id="concurrency_limit_reached/1">concurrency_limit_reached(Lock::bg_lock()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns true if the number of held locks is at the limit for the given lock type</p>
+</div></div>
+<div class="function">
+<h3 id="get_lock/1">get_lock(Lock::bg_lock()) -&gt; {ok, reference()} | max_concurrency</h3>
+
+
+<div class="description">
+
+<p>Acquire a concurrency lock of the given name, if available,
+       and associate the lock with the calling process. Returns the
+       reference to the monitored process or max_concurrency.</p>
+</div></div>
+<div class="function">
+<h3 id="get_lock/1-1">get_lock(Lock::bg_lock(), Pid::pid() | [{atom(), any()}]) -&gt; {ok, reference()} | max_concurrency</h3>
+
+
+<div class="description">
+
+<p>Acquire a concurrency lock, if available, and associate the
+       lock with the provided pid or metadata. If metadata
+       is provided the lock is associated with the calling process
+       If no locks are available, max_concurrency is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="get_lock/1-2">get_lock(Lock::bg_lock(), Pid::pid(), Meta::[{atom(), any()}]) -&gt; {ok, reference()} | max_concurrency</h3>
+
+
+<div class="description">
+
+<p>Acquire a concurrency lock, if available,  and associate
+       the lock with the provided pid and metadata.</p>
+</div></div>
+<div class="function">
+<h3 id="lock_count/1">lock_count(Lock::bg_lock()) -&gt; integer() | unregistered</h3>
+
+
+<div class="description">
+
+<p>Return the current concurrency count of the given lock type.</p>
+</div></div>
+<div class="function">
+<h3 id="lock_info/0">lock_info() -&gt; [{bg_lock(), boolean(), bg_concurrency_limit()}]</h3>
+
+
+<div class="description">
+
+<p>Return list of lock types and associated info. To be returned in this list
+       a lock type must have had its concurrency set or have been enabled/disabled.</p>
+</div></div>
+<div class="function">
+<h3 id="lock_info/1">lock_info(Lock::bg_lock()) -&gt; {boolean(), bg_concurrency_limit()} | unregistered</h3>
+
+
+<div class="description">
+
+<p>Return the registration info for the named Lock</p>
+</div></div>
+<div class="function">
+<h3 id="all_locks/0">all_locks() -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>Returns all locks.</p>
+</div></div>
+<div class="function">
+<h3 id="locks_held/0">locks_held() -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>Returns all currently held locks or those that match Lock</p>
+</div></div>
+<div class="function">
+<h3 id="locks_held/1">locks_held(Lock::bg_lock() | all) -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_token_rate/1">set_token_rate(Token::bg_token(), Rate::bg_rate()) -&gt; bg_rate()</h3>
+
+
+<div class="description">
+
+<p>Set the refill rate of tokens. Return previous value.</p>
+</div></div>
+<div class="function">
+<h3 id="token_rate/1">token_rate(Token::bg_token()) -&gt; bg_rate() | undefined</h3>
+
+
+<div class="description">
+
+<p>Get the current refill rate of named token.
+       If the background manager is unavailable, undefined is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="get_token/1">get_token(Token::bg_token(), Pid::pid() | [{atom(), any()}]) -&gt; ok | max_concurrency</h3>
+
+
+<div class="description">
+
+<p>Get a token without blocking.
+       Associate token with provided pid or metadata. If metadata
+       is provided the lock is associated with the calling process.
+       Returns "max_concurrency" if empty.</p>
+</div></div>
+<div class="function">
+<h3 id="get_token/1-1">get_token(Token::bg_token()) -&gt; ok | max_concurrency</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_token/1-2">get_token(Token::bg_token(), Pid::pid(), Meta::[{atom(), any()}]) -&gt; ok | max_concurrency</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="token_info/0">token_info() -&gt; [{bg_token(), boolean(), bg_rate()}]</h3>
+
+
+<div class="description">
+
+<p>Return list of token kinds and associated info. To be returned in this list
+       a token must have had its rate set.</p>
+</div></div>
+<div class="function">
+<h3 id="token_info/1">token_info(Token::bg_token()) -&gt; {boolean(), bg_rate()}</h3>
+
+
+<div class="description">
+
+<p>Return the registration info for the named Token</p>
+</div></div>
+<div class="function">
+<h3 id="all_tokens/0">all_tokens() -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="tokens_given/0">tokens_given() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get a list of token resources in the given state.</p>
+</div></div>
+<div class="function">
+<h3 id="tokens_given/1">tokens_given(Token::bg_token() | all) -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ps/0">ps() -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>List most recent requests/grants for all tokens and locks</p>
+</div></div>
+<div class="function">
+<h3 id="ps/1">ps(Arg::bg_resource() | token | lock) -&gt; [bg_stat_live()]</h3>
+
+
+<div class="description">
+
+<p>List most recent requests/grants for named resource or one of
+       either 'token' or 'lock'. The later two options will list all
+       resources of that type in the given/locked.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

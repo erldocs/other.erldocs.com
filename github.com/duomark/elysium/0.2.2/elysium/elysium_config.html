@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>elysium_config (elysium) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>elysium_config</h1>
+<h2 class="modsummary">     
+Because elysium is used in high-concurrency scenarios to enhance     
+performance, it needs to avoid process contention.</h2>
+<div class="description">
+<p>     
+Because elysium is used in high-concurrency scenarios to enhance     
+performance, it needs to avoid process contention. One bottleneck     
+is accessing ets tables because they have a limited number of locks     
+available (even though they are the most concurrent of the erlang data     
+structures that can be modified), and are especially susceptible     
+to contention when multiple processes access the same key since     
+there is one lock per key which they must queue behind.</p>
+  
+     <p>The problem with application configuration data is that it is     
+stored in an ets table by the application_controller. Worse,     
+all processes that access a given configuration parameter will     
+be accessing the same key. Now imagine a dynamically configurable     
+host/port used for Cassandra sessions, or the need to dynamically     
+change the session decay characteristics or even the queue_name     
+(since you may want to have more than one elysium running which     
+connects to more than one Cassandra cluster for different data).</p>
+  
+     <p>To allow the most flexibility, two alternatives to the standard     
+application configuration are offered:</p>
+  
+       <p>1) Compiled configuration code       
+2) Binary encoded dictionary</p>
+  
+     <p>Compiled code is globally available without locking and it can     
+be modified with a hot-code load or the generation and compilation     
+on-the-fly of a replacement module. It is the fastest method for     
+provided direct concurrent access to data.</p>
+  
+     <p>A binary encoded dictionary which is greater than 64 bytes will     
+be stored on the binary heap. This provides concurrent read-only     
+access to all processes. The vbisect library used here runs at     
+the speed of an ets table with a single process accessing it when     
+the binary contains approximately 10 attributes. The difference     
+is that the ets performance will suffer with concurrent access     
+whereas the vbisect will not slow down regardless of the number     
+of concurrent processes accessing it. The difficulty lies in     
+the application writer passing the instance of the dictionary     
+around without stashing it in a gen_server or some other     
+stateful serializing structure.</p>
+  
+     Just beware that maintaining more than one configuration and
+     dynamically swapping them between calls can lead to errors
+     whereby the active session queue might not be available. In
+     general, all calls work as expected regardless if the same
+     configuration is used in every call, but it is up to the
+     application writer to avoid creating conflicts when juggling
+     multiple configurations. A typical simple application will
+     set up one configuration at start up time and will run with
+     that single configuration continuously.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-audit_ets_name">audit_ets_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-cassandra_node">cassandra_node() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Ip_Or_Hostname :: <a href="inet.html#type-hostname" class="seealso">inet:hostname()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port :: <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-config_type">config_type() = config_app_config<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-connection_count_error">connection_count_error() = <a href="ets_buffer.html#type-buffer_error" class="seealso">ets_buffer:buffer_error()</a></h3></div>
+    <div class="type"><h3 id="type-connection_queue_name">connection_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
+    <div class="type"><h3 id="type-decay_prob">decay_prob() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-host_list">host_list() = [<a href="#type-cassandra_node" class="seealso">cassandra_node()</a>]</h3></div>
+    <div class="type"><h3 id="type-lb_queue_name">lb_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
+    <div class="type"><h3 id="type-max_connections">max_connections() = integer() >= 1 | <a href="#type-connection_count_error" class="seealso">connection_count_error()</a></h3></div>
+    <div class="type"><h3 id="type-max_retries">max_retries() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-queue_name">queue_name() = <a href="ets_buffer.html#type-buffer_name" class="seealso">ets_buffer:buffer_name()</a> | atom()</h3></div>
+    <div class="type"><h3 id="type-request_peers_frequency">request_peers_frequency() = <a href="#type-timeout_in_ms" class="seealso">timeout_in_ms()</a></h3></div>
+    <div class="type"><h3 id="type-requests_queue_name">requests_queue_name() = <a href="#type-queue_name" class="seealso">queue_name()</a></h3></div>
+    <div class="type"><h3 id="type-timeout_in_ms">timeout_in_ms() = integer() &gt;= 1</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="all_config_atoms_ordered/0">all_config_atoms_ordered() -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all the configuration parameter keys as atoms in the order needed by make_vbisect_config/17.</p>
+</div></div>
+<div class="function">
+<h3 id="all_config_atoms_sorted/0">all_config_atoms_sorted() -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all the configuration parameter keys as atoms sorted alphabetically.</p>
+</div></div>
+<div class="function">
+<h3 id="all_config_bins/0">all_config_bins() -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all the configuration parameter keys as binaries.</p>
+</div></div>
+<div class="function">
+<h3 id="is_valid_config/1">is_valid_config(X1::config_type()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Verify that the configuration is a valid construct and has all the parameter attributes supported.</p>
+</div></div>
+<div class="function">
+<h3 id="is_valid_config_module/1">is_valid_config_module(Module::module()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Verify that a compiled module configuration has a function for every configuration parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="is_valid_config_vbisect/1">is_valid_config_vbisect(Bindict::bindict() (see module vbisect)) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Verify that a binary dictionary contains all the keys corresponding to configuration parameters.</p>
+</div></div>
+<div class="function">
+<h3 id="make_vbisect_config/1">make_vbisect_config(Enabled::boolean(), Lb_Queue_Name::lb_queue_name(), Buffering_Strategy::buffering() (see module elysium_connection), Audit_Ets_Name::audit_ets_name(), Connection_Queue_Name::connection_queue_name(), Requests_Queue_Name::requests_queue_name(), Request_Reply_Timeout::timeout_in_ms(), Host_List::host_list(), Connect_Timeout_Millis::timeout_in_ms(), Send_Timeout_Millis::timeout_in_ms(), Restart_Millis::timeout_in_ms(), Max_Connections::max_connections(), Max_Retries::max_retries(), Decay_Prob::decay_prob(), Seed_Node::cassandra_node(), Request_Peers_Frequency_Millis::request_peers_frequency(), Default_Port::port_number() (see module inet)) -&gt; {vbisect, bindict() (see module vbisect)}</h3>
+
+
+<div class="description">
+
+<p>
+    Construct a vbisect binary dictionary from individual configuration parameter values.
+    The resulting data structure may be passed as a configuration to any of the elysium functions.</p>
+</div></div>
+<div class="function">
+<h3 id="make_vbisect_config/1-1">make_vbisect_config(Config_Dictionary::proplist() (see module proplists)) -&gt; {vbisect, bindict() (see module vbisect)}</h3>
+
+
+<div class="description">
+
+<p>
+    Construct a vbisect binary dictionary from an entire set of app.config configuration parameters.
+    The resulting data structure may be passed as a configuration to any of the elysium functions.</p>
+</div></div>
+<div class="function">
+<h3 id="is_elysium_config_enabled/1">is_elysium_config_enabled(X1::config_type()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Determine if elysium is enabled.</p>
+</div></div>
+<div class="function">
+<h3 id="load_balancer_queue/1">load_balancer_queue(X1::config_type()) -&gt; lb_queue_name()</h3>
+
+
+<div class="description">
+
+<p>Get the configured name of the round-robin load balancer queue.</p>
+</div></div>
+<div class="function">
+<h3 id="connection_buffering_strategy/1">connection_buffering_strategy(X1::config_type()) -&gt; buffering() (see module elysium_connection)</h3>
+
+
+<div class="description">
+
+<p>Get the configured name of the buffering strategy.</p>
+</div></div>
+<div class="function">
+<h3 id="audit_ets_name/1">audit_ets_name(X1::config_type()) -&gt; audit_ets_name()</h3>
+
+
+<div class="description">
+
+<p>Get the configured name of the ets table used for auditing internals.</p>
+</div></div>
+<div class="function">
+<h3 id="session_queue_name/1">session_queue_name(X1::config_type()) -&gt; connection_queue_name()</h3>
+
+
+<div class="description">
+
+<p>Get the configured name of the live session queue.</p>
+</div></div>
+<div class="function">
+<h3 id="requests_queue_name/1">requests_queue_name(X1::config_type()) -&gt; requests_queue_name()</h3>
+
+
+<div class="description">
+
+<p>Get the configured name of the pending requests queue.</p>
+</div></div>
+<div class="function">
+<h3 id="request_reply_timeout/1">request_reply_timeout(X1::config_type()) -&gt; timeout_in_ms()</h3>
+
+
+<div class="description">
+
+<p>Get the time allowed for a pending query request to wait for a session before giving up.</p>
+</div></div>
+<div class="function">
+<h3 id="round_robin_hosts/1">round_robin_hosts(X1::config_type()) -&gt; host_list()</h3>
+
+
+<div class="description">
+
+<p>Get the configured set of cassandra nodes to contact.</p>
+</div></div>
+<div class="function">
+<h3 id="max_restart_delay/1">max_restart_delay(X1::config_type()) -&gt; timeout_in_ms()</h3>
+
+
+<div class="description">
+
+<p>
+    Get the maximum random delay on connection startup. This number of
+    milliseconds times the max_connections should not exceed the supervisor
+    timeout or you risk failing elysium_connection_sup on application
+    startup.</p>
+</div></div>
+<div class="function">
+<h3 id="connect_timeout/1">connect_timeout(X1::config_type()) -&gt; timeout_in_ms()</h3>
+
+
+<div class="description">
+
+<p>Get the time allowed for a cassandra connection before giving up.</p>
+</div></div>
+<div class="function">
+<h3 id="send_timeout/1">send_timeout(X1::config_type()) -&gt; timeout_in_ms()</h3>
+
+
+<div class="description">
+
+<p>Get the time allowed for sending a request to cassandra before giving up.</p>
+</div></div>
+<div class="function">
+<h3 id="session_max_count/1">session_max_count(X1::config_type()) -&gt; max_connections()</h3>
+
+
+<div class="description">
+
+<p>Get the maximum number of live sessions that can be open simultaneously.</p>
+</div></div>
+<div class="function">
+<h3 id="checkout_max_retry/1">checkout_max_retry(X1::config_type()) -&gt; max_retries()</h3>
+
+
+<div class="description">
+
+<p>Get the number of retries on transient failure when retrieving a live session from the queue.</p>
+</div></div>
+<div class="function">
+<h3 id="decay_probability/1">decay_probability(X1::config_type()) -&gt; decay_prob()</h3>
+
+
+<div class="description">
+
+<p>Get the number of chances in 1 Million that this session will be stochastically recycled before checkin.</p>
+</div></div>
+<div class="function">
+<h3 id="seed_node/1">seed_node(X1::config_type()) -&gt; cassandra_node()</h3>
+
+
+<div class="description">
+
+<p>Get the seed seestar node from where to retrieve the list of peers.</p>
+</div></div>
+<div class="function">
+<h3 id="request_peers_frequency/1">request_peers_frequency(X1::config_type()) -&gt; request_peers_frequency()</h3>
+
+
+<div class="description">
+
+<p>Get the time between consecutive seestar peers requests.</p>
+</div></div>
+<div class="function">
+<h3 id="default_port/1">default_port(X1::config_type()) -&gt; port_number() (see module inet)</h3>
+
+
+<div class="description">
+
+<p>Get the default port for elysium requests</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jay Nelson</aname>
+<email>jay@duomark.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

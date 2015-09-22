@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_dt_map (riak_dt) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_dt_map</h1>
+<h2 class="modsummary">a multi CRDT holder.</h2>
+<div class="description">
+<p>a multi CRDT holder. A Struct/Document-ish thing. Uses the
+  same tombstone-less, Observed Remove semantics as <code>riak_dt_orswot</code>.
+  A Map is set of <code>Field</code>s a <code>Field</code> is a two-tuple of:
+  <code>{Name::binary(), CRDTModule::module()}</code> where the second element
+  is the name of a crdt module that may be embedded. CRDTs stored
+  inside the Map will have their <code>update/3/4</code> function called, but the
+  second argument will be a <code>riak_dt:dot()</code>, so that they share the  
+causal context of the map, even when fields are removed, and  
+subsequently re-added.</p>
+ 
+  <p>The contents of the Map are modeled as a dictionary of
+  <code>field_name()</code> to <code>field_value()</code> mappings. Where <code>field_ name()</code>
+  is a two tuple of an opaque <code>binary()</code> name, and one of the
+  embeddable crdt types (currently <code>riak_dt_orswot</code>,
+  <code>riak_dt_emcntr</code>, <code>riak_dt_lwwreg</code>, <code>riak_dt_od_flag</code>, and
+  <code>riak_dt_map</code>). The reason for this limitation is that embedded
+  types must support embedding: that is a shared, <code>dot</code>-based, causal
+  context, and a reset-remove semantic (more on these below.)  The
+  <code>field_value()</code> is a two-tuple of <code>entries()</code> and a
+  <code>tombstone()</code>. The presence of a <code>tombstone()</code> in a "tombstoneless"
+  Map is confusing. The <code>tombstone()</code> is only stored for fields that  
+are currently in the map, removing a field also removes its  
+tombstone.</p>
+ 
+  <p>To use the Map create a <code>new()</code> Map. When you call <code>update/3</code> or
+  <code>update/4</code> you pass a list of operations and an optional causal
+  context. @See <code>update/3</code> or <code>update/4</code> for more details. The list  
+of operations is applied atomically in full, and new state  
+returned, or not at all, and an error is returned.</p>
+ 
+  <p><em>Semantics</em></p>
+ 
+  <p>The semantics of this Map are Observed-Remove-Reset-Remove. What  
+this means is practice is, if a field is removed, and concurrently  
+that same field is updated, the field is _in_ the Map (only  
+observed updates are removed) but those removes propagate, so only  
+the concurrent update survives. A concrete example helps: If a Map  
+contains a field that is a set, and the set has 5 elements in it,  
+and concurrently the replica at A removes the field that contains  
+the set, while the replica at B adds an item to the set, on merge  
+there is a field for the set, but it contains only the one item B  
+added. The removal of the field is semantically equivalent to  
+removing all elements in the set, and removing the field. The same  
+goes for an embedded Map. If concurrently a Map field is removed,  
+while a new sub-field is updated, only the updated field(s) survive  
+the reset-remove.</p>
+ 
+  <p>There is an anomaly for embedded counters that does not fully
+  support reset remove. Embedded counters (@see riak_dt_emcntr) are
+  different to a normal <code>pn-counter</code>. Embedded counters map <code>dot</code>s to
+  {P, N} pairs. When a counter is incremented a new dot is created,
+  that replaces the old dot with the new value. <code>pn-counter</code> usually
+  merges by taking the <code>max</code> of any <code>P</code> or <code>N</code> entry for an
+  actor. This does not work in an embedded context. When a counter
+  field is removed, and then _re_-added, the new <code>P</code> and <code>N</code> entries
+  may be lower than the old, and merging loses the remove
+  information. However, if a <code>dot</code> is stored with the value, and the
+  max of the <code>dot</code> is used in merge, new updates win over removed
+  updates. So far so good. Here is the problem. If Replica B removes
+  a counter field, and does not re-add it, and replica A concurrently
+  updates it's entry for that field, then the reset-remove does not
+  occur. All new dots are not <code>observed</code> by Replica B, so not
+  removed. The new <code>dots</code> contain the updates from the previous
+  <code>dots</code>, and the old <code>dot</code> is discarded. To achieve reset-remove all  
+increments would need a dot, and need to be retained, which would  
+be very costly in terms of space. One way to accept this anomaly is  
+to think of a Map like a file system: removing a directory and  
+concurrently adding a file means that the directory is present and  
+only the file remains in it. Updating a counter and concurrently  
+removing it, means the counter remains, with the updated value,  
+much like appending to a file in the file system analogy: you don't  
+expect only the diff to survive, but the whole updated file.</p>
+ 
+  <p><em>Merging/Size</em></p>
+ 
+  <p>When any pair of Maps are merged, the embedded CRDTs are _not_
+  merged, instead each concurrent <code>dot</code>-&gt;<code>field()</code> entry is
+  kept. This leads to a greater size for Maps that are highly
+  divergent. Updating a field in the map, however, leads to all
+  entries for that field being merged to a single CRDT that is stored
+  against the new <code>dot</code>. As mentioned above, there is also a
+  <code>tombstone</code> entry per present field. This is bottom CRDT for the
+  field type with a clock that contains all seen and removed
+  <code>dots</code>. There tombstones are merged at merge time, so only one is
+  present per field. Clearly the repetition of actor information (the
+  clock, each embedded CRDT, the field <code>dots</code>, the tombstones) is a
+  serious issue with regard to size/bloat of this data type. We use
+  erlang's <code>to_binary/2</code> function, which compresses the data, to get  
+around this at present.</p>
+ 
+  <p><em>Context and Deferred operations</em></p>
+ 
+  <p>For CRDTs that use version vectors and dots (this <code>Map</code> and all
+  CRDTs that may be embedded in it), the size of the CRDT is
+  influenced by the number of actors updating it. In some systems
+  (like Riak!) we attempt to minimize the number of actors by only
+  having the database update CRDTs. This leads to a kind of "action
+  at a distance", where a client sends operations to the database,
+  and an actor in the database system performs the operations. The
+  purpose is to ship minimal state between database and client, and
+  to limit the number of actors in the system. There is a problem
+  with action at a distance and the OR semantic. The client _must_ be
+  able to tell the database what has been observed when it sends a
+  remove operation. There is a further problem. A replica that
+  handles an operation may not have all the state the client
+  observed. We solve these two problems by asking the client to
+  provide a causal context for operations (@see <code>update/4</code>.) Context  
+operations solve the OR problem, but they don't solve the problem  
+of lagging replicas handling operations.</p>
+ 
+  <p><em>Lagging replicas, deferred operations</em></p>
+ 
+  <p>In a system like Riak, a replica that is not up-to-date (including,  
+never seen any state for a CRDT) maybe asked to perform an  
+operation. If no context is given, and the operation is a field  
+remove, or a "remove" like operation on an embedded CRDT, the  
+operation may fail with a precondition error (for example, remove a  
+field that is not present) or succeed and remove more state than  
+intended (a field remove with no context may remove updates unseen  
+by the client.) When a context is provided, and the Field to be  
+removed is absent, the Map state stores the context, and Field  
+name, in a list of deferred operations. When, eventually, through  
+propagation and merging, the Map's clock descends the context for  
+the operation, the operation is executed. It is important to note  
+that _only_ actorless (field remove) operations can occur this way.</p>
+ 
+  <p><em>Embedded CRDTs Deferred Operations</em></p>
+ 
+  <p>There is a bug with embedded types and deferred operations. Imagine
+  a client has seen a Map with a Set field, and the set contains {a,
+  b, c}. The client sends an operation to remove {a} from the set. A
+  replica that is new takes the operation. It will create a new Map,
+  a Field for the Set, and store the <code>remove` operation as part of
+  the Set</code>s state. A client reads this new state, and sends a field  
+remove operation, that is executed by same replica. Now the  
+deferred operation is lost, since the field is removed. We're  
+working on ways to fix this. One idea is to not remove a field with  
+"undelivered" operations, but instead to "hide" it.</p>
+ 
+  <p>See <url href="/home/pete/wefwefwef/docs/other/07c7f0a12eaafc8d6691ab6c3bae4fa9bf9c82cd/repo/rdb/smaller-map/.xml/riak_dt/./riak_dt_orswot.xml">riak_dt_orswot</url> for more on the OR semantic</p>
+ 
+  <p>See <url href="/home/pete/wefwefwef/docs/other/07c7f0a12eaafc8d6691ab6c3bae4fa9bf9c82cd/repo/rdb/smaller-map/.xml/riak_dt/./riak_dt_emcntr.xml">riak_dt_emcntr</url> for the embedded counter.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-any_map">any_map() = <a href="#type-riak_dt_map" class="seealso">riak_dt_map()</a> | <a href="#type-ord_map" class="seealso">ord_map()</a></h3></div>
+    <div class="type"><h3 id="type-binary_map">binary_map() = binary()</h3></div>
+    <div class="type"><h3 id="type-context">context() = <a href="riak_dt_vclock.html#type-vclock" class="seealso">riak_dt_vclock:vclock()</a> | undefined</h3></div>
+    <div class="type"><h3 id="type-crdt">crdt() = <a href="riak_dt_emcntr.html#type-emcntr" class="seealso">riak_dt_emcntr:emcntr()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_od_flag.html#type-od_flag" class="seealso">riak_dt_od_flag:od_flag()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_lwwreg.html#type-lwwreg" class="seealso">riak_dt_lwwreg:lwwreg()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_orswot.html#type-orswot" class="seealso">riak_dt_orswot:orswot()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_map.html#type-riak_dt_map" class="seealso">riak_dt_map:riak_dt_map()</a></h3></div>
+    <div class="type"><h3 id="type-crdt_mod">crdt_mod() = riak_dt_emcntr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_lwwreg<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_od_flag<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_map<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_orswot</h3></div>
+    <div class="type"><h3 id="type-crdt_op">crdt_op() = <a href="riak_dt_emcntr.html#type-emcntr_op" class="seealso">riak_dt_emcntr:emcntr_op()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_lwwreg.html#type-lwwreg_op" class="seealso">riak_dt_lwwreg:lwwreg_op()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_orswot.html#type-orswot_op" class="seealso">riak_dt_orswot:orswot_op()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_od_flag.html#type-od_flag_op" class="seealso">riak_dt_od_flag:od_flag_op()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_dt_map.html#type-map_op" class="seealso">riak_dt_map:map_op()</a></h3></div>
+    <div class="type"><h3 id="type-crdts">crdts() = [<a href="#type-entry" class="seealso">entry()</a>]</h3></div>
+    <div class="type"><h3 id="type-deferred">deferred() = <a href="#type-dict" class="seealso">dict</a>(<a href="#type-context" class="seealso">context()</a>, [<a href="#type-field" class="seealso">field()</a>])</h3></div>
+    <div class="type"><h3 id="type-dict">dict(_A, _B) = dict()</h3></div>
+    <div class="type"><h3 id="type-entries">entries() = <a href="#type-dict" class="seealso">dict</a>(<a href="#type-field_name" class="seealso">field_name()</a>, <a href="#type-field_value" class="seealso">field_value()</a>)</h3></div>
+    <div class="type"><h3 id="type-entry">entry() = {<a href="riak_dt.html#type-dot" class="seealso">riak_dt:dot()</a>, <a href="#type-crdt" class="seealso">crdt()</a>}</h3></div>
+    <div class="type"><h3 id="type-field">field() = {<a href="#type-field_name" class="seealso">field_name()</a>, <a href="#type-field_value" class="seealso">field_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-field_name">field_name() = {Name :: binary(), CRDTModule :: <a href="#type-crdt_mod" class="seealso">crdt_mod()</a>}</h3></div>
+    <div class="type"><h3 id="type-field_value">field_value() = {<a href="#type-crdts" class="seealso">crdts()</a>, <a href="#type-tombstone" class="seealso">tombstone()</a>}</h3></div>
+    <div class="type"><h3 id="type-map_field_op">map_field_op() = {remove, <a href="#type-field" class="seealso">field()</a>}</h3></div>
+    <div class="type"><h3 id="type-map_field_update">map_field_update() = {update, <a href="#type-field" class="seealso">field()</a>, <a href="#type-crdt_op" class="seealso">crdt_op()</a>}</h3></div>
+    <div class="type"><h3 id="type-map_op">map_op() = {update, [<a href="#type-map_field_update" class="seealso">map_field_update()</a> | <a href="#type-map_field_op" class="seealso">map_field_op()</a>]}</h3></div>
+    <div class="type"><h3 id="type-ord_map">ord_map() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="riak_dt_vclock.html#type-vclock" class="seealso">riak_dt_vclock:vclock()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>}</h3></div>
+    <div class="type"><h3 id="type-precondition_error">precondition_error() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, {precondition, {not_present, <a href="#type-field" class="seealso">field()</a>}}}</h3></div>
+    <div class="type"><h3 id="type-riak_dt_map">riak_dt_map() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="riak_dt_vclock.html#type-vclock" class="seealso">riak_dt_vclock:vclock()</a>, <a href="#type-entries" class="seealso">entries()</a>, <a href="#type-deferred" class="seealso">deferred()</a>}</h3></div>
+    <div class="type"><h3 id="type-tombstone">tombstone() = <a href="#type-crdt" class="seealso">crdt()</a></h3></div>
+    <div class="type"><h3 id="type-value">value() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-field" class="seealso">field()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="riak_dt_map.html#type-values" class="seealso">riak_dt_map:values()</a> |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[term()] |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean() |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;term()}</h3></div>
+    <div class="type"><h3 id="type-values">values() = [<a href="#type-value" class="seealso">value()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; riak_dt_map()</h3>
+
+
+<div class="description">
+
+<p>Create a new, empty Map.</p>
+</div></div>
+<div class="function">
+<h3 id="parent_clock/1">parent_clock(Clock::vclock() (see module riak_dt_vclock), Map::riak_dt_map()) -&gt; riak_dt_map()</h3>
+
+
+<div class="description">
+
+<p>sets the clock in the map to that <code>Clock</code>. Used by a
+  containing Map for sub-CRDTs</p>
+</div></div>
+<div class="function">
+<h3 id="value/1">value(Map::riak_dt_map()) -&gt; values()</h3>
+
+
+<div class="description">
+
+<p>get the current set of values for this Map</p>
+</div></div>
+<div class="function">
+<h3 id="value/1-1">value(X1::term(), Map::riak_dt_map()) -&gt; values()</h3>
+
+
+<div class="description">
+
+<p>query map (not implemented yet)</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Op::map_op(), ActorOrDot::actor() (see module riak_dt) | dot() (see module riak_dt), Map::riak_dt_map()) -&gt; {ok, riak_dt_map()} | precondition_error()</h3>
+
+
+<div class="description">
+
+<p>update the <code>riak_dt_map()</code> or a field in the <code>riak_dt_map()</code> by
+  executing the <code>map_op()</code>. <code>Ops</code> is a list of one or more of the  
+following ops:</p>
+ 
+  <p><code>{update, field(), Op} where `Op</code> is a valid update operation for a
+  CRDT of type <code>Mod</code> from the <code>Key</code> pair <code>{Name, Mod}</code> If there is no
+  local value for <code>Key</code> a new CRDT is created, the operation applied  
+and the result inserted otherwise, the operation is applied to the  
+local value.</p>
+ 
+   <p><code>{remove, `field()</code>}' where field is <code>{name, type}</code>, results in
+   the crdt at <code>field</code> and the key and value being removed. A
+   concurrent <code>update</code> will "win" over a remove so that the field is   
+still present, and it's value will contain the concurrent update.</p>
+ 
+  <p>Atomic, all of <code>Ops</code> are performed successfully, or none are.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1-1">update(Op::map_op(), ActorOrDot::actor() (see module riak_dt) | dot() (see module riak_dt), Map::riak_dt_map(), Ctx::context() (see module riak_dt)) -&gt; {ok, riak_dt_map()}</h3>
+
+
+<div class="description">
+
+<p>the same as <code>update/3</code> except that the context ensures no
+  unseen field updates are removed, and removal of unseen updates is
+  deferred. The Context is passed down as the context for any nested
+  types. hence the common clock.
+ </p>
+<p><em>See also:</em> <a href="#parent_clock/2" class="seealso">parent_clock/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(LHS::riak_dt_map(), RHS::riak_dt_map()) -&gt; riak_dt_map()</h3>
+
+
+<div class="description">
+
+<p>merge two <code>riak_dt_map()</code>s.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1">equal(LHS::riak_dt_map(), RHS::riak_dt_map()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>compare two <code>riak_dt_map()</code>s for equality of structure Both
+  schemas and value list must be equal. Performs a pariwise equals for
+  all values in the value lists</p>
+</div></div>
+<div class="function">
+<h3 id="precondition_context/1">precondition_context(X1::riak_dt_map()) -&gt; context() (see module riak_dt)</h3>
+
+
+<div class="description">
+
+<p>an opaque context that can be passed to <code>update/4</code> to ensure
+  that only seen fields are removed. If a field removal operation has
+  a context that the Map has not seen, it will be deferred until
+  causally relevant.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(Map::riak_dt_map()) -&gt; [{atom(), integer()}]</h3>
+
+
+<div class="description">
+
+<p>stats on internal state of Map.
+  A proplist of <code>{StatName :: atom(), Value :: integer()}</code>. Stats exposed are:
+  <code>actor_count</code>: The number of actors in the clock for the Map.
+  <code>field_count</code>: The total number of fields in the Map (including divergent field entries).
+  <code>duplication</code>: The number of duplicate entries in the Map across all fields.
+                 basically <code>field_count</code> - ( unique fields)
+  <code>deferred_length</code>: How many operations on the deferred list, a reasonable expression
+                    of lag/staleness.</p>
+</div></div>
+<div class="function">
+<h3 id="stat/1">stat(Stat::atom(), Map::riak_dt_map()) -&gt; number() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(Map::riak_dt_map()) -&gt; binary_map()</h3>
+
+
+<div class="description">
+
+<p>returns a binary representation of the provided <code>riak_dt_map()</code>.
+  The resulting binary is tagged and versioned for ease of future
+  upgrade. Calling <code>from_binary/1</code> with the result of this function
+  will return the original map.  Use the application env var
+  <code>binary_compression</code> to turn t2b compression on (<code>true</code>) and off
+  (<code>false</code>)
+ </p>
+<p><em>See also:</em> <a href="#from_binary/1" class="seealso">from_binary/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_version/1">to_version(X1::pos_integer(), Map::any_map()) -&gt; any_map()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="from_binary/1">from_binary(B::binary_map()) -&gt; {ok, riak_dt_map()} | {error, unsupported_version, Vers::pos_integer()} | {error, invalid_binary}</h3>
+
+
+<div class="description">
+
+<p>When the argument is a <code>binary_map()</code> produced by
+  <code>to_binary/1</code> will return the original <code>riak_dt_map()</code>.
+ </p>
+<p><em>See also:</em> <a href="#to_binary/1" class="seealso">to_binary/1</a>.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

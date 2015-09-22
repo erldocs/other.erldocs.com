@@ -1,0 +1,1 @@
+var index = [['app','exemel','exemel','[application]'],['mod','exemel','exemel',[]],['mod','exemel','exemel_conv',[]],['mod','exemel','exemel_encoding',[]],['fun','exemel','exemel:prepare/1',[]],['fun','exemel','exemel:start/0',[]],['fun','exemel','exemel_conv:convert/2',[]],['fun','exemel','exemel_encoding:detect/1',[]],['fun','exemel','exemel_encoding:detect/2',[]]];

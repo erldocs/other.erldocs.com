@@ -1,0 +1,1 @@
+var index = [['app','redis-api','redis-api','[application]'],['mod','redis-api','database',[]],['fun','redis-api','database:get_key/1',[]],['fun','redis-api','database:init/1',[]],['fun','redis-api','database:set_key/2',[]],['fun','redis-api','database:start/0',[]],['fun','redis-api','database:stop/0',[]],['fun','redis-api','database:test/0',[]]];

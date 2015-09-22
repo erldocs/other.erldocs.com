@@ -1,0 +1,1 @@
+var index = [['app','mtwist-erlang','mtwist-erlang','[application]'],['mod','mtwist-erlang','mtwist',[]],['fun','mtwist-erlang','mtwist:free/1',[]],['fun','mtwist-erlang','mtwist:new/1',[]],['fun','mtwist-erlang','mtwist:rand/1',[]],['fun','mtwist-erlang','mtwist:seed/1',[]],['fun','mtwist-erlang','mtwist:uniform/0',[]],['fun','mtwist-erlang','mtwist:uniform/1',[]]];

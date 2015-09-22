@@ -1,0 +1,1 @@
+var index = [['app','erl_coap','erl_coap','[application]'],['mod','erl_coap','coap_client',[]],['mod','erl_coap','pdu',[]],['fun','erl_coap','coap_client:get/2',[]],['fun','erl_coap','pdu:get_content/1',[]],['fun','erl_coap','pdu:init/0',[]],['fun','erl_coap','pdu:make_pdu/5',[]]];

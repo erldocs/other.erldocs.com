@@ -1,0 +1,1 @@
+var index = [['app','lifestreamer','lifestreamer','[application]'],['mod','lifestreamer','lifestreamer_app_controller',[]],['fun','lifestreamer','lifestreamer_app_controller:hook/1',[]]];

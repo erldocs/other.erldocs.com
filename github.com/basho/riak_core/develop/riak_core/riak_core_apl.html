@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_core_apl (riak_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_core_apl</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-chashbin">chashbin() = term()</h3></div>
+    <div class="type"><h3 id="type-docidx">docidx() = <a href="chash.html#type-index" class="seealso">chash:index()</a></h3></div>
+    <div class="type"><h3 id="type-index">index() = <a href="chash.html#type-index_as_int" class="seealso">chash:index_as_int()</a></h3></div>
+    <div class="type"><h3 id="type-n_val">n_val() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-preflist">preflist() = [{<a href="#type-index" class="seealso">index()</a>, node()}]</h3></div>
+    <div class="type"><h3 id="type-preflist_ann">preflist_ann() = [{{<a href="#type-index" class="seealso">index()</a>, node()}, primary | fallback}]</h3></div>
+    <div class="type"><h3 id="type-preflist_with_pnum_ann">preflist_with_pnum_ann() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{{<a href="riak_core_ring.html#type-partition_id" class="seealso">riak_core_ring:partition_id()</a>, node()}, primary | fallback}]</h3></div>
+    <div class="type"><h3 id="type-ring">ring() = <a href="riak_core_ring.html#type-riak_core_ring" class="seealso">riak_core_ring:riak_core_ring()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="active_owners/1">active_owners(Service::atom()) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+
+<p>Return preflist of all active primary nodes (with no
+       substituion of fallbacks).  Used to simulate a
+       preflist with N=ring_size.</p>
+</div></div>
+<div class="function">
+<h3 id="active_owners/1-1">active_owners(Ring::ring(), UpNodes::[node()]) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_apl/1">get_apl(DocIdx::docidx(), N::n_val(), Service::atom()) -&gt; preflist()</h3>
+
+
+<div class="description">
+
+<p>Get the active preflist taking account of which nodes are up.</p>
+</div></div>
+<div class="function">
+<h3 id="get_apl/1-1">get_apl(DocIdx::docidx(), N::n_val(), Ring::ring(), UpNodes::[node()]) -&gt; preflist()</h3>
+
+
+<div class="description">
+
+<p>Get the active preflist taking account of which nodes are up
+       for a given ring/upnodes list.</p>
+</div></div>
+<div class="function">
+<h3 id="get_apl_ann/3">get_apl_ann(DocIdx, N, UpNodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get the active preflist taking account of which nodes are up for a given
+       chash/upnodes list and annotate each node with type of primary/fallback.</p>
+</div></div>
+<div class="function">
+<h3 id="get_apl_ann/1">get_apl_ann(DocIdx::binary(), N::n_val(), Ring::ring(), UpNodes::[node()]) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+
+<p>Get the active preflist taking account of which nodes are up
+       for a given ring/upnodes list and annotate each node with type of
+       primary/fallback.</p>
+</div></div>
+<div class="function">
+<h3 id="get_apl_ann/1-1">get_apl_ann(X1::bucket() (see module riak_core_bucket), UpNodes::[node()]) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+
+<p>Get the active preflist for a given {bucket, key} and list of nodes
+       and annotate each node with type of primary/fallback.</p>
+</div></div>
+<div class="function">
+<h3 id="get_apl_ann_with_pnum/1">get_apl_ann_with_pnum(BKey::bucket() (see module riak_core_bucket)) -&gt; preflist_with_pnum_ann()</h3>
+
+
+<div class="description">
+
+<p>Get the active preflist taking account of which nodes are up
+       for a given {bucket, key} and annotate each node with type of
+       primary/fallback</p>
+</div></div>
+<div class="function">
+<h3 id="get_primary_apl/1">get_primary_apl(DocIdx::binary(), N::n_val(), Service::atom()) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+
+<p>Same as get_apl, but returns only the primaries.</p>
+</div></div>
+<div class="function">
+<h3 id="get_primary_apl_chbin/1">get_primary_apl_chbin(DocIdx::binary(), N::n_val(), CHBin::chashbin(), UpNodes::[node()]) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+
+<p>Same as get_apl, but returns only the primaries.</p>
+</div></div>
+<div class="function">
+<h3 id="get_primary_apl/1-1">get_primary_apl(DocIdx::binary(), N::n_val(), Ring::ring(), UpNodes::[node()]) -&gt; preflist_ann()</h3>
+
+
+<div class="description">
+
+<p>Same as get_apl, but returns only the primaries.</p>
+</div></div>
+<div class="function">
+<h3 id="first_up/2">first_up(DocIdx, Service) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the first entry that is up in the preflist for <code>DocIdx</code>. This
+       will crash if all owning nodes are offline.</p>
+</div></div>
+<div class="function">
+<h3 id="offline_owners/1">offline_owners(Service) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="offline_owners/2">offline_owners(Service, CHBin) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

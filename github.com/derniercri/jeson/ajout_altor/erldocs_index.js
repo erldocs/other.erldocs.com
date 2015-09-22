@@ -1,0 +1,1 @@
+var index = [['app','jeson','jeson','[application]'],['mod','jeson','coers',[]],['fun','jeson','coers:is_string/1',[]],['fun','jeson','coers:of_string/1',[]],['fun','jeson','coers:to_atom/1',[]],['fun','jeson','coers:to_float/1',[]],['fun','jeson','coers:to_int/1',[]],['fun','jeson','coers:to_string/1',[]]];

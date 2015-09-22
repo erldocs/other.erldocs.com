@@ -1,0 +1,1 @@
+var index = [['app','rebar_riak_test','rebar_riak_test','[application]'],['mod','rebar_riak_test','riak_test.intercept',[]],['fun','rebar_riak_test','riak_test.intercept:add/1','Add intercepts against the Target module.']];

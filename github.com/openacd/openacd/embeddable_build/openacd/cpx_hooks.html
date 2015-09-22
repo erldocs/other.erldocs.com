@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cpx_hooks (openacd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cpx_hooks</h1>
+<h2 class="modsummary">Manager for plugins to OpenACD.</h2>
+<div class="description">
+<p>Manager for plugins to OpenACD.  Sometimes it is useful for OpenACD  
+to be able to get information from other sources, or to allow other  
+sources to provide some information when a particular event occurs.  
+This module allows callback functions to be set when certain events  
+occur.  See the documentation of other modules to see what hooks they  
+trigger, what arguments they send, and the mode they use.</p>
+ 
+  <p>Plugins may also trigger hooks, though it is ill-advised to trigger  
+system hooks, or hooks defined by other plugins.</p>
+ 
+  <p>When a hook is triggered, the arguments for a callback are appended to  
+the arugments passed in when the hook was triggered.  Thus, the arity of  
+the callback function must be equal to the length of the trigger's  
+arguments plus the length of the hook's arguments.</p>
+ 
+  <p>Hooks are called in order of priority going from lowest number to  
+highest.</p>
+ 
+  <p>A hook can be triggered in one oftwo modes:  first or all.  If a hook is
+  triggered in 'first' mode, the first callback to return <code>{ok, Term}</code>
+  stops other hooks from being called, and <code>{ok, Term}</code> is returned.  If
+  no callback returns <code>{ok, Term}</code>, <code>{error, not_handled}</code> is returned.
+  In 'all' mode, each callback that returns <code>{ok, Term}</code> is collected in
+  a list, and <code>{ok, [Term]}</code> is returned.</p>
+ 
+  <p>If a callback errors, it is removed from the list no matter which mode
+  the hook was triggered in.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Creates the hooks ets table.</p>
+</div></div>
+<div class="function">
+<h3 id="set_hook/1">set_hook(Id::any(), Hook::atom(), X3::{M::atom(), F::atom(), A::[any()]}) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Add a new hook to the trigger event <code>Hook</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_hook/1-1">set_hook(Id::any(), Hook::atom(), M::atom(), F::atom(), A::[any()], Priority::integer()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Add a new hook to the trigger event <code>Hook</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_hook/1">drop_hook(Id::any()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Remove a hook from being triggered.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_hooks/1">drop_hooks(Hook::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_hooks/1">get_hooks(Hook::atom()) -&gt; [{Id::any(), M::atom(), F::atom(), A::[any()], Priority::integer()}]</h3>
+
+
+<div class="description">
+
+<p>Get all hooks to the trigger event Hook.</p>
+</div></div>
+<div class="function">
+<h3 id="trigger_hooks/1">trigger_hooks(Hook::atom(), Args::[any()]) -&gt; {ok, any()} | {error, not_handled}</h3>
+
+
+<div class="description">
+
+<p>Begin calling the callbacks for trigger event <code>Hook</code> in the <code>first</code>
+  mode.</p>
+</div></div>
+<div class="function">
+<h3 id="trigger_hooks/1-1">trigger_hooks(Hook::atom(), Args::[any()], StopWhen::first | all) -&gt; {ok, any()} | {error, not_handled}</h3>
+
+
+<div class="description">
+
+<p>Begin calling the callbacks for trigger event <code>Hook</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="async_trigger_hooks/1">async_trigger_hooks(Hook::atom(), Args::[any()]) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Trigger hooks asynchronously, thus ignoring the results.  This
+  goes through all the hooks.</p>
+</div></div>
+<div class="function">
+<h3 id="async_trigger_hooks/1-1">async_trigger_hooks(Hook::atom(), Args::[any()], StopWhen::first | all) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Trigger hooks asynchronsouly.  Ignores the result.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

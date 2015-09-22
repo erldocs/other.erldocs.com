@@ -1,0 +1,1 @@
+var index = [['app','graph','graph','[application]'],['mod','graph','dijkstra',[]],['mod','graph','merge_sort',[]],['fun','graph','dijkstra:all_distances/1',[]],['fun','graph','dijkstra:path/1',[]],['fun','graph','dijkstra:path/1',[]],['fun','graph','dijkstra:test_graph/0',[]],['fun','graph','merge_sort:merge/1',[]],['fun','graph','merge_sort:sort/1',[]]];

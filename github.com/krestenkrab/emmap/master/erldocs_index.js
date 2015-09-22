@@ -1,0 +1,1 @@
+var index = [['app','emmap','emmap','[application]'],['mod','emmap','emmap',[]],['fun','emmap','emmap:close/1',[]],['fun','emmap','emmap:open/1',[]],['fun','emmap','emmap:open/2',[]],['fun','emmap','emmap:position/1',[]],['fun','emmap','emmap:pread/1',[]],['fun','emmap','emmap:pwrite/1',[]],['fun','emmap','emmap:read/1',[]],['fun','emmap','emmap:read_line/1',[]]];

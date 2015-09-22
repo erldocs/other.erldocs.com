@@ -1,0 +1,1 @@
+var index = [['app','slisw','slisw','[application]'],['mod','slisw','day1',[]],['mod','slisw','day2',[]],['fun','slisw','day1:count_to/1',[]],['fun','slisw','day1:count_words/1',[]],['fun','slisw','day1:message/1',[]],['fun','slisw','day2:task_one/2',[]],['fun','slisw','day2:task_three/1',[]],['fun','slisw','day2:task_two/1',[]]];

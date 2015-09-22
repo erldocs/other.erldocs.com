@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>savegames (disco) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>savegames</h1>
+<h2 class="modsummary">Utility functions for saving and loading the game state to/from disk.</h2>
+<div class="description">
+<p>Utility functions for saving and loading the game state to/from disk.<br />
+  Savegame files are created with <a href="#autosave/1" class="seealso">autosave/1</a> or <a href="#save_state/2" class="seealso">save_state/2</a>.
+  To load a savegame, the file should be read with <a href="file.html#consult/1" class="seealso">file:consult/1</a>,
+  contents validated with <a href="#validate/3" class="seealso">validate/3</a> and applied with <a href="#apply/2" class="seealso">apply/2</a>.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-problem">problem() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Description :: string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Specification :: string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AnswerTime :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StartState :: string()}</h3></div>
+    <div class="type"><h3 id="type-score_mode">score_mode() = raw | normalized | ranked</h3></div>
+    <div class="type"><h3 id="type-worker_dict">worker_dict() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="dict.html#type-dict" class="seealso">dict:dict</a>(<a href="#type-worker_id" class="seealso">worker_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#worker{name = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_proposition = string() | none,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_prop_score = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_prop_processed_score = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last_prop_caption = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;problem_score = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;working = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ranking_group = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blocked = no | {idx, integer() >= 0}})</h3></div>
+    <div class="type"><h3 id="type-worker_id">worker_id() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="autosave/1">autosave(State::#state{config=#config{problems=[problem()], worker_call_timeout=non_neg_integer(), score_mode=score_mode()}, workers=worker_dict(), problem_idx=non_neg_integer(), round=non_neg_integer(), problem_state=string(), worker_input=[string()]}) -&gt; {ok, filename() (see module file)} | {error, posix() (see module file)} | disabled</h3>
+
+
+<div class="description">
+
+<p>Creates a new savegame file with an auto-generated name.<br />
+  The files are created in the path specified by the env value 'autosave_dir'.</p>
+</div></div>
+<div class="function">
+<h3 id="save_state/1">save_state(FilePath::filename() (see module file), State::#state{config=#config{problems=[problem()], worker_call_timeout=non_neg_integer(), score_mode=score_mode()}, workers=worker_dict(), problem_idx=non_neg_integer(), round=non_neg_integer(), problem_state=string(), worker_input=[string()]}) -&gt; ok | {error, posix() (see module file)}</h3>
+
+
+<div class="description">
+
+<p>Creates a new savegame file at the specified location.</p>
+</div></div>
+<div class="function">
+<h3 id="validate/1">validate(SaveGame::term(), OldProblems::[problem()], OldScoreMode::score_mode(), WorkerIDs::[worker_id()]) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Validates the contents of a savegame file against the current configuration.</p>
+</div></div>
+<div class="function">
+<h3 id="apply/1">apply(Savegame::term(), State::#state{config=#config{problems=[problem()], worker_call_timeout=non_neg_integer(), score_mode=score_mode()}, workers=worker_dict(), problem_idx=non_neg_integer(), round=non_neg_integer(), problem_state=string(), worker_input=[string()]}) -&gt; #state{config=#config{problems=[problem()], worker_call_timeout=non_neg_integer(), score_mode=score_mode()}, workers=worker_dict(), problem_idx=non_neg_integer(), round=non_neg_integer(), problem_state=string(), worker_input=[string()]}</h3>
+
+
+<div class="description">
+
+<p>Applies a savegame to the current game state.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>squeue_codel (sbroker) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>squeue_codel</h1>
+<h2 class="modsummary">Implements CoDel based roughly on Controlling Queue Delay, see  
+reference.</h2>
+<div class="description">
+<p>Implements CoDel based roughly on Controlling Queue Delay, see  
+reference.</p>
+ 
+  <p><code>squeue_codel</code> can be used as the active queue management module in a
+  <code>squeue</code> queue. It's arguments are of the form <code>{Target, Interval}</code>, with
+  <code>Target</code>, <code>non_neg_integer()</code>, the target sojourn time of an item in the
+  queue and <code>Interval</code>, <code>pos_integer()</code>, the initial interval between drops  
+once the queue becomes slow.</p>
+ 
+  <p>This implementation differs from the reference as enqueue and other functions
+  can detect a slow queue and drop items. However once a slow item has been
+  detected only <code>out</code> can detect the queue becoming fast again - unless <code>out_r</code>
+  is used on an empty queue. This means that it is possible to drop items
+  without calling <code>out</code> but it is not possible to stop dropping unless an <code>out</code>
+  dequeues an item below target sojourn time or a dequeue attempt is
+  made on an empty queue. Therefore if <code>out</code> is not called for an extended
+  period the queue will converge to dropping all items above the target sojourn
+  time (once a single item has a sojourn time above target). Whereas with the
+  reference implementation no items would be dropped.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

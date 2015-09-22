@@ -1,0 +1,1 @@
+var index = [['app','maybe','maybe','[application]'],['mod','maybe','maybe',[]],['fun','maybe','maybe:bind/1',[]],['fun','maybe','maybe:cat_maybes/1',[]],['fun','maybe','maybe:do/1',[]],['fun','maybe','maybe:fmap/1',[]],['fun','maybe','maybe:fmap/1',[]],['fun','maybe','maybe:just/1',[]],['fun','maybe','maybe:nothing/0',[]],['fun','maybe','maybe:return/1',[]]];

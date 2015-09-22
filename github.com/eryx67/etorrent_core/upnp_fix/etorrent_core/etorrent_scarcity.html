@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_scarcity (etorrent_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_scarcity</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-pieceset">pieceset() = <a href="etorrent_pieceset.html#type-t" class="seealso">etorrent_pieceset:t()</a></h3></div>
+    <div class="type"><h3 id="type-timeserver">timeserver() = <a href="etorrent_timer.html#type-timeserver" class="seealso">etorrent_timer:timeserver()</a></h3></div>
+    <div class="type"><h3 id="type-torrent_id">torrent_id() = <a href="etorrent_types.html#type-torrent_id" class="seealso">etorrent_types:torrent_id()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="register_server/1">register_server(TorrentID::torrent_id()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Register as the scarcity server for a torrent</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_server/1">lookup_server(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Lookup the scarcity server for a torrent</p>
+</div></div>
+<div class="function">
+<h3 id="await_server/1">await_server(TorrentID::torrent_id()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Wait for the scarcity server of a torrent to register</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(TorrentID::torrent_id(), Numpieces::pos_integer()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start a scarcity server
+  The server will always register itself as the scarcity
+  server for the given torrent as soon as it has started.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(TorrentID::torrent_id(), Timeserver::timeserver(), Numpieces::pos_integer()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_peer/1">add_peer(TorrentID::torrent_id(), Pieceset::pieceset()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Register as a peer
+  Calling this function will register the current process
+  as a peer under the given torrent. The peer must provide
+  an initial set of pieces to the server in order to relieve
+  the server from handling peers crashing before providing one.</p>
+</div></div>
+<div class="function">
+<h3 id="add_piece/1">add_piece(TorrentID::torrent_id(), Index::pos_integer(), Pieceset::pieceset()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add this peer as the provider of a piece
+  Add this peer as the provider of a piece and send an updated
+  version of the piece set to the server.</p>
+</div></div>
+<div class="function">
+<h3 id="get_order/1">get_order(TorrentID::torrent_id(), Pieceset::pieceset()) -&gt; {ok, [pos_integer()]}</h3>
+
+
+<div class="description">
+
+<p>Get a list of pieces ordered by scarcity
+  The returned list will only contain pieces that are also members
+  of the piece set. If two pieces are equally scarce the piece index
+  is used to rank the pieces.</p>
+</div></div>
+<div class="function">
+<h3 id="watch/1">watch(TorrentID::torrent_id(), Tag::term(), Pieceset::pieceset()) -&gt; {ok, reference(), [pos_integer()]}</h3>
+
+
+<div class="description">
+
+<p>Receive updates to changes in scarcity
+ </p>
+</div></div>
+<div class="function">
+<h3 id="unwatch/1">unwatch(TorrentID::torrent_id(), Ref::reference()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Cancel updates to changes in scarcity
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

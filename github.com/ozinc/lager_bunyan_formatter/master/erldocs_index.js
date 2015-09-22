@@ -1,0 +1,1 @@
+var index = [['app','lager_bunyan_formatter','lager_bunyan_formatter','[application]'],['mod','lager_bunyan_formatter','lager_bunyan_formatter',[]],['fun','lager_bunyan_formatter','lager_bunyan_formatter:format/2',[]],['fun','lager_bunyan_formatter','lager_bunyan_formatter:format/3',[]]];

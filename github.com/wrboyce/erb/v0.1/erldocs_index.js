@@ -1,0 +1,1 @@
+var index = [['app','erb','erb','[application]'],['mod','erb','erb_application','Erb Application  --------------------------------'],['fun','erb','erb_application:start/2','This function is called whenever an application  '],['fun','erb','erb_application:stop/1','This function is called whenever an application  ']];

@@ -1,0 +1,1 @@
+var index = [['app','rebar_vsn_plugin','rebar_vsn_plugin','[application]'],['mod','rebar_vsn_plugin','rebar_vsn_plugin','   This module provides a reasonable way to get d'],['fun','rebar_vsn_plugin','rebar_vsn_plugin:make_vsn/0',[]],['fun','rebar_vsn_plugin','rebar_vsn_plugin:post_compile/2',[]]];

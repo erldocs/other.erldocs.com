@@ -1,0 +1,1 @@
+var index = [['app','funs','funs','[application]'],['mod','funs','pfuns',[]],['mod','funs','pfuns_tests',[]],['fun','funs','pfuns:bmark/1',[]],['fun','funs','pfuns:pany/2',[]],['fun','funs','pfuns:pfilter/2',[]],['fun','funs','pfuns:pmap/2',[]]];

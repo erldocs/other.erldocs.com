@@ -1,0 +1,1 @@
+var index = [['app','erlang','erlang','[application]'],['mod','erlang','eightqueen',[]],['mod','erlang','eightqueenimprove',[]],['mod','erlang','geturl',[]],['mod','erlang','iniutil',[]],['mod','erlang','itertool',[]],['fun','erlang','eightqueen:start/0',[]],['fun','erlang','eightqueenimprove:start/0',[]]];

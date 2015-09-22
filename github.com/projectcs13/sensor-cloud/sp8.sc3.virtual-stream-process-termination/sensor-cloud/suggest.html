@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>suggest (sensor-cloud) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>suggest</h1>
+<h2 class="modsummary">Module for creating, updating and retrieving suggestions.</h2>
+<div class="description">
+<p><em><marker id="Module_for_creating,_updating_and_retrieving_suggestions">Module for creating, updating and retrieving suggestions</marker></em>
+</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-attr">attr() = atom() | string()</h3></div>
+    <div class="type"><h3 id="type-field">field() = json_string() | mochijson()</h3></div>
+    <div class="type"><h3 id="type-json">json() = <a href="#type-json_string" class="seealso">json_string()</a> | <a href="#type-mochijson" class="seealso">mochijson()</a></h3></div>
+    <div class="type"><h3 id="type-json_input_value">json_input_value() = atom() | binary() | integer() | string() | json() | [json()]</h3></div>
+    <div class="type"><h3 id="type-json_output_value">json_output_value() = integer() | string() | json_string() | [json_output_value()]</h3></div>
+    <div class="type"><h3 id="type-json_string">json_string() = string()</h3></div>
+    <div class="type"><h3 id="type-mochijson">mochijson() = tuple()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; {ok, undefined}</h3>
+
+
+<div class="description">
+
+<p>
+  Init function used to fetch path information from webmachine dispatcher.</p>
+</div></div>
+<div class="function">
+<h3 id="allowed_methods/1">allowed_methods(ReqData::term(), State::term()) -&gt; {list(), term(), term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Define what methods are allowed one the given URI's. It is called automatically by webmachine</p>
+</div></div>
+<div class="function">
+<h3 id="content_types_provided/1">content_types_provided(ReqData::term(), State::term()) -&gt; {list(), term(), term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Based on the Accept header on a 'GET' request, we provide different media types to the client.
+  A code 406 is returned to the client if we cannot return the media-type that the user has requested.</p>
+</div></div>
+<div class="function">
+<h3 id="get_suggestion/1">get_suggestion(ReqData::term(), State::term()) -&gt; {boolean(), term(), term()}</h3>
+
+
+<div class="description">
+
+<p>  
+Handles suggestion request.</p>
+ 
+  <p>Case 1:  
+Handles GET requests for suggestions by giving the term.(model). It returns only one suggestion,  
+the one with the highest score.</p>
+ 
+  <p>Example URL: localhost:8000/suggest/my_model</p>
+ 
+  <p>Case 2:  
+Handles GET request for text autocompletion.</p>
+ 
+  <p>Example URL: localhost:8000/suggest/my_field/my_text?size=5</p>
+ 
+  <p>Case 3:  
+Handles GET requests for phrase_suggestion/auto_completion</p>
+ 
+  <p>Example URL: localhost:8000/suggest/_search?query=test
+  This will try to find completion suggestions for the query "test"</p>
+</div></div>
+<div class="function">
+<h3 id="add_suggestion/1">add_suggestion(Resource::json(), RsourceId::binary()) -&gt; ok | {error, no_model}</h3>
+
+
+<div class="description">
+
+<p>
+  Creates a suggestion using a resource. This new suggestion contains only the metadata from the resource
+  like manufacturer, tags, polling_frequency. It is expected to be updated with information about the
+  streams when new streams are created for that resource.</p>
+</div></div>
+<div class="function">
+<h3 id="add_resource_suggestion_fields/1">add_resource_suggestion_fields(Resource) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  When inserting or updating a resource, it generates the suggest fields</p>
+</div></div>
+<div class="function">
+<h3 id="add_stream_suggestion_fields/1">add_stream_suggestion_fields(Stream) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>
+  When inserting or updating a stream, it generates the suggest fields</p>
+</div></div>
+<div class="function">
+<h3 id="update_suggestion/1">update_suggestion(Stream::json()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Updates the suggestion to include information from the new stream. This way we can later
+  on autocomplete the number of streams for that resource, along with some more information
+  about each stream.</p>
+</div></div>
+<div class="function">
+<h3 id="update_resource/1">update_resource(Resource::json(), ResourceId::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Updates the suggestion to reflect the changes that has been done in a resource.</p>
+</div></div>
+<div class="function">
+<h3 id="update_stream/1">update_stream(Stream::json(), StreamId::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Updates the suggestion to reflect the changes that has been done in a stream.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Tommy Mattsson, Georgios Koutsoumpakis</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

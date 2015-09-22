@@ -1,0 +1,1 @@
+var index = [['app','resource','resource','[application]'],['mod','resource','resource','      Resource event.'],['fun','resource','resource:notify_when_destroyed/2',[]]];

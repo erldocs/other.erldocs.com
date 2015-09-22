@@ -1,0 +1,1 @@
+var index = [['app','luminik','luminik','[application]'],['mod','luminik','nitrogen_init',[]],['mod','luminik','nitrogen_yaws',[]],['fun','luminik','nitrogen_init:init/0',[]],['fun','luminik','nitrogen_yaws:out/1',[]]];

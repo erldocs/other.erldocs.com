@@ -1,0 +1,1 @@
+var index = [['app','erlang-intervals','erlang-intervals','[application]'],['mod','erlang-intervals','intervals_split',[]],['fun','erlang-intervals','intervals_split:split/1','Splits a continuous interval in X roughly equally-']];

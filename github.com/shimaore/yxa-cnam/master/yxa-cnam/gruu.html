@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gruu (yxa-cnam) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gruu</h1>
+<h2 class="modsummary">     Code for Globally Routable User Agent (UA) URIs (GRUU),
+             based on draft-ietf-sip-gruu-06 and then updated with
+             regards to the changes in draft-ietf-sip-gruu-07.</h2>
+<div class="description">
+<p>     Code for Globally Routable User Agent (UA) URIs (GRUU),
+             based on draft-ietf-sip-gruu-06 and then updated with
+             regards to the changes in draft-ietf-sip-gruu-07.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="generate_gruu/2">generate_gruu(SipUser, InstanceId) -&gt; GRUU</h3>
+
+<ul class="type">
+<li><code>SipUser = string()</code></li><li><code>InstanceId = string()</code></li><li><code>GRUU = string()</code></li></ul>
+<div class="description">
+
+<p>    Generate a new GRUU.</p>
+</div></div>
+<div class="function">
+<h3 id="create_if_not_exists/2">create_if_not_exists(SipUser, InstanceId) -&gt; {ok, GRUU}</h3>
+
+<ul class="type">
+<li><code>SipUser = string()</code></li><li><code>InstanceId = string()</code></li><li><code>GRUU = string()</code></li></ul>
+<div class="description">
+
+<p>    Update last registration time on an existing User+Instance
+           combination, or create a new GRUU for the User+Instance
+           combination if it hasn't been registered before.</p>
+</div></div>
+<div class="function">
+<h3 id="get_contact_for_gruu/1">get_contact_for_gruu(GRUUstr) -&gt; nomatch | {ok, User, none} | {ok, User, SingleContact}</h3>
+
+<ul class="type">
+<li><code>GRUUstr = string()</code></li><li><code>SingleContact = #siplocationdb_e{}</code></li></ul>
+<div class="description">
+
+<p>    Fetch the contact for a GRUU from the location database</p>
+</div></div>
+<div class="function">
+<h3 id="make_url/4">make_url(SipUser, InstanceId, GRUU, ToHeader) -&gt; URL</h3>
+
+<ul class="type">
+<li><code>SipUser = string()</code></li><li><code>InstanceId = string()</code></li><li><code>GRUU = string() | #gruu{}</code></li><li><code>ToHeader = string()</code></li><li><code>URL = #sipurl{}</code></li></ul>
+<div class="description">
+
+<p>    Make a SIP/SIPS URL out of a GRUU.</p>
+</div></div>
+<div class="function">
+<h3 id="is_gruu_url/1">is_gruu_url(URL) -&gt; {true, GRUU} | false</h3>
+
+<ul class="type">
+<li><code>URL = #sipurl{}</code></li><li><code>GRUU = string()</code></li></ul>
+<div class="description">
+
+<p>    Check if a URL could be a GRUU we have generated. Does NOT
+           check in the database to see if there is such a GRUU.
+           NOTE : Only call this on a URL matching 'homedomain'.</p>
+</div></div>
+<div class="function">
+<h3 id="extract/2">extract(X1::Field, E::GRUU_DBE) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Field = gruu | sipuser | instance_id | created | last_registered | flags</code></li><li><code>GRUU_DBE = #gruu_dbe{}</code></li></ul>
+<div class="description">
+
+<p>    Extract data from our private gruu_dbe record.</p>
+</div></div>
+<div class="function">
+<h3 id="prepare_contact/2">prepare_contact(Contact, URI) -&gt; NewURI</h3>
+
+<ul class="type">
+<li><code>Contact = #contact{}</code></li><li><code>URI = #sipurl{}</code></li><li><code>NewURI = #sipurl{}</code></li></ul>
+<div class="description">
+
+<p>    Copy any 'grid' parameter from Request-URI to contact URI</p>
+</div></div></div>
+
+<authors>
+
+<aname>Fredrik Thulin</aname>
+<email>ft@it.su.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

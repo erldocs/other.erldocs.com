@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>z_module_manager (zotonic) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>z_module_manager</h1>
+<h2 class="modsummary">Module supervisor.</h2>
+<div class="description">
+<p>Module supervisor. Uses a z_supervisor.  Starts/restarts module processes.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-wm_dict">wm_dict() = dict()</h3></div>
+    <div class="type"><h3 id="type-wm_gb_tree">wm_gb_tree() = gb_tree()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(SiteProps::proplist()) -&gt; {ok, Pid} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Starts the module manager</p>
+</div></div>
+<div class="function">
+<h3 id="upgrade/1">upgrade(Context::#context{}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Reload the list of all modules, add processes if necessary.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/2">deactivate(Module, Context::#context{}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deactivate a module. The module is marked as deactivated and stopped when it was running.</p>
+</div></div>
+<div class="function">
+<h3 id="activate/2">activate(Module, Context::#context{}) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>Activate a module. The module is marked as active and started as a child of the module z_supervisor.
+  The module manager can be checked later to see if the module started or not.</p>
+</div></div>
+<div class="function">
+<h3 id="restart/2">restart(Module, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Restart a module, activates the module if it was not activated.</p>
+</div></div>
+<div class="function">
+<h3 id="module_reloaded/2">module_reloaded(Module, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check all observers of a module, ensure that they are all active. Used after a module has been reloaded</p>
+</div></div>
+<div class="function">
+<h3 id="active/1">active(Context::#context{}) -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Return the list of active modules.</p>
+</div></div>
+<div class="function">
+<h3 id="active/1-1">active(Module::atom(), Context::#context{host=atom(), wm_reqdata=#wm_reqdata{socket=any(), metadata=wm_dict(), range=any(), peer=ip_address() (see module inet), bodyfetch=any(), log_data=any(), method=undefined | method() (see module wrq), scheme=undefined | scheme() (see module wrq), version=undefined | version() (see module wrq), disp_path=any(), path=undefined | string(), raw_path=undefined | string(), path_info=undefined | wm_dict(), path_tokens=undefined | [string()], app_root=undefined | string(), response_code=undefined | pos_integer(), max_recv_body=undefined | pos_integer(), req_cookie=undefined | string(), req_qs=undefined | string(), req_headers=undefined | wm_gb_tree(), req_body=any(), resp_redirect=undefined | boolean(), resp_headers=any(), resp_content_encoding=undefined | string(), resp_transfer_encoding=undefined | {string(), function()}, resp_content_type=undefined | string(), resp_chosen_charset=undefined | string(), resp_body=undefined | any(), is_range_ok=boolean(), host_tokens=undefined | [string()], port=undefined | port_number() (see module inet), cache=list()} | undefined, controller_module=atom(), session_pid=pid() | undefined, session_id=string() | undefined, page_pid=pid() | undefined, page_id=string() | undefined, ua_class=device_type() (see module ua_classifier) | undefined, depcache=any(), notifier=any(), session_manager=any(), dispatcher=any(), template_server=any(), scomp_server=any(), dropbox_server=any(), pivot_server=any(), module_indexer=any(), translation_table=any(), dbc=pid() | undefined, db={pid(), atom()} | undefined, language=atom(), tz=string() | binary(), acl=any(), user_id=integer() | undefined, updates=any(), actions=any(), content_scripts=any(), scripts=any(), wire=any(), validators=any(), render=any(), props=any()}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return whether a specific module is active.</p>
+</div></div>
+<div class="function">
+<h3 id="active_dir/1">active_dir(Context::#context{}) -&gt; [{atom, Dir}]</h3>
+
+
+<div class="description">
+
+<p>Return the list of all active modules and their directories</p>
+</div></div>
+<div class="function">
+<h3 id="get_modules/1">get_modules(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the list of all modules running.</p>
+</div></div>
+<div class="function">
+<h3 id="get_provided/1">get_provided(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the list of all provided functionalities in running modules.</p>
+</div></div>
+<div class="function">
+<h3 id="get_modules_status/1">get_modules_status(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the status of all running modules.</p>
+</div></div>
+<div class="function">
+<h3 id="whereis/2">whereis(Module, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the pid of a running module</p>
+</div></div>
+<div class="function">
+<h3 id="all/1">all(Context::#context{}) -&gt; [atom()]</h3>
+
+
+<div class="description">
+
+<p>Return the list of all modules in the database.</p>
+</div></div>
+<div class="function">
+<h3 id="scan/1">scan(Context::#context{}) -&gt; [{atom(), dirname()}]</h3>
+
+
+<div class="description">
+
+<p>Scan for a list of modules present in the site's module directories. A module is always a directory,
+  the name of the directory is the same as the name of the module.</p>
+</div></div>
+<div class="function">
+<h3 id="prio/1">prio(Module) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return the priority of a module. Default priority is 500, lower is higher priority.
+  Never crash on a missing module.</p>
+</div></div>
+<div class="function">
+<h3 id="prio_sort/1">prio_sort(ModuleProps::proplist()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Sort the results of a scan on module priority first, module name next.
+  The list is made up of {module, Values} tuples</p>
+</div></div>
+<div class="function">
+<h3 id="dependency_sort/1">dependency_sort(Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Sort all modules on their dependencies (with sub sort the module's priority)</p>
+</div></div>
+<div class="function">
+<h3 id="dependencies/1">dependencies(M) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a module's dependencies as a tuple usable for z_toposort:sort/1.</p>
+</div></div>
+<div class="function">
+<h3 id="startable/2">startable(M, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="module_exists/1">module_exists(M) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Check if the code of a module exists. The database can hold module references to non-existing modules.</p>
+</div></div>
+<div class="function">
+<h3 id="title/1">title(M) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get the title of a module.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args) -&gt; {ok, State} | {ok, State, Timeout} | ignore | {stop, Reason}</h3>
+
+
+<div class="description">
+
+<p>Initiates the server.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Message::Request, From, State) -&gt; {reply, Reply, State} | {reply, Reply, State, Timeout} | {noreply, State} | {noreply, State, Timeout} | {stop, Reason, Reply, State} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Return a list of all enabled modules managed by the z_supervisor</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Message::Msg, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Sync enabled modules with loaded modules</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; {noreply, State} | {noreply, State, Timeout} | {stop, Reason, State}</h3>
+
+
+<div class="description">
+
+<p>Handling all non call/cast messages</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; void()</h3>
+
+
+<div class="description">
+
+<p>This function is called by a gen_server when it is about to
+  terminate. It should be the opposite of Module:init/1 and do any necessary
+  cleaning up. When it returns, the gen_server terminates with Reason.
+  The return value is ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; {ok, NewState}</h3>
+
+
+<div class="description">
+
+<p>Convert process state when code is changed</p>
+</div></div>
+<div class="function">
+<h3 id="reinstall/2">reinstall(Module, Context) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Reinstall the given module's schema, calling
+  Module:manage_schema(install, Context); if that function exists.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Marc Worrell</aname>
+<email>marc@worrell.nl</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

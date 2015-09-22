@@ -1,0 +1,1 @@
+var index = [['app','exudp_client','exudp_client','[application]'],['mod','exudp_client','ec_app',[]],['mod','exudp_client','ec_sup',[]],['fun','exudp_client','ec_app:start/2',[]],['fun','exudp_client','ec_app:stop/1',[]],['fun','exudp_client','ec_sup:init/1',[]],['fun','exudp_client','ec_sup:start_link/0',[]]];

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erltunnel (erltunnel) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erltunnel</h1>
+<h2 class="modsummary">HTTP tunnel client and server for tunneling TCP connections over HTTP.</h2>
+<div class="description">
+<p>HTTP tunnel client and server for tunneling TCP connections over HTTP</p>
+  
+   Erltunnel allows client applications to establish a virtual TCP connection
+   to a remote server when directly connecting the server is not allowed due to
+   a restrictive firewall.
+   The tunnel client runs behind the firewall and is accessed by the client application
+   whereas the tunnel server must reside on the internet to be able to access the server
+   application. The tunnel server must be accessible from the tunnel client and must
+   not be blocked by an intermediate proxy.
+   If a virtual connection between the client and server application is established
+   via the tunnel client and server, all application data is transported as HTTP requests
+   and responses between the tunnel client and server.
+   The tunnel client sends data received from the client as an HTTP request to the
+   tunnel server which relays the data to the server application.
+   Conversely, the tunnel server sends data received from the server application as
+   the related HTTP response back to the tunnel client which relays the data to the
+   client application. Thus, tunneling a bidirectional TCP data stream is performed
+   by periodic HTTP request/response cycles.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-addr">addr() = {ip(), integer()}</h3></div>
+    <div class="type"><h3 id="type-ip">ip() = string() | {integer(), integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-logType">logType() = info | warn | error</h3></div>
+    <div class="type"><h3 id="type-proxyOpt">proxyOpt() = noProxy | addr() | {addr(), {string(), string()}}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_server/1">start_server(Name::atom(), ListenPort::integer()) -&gt; Result::term()</h3>
+
+
+<div class="description">
+
+<p>Starts a tunnel server locally registered as Name at the local port ListenPort.
+       For the return value see gen_server:start/4.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link_server/1">start_link_server(Name::atom(), ListenPort::integer()) -&gt; Result::term()</h3>
+
+
+<div class="description">
+
+<p>Same as start_server/2 where the gen_server is linked to the calling process.
+       For the return value see gen_server:start_link/4.</p>
+</div></div>
+<div class="function">
+<h3 id="start_client/1">start_client(Name::atom(), ListenPort::integer(), ServerAddr::addr(), ProxyOpt::proxyOpt()) -&gt; Result::term()</h3>
+
+
+<div class="description">
+
+<p>Starts a tunnel client locally registered as Name at the local port ListenPort.
+       The tunnel server address is specified by ServerAddr and an optional
+       proxy server by ProxyOpt.
+       For the return value see gen_server:start/4.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link_client/1">start_link_client(Name::atom(), ListenPort::integer(), ServerAddr::addr(), ProxyOpt::proxyOpt()) -&gt; Result::term()</h3>
+
+
+<div class="description">
+
+<p>Same as start_client where the gen_server is linked to the calling process.
+       For the return value see gen_server:start_link/4.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Name::atom()) -&gt; stopped_by_user</h3>
+
+
+<div class="description">
+
+<p>Stops the specified client or server.</p>
+</div></div>
+<div class="function">
+<h3 id="list/1">list(Name::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Prints a list of all active tunnel connections of the specified client or server.</p>
+</div></div>
+<div class="function">
+<h3 id="logtype/1">logtype(Name::atom(), Type::logType()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the logging type. Any log information of a type equal or higher than Type
+       will be printed at standard IO.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Christoph Dornheim</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

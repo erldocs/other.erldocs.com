@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bitcask (bitcask) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bitcask</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bc_state">bc_state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open/1">open(Dirname::string()) -&gt; reference() | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Open a new or existing bitcask datastore for read-only access.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(Dirname::string(), Opts::[term()]) -&gt; reference() | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Open a new or existing bitcask datastore with additional options.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Ref::reference()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close a bitcask data store and flush any pending writes to disk.</p>
+</div></div>
+<div class="function">
+<h3 id="close_write_file/1">close_write_file(Ref) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Close the currently active writing file; mostly for testing purposes</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Ref::reference(), Key::binary()) -&gt; not_found | {ok, Value::binary()} | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve a value by key from a bitcask datastore.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(Ref::reference(), Key::binary(), Value::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Store a key and value in a bitcase datastore.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Ref::reference(), Key::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Delete a key from a bitcask datastore.</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1">sync(Ref::reference()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Force any writes to sync to disk.</p>
+</div></div>
+<div class="function">
+<h3 id="list_keys/1">list_keys(Ref::reference()) -&gt; [Key::binary()] | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>List all keys in a bitcask datastore.</p>
+</div></div>
+<div class="function">
+<h3 id="fold_keys/1">fold_keys(Ref::reference(), Fun::function(), Acc::term()) -&gt; term() | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Fold over all keys in a bitcask datastore.
+  Must be able to understand the bitcask_entry record form.</p>
+</div></div>
+<div class="function">
+<h3 id="fold_keys/1-1">fold_keys(Ref::reference(), Fun::function(), Acc::term(), MaxAge::non_neg_integer() | undefined, MaxPut::non_neg_integer() | undefined) -&gt; term() | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Fold over all keys in a bitcask datastore with limits on how out of date
+       the keydir is allowed to be.
+  Must be able to understand the bitcask_entry record form.</p>
+</div></div>
+<div class="function">
+<h3 id="fold/1">fold(Ref::reference() | record(), Fun::(binary(), binary(), any()) -&gt; any(), Acc0::any()) -&gt; any() | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>fold over all K/V pairs in a bitcask datastore.
+  Fun is expected to take F(K,V,Acc0) -&gt; Acc</p>
+</div></div>
+<div class="function">
+<h3 id="fold/1-1">fold(Ref::reference() | record(), Fun::(binary(), binary(), any()) -&gt; any(), Acc0::any(), MaxAge::non_neg_integer() | undefined, MaxPut::non_neg_integer() | undefined) -&gt; any() | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>fold over all K/V pairs in a bitcask datastore specifying max age/updates of
+  the frozen keystore.
+  Fun is expected to take F(K,V,Acc0) -&gt; Acc</p>
+</div></div>
+<div class="function">
+<h3 id="iterator/1">iterator(Ref::reference(), MaxAge::integer(), MaxPuts::integer()) -&gt; ok | out_of_date | {error, iteration_in_process}</h3>
+
+
+<div class="description">
+
+<p>Start entry iterator</p>
+</div></div>
+<div class="function">
+<h3 id="iterator_next/1">iterator_next(Ref::reference()) -&gt; #bitcask_entry{key=undefined | binary(), file_id=undefined | integer(), total_sz=undefined | integer(), offset=undefined | integer() | binary(), tstamp=undefined | integer()} | {error, iteration_not_started} | allocation_error | not_found</h3>
+
+
+<div class="description">
+
+<p>Get next entry from the iterator</p>
+</div></div>
+<div class="function">
+<h3 id="iterator_release/1">iterator_release(Ref::reference()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Release iterator</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(Dirname::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Merge several data files within a bitcask datastore
+       into a more compact form.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1-1">merge(Dirname::string(), Opts::[term()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Merge several data files within a bitcask datastore
+       into a more compact form.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1-2">merge(Dirname::string(), Opts::[term()], FilesToMerge::[string()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Merge several data files within a bitcask datastore
+       into a more compact form.</p>
+</div></div>
+<div class="function">
+<h3 id="needs_merge/1">needs_merge(Ref::reference()) -&gt; {true, [string()]} | false</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_empty_estimate/1">is_empty_estimate(Ref::reference()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status/1">status(Ref::reference()) -&gt; {integer(), [{string(), integer(), integer(), integer()}]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_opt/2">get_opt(Key, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_filestate/2">get_filestate(FileId, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="has_setuid_bit/1">has_setuid_bit(File) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

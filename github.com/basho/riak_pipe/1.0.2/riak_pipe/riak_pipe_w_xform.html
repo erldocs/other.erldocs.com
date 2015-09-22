@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_pipe_w_xform (riak_pipe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_pipe_w_xform</h1>
+<h2 class="modsummary">Alter an input, and send the alteration as output.</h2>
+<div class="description">
+<p>Alter an input, and send the alteration as output.  For each
+       input, the fitting evaluates a function (passed as the fitting
+       argument).  That function should accept three parameters:
+ </p><taglist><dt>
+       <code>Input</code> :: term()
+ </dt><item><p>
+       Whatever the upstream fitting has sent.
+ </p></item><dt>
+       <code>Partition</code> :: riak_pipe_vnode:partition()
+ </dt><item><p>
+       The partition of the vnode on which this worker is running.
+       Necessary for logging and sending output.
+ </p></item><dt>
+       <code>FittingDetails</code> :: #fitting_details{}
+ </dt><item><p>
+       The details for the fitting.  Also necessary for logging and
+       sending output.
+ </p></item></taglist><p>
+ 
+       The function should use <code>Partition</code> and <code>FittingDetails</code> along
+       with <a href="riak_pipe_vnode_worker.html#send_output/3" class="seealso">riak_pipe_vnode_worker:send_output/3</a> to send
+       whatever outputs it likes (this allows the fitting to be used
+       as "filter" as well as "map").</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Partition::partition() (see module riak_pipe_vnode), FittingDetails::details() (see module riak_pipe_fitting)) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Init just stashes the <code>Partition</code> and <code>FittingDetails</code> for later.</p>
+</div></div>
+<div class="function">
+<h3 id="process/1">process(Input::term(), Last::boolean(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Process evaluates the fitting's argument function.</p>
+</div></div>
+<div class="function">
+<h3 id="done/1">done(State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_arg/1">validate_arg(Fun::term()) -&gt; ok | {error, iolist()}</h3>
+
+
+<div class="description">
+
+<p>Check that the argument is a valid function of arity 3.  See
+       <a href="#riak_pipe_v_validate_function/3" class="seealso">riak_pipe_v_validate_function/3</a>.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

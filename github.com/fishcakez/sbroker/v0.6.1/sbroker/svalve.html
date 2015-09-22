@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>svalve (sbroker) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>svalve</h1>
+<h2 class="modsummary">
+  This module provides sojourn-time based active queue management using
+  squeue, with a feedback loop that dequeues items based on the sojourn times  
+of items in another queue.</h2>
+<div class="description">
+<p>
+  This module provides sojourn-time based active queue management using
+  <code>squeue</code>, with a feedback loop that dequeues items based on the sojourn times  
+of items in another queue.</p>
+ 
+  <p><code>new/0</code> and <code>new/1</code> create a new <code>svalve</code> with the default feedback loop
+  <code>svalve_naive</code> using an empty <code>squeue</code> managed by <code>squeue_naive</code>.
+  <code>svalve_naive</code> will never trigger a dequeue due to a signal.<code>new/2</code> and
+  <code>new/3</code> create a new <code>svalve</code> with a custom feedback loop, such as
+  <code>svalve_codel_r</code>, using an empty <code>squeue</code> managed by <code>squeue_naive</code>.</p>
+ 
+  <p>The underlying <code>squeue</code> queue can be retrieved and replaced with <code>squeue/1</code>
+  and <code>squeue/2</code>. <code>sojourn/2,3,4</code> signal the feedback loop to dequeue from the
+  head of the queue. <code>dropped/1,2,3</code> signal a drop and can also result in a
+  dequeue from the head. Alternatively <code>sojourn_r/2,3,4</code> and <code>dropped_r/1,2,3</code>  
+are used to dequeue from the tail.</p>
+ 
+  <p>To close the valve <code>close/1</code>, and prevent <code>sojourn/2,3,4</code>,
+  <code>sojourn_r/2,3,4,</code>, <code>dropped/1,2,3</code> and <code>dropped_r/1,2,3</code> from dequeuing
+  items. To open the valve <code>open/1</code>, and allow items to be dequeued by the  
+feedback loop.</p>
+ 
+  <p>All other functions are equivalent to those of the same name and arity in
+  <code>squeue</code>.</p>
+ 
+  <p><code>svalve</code> includes 3 feedback loop algorithms: <code>svalve_naive</code>,
+  <code>svalve_timeout</code> and <code>svalve_codel_r</code>.</p>
+ 
+  <p>A custom queue management algorithm must implement the <code>svalve</code> behaviour.
+  The first callback is <code>init/2</code>:
+  </p><pre class="sh_erlang">  -callback init(Time :: integer(), Args :: any()) -&gt; State :: any().</pre><p>
+  <code>Time</code> is the time of the feedback loop, which may be less than the time of
+  the squeue. It is <code>0</code> for <code>new/2,3</code>. <code>Time</code> can be positive or negative. All  
+other callbacks will receive the current time of queue as the first argument.  
+It is monotonically increasing, so subsequent calls will use the same or a  
+greater time.</p>
+ 
+  <p><code>Args</code> is the last argument passed to <code>new/2</code> or <code>new/3</code>. It can be any term.</p>
+ 
+  <p>The feedback loop is called for every signal sent to the queue and should
+  either dequeue an item with <code>squeue:out/1</code> or <code>squeue:out_r/1</code>, or apply
+  active queue management with <code>squeue:timeout/1</code>. As the <code>squeue</code> uses a  
+different time the other variants should not be used.</p>
+ 
+  <p>When the valve is open and a sojourn is signaled to dequeue from the head
+  using <code>sojourn/2,3,4</code> the callback function is <code>handle_sojourn/4</code>:
+  </p><pre class="sh_erlang">  -callback handle_sojourn(Time ::integer(),
+                           SojournTime :: non_neg_integer(),
+                           S :: squeue:squeue(Item), State :: any()) -&gt;
+      {empty | closed | {ItemSojournTime :: non_neg_integer(), Item},
+       Drops :: [{DropSojournTime :: non_neg_integer(), Item}],
+       NS :: squeue:squeue(Item), NState :: any()}.</pre><p>
+  <code>SojournTime</code> is the time an item spent in another queue. <code>S</code> is the internal
+  <code>squeue</code> and <code>NS</code> is that <code>squeue</code> after dropping items and dequeuing (or  
+not) an item.</p>
+ 
+  <p><code>closed</code> means the feedback loop is closed. <code>empty</code> means the feedback loop
+  is open and would have dequeued an item if the queue was not empty.
+  <code>{ItemSojournTime, Item}</code> is the item and its sojourn time from the head of
+  the queue as returned by <code>squeue:out/1</code>.</p>
+ 
+  <p><code>State</code> is the state of the callback module, and <code>NState</code> is the new state  
+after handling the signal.</p>
+ 
+  <p><code>Drops</code> is a list of dropped items returned by <code>squeue:out/1</code> or
+  <code>squeue:timeout/1</code>.</p>
+ 
+  <p>Similarly when the valve is open and a sojourn is signalled to dequeue from
+  the tail using <code>sojourn_r/2,3,4</code> the callback function is
+  <code>handle_sojourn_r/4</code>:
+  </p><pre class="sh_erlang">  -callback handle_sojourn_r(Time ::integer(),
+                             SojournTime :: non_neg_integer(),
+                             S :: squeue:squeue(Item), State :: any()) -&gt;
+      {empty | closed | {ItemSojournTime :: non_neg_integer(), Item},
+       Drops :: [{DropSojournTime :: non_neg_integer(), Item}],
+       NS :: squeue:squeue(Item), NState :: any()}.</pre><p>
+  This callback should behave the same as <code>handle_sojourn/4</code> except use
+  <code>squeue:out_r/1</code> instead of <code>squeue:out/1</code>.</p>
+ 
+  <p>When the valve is closed and a sojourn is signalled using either
+  <code>sojourn/2,3,4</code> or <code>sojourn_r/2,3,4</code> the callback function is
+  <code>handle_sojourn_closed/4</code>:
+  </p><pre class="sh_erlang">  -callback handle_sojourn_closed(Time ::integer(),
+                                  SojournTime :: non_neg_integer(),
+                                  S :: squeue:squeue(Item), State :: any()) -&gt;
+      {closed, Drops :: [{DropSojournTime :: non_neg_integer(), Item}],
+       NS :: squeue:squeue(Item), NState :: any()}.</pre><p>
+  As the valve is closed no items should be dequeued and active queue
+  management should be applied using <code>squeue:timeout/1</code>.</p>
+ 
+  <p>Similarly when a drop is signalled, using <code>dropped/1,2,3</code> and
+  <code>dropped_r/1,2,3</code>, except there is no <code>SojournTime</code> argument:
+  </p><pre class="sh_erlang">  -callback handle_dropped(Time ::integer(),
+                           S :: squeue:squeue(Item), State :: any()) -&gt;
+      {empty | closed | {ItemSojournTime :: non_neg_integer(), Item},
+       Drops :: [{DropSojournTime :: non_neg_integer(), Item}],
+       NS :: squeue:squeue(Item), NState :: any()}.
+  -callback handle_dropped_r(Time ::integer(),
+                             S :: squeue:squeue(Item), State :: any()) -&gt;
+      {empty | closed | {ItemSojournTime :: non_neg_integer(), Item},
+       Drops :: [{DropSojournTime :: non_neg_integer(), Item}],
+       NS :: squeue:squeue(Item), NState :: any()}.
+  -callback handle_dropped_closed(Time ::integer(),
+                                  S :: squeue:squeue(Item), State :: any()) -&gt;
+      {closed, Drops :: [{DropSojournTime :: non_neg_integer(), Item}],
+       NS :: squeue:squeue(Item), NState :: any()}.</pre><p>
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-svalve">svalve() = <a href="#type-svalve" class="seealso">svalve</a>(any())</h3></div>
+    <div class="type"><h3 id="type-svalve">svalve() = <a href="#type-svalve" class="seealso">svalve</a>(any())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; V</h3>
+
+<ul class="type">
+<li><code>V = svalve()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#new/3" class="seealso">new(0, svalve_naive, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(Time) -&gt; V</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#new/3" class="seealso">new(Time, svalve_naive, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2">new(Module, Args) -&gt; V</h3>
+
+<ul class="type">
+<li><code>Module = module()</code></li><li><code>Args = any()</code></li><li><code>V = svalve()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#new/3" class="seealso">new(0, Module, Args)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/3">new(Time, Module, Args) -&gt; V</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>Module = module()</code></li><li><code>Args = any()</code></li><li><code>V = svalve()</code></li></ul>
+<div class="description">
+
+<p>Returns an empty queue, <code>V</code>, with the <code>Module</code> feedback loop started
+  with arguments <code>Args</code>, using an <code>squeue</code> managed by <code>squeue_naive</code> and time
+  of <code>Time</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#new/3" class="seealso">squeue:new/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="is_queue/1">is_queue(Term) -&gt; Bool</h3>
+
+<ul class="type">
+<li><code>Term = any()</code></li><li><code>Bool = boolean()</code></li></ul>
+<div class="description">
+
+<p>Tests if a term, <code>Term</code>, is an <code>svalve</code> queue, returns <code>true</code> if is,
+  otherwise <code>false</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#is_queue/1" class="seealso">squeue:is_queue/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="len/1">len(V) -&gt; Len</h3>
+
+<ul class="type">
+<li><code>V = svalve()</code></li><li><code>Len = non_neg_integer()</code></li></ul>
+<div class="description">
+
+<p>Returns the length of the queue, <code>V</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#len/1" class="seealso">squeue:len/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="in/2">in(Item, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Drops = [{SojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#in/4" class="seealso">in(time(V), time(V), Item, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="in/3">in(Time, Item, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{SojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#in/4" class="seealso">in(Time, Time, Item, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="in/4">in(Time, InTime, Item, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>InTime = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{SojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code> and inserts the item, <code>Item</code>,
+  with time <code>InTime</code> at the tail of queue, <code>V</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#in/4" class="seealso">squeue:in/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="out/1">out(V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Result = empty | {SojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#out/2" class="seealso">out(time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="out/2">out(Time, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | {SojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code> and removes the item, <code>Item</code>,
+  from the head of queue, <code>V</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#out/2" class="seealso">squeue:out/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="out_r/1">out_r(V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Result = empty | {SojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#out_r/2" class="seealso">out_r(time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="out_r/2">out_r(Time, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | {SojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code> and removes the item, <code>Item</code>,
+  from the tail of queue, <code>V</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#out/2" class="seealso">squeue:out/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="drop/1">drop(V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#drop/2" class="seealso">drop(time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="drop/2">drop(Time, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code> and drops items, <code>Drops</code>, from
+  the queue.</p>
+<p><em>See also:</em> <a href="squeue.html#drop/2" class="seealso">squeue:drop/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_r/1">drop_r(V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#drop_r/2" class="seealso">drop_r(time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_r/2">drop_r(Time, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code> and drops items, <code>Drops</code>, from
+  the queue.</p>
+<p><em>See also:</em> <a href="squeue.html#drop_r/2" class="seealso">squeue:drop_r/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(V) -&gt; List</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>List = [Item]</code></li></ul>
+<div class="description">
+
+<p>Returns a list of items, <code>List</code>, in the queue, <code>V</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#to_list/1" class="seealso">squeue:to_list/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="join/2">join(V1, V2) -&gt; NV</h3>
+
+<ul class="type">
+<li><code>V1 = svalve(Item)</code></li><li><code>V2 = svalve(Item)</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Joins two queues, <code>V1</code> and <code>V2</code>, into one queue, <code>VS</code>, with the items in
+  <code>V1</code> at the head and the items in <code>V2</code> at the tail.</p>
+<p><em>See also:</em> <a href="squeue.html#join/2" class="seealso">squeue:join/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/2">filter(Filter, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Filter = (Item) -&gt; Bool::boolean() | [Item]</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#filter/3" class="seealso">filter(time(V), Filter, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/3">filter(Time, Filter, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>Filter = (Item) -&gt; Bool::boolean() | [Item]</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code>  and applies a filter fun,
+  <code>Filter</code>, to all items in the queue.</p>
+<p><em>See also:</em> <a href="squeue.html#filter/3" class="seealso">squeue:filter/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="time/1">time(V) -&gt; Time</h3>
+
+<ul class="type">
+<li><code>V = svalve()</code></li><li><code>Time = integer()</code></li></ul>
+<div class="description">
+
+<p>Returns the current time, <code>Time</code>, of the queue, <code>V</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#time/1" class="seealso">squeue:time/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="time/2">time(Time, V) -&gt; NV</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code>, without applying active queue
+  management.</p>
+<p><em>See also:</em> <a href="squeue.html#time/2" class="seealso">squeue:time/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="timeout/1">timeout(V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#timeout/2" class="seealso">timeout(time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="timeout/2">timeout(Time, V) -&gt; {Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advances the queue, <code>V</code>, to time <code>Time</code>.</p>
+<p><em>See also:</em> <a href="squeue.html#timeout/2" class="seealso">squeue:timeout/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="squeue/1">squeue(V) -&gt; S</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>S = squeue(Item) (see module squeue)</code></li></ul>
+<div class="description">
+
+<p>Get the internal <code>squeue</code> inside the queue, <code>V</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="squeue/2">squeue(S, V) -&gt; NV</h3>
+
+<ul class="type">
+<li><code>S = squeue(Item) (see module squeue)</code></li><li><code>V = svalve()</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Replace the internal <code>squeue</code> inside the queue, <code>V</code>.</p>
+ 
+  <p>This function raises the error <code>badarg</code> if the current time of the new
+  squeue, <code>S</code>, does not have the same time as the queue, <code>V</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(V) -&gt; NV</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Enable the feedback loop to dequeue items from queue, <code>V</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(V) -&gt; NV</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Disable the feedback loop from dequeuing items from queue, <code>V</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="sojourn/2">sojourn(SojournTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>SojournTime = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#sojourn/4" class="seealso">sojourn(time(V), time(V), SojournTime, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="sojourn/3">sojourn(Time, SojournTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>SojournTime = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#sojourn/4" class="seealso">sojourn(Time, Time, SojournTime, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="sojourn/4">sojourn(Time, OutTime, SojournTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>OutTime = integer()</code></li><li><code>SojournTime = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advance time of the queue, <code>V</code>, to <code>Time</code> and signal the sojourn time,
+  <code>SojournTime</code>, at time <code>OutTime</code> of another queue to trigger a dequeue from
+  the head of the queue, <code>V</code>. Returns <code>{Result, Drops, NS}</code>, where <code>Result</code>
+  is <code>closed</code> if the feedback loop is closed, <code>empty</code> if the feedback loop is
+  open but the queue is empty and <code>{SojournTime, Item}</code> if <code>Item</code> is dequeued
+  from the head of the queue. <code>SojournTime</code> is the time length of time <code>Item</code>
+  spent in the queue. <code>Drops</code> is the list of dropped items and their sojourn
+  times, and <code>NS</code> is the resulting queue without the removed and dropped items.</p>
+ 
+  <p>If <code>OutTime</code> is less than the last time a sojourn time or drop was signalled  
+to the feedback loop, the sojourn time is signalled with the same time as the  
+last signal. This time may be before the current time of the queue.</p>
+ 
+  <p>This function raises the error <code>badarg</code> if <code>OutTime</code> is greater than <code>Time</code>.
+  This function raises the error <code>badarg</code> if <code>Time</code> is less than the current
+  time of the queue.</p>
+</div></div>
+<div class="function">
+<h3 id="sojourn_r/2">sojourn_r(SojournTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>SojournTime = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#sojourn_r/4" class="seealso">sojourn_r(time(V), time(V), SojournTime, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="sojourn_r/3">sojourn_r(Time, SojournTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>SojournTime = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#sojourn_r/4" class="seealso">sojourn_r(Time, Time, SojournTime, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="sojourn_r/4">sojourn_r(Time, OutTime, SojournTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>OutTime = integer()</code></li><li><code>SojournTime = non_neg_integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advance time of the queue, <code>V</code>, to <code>Time</code> and signal the sojourn time,
+  <code>SojournTime</code>, at time <code>OutTime</code> of another queue to trigger a dequeue from
+  the tail of the queue, <code>V</code>.</p>
+ 
+  <p>Except for dequeuing from the tail behaves the same as <code>sojourn/4</code>.</p>
+<p><em>See also:</em> <a href="#sojourn/4" class="seealso">sojourn/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dropped/1">dropped(V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#dropped/3" class="seealso">dropped(time(V), time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dropped/2">dropped(Time, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#dropped/3" class="seealso">dropped(Time, Time, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dropped/3">dropped(Time, DropTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>DropTime = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advance time of the queue, <code>V</code>, to <code>Time</code> and signal the dropping of an
+  item, at time <code>DropTime</code>, to trigger a dequeue from the head of the queue,
+  <code>V</code>. Returns the same values as <code>sojourn/4</code>.</p>
+ 
+  <p>If <code>DropTime</code> is less than the last time a sojourn time or drop was signalled  
+to the feedback loop, the drop is signalled with the same time as the last  
+signal. This time may be before the current time of the queue.</p>
+ 
+  <p>This function raises the error <code>badarg</code> if <code>DropTime</code> is greater than <code>Time</code>.
+  This function raises the error <code>badarg</code> if <code>Time</code> is less than the current
+  time of the queue.</p>
+<p><em>See also:</em> <a href="#sojourn/4" class="seealso">sojourn/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dropped_r/1">dropped_r(V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#dropped_r/3" class="seealso">dropped_r(time(V), time(V), V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dropped_r/2">dropped_r(Time, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#dropped_r/3" class="seealso">dropped_r(Time, Time, V)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dropped_r/3">dropped_r(Time, DropTime, V) -&gt; {Result, Drops, NV}</h3>
+
+<ul class="type">
+<li><code>Time = integer()</code></li><li><code>DropTime = integer()</code></li><li><code>V = svalve(Item)</code></li><li><code>Result = empty | closed | {ItemSojournTime::non_neg_integer(), Item}</code></li><li><code>Drops = [{DropSojournTime::non_neg_integer(), Item}]</code></li><li><code>NV = svalve(Item)</code></li></ul>
+<div class="description">
+
+<p>Advance time of the queue, <code>V</code>, to <code>Time</code> and signal the dropping of an
+  item, at time <code>DropTime</code>, to trigger a dequeue from the tail of the queue,
+  <code>V</code>.</p>
+ 
+  <p>Except for dequeuing from the tail behaves the same as <code>dropped/3</code>.</p>
+<p><em>See also:</em> <a href="#dropped/3" class="seealso">dropped/3</a>.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="squeue.html" class="seealso">squeue</a>, <a href="svalve_codel_r.html" class="seealso">svalve_codel_r</a>, <a href="svalve_naive.html" class="seealso">svalve_naive</a>, <a href="svalve_timeout.html" class="seealso">svalve_timeout</a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

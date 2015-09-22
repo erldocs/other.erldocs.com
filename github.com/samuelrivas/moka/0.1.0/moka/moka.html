@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>moka (moka) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>moka</h1>
+<h2 class="modsummary">The moka main interface.</h2>
+<div class="description">
+<p>The moka main interface</p>
+  
+   This module implements the operations to create new mokas and use them to
+   mock calls from one module to other.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-moka">moka()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(Mod::module()) -&gt; moka()</h3>
+
+
+<div class="description">
+
+<p>Starts a new moka</p>
+ 
+  <p><code>Mod</code> will be know as <em>the moked module</em> in this documentation. The  
+created Moka will be used to modify calls from this module.</p>
+ 
+  <p><em>NOTE:</em> You should never create two Mokas for the same module.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Moka::moka()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops an existing moka</p>
+ 
+  <p>The original module code is restored after stopping the moka.</p>
+</div></div>
+<div class="function">
+<h3 id="replace/1">replace(Moka::moka(), Module::module(), Function::atom(), NewBehaviour::function()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Substitutes all calls from the moked module to <code>Mod:Fun/N</code></p>
+ 
+  <p>The arity of <code>NewBehaviour</code> determines the arity of the substituted function.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="export/1">export(Moka::moka(), Function::atom(), Arity::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds <code>Fun/Arity</code> to the list of exported functions of the moked module</p>
+ 
+  <p>Note that this doesn't check if exporting <code>Fun/Arity</code> is possible, so it will
+  succeed for any atom-integer pair. <a href="#load/1" class="seealso">load/1</a> will fail if exporting
+  <code>Fun/Arity</code> is not possible (e.g. if that function is undefined).</p>
+</div></div>
+<div class="function">
+<h3 id="load/1">load(Moka::moka()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Makes all substitutions effective</p>
+ 
+  <p>The moked module code will be changed after this function is called.</p>
+ 
+  <p>You can easily know when a module is moked calling
+  <code>Module:module_info(attributes)</code>. For moked modules, the returned list
+  contains a <code>moka_orig_module</code> tuple.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

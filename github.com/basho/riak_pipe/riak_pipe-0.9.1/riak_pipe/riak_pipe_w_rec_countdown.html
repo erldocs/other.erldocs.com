@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_pipe_w_rec_countdown (riak_pipe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_pipe_w_rec_countdown</h1>
+<h2 class="modsummary">Proof of concept for recursive input (fitting sending output
+       to itself).</h2>
+<div class="description">
+<p>Proof of concept for recursive input (fitting sending output
+       to itself).  When this fitting receives an input, it passes
+       that input to its output, and also passes <code>Input-1</code> to itself
+       as input until the input is <code>0</code>.  Thus, sending <code>3</code> as the
+       input to this fitting, would result in the outputs <code>3</code>, <code>2</code>,
+       <code>1</code>, and <code>0</code>.  That is:</p>
+ 
+ <pre class="sh_erlang">  Spec = [#fitting_spec{name=counter,
+                        module=riak_pipe_w_rec_countdown}],
+  {ok, Pipe} = riak_pipe:exec(Spec, []),
+  riak_pipe:queue_work(Pipe, 3),
+  riak_pipe:eoi(Pipe),
+  {eoi, Results, []} = riak_pipe:collect_results(Pipe).
+  [{counter,0},{counter,1},{counter,2},{counter,3}] = Results.</pre>
+ 
+       <p>This fitting should work with any consistent-hash function.       
+It requires no archiving for handoff.</p>
+ 
+       <p>If the argument is the atom <code>testeoi</code>, then the final
+       recursive input (<code>0</code>) will be sent three times, with no delay
+       before the second case and a 1-second delay before the third.
+       These two sends should test the behavior of vnode enqueueing
+       while attempting to force a worker to <code>done</code>.  If all <code>eoi</code>
+       handling is done properly, then <code>0</code> should appear three times
+       in the result list.  The <code>testeoi</code> case should go like this:</p>
+ 
+ <pre class="sh_erlang">  Spec = [#fitting_spec{name=counter,
+                        module=riak_pipe_w_rec_countdown,
+                        arg=testeoi}],
+  Options = [{trace,[restart]},{log,sink}],
+  {ok, Pipe} = riak_pipe:exec(Spec, Options),
+  riak_pipe:queue_work(Pipe, 3),
+  riak_pipe:eoi(Pipe),
+  {eoi, Results, Trace} = riak_pipe:collect_results(Pipe).
+  [{counter,0},{counter,0},{counter,0},
+   {counter,1},{counter,2},{counter,3}] = Results.
+  [{counter,{trace,[restart],{vnode,{restart,_}}}}] = Trace.</pre>
+ 
+       <p>If <code>Results</code> contains less than three instances of
+       <code>{counter,0}</code>, then the test failed.  If <code>Trace</code> is empty, the       
+done/eoi race was not triggered, and the test should be       
+re-run.</p>
+ 
+  <p>NOTE: This test code has been copied to the EUnit tests in riak_pipe.erl,
+        into the basic_test_() collection.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Partition::partition() (see module riak_pipe_vnode), FittingDetails::details() (see module riak_pipe_fitting)) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Initialization just stows the partition and fitting details in
+       the module's state, for sending outputs in <a href="#process/3" class="seealso">process/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="process/1">process(Input::term(), Last::boolean(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Process sends <code>Input</code> directly to the next fitting, and also
+       <code>Input-1</code> back to this fitting as new input.</p>
+</div></div>
+<div class="function">
+<h3 id="done/1">done(State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

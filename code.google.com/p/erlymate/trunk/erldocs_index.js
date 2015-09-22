@@ -1,0 +1,1 @@
+var index = [['app','erlymate','erlymate','[application]'],['mod','erlymate','refac_scan',[]],['fun','erlymate','refac_scan:format_error/1',[]],['fun','erlymate','refac_scan:reserved_word/1',[]],['fun','erlymate','refac_scan:string/1',[]],['fun','erlymate','refac_scan:string/2',[]],['fun','erlymate','refac_scan:tokens/3',[]]];

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>db_toke (scalaris_old) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>db_toke</h1>
+<h2 class="modsummary">In-process Database using toke.</h2>
+<div class="description">
+<p>In-process Database using toke</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-db">db()</h3></div>
+    <div class="type"><h3 id="type-db_as_list">db_as_list() = [<a href="db_entry.html#type-entry" class="seealso">db_entry:entry()</a>]</h3></div>
+    <div class="type"><h3 id="type-db_name">db_name() = string()</h3></div>
+    <div class="type"><h3 id="type-subscr_changes_fun_t">subscr_changes_fun_t() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((DB :: <a href="#type-db" class="seealso">db()</a>, Tag :: any(), Operation :: <a href="#type-subscr_op_t" class="seealso">subscr_op_t()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-db" class="seealso">db()</a>)</h3></div>
+    <div class="type"><h3 id="type-subscr_op_t">subscr_op_t() = {write, <a href="db_entry.html#type-entry" class="seealso">db_entry:entry()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {delete | split, <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>}</h3></div>
+    <div class="type"><h3 id="type-subscr_remove_fun_t">subscr_remove_fun_t() = fun((Tag :: any()) -&gt; any())</h3></div>
+    <div class="type"><h3 id="type-subscr_t">subscr_t() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Tag :: any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="intervals.html#type-interval" class="seealso">intervals:interval()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ChangesFun :: <a href="#type-subscr_changes_fun_t" class="seealso">subscr_changes_fun_t()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CloseDBFun :: <a href="#type-subscr_remove_fun_t" class="seealso">subscr_remove_fun_t()</a>}</h3></div>
+    <div class="type"><h3 id="type-value">value() = <a href="rdht_tx.html#type-encoded_value" class="seealso">rdht_tx:encoded_value()</a></h3></div>
+    <div class="type"><h3 id="type-version">version() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/1">open(DBName::db_name()) -&gt; db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="close/1">close(DB::db()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="close/1-1">close(DB::db(), Delete::boolean()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_name/1">get_name(DB::db()) -&gt; db_name()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_load/1">get_load(DB::db()) -&gt; Load::integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_load/1-1">get_load(DB::db(), Interval::interval() (see module intervals)) -&gt; Load::integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_entry/1">get_entry(DB::db(), Key::key() (see module rt_chord)) -&gt; entry() (see module db_entry)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_entry2/1">get_entry2(DB::db(), Key::key() (see module rt_chord)) -&gt; {Exists::boolean(), entry() (see module db_entry)}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_entry/1">set_entry(DB::db(), Entry::entry() (see module db_entry)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_entry/1">update_entry(DB::db(), Entry::entry() (see module db_entry)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_entry/1">delete_entry(DB::db(), Entry::entry() (see module db_entry)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_entries/1">get_entries(DB::db(), Range::interval() (see module intervals)) -&gt; db_as_list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_entries/1-1">get_entries(DB::db(), FilterFun::(DBEntry::entry() (see module db_entry)) -&gt; boolean(), ValueFun::(DBEntry::entry() (see module db_entry)) -&gt; Value) -&gt; [Value]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_chunk/1">get_chunk(DB::db(), StartId::key() (see module rt_chord), Interval::interval() (see module intervals), ChunkSize::pos_integer() | all) -&gt; {interval() (see module intervals), db_as_list()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_chunk/1-1">get_chunk(DB::db(), StartId::key() (see module rt_chord), Interval::interval() (see module intervals), FilterFun::(entry() (see module db_entry)) -&gt; boolean(), ValueFun::(entry() (see module db_entry)) -&gt; V, ChunkSize::pos_integer() | all) -&gt; {interval() (see module intervals), [V]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_entries/1">update_entries(DB::db(), Values::[entry() (see module db_entry)], Pred::(OldEntry::entry() (see module db_entry), NewEntry::entry() (see module db_entry)) -&gt; boolean(), UpdateFun::(OldEntry::entry() (see module db_entry), NewEntry::entry() (see module db_entry)) -&gt; UpdatedEntry::entry() (see module db_entry)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_entries/1">delete_entries(DB::db(), RangeOrFun::interval() (see module intervals) | (DBEntry::entry() (see module db_entry)) -&gt; boolean()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="split_data/1">split_data(DB::db(), MyNewInterval::interval() (see module intervals)) -&gt; {NewDB::db(), db_as_list()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_split_key/1">get_split_key(DB::db(), Begin::key() (see module rt_chord), End::key() (see module rt_chord), TargetLoad::pos_integer(), Direction::forward | backward) -&gt; {key() (see module rt_chord), TakenLoad::pos_integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_data/1">get_data(DB::db()) -&gt; db_as_list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_data/1">add_data(DB::db(), Data::db_as_list()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_subscription/1">set_subscription(DB::db(), SubscrTuple::subscr_t()) -&gt; db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_subscription/1">get_subscription(DB::db(), Tag::any()) -&gt; [subscr_t()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="remove_subscription/1">remove_subscription(DB::db(), Tag::any()) -&gt; db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="record_changes/1">record_changes(OldDB::db(), Interval::interval() (see module intervals)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop_record_changes/1">stop_record_changes(OldDB::db()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop_record_changes/1-1">stop_record_changes(OldDB::db(), Interval::interval() (see module intervals)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_changes/1">get_changes(DB::db()) -&gt; {Changed::db_as_list(), Deleted::[key() (see module rt_chord)]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_changes/1-1">get_changes(DB::db(), Interval::interval() (see module intervals)) -&gt; {Changed::db_as_list(), Deleted::[key() (see module rt_chord)]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="copy_value_to_snapshot_table/1">copy_value_to_snapshot_table(DB::db(), Key::key() (see module rt_chord)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_snapshot_data/1">get_snapshot_data(DB::db()) -&gt; db_as_list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="join_snapshot_data/1">join_snapshot_data(DB::db()) -&gt; db_as_list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_snapshot_entry/1">set_snapshot_entry(DB::db(), Entry::entry() (see module db_entry)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_snapshot_entry/1">get_snapshot_entry(DB::db(), Key::key() (see module rt_chord)) -&gt; {Exists::boolean(), entry() (see module db_entry)}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_snapshot_entry_at_key/1">delete_snapshot_entry_at_key(DB::db(), Key::key() (see module rt_chord)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_snapshot/1">init_snapshot(DB::db()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_snapshot_entry/1">delete_snapshot_entry(DB::db(), Entry::entry() (see module db_entry)) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="snapshot_is_lockfree/1">snapshot_is_lockfree(DB::db()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_live_lc/1">get_live_lc(DB::db()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_snap_lc/1">get_snap_lc(DB::db()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="snapshot_is_running/1">snapshot_is_running(DB::db()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_snapshot/1">delete_snapshot(DB::db()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decrease_snapshot_lockcount/1">decrease_snapshot_lockcount(DB::db()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read/1">read(DB::db(), Key::key() (see module rt_chord)) -&gt; {ok, Value::value(), Version::version()} | {ok, empty_val, -1}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write/1">write(DB::db(), Key::key() (see module rt_chord), Value::value(), Version::version()) -&gt; NewDB::db()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/1">delete(DB::db(), Key::key() (see module rt_chord)) -&gt; {NewDB::db(), Status::ok | locks_set | undef}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_db/1">check_db(DB::db()) -&gt; {true, []} | {false, InvalidEntries::db_as_list()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Nico Kruber</aname>
+<email>kruber@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

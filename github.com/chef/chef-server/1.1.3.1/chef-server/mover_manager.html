@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mover_manager (chef-server) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mover_manager</h1>
+<h2 class="modsummary">.</h2>
+<div class="description">
+<p><em>States and Transitions</em></p>
+ 
+  <list>
+  <item><p> <code>ready -&gt; working</code> : when the 'start' message is received.</p></item>
+  <item><p> <code>working -&gt; halting</code></p></item>
+  <list>
+      <item><p> no more orgs available to be processed </p></item>
+      <item><p> fatal error encountered within a worker </p></item>
+      <item><p> all requested orgs are currently processing </p></item>
+      <item><p> a worker could not be started </p></item>
+  </list>
+ 
+  <item><p> <code>halting -&gt; ready</code> : all workers have stopped </p></item>
+  </list>
+ 
+  <p><em>Worker Startup and Replacement</em>
+  </p><p>
+  Workers are evaluated when current state is <code>working</code>. If there are
+  fewer <code>live_workers</code> than <code>max_worker_count</code> and there are
+  still orgs left to process, another worker is started.
+  </p>
+ 
+  <list>
+  <item><p> <code>working</code> state is signalled every time a worker
+       terminates with either a <code>normal</code> exit or a
+       <code>migration_error</code> exit.
+  </p></item>
+  <item><p> <code>working</code> state is signalled every time a worker
+       is started, so that the FSM can determine if more
+       workers are needed.
+  </p></item>
+  </list>
+ 
+  <p><em>Additional Notes</em>
+  </p><list>
+  <item><p>An org is considered as 'processed' (for status reporting) once a worker
+      for that org has been successfully launched. Regardless of whether or not
+      the migration succeeds, the persisted state of the org will be set to remove
+      it from the pool of orgs available for migration.</p></item>
+ 
+  <item><p>If at any point a worker goes down for a reason we haven't trapped,
+      or for a specific {error, X} reason that we have trapped,
+      we will stop replacing workers and allow all current workers to die out
+      regardless of if there are orgs remaining to process.</p></item>
+  </list></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="migrate_next/0">migrate_next() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate_deps_next/0">validate_deps_next() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="migrate/2">migrate(NumOrgs, NumWorkers) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="validate_deps/2">validate_deps(NumOrgs, NumWorkers) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="status/0">status() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="halt_actions/0">halt_actions() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_account_dets/0">create_account_dets() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_account_dets/0">get_account_dets() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ready/3">ready(X1, From, CurrentState) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p><code>ready</code> state can be reached in one of two ways. In both methods, there
+  is no timeout - so the ready state function will only be invoked when
+  an explicit call is made to start migrations via <code>migrate/2</code> or <code>migrate_next/0</code></p>
+ 
+  <list>
+  <item><p><code>init/1</code> completion</p></item>
+  <item><p>A migration has been started and all workers have terminated. In this case
+      we have preserved FSM state until the next explicit <code>{start, Orgs, Workers}</code>
+      is issued, so that results of the last batch can be queried via <code>status/0</code></p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="working/2">working(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="working/3">working(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="halting/2">halting(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="halting/3">halting(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/3">handle_info(Info, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(Event, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(Event, From, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/3">terminate(Reason, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Marc A. Paradise</aname>
+<email>marc@opscode.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

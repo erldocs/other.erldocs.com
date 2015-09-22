@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lhttpc_manager (lhttpc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lhttpc_manager</h1>
+<h2 class="modsummary">Connection manager for the HTTP client.</h2>
+<div class="description">
+<p>Connection manager for the HTTP client.
+   This gen_server is responsible for keeping track of persistent
+   connections to HTTP servers. The only interesting API is
+   <code>connection_count/0</code> and <code>connection_count/1</code>.
+   The gen_server is supposed to be started by a supervisor, which is
+   normally <a href="lhttpc_sup.html" class="seealso">lhttpc_sup</a>.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-host">host() = string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {integer(), integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-invalid_option">invalid_option() = any()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {connect_timeout, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {send_retry, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {partial_upload, integer() >= 0 | infinity}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {partial_download, [<a href="#type-partial_download_option" class="seealso">partial_download_option()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {connect_options, <a href="#type-socket_options" class="seealso">socket_options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proxy, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proxy_ssl_options, <a href="#type-socket_options" class="seealso">socket_options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pool, pid() | atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-invalid_option" class="seealso">invalid_option()</a></h3></div>
+    <div class="type"><h3 id="type-options">options() = [<a href="#type-option" class="seealso">option()</a>]</h3></div>
+    <div class="type"><h3 id="type-partial_download_option">partial_download_option() = {window_size, <a href="#type-window_size" class="seealso">window_size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {part_size,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0 | infinity}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-invalid_option" class="seealso">invalid_option()</a></h3></div>
+    <div class="type"><h3 id="type-pool_id">pool_id() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-port_num">port_num() = 1..65535</h3></div>
+    <div class="type"><h3 id="type-socket">socket() = term()</h3></div>
+    <div class="type"><h3 id="type-socket_options">socket_options() = [{atom(), term()} | atom()]</h3></div>
+    <div class="type"><h3 id="type-window_size">window_size() = integer() &gt;= 0 | infinity</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="dump_settings/1">dump_settings(PidOrName::PoolPidOrName) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Returns the current settings in state for the
+  specified lhttpc pool (manager).</p>
+</div></div>
+<div class="function">
+<h3 id="set_max_pool_size/1">set_max_pool_size(PidOrName::pool_id(), Size::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the maximum pool size for the specified pool.</p>
+</div></div>
+<div class="function">
+<h3 id="list_pools/0">list_pools() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Lists all the pools already started.</p>
+</div></div>
+<div class="function">
+<h3 id="client_count/1">client_count(PidOrName::PoolPidOrName) -&gt; Count</h3>
+
+<ul class="type">
+<li><code>Count = integer()</code></li></ul>
+<div class="description">
+
+<p>Returns the total number of active clients maintained by the
+  specified lhttpc pool (manager).</p>
+</div></div>
+<div class="function">
+<h3 id="connection_count/1">connection_count(PidOrName::PoolPidOrName) -&gt; Count</h3>
+
+<ul class="type">
+<li><code>Count = integer()</code></li></ul>
+<div class="description">
+
+<p>Returns the total number of active connections maintained by the
+  specified lhttpc pool (manager).</p>
+</div></div>
+<div class="function">
+<h3 id="connection_count/2">connection_count(PidOrName::PoolPidOrName, X2::Destination) -&gt; Count</h3>
+
+<ul class="type">
+<li><code>PoolPidOrName = pid() | atom()</code></li><li><code>Destination = {Host, Port, Ssl}</code></li><li><code>Host = string()</code></li><li><code>Port = integer()</code></li><li><code>Ssl = boolean()</code></li><li><code>Count = integer()</code></li></ul>
+<div class="description">
+
+<p>Returns the number of active connections to the specific
+  <code>Destination</code> maintained by the httpc manager.</p>
+</div></div>
+<div class="function">
+<h3 id="update_connection_timeout/2">update_connection_timeout(PidOrName::PoolPidOrName, Milliseconds::Timeout) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>PoolPidOrName = pid() | atom()</code></li><li><code>Timeout = integer()</code></li></ul>
+<div class="description">
+
+<p>Updates the timeout for persistent connections.
+  This will only affect future sockets handed to the manager. The sockets
+  already managed will keep their timers.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts and link to the gen server.
+  This is normally called by a supervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Options0::[{atom(), non_neg_integer()}]) -&gt; {ok, pid()} | {error, already_started}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ensure_call/1">ensure_call(Pool::pool_id(), Pid::pid(), Host::host(), Port::port_num(), Ssl::boolean(), Options::options()) -&gt; socket() | no_socket</h3>
+
+
+<div class="description">
+
+<p>If call contains pool_ensure option, dynamically create the pool with
+  configured parameters. Checks the pool for a socket connected to the
+  destination and returns it if it exists, 'undefined' otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="client_done/1">client_done(Pool::pid(), Host::host(), Port::port_num(), Ssl::boolean(), Socket::socket()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>A client has finished one request and returns the socket to the pool,
+  which can be new or not.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Oscar Hellström</aname>
+<email>oscar@hellstrom.st</email>
+<aname>Filipe David Manana</aname>
+<email>fdmanana@apache.org</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

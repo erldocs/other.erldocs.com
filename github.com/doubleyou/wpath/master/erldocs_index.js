@@ -1,0 +1,1 @@
+var index = [['app','wpath','wpath','[application]'],['mod','wpath','wpath',[]],['mod','wpath','wpath_example',[]],['fun','wpath','wpath:find/2',[]],['fun','wpath','wpath_example:find/2',[]]];

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lapd (lapderl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lapd</h1>
+<h2 class="modsummary">Main API of the LAPD application.</h2>
+<div class="description">
+<p>Main API of the LAPD application.
+  	</p><p>This module provides the main application programming interface
+  	for the LAPD application.  The application implements the link
+   	access procedures for the D-channel (LAPD) as defined in Q.921.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-lapd_options">lapd_options()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Module::atom(), Args::term(), Options::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Options = [lapd_options() | GenFsmOptions]</code></li><li><code>GenFsmOptions = [tuple()]</code></li><li><code>Result = {ok, Sup} | {error, Reason}</code></li><li><code>Sup = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Start a new LAPD layer.
+  	</p><p>This function creates a supervision tree for the new LAPD
+  	layer.  A layer management entity (LME) process and a multiplexer
+  	process are started along with a broadcast data link entity
+  	(SAPI 63, TEI 127) for use by the LME.</p>
+ 
+  	<p><code>Module</code> is the name of a <url href="lapd_mux_fsm.html">
+  	lapd_mux_fsm</url> behaviour callback module which will
+  	provide the layer 1 adaptation.</p>
+ 
+  	<p><code>Args</code> has meaning only to the callback module but
+  	presumably would identify the specific layer 1 service access
+  	point for this LAPD layer.</p>
+ 
+  	<p><code>Options</code> may include lapd_options() and gen_fsm
+  	options passed to the layer 1 adaptation callback module.</p>
+ 
+  	<p>The callback module will be started with:<br />
+  		<code>gen_fsm:start_link(Module, Args, GenFsmOptions)</code>
+  	</p>
+ 
+  	<p>Returns <code>{ok, Sup}</code> or <code>{error, Reason}</code>.  This
+  	function is intended to be used as the start function of a
+  	child specification in an including application's supervision
+  	tree.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Sup::pid()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Stop a running LAPD layer.
+  	</p><p>Terminates the top level supervisor for the layer which in turn
+  	stops all the running processes in the layer.</p>
+ 
+  	<p><code>Sup</code> is the pid of the top level supervisor returned
+  	in a previous call to
+  	<a href="#start_link/3" class="seealso">lapd:start_link/3</a>.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="open/1">open(Sup::pid(), SAPI::integer(), TEI::integer(), Options::lapd_options()) -&gt; {LME, CME, DLE}</h3>
+
+<ul class="type">
+<li><code>LME = pid()</code></li><li><code>CME = pid()</code></li><li><code>DLE = pid()</code></li></ul>
+<div class="description">
+
+<p>Open a LAPD service access point.
+  	</p><p>Creates a new data link entity (DLE) process.</p>
+ 
+  	<p><code>Sup</code> is the pid() of the top level supervisor for a
+  	layer returned from a previous call to
+  	to <a href="#start_link/3" class="seealso">lapd:start_link/3</a></p><p>.</p>
+ 
+  	<p><code>SAPI</code> specifies the service access point identifier.
+  	Valid values are in the range 0..63.</p>
+ 
+  	<p>Some standardized SAPI values are:</p>
+  	<taglist>
+  		<dt><code>0</code></dt> <item><p>Call control procedures</p></item>
+  		<dt><code>16</code></dt> <item><p>Packet communication conforming to
+  				X.25 level 3 procedures</p></item>
+  		<dt><code>63</code></dt> <item><p>Layer 2 management procedures</p></item>
+  	</taglist>
+ 
+  	<p><code>TEI</code> specifies the terminal endpoint identifier for
+  	non-automatic assignment.  If automatic assignment is requested
+  	TEI should be <code>none</code>.
+  	Valid values are in the range <code>0..63</code> or <code>127</code>.
+  	If the group TEI value <code>127</code> is specified
+  	a broadcast DLE will be started, otherwise a point-to-point DLE
+  	and CME are started.</p>
+ 
+  	<p>Returns <code>{LME, CME, DLE}</code> where <code>LME</code> is the pid
+  	of the layer management entity which was created by a previous call
+  	to <a href="#start_link/3" class="seealso">lapd:start_link/3</a>.
+  	<code>CME</code> is the pid of the
+  	new connection management entity if a point-to-point DLE was started
+  	and undefined if a broadcast DLE was started.  <code>DLE</code> is the
+  	pid of the new data link entity.  The <code>DLE</code> is used by
+  	the LAPD-User as the service access point for the LAPD service.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="bind/1">bind(LME::pid(), DLE::pid(), USAP::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Binds an open LAPD service access point to a LAPD-User.
+  	</p><p><code>LME</code> and <code>DLE</code> are the pid of the layer
+  	management entity and data link entity returned from a previous
+  	call to
+  	<a href="#open/4" class="seealso">lapd:open/4</a>.</p>
+ 
+  	<p><code>USAP</code> is the pid of the LAPD-User process.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="close/1">close(DLE::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Closes an open LAPD service access point.
+  	</p><p><code>DLE</code> is the pid of the data link entity returned
+  	from a previous call to
+  	<a href="#open/4" class="seealso">lapd:open/4</a>.</p>
+ 
+</div></div></div>
+
+<authors>
+
+<aname>Vance Shipley</aname>
+<email>vances@motivity.ca</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

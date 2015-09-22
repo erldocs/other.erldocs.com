@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rt (riak_test) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rt</h1>
+<h2 class="modsummary">
+  Implements the base riak_test API, providing the ability to control
+  nodes in a Riak cluster as well as perform commonly reused operations.</h2>
+<div class="description">
+<p>
+  Implements the base <code>riak_test</code> API, providing the ability to control
+  nodes in a Riak cluster as well as perform commonly reused operations.
+  Please extend this module with new functions that prove useful between
+  multiple independent tests.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-conn_info">conn_info() = [{node(), <a href="#type-interfaces" class="seealso">interfaces()</a>}]</h3></div>
+    <div class="type"><h3 id="type-interface">interface() = {http, tuple()} | {pb, tuple()}</h3></div>
+    <div class="type"><h3 id="type-interfaces">interfaces() = [<a href="#type-interface" class="seealso">interface()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="priv_dir/0">priv_dir() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_deps/0">get_deps() -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>gets riak deps from the appropriate harness</p>
+</div></div>
+<div class="function">
+<h3 id="str/1">str(String::string(), Substr::string()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>if String contains Substr, return true.</p>
+</div></div>
+<div class="function">
+<h3 id="update_app_config/2">update_app_config(Node, Config) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Rewrite the given node's app.config file, overriding the varialbes
+       in the existing app.config with those in <code>Config</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="rpc_get_env/2">rpc_get_env(Node, Others) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Helper that returns first successful application get_env result,
+       used when different versions of Riak use different app vars for
+       the same setting.</p>
+</div></div>
+<div class="function">
+<h3 id="connection_info/1">connection_info(Nodes::[node()]) -&gt; conn_info()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="deploy_nodes/1">deploy_nodes(Versions) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Deploy a set of freshly installed Riak nodes, returning a list of the
+       nodes deployed.</p>
+</div></div>
+<div class="function">
+<h3 id="deploy_nodes/1-1">deploy_nodes(NumNodes::integer(), InitialConfig::any()) -&gt; [node()]</h3>
+
+
+<div class="description">
+
+<p>Deploy a set of freshly installed Riak nodes with the given
+       <code>InitialConfig</code>, returning a list of the nodes deployed.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start the specified Riak node</p>
+</div></div>
+<div class="function">
+<h3 id="start_and_wait/1">start_and_wait(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start the specified Riak <code>Node</code> and wait for it to be pingable</p>
+</div></div>
+<div class="function">
+<h3 id="async_start/1">async_start(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stop the specified Riak <code>Node</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_and_wait/1">stop_and_wait(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stop the specified Riak <code>Node</code> and wait until it is not pingable</p>
+</div></div>
+<div class="function">
+<h3 id="upgrade/2">upgrade(Node, NewVersion) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Upgrade a Riak <code>Node</code> to the specified <code>NewVersion</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="upgrade/3">upgrade(Node, NewVersion, Config) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Upgrade a Riak <code>Node</code> to the specified <code>NewVersion</code> and update
+  the config based on entries in <code>Config</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="slow_upgrade/3">slow_upgrade(Node, NewVersion, Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Upgrade a Riak node to a specific version using the alternate
+       leave/upgrade/rejoin approach</p>
+</div></div>
+<div class="function">
+<h3 id="join/2">join(Node, PNode) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Have <code>Node</code> send a join request to <code>PNode</code></p>
+</div></div>
+<div class="function">
+<h3 id="leave/1">leave(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Have the <code>Node</code> leave the cluster</p>
+</div></div>
+<div class="function">
+<h3 id="remove/2">remove(Node, OtherNode) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Have <code>Node</code> remove <code>OtherNode</code> from the cluster</p>
+</div></div>
+<div class="function">
+<h3 id="down/2">down(Node, OtherNode) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Have <code>Node</code> mark <code>OtherNode</code> as down</p>
+</div></div>
+<div class="function">
+<h3 id="partition/2">partition(P1, P2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>partition the <code>P1</code> from <code>P2</code> nodes
+       note: the nodes remained connected to riak_test@local,
+       which is how <code>heal/1</code> can still work.</p>
+</div></div>
+<div class="function">
+<h3 id="heal/1">heal(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>heal the partition created by call to <code>partition/2</code>
+       <code>OldCookie</code> is the original shared cookie</p>
+</div></div>
+<div class="function">
+<h3 id="spawn_cmd/1">spawn_cmd(Cmd) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spawn <code>Cmd</code> on the machine running the test harness</p>
+</div></div>
+<div class="function">
+<h3 id="spawn_cmd/2">spawn_cmd(Cmd, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spawn <code>Cmd</code> on the machine running the test harness</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_cmd/1">wait_for_cmd(CmdHandle) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait for a command spawned by <code>spawn_cmd</code>, returning
+       the exit status and result</p>
+</div></div>
+<div class="function">
+<h3 id="cmd/1">cmd(Cmd) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spawn <code>Cmd</code> on the machine running the test harness, returning
+       the exit status and result</p>
+</div></div>
+<div class="function">
+<h3 id="cmd/2">cmd(Cmd, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Spawn <code>Cmd</code> on the machine running the test harness, returning
+       the exit status and result</p>
+</div></div>
+<div class="function">
+<h3 id="load_modules_on_nodes/2">load_modules_on_nodes(MoreModules, Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_pingable/1">is_pingable(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Is the <code>Node</code> up according to net_adm:ping</p>
+</div></div>
+<div class="function">
+<h3 id="is_mixed_cluster/1">is_mixed_cluster(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until/1">wait_until(Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Utility function used to construct test predicates. Retries the
+       function <code>Fun</code> until it returns <code>true</code>, or until the maximum
+       number of retries is reached. The retry limit is based on the
+       provided <code>rt_max_wait_time</code> and <code>rt_retry_delay</code> parameters in
+       specified <code>riak_test</code> config file.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until/2">wait_until(Node, Fun) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convenience wrapper for wait_until for the myriad functions that
+  take a node as single argument.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_ready/1">wait_until_ready(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait until the specified node is considered ready by <code>riak_core</code>.
+       As of Riak 1.0, a node is ready if it is in the <code>valid</code> or <code>leaving</code>
+       states. A ready node is guaranteed to have current preflist/ownership
+       information.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_status_ready/1">wait_until_status_ready(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait until status can be read from riak_kv_console</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_no_pending_changes/1">wait_until_no_pending_changes(Nodes::[node()]) -&gt; ok | fail</h3>
+
+
+<div class="description">
+
+<p>Given a list of nodes, wait until all nodes believe there are no
+  on-going or pending ownership transfers.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_transfers_complete/1">wait_until_transfers_complete(X1::[node()]) -&gt; ok | fail</h3>
+
+
+<div class="description">
+
+<p>Waits until no transfers are in-flight or pending, checked by
+  riak_core_status:transfers().</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_service/2">wait_for_service(Node, Services) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_for_cluster_service/2">wait_for_cluster_service(Nodes, Service) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until_nodes_ready/1">wait_until_nodes_ready(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Given a list of nodes, wait until all nodes are considered ready.
+       See <a href="#wait_until_ready/1" class="seealso">wait_until_ready/1</a> for definition of ready.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_all_members/1">wait_until_all_members(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait until all nodes in the list <code>Nodes</code> believe each other to be
+       members of the cluster.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_all_members/2">wait_until_all_members(Nodes, Members) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait until all nodes in the list <code>Nodes</code> believes all nodes in the
+       list <code>Members</code> are members of the cluster.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_ring_converged/1">wait_until_ring_converged(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Given a list of nodes, wait until all nodes believe the ring has
+       converged (ie. <code>riak_core_ring:is_ready</code> returns <code>true</code>).</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_legacy_ringready/1">wait_until_legacy_ringready(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until_connected/1">wait_until_connected(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>wait until each node in Nodes is disterl connected to each.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_pingable/1">wait_until_pingable(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait until the specified node is pingable</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_unpingable/1">wait_until_unpingable(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Wait until the specified node is no longer pingable</p>
+</div></div>
+<div class="function">
+<h3 id="wait_until_registered/2">wait_until_registered(Node, Name) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="brutal_kill/1">brutal_kill(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="capability/2">capability(Node, Capability) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="capability/3">capability(Node, Capability, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until_capability/3">wait_until_capability(Node, Capability, Value) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until_capability/4">wait_until_capability(Node, Capability, Value, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until_owners_according_to/2">wait_until_owners_according_to(Node, Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="wait_until_nodes_agree_about_ownership/1">wait_until_nodes_agree_about_ownership(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_singleton_node/1">check_singleton_node(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Ensure that the specified node is a singleton node/cluster -- a node
+       that owns 100% of the ring.</p>
+</div></div>
+<div class="function">
+<h3 id="get_ring/1">get_ring(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get the raw ring for <code>Node</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="assert_nodes_agree_about_ownership/1">assert_nodes_agree_about_ownership(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="owners_according_to/1">owners_according_to(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a list of nodes that own partitions according to the ring
+       retrieved from the specified node.</p>
+</div></div>
+<div class="function">
+<h3 id="members_according_to/1">members_according_to(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a list of cluster members according to the ring retrieved from
+       the specified node.</p>
+</div></div>
+<div class="function">
+<h3 id="status_of_according_to/2">status_of_according_to(Member, Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return the cluster status of <code>Member</code> according to the ring
+       retrieved from <code>Node</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="claimant_according_to/1">claimant_according_to(Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a list of nodes that own partitions according to the ring
+       retrieved from the specified node.</p>
+</div></div>
+<div class="function">
+<h3 id="build_cluster/1">build_cluster(Versions) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Safely construct a new cluster and return a list of the deployed nodes</p>
+</div></div>
+<div class="function">
+<h3 id="build_cluster/2">build_cluster(NumNodes, InitialConfig) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Safely construct a <code>NumNode</code> size cluster using
+       <code>InitialConfig</code>. Return a list of the deployed nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="build_cluster/3">build_cluster(NumNodes, Versions, InitialConfig) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clean_cluster/1">clean_cluster(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stop nodes and wipe out their data directories</p>
+</div></div>
+<div class="function">
+<h3 id="clean_data_dir/1">clean_data_dir(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clean_data_dir/2">clean_data_dir(Nodes, SubDir) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="teardown/0">teardown() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Shutdown every node, this is for after a test run is complete.</p>
+</div></div>
+<div class="function">
+<h3 id="versions/0">versions() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="systest_write/2">systest_write(Node, Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="systest_write/3">systest_write(Node, Size, W) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="systest_write/5">systest_write(Node, Start, End, Bucket, W) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Write (End-Start)+1 objects to Node. Objects keys will be
+  <code>Start</code>, <code>Start+1</code> ... <code>End</code>, each encoded as a 32-bit binary
+  (<code>&lt;&lt;Key:32/integer&gt;&gt;</code>). Object values are the same as their keys.</p>
+ 
+  <p>The return value of this function is a list of errors
+  encountered. If all writes were successful, return value is an
+  empty list. Each error has the form <code>{N :: integer(), Error :: term()}</code>,
+  where N is the unencoded key of the object that failed to store.</p>
+</div></div>
+<div class="function">
+<h3 id="systest_read/2">systest_read(Node, Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="systest_read/3">systest_read(Node, Size, R) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="systest_read/5">systest_read(Node, Start, End, Bucket, R) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pbc/1">pbc(Node::node()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>get me a protobuf client process and hold the mayo!</p>
+</div></div>
+<div class="function">
+<h3 id="pbc_read/1">pbc_read(Pid::pid(), Bucket::binary(), Key::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>does a read via the erlang protobuf client</p>
+</div></div>
+<div class="function">
+<h3 id="pbc_write/1">pbc_write(Pid::pid(), Bucket::binary(), Key::binary(), Value::binary()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>does a write via the erlang protobuf client</p>
+</div></div>
+<div class="function">
+<h3 id="pbc_set_bucket_prop/1">pbc_set_bucket_prop(Pid::pid(), Bucket::binary(), PropList::[property() (see module proplists)]) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>sets a bucket property/properties via the erlang protobuf client</p>
+</div></div>
+<div class="function">
+<h3 id="pbc_put_file/4">pbc_put_file(Pid, Bucket, Key, Filename) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Puts the contents of the given file into the given bucket using the
+  filename as a key and assuming a plain text content type.</p>
+</div></div>
+<div class="function">
+<h3 id="pbc_put_dir/3">pbc_put_dir(Pid, Bucket, Dir) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Puts all files in the given directory into the given bucket using the
+  filename as a key and assuming a plain text content type.</p>
+</div></div>
+<div class="function">
+<h3 id="pbc_really_deleted/3">pbc_really_deleted(Pid, Bucket, Keys) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>True if the given keys have been really, really deleted.
+  Useful when you care about the keys not being there. Delete simply writes
+  tombstones under the given keys, so those are still seen by key folding
+  operations.</p>
+</div></div>
+<div class="function">
+<h3 id="http_url/1">http_url(Nodes) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns HTTP URL information for a list of Nodes</p>
+</div></div>
+<div class="function">
+<h3 id="httpc/1">httpc(Node::node()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>get me an http client.</p>
+</div></div>
+<div class="function">
+<h3 id="httpc_read/1">httpc_read(C::term(), Bucket::binary(), Key::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>does a read via the http erlang client.</p>
+</div></div>
+<div class="function">
+<h3 id="httpc_write/1">httpc_write(C::term(), Bucket::binary(), Key::binary(), Value::binary()) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>does a write via the http erlang client.</p>
+</div></div>
+<div class="function">
+<h3 id="admin/2">admin(Node, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Call 'bin/riak-admin' command on <code>Node</code> with arguments <code>Args</code></p>
+</div></div>
+<div class="function">
+<h3 id="riak/2">riak(Node, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Call 'bin/riak' command on <code>Node</code> with arguments <code>Args</code></p>
+</div></div>
+<div class="function">
+<h3 id="search_cmd/2">search_cmd(Node, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="attach/2">attach(Node, Expected) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Runs <code>riak attach</code> on a specific node, and tests for the expected behavoir.
+       Here's an example: </p><pre class="sh_erlang">       rt:attach(Node, [{expect, "erlang.pipe.1 \(^D to exit\)"},
+                        {send, "riak_core_ring_manager:get_my_ring()."},
+                        {expect, "dict,"},
+                        {send, [4]}]), %% 4 = Ctrl + D</pre><p>
+       <code>{expect, String}</code> scans the output for the existance of the String.          
+These tuples are processed in order.</p>
+ 
+       <p><code>{send, String}</code> sends the string to the console.
+          Once a send is encountered, the buffer is discarded, and the next
+          expect will process based on the output following the sent data.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach_direct/2">attach_direct(Node, Expected) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Runs 'riak attach-direct' on a specific node</p>
+<p><em>See also:</em> <a href="rt.html#attach/2" class="seealso">rt:attach/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="console/2">console(Node, Expected) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Runs <code>riak console</code> on a specific node</p>
+<p><em>See also:</em> <a href="rt.html#attach/2" class="seealso">rt:attach/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="enable_search_hook/2">enable_search_hook(Node, Bucket) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_backend/1">set_backend(Backend::atom()) -&gt; atom() | [atom()]</h3>
+
+
+<div class="description">
+
+<p>Sets the backend of ALL nodes that could be available to riak_test.
+       this is not limited to the nodes under test, but any node that
+       riak_test is able to find. It then queries each available node
+       for it's backend, and returns it if they're all equal. If different
+       nodes have different backends, it returns a list of backends.
+       Currently, there is no way to request multiple backends, so the
+       list return type should be considered an error.</p>
+</div></div>
+<div class="function">
+<h3 id="set_backend/1-1">set_backend(Backend::atom(), Extras::[{atom(), term()}]) -&gt; atom() | [atom()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_version/0">get_version() -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Gets the current version under test. In the case of an upgrade test
+       or something like that, it's the version you're upgrading to.</p>
+</div></div>
+<div class="function">
+<h3 id="whats_up/0">whats_up() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>outputs some useful information about nodes that are up</p>
+</div></div>
+<div class="function">
+<h3 id="log_to_nodes/2">log_to_nodes(Nodes, Fmt) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Log a message to the console of the specified test nodes.
+       Messages are prefixed by the string "---riak_test--- "
+       Uses lager:info/1 'Fmt' semantics</p>
+</div></div>
+<div class="function">
+<h3 id="log_to_nodes/3">log_to_nodes(Nodes, LFmt, LArgs) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Log a message to the console of the specified test nodes.
+       Messages are prefixed by the string "---riak_test--- "
+       Uses lager:info/2 'LFmt' and 'LArgs' semantics</p>
+</div></div>
+<div class="function">
+<h3 id="get_node_logs/0">get_node_logs() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Downloads any extant log files from the harness's running
+    nodes.</p>
+</div></div>
+<div class="function">
+<h3 id="check_ibrowse/0">check_ibrowse() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="post_result/2">post_result(TestResult, Rt_webhook) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

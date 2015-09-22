@@ -1,0 +1,1 @@
+var index = [['app','cfgdiff','cfgdiff','[application]'],['mod','cfgdiff','cfgdiff','.']];

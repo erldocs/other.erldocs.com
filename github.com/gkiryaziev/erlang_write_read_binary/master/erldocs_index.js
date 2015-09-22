@@ -1,0 +1,1 @@
+var index = [['app','erlang_write_read_binary','erlang_write_read_binary','[application]'],['mod','erlang_write_read_binary','main',[]],['fun','erlang_write_read_binary','main:read_data/0',[]],['fun','erlang_write_read_binary','main:write_data/0',[]]];

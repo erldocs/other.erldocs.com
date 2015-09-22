@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-public-umbrella','rabbitmq-public-umbrella','[application]'],['mod','rabbitmq-public-umbrella','coverage',[]],['fun','rabbitmq-public-umbrella','coverage:start_coverage/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','eu_mysql_adapter','eu_mysql_adapter','[application]'],['mod','eu_mysql_adapter','eu_mysql_adapter_app',[]],['fun','eu_mysql_adapter','eu_mysql_adapter_app:start/1',[]],['fun','eu_mysql_adapter','eu_mysql_adapter_app:stop/1',[]]];

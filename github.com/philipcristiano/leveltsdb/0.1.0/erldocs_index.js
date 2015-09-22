@@ -1,0 +1,1 @@
+var index = [['app','leveltsdb','leveltsdb','[application]'],['mod','leveltsdb','leveltsdb',[]],['fun','leveltsdb','leveltsdb:close/1',[]],['fun','leveltsdb','leveltsdb:fold_metric/4',[]],['fun','leveltsdb','leveltsdb:fold_metric/6',[]],['fun','leveltsdb','leveltsdb:get/3',[]],['fun','leveltsdb','leveltsdb:open/1',[]],['fun','leveltsdb','leveltsdb:write/4',[]]];

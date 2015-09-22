@@ -1,0 +1,1 @@
+var index = [['app','erlang-blog','erlang-blog','[application]'],['mod','erlang-blog','haversine',[]],['fun','erlang-blog','haversine:distance/4',[]]];

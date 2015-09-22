@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>glc_ops (couchdb-goldrush) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>glc_ops</h1>
+<h2 class="modsummary">Built in operators.</h2>
+<div class="description">
+<p>Built in operators.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-op">op() = {atom(), '<', term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), '=', term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), '>', term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), '*'}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {any, [<a href="#type-op" class="seealso">op()</a>, ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {all, [<a href="#type-op" class="seealso">op()</a>, ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {null, true | false}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="lt/1">lt(Key::atom(), Term::term()) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Test that a field value is less than a term.</p>
+</div></div>
+<div class="function">
+<h3 id="eq/1">eq(Key::atom(), Term::term()) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Test that a field value is equal to a term.</p>
+</div></div>
+<div class="function">
+<h3 id="gt/1">gt(Key::atom(), Term::term()) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Test that a field value is greater than a term.</p>
+</div></div>
+<div class="function">
+<h3 id="wc/1">wc(Key::atom()) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Test that a field value is exists.</p>
+</div></div>
+<div class="function">
+<h3 id="all/1">all(Conds::[op()]) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Filter the input using multiple filters.</p>
+ 
+  <p>For an input to be considered valid output the all filters specified
+  in the list must hold for the input event. The list is expected to
+  be a non-empty list. If the list of filters is an empty list a <code>badarg</code>
+  error will be thrown.</p>
+</div></div>
+<div class="function">
+<h3 id="any/1">any(Conds::[op()]) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Filter the input using one of multiple filters.</p>
+ 
+  <p>For an input to be considered valid output on of the filters specified
+  in the list must hold for the input event. The list is expected to be
+  a non-empty list. If the list of filters is an empty list a <code>badarg</code>
+  error will be thrown.</p>
+</div></div>
+<div class="function">
+<h3 id="null/1">null(Result::boolean()) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Always return <code>true</code> or <code>false</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="with/1">with(Query::op(), Fun::(event() (see module gre)) -&gt; term()) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Apply a function to each output of a query.</p>
+ 
+  <p>Updating the output action of a query finalizes it. Attempting
+  to use a finalized query to construct a new query will result
+  in a <code>badarg</code> error.</p>
+</div></div>
+<div class="function">
+<h3 id="union/1">union(Queries::[op()]) -&gt; op()</h3>
+
+
+<div class="description">
+
+<p>Return a union of multiple queries.</p>
+ 
+  <p>The union of multiple queries is the equivalent of executing multiple  
+queries separately on the same input event. The advantage is that filter  
+conditions that are common to all or some of the queries only need to  
+be tested once.</p>
+ 
+  <p>All queries are expected to be valid and have an output action other
+  than the default which is <code>output</code>. If these expectations don't hold
+  a <code>badarg</code> error will be thrown.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

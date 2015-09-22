@@ -1,0 +1,1 @@
+var index = [['app','erlship','erlship','[application]'],['mod','erlship','battleship',[]],['fun','erlship','battleship:game/0',[]],['fun','erlship','battleship:game/1',[]],['fun','erlship','battleship:game/2',[]],['fun','erlship','battleship:ship/3',[]],['fun','erlship','battleship:start_cpu_game/2',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','flactags','flactags','[application]'],['mod','flactags','fget',[]],['mod','flactags','flactags',[]],['fun','flactags','fget:get/1',[]],['fun','flactags','flactags:get_tags/1',[]]];

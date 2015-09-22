@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>machi_flu_psup (machi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>machi_flu_psup</h1>
+<h2 class="modsummary">Supervisor for Machi FLU servers and their related support  
+servers.</h2>
+<div class="description">
+<p>Supervisor for Machi FLU servers and their related support  
+servers.</p>
+ 
+  <p>Our parent supervisor, <a href="machi_flu_sup.html" class="seealso">machi_flu_sup</a>, is responsible for
+  managing FLUs as a single entity.  However, the actual
+  implementation of a FLU includes three major Erlang processes (not
+  including support/worker procs): the FLU itself, the FLU's
+  projection store, and the FLU's local chain manager.  This
+  supervisor is responsible for managing those three major services
+  as a single "package", to be started & stopped together.</p>
+ 
+  <p>The illustration below shows the OTP process supervision tree for
+  the Machi application.  Two FLUs are running, called <code>a</code> and <code>b</code>.
+  The chain is configured for a third FLU, <code>c</code>, which is not running  
+at this time.</p>
+ 
+  <p><image file="/machi//images/supervisor-2flus.png"/></p>
+ 
+  <list>
+  <item><p> The FLU process itself is named <code>a</code>.
+  </p></item>
+  <item><p> The projection store process is named <code>a_pstore</code>.
+  </p></item>
+  <item><p> The chain manager process is named <code>a_chmgr</code>.  The three
+       linked subprocesses are long-lived <a href="machi_proxy_flu1_client.html" class="seealso">machi_proxy_flu1_client</a> processes for communicating to all
+       chain participants' projection stores (including the local
+       store <code>a_pstore</code>).
+  </p></item>
+  <item><p> A fourth major process, <code>a_listener</code>, which is responsible for
+       listening on a TCP socket and creating new connections.
+       Currently, each listener has two processes handling incoming
+       requests, one from each chain manager proxy.
+  </p></item>
+  <item><p> Note that the sub-supervisor parent of <code>a</code> and <code>a_listener</code> does
+       not have a registered name.
+  </p></item>
+  </list></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="make_package_spec/4">make_package_spec(FluName, TcpPort, DataDir, Props) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_flu_package/1">start_flu_package(P_srvr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_flu_package/4">start_flu_package(FluName, TcpPort, DataDir, Props) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop_flu_package/1">stop_flu_package(FluName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/4">start_link(FluName, TcpPort, DataDir, Props) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_flu_regname/1">make_flu_regname(FluName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_p_regname/1">make_p_regname(FluName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_mgr_supname/1">make_mgr_supname(MgrName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_proj_supname/1">make_proj_supname(ProjName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_fitness_regname/1">make_fitness_regname(FluName) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','ecover','ecover','[application]'],['mod','ecover','ecover',[]],['mod','ecover','ecover_app',[]],['fun','ecover','ecover:analyse/0',[]],['fun','ecover','ecover:compile/0',[]],['fun','ecover','ecover:merge/0',[]],['fun','ecover','ecover_app:start/2',[]],['fun','ecover','ecover_app:stop/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','lambda_jam_2013_maze','lambda_jam_2013_maze','[application]'],['mod','lambda_jam_2013_maze','maze_gen',[]],['mod','lambda_jam_2013_maze','maze_gen2',[]],['fun','lambda_jam_2013_maze','maze_gen2:cell/3',[]],['fun','lambda_jam_2013_maze','maze_gen2:gen/2',[]],['fun','lambda_jam_2013_maze','maze_gen:gen/2',[]]];

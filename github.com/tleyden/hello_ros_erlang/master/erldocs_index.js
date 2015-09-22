@@ -1,0 +1,1 @@
+var index = [['app','hello_ros_erlang','hello_ros_erlang','[application]'],['mod','hello_ros_erlang','hello_ros_erlang',[]],['fun','hello_ros_erlang','hello_ros_erlang:start/0',[]],['fun','hello_ros_erlang','hello_ros_erlang:stop/0',[]]];

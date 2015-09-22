@@ -1,0 +1,1 @@
+var index = [['app','draw_function','draw_function','[application]'],['mod','draw_function','func_draw',[]],['mod','draw_function','tax',[]],['fun','draw_function','tax:calc/2',[]]];

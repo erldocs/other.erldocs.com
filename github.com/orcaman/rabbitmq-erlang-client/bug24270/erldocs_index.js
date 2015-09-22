@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-erlang-client','rabbitmq-erlang-client','[application]'],['mod','rabbitmq-erlang-client','amqp_client',[]],['fun','rabbitmq-erlang-client','amqp_client:start/0',[]],['fun','rabbitmq-erlang-client','amqp_client:start/2',[]],['fun','rabbitmq-erlang-client','amqp_client:stop/1',[]]];

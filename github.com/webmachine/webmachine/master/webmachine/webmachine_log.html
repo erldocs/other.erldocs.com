@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>webmachine_log (webmachine) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>webmachine_log</h1>
+<h2 class="modsummary">Helper functions for webmachine's default log handlers.</h2>
+<div class="description">
+<p>Helper functions for webmachine's default log handlers</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-add_handler_result">add_handler_result() = ok | {'EXIT', term()} | term()</h3></div>
+    <div class="type"><h3 id="type-datehour">datehour() = {integer() &gt;= 0, 1..12, 1..31, 0..23}</h3></div>
+    <div class="type"><h3 id="type-delete_handler_result">delete_handler_result() = term()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, module_not_found}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'EXIT', term()}</h3></div>
+    <div class="type"><h3 id="type-error">error() = {error, bad_module} | {'EXIT', term()} | term()</h3></div>
+    <div class="type"><h3 id="type-wm_log_data">wm_log_data() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#wm_log_data{resource_module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_time = undefined | tuple(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peer = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sock = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_code = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_length = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end_time = undefined | tuple(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finish_time = undefined | tuple(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notes = any()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add_handler/1">add_handler(Mod::atom() | {atom(), term()}, Args::term()) -&gt; add_handler_result()</h3>
+
+
+<div class="description">
+
+<p>Add a handler to receive log events</p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Mod::atom(), Msg::term()) -&gt; term() | error()</h3>
+
+
+<div class="description">
+
+<p>Make a synchronous call directly to a specific event handler
+  module</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Mod::atom(), Msg::term(), Timeout::timeout()) -&gt; term() | error()</h3>
+
+
+<div class="description">
+
+<p>Make a synchronous call directly to a specific event handler
+  module</p>
+</div></div>
+<div class="function">
+<h3 id="datehour/0">datehour() -&gt; datehour()</h3>
+
+
+<div class="description">
+
+<p>Return a four-tuple containing year, month, day, and hour
+  of the current time.</p>
+</div></div>
+<div class="function">
+<h3 id="datehour/1">datehour(TS::timestamp() (see module erlang)) -&gt; datehour()</h3>
+
+
+<div class="description">
+
+<p>Return a four-tuple containing year, month, day, and hour
+  of the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="defer_refresh/1">defer_refresh(Mod::atom()) -&gt; {ok, tref() (see module timer)} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Defer the refresh of a log file.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_handler/1">delete_handler(Mod::atom() | {atom(), term()}) -&gt; delete_handler_result()</h3>
+
+
+<div class="description">
+
+<p>Remove a log handler</p>
+</div></div>
+<div class="function">
+<h3 id="fix_log/1">fix_log(FD::io_device() (see module file), Location::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fmt_ip/1">fmt_ip(IP::undefined | string() | ip4_address() (see module inet) | ip6_address() (see module inet)) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Format an IP address or host name</p>
+</div></div>
+<div class="function">
+<h3 id="fmtnow/0">fmtnow() -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Format the current time into a string</p>
+</div></div>
+<div class="function">
+<h3 id="log_access/1">log_access(Wm_log_data::wm_log_data()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notify registered log event handler of an access event.</p>
+</div></div>
+<div class="function">
+<h3 id="log_close/1">log_close(Mod::atom(), Name::string(), FD::io_device() (see module file)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Close a log file.</p>
+</div></div>
+<div class="function">
+<h3 id="log_error/1">log_error(LogMsg::iolist()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notify registered log event handler of an error event.</p>
+</div></div>
+<div class="function">
+<h3 id="log_error/1-1">log_error(Code::pos_integer(), Wm_reqdata::#wm_reqdata{}, Reason::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notify registered log event handler of an error event.</p>
+</div></div>
+<div class="function">
+<h3 id="log_info/1">log_info(LogMsg::iolist()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notify registered log event handler of an info event.</p>
+</div></div>
+<div class="function">
+<h3 id="log_open/1">log_open(FileName::string()) -&gt; {io_device() (see module file), datehour()}</h3>
+
+
+<div class="description">
+
+<p>Open a new log file for writing</p>
+</div></div>
+<div class="function">
+<h3 id="log_open/1-1">log_open(FileName::string(), DateHour::datehour()) -&gt; io_device() (see module file)</h3>
+
+
+<div class="description">
+
+<p>Open a new log file for writing</p>
+</div></div>
+<div class="function">
+<h3 id="log_write/1">log_write(FD::io_device() (see module file), IoData::iolist()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="maybe_rotate/1">maybe_rotate(Mod::atom(), FileName::string(), Handle::io_device() (see module file), Time::timestamp() (see module erlang), Hour::datehour()) -&gt; {datehour(), io_device() (see module file)}</h3>
+
+
+<div class="description">
+
+<p>Rotate a log file if the hour it represents
+  has passed.</p>
+</div></div>
+<div class="function">
+<h3 id="month/1">month(X1::1..12) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Convert numeric month value to the abbreviation</p>
+</div></div>
+<div class="function">
+<h3 id="refresh/1">refresh(Mod::atom(), Time::timestamp() (see module erlang)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Make a synchronous call to instruct a log handler to refresh
+  itself.</p>
+</div></div>
+<div class="function">
+<h3 id="suffix/1">suffix(X1::datehour()) -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="zeropad/1">zeropad(Num::integer(), MinLength::integer()) -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="zone/0">zone() -&gt; string()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>na_num_anal (number_analysis) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>na_num_anal</h1>
+<h2 class="modsummary">Provides a generic number analyser for dialled numbers.</h2>
+<div class="description">
+<p>Provides a generic number analyser for dialled numbers.   
+num_anal provides functions to create lists of phone numbers which may   
+be analysed on on either a longest match or shortest match basis until   
+either a match is made, a match is definitely not made, or no more digits   
+are left. Each new list which is created is implemented using a single   
+Mnesia table which may be replicated on a number of Erlang Nodes.</p>
+  
+   <p>Within each new table multiple lists of numbers may be built indexed   
+by a grouping called Ref. Functions are provided to create new tables,   
+add entries to lists within the table, retrieve all lists contained in   
+a table, retrieve all the phone numbers associated with a Ref within a   
+table, as well as looking up and deleting entries.</p>
+  
+   There are three ways of looking up in the tables best illustrated by
+   an example. e.g. if a table has the following two entries
+   <pre class="sh_erlang">
+   [0,1,8,1] -&gt; outer_london
+   [0,1,8,1,2,1,4] -&gt; one2one
+   </pre>
+   The functions give the following results:
+   <pre class="sh_erlang">
+   check(Type, Ref, [0,1,8,1,2,1,4,2,4,1,3]) -&gt; outer_london
+   longest_match(Type, Ref, [0,1,8,1,2,1,4,2,4,1,3]) -&gt; one2one
+   exact_match(Type, Ref, [0,1,8,1,2,1,4,2,4,1,3]) -&gt; no_match
+   </pre>
+  
+   <p>This module was posted on the erlang-questions mailing list
+   <url href="http://www.erlang.org/ml-archive/erlang-questions/200401/msg00009.html">http://www.erlang.org/ml-archive/erlang-questions/200401/msg00009.html</url>   
+by Sean Hinde.</p>
+  
+   <em><marker id="Database_Design">Database Design</marker></em>
+   <em><marker id="list">list</marker></em>
+   Stores bw_lists
+   
+     
+       <em>Record Name</em>
+       <a href="#type-number_analyser" class="seealso">number_analyser()</a>
+     <br />
+     
+       <em>Table Type</em>
+       set
+     <br />
+     
+       <em>Indexes</em>
+       none
+     <br />
+   </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-number_analyser">number_analyser() = #number_analyser{num=integer(), res=Result}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Type) -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#new/2" class="seealso">new(Type, [node()])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2">new(Type, Nodes) -&gt; {atomic, ok} | {aborted, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function creates a new table called Type where type must be an
+  atom. e.g. Type could be b_num, for the b-number analysis lists for an
+  application. If a list of node names are specified, the table is
+  replicated on all those nodes, otherwise the table is created on the local
+  node only.</p>
+</div></div>
+<div class="function">
+<h3 id="check/3">check(Type, Ref, Numberlist) -&gt; Result | no_match</h3>
+
+
+<div class="description">
+
+<p>This function looks up a telephone number in the form
+  [0,1,8,1,2,1,4,2,4,1,3] digit by digit on a shortest match basis.
+  If no match is found returns no_match.</p>
+</div></div>
+<div class="function">
+<h3 id="longest_match/3">longest_match(Type, Ref, Numberlist) -&gt; Result | no_match</h3>
+
+
+<div class="description">
+
+<p>This function looks up a telephone number in the form
+  [0,1,8,1,2,1,4,2,4,1,3] digit by digit on a longest match basis.
+  If no match is found returns no_match.</p>
+</div></div>
+<div class="function">
+<h3 id="exact_match/3">exact_match(Type, Ref, Numberlist) -&gt; Result | no_match</h3>
+
+
+<div class="description">
+
+<p>This function looks up a telephone number in the form
+  [0,1,8,1,2,1,4,2,4,1,3] on an exact match basis.
+  If no match is found returns no_match.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/3">delete(T, Ref, NumList) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function attempts to delete the entry referenced.
+  If Numberlist is a prefix of a number already in the table this command
+  is rejected with Reason trying_to_delete_sublist.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_list/2">delete_list(T, Ref) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function attempts to delete all entries in table Type
+  referenced by Ref.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/4">insert(T, Ref, NumberList, Value) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>This function attempts to insert the number Numberlist (given as
+  list e.g [0,1,8,1]) into table Type, List Ref, Name. Future matches
+  against this number by the check function will return the result Value.
+  If there is not already an entry against Ref it is created automatically.</p>
+</div></div>
+<div class="function">
+<h3 id="print_match/3">print_match(T, Ref, RecPat) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ranges/2">ranges(T, Ref) -&gt; integer() | exit()</h3>
+
+
+<div class="description">
+
+<p>Get number of ranges with Ref.</p>
+</div></div>
+<div class="function">
+<h3 id="print_all/2">print_all(T, Ref) -&gt; Result | exit()</h3>
+
+
+<div class="description">
+
+<p>This function returns an erlang list of all {Numberlist, Value}
+  in List Ref e.g.
+  </p><pre class="sh_erlang">
+  [{[0,1,8,1], outer_london},
+   {[0,1,7,1], inner_london}]
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="print_prefix/3">print_prefix(T, Ref, Prefix) -&gt; Result | exit()</h3>
+
+
+<div class="description">
+
+<p>This function returns an erlang list of all {Numberlist, Value}
+  in List Ref where Prefix is a prefix of Numberlist e.g.
+  </p><pre class="sh_erlang">
+  [{[0,1,8,1], outer_london},
+   {[0,1,7,1], inner_london}]
+  </pre>
+</div></div></div>
+
+<authors>
+
+<aname>Claes Wikstrom</aname>
+<email>klacke@erix.eicsson.se</email>
+<aname>Sean Hinde</aname>
+<email>sean.hinde@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

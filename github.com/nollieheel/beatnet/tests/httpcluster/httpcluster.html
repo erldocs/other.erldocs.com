@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>httpcluster (httpcluster) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>httpcluster</h1>
+<h2 class="modsummary">Handles cluster information.</h2>
+<div class="description">
+<p>Handles cluster information. This module runs the main primary-node        
+functions such as triggering TTD timers on nodes, refreshing them        
+if the nodes check in, and manipulating node info when requested.</p>
+  
+        <p>The cluster information being run by the primary node then becomes        
+the source of truth for all secondary nodes.</p>
+  
+        Nodes check in (health check) using <a href="#node_ping/1" class="seealso">node_ping/1</a>. If
+        they fail to do that within their TTD window, a node-down event
+        is automatically triggered within the module and the cluster info
+        is updated.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-local_id">local_id() = reference()</h3></div>
+    <div class="type"><h3 id="type-pnode">pnode() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pnode{local_id = undefined | <a href="#type-local_id" class="seealso">local_id()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ttd = undefined | integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;con = undefined | boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rank = undefined | integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prio = undefined | integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attribs = undefined | binary()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; {ok, Started} | {error, Error}</h3>
+
+<ul class="type">
+<li><code>Started = [atom()]</code></li><li><code>Error = any()</code></li></ul>
+<div class="description">
+
+<p>Useful for starting the VM with <code>-s httpcluster</code> flag.</p>
+</div></div>
+<div class="function">
+<h3 id="soft_init/1">soft_init(ThisNode) -&gt; ok | {error, already_active}</h3>
+
+<ul class="type">
+<li><code>ThisNode = cnode() (see module hc_node)</code></li></ul>
+<div class="description">
+
+<p>Put the server on standby, awaiting ping from self node. This
+       is the same as not active, but the server will respond to a future
+       nodeup event coming from the given node. It will keep doing this
+       as long as it is not activated/deactivated.</p>
+</div></div>
+<div class="function">
+<h3 id="hard_activate/3">hard_activate(ThisName, Nodes, Evts) -&gt; ok | {error, this_node_not_found | already_active}</h3>
+
+<ul class="type">
+<li><code>ThisName = name() (see module hc_node)</code></li><li><code>Nodes = cnodes() (see module hc_node)</code></li><li><code>Evts = [evt() (see module hc_evt) | evt_err() (see module hc_evt)]</code></li></ul>
+<div class="description">
+
+<p>Activate the server as primary with a new set of <code>Nodes</code> and <code>Evts</code>.
+       <code>ThisName</code> is the name of this node, which must be present in <code>Nodes</code>.</p>
+ 
+       <p>Calling this function again after the server has been activated
+       will result in an error.</p>
+</div></div>
+<div class="function">
+<h3 id="node_ping/1">node_ping(Ping) -&gt; {ok, Data}</h3>
+
+<ul class="type">
+<li><code>Ping = node_ping() (see module hc_evt)</code></li><li><code>Data = term()</code></li></ul>
+<div class="description">
+
+<p>Process a <a href="hc_evt.html#type-node_ping" class="seealso">hc_evt:node_ping()</a> coming from a single source.
+       The ping may or may not contain an <code>evt_raw</code>.</p>
+ 
+       <p>If successful, return the result as a <a href="hc_evt.html#type-node_pong" class="seealso">hc_evt:node_pong()</a>,
+       along with the most recent list of nodes if the ping was a sync.
+       The nodes returned in this way is the list just before
+       the <code>evt_raw</code> is applied. Additionally, the <code>node_pong</code> will be       
+broadcasted to all other live nodes.</p>
+ 
+       <p>If the ping is invalid, or a <a href="hc_evt.html#type-node_reply" class="seealso">hc_evt:node_reply()</a>       
+resulted from processing the ping, then no broadcast will happen.</p>
+ 
+       <p>Calling this function also serves as a health check for
+       the ping source regardless if there was an <code>evt_raw</code> in it or not.</p>
+ 
+       <p>The actual returned value <code>Data</code> will be the <a href="hc_evt.html#type-node_pong" class="seealso">hc_evt:node_pong()</a>
+       or <a href="hc_evt.html#type-node_reply" class="seealso">hc_evt:node_reply()</a> filtered through the client comm module
+       function <code>create_pongdata/3</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/0">deactivate() -&gt; ok | {error, not_active}</h3>
+
+
+<div class="description">
+
+<p>Turn off active state.</p>
+</div></div>
+<div class="function">
+<h3 id="is_active/0">is_active() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Check if currently active or not.</p>
+</div></div>
+<div class="function">
+<h3 id="get_nodes/0">get_nodes() -&gt; Nodes</h3>
+
+<ul class="type">
+<li><code>Nodes = [pnode()]</code></li></ul>
+<div class="description">
+
+<p>Get the local nodes list. For debugging purposes.</p>
+</div></div>
+<div class="function">
+<h3 id="get_evts/0">get_evts() -&gt; Hist</h3>
+
+<ul class="type">
+<li><code>Hist = [evt() (see module hc_evt) | evt_err() (see module hc_evt)]</code></li></ul>
+<div class="description">
+
+<p>Get the local history list. For debugging purposes.</p>
+</div></div></div>
+
+<authors>
+
+<aname>nollieheel</aname>
+<email>iskitingbords@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

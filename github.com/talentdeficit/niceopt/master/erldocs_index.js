@@ -1,0 +1,1 @@
+var index = [['app','niceopt','niceopt','[application]'],['mod','niceopt','niceopt',[]],['fun','niceopt','niceopt:parse/1',[]]];

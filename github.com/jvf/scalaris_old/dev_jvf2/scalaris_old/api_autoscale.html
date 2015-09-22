@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>api_autoscale (scalaris_old) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>api_autoscale</h1>
+<h2 class="modsummary">Simple auto-scaling service API.</h2>
+<div class="description">
+<p>Simple auto-scaling service API.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-autoscale_error_resp">autoscale_error_resp() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{error, resp_timeout | autoscale_false}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether config parameters exist and are valid (requires a pull
+       configuration, i.e. cloud_cps as cloud_module).</p>
+</div></div>
+<div class="function">
+<h3 id="pull_scale_req/0">pull_scale_req() -&gt; {ok, Req::integer()} | autoscale_error_resp()</h3>
+
+
+<div class="description">
+
+<p>Pull current scale request from autoscale leader. If the request is
+       not 0, further requests should be locked with lock_scale_req/0 until a
+       unlock_scale_req/0 call has been made. Autoscale defines a timeout,
+       after which the lock will be automatically freed, i.e. the caller has
+       $timeout seconds to satisfy the request and notify autoscale by
+       unlock_scale_req/0.</p>
+</div></div>
+<div class="function">
+<h3 id="lock_scale_req/0">lock_scale_req() -&gt; ok | {error, locked} | autoscale_error_resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unlock_scale_req/0">unlock_scale_req() -&gt; ok | {error, not_locked} | autoscale_error_resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="toggle_alarm/1">toggle_alarm(Name::atom()) -&gt; {ok, {new_state, NewState::active | inactive}} | {error, unknown_alarm | tx_fail} | autoscale_error_resp()</h3>
+
+
+<div class="description">
+
+<p>Toggle state of alarm Name from active to inactive and vice versa.</p>
+</div></div>
+<div class="function">
+<h3 id="activate_alarms/0">activate_alarms() -&gt; ok | {error, tx_fail} | autoscale_error_resp()</h3>
+
+
+<div class="description">
+
+<p>Set all alarms to active.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate_alarms/0">deactivate_alarms() -&gt; ok | {error, tx_fail} | autoscale_error_resp()</h3>
+
+
+<div class="description">
+
+<p>Set all alarms to inactive.</p>
+</div></div>
+<div class="function">
+<h3 id="write_plot_data/0">write_plot_data() -&gt; ok | {error, mgmt_server_false | autoscale_server_false}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reset_plot_data/0">reset_plot_data() -&gt; ok | {error, mgmt_server_false | autoscale_server_false}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Ufuk Celebi</aname>
+<email>celebi@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

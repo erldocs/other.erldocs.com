@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>memo_trie (memo_trie) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>memo_trie</h1>
+<h2 class="modsummary">各ノードが任意のメモ情�&nbsp;�を保持するトライ木の実装.</h2>
+<div class="description">
+<p>各ノードが任意のメモ情�&nbsp;�を保持するトライ木の実装</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-children">children() = <a href="memo_trie_children.html#type-state" class="seealso">memo_trie_children:state()</a></h3></div>
+    <div class="type"><h3 id="type-fold_fun">fold_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>, Acc :: term()) -> NextAcc :: term())</h3></div>
+    <div class="type"><h3 id="type-key">key() = [<a href="#type-key_component" class="seealso">key_component()</a>]</h3></div>
+    <div class="type"><h3 id="type-key_component">key_component() = term()</h3></div>
+    <div class="type"><h3 id="type-leaf">leaf() = error | {ok, <a href="#type-value" class="seealso">value()</a>}</h3></div>
+    <div class="type"><h3 id="type-make_opt">make_opt() = {memo_fun, <a href="#type-memo_fun" class="seealso">memo_fun()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {memo_empty, <a href="#type-memo" class="seealso">memo()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {children_module,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="memo_trie_children.html#type-children_module" class="seealso">memo_trie_children:children_module()</a>}</h3></div>
+    <div class="type"><h3 id="type-make_opts">make_opts() = [<a href="#type-make_opt" class="seealso">make_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-memo">memo() = term()</h3></div>
+    <div class="type"><h3 id="type-memo_event">memo_event() = {insert_value,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewValue :: <a href="#type-value" class="seealso">value()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodeMemo :: <a href="#type-memo" class="seealso">memo()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {update_value,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{OldValue :: <a href="#type-value" class="seealso">value()</a>, NewValue :: <a href="#type-value" class="seealso">value()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodeMemo :: <a href="#type-memo" class="seealso">memo()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {delete_value,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OldValue :: <a href="#type-value" class="seealso">value()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodeMemo :: <a href="#type-memo" class="seealso">memo()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {insert_child,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-key_component" class="seealso">key_component()</a>, NewChildMemo :: <a href="#type-memo" class="seealso">memo()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodeMemo :: <a href="#type-memo" class="seealso">memo()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {update_child,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-key_component" class="seealso">key_component()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OldChildMemo :: <a href="#type-memo" class="seealso">memo()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NewChildMemo :: <a href="#type-memo" class="seealso">memo()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodeMemo :: <a href="#type-memo" class="seealso">memo()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {delete_child,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-key_component" class="seealso">key_component()</a>, OldChildMemo :: <a href="#type-memo" class="seealso">memo()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NodeMemo :: <a href="#type-memo" class="seealso">memo()</a>}</h3></div>
+    <div class="type"><h3 id="type-memo_fun">memo_fun() = fun((<a href="#type-memo_event" class="seealso">memo_event()</a>) -> <a href="#type-memo" class="seealso">memo()</a>)</h3></div>
+    <div class="type"><h3 id="type-trie">trie() = <a href="#type-trie" class="seealso">trie</a>(<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>)</h3></div>
+    <div class="type"><h3 id="type-trie">trie() = <a href="#type-trie" class="seealso">trie</a>(<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>)</h3></div>
+    <div class="type"><h3 id="type-trie_node">trie_node() = {node, <a href="#type-memo" class="seealso">memo()</a>, <a href="#type-leaf" class="seealso">leaf()</a>, <a href="#type-children" class="seealso">children()</a>}</h3></div>
+    <div class="type"><h3 id="type-value">value() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Options::make_opts()) -&gt; trie()</h3>
+
+
+<div class="description">
+
+<p>新しいトライ木を生成する</p>
+</div></div>
+<div class="function">
+<h3 id="subtrie/1">subtrie(Key::key(), Trie::trie()) -&gt; {ok, trie()} | error</h3>
+
+
+<div class="description">
+
+<p><code>Trie</code>内の<code>Key</code>に対応する地点のサブトライ木を取り出す</p>
+</div></div>
+<div class="function">
+<h3 id="is_trie/1">is_trie(Value::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Tests if <code>Value</code> is a trie and returns <code>true</code> if so and <code>false</code> otherwise</p>
+</div></div>
+<div class="function">
+<h3 id="is_empty/1">is_empty(Memo_trie::trie()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>トライ木が空かどうかを判定する</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(Trie::trie()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>トライ木に�&nbsp;�納されている要�&nbsp;の数を取得する</p>
+ 
+  <p>この関数は、要�&nbsp;数に比例した(線形の)処理オーダーを要するので注意が必要</p>
+</div></div>
+<div class="function">
+<h3 id="store/1">store(Key::key(), Value::value(), Trie::trie()) -&gt; trie()</h3>
+
+
+<div class="description">
+
+<p><code>Trie</code>内の<code>Key</code>に対応する地点に<code>Value</code>を�&nbsp;�納する</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(Key::key(), Trie::trie()) -&gt; {ok, value()} | error</h3>
+
+
+<div class="description">
+
+<p><code>Trie</code>内の<code>Key</code>に対応するノードの値を検索する</p>
+</div></div>
+<div class="function">
+<h3 id="erase/1">erase(Key::key(), Trie::trie()) -&gt; trie()</h3>
+
+
+<div class="description">
+
+<p><code>Trie</code>内の<code>Key</code>に対応するノードの値を削除する</p>
+</div></div>
+<div class="function">
+<h3 id="from_list/1">from_list(Options::make_opts(), List::[{key(), value()}]) -&gt; trie()</h3>
+
+
+<div class="description">
+
+<p>連想リストからトライ木を生成する</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(Trie::trie()) -&gt; [{key(), value()}]</h3>
+
+
+<div class="description">
+
+<p>トライ木から連想リストを生成する</p>
+</div></div>
+<div class="function">
+<h3 id="foldl/1">foldl(Fun::fold_fun(), Initial, Trie::trie()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Initial = term()</code></li><li><code>Result = term()</code></li></ul>
+<div class="description">
+
+<p>トライ木内の要�&nbsp;を左端から�&nbsp;�番に畳み込む</p>
+</div></div>
+<div class="function">
+<h3 id="foldr/1">foldr(Fun::fold_fun(), Initial, Trie::trie()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Initial = term()</code></li><li><code>Result = term()</code></li></ul>
+<div class="description">
+
+<p>トライ木内の要�&nbsp;を右端から�&nbsp;�番に畳み込む</p>
+</div></div>
+<div class="function">
+<h3 id="get_root_node/1">get_root_node(Trie::trie()) -&gt; trie_node()</h3>
+
+
+<div class="description">
+
+<p>木のルートノードを取得する</p>
+</div></div>
+<div class="function">
+<h3 id="find_node/1">find_node(Key::key(), Trie::trie()) -&gt; {ok, trie_node()} | error</h3>
+
+
+<div class="description">
+
+<p><code>Trie</code>内の<code>Key</code>に対応するノードを検索する</p>
+</div></div>
+<div class="function">
+<h3 id="find_memo/1">find_memo(Key::key(), Trie::trie()) -&gt; {ok, memo()} | error</h3>
+
+
+<div class="description">
+
+<p><code>Trie</code>内の<code>Key</code>に対応するノードのメモ情�&nbsp;�を検索する</p>
+</div></div>
+<div class="function">
+<h3 id="get_memo/1">get_memo(X1::trie_node()) -&gt; memo()</h3>
+
+
+<div class="description">
+
+<p>ノードからメモ情�&nbsp;�を取り出す</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1">get_value(X1::trie_node()) -&gt; {ok, value()} | error</h3>
+
+
+<div class="description">
+
+<p>ノードに�&nbsp;�納されている値を取り出す</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1-1">get_value(Node::trie_node(), Default::value()) -&gt; value()</h3>
+
+
+<div class="description">
+
+<p>ノードに�&nbsp;�納されている値を取り出す</p>
+ 
+  <p>そのような値が存在しない�&nbsp;�合は、代わりに<code>Default</code>が返される</p>
+</div></div>
+<div class="function">
+<h3 id="get_children/1">get_children(X1::trie_node()) -&gt; children()</h3>
+
+
+<div class="description">
+
+<p>ノードの子ノード群を取得する</p>
+</div></div>
+<div class="function">
+<h3 id="children_to_list/1">children_to_list(Children::children(), Trie::trie()) -&gt; [{key_component(), trie_node()}]</h3>
+
+
+<div class="description">
+
+<p>子ノード群を連想リスト形式に変換する</p>
+</div></div>
+<div class="function">
+<h3 id="memo_fun_identity/1">memo_fun_identity(X1::memo_event()) -&gt; memo()</h3>
+
+
+<div class="description">
+
+<p>デフォルトで使用されるメモ関数</p>
+ 
+  <p>既存のメモ値をそのまま返す</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>zraft_consensus (zraft_lib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>zraft_consensus</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-append_request">append_request() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#append_entries{term = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;epoch = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request_ref = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_log_index = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev_log_term = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entries = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commit_index = any()}</h3></div>
+    <div class="type"><h3 id="type-csession">csession() = term()</h3></div>
+    <div class="type"><h3 id="type-from_peer_addr">from_peer_addr() = {<a href="#type-peer_id" class="seealso">peer_id()</a>, pid()}</h3></div>
+    <div class="type"><h3 id="type-index">index() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-install_snapshot_reply">install_snapshot_reply() = #install_snapshot_reply{}</h3></div>
+    <div class="type"><h3 id="type-install_snapshot_request">install_snapshot_request() = #install_snapshot{}</h3></div>
+    <div class="type"><h3 id="type-peer_id">peer_id() = {<a href="#type-peer_name" class="seealso">peer_name()</a>, node()}</h3></div>
+    <div class="type"><h3 id="type-peer_name">peer_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-raft_meta">raft_meta() = #raft_meta{}</h3></div>
+    <div class="type"><h3 id="type-raft_runtime_error">raft_runtime_error() = {error, term()}</h3></div>
+    <div class="type"><h3 id="type-raft_term">raft_term() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-rpc_cmd">rpc_cmd() = <a href="#type-append_request" class="seealso">append_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-vote_request" class="seealso">vote_request()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-snapshot_request" class="seealso">snapshot_request()</a></h3></div>
+    <div class="type"><h3 id="type-session_write">session_write() = #swrite{}</h3></div>
+    <div class="type"><h3 id="type-snapshot_info">snapshot_info() = #snapshot_info{}</h3></div>
+    <div class="type"><h3 id="type-snapshot_request">snapshot_request() = term()</h3></div>
+    <div class="type"><h3 id="type-vote_request">vote_request() = #vote_request{}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="query_local/1">query_local(PeerID::peer_id(), Query::term(), Timeout::timeout()) -&gt; {ok, term()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Query data form user backend from current peer.</p>
+</div></div>
+<div class="function">
+<h3 id="query/1">query(PeerID::peer_id(), Query::term(), Timeout::timeout()) -&gt; {ok, term()} | {leader, peer_id()} | {error, timeout} | {error, loading}</h3>
+
+
+<div class="description">
+
+<p>Query data form user backend.</p>
+</div></div>
+<div class="function">
+<h3 id="query/1-1">query(PeerID::peer_id(), WatchRef::term(), Query::term(), Timeout::timeout()) -&gt; {ok, term()} | {leader, peer_id()} | {error, timeout} | {error, loading}</h3>
+
+
+<div class="description">
+
+<p>Query data form user backend and set watch for future change.</p>
+</div></div>
+<div class="function">
+<h3 id="async_query/1">async_query(PeerID::peer_id(), From::term(), Query::term(), Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="async_query/1-1">async_query(PeerID::peer_id(), From::term(), WatchRef::term(), Query::term(), Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_conf/1">get_conf(PeerID::peer_id(), Timeout::timeout()) -&gt; {ok, term()} | {leader, peer_id()} | retry | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Read last stable quorum configuration</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(PeerID::peer_id(), Data::term(), Timeout::timeout()) -&gt; {ok, term()} | {leader, peer_id()} | {error, loading}</h3>
+
+
+<div class="description">
+
+<p>Write data to user backend</p>
+</div></div>
+<div class="function">
+<h3 id="send_swrite/1">send_swrite(Peer::peer_id() | from_peer_addr(), SWrite::session_write()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="write_async/1">write_async(PeerID::peer_id(), Data::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Async write data to user backend</p>
+</div></div>
+<div class="function">
+<h3 id="set_new_configuration/1">set_new_configuration(PeerID::peer_id(), PrevID::index(), Peers::[peer_id()], Timeout::timeout()) -&gt; ok | {leader, peer_id()} | not_stable | newer_exists | process_prev_change</h3>
+
+
+<div class="description">
+
+<p>Write data to user backend</p>
+</div></div>
+<div class="function">
+<h3 id="stat/1">stat(Peer) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_election_timeout/0">get_election_timeout() -&gt; timeout()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(PeerID::peer_id(), BackEnd::module()) -&gt; {ok, pid()} | {error, {already_started, pid()}} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Peer::peer_id()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="replicate_log/3">replicate_log(Raft, ToPeer, AppendReq) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Raft = from_peer_addr() | pid()</code></li><li><code>ToPeer = peer_id()</code></li><li><code>AppendReq = #append_entries{term=any(), epoch=any(), from=any(), request_ref=any(), prev_log_index=any(), prev_log_term=any(), entries=undefined | term(), commit_index=any()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="initial_bootstrap/1">initial_bootstrap(P::peer_id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Generate initial peer state.</p>
+</div></div>
+<div class="function">
+<h3 id="sync_peer/1">sync_peer(P::from_peer_addr(), Sync::{SyncType::atom(), ConfID::index(), term()}) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="maybe_step_down/1">maybe_step_down(P::from_peer_addr(), Term::raft_term()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="need_snapshot/1">need_snapshot(Peer::peer_id(), NewReq::install_snapshot_request()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="make_snapshot_info/1">make_snapshot_info(Peer::from_peer_addr(), From::{reference(), pid()}, Index::index()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="truncate_log/1">truncate_log(Raft::from_peer_addr(), Snapshot_info::#snapshot_info{}) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="load/2">load(X1, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="load/3">load(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="follower/2">follower(Req, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="follower/3">follower(Event, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="candidate/2">candidate(Vote_reply, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="candidate/3">candidate(Event, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="leader/2">leader(Req, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="leader/3">leader(Event, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(Info, StateName, InitialState) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(Req, From, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/3">handle_info(Info, StateName, InitState) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/3">terminate(Reason, StateName, Init_state) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read_request/4">read_request(State, From, Watcher, Request) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_conf_request/2">get_conf_request(State, From) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply_caller/2">reply_caller(From, Msg) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Gunin Alexander</aname>
+<email>guninalexander@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

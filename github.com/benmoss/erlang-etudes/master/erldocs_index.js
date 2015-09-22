@@ -1,0 +1,1 @@
+var index = [['app','erlang-etudes','erlang-etudes','[application]'],['mod','erlang-etudes','dijkstra',[]],['mod','erlang-etudes','geom','Some math and shit.'],['mod','erlang-etudes','powers',[]],['fun','erlang-etudes','dijkstra:gcd/2',[]],['fun','erlang-etudes','geom:area/1',[]],['fun','erlang-etudes','powers:nth_root/2',[]],['fun','erlang-etudes','powers:raise/2',[]]];

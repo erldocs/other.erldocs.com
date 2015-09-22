@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nano_trace (nano_trace) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nano_trace</h1>
+<h2 class="modsummary">
+   A tracer for tracing OTP-based applications.</h2>
+<div class="description">
+<p>
+   A tracer for tracing OTP-based applications. Traces all function calls to
+   modules of applications to a file with a human readable format.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-test">test() = <a href="#type-type" class="seealso">type()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Type :: <a href="#type-type" class="seealso">type()</a>, Pattern :: string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {notF, <a href="#type-test" class="seealso">test()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {andF, [<a href="#type-test" class="seealso">test()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {andF, <a href="#type-test" class="seealso">test()</a>, <a href="#type-test" class="seealso">test()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {orF, [<a href="#type-test" class="seealso">test()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {orF, <a href="#type-test" class="seealso">test()</a>, <a href="#type-test" class="seealso">test()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| allF</h3></div>
+    <div class="type"><h3 id="type-type">type() = call | return | exception | send</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="help/0">help() -&gt; helped</h3>
+
+
+<div class="description">
+
+<p>
+  Print synopsis to stdout.</p>
+</div></div>
+<div class="function">
+<h3 id="long_help/0">long_help() -&gt; helped</h3>
+
+
+<div class="description">
+
+<p>
+  Print some help on how to use this module to stdout.</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start the server the trace is written to a file called "default-trace.log".</p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(Applications::[module()]) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start the server. The parameter is a list of applications that are analyzed
+  in order to find out the modules, to be used as trace pattern for call trace.
+  The trace is written to a file called "trace-[date time].log".</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(Applications::[module()], FileName::string()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start the server with a custom output file name. Default filtering for
+  is applied.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-2">start(Applications::[module()], FileName::string(), Filter::test()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start the server with a custom output file name. Default filtering for
+  is applied.</p>
+</div></div>
+<div class="function">
+<h3 id="add_app/1">add_app(Application::module()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  This will add the application to the traced applications.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_app/1">remove_app(Application::module()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  This will remove the application from the traced applications.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Stops tracing and resets all trace patterns.</p>
+</div></div>
+<div class="function">
+<h3 id="pause/0">pause() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Pauses the tracing by removing all trace flags.</p>
+</div></div>
+<div class="function">
+<h3 id="resume/0">resume() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Resume the tracing by setting all trace patterns.</p>
+</div></div>
+<div class="function">
+<h3 id="msg_depth/1">msg_depth(Depth::non_neg_integer() | unlimited) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Define the limitation on trace message depth. This is used to crop function
+  call arguments and return values. Passing a number will define the depth
+  parameter used when formatting with "~P" ... [Depth], passing 'unlimited' will
+  format the messages with "~p".</p>
+<p><em>See also:</em> <a href="io.html#fwrite/2" class="seealso">io:fwrite/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/1">filter(Test::test()) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>
+  Set a new filter for trace events to be logged.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/0">filter() -&gt; test()</h3>
+
+
+<div class="description">
+
+<p>
+  Return the current filter</p>
+</div></div>
+<div class="function">
+<h3 id="print_applications/0">print_applications() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Print a list of applications to be traced.</p>
+</div></div>
+<div class="function">
+<h3 id="print_traced_functions/0">print_traced_functions() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Print a list of functions that are traced.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Sven Heyll</aname>
+<email>sven.heyll@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

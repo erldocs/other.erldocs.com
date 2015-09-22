@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cqerl (cqerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cqerl</h1>
+<h2 class="modsummary">Main interface to CQErl cassandra client.</h2>
+<div class="description">
+<p>Main interface to CQErl cassandra client.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-client">client()</h3></div>
+    <div class="type"><h3 id="type-consistency_level">consistency_level() = 0..10</h3></div>
+    <div class="type"><h3 id="type-datatype">datatype() = ascii<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bigint<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| blob<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| counter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| decimal<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| double<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| int<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timestamp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| uuid<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| varchar<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| varint<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| timeuuid<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| inet</h3></div>
+    <div class="type"><h3 id="type-inet">inet() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a> | string(), Port :: integer()}</h3></div>
+    <div class="type"><h3 id="type-named_parameter">named_parameter() = {atom(), <a href="#type-parameter_val" class="seealso">parameter_val()</a>}</h3></div>
+    <div class="type"><h3 id="type-parameter">parameter() = {<a href="#type-datatype" class="seealso">datatype()</a>, <a href="#type-parameter_val" class="seealso">parameter_val()</a>}</h3></div>
+    <div class="type"><h3 id="type-parameter_val">parameter_val() = number() | binary() | list() | atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="prepare_client/1">prepare_client(Inet::inet(), Opts::[tuple() | atom()]) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prepare_client/1-1">prepare_client(Inet::inet()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_client/0">new_client() -&gt; {ok, client()} | {error, no_available_clients}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_client/1">new_client(Inet::inet()) -&gt; {ok, client()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="new_client/1-1">new_client(Inet::inet(), Opts::[tuple() | atom()]) -&gt; {ok, client()} | {error, no_available_clients}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="close_client/1">close_client(ClientRef::client()) -&gt; no_return()</h3>
+
+
+<div class="description">
+
+<p>Close a client that was previously allocated with <a href="#new_client/0" class="seealso">new_client/0</a> or <a href="#new_client/1" class="seealso">new_client/1</a>.</p>
+ 
+  <p>This function will return immediately no matter if the client has already been closed or not.</p>
+</div></div>
+<div class="function">
+<h3 id="run_query/1">run_query(ClientRef::client(), Query::binary() | string() | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}) -&gt; {ok, void} | {ok, #cql_result{columns=[tuple()], dataset=[[term()]], cql_query=undefined | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}, client=undefined | {pid(), reference()}}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Fetch the next page of result from Cassandra for a given continuation. The function will
+             return with the result from Cassandra (synchronously).
+  The <code>Query</code> parameter can be a string, a binary UTF8 string or a <code>#cql_query{}</code> record</p>
+ 
+  <pre class="sh_erlang">#cql_query{
+      statement :: binary(),
+      reusable :: boolean(),
+      consistency :: consistency_level(),
+      named :: boolean(),
+      bindings :: list(number() | boolean() | binary() | list() | inet() | ) | list(tuple())
+  }</pre>
+ 
+  <p><em>Reusable</em> is a boolean indicating whether the query should be reused. <em>Reusing a query</em> means sending it to Cassandra to be prepared, which allows
+  later executions of the <em>same query</em> to be performed faster. This parameter is <code>true</code> by default when you provide bindings in the query (positional <code>?</code>
+  parameters or named <code>:var</code> parameters), and <code>false</code> by default when you don't. You can override the defaults.</p>
+ 
+  <p><em>Consistency</em> one of constants defined in <code>cqerl.hrl</code>, namely <code>?CQERL_CONSISTENCY_[Const]</code> where <code>Const</code> can be <code>ANY</code>, <code>ONE</code>,
+  <code>TWO</code>, <code>THREE</code>, <code>QUORUM</code>, <code>ALL</code>, <code>LOCAL_QUORUM</code>, <code>EACH_QUORUM</code>, <code>SERIAL</code>,
+  <code>LOCAL_SERIAL</code> or <code>LOCAL_ONE</code>.</p>
+ 
+  <p>How <em>bindings</em> is used depends on the <em>named</em> value. <em>Named</em> is a boolean value indicating whether the parameters in the query are named parameters (<code>:var1</code>). Otherwise,
+  they are assumed to be positional (<code>?</code>). In the first case, <em>bindings</em> is a property list (see <url href="http://www.erlang.org/doc/man/proplists.html">proplists</url>) where keys match the
+  parameter names. In the latter case, <em>bindings</em> should be a simple list of values.</p>
+</div></div>
+<div class="function">
+<h3 id="has_more_pages/1">has_more_pages(Continuation::#cql_result{columns=[tuple()], dataset=[[term()]], cql_query=undefined | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}, client=undefined | {pid(), reference()}}) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Check to see if there are more result available</p>
+</div></div>
+<div class="function">
+<h3 id="fetch_more/1">fetch_more(Continuation::#cql_result{columns=[tuple()], dataset=[[term()]], cql_query=undefined | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}, client=undefined | {pid(), reference()}}) -&gt; no_more_result | {ok, #cql_result{columns=[tuple()], dataset=[[term()]], cql_query=undefined | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}, client=undefined | {pid(), reference()}}}</h3>
+
+
+<div class="description">
+
+<p>Fetch the next page of result from Cassandra for a given continuation. The function will
+             return with the result from Cassandra (synchronously).</p>
+</div></div>
+<div class="function">
+<h3 id="send_query/1">send_query(ClientRef::client(), Query::binary() | string() | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}) -&gt; reference()</h3>
+
+
+<div class="description">
+
+<p>Send a query to be executed asynchronously. This method returns immediately with a unique tag.</p>
+ 
+  <p>When a successful response is received from cassandra, a <code>{result, Tag, Result :: #cql_result{}}</code>  
+message is sent to the calling process.</p>
+ 
+  <p>If there is an error with the query, a <code>{error, Tag, Error :: #cql_error{}}</code> will be sent to the calling process.</p>
+ 
+  <p>Neither of these messages will be sent if the connection is dropped before receiving a response (see <a href="#new_client/0" class="seealso">new_client/0</a> for
+  how to handle this case).</p>
+</div></div>
+<div class="function">
+<h3 id="fetch_more_async/1">fetch_more_async(Continuation::#cql_result{columns=[tuple()], dataset=[[term()]], cql_query=undefined | #cql_query{statement=binary(), values=[parameter() | named_parameter()], reusable=undefined | boolean(), named=boolean(), page_size=integer(), page_state=binary() | undefined, consistency=consistency_level(), serial_consistency=8 | 9 | undefined, value_encode_handler=function() | undefined}, client=undefined | {pid(), reference()}}) -&gt; reference() | no_more_result</h3>
+
+
+<div class="description">
+
+<p>Asynchronously fetch the next page of result from cassandra for a given continuation.</p>
+ 
+  <p>A success or error message will be sent in response some time later (see <a href="#send_query/2" class="seealso">send_query/2</a> for details) unless the
+  connection is dropped.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(Cql_result) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>The number of rows in a result set</p>
+</div></div>
+<div class="function">
+<h3 id="head/1">head(Cql_result) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns the first row of result, as a property list</p>
+</div></div>
+<div class="function">
+<h3 id="tail/1">tail(Cql_result) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns all rows of result, except the first one</p>
+</div></div>
+<div class="function">
+<h3 id="next/1">next(Cql_result) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns a tuple of <code>{HeadRow, ResultTail}</code>.</p>
+ 
+  <p>This can be used to iterate over a result set efficiently. Successively
+  call this function over the result set to go through all rows, until it
+  returns the <code>empty_dataset</code> atom.</p>
+</div></div>
+<div class="function">
+<h3 id="all_rows/1">all_rows(Cql_result) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns a list of rows as property lists</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Req, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Mathieu D'Amours</aname>
+<email>matt@forest.io</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mongo (mongodb-erlang) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mongo</h1>
+<h2 class="modsummary">Top-level client interface to MongoDB.</h2>
+<div class="description">
+<p>Top-level client interface to MongoDB</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-action">action/0</h3></div>
+    <div class="type"><h3 id="type-batchsize">batchsize() = integer()</h3></div>
+    <div class="type"><h3 id="type-collection">collection() = atom()</h3></div>
+    <div class="type"><h3 id="type-command">command() = <a href="mongo_query.html#type-command" class="seealso">mongo_query:command()</a></h3></div>
+    <div class="type"><h3 id="type-connection">connection() = <a href="mongo_connect.html#type-connection" class="seealso">mongo_connect:connection()</a></h3></div>
+    <div class="type"><h3 id="type-cursor">cursor() = <a href="mongo_cursor.html#type-cursor" class="seealso">mongo_cursor:cursor()</a></h3></div>
+    <div class="type"><h3 id="type-db">db() = atom()</h3></div>
+    <div class="type"><h3 id="type-error_code">error_code() = integer()</h3></div>
+    <div class="type"><h3 id="type-failure">failure() = <a href="mongo_connect.html#type-failure" class="seealso">mongo_connect:failure()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="mongo_query.html#type-not_master" class="seealso">mongo_query:not_master()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="mongo_query.html#type-unauthorized" class="seealso">mongo_query:unauthorized()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-write_failure" class="seealso">write_failure()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="mongo_cursor.html#type-expired" class="seealso">mongo_cursor:expired()</a></h3></div>
+    <div class="type"><h3 id="type-host">host() = <a href="mongo_connect.html#type-host" class="seealso">mongo_connect:host()</a></h3></div>
+    <div class="type"><h3 id="type-index_spec">index_spec() = <a href="bson.html#type-document" class="seealso">bson:document()</a></h3></div>
+    <div class="type"><h3 id="type-key_order">key_order() = <a href="bson.html#type-document" class="seealso">bson:document()</a></h3></div>
+    <div class="type"><h3 id="type-maybe">maybe(A) = {A} | {}</h3></div>
+    <div class="type"><h3 id="type-modifier">modifier() = <a href="bson.html#type-document" class="seealso">bson:document()</a></h3></div>
+    <div class="type"><h3 id="type-password">password() = <a href="bson.html#type-utf/8" class="seealso">bson:utf8()</a></h3></div>
+    <div class="type"><h3 id="type-permission">permission() = read_write | read_only</h3></div>
+    <div class="type"><h3 id="type-projector">projector() = <a href="bson.html#type-document" class="seealso">bson:document()</a></h3></div>
+    <div class="type"><h3 id="type-read_mode">read_mode() = master | slave_ok</h3></div>
+    <div class="type"><h3 id="type-reason">reason() = any()</h3></div>
+    <div class="type"><h3 id="type-replset">replset() = <a href="mongo_replset.html#type-replset" class="seealso">mongo_replset:replset()</a></h3></div>
+    <div class="type"><h3 id="type-rs_connection">rs_connection() = <a href="mongo_replset.html#type-rs_connection" class="seealso">mongo_replset:rs_connection()</a></h3></div>
+    <div class="type"><h3 id="type-selector">selector() = <a href="bson.html#type-document" class="seealso">bson:document()</a></h3></div>
+    <div class="type"><h3 id="type-skip">skip() = integer()</h3></div>
+    <div class="type"><h3 id="type-username">username() = <a href="bson.html#type-utf/8" class="seealso">bson:utf8()</a></h3></div>
+    <div class="type"><h3 id="type-write_failure">write_failure() = {write_failure, <a href="#type-error_code" class="seealso">error_code()</a>, <a href="bson.html#type-utf/8" class="seealso">bson:utf8()</a>}</h3></div>
+    <div class="type"><h3 id="type-write_mode">write_mode() = unsafe<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| safe<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {safe, <a href="mongo_query.html#type-getlasterror_request" class="seealso">mongo_query:getlasterror_request()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="connect/1">connect(Host::host()) -&gt; {ok, connection()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Connect to given MongoDB server</p>
+</div></div>
+<div class="function">
+<h3 id="connect/1-1">connect(Host::host(), TimeoutMS::timeout()) -&gt; {ok, connection()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Connect to given MongoDB server. Timeout used for initial connection and every query and safe write.</p>
+</div></div>
+<div class="function">
+<h3 id="disconnect/1">disconnect(Conn::connection()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close connection to server</p>
+</div></div>
+<div class="function">
+<h3 id="connect_factory/1">connect_factory(Host::host()) -&gt; factory(connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="connect_factory/1-1">connect_factory(Host::host(), TimeoutMS::timeout()) -&gt; factory(connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="rs_connect/1">rs_connect(Replset::replset()) -&gt; rs_connection()</h3>
+
+
+<div class="description">
+
+<p>Create new cache of connections to replica set members starting with seed members. No connection attempted until rs_primary or rs_secondary_ok called.</p>
+</div></div>
+<div class="function">
+<h3 id="rs_connect/1-1">rs_connect(Replset::replset(), TimeoutMS::timeout()) -&gt; rs_connection()</h3>
+
+
+<div class="description">
+
+<p>Create new cache of connections to replica set members starting with seed members. No connection attempted until rs_primary or rs_secondary_ok called. Timeout used for initial connection and every query and safe write.</p>
+</div></div>
+<div class="function">
+<h3 id="rs_disconnect/1">rs_disconnect(ReplsetConn::rs_connection()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close cache of replset connections</p>
+</div></div>
+<div class="function">
+<h3 id="rs_connect_factory/1">rs_connect_factory(ReplSet::replset()) -&gt; factory(rs_connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a rs_connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="rs_connect_factory/1-1">rs_connect_factory(Replset::replset(), TimeoutMS::timeout()) -&gt; factory(rs_connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a rs_connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_connect/1">ssl_connect(Host::host()) -&gt; {ok, connection()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Connect to given MongoDB server using SSL.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_connect/1-1">ssl_connect(Host::host(), TimeoutMS::timeout()) -&gt; {ok, connection()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Connect to given MongoDB server using SSL.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_connect/1-2">ssl_connect(Host::host(), TimeoutMS::timeout(), Options::ssloption() (see module ssl)) -&gt; {ok, connection()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Connect to given MongoDB server with SSL support.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_connect_factory/1">ssl_connect_factory(Host::host()) -&gt; factory(connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_connect_factory/1-1">ssl_connect_factory(Host::host(), TimeoutMS::timeout()) -&gt; factory(connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_connect_factory/1-2">ssl_connect_factory(Host::host(), TimeoutMS::timeout(), Options::ssloption() (see module ssl)) -&gt; factory(connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a connection pool. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_rs_connect/1">ssl_rs_connect(Replset::replset()) -&gt; rs_connection()</h3>
+
+
+<div class="description">
+
+<p>Create new cache of connections over SSL to replica set members starting with seed members. No connection attempted until rs_primary or rs_secondary_ok called.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_rs_connect/1-1">ssl_rs_connect(Replset::replset(), TimeoutMS::timeout()) -&gt; rs_connection()</h3>
+
+
+<div class="description">
+
+<p>Create new cache of connections over SSL to replica set members starting with seed members. No connection attempted until rs_primary or rs_secondary_ok called. Timeout used for initial connection and every query and safe write.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_rs_connect/1-2">ssl_rs_connect(Replset::replset(), TimeoutMS::timeout(), Options::ssloption() (see module ssl)) -&gt; rs_connection()</h3>
+
+
+<div class="description">
+
+<p>Create new cache of connections over SSL to replica set members starting with seed members. No connection attempted until rs_primary or rs_secondary_ok called. Timeout used for initial connection and every query and safe write.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_rs_connect_factory/1">ssl_rs_connect_factory(ReplSet::replset()) -&gt; factory(rs_connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a rs_connection pool over SSL. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_rs_connect_factory/1-1">ssl_rs_connect_factory(ReplSet::replset(), TimeoutMS::timeout()) -&gt; factory(rs_connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a rs_connection pool over SSL. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_rs_connect_factory/1-2">ssl_rs_connect_factory(Replset::replset(), TimeoutMS::timeout(), Options::ssloption() (see module ssl)) -&gt; factory(rs_connection()) (see module resource_pool)</h3>
+
+
+<div class="description">
+
+<p>Factory for use with a rs_connection pool over SSL. See resource_pool module.</p>
+</div></div>
+<div class="function">
+<h3 id="do/1">do(WriteMode::write_mode(), ReadMode::read_mode(), Connection::connection() | rs_connection(), Database::db(), Action::action(A)) -&gt; {ok, A} | {failure, failure()}</h3>
+
+
+<div class="description">
+
+<p>Execute mongo action under given write_mode, read_mode, connection, and db. Return action result or failure.</p>
+</div></div>
+<div class="function">
+<h3 id="this_db/0">this_db() -&gt; db()</h3>
+
+
+<div class="description">
+
+<p>Current db in context that we are querying</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1">insert(Coll::collection(), Doc::document() (see module bson)) -&gt; value() (see module bson)</h3>
+
+
+<div class="description">
+
+<p>Insert document into collection. Return its '_id' value, which is auto-generated if missing.</p>
+</div></div>
+<div class="function">
+<h3 id="insert_all/1">insert_all(Coll::collection(), Docs::[document() (see module bson)]) -&gt; [value() (see module bson)]</h3>
+
+
+<div class="description">
+
+<p>Insert documents into collection. Return their '_id' values, which are auto-generated if missing.</p>
+</div></div>
+<div class="function">
+<h3 id="save/1">save(Coll::collection(), Doc::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>If document has no '_id' field then insert it, otherwise update it and insert only if missing.</p>
+</div></div>
+<div class="function">
+<h3 id="replace/1">replace(Coll::collection(), Selector::selector(), Doc::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Replace first document selected with given document.</p>
+</div></div>
+<div class="function">
+<h3 id="repsert/1">repsert(Coll::collection(), Selector::selector(), Doc::document() (see module bson)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Replace first document selected with given document, or insert it if selection is empty.</p>
+</div></div>
+<div class="function">
+<h3 id="modify/1">modify(Coll::collection(), Selector::selector(), Mod::modifier()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Update all documents selected using modifier</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Coll::collection(), Selector::selector()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Delete selected documents</p>
+</div></div>
+<div class="function">
+<h3 id="delete_one/1">delete_one(Coll::collection(), Selector::selector()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Delete first selected document.</p>
+</div></div>
+<div class="function">
+<h3 id="find_one/1">find_one(Coll::collection(), Selector::selector()) -&gt; maybe(document() (see module bson))</h3>
+
+
+<div class="description">
+
+<p>Return first selected document, if any</p>
+</div></div>
+<div class="function">
+<h3 id="find_one/1-1">find_one(Coll::collection(), Selector::selector(), Projector::projector()) -&gt; maybe(document() (see module bson))</h3>
+
+
+<div class="description">
+
+<p>Return projection of first selected document, if any. Empty projection [] means full projection.</p>
+</div></div>
+<div class="function">
+<h3 id="find_one/1-2">find_one(Coll::collection(), Selector::selector(), Projector::projector(), Skip::skip()) -&gt; maybe(document() (see module bson))</h3>
+
+
+<div class="description">
+
+<p>Return projection of Nth selected document, if any. Empty projection [] means full projection.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(Coll::collection(), Selector::selector()) -&gt; cursor()</h3>
+
+
+<div class="description">
+
+<p>Return selected documents.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1-1">find(Coll::collection(), Selector::selector(), Projector::projector()) -&gt; cursor()</h3>
+
+
+<div class="description">
+
+<p>Return projection of selected documents. Empty projection [] means full projection.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1-2">find(Coll::collection(), Selector::selector(), Projector::projector(), Skip::skip()) -&gt; cursor()</h3>
+
+
+<div class="description">
+
+<p>Return projection of selected documents starting from Nth document. Empty projection means full projection.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1-3">find(Coll::collection(), Selector::selector(), Projector::projector(), Skip::skip(), BatchSize::batchsize()) -&gt; cursor()</h3>
+
+
+<div class="description">
+
+<p>Return projection of selected documents starting from Nth document in batches of batchsize. 0 batchsize means default batch size. Negative batch size means one batch only. Empty projection means full projection.</p>
+</div></div>
+<div class="function">
+<h3 id="next/1">next(Cursor::cursor()) -&gt; maybe(document() (see module bson))</h3>
+
+
+<div class="description">
+
+<p>Return next document in query result cursor, if any.</p>
+</div></div>
+<div class="function">
+<h3 id="take/1">take(Limit::non_neg_integer(), Cursor::cursor()) -&gt; [document() (see module bson)]</h3>
+
+
+<div class="description">
+
+<p>Return at most requested number of documents from query result cursor.</p>
+</div></div>
+<div class="function">
+<h3 id="rest/1">rest(Cursor::cursor()) -&gt; [document() (see module bson)]</h3>
+
+
+<div class="description">
+
+<p>Return remaining documents in query result cursor.</p>
+</div></div>
+<div class="function">
+<h3 id="close_cursor/1">close_cursor(Cursor::cursor()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close cursor</p>
+</div></div>
+<div class="function">
+<h3 id="count/1">count(Coll::collection(), Selector::selector()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Count selected documents</p>
+</div></div>
+<div class="function">
+<h3 id="count/1-1">count(Coll::collection(), Selector::selector(), Limit::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Count selected documents up to given max number; 0 means no max. Ie. stops counting when max is reached to save processing time.</p>
+</div></div>
+<div class="function">
+<h3 id="command/1">command(Command::command()) -&gt; document() (see module bson)</h3>
+
+
+<div class="description">
+
+<p>Execute given MongoDB command and return its result.</p>
+</div></div>
+<div class="function">
+<h3 id="auth/1">auth(Username::username(), Password::password()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Authenticate with the database (if server is running in secure mode). Return whether authentication was successful or not. Reauthentication is required for every new pipe.</p>
+</div></div>
+<div class="function">
+<h3 id="add_user/1">add_user(Permission::permission(), Username::username(), Password::password()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add user with given access rights (permission)</p>
+</div></div>
+<div class="function">
+<h3 id="create_index/1">create_index(Coll::collection(), IndexSpec::index_spec() | key_order()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Create index on collection according to given spec. Allow user to just supply key</p>
+</div></div>
+<div class="function">
+<h3 id="copy_database/1">copy_database(FromDb::db(), FromHost::host(), ToDb::db()) -&gt; document() (see module bson)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="copy_database/1-1">copy_database(FromDb::db(), FromHost::host(), ToDb::db(), Username::username(), Password::password()) -&gt; document() (see module bson)</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

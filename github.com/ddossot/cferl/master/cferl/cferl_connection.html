@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cferl_connection (cferl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cferl_connection</h1>
+<h2 class="modsummary">Management of an account's containers.</h2>
+<div class="description">
+<p>Management of an account's containers.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-cf_account_info">cf_account_info() = record()</h3></div>
+    <div class="type"><h3 id="type-cf_container_details">cf_container_details() = record()</h3></div>
+    <div class="type"><h3 id="type-cf_container_query_args">cf_container_query_args() = record()</h3></div>
+    <div class="type"><h3 id="type-cferl_container">cferl_container() = term()</h3></div>
+    <div class="type"><h3 id="type-cferl_error">cferl_error() = {error, not_found} | {error, unauthorized} | {error, {unexpected_response, Other}}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_account_info/1">get_account_info(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}) -&gt; {ok, #cf_account_info{}} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Retrieve the account information.</p>
+</div></div>
+<div class="function">
+<h3 id="get_containers_names/1">get_containers_names(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}) -&gt; {ok, [binary()]} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Retrieve all the containers names (within the limits imposed by Cloud Files server).</p>
+</div></div>
+<div class="function">
+<h3 id="get_containers_names/1-1">get_containers_names(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, Cf_container_query_args::#cf_container_query_args{}) -&gt; {ok, [binary()]} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Retrieve the containers names filtered by the provided query arguments.
+    If you supply the optional limit and marker arguments, the call will return the number of containers specified in limit, starting after the object named in marker.</p>
+</div></div>
+<div class="function">
+<h3 id="get_containers_details/1">get_containers_details(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}) -&gt; {ok, [#cf_container_details{}]} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Retrieve all the containers information (within the limits imposed by Cloud Files server).</p>
+</div></div>
+<div class="function">
+<h3 id="get_containers_details/1-1">get_containers_details(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, Cf_container_query_args::#cf_container_query_args{}) -&gt; {ok, [#cf_container_details{}]} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Retrieve the containers information filtered by the provided query arguments.</p>
+</div></div>
+<div class="function">
+<h3 id="container_exists/1">container_exists(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, Name::binary()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>Test the existence of a container.</p>
+</div></div>
+<div class="function">
+<h3 id="get_container/1">get_container(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, Name::binary()) -&gt; {ok, #cf_container{container_details=undefined | #cf_container_details{}, container_path=undefined | string(), cdn_details=undefined | [{atom(), term()}]}} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Get a reference to an existing container.</p>
+</div></div>
+<div class="function">
+<h3 id="create_container/1">create_container(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, Name::binary()) -&gt; {ok, #cf_container{container_details=undefined | #cf_container_details{}, container_path=undefined | string(), cdn_details=undefined | [{atom(), term()}]}} | {error, already_existing} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Create a new container (name must not be already used).</p>
+</div></div>
+<div class="function">
+<h3 id="delete_container/1">delete_container(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, Name::binary()) -&gt; ok | {error, not_empty} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Delete a container (which must be empty).</p>
+</div></div>
+<div class="function">
+<h3 id="get_public_containers_names/1">get_public_containers_names(Cf_connection::#cf_connection{version=undefined | string(), auth_token=undefined | string(), storage_url=undefined | string(), cdn_management_url=undefined | string()}, TimeFilter::active | all_time) -&gt; {ok, [binary()]} | cferl_error() (see module cferl_lib)</h3>
+
+
+<div class="description">
+
+<p>Retrieve the names of public (CDN-enabled) containers, whether they are still public (active) or happen to have been exposed in the past(all_time).</p>
+</div></div>
+<div class="function">
+<h3 id="send_storage_request/5">send_storage_request(Connection, Method, PathAndQuery, Headers, Accept) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send_storage_request/6">send_storage_request(Connection, Method, PathAndQuery, Headers, Body, Accept) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>David Dossot</aname>
+<email>david@dossot.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

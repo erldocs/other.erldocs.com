@@ -1,0 +1,1 @@
+var index = [['app','rel_template','rel_template','[application]'],['mod','rel_template','project_name_app','.'],['mod','rel_template','project_name_sup','.'],['fun','rel_template','project_name_app:start/2',[]],['fun','rel_template','project_name_app:stop/1',[]],['fun','rel_template','project_name_sup:init/1',[]],['fun','rel_template','project_name_sup:start_link/0',[]]];

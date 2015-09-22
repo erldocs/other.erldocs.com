@@ -1,0 +1,1 @@
+var index = [['app','rebar_i18n_plugin','rebar_i18n_plugin','[application]'],['mod','rebar_i18n_plugin','rebar_i18n_plugin',[]],['fun','rebar_i18n_plugin','rebar_i18n_plugin:preprocess/2',[]]];

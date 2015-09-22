@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eulogy_adapter (eulogy) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eulogy_adapter</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-adapter_info">adapter_info() = any()</h3></div>
+    <div class="type"><h3 id="type-add_column">add_column() = {add_column, <a href="#type-table" class="seealso">table()</a>, <a href="#type-column" class="seealso">column()</a>}</h3></div>
+    <div class="type"><h3 id="type-column">column() = {<a href="#type-column_name" class="seealso">column_name()</a>, <a href="#type-column_type" class="seealso">column_type()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-column_name" class="seealso">column_name()</a>, <a href="#type-column_type" class="seealso">column_type()</a>, <a href="#type-column_options" class="seealso">column_options()</a>}</h3></div>
+    <div class="type"><h3 id="type-column_name">column_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-column_option">column_option() = primary<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unique<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| auto_increment<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| primary_id</h3></div>
+    <div class="type"><h3 id="type-column_options">column_options() = [<a href="#type-column_option" class="seealso">column_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-column_type">column_type() = int | float | string | timestamp | datetime</h3></div>
+    <div class="type"><h3 id="type-columns">columns() = [<a href="#type-column" class="seealso">column()</a>]</h3></div>
+    <div class="type"><h3 id="type-create_table">create_table() = {create_table, <a href="#type-table" class="seealso">table()</a>, <a href="#type-columns" class="seealso">columns()</a>}</h3></div>
+    <div class="type"><h3 id="type-drop_column">drop_column() = {drop_column, <a href="#type-table" class="seealso">table()</a>, <a href="#type-column_name" class="seealso">column_name()</a>}</h3></div>
+    <div class="type"><h3 id="type-drop_table">drop_table() = {drop_table, <a href="#type-table" class="seealso">table()</a>}</h3></div>
+    <div class="type"><h3 id="type-filename">filename() = string() | binary()</h3></div>
+    <div class="type"><h3 id="type-migration">migration() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#migration{version = <a href="#type-version" class="seealso">version()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file = <a href="#type-filename" class="seealso">filename()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;instructions = <a href="#type-migration_instructions" class="seealso">migration_instructions()</a>}</h3></div>
+    <div class="type"><h3 id="type-migration_instruction">migration_instruction() = <a href="#type-create_table" class="seealso">create_table()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-restore_table" class="seealso">restore_table()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-drop_table" class="seealso">drop_table()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-add_column" class="seealso">add_column()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-restore_column" class="seealso">restore_column()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-drop_column" class="seealso">drop_column()</a></h3></div>
+    <div class="type"><h3 id="type-migration_instructions">migration_instructions() = [<a href="#type-migration_instruction" class="seealso">migration_instruction()</a>]</h3></div>
+    <div class="type"><h3 id="type-restore_column">restore_column() = {restore_column, <a href="#type-table" class="seealso">table()</a>, <a href="#type-column_name" class="seealso">column_name()</a>}</h3></div>
+    <div class="type"><h3 id="type-restore_table">restore_table() = {restore_table, <a href="#type-table" class="seealso">table()</a>}</h3></div>
+    <div class="type"><h3 id="type-table">table() = atom()</h3></div>
+    <div class="type"><h3 id="type-version">version() = string()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create/1">create(DbInfo) -&gt; Adapter</h3>
+
+<ul class="type">
+<li><code>DbInfo = #db_info{adapter=undefined | atom(), user=string(), password=string(), host=string(), port=integer(), database=string()}</code></li><li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Adapter) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="version/1">version(Adapter) -&gt; Version | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Version = version()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="store_instruction/3">store_instruction(Adapter, Migration, Instruction) -&gt; ok | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Migration = migration()</code></li><li><code>Instruction = migration_instruction()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_instruction/3">delete_instruction(Adapter, Migration, Instruction) -&gt; ok | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Migration = migration()</code></li><li><code>Instruction = migration_instruction()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_table/3">create_table(Adapter, Table, Columns) -&gt; ok | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Table = table()</code></li><li><code>Columns = columns()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="drop_table/2">drop_table(Adapter, Table) -&gt; ok | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Table = table()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_column/3">add_column(Adapter, Table, Columns) -&gt; ok | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Table = table()</code></li><li><code>Columns = column()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="drop_column/3">drop_column(Adapter, Table, Column) -&gt; ok | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Table = table()</code></li><li><code>Column = column_name()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="restore_table_instructions/3">restore_table_instructions(Adapter, Version, Table) -&gt; migration_instructions() | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Version = version()</code></li><li><code>Table = table()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="restore_column_instruction/4">restore_column_instruction(Adapter, Version, Table, Column) -&gt; migration_instruction() | {error, string()}</h3>
+
+<ul class="type">
+<li><code>Adapter = #adapter{module=undefined | module(), info=undefined | adapter_info()}</code></li><li><code>Version = version()</code></li><li><code>Table = table()</code></li><li><code>Column = column_name()</code></li></ul>
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

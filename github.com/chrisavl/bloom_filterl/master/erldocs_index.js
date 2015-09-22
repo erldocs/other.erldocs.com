@@ -1,0 +1,1 @@
+var index = [['app','bloom_filterl','bloom_filterl','[application]'],['mod','bloom_filterl','bloom_filter',[]],['fun','bloom_filterl','bloom_filter:add_element/1',[]],['fun','bloom_filterl','bloom_filter:fpr/1',[]],['fun','bloom_filterl','bloom_filter:is_element/1',[]],['fun','bloom_filterl','bloom_filter:new/1',[]]];

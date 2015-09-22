@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lhttpc (lhttpc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lhttpc</h1>
+<h2 class="modsummary">Main interface to the lightweight http client
+   See request/4, request/5 and request/6 functions.</h2>
+<div class="description">
+<p>Main interface to the lightweight http client
+   See <a href="#request/4" class="seealso">request/4</a>, <a href="#request/5" class="seealso">request/5</a> and <a href="#request/6" class="seealso">request/6</a> functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-body">body() = binary() | undefined | pid()</h3></div>
+    <div class="type"><h3 id="type-bodypart">bodypart() = iodata() | http_eob</h3></div>
+    <div class="type"><h3 id="type-destination">destination() = {<a href="#type-host" class="seealso">host()</a>, integer() >= 1, boolean()} | string()</h3></div>
+    <div class="type"><h3 id="type-header">header() = 'Cache-Control'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Connection'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Date'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Pragma'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Transfer-Encoding'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Upgrade'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Via'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Accept'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Accept-Charset'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Accept-Encoding'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Accept-Language'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Authorization'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'From'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Host'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'If-Modified-Since'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'If-Match'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'If-None-Match'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'If-Range'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'If-Unmodified-Since'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Max-Forwards'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Proxy-Authorization'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Range'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Referer'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'User-Agent'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Age'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Location'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Proxy-Authenticate'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Public'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Retry-After'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Server'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Vary'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Warning'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Www-Authenticate'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Allow'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Base'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Encoding'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Language'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Length'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Location'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Md5'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Range'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Content-Type'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Etag'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Expires'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Last-Modified'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Accept-Ranges'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Set-Cookie'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Set-Cookie2'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'X-Forwarded-For'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Cookie'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Keep-Alive'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 'Proxy-Connection'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()</h3></div>
+    <div class="type"><h3 id="type-headers">headers() = [{<a href="#type-header" class="seealso">header()</a>, iodata()}]</h3></div>
+    <div class="type"><h3 id="type-host">host() = string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {integer(), integer(), integer(), integer()}</h3></div>
+    <div class="type"><h3 id="type-method">method() = string() | atom()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {connect_timeout, timeout()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {send_retry, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {partial_upload, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {partial_download, [<a href="#type-partial_download_option" class="seealso">partial_download_option()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {connect_options, <a href="#type-socket_options" class="seealso">socket_options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {use_cookies, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proxy, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {proxy_ssl_options, <a href="#type-socket_options" class="seealso">socket_options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pool_options, <a href="#type-pool_options" class="seealso">pool_options()</a>}</h3></div>
+    <div class="type"><h3 id="type-options">options() = [<a href="#type-option" class="seealso">option()</a>]</h3></div>
+    <div class="type"><h3 id="type-partial_download_option">partial_download_option() = {window_size, <a href="#type-window_size" class="seealso">window_size()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {part_size,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0 | infinity}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {recv_proc, pid()}</h3></div>
+    <div class="type"><h3 id="type-pool_id">pool_id() = pid() | atom()</h3></div>
+    <div class="type"><h3 id="type-pool_option">pool_option() = {pool_ensure, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pool_connection_timeout, <a href="#type-pos_timeout" class="seealso">pos_timeout()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pool_max_size | integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {pool, <a href="#type-pool_id" class="seealso">pool_id()</a>}</h3></div>
+    <div class="type"><h3 id="type-pool_options">pool_options() = [<a href="#type-pool_option" class="seealso">pool_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-poolsize">poolsize() = integer() &gt;= 0 | atom()</h3></div>
+    <div class="type"><h3 id="type-port_num">port_num() = 1..65535</h3></div>
+    <div class="type"><h3 id="type-pos_timeout">pos_timeout() = integer() &gt;= 1 | infinity</h3></div>
+    <div class="type"><h3 id="type-response">response() = {{integer() >= 1, string()}, <a href="#type-headers" class="seealso">headers()</a>, <a href="#type-body" class="seealso">body()</a>}</h3></div>
+    <div class="type"><h3 id="type-result">result() = {ok, <a href="#type-response" class="seealso">response()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ok, partial_upload}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, atom()}</h3></div>
+    <div class="type"><h3 id="type-socket_options">socket_options() = [{atom(), term()} | atom()]</h3></div>
+    <div class="type"><h3 id="type-window_size">window_size() = integer() &gt;= 0 | infinity</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Start the application.
+  This is a helper function that will call <code>application:start(lhttpc)</code> to
+  allow the library to be started using the <code>-s</code> flag.
+  For instance:
+  <code>$ erl -s crypto -s ssl -s lhttpc</code></p>
+ 
+  <p>For more info on possible return values the <code>application</code> module.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Stops the application.
+  This is a helper function that will call <code>application:stop(lhttpc)</code>.</p>
+ 
+  <p>For more info on possible return values the <code>application</code> module.</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1">add_pool(Name::atom()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Create a new named httpc_manager pool.</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1-1">add_pool(Name::atom(), ConnTimeout::non_neg_integer()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Create a new named httpc_manager pool with the specified connection
+  timeout.</p>
+</div></div>
+<div class="function">
+<h3 id="add_pool/1-2">add_pool(Name::atom(), ConnTimeout::non_neg_integer(), PoolSize::poolsize()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Create a new named httpc_manager pool with the specified connection
+  timeout and size.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_pool/1">delete_pool(PoolPid::atom() | pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Delete an existing pool</p>
+</div></div>
+<div class="function">
+<h3 id="connect_client/1">connect_client(Destination::destination(), Options::options()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Starts a Client process and connects it to a Destination, which can be
+  either an URL or a tuple
+  <code>{Host, Port, Ssl}</code>
+  If the pool is provided whithin the options, it uses the pool to get an
+  existing connection or creates a new one managed by it.
+  This is intended to be able to create a client process that will generate many
+  requests to a given destination, keeping the process alive, using
+  <a href="#request_client/5" class="seealso">request_client/5</a>, <a href="#request_client/5" class="seealso">request_client/5</a> or <a href="#request_client/7" class="seealso">request_client/7</a>.</p>
+ 
+  <p>The only relevant options to be included here (other options will be ignored) are:</p>
+ 
+  <p><code>{connect_timeout, Milliseconds}</code> specifies how many milliseconds the  
+client can spend trying to establish a connection to the server. This  
+doesn't affect the overall request timeout. However, if it's longer than  
+the overall timeout it will be ignored. Also note that the TCP layer my  
+choose to give up earlier than the connect timeout, in which case the  
+client will also give up. The default value is infinity, which means that  
+it will either give up when the TCP stack gives up, or when the overall  
+request timeout is reached.</p>
+ 
+  <p><code>{connect_options, Options}</code> specifies options to pass to the socket at
+  connect time. This makes it possible to specify both SSL options and
+  regular socket options, such as which IP/Port to connect from etc.
+  Some options must not be included here, namely the mode, <code>binary</code>
+  or <code>list</code>, <code>{active, boolean()}</code>, <code>{active, once}</code> or <code>{packet, Packet}</code>.  
+These options would confuse the client if they are included.  
+Please note that these options will only have an effect on *new*  
+connections, and it isn't possible for different requests  
+to the same host uses different options unless the connection is closed  
+between the requests. Using HTTP/1.0 or including the "Connection: close"  
+header would make the client close the connection after the first  
+response is received.</p>
+ 
+  <p><code>{use_cookies, UseCookies}</code> If set to true, the client will automatically  
+handle the cookies for the user. Considering that the Cookies get stored  
+in the client process state, the usage of this option only has effect when  
+using the request_client() functions, NOT when using standalone requests,  
+since in such case a new process is spawned each time.</p>
+ 
+  <p><code>{pool_options, PoolOptions}</code> This are the configuration options regarding the
+  pool of connections usage. If the <code>pool_ensure</code> option is true, the pool with
+  the given name in the <code>pool</code> option will be created and then used if it
+  does not exist.
+  The <code>pool_connection_timeout</code> specifies the time that the pool keeps a
+  connection open before it gets closed, <code>pool_max_size</code> specifies the number of  
+connections the pool can handle.</p>
+ 
+  <p><code>{proxy, ProxyUrl}</code> if this option is specified, a proxy server is used as  
+an intermediary for all communication with the destination server. The link  
+to the proxy server is established with the HTTP CONNECT method (RFC2817).  
+Example value: {proxy, "http://john:doe@myproxy.com:3128"}</p>
+ 
+  <p><code>{proxy_ssl_options, SslOptions}</code> this is a list of SSL options to use for
+  the SSL session created after the proxy connection is established. For a
+  list of all available options, please check OTP's ssl module manpage.</p>
+</div></div>
+<div class="function">
+<h3 id="disconnect_client/1">disconnect_client(Client::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops a Client process and closes the connection (if no pool is used) or
+  it returns the connection to the pool (if pool is used).</p>
+</div></div>
+<div class="function">
+<h3 id="request_client/1">request_client(Client::pid(), PathOrUrl::string(), Method::method(), Hdrs::headers(), Timeout::pos_timeout()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Makes a request using a client already connected.
+  It can receive either a URL or a path.
+  Would be the same as calling <a href="#request_client/6" class="seealso">request_client/6</a> with an empty body.</p>
+</div></div>
+<div class="function">
+<h3 id="request_client/1-1">request_client(Client::pid(), PathOrUrl::string(), Method::method(), Hdrs::headers(), Body::iodata(), Timeout::pos_timeout()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Makes a request using a client already connected.
+  It can receive either a URL or a path.
+  %% Would be the same as calling <a href="#request_client/7" class="seealso">request_client/7</a> with no options.</p>
+</div></div>
+<div class="function">
+<h3 id="request_client/1-2">request_client(Client::pid(), PathOrUrl::string(), Method::method(), Hdrs::headers(), Body::iodata(), Timeout::pos_timeout(), Options::options()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Makes a request using a client already connected.  
+It can receive either a URL or a path. It allows to add the body and specify  
+options. The only relevant options here are:</p>
+ 
+  <p><code>{send_retry, N}</code> specifies how many times the client should retry
+  sending a request if the connection is closed after the data has been
+  sent. The default value is <code>1</code>. If <code>{partial_upload, WindowSize}</code>  
+(see below) is specified, the client cannot retry after the first part  
+of the body has been sent since it doesn't keep the whole entitity body  
+in memory.</p>
+ 
+  <p><code>{partial_upload, WindowSize}</code> means that the request entity body will be
+  supplied in parts to the client by the calling process. The <code>WindowSize</code>
+  specifies how many parts can be sent to the process controlling the socket
+  before waiting for an acknowledgement. This is to create a kind of
+  internal flow control if the network is slow and the client process is
+  blocked by the TCP stack. Flow control is disabled if <code>WindowSize</code> is
+  <code>infinity</code>. If <code>WindowSize</code> is an integer, it must be &gt;= 0. If partial
+  upload is specified and no <code>Content-Length</code> is specified in <code>Hdrs</code> the
+  client will use chunked transfer encoding to send the entity body.
+  If a content length is specified, this must be the total size of the entity
+  body.
+  The call to <a href="#request/6" class="seealso">request/6</a> will return <code>{ok, UploadState}</code>. The
+  <code>UploadState</code> is supposed to be used as the first argument to the <a href="#send_body_part/2" class="seealso">send_body_part/2</a> or <a href="#send_body_part/3" class="seealso">send_body_part/3</a> functions to send body parts.  
+Partial upload is intended to avoid keeping large request bodies in  
+memory but can also be used when the complete size of the body isn't known  
+when the request is started.</p>
+ 
+  <p><code>{partial_download, PartialDownloadOptions}</code> means that the response body
+  will be supplied in parts by the client to the calling process. The partial
+  download option <code>{window_size, WindowSize}</code> specifies how many part will be
+  sent to the calling process before waiting for an acknowledgement. This is
+  to create a kind of internal flow control if the calling process is slow to
+  process the body part and the network and server are considerably faster.
+  Flow control is disabled if <code>WindowSize</code> is <code>infinity</code>. If <code>WindowSize</code>
+  is an integer it must be &gt;=0. The partial download option <code>{part_size,
+  PartSize}</code> specifies the size the body parts should come in. Note however
+  that if the body size is not determinable (e.g entity body is termintated
+  by closing the socket) it will be delivered in pieces as it is read from
+  the wire. There is no caching of the body parts until the amount reaches
+  body size. If the body size is bounded (e.g <code>Content-Length</code> specified or
+  <code>Transfer-Encoding: chunked</code> specified) it will be delivered in <code>PartSize</code>
+  pieces. Note however that the last piece might be smaller than <code>PartSize</code>.
+  Size bounded entity bodies are handled the same way as unbounded ones if
+  <code>PartSize</code> is <code>infinity</code>. If <code>PartSize</code> is integer it must be &gt;= 0.
+  If <code>{partial_download, PartialDownloadOptions}</code> is specified the
+  <code>ResponseBody</code> will be a <code>pid()</code> unless the response has no body
+  (for example in case of <code>HEAD</code> requests). In that case it will be be
+  <code>undefined</code>. The functions <a href="#get_body_part/1" class="seealso">get_body_part/1</a> and
+  <a href="#get_body_part/2" class="seealso">get_body_part/2</a> can be used to read body parts in the calling
+  process.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="request/1">request(URL::string(), Method::method(), Hdrs::headers(), Timeout::pos_timeout()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends a request without a body.
+  Would be the same as calling <a href="#request/5" class="seealso">request/5</a> with an empty body,
+  <code>request(URL, Method, Hdrs, [], Timeout)</code> or
+  <code>request(URL, Method, Hdrs, &lt;&lt;&gt;&gt;, Timeout)</code>.</p>
+<p><em>See also:</em> <a href="#request/9" class="seealso">request/9</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="request/1-1">request(URL::string(), Method::method(), Hdrs::headers(), Body::iodata(), Timeout::pos_timeout()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends a request with a body.
+  Would be the same as calling <a href="#request/6" class="seealso">request/6</a> with no options,
+  <code>request(URL, Method, Hdrs, Body, Timeout, [])</code>.</p>
+<p><em>See also:</em> <a href="#request/9" class="seealso">request/9</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="request/1-2">request(URL::string(), Method::method(), Hdrs::headers(), Body::iodata(), Timeout::pos_timeout(), Options::options()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends a request with a body.
+  Would be the same as calling </p><pre class="sh_erlang">
+  #lhttpc_url{host = Host, port = Port, path = Path, is_ssl = Ssl} = lhttpc_lib:parse_url(URL),
+  request(Host, Port, Path, Ssl, Method, Hdrs, Body, Timeout, Options).
+  </pre><p>
+ 
+  <code>URL</code> is expected to be a valid URL:
+  <code>scheme://host[:port][/path]</code>.</p>
+<p><em>See also:</em> <a href="#request/9" class="seealso">request/9</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="request/1-3">request(Host::host(), Port::port_num(), Ssl::boolean(), Path::string(), Method::method(), Hdrs::headers(), Body::iodata(), Timeout::pos_timeout(), Options::options()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends a request with a body. For this, a new client process is created,  
+it creates a connection or takes it from a pool (depends of the options) and  
+uses that client process to send the request. Then it stops the process.</p>
+ 
+  <p>Instead of building and parsing URLs the target server is specified with
+  a host, port, weither SSL should be used or not and a path on the server.
+  For instance, if you want to request http://example.com/foobar you would
+  use the following:<br />
+  <code>Host</code> = <code>"example.com"</code><br />
+  <code>Port</code> = <code>80</code><br />
+  <code>Ssl</code> = <code>false</code><br />
+  <code>Path</code> = <code>"/foobar"</code><br />
+  <code>Path</code> must begin with a forward slash <code>/</code>.</p>
+ 
+  <p><code>Method</code> is either a string, stating the HTTP method exactly as in the
+  protocol, i.e: <code>"POST"</code> or <code>"GET"</code>. It could also be an atom, which is  
+then coverted to an uppercase (if it isn't already) string.</p>
+ 
+  <p><code>Hdrs</code> is a list of headers to send. Mandatory headers such as
+  <code>Host</code>, <code>Content-Length</code> or <code>Transfer-Encoding</code> (for some requests)  
+are added automatically.</p>
+ 
+  <p><code>Body</code> is the entity to send in the request. Please don't include entity
+  bodies where there shouldn't be any (such as for <code>GET</code>).</p>
+ 
+  <p><code>Timeout</code> is the timeout for the request in milliseconds.</p>
+ 
+  <p><code>Options</code> is a list of options.</p>
+ 
+  <p>Options:</p>
+ 
+  <p><code>{connect_timeout, Milliseconds}</code> specifies how many milliseconds the  
+client can spend trying to establish a connection to the server. This  
+doesn't affect the overall request timeout. However, if it's longer than  
+the overall timeout it will be ignored. Also note that the TCP layer my  
+choose to give up earlier than the connect timeout, in which case the  
+client will also give up. The default value is infinity, which means that  
+it will either give up when the TCP stack gives up, or when the overall  
+request timeout is reached.</p>
+ 
+  <p><code>{connect_options, Options}</code> specifies options to pass to the socket at
+  connect time. This makes it possible to specify both SSL options and
+  regular socket options, such as which IP/Port to connect from etc.
+  Some options must not be included here, namely the mode, <code>binary</code>
+  or <code>list</code>, <code>{active, boolean()}</code>, <code>{active, once}</code> or <code>{packet, Packet}</code>.  
+These options would confuse the client if they are included.  
+Please note that these options will only have an effect on *new*  
+connections, and it isn't possible for different requests  
+to the same host uses different options unless the connection is closed  
+between the requests. Using HTTP/1.0 or including the "Connection: close"  
+header would make the client close the connection after the first  
+response is received.</p>
+ 
+  <p><code>{send_retry, N}</code> specifies how many times the client should retry
+  sending a request if the connection is closed after the data has been
+  sent. The default value is <code>1</code>. If <code>{partial_upload, WindowSize}</code>  
+(see below) is specified, the client cannot retry after the first part  
+of the body has been sent since it doesn't keep the whole entitity body  
+in memory.</p>
+ 
+  <p><code>{partial_upload, WindowSize}</code> means that the request entity body will be
+  supplied in parts to the client by the calling process. The <code>WindowSize</code>
+  specifies how many parts can be sent to the process controlling the socket
+  before waiting for an acknowledgement. This is to create a kind of
+  internal flow control if the network is slow and the client process is
+  blocked by the TCP stack. Flow control is disabled if <code>WindowSize</code> is
+  <code>infinity</code>. If <code>WindowSize</code> is an integer, it must be &gt;= 0. If partial
+  upload is specified and no <code>Content-Length</code> is specified in <code>Hdrs</code> the
+  client will use chunked transfer encoding to send the entity body.
+  If a content length is specified, this must be the total size of the entity
+  body.
+  The call to <a href="#request/6" class="seealso">request/6</a> will return <code>{ok, UploadState}</code>. The
+  <code>UploadState</code> is supposed to be used as the first argument to the <a href="#send_body_part/2" class="seealso">send_body_part/2</a> or <a href="#send_body_part/3" class="seealso">send_body_part/3</a> functions to send body parts.  
+Partial upload is intended to avoid keeping large request bodies in  
+memory but can also be used when the complete size of the body isn't known  
+when the request is started.</p>
+ 
+  <p><code>{partial_download, PartialDownloadOptions}</code> means that the response body
+  will be supplied in parts by the client to the calling process. The partial
+  download option <code>{window_size, WindowSize}</code> specifies how many part will be
+  sent to the calling process before waiting for an acknowledgement. This is
+  to create a kind of internal flow control if the calling process is slow to
+  process the body part and the network and server are considerably faster.
+  Flow control is disabled if <code>WindowSize</code> is <code>infinity</code>. If <code>WindowSize</code>
+  is an integer it must be &gt;=0. The partial download option <code>{part_size,
+  PartSize}</code> specifies the size the body parts should come in. Note however
+  that if the body size is not determinable (e.g entity body is termintated
+  by closing the socket) it will be delivered in pieces as it is read from
+  the wire. There is no caching of the body parts until the amount reaches
+  body size. If the body size is bounded (e.g <code>Content-Length</code> specified or
+  <code>Transfer-Encoding: chunked</code> specified) it will be delivered in <code>PartSize</code>
+  pieces. Note however that the last piece might be smaller than <code>PartSize</code>.
+  Size bounded entity bodies are handled the same way as unbounded ones if
+  <code>PartSize</code> is <code>infinity</code>. If <code>PartSize</code> is integer it must be &gt;= 0.
+  If <code>{partial_download, PartialDownloadOptions}</code> is specified the
+  <code>ResponseBody</code> will be a <code>pid()</code> unless the response has no body
+  (for example in case of <code>HEAD</code> requests). In that case it will be be
+  <code>undefined</code>. The functions <a href="#get_body_part/1" class="seealso">get_body_part/1</a> and
+  <a href="#get_body_part/2" class="seealso">get_body_part/2</a> can be used to read body parts in the calling  
+process.</p>
+ 
+  <p><code>{use_cookies, UseCookies}</code> If set to true, the client will automatically  
+handle the cookies for the user. Considering that the Cookies get stored  
+in the client process state, the usage of this option only has effect when  
+using the request_client() functions, NOT when using standalone requests,  
+since in such case a new process is spawned each time.</p>
+ 
+  <p><code>{proxy, ProxyUrl}</code> if this option is specified, a proxy server is used as  
+an intermediary for all communication with the destination server. The link  
+to the proxy server is established with the HTTP CONNECT method (RFC2817).  
+Example value: {proxy, "http://john:doe@myproxy.com:3128"}</p>
+ 
+  <p><code>{proxy_ssl_options, SslOptions}</code> this is a list of SSL options to use for  
+the SSL session created after the proxy connection is established. For a  
+list of all available options, please check OTP's ssl module manpage.</p>
+ 
+  <p><code>{pool_options, PoolOptions}</code> This are the configuration options regarding the
+  pool of connections usage. If the <code>pool_ensure</code> option is true, the pool with
+  the given name in the <code>pool</code> option will be created and then used if it
+  does not exist.
+  The <code>pool_connection_timeout</code> specifies the time that the pool keeps a
+  connection open before it gets closed, <code>pool_max_size</code> specifies the number of
+  connections the pool can handle.</p>
+</div></div>
+<div class="function">
+<h3 id="send_body_part/1">send_body_part(Client::pid(), BodyPart::bodypart()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends a body part to an ongoing request when
+  <code>{partial_upload, true}</code> is used. The default timeout, <code>infinity</code>
+  will be used. Would be the same as calling
+  <code>send_body_part(Client, BodyPart, infinity)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_body_part/1-1">send_body_part(Client::pid(), BodyPart::bodypart(), Timeout::timeout()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends a body part to an ongoing request when
+  <code>{partial_upload, true}</code> is used.
+  <code>Timeout</code> is the timeout for the request in milliseconds.</p>
+ 
+  <p>The <code>BodyPart</code> <code>http_eob</code> signals an end of the entity body, the request
+  is considered sent and the response will be read from the socket. If
+  there is no response within <code>Timeout</code> milliseconds, the request is
+  canceled and <code>{error, timeout}</code> is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="send_trailers/1">send_trailers(Client::pid(), Trailers::headers()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends trailers to an ongoing request when <code>{partial_upload,
+  true}</code> is used and no <code>Content-Length</code> was specified. The default
+  timout <code>infinity</code> will be used. Plase note that after this the request is
+  considered complete and the response will be read from the socket.
+  Would be the same as calling
+  <code>send_trailers(Client, BodyPart, infinity)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_trailers/1-1">send_trailers(Client::pid(), Trailers::headers(), Timeout::timeout()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>Sends trailers to an ongoing request when
+  <code>{partial_upload, true}</code> is used and no <code>Content-Length</code> was
+  specified.
+  <code>Timeout</code> is the timeout for sending the trailers and reading the  
+response in milliseconds.</p>
+ 
+  <p>Sending trailers also signals the end of the entity body, which means
+  that no more body parts, or trailers can be sent and the response to the
+  request will be read from the socket. If no response is received within
+  <code>Timeout</code> milliseconds the request is canceled and <code>{error, timeout}</code> is
+  returned.</p>
+</div></div>
+<div class="function">
+<h3 id="get_body_part/1">get_body_part(Pid::pid()) -&gt; {ok, binary()} | {ok, {http_eob, headers()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a body part from an ongoing response when
+  <code>{partial_download, PartialDownloadOptions}</code> is used. The default timeout,
+  <code>infinity</code> will be used.
+  Would be the same as calling
+  <code>get_body_part(HTTPClient, infinity)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_body_part/1-1">get_body_part(Client::pid(), Timeout::timeout()) -&gt; {ok, binary()} | {ok, {http_eob, headers()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Reads a body part from an ongoing response when
+  <code>{partial_download, PartialDownloadOptions}</code> is used.
+  <code>Timeout</code> is the timeout for reading the next body part in milliseconds.
+  <code>http_eob</code> marks the end of the body. If there were Trailers in the
+  response those are returned with <code>http_eob</code> as well.
+  If it evers returns an error, no further calls to this function should
+  be done.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Oscar Hellström</aname>
+<email>oscar@hellstrom.st</email>
+<aname>Diana Parra Corbacho</aname>
+<email>diana.corbacho@erlang-solutions.com</email>
+<aname>Ramon Lastres Guerrero</aname>
+<email>ramon.lastres@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

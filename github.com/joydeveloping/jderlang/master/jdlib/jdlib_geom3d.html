@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jdlib_geom3d (jdlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jdlib_geom3d</h1>
+<h2 class="modsummary">
+  3D geometry functions.</h2>
+<div class="description">
+<p>
+  3D geometry functions.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-line">line() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#line{p = undefined | <a href="#type-vector" class="seealso">vector()</a>, v = undefined | <a href="#type-vector" class="seealso">vector()</a>}</h3></div>
+    <div class="type"><h3 id="type-sphere">sphere() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#sphere{c = undefined | <a href="#type-vector" class="seealso">vector()</a>, r = undefined | number()}</h3></div>
+    <div class="type"><h3 id="type-spheres_nest">spheres_nest() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#spheres_nest{s1 = undefined | <a href="#type-sphere" class="seealso">sphere()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s2 = undefined | <a href="#type-sphere" class="seealso">sphere()</a>}</h3></div>
+    <div class="type"><h3 id="type-vector">vector() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#vector{x = undefined | number(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y = undefined | number(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z = undefined | number()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="v_make/1">v_make(X::number(), Y::number(), Z::number()) -&gt; vector()</h3>
+
+
+<div class="description">
+
+<p>
+  Make vector from its components.</p>
+</div></div>
+<div class="function">
+<h3 id="v_make/0">v_make() -&gt; vector()</h3>
+
+
+<div class="description">
+
+<p>
+  Make null vector.</p>
+</div></div>
+<div class="function">
+<h3 id="v_is/1">v_is(V::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  Check if argument is vector.</p>
+</div></div>
+<div class="function">
+<h3 id="v_x/1">v_x(V::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Get X component.</p>
+</div></div>
+<div class="function">
+<h3 id="v_y/1">v_y(V::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Get Y component.</p>
+</div></div>
+<div class="function">
+<h3 id="v_z/1">v_z(V::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Get Z component.</p>
+</div></div>
+<div class="function">
+<h3 id="v_xyz/1">v_xyz(V::vector()) -&gt; {number(), number(), number()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get X, Y, Z components.</p>
+</div></div>
+<div class="function">
+<h3 id="v_add/1">v_add(V1::vector() | number(), V2::vector() | number()) -&gt; vector() | number()</h3>
+
+
+<div class="description">
+
+<p>
+  Addition.</p>
+</div></div>
+<div class="function">
+<h3 id="v_sub/1">v_sub(V1::vector() | number(), V2::vector() | number()) -&gt; vector() | number()</h3>
+
+
+<div class="description">
+
+<p>
+  Subtraction.</p>
+</div></div>
+<div class="function">
+<h3 id="v_neg/1">v_neg(V::vector() | number()) -&gt; vector() | number()</h3>
+
+
+<div class="description">
+
+<p>
+  Negate.</p>
+</div></div>
+<div class="function">
+<h3 id="v_mul/1">v_mul(V1::vector() | number(), V2::vector() | number()) -&gt; vector() | number()</h3>
+
+
+<div class="description">
+
+<p>
+  Multiplication (if V1 and V2 are vectors it is component wise multiplication).</p>
+</div></div>
+<div class="function">
+<h3 id="v_dvs/1">v_dvs(V1::vector() | number(), V2::vector() | number()) -&gt; vector() | number()</h3>
+
+
+<div class="description">
+
+<p>
+  Division.</p>
+</div></div>
+<div class="function">
+<h3 id="v_inv/1">v_inv(V::vector() | number()) -&gt; vector() | number()</h3>
+
+
+<div class="description">
+
+<p>
+  Invert.</p>
+</div></div>
+<div class="function">
+<h3 id="v_add_mul/1">v_add_mul(V1::vector(), V2::vector(), K::number()) -&gt; vector()</h3>
+
+
+<div class="description">
+
+<p>
+  Add to vector V1 vector V2 multiplied on K.</p>
+</div></div>
+<div class="function">
+<h3 id="v_med/1">v_med(V1::vector(), V2::vector()) -&gt; vector()</h3>
+
+
+<div class="description">
+
+<p>
+  Median of two vecttors.</p>
+</div></div>
+<div class="function">
+<h3 id="v_inner/1">v_inner(V1::vector(), V2::vector(), K::number()) -&gt; vector()</h3>
+
+
+<div class="description">
+
+<p>
+  Inner vector for K from 0 to 1.
+  When K = 0, inner vector is V1.
+  When K = 1, inner vector is V2.</p>
+</div></div>
+<div class="function">
+<h3 id="v_norm/1">v_norm(V::vector()) -&gt; vector()</h3>
+
+
+<div class="description">
+
+<p>
+  Normalize vector.</p>
+</div></div>
+<div class="function">
+<h3 id="v_mod_2/1">v_mod_2(V::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Square of module.</p>
+</div></div>
+<div class="function">
+<h3 id="v_mod/1">v_mod(V::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Module.</p>
+</div></div>
+<div class="function">
+<h3 id="v_dist/1">v_dist(V1::vector(), V2::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Distance.</p>
+</div></div>
+<div class="function">
+<h3 id="v_scalar/1">v_scalar(V1::vector(), V2::vector()) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>
+  Scalar product.</p>
+</div></div>
+<div class="function">
+<h3 id="line_by_two_points/1">line_by_two_points(V1::vector(), V2::vector()) -&gt; line()</h3>
+
+
+<div class="description">
+
+<p>
+  Make line by two points.</p>
+</div></div>
+<div class="function">
+<h3 id="sphere_make/1">sphere_make(C::vector(), R::number()) -&gt; sphere()</h3>
+
+
+<div class="description">
+
+<p>
+  Make sphere.</p>
+</div></div>
+<div class="function">
+<h3 id="spheres_nest_make/1">spheres_nest_make(S1::sphere(), S2::sphere()) -&gt; spheres_nest()</h3>
+
+
+<div class="description">
+
+<p>
+  Make spheres nest.</p>
+</div></div>
+<div class="function">
+<h3 id="sphere_line_intersection_t/1">sphere_line_intersection_t(S::sphere(), L::line()) -&gt; [number()]</h3>
+
+
+<div class="description">
+
+<p>
+  Find T parameters of intersection sphere and line.
+  Returns 0 or 2 values.</p>
+</div></div>
+<div class="function">
+<h3 id="sphere_line_intersection/1">sphere_line_intersection(S::sphere(), L::line()) -&gt; [vector()]</h3>
+
+
+<div class="description">
+
+<p>
+  Find sphere and line intersection.
+  Returns 0 or 2 points.</p>
+</div></div>
+<div class="function">
+<h3 id="spheres_nest_line_intersection_t/1">spheres_nest_line_intersection_t(SN::spheres_nest(), L::line()) -&gt; [number()]</h3>
+
+
+<div class="description">
+
+<p>
+  Find T parameters of intersection spheres nest and line.
+  Returns 0 or 2 values.</p>
+</div></div>
+<div class="function">
+<h3 id="spheres_nest_line_intersection/1">spheres_nest_line_intersection(SN::spheres_nest(), L::line()) -&gt; [vector()]</h3>
+
+
+<div class="description">
+
+<p>
+  Find spheres nest and line intersection.
+  Returns 0 or 2 points.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Alexey Rybakov</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

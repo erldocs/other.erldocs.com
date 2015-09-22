@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>swab (swab) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>swab</h1>
+<h2 class="modsummary">
+   General purpose buffer handling.</h2>
+<div class="description">
+<p>
+   General purpose buffer handling</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="sync/1">sync(Rules::list() | tuple(), Buffer::iolist() | binary()) -&gt; tuple()</h3>
+
+
+<div class="description">
+
+<p>Apply rules and return synchronously.
+       <br />Return values can be : <br /><code>{ok, LastBuffer}</code><br />
+       <code>{error, OffendingDirective, Message}</code><br />
+       and if match directive is used and matching :<br />
+       <code>{match, MatchingDirective, MatchingBuffer}</code><br />
+       MatchingDirective could have been rewritten with default values (See Overview).</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1-1">sync(Rules::list() | tuple(), Buffer::iolist(), Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Apply rules and return synchronously, but send result to a Pid.
+       Caller Pid get atom <code>ok</code>.<br />
+       Target Pid receives message <code>{swab, CallerPid, SwabSyncResult}</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="async/1">async(Rules::list() | tuple(), Buffer::iolist()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Apply rules asynchronously, and send result to caller Pid.
+       Caller Pid get tuple <code>{ok, SwabSpawnPid}</code>.<br />
+       Caller Pid receives message <code>{swab, SwabSpawnPid, SwabSyncResult}</code>.<br />
+       The caller might store the returned value <code>SwabSpawnPid</code> as reference
+       if several messages are expected to be received.</p>
+</div></div>
+<div class="function">
+<h3 id="async/1-1">async(Rules::list() | tuple(), Buffer::iolist(), Pid::pid()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Apply rules asynchronously, but send result to a Pid.
+       Caller Pid get tuple <code>{ok, SwabSpawnPid}</code>.<br />
+       Target Pid receives message <code>{swab, SwabSpawnPid, SwabSyncResult}</code>.<br />
+       The caller might store the returned value <code>SwabSpawnPid</code> as reference
+       if a correlation must be done with the target.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Eric Pailleau</aname>
+<email>swab@crownedgrouse.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

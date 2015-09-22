@@ -1,0 +1,1 @@
+var index = [['app','animals','animals','[application]'],['mod','animals','animals','The classic expert system demonstration game of '],['fun','animals','animals:start/0','Plays a game of Animals.']];

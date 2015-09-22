@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mcweb (mcweb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mcweb</h1>
+<h2 class="modsummary">Utility functions for web server and templates.</h2>
+<div class="description">
+<p>Utility functions for web server and templates</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-chain_return">chain_return() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{chain_ok | chain_error, <a href="cowboy_req.html#type-req" class="seealso">cowboy_req:req()</a>, <a href="mcweb.html#type-html_state" class="seealso">mcweb:html_state()</a>}</h3></div>
+    <div class="type"><h3 id="type-handler_fun_t">handler_fun_t() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="cowboy_req.html#type-req" class="seealso">cowboy_req:req()</a>, <a href="mcweb.html#type-html_state" class="seealso">mcweb:html_state()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mcweb.html#type-chain_return" class="seealso">mcweb:chain_return()</a>)</h3></div>
+    <div class="type"><h3 id="type-handler_return">handler_return() = {<a href="cowboy_req.html#type-req" class="seealso">cowboy_req:req()</a>, <a href="mcweb.html#type-html_state" class="seealso">mcweb:html_state()</a>}</h3></div>
+    <div class="type"><h3 id="type-html_state">html_state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#mcb_html_state{mode = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page_vars = <a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;already_rendered = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;post_data = <a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #mcb_user{level = integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;session_key = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;session_pid = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mod_boards = [binary()]},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;site_offline = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rest_body = binary(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rest_body_json = undefined | <a href="jsx.html#type-json_term" class="seealso">jsx:json_term()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="check_admin_login_password/2">check_admin_login_password(Login, Password) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Compares Login/Pass pair against configured admin credentials</p>
+</div></div>
+<div class="function">
+<h3 id="handle_helper/1">handle_helper(Module::atom(), Req::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; {ok, req() (see module cowboy_req), html_state() (see module mcweb)}</h3>
+
+
+<div class="description">
+
+<p>A handler entry point for all web resources. Checks and parses POST
+  fields, checks user cookie and extracts user from session storage, checks
+  offline flag, calculates and calls handler for the resource being processed,
+  catches errors</p>
+</div></div>
+<div class="function">
+<h3 id="compile/1">compile(TplName::string()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clear_session_cookie/1">clear_session_cookie(Req::req() (see module cowboy_req)) -&gt; req() (see module cowboy_req)</h3>
+
+
+<div class="description">
+
+<p>Attempts to reset session cookie to empty value</p>
+</div></div>
+<div class="function">
+<h3 id="render/1">render(TplName::string(), TplOptions::[{atom(), any()}]) -&gt; iolist()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chain_run/1">chain_run(FunList::[handler_fun_t()], Req::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; {ok, req() (see module cowboy_req), html_state() (see module mcweb)} | {error, req() (see module cowboy_req), html_state() (see module mcweb)}</h3>
+
+
+<div class="description">
+
+<p>Runs list of functions passing opaque state through them and stopping
+  if any of functions returns error.</p>
+</div></div>
+<div class="function">
+<h3 id="chain_success/2">chain_success(Req, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chain_success/1">chain_success(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chain_fail/2">chain_fail(Req, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chain_fail/1">chain_fail(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="render_page/1">render_page(TemplateName::string(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Renders HTML page for response</p>
+</div></div>
+<div class="function">
+<h3 id="render_page/1-1">render_page(HttpStatus::integer(), TemplateName::string(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Renders HTML page for response</p>
+</div></div>
+<div class="function">
+<h3 id="response_text/1">response_text(HttpStatus::integer(), Body::iolist() | binary(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Does text/plain response</p>
+</div></div>
+<div class="function">
+<h3 id="response_json/1">response_json(HttpStatus::integer(), J::json_term() (see module jsx), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Does application/json response</p>
+</div></div>
+<div class="function">
+<h3 id="redirect/1">redirect(URL::binary() | string(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Redirects user</p>
+</div></div>
+<div class="function">
+<h3 id="redirect_to_thread/1">redirect_to_thread(BoardId::binary(), ThreadId::binary(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Redirects user to given thread</p>
+</div></div>
+<div class="function">
+<h3 id="redirect_to_thread_and_post/1">redirect_to_thread_and_post(BoardId::binary(), ThreadId::binary(), PostId::binary(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Redirects user to thread and post in it</p>
+</div></div>
+<div class="function">
+<h3 id="render_error/1">render_error(Msg0::binary() | string(), Req0::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Renders error page with custom message</p>
+</div></div>
+<div class="function">
+<h3 id="state_set_var/1">state_set_var(K::atom(), V::any(), State::html_state() (see module mcweb)) -&gt; html_state() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Sets page_vars for rendering template</p>
+</div></div>
+<div class="function">
+<h3 id="state_get_var/1">state_get_var(K::atom(), State::html_state() (see module mcweb)) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Retrieves value of some page_vars element</p>
+</div></div>
+<div class="function">
+<h3 id="is_POST_and_multipart/1">is_POST_and_multipart(Req0::req() (see module cowboy_req)) -&gt; {boolean(), boolean()}</h3>
+
+
+<div class="description">
+
+<p>Returns pair of boolean() for POST method and multipart/* content-type</p>
+</div></div>
+<div class="function">
+<h3 id="parse_body_qs/2">parse_body_qs(Req0, State0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Retrieves POST body with urlencoded form data and saves it to
+  state.post_data</p>
+</div></div>
+<div class="function">
+<h3 id="parse_multipart_form_data/2">parse_multipart_form_data(Req0, State0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Retrieves POST body with multipart form data, parses fields and array
+  fields and saves it to state.post_data</p>
+</div></div>
+<div class="function">
+<h3 id="get_user_save_to_state/1">get_user_save_to_state(Req::req() (see module cowboy_req), State::html_state() (see module mcweb)) -&gt; handler_return() (see module mcweb)</h3>
+
+
+<div class="description">
+
+<p>Attempts to extract cookie and find session with that cookie, else
+  returns anonymous user. Saves result state or clears cookie in request</p>
+</div></div>
+<div class="function">
+<h3 id="get_user/1">get_user(Req::req() (see module cowboy_req)) -&gt; {#mcb_user{level=integer(), session_key=undefined | binary(), session_pid=undefined | pid(), name=binary(), mod_boards=[binary()]}, req() (see module cowboy_req)}</h3>
+
+
+<div class="description">
+
+<p>Extracts cookie from request, find user and return user and slightly
+  modified request</p>
+</div></div>
+<div class="function">
+<h3 id="create_session_for/3">create_session_for(U, Req0, State0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Creates session process, sets response cookie, and sets user field
+  in state</p>
+</div></div>
+<div class="function">
+<h3 id="ses_cookie_name/0">ses_cookie_name() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Gets ses cookie name from config</p>
+</div></div>
+<div class="function">
+<h3 id="get_user_identification/1">get_user_identification(Req0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Extract user identification from Request, such as IP address, Accept
+  and User-Agent fields</p>
+</div></div>
+<div class="function">
+<h3 id="get_poster_id/1">get_poster_id(Mcb_userid) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Using user IP and user-agent</p>
+</div></div>
+<div class="function">
+<h3 id="chain_fail_if_level_below/3">chain_fail_if_level_below(Req0, State0, FailIfLevelBelow) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Gets user from ses cookie, fails if user is below FailIfLevelBelow. To
+  use in chain handlers for authenticated users
+  To add in chain (example):
+  {_, Req, State} = mcweb:chain_run(
+  [fun(R, S) -&gt; mcweb:chain_fail_if_level_below(R, S, ?USERLEVEL_ADMIN) end]
+  );</p>
+</div></div>
+<div class="function">
+<h3 id="chain_fail_if_below_admin/2">chain_fail_if_below_admin(Req0, State0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="chain_fail_if_below_mod/2">chain_fail_if_below_mod(Req0, State0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="safe/2">safe(T, Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Ensures safe contents for HTML and max length</p>
+</div></div>
+<div class="function">
+<h3 id="safe_length/2">safe_length(T, Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Ensures max length, cuts extra</p>
+</div></div>
+<div class="function">
+<h3 id="create_and_format_etag/1">create_and_format_etag(Term::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts given term to a quoted hex hash binary string, which is usable
+  as ETag HTTP Header</p>
+</div></div></div>
+
+<authors>
+
+<aname>Dmytro Lytovchenko</aname>
+<email>kvakvs@yandex.ru</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

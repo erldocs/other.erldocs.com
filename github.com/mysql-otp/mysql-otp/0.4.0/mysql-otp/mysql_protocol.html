@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mysql_protocol (mysql-otp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mysql_protocol</h1>
+<h2 class="modsummary">This module implements parts of the MySQL client/server protocol.</h2>
+<div class="description">
+<p>This module implements parts of the MySQL client/server protocol.</p>
+ 
+  <p>The protocol is described in the document "MySQL Internals" which can be  
+found under "MySQL Documentation: Expert Guides" on http://dev.mysql.com/.</p>
+ 
+  <p>TCP communication is not handled in this module. Most of the public functions
+  take funs for data communitaction as parameters.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-recvfun">recvfun() = fun((integer()) -&gt; {ok, binary()})</h3></div>
+    <div class="type"><h3 id="type-sendfun">sendfun() = fun((binary()) -&gt; ok)</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="handshake/1">handshake(Username::iodata(), Password::iodata(), Database::iodata() | undefined, SendFun::sendfun(), RecvFun::recvfun()) -&gt; #ok{affected_rows=undefined | integer(), insert_id=undefined | integer(), status=undefined | integer(), warning_count=undefined | integer(), msg=undefined | binary()} | #error{}</h3>
+
+
+<div class="description">
+
+<p>Performs a handshake using the supplied functions for communication.
+  Returns an ok or an error record. Raises errors when various unimplemented
+  features are requested.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="quit/2">quit(SendFun, RecvFun) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="query/1">query(Query::iodata(), SendFun::sendfun(), RecvFun::recvfun()) -&gt; #ok{affected_rows=undefined | integer(), insert_id=undefined | integer(), status=undefined | integer(), warning_count=undefined | integer(), msg=undefined | binary()} | #error{} | #resultset{cols=undefined | [#col{}], rows=undefined | [[term()] | binary()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prepare/1">prepare(Query::iodata(), SendFun::sendfun(), RecvFun::recvfun()) -&gt; #error{} | #prepared{statement_id=undefined | integer(), param_count=undefined | integer(), warning_count=undefined | integer()}</h3>
+
+
+<div class="description">
+
+<p>Prepares a statement.</p>
+</div></div>
+<div class="function">
+<h3 id="unprepare/1">unprepare(Prepared::#prepared{statement_id=undefined | integer(), param_count=undefined | integer(), warning_count=undefined | integer()}, SendFun::sendfun(), RecvFun::recvfun()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deallocates a prepared statement.</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1">execute(Prepared::#prepared{statement_id=undefined | integer(), param_count=undefined | integer(), warning_count=undefined | integer()}, ParamValues::[term()], SendFun::sendfun(), RecvFun::recvfun()) -&gt; #resultset{cols=undefined | [#col{}], rows=undefined | [[term()] | binary()]}</h3>
+
+
+<div class="description">
+
+<p>Executes a prepared statement.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

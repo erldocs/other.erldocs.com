@@ -1,0 +1,1 @@
+var index = [['app','playground-architecture','playground-architecture','[application]'],['mod','playground-architecture','erlang_client_eventstore_app',[]],['fun','playground-architecture','erlang_client_eventstore_app:start/2',[]],['fun','playground-architecture','erlang_client_eventstore_app:stop/1',[]]];

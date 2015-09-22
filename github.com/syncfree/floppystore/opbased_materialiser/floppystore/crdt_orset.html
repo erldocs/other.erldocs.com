@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>crdt_orset (floppystore) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>crdt_orset</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-actor">actor() = <a href="riak_dt.html#type-actor" class="seealso">riak_dt:actor()</a></h3></div>
+    <div class="type"><h3 id="type-binary_orset">binary_orset() = binary()</h3></div>
+    <div class="type"><h3 id="type-member">member() = term()</h3></div>
+    <div class="type"><h3 id="type-orset">orset()</h3></div>
+    <div class="type"><h3 id="type-orset_op">orset_op() = {add, <a href="#type-member" class="seealso">member()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove, <a href="#type-member" class="seealso">member()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_downstream, <a href="#type-member" class="seealso">member()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {add_all, [<a href="#type-member" class="seealso">member()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove_all, [<a href="#type-member" class="seealso">member()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {update, [<a href="#type-orset_op" class="seealso">orset_op()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; orset()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="value/1">value(ORDict::orset()) -&gt; [member()]</h3>
+
+
+<div class="description">
+
+<p>
+  without parameter: return all existing elements in the <code>orset()</code>
+  {fragment, elem}: create and return a new <code>orset()</code> with all metadata
+  of an element
+  {tokens, elem}: returns all uniques tokens of an element in the set</p>
+</div></div>
+<div class="function">
+<h3 id="value/1-1">value(X1::any(), ORSet::orset()) -&gt; [member()] | orddict() (see module orddict)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="generate_downstream/1">generate_downstream(X1::orset_op(), Actor::actor(), ORDict::orset()) -&gt; {ok, orset_op()}</h3>
+
+
+<div class="description">
+
+<p>generate downstream operations.
+  If the operation is add or add_all, generate unique tokens for each element
+  If the operation is remove or remove_all, fetches all unique tokens for
+  these elements existing in the <code>orset()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(X1::orset_op(), ORDict::orset()) -&gt; {ok, orset()} | {error, {precondition, {not_present, member()}}}</h3>
+
+
+<div class="description">
+
+<p>apply downstream operations and update an <code>orset()</code>.
+  The first parameter denotes this operation is for adding or removing elements.
+  For add or add_all, the second element of the tuple is a list of elements and tokens to add
+  For remove or remove_all, the second element of the tuple is a list of elements and their tokens
+  to remove.
+  For update, the second element of the tuple is a list of updates to apply, each of which can
+  either be add, add_all or remove, remove_all.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1">equal(ORDictA::orset(), ORDictB::orset()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="precondition_context/1">precondition_context(ORDict::orset()) -&gt; orset()</h3>
+
+
+<div class="description">
+
+<p>the precondition context is a fragment of the CRDT that
+  operations with pre-conditions can be applied too.  In the case of
+  OR-Sets this is the set of adds observed.  The system can then
+  apply a remove to this context and merge it with a replica.
+  Especially useful for hybrid op/state systems where the context of
+  an operation is needed at a replica without sending the entire
+  state to the client.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(ORSet::orset()) -&gt; [{atom(), number()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stat/1">stat(X1::atom(), ORSet::orset()) -&gt; integer() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(ORSet::orset()) -&gt; binary_orset()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="from_binary/1">from_binary(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

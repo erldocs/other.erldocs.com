@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>world (erlworld) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>world</h1>
+<h2 class="modsummary">   
+The World module is conceptually a sub-class of Actor.</h2>
+<div class="description">
+<p>   
+The World module is conceptually a sub-class of Actor. Objects created using   
+this module can always be used in the functions of the Actor module, and   
+anywhere an Actor can be given.</p>
+  
+   <p>This is an Actor that can hold Actors. In order to be a world this uses a   
+world_state instead of an actor_state.</p>
+  
+   In all other ways it runs just like an Actor. It has a state, an act
+   callback function and a paint callback function. By default the act and
+   paint callback functions for a World just call to act and paint all of the
+   Actors the World is holding.
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; World::world()</h3>
+
+
+<div class="description">
+
+<p>Creates a new blank world with an empty state.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(State::world_state()) -&gt; World::world()</h3>
+
+
+<div class="description">
+
+<p>Creates a new world that will update the world_state given.</p>
+</div></div>
+<div class="function">
+<h3 id="new/2">new(Act::ActFunc, Paint::PaintFunc) -&gt; NewWorld::world()</h3>
+
+<ul class="type">
+<li><code>ActFunc = (State::world_state(), Parent::pid()) -&gt; world_state()</code></li><li><code>PaintFunc = (State::world_state(), G::graphics()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>Creates a blank World which will paint and update with the functions given.</p>
+</div></div>
+<div class="function">
+<h3 id="new/3">new(Act::ActFunc, Paint::PaintFunc, StartState::world_state()) -&gt; NewWorld::world()</h3>
+
+<ul class="type">
+<li><code>ActFunc = (State::world_state(), Parent::pid()) -&gt; world_state()</code></li><li><code>PaintFunc = (State::world_state(), G::graphics()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>Creates a new World with that will run the act and paint callbacks given, on the state given.</p>
+</div></div>
+<div class="function">
+<h3 id="add_actor/1">add_actor(World::world(), Actor::actor()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds the given Actor to this World.</p>
+</div></div>
+<div class="function">
+<h3 id="add_actors/1">add_actors(World::world(), Actors::[actor()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Adds a the given list of Actors to this World.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_actor/1">remove_actor(World::world(), Actor::actor()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes the given Actor from this World, if it is contained in the World.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_actors/1">remove_actors(World::world(), Actors::[actor()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes the given list of Actors from this World.</p>
+</div></div>
+<div class="function">
+<h3 id="remove_all_actors/1">remove_all_actors(World::world()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Empties the given World of all of the Actors it is holding.</p>
+</div></div>
+<div class="function">
+<h3 id="set_paint_order/1">set_paint_order(World::world(), Actor::actor(), PaintOrder::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the painting order of the given Actor within this World.</p>
+</div></div>
+<div class="function">
+<h3 id="is_intersecting_actor/1">is_intersecting_actor(World::world(), Actor::actor()) -&gt; IsIntersection::boolean()</h3>
+
+
+<div class="description">
+
+<p>This is a very basic check for any intersecting actors.
+  If any actor intersects the actor given then this return true, otherwise
+  false. This ignores the Actor given.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="is_intersecting_actor/1-1">is_intersecting_actor(World::world(), Actor::actor(), OtherActorName::atom()) -&gt; IsIntersection::boolean()</h3>
+
+
+<div class="description">
+
+<p>This is for testing for an intersection only against actors of a given name.
+  The name given is compared to the name stored in the actor_state of the actors
+  being tested against.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="apply_to_intersecting_actors/1">apply_to_intersecting_actors(World::world(), Actor::actor(), OnCollFun) -&gt; IsIntersection::boolean()</h3>
+
+<ul class="type">
+<li><code>OnCollFun = (OtherActorState::actor_state()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>Finds all actors that intersect the given actor, and then applies the function to them.  
+If 1 or more actors are found to intersect the given actor, then this will  
+return true. Otherwise it will return false.</p>
+ 
+  <p>The result of the OnCollFun is ignored.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="apply_to_intersecting_actors/1-1">apply_to_intersecting_actors(World::world(), Actor::actor(), OtherActorName::atom(), OnCollFun) -&gt; IsIntersection::boolean()</h3>
+
+<ul class="type">
+<li><code>OnCollFun = (OtherActorState::actor_state()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>Only intersects against actors with the given name stored in their actor_state.
+  Only other actors who's actor_name matches the name given will be run against
+  the given OnCollFun.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="apply_to_intersecting_actors/1-2">apply_to_intersecting_actors(World::world(), Actor::actor(), OtherActorName::atom(), CustomCheckFun, OnCollFun) -&gt; IsIntersection::boolean()</h3>
+
+<ul class="type">
+<li><code>CustomCheckFun = (OtherActorState::actor_state()) -&gt; boolean()</code></li><li><code>OnCollFun = (OtherActorState::actor_state()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>The full apply_to_intersecting_actors function.
+  This includes options for setting a custom checking fun, a fun to be run when
+  a collision is found and a given name of the actors to search through.</p>
+</div></div>
+<div class="function">
+<h3 id="apply_to_intersecting_actor/1">apply_to_intersecting_actor(World::world(), Actor::actor(), OnCollFun) -&gt; IsIntersection::boolean()</h3>
+
+<ul class="type">
+<li><code>OnCollFun = (OtherActorState::actor_state()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>The same as the equivalent apply_to_intersecting_actors, only this collides with only one actor.</p>
+</div></div>
+<div class="function">
+<h3 id="apply_to_intersecting_actor/1-1">apply_to_intersecting_actor(World::world(), Actor::actor(), OtherActorName::atom(), OnCollFun) -&gt; IsIntersection::boolean()</h3>
+
+<ul class="type">
+<li><code>OnCollFun = (OtherActorState::actor_state()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>Intersects against the first actor whose name matches the given name.
+  The name used in the test is taken from the name stored in the actor_state
+  from the actor being tested.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="apply_to_intersecting_actor/1-2">apply_to_intersecting_actor(World::world(), Actor::actor(), OtherActorName::atom(), CustomCheckFun, OnCollFun) -&gt; IsIntersection::boolean()</h3>
+
+<ul class="type">
+<li><code>CustomCheckFun = (OtherActorState::actor_state()) -&gt; boolean()</code></li><li><code>OnCollFun = (OtherActorState::actor_state()) -&gt; term()</code></li></ul>
+<div class="description">
+
+<p>The full apply_to_intersecting_actor function.
+  This includes options for setting a custom checking fun, a fun to be run when
+  a collision is found and a given name of the actors to search through.</p>
+</div></div>
+<div class="function">
+<h3 id="act/2">act(Actor, Parent) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#act/2" class="seealso">actor:act(Actor, Parent)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_act/2">send_act(Actor, Parent) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#send_act/2" class="seealso">actor:send_act(Actor, Parent)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="receive_act/0">receive_act() -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#receive_act/0" class="seealso">actor:receive_act()</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="paint/2">paint(Actor, G) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#paint/2" class="seealso">actor:paint(Actor, G)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_name/1">get_name(Actor) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#get_name/1" class="seealso">actor:get_name(Actor)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_state/1">get_state(Actor) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#get_state/1" class="seealso">actor:get_state(Actor)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_act/1">get_act(Actor) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#get_act/1" class="seealso">actor:get_act(Actor)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_paint/1">get_paint(Actor) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#get_paint/1" class="seealso">actor:get_paint(Actor)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="compare/2">compare(ActorA, ActorB) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#compare/2" class="seealso">actor:compare(ActorA, ActorB)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_controls/1">get_controls(Actor) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="actor.xml.html#get_controls/1" class="seealso">actor:get_controls(Actor)</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Joseph Lenton</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

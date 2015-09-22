@@ -1,0 +1,1 @@
+var index = [['app','ringbench','ringbench','[application]'],['mod','ringbench','ring',[]],['mod','ringbench','ringbench',[]],['fun','ringbench','ring:create/1',[]],['fun','ringbench','ring:createHead/1',[]],['fun','ringbench','ring:createTail/1',[]],['fun','ringbench','ringbench:main/0',[]],['fun','ringbench','ringbench:main/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlxc','erlxc','[application]'],['mod','erlxc','erlxc_console',[]],['fun','erlxc','erlxc_console:getopts/1',[]],['fun','erlxc','erlxc_console:send/2',[]],['fun','erlxc','erlxc_console:start/1',[]],['fun','erlxc','erlxc_console:start/1',[]],['fun','erlxc','erlxc_console:stop/1',[]]];

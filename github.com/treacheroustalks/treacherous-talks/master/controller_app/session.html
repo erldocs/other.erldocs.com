@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>session (controller_app) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>session</h1>
+<h2 class="modsummary">This mdoules provides the interface for sessions.</h2>
+<div class="description">
+<p>This mdoules provides the interface for sessions.
+  </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/3">start(User::#user{}, Hist::#session_history{}, PushReceiver::#push_receiver{}) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>
+  Starts a new session for the given user and returns the session id.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(User::#user{}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Stops a session for the given user.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="logout/2">logout(SessionId, Arg) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="alive/1">alive(SessionId::list()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  Checks if a session with the given ID exists
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_session_user/1">get_session_user(SessionId::string(), X2::any()) -&gt; #user{}</h3>
+
+
+<div class="description">
+
+<p>get_session_user/2
+  API for getting the session user
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_user/1">update_user(SessionId::string(), PropList::#user{}) -&gt; #user{}</h3>
+
+
+<div class="description">
+
+<p>update_user/2
+  API for updating a user
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create_game/1">create_game(SessionId::string(), Game::#game{}) -&gt; #game{}</h3>
+
+
+<div class="description">
+
+<p>create_game/2
+  API for creation of a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_game/1">get_game(SessionId::string(), GameId::#game{}) -&gt; #game{}</h3>
+
+
+<div class="description">
+
+<p>get_game/2
+  API to get a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reconfig_game/1">reconfig_game(SessionId::string(), Data::{integer(), #game{}}) -&gt; #game{}</h3>
+
+
+<div class="description">
+
+<p>reconfig_game/2
+  API for updating a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="game_overview/1">game_overview(SessionId::string(), GameId::integer()) -&gt; #game_overview{}</h3>
+
+
+<div class="description">
+
+<p>game_overview/2
+  API for updating a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="join_game/1">join_game(SessionId::string(), Data::{integer(), atom()}) -&gt; {ok, integer()} | {error, country_not_available}</h3>
+
+
+<div class="description">
+
+<p>join_game/2
+  API for updating a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="game_order/1">game_order(SessionId::string(), Data::{integer(), [term()]}) -&gt; {ok, [term()]} | {error, {string(), term()}}</h3>
+
+
+<div class="description">
+
+<p>game_order/2
+  API for sending a list game order
+ </p>
+</div></div>
+<div class="function">
+<h3 id="user_msg/1">user_msg(SessionId::string(), FEMsg::#frontend_msg{}) -&gt; {ok, integer()} | {error, nick_not_unique} | {error, invalid_nick} | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>user_msg/2
+  API for sending user message
+ </p>
+</div></div>
+<div class="function">
+<h3 id="game_msg/1">game_msg(SessionId::string(), FEMsg::#frontend_msg{}) -&gt; {ok, integer()} | {error, not_allowed_send_msg} | {error, game_does_not_exist} | {error, game_phase_not_ongoing} | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>game_msg/2
+  API for sending game message
+ </p>
+</div></div>
+<div class="function">
+<h3 id="power_msg/1">power_msg(SessionId::string(), FEMsg::#frontend_msg{}) -&gt; {ok, integer()} | {error, game_does_not_exist} | {error, game_phase_not_ongoing} | {error, Error::any()}</h3>
+
+
+<div class="description">
+
+<p>game_msg/2
+  API for sending game message
+ </p>
+</div></div>
+<div class="function">
+<h3 id="push_event/1">push_event(SessionId::string(), Event::#push_event{}) -&gt; {ok, integer()} | {error, country_not_available}</h3>
+
+
+<div class="description">
+
+<p>push_event/2
+  API for pushing event to the user the session with the given id.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="sync_push_event/1">sync_push_event(SessionId::string(), Event::#push_event{}) -&gt; {ok, integer()} | {error, country_not_available}</h3>
+
+
+<div class="description">
+
+<p>sync_push_event/2
+  API for pushing event to the user the session with the given id,
+  synchronously
+ </p>
+</div></div>
+<div class="function">
+<h3 id="games_current/1">games_current(SessionId::string(), Data::term()) -&gt; {ok, [#game{}]}</h3>
+
+
+<div class="description">
+
+<p>games_current/2
+  Get all the games of a specific user that are current running
+ </p>
+</div></div>
+<div class="function">
+<h3 id="game_search/1">game_search(SessionId::string(), Query::string()) -&gt; {ok, [#game{}]}</h3>
+
+
+<div class="description">
+
+<p>game_search/2
+  Search the game bucket for the given query
+ </p>
+</div></div>
+<div class="function">
+<h3 id="stop_game/1">stop_game(SessionID::string(), GameId::integer) -&gt; {ok, {GameId, stopped}}</h3>
+
+
+<div class="description">
+
+<p>stop_game/2
+  Stops a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_games_ongoing/1">get_games_ongoing(SessionId::string(), Data::term()) -&gt; {ok, [integer()]}</h3>
+
+
+<div class="description">
+
+<p>get_games_ongoing/2
+  Get all ongoing games. To be used only by the operator
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_db_stats/1">get_db_stats(SessionId::string(), Data::term()) -&gt; {ok, [{atom(), term()}]}</h3>
+
+
+<div class="description">
+
+<p>get_db_stats/2
+  Allow operator to view database status
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_presence/1">get_presence(SessionId::string(), Nick::string()) -&gt; {ok, user_online} | {ok, user_offline} | {error, user_not_found}</h3>
+
+
+<div class="description">
+
+<p>get_presence/2
+  Get presence of the given nick name
+ </p>
+</div></div>
+<div class="function">
+<h3 id="operator_game_overview/1">operator_game_overview(SessionId::string(), GameId::term()) -&gt; {ok, {#game_overview{}, list()}}</h3>
+
+
+<div class="description">
+
+<p>operator_game_overview/2
+  Allow operator to inspect a game
+ </p>
+</div></div>
+<div class="function">
+<h3 id="operator_get_game_msg/2">operator_get_game_msg(SessionId, KeyQuery) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="assign_moderator/2">assign_moderator(SessionId::string, Data::{Username::string(), Action::atom()}) -&gt; {ok, #user{}}</h3>
+
+
+<div class="description">
+
+<p>assign_moderator/2
+  Updates a user role to a moderator role
+ </p>
+</div></div>
+<div class="function">
+<h3 id="send_report/2">send_report(SessionId, Report) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>send_report/2
+  API for sending a report
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_reports/2">get_reports(SessionId, Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get_reports/2
+  API for getting a list of reports
+ </p>
+</div></div>
+<div class="function">
+<h3 id="mark_report_as_done/2">mark_report_as_done(SessionId, IssueID) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>mark_report_as_done/2
+  API for marking a reported issue as done
+ </p>
+</div></div>
+<div class="function">
+<h3 id="set_push_receiver/2">set_push_receiver(SessionId, PushReceiver) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>set_push_receiver/2
+  Update the push receiver for the given session
+ </p>
+</div></div>
+<div class="function">
+<h3 id="blacklist/2">blacklist(SessionId, Nick) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>blacklist/2
+  Blacklists the given user
+ </p>
+</div></div>
+<div class="function">
+<h3 id="whitelist/2">whitelist(SessionId, Nick) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>blacklist/2
+  Blacklists the given user
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Andre Hilsendeger</aname>
+<email>Andre.Hilsendeger@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

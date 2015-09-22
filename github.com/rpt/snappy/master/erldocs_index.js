@@ -1,0 +1,1 @@
+var index = [['app','snappy','snappy','[application]'],['mod','snappy','snappy',[]],['fun','snappy','snappy:compress/1',[]],['fun','snappy','snappy:decompress/1',[]],['fun','snappy','snappy:is_valid/1',[]],['fun','snappy','snappy:uncompressed_length/1',[]]];

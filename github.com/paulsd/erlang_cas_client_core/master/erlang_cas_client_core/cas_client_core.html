@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cas_client_core (erlang_cas_client_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cas_client_core</h1>
+<h2 class="modsummary">CAS Client Library.</h2>
+<div class="description">
+<p>CAS Client Library</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-attributes">attributes() = not_authenticated<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [{Key :: binary(), Value :: binary()}]</h3></div>
+    <div class="type"><h3 id="type-config_get_fun">config_get_fun() = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fun((Key :: atom()) -> Value :: binary())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="config/2">config(Key, ConfigFun) -&gt; Value</h3>
+
+<ul class="type">
+<li><code>Key = atom()</code></li><li><code>Value = any()</code></li><li><code>ConfigFun = config_get_fun()</code></li></ul>
+<div class="description">
+
+<p>Read the specified configuration value (or its documented default) from the specified
+  config function (or cas_client_core_config::get() if ConfigFun is 'undefined').</p>
+</div></div>
+<div class="function">
+<h3 id="login_url/2">login_url(ServiceURL, ConfigFun) -&gt; LoginURL</h3>
+
+<ul class="type">
+<li><code>ServiceURL = binary()</code></li><li><code>LoginURL = binary()</code></li><li><code>ConfigFun = config_get_fun()</code></li></ul>
+<div class="description">
+
+<p>Return the URL which a client should be redirected to for login via CAS.  CAS will redirect
+  the client back to the specified Service URL.</p>
+</div></div>
+<div class="function">
+<h3 id="logout_url/2">logout_url(AppURL::undefined | AppURL, ConfigFun) -&gt; LogoutURL</h3>
+
+<ul class="type">
+<li><code>AppURL = binary()</code></li><li><code>LogoutURL = binary()</code></li><li><code>ConfigFun = config_get_fun()</code></li></ul>
+<div class="description">
+
+<p>Return the URL which a client should be redirected to for CAS logout.  CAS will optionally
+  provide a link to the specified App URL on the logout confirmation page.</p>
+</div></div>
+<div class="function">
+<h3 id="validate/3">validate(Ticket, ServiceURL, ConfigFun) -&gt; {ok, attributes()} | retry | error</h3>
+
+<ul class="type">
+<li><code>Ticket = binary()</code></li><li><code>ServiceURL = binary()</code></li><li><code>ConfigFun = config_get_fun()</code></li></ul>
+<div class="description">
+
+<p>Validate the specified CAS Ticket associated with the specified Service URL and return the
+  associated CAS attributes.  Returns 'retry' if a "soft" error occurred but the caller may
+  redirect the client back to CAS to try again (the caller should limit the number of times it
+  attempts to retry).  Returns 'error' if a "hard" error occurred and the caller should not try
+  again (an error message should be displayed to the user).</p>
+</div></div>
+<div class="function">
+<h3 id="pgt_iou/1">pgt_iou(PGTiou::binary(), PGT::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Accept a PGT-IOU and associated PGT from CAS.</p>
+</div></div>
+<div class="function">
+<h3 id="proxy_ticket/2">proxy_ticket(ServiceURL, Attrs::attributes(), ConfigFun) -&gt; not_authenticated | undefined | {ok, Ticket} | retry | error</h3>
+
+<ul class="type">
+<li><code>ServiceURL = binary()</code></li><li><code>Ticket = binary()</code></li><li><code>ConfigFun = config_get_fun()</code></li></ul>
+<div class="description">
+
+<p>Return a CAS Proxy Ticket associated with the specified Service URL for the user associated
+  with the specified CAS authentication attributes.  Returns 'not_authenticated' if the attributes
+  indicate no CAS authentication.  Returns 'undefined' if there is no PGT associated with the
+  authenticated user.  Returns 'retry' if a "soft" error occurred but the caller may try again (the
+  caller should limit the number of times it attempts to retry).  Returns 'error' if a "hard" error
+  occurred and the caller should not try again.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_single_sign_out_request/1">parse_single_sign_out_request(Body) -&gt; {ok, Ticket} | not_sso | error</h3>
+
+<ul class="type">
+<li><code>Body = binary()</code></li><li><code>Ticket = binary()</code></li></ul>
+<div class="description">
+
+<p>Return the CAS Service Ticket associated with the specified Single Sign Out request body.
+  Returns 'not_sso' if the specified body does not appear to be a Single Sign Out request.  Returns
+  'error' if the specified body appears to be a Single Sign Out request but parsing fails.</p>
+</div></div>
+<div class="function">
+<h3 id="user/1">user(Attrs::attributes()) -&gt; not_authenticated | User</h3>
+
+<ul class="type">
+<li><code>User = binary()</code></li></ul>
+<div class="description">
+
+<p>Extract the user name from the specified CAS authentication attributes.  Returns
+  'not_authenticated' if the attributes indicate no CAS authentication.</p>
+</div></div>
+<div class="function">
+<h3 id="attribute/2">attribute(Key, Attrs::attributes()) -&gt; not_authenticated | Value | undefined</h3>
+
+<ul class="type">
+<li><code>Key = binary()</code></li><li><code>Value = binary()</code></li></ul>
+<div class="description">
+
+<p>Extract the specified attribute the specified CAS authentication attributes.  Returns
+  'not_authenticated' if the attributes indicate no CAS authentication, or 'undefined' if the
+  requested attribute was not returned by CAS.</p>
+</div></div>
+<div class="function">
+<h3 id="url_encode/1">url_encode(S::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>URL encode the specified binary string.</p>
+</div></div>
+<div class="function">
+<h3 id="current_time/0">current_time() -&gt; Seconds::integer()</h3>
+
+
+<div class="description">
+
+<p>Get the current time in seconds since the Epoch.</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/2">start(Type, Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="httpc_request/4">httpc_request(Method, Request, Options, ConfigFun) -&gt; {ok, Response::any()} | {error, Error::any()}</h3>
+
+<ul class="type">
+<li><code>Method = atom()</code></li><li><code>Request = any()</code></li><li><code>Options = [{atom(), any()}]</code></li><li><code>ConfigFun = config_get_fun()</code></li></ul>
+<div class="description">
+
+<p>Convenience wrapper for httpc:request().  Accepts binary URLs and injects module default
+  options and/or configured options for this module.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

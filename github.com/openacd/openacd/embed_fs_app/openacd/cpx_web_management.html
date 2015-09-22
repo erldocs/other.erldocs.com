@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cpx_web_management (openacd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cpx_web_management</h1>
+<h2 class="modsummary">The web management module.</h2>
+<div class="description">
+<p>The web management module.  Uses mochiweb for the heavy lifting.   
+Listens on port 9999 by default.</p>
+ 
+  <p>Handles json api requests on /api.  A well formed api request is a post  
+with one field:  "request".  "request" should consist of a json object  
+of three properties:  module, function, and args.  the module and  
+function should both be strings.  Args is a json representation of  
+what the erlang module:function() would accept as arguments (as best as  
+can be represented in json).  Proplists should be represented as json  
+objects, and will be decoded as such.  For any function of arity 1  
+(takes one argument), the args should be that argument.  Otherwise it  
+should be a list/array.</p>
+ 
+  <p>The json_api is always enabled, but protected behind http basic  
+authentication and an ip whitelist.  If either of those conditions are  
+met, the api call is allowed.  Obviously this is not something you want  
+to expose to the internet.</p>
+ 
+  <p>An error is generated if either the module or function do not exist,  
+the function is not exported by the module.</p>
+ 
+  <p>The currently exported funtions are listed below.  In theory, there is
+  documentation on therm either in the auto generated docs, the built-in
+  documentation, or the wiki.
+  </p><list><item><p>cpx:kick_agent("agent_login")</p></item>
+  <item><p> agent_manager:list()</p></item>
+  <item><p> freeswitch_dialer:start_fg/1</p></item>
+  <item><p> freeswitch_dialer:start_fg/6</p></item>
+  <item><p> freeswitch_monitor:monitor_agent("agent_login",
+  "spy/dialstring", "freeswith@nodename")</p></item>
+  <item><p> freeswitch_monitor:monitor_client("client_label",
+  "spy/dialstring", "freeswitch@nodename")</p></item></list></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-raw_skill">raw_skill() = atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), any()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #skill_rec{atom = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected = true | false,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp = integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-recipe">recipe() = [<a href="#type-recipe_step" class="seealso">recipe_step()</a>]</h3></div>
+    <div class="type"><h3 id="type-recipe_comment">recipe_comment() = binary()</h3></div>
+    <div class="type"><h3 id="type-recipe_comparison">recipe_comparison() = '&lt;' | '&gt;' | '='</h3></div>
+    <div class="type"><h3 id="type-recipe_condition">recipe_condition() = {ticks, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {eligible_agents,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {available_agents,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {queue_position,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {calls_queued,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-recipe_operation">recipe_operation() = {add_skills, [atom(), ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove_skills, [atom(), ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {set_priority, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {prioritize, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {deprioritize, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {voicemail, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {announce, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {add_recipe, tuple()}</h3></div>
+    <div class="type"><h3 id="type-recipe_runs">recipe_runs() = run_once | run_many</h3></div>
+    <div class="type"><h3 id="type-recipe_step">recipe_step() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{[<a href="#type-recipe_condition" class="seealso">recipe_condition()</a>, ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-recipe_operation" class="seealso">recipe_operation()</a>, ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_runs" class="seealso">recipe_runs()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comment" class="seealso">recipe_comment()</a>}</h3></div>
+    <div class="type"><h3 id="type-release_bias">release_bias() = -1 | 0 | 1</h3></div>
+    <div class="type"><h3 id="type-release_code">release_code() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-release_id" class="seealso">release_id()</a>, <a href="#type-release_label" class="seealso">release_label()</a>, <a href="#type-release_bias" class="seealso">release_bias()</a>}</h3></div>
+    <div class="type"><h3 id="type-release_id">release_id() = string()</h3></div>
+    <div class="type"><h3 id="type-release_label">release_label() = default | string()</h3></div>
+    <div class="type"><h3 id="type-security_level">security_level() = agent | supervisor | admin</h3></div>
+    <div class="type"><h3 id="type-simple_json">simple_json() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{struct, [{atom() | binary(), atom() | binary()}]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the web management server unlinked to the parent process.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(Port::pos_integer()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Port::pos_integer()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the web management.</p>
+</div></div>
+<div class="function">
+<h3 id="loop/1">loop(Req::atom(), Opts::[any()]) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_posted_skills/1">parse_posted_skills(PostedSkills::[string()]) -&gt; [atom() | {atom(), string()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_skill/1">encode_skill(Skill::raw_skill()) -&gt; simple_json()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_skills/1">encode_skills(Skills::[raw_skill()]) -&gt; [simple_json()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_queue/1">encode_queue(Queue::#call_queue{name=string(), weight=non_neg_integer(), skills=[atom()], recipe=recipe(), hold_music=string() | undefined, group=string(), timestamp=pos_integer()}) -&gt; simple_json()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_queues/1">encode_queues(Queues::[#call_queue{name=string(), weight=non_neg_integer(), skills=[atom()], recipe=recipe(), hold_music=string() | undefined, group=string(), timestamp=pos_integer()}]) -&gt; [simple_json()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_agents/1">encode_agents(Agent::[#agent{login=string(), id=undefined | string(), skills=[atom(), ...], connection=undefined | pid(), profile=string() | error, securitylevel=security_level(), source=undefined | pid(), release_data=release_code() | undefined, available_channels=any(), all_channels=any(), used_channels=any(), endpoints=any(), ring_channel=none | any(), last_change=pos_integer(), start_opts=[any()], log_pid=undefined | pid(), security_level=agent | supervisor | admin}]) -&gt; [simple_json()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode_agent/1">encode_agent(Agentrec::#agent_auth{id=undefined | string(), login=undefined | string(), password=undefined | string(), skills=[atom()], securitylevel=security_level(), integrated=undefined | pos_integer(), profile=string(), firstname=string(), lastname=string(), endpoints=[{atom(), any()}], extended_props=[{atom(), any()}], timestamp=pos_integer()}) -&gt; simple_json()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>elarm_registry (elarm) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>elarm_registry</h1>
+<h2 class="modsummary">
+   Registry for elarm servers.</h2>
+<div class="description">
+<p>
+   Registry for elarm servers</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+   Start elarm registry server with {local, elarm_registry} name.</p>
+</div></div>
+<div class="function">
+<h3 id="subscribe/1">subscribe(Subscriber::pid()) -&gt; {ok, [{atom(), pid()}]}</h3>
+
+
+<div class="description">
+
+<p>
+   Subscribe to listening elarm server events, e.g. starting
+   new elarm server, stop elarm server, elarm server crashed.
+   The subscriber process - identified by self() - will get messages
+   when an elarm event happens.
+   </p><taglist>
+     <dt>{elarm_started, Name}</dt>
+     <item><p>when an elarm server is started</p></item>
+     <dt>{elarm_down, Name}</dt>
+     <item><p>when an elarm server is stopped or crashed</p></item>
+   </taglist>
+</div></div>
+<div class="function">
+<h3 id="unsubscribe/1">unsubscribe(Subscriber::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+   Unsubscribe from elarm events</p>
+</div></div>
+<div class="function">
+<h3 id="which_servers/0">which_servers() -&gt; [{atom(), pid()}]</h3>
+
+
+<div class="description">
+
+<p>
+   Get all registered elarm server processes</p>
+</div></div>
+<div class="function">
+<h3 id="server_started/1">server_started(Name::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+   An elarm server has to call this when it is started in order that
+   registry listeners knows about that elarm server.</p>
+</div></div>
+<div class="function">
+<h3 id="server_stopped/1">server_stopped(Name::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>
+   Elarm server may call this when it terminates. Registry will send
+   a message to its subscribers about that event. Elarm server is
+   monitored by the registry, so calling this function is optional.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Req, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Req, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Richard Jonas</aname>
+<email>richard.jonas@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

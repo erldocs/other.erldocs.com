@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_redundant_manager (leo_redundant_manager) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_redundant_manager</h1>
+<h2 class="modsummary">leo_redaundant_manager's server.</h2>
+<div class="description">
+<p>leo_redaundant_manager's server</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-checksum_type">checksum_type() = ring | member | worker</h3></div>
+    <div class="type"><h3 id="type-node_state">node_state() = attached<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| detached<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| suspend<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| running<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| stop<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| restarted<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| reserved</h3></div>
+    <div class="type"><h3 id="type-ring_table">ring_table() = ets | mnesia</h3></div>
+    <div class="type"><h3 id="type-ring_table_info">ring_table_info() = {<a href="#type-ring_table" class="seealso">ring_table()</a>, leo_ring_cur}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-ring_table" class="seealso">ring_table()</a>, leo_ring_prv}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start the process</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stop the process</p>
+</div></div>
+<div class="function">
+<h3 id="create/1">create(Ver) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Ver = cur | prev</code></li></ul>
+<div class="description">
+
+<p>Create the Rings.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="checksum/1">checksum(Type) -&gt; {ok, integer() | tuple()}</h3>
+
+<ul class="type">
+<li><code>Type = checksum_type()</code></li></ul>
+<div class="description">
+
+<p>Retrieve checksum of ring/member
+ </p>
+</div></div>
+<div class="function">
+<h3 id="has_member/1">has_member(Node) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li></ul>
+<div class="description">
+
+<p>Is exists member?
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members/0">get_members() -&gt; {ok, [#member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=node_state() | null, num_of_vnodes=integer(), grp_level_1=string(), grp_level_2=string()}]}</h3>
+
+
+<div class="description">
+
+<p>Retrieve all members.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members/1">get_members(Ver) -&gt; {ok, [#member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=node_state() | null, num_of_vnodes=integer(), grp_level_1=string(), grp_level_2=string()}]}</h3>
+
+<ul class="type">
+<li><code>Ver = cur | prev</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_member_by_node/1">get_member_by_node(Node) -&gt; {ok, #member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=node_state() | null, num_of_vnodes=integer(), grp_level_1=string(), grp_level_2=string()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a member by node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_members_by_status/2">get_members_by_status(Ver, Status) -&gt; {ok, [#member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=node_state() | null, num_of_vnodes=integer(), grp_level_1=string(), grp_level_2=string()}]} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Ver = cur | prev</code></li><li><code>Status = atom()</code></li></ul>
+<div class="description">
+
+<p>Retrieve members by status.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_member/1">update_member(Member) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Member = #member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=node_state() | null, num_of_vnodes=integer(), grp_level_1=string(), grp_level_2=string()}</code></li></ul>
+<div class="description">
+
+<p>Modify a member.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_members/1">update_members(Members) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Members = [#member{node=undefined | atom(), alias=string(), ip=string(), port=pos_integer(), inet=ipv4 | ipv6, clock=pos_integer(), state=node_state() | null, num_of_vnodes=integer(), grp_level_1=string(), grp_level_2=string()}]</code></li></ul>
+<div class="description">
+
+<p>Modify members.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_member_by_node/2">update_member_by_node(Node, NodeState) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>NodeState = atom()</code></li></ul>
+<div class="description">
+
+<p>Modify a member by node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update_member_by_node/3">update_member_by_node(Node, Clock, NodeState) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>Clock = integer()</code></li><li><code>NodeState = atom()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_member_by_node/1">delete_member_by_node(Node) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li></ul>
+<div class="description">
+
+<p>Remove a member by node.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="dump/1">dump(Type) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Type = atom()</code></li></ul>
+<div class="description">
+
+<p>Dump files which are member and ring.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach/4">attach(Node, AwarenessL2, Clock, NumOfVNodes) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>AwarenessL2 = string()</code></li><li><code>Clock = integer()</code></li><li><code>NumOfVNodes = integer()</code></li></ul>
+<div class="description">
+
+<p>Change node status to 'attach'.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="attach/5">attach(Node, AwarenessL2, Clock, NumOfVNodes, RPCPort) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>AwarenessL2 = string()</code></li><li><code>Clock = integer()</code></li><li><code>NumOfVNodes = integer()</code></li><li><code>RPCPort = integer()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="attach/6">attach(TableInfo, Node, AwarenessL2, Clock, NumOfVNodes, RPCPort) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = ring_table_info()</code></li><li><code>Node = atom()</code></li><li><code>AwarenessL2 = string()</code></li><li><code>Clock = integer()</code></li><li><code>NumOfVNodes = integer()</code></li><li><code>RPCPort = integer()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reserve/5">reserve(Node, CurState, AwarenessL2, Clock, NumOfVNodes) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>CurState = atom()</code></li><li><code>AwarenessL2 = string()</code></li><li><code>Clock = integer()</code></li><li><code>NumOfVNodes = integer()</code></li></ul>
+<div class="description">
+
+<p>Change node status to 'reserve'.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="reserve/6">reserve(Node, CurState, AwarenessL2, Clock, NumOfVNodes, RPCPort) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>CurState = atom()</code></li><li><code>AwarenessL2 = string()</code></li><li><code>Clock = integer()</code></li><li><code>NumOfVNodes = integer()</code></li><li><code>RPCPort = integer()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="detach/2">detach(Node, Clock) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>Clock = integer()</code></li></ul>
+<div class="description">
+
+<p>Change node status to 'detach'.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="detach/3">detach(TableInfo, Node, Clock) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = ring_table_info()</code></li><li><code>Node = atom()</code></li><li><code>Clock = integer()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="suspend/2">suspend(Node, Clock) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Node = atom()</code></li><li><code>Clock = integer()</code></li></ul>
+<div class="description">
+
+<p>Change node status to 'suspend'.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Initiates the server</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>gen_server callback - Module:handle_call(Request, From, State) -&gt; Result</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Handling cast message
+  </p><p>
+  gen_server callback - Module:handle_cast(Request, State) -&gt; Result.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Handling all non call/cast messages
+  </p><p>
+  gen_server callback - Module:handle_info(Info, State) -&gt; Result.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>This function is called by a gen_server when it is about to
+       terminate. It should be the opposite of Module:init/1 and do any necessary
+       cleaning up. When it returns, the gen_server terminates with Reason.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Convert process state when code is changed</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

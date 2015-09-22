@@ -1,0 +1,1 @@
+var index = [['app','strftimerl','strftimerl','[application]'],['mod','strftimerl','strftime',[]],['fun','strftimerl','strftime:f/2',[]],['fun','strftimerl','strftime:f/3',[]]];

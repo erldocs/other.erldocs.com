@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>serv_ul (pear-talk) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>serv_ul</h1>
+<h2 class="modsummary">modul som sköter DETS tables, en sorts databas manager skulle man kunna säga.</h2>
+<div class="description">
+<p>modul som sköter DETS tables, en sorts databas manager skulle man kunna säga.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="addUser/6">addUser(Table, Username, ShowedName, FriendList, NetInfo, Password) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>Username = any()</code></li><li><code>ShowedName = any()</code></li><li><code>Friendlist = [Username | Friendlist]</code></li><li><code>NetInfo = any()</code></li><li><code>Password = any()</code></li></ul>
+<div class="description">
+
+<p>Lägger till en användare (Username) i tabellen Table.</p>
+</div></div>
+<div class="function">
+<h3 id="addFriend/3">addFriend(Table, MyID, FriendID) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>MyID = any()</code></li><li><code>FriendID = tuple()</code></li></ul>
+<div class="description">
+
+<p>Lägger till en person (FriendID) i en annan persons (MyID) vänlista, om den andra personen existerar i tabellen Table.</p>
+</div></div>
+<div class="function">
+<h3 id="acceptFriend/3">acceptFriend(Table, MyID, FriendID) -&gt; ok | false</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>MyID = any()</code></li><li><code>FriendID = tuple()</code></li></ul>
+<div class="description">
+
+<p>Accepterar en vänförfrågan och ändrar så att vännerna känner varandra</p>
+</div></div>
+<div class="function">
+<h3 id="removeFriend/3">removeFriend(Table, MyID, FriendID) -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Tar bort en person (FriendID) från en annan persons (ID) vänlista, om den andra personen existerar i tabellen Table.</p>
+</div></div>
+<div class="function">
+<h3 id="changeName/3">changeName(Table, ID, Name) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>ID = any()</code></li><li><code>Name = any()</code></li></ul>
+<div class="description">
+
+<p>Ändrar en persons (ID) "smeknamn" till Name, givet att personen existerar i tabellen Table.</p>
+</div></div>
+<div class="function">
+<h3 id="changePassword/4">changePassword(Table, ID, Password, OldPass) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>ID = any()</code></li><li><code>Password = any()</code></li><li><code>OldPass = any()</code></li></ul>
+<div class="description">
+
+<p>Ändrar en persons (ID) lösenord till Password, givet att personen existerar, samt att det gamla lösenordet OldPass stämmer överens med det som lagrats i tabellen.</p>
+</div></div>
+<div class="function">
+<h3 id="onlineStatus/3">onlineStatus(Table, MyID, NetInfo) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>MyID = any()</code></li><li><code>NetInfo = any()</code></li></ul>
+<div class="description">
+
+<p>Ändrar en persons NetInfo, givet att personen existerar i tabellen Table.</p>
+</div></div>
+<div class="function">
+<h3 id="retrievePassword/2">retrievePassword(Table, ID) -&gt; Password</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>ID = any()</code></li><li><code>Password = any()</code></li></ul>
+<div class="description">
+
+<p>Hämtar ut en persons lösenord.</p>
+</div></div>
+<div class="function">
+<h3 id="login/3">login(Table, ID, Password) -&gt; true | false | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>ID = any()</code></li><li><code>Password = any()</code></li></ul>
+<div class="description">
+
+<p>Undersöker hurvida lösenordet Password som givits av personen ID stämmer överens med vad som lagrats i tabellen Table. True om det stämmer, false om det inte stämmer.</p>
+</div></div>
+<div class="function">
+<h3 id="retrieveFriend/2">retrieveFriend(Table, HisID) -&gt; [HisID | ShownName | NetInfo]</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>HisID = any()</code></li><li><code>ShownName = any()</code></li><li><code>NetInfo = any()</code></li></ul>
+<div class="description">
+
+<p>Givet ett ID, hämtar ut kontaktinformation om en person.</p>
+</div></div>
+<div class="function">
+<h3 id="retrieveFriends/2">retrieveFriends(Table, MyID) -&gt; Friendslist</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li><li><code>MyID = any()</code></li><li><code>Friendslist = [ID | ShownName | NetInfo]</code></li><li><code>ID = any()</code></li><li><code>ShownName = any()</code></li><li><code>NetInfo = any()</code></li></ul>
+<div class="description">
+
+<p>Hämtar ut kontaktinformation för en persons vänner.</p>
+</div></div>
+<div class="function">
+<h3 id="searchUsers/2">searchUsers(Table, Search) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Hämtar ut de ID vars ID eller visningsnamn som börjar med strängen Search.</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Öppnar en fördefinerad tabell för redigering.</p>
+</div></div>
+<div class="function">
+<h3 id="loop/1">loop(Table) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Table = atom() | reference()</code></li></ul>
+<div class="description">
+
+<p>Manager av mottagna meddelanden från server.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Grupp 2 (Staffan Rodgren, Gabriel Tholsgård, Kristian Ionescu, Mårten Blomberg, Göran Hagelin, Staffan Reinius)</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

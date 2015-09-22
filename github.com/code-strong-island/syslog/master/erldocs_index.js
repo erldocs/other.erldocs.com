@@ -1,0 +1,1 @@
+var index = [['app','syslog','syslog','[application]'],['mod','syslog','echo',[]],['fun','syslog','echo:listen/1',[]]];

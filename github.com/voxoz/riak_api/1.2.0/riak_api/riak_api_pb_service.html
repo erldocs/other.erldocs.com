@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_api_pb_service (riak_api) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_api_pb_service</h1>
+<h2 class="modsummary">Encapsulates the behaviour and registration of
+  application-specific interfaces exposed over the Protocol Buffers
+  API.</h2>
+<div class="description">
+<p>Encapsulates the behaviour and registration of
+  application-specific interfaces exposed over the Protocol Buffers
+  API. Service modules should implement the behaviour, and the host
+  applications should register them on startup like so:
+  </p><pre class="sh_erlang">
+    %% Register the 'ping' messages
+    ok = riak_api_pb_service:register(riak_core_pb_service, 1, 2)
+  </pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-registration">registration() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Service :: module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MinCode :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxCode :: integer() >= 1}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Behaviour information callback. PB API services must implement
+  the given functions.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1">register(Rest::[registration()]) -&gt; ok | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Registers a number of services at once.</p>
+<p><em>See also:</em> <a href="#register/3" class="seealso">register/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1-1">register(Module::module(), Code::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Registers a service module for a given message code.</p>
+<p><em>See also:</em> <a href="#register/3" class="seealso">register/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="register/1-2">register(Module::module(), MinCode::pos_integer(), MaxCode::pos_integer()) -&gt; ok | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Registers a service module for a given range of message
+  codes. The service module must implement the behaviour and be able
+  to decode and process messages for the given range of message
+  codes.  Service modules should be registered before the riak_api
+  application starts.</p>
+</div></div>
+<div class="function">
+<h3 id="dispatch_table/0">dispatch_table() -&gt; dict()</h3>
+
+
+<div class="description">
+
+<p>Returns the current mappings from message codes to service
+  modules. This is called by riak_api_pb_socket on startup so that
+  dispatches don't hit the application env.</p>
+</div></div>
+<div class="function">
+<h3 id="services/0">services() -&gt; [module()]</h3>
+
+
+<div class="description">
+
+<p>Returns the current registered PB services, based on the
+  dispatch_table().</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

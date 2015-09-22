@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_serial (gen_serial) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_serial</h1>
+<h2 class="modsummary">Generic serial port interface.</h2>
+<div class="description">
+<p>Generic serial port interface.</p>
+ 
+  <p>
+  The gen_serial API allows Erlang programs to make use of standard
+  serial port devices on both Windows and POSIX (Linux and UNIX-like)
+  platforms, from a common interface module. As the native serial
+  port handling services of the underlying operating system are used,
+  this module supports any device supported by the operating system,
+  ie. not just traditional RS-232 serial ports, but also USB-serial
+  converters and the like.
+  </p>
+ 
+  <p>
+  External port processes are used to connect to the host serial
+  port APIs, thereby placing each serial port connection in its own
+  memory-protected sandbox.  Should the serial port process crash,
+  only that port will be shutdown; the Erlang node will continue to
+  function properly, as will all other serial ports.  On Windows the
+  serial port processes are named <code>COMn_esock.exe</code>, where
+  the <code>COMn</code> part indicates the name of the serial port
+  being accessed by the program.  On UNIX, the first argument to the
+  program <code>serial_esock</code> has the serial device's name.
+  </p>
+ 
+  <p>
+  Much of the API should be similiar to <code>gen_tcp</code> and
+  <code>ssl</code>, making the switch to serial communications
+  easy on Erlang developers.
+  </p>
+ 
+  <p>
+  Unlike other Erlang communication APIs, gen_serial only allows use
+  of binaries and lists of binaries as packet input. Character lists
+  (aka strings or IO lists) are just simply not supported at this
+  time.
+  </p>
+ 
+  <p>
+  <i>Disclaimer: This is alpha level code.</i>
+  The latest version is available from:
+  <url href="http://github.com/tomszilagyi/gen_serial">
+  http://github.com/tomszilagyi/gen_serial</url>
+  </p>
+ 
+  <p><marker id="-messages"><em>Port Owner Messages:</em></marker>
+  </p><p>
+  The port owner (see <a href="#set_owner/2" class="seealso">set_owner/2</a>) is sent a
+  series of messages containing data packets (when the port is active)
+  and close and error messages, when the port is closed or an error
+  related to the port occurs.
+  </p>
+ 
+  <p><em>{serial, PortRef, Packet}</em><br />
+ 	</p><list>
+ 		<item><p>PortRef = <code>port_ref()</code></p></item>
+ 		<item><p>Packet = <code>binary()</code></p></item>
+ 	</list><p>
+ 	</p><p>
+ 	Sent when a packet of data has been received and decoded by the
+ 	serial port driver.  If there is a packet level protocol being
+ 	used by the driver, Packet will contain one complete packet of
+ 	data.  If no packet level protocol is used, Packet will typically
+ 	be a single byte, as the port driver is significantly faster than
+ 	the serial port.
+ 	</p>
+ 
+ 	<p>
+ 	This message is only sent when the port has the 'active' option
+ 	set to 'true' or 'once'.
+ 	See <a href="#-options-active" class="seealso">{active, When}</a> for more
+ 	information.
+ 	</p>
+ 
+  <p><em>{serial_error, PortRef, Error}</em><br />
+ 	</p><list>
+ 		<item><p>PortRef = <code>port_ref()</code></p></item>
+ 		<item><p>Error = <code>term()</code></p></item>
+ 	</list><p>
+ 	</p><p>
+ 	Sent when the port driver has detected a problem with the serial
+ 	port.  The error may be critical and cause the port to close.
+ 	</p>
+ 
+  <p><em>{serial_closed, PortRef}</em><br />
+ 	</p><list>
+ 		<item><p>PortRef = <code>port_ref()</code></p></item>
+ 	</list><p>
+ 	</p><p>
+ 	Sent when the port is being closed, before the port process goes
+ 	down.
+ 	</p>
+ 
+  <p><marker id="-options"><em>Available Options:</em></marker>
+  </p><p>
+  The following options can be used in an <code>option_list()</code> to
+  configure the serial port for communications with another device.
+  </p>
+ 
+  <p><em>{rcvbuf, Bytes}</em><br />
+ 	</p><list>
+ 		<item><p>Bytes = <code>integer()</code></p></item>
+ 	</list><p>
+  </p><p>Size of the OS receive buffer (for data coming in from the serial
+  port).  Specified in bytes, must be between 32 and 32,768.  Not
+  all OSes will allow all values in this range.  Default is 4096,
+  which should work on all platforms. Currently this setting has no
+  effect on the POSIX backend.</p>
+ 
+  <p><em>{sndbuf, Bytes}</em><br />
+ 	</p><list>
+ 		<item><p>Bytes = <code>integer()</code></p></item>
+ 	</list><p>
+  </p><p>Size of the OS send buffer (for data going out the serial
+  port).  Specified in bytes, must be between 32 and 32,768.  Not
+  all OSes will allow all values in this range.  Default is 4096,
+  which should work on all platforms. Currently this setting has no
+  effect on the POSIX backend.</p>
+ 
+  <p><em>{bufsz, Bytes}</em><br />
+ 	</p><list>
+ 		<item><p>Bytes = <code>integer()</code></p></item>
+ 	</list><p>
+  </p><p>Size of the packet buffers.  If using delimited packets or
+  line-oriented packets, the packet buffer must be sized larger than
+  the largest input line expected, or else the application will
+  receive fragmented packets.  If fixed size packets are being
+  used the bufsz may be set larger or smaller than the actual packet
+  size.  Default is 8192, large enough for most applications.</p>
+ 
+  <p><em>{register, Name}</em><br />
+ 	</p><list>
+ 		<item><p>Name = <code>true | false | atom()</code></p></item>
+ 	</list><p>
+  </p><p>Register the interface process as a named process, making it
+  visible in the shell tools, etc.  If the atom 'true' is supplied
+  the actual name registered will be a mangled form of the device
+  name.  If 'false' is supplied, no name will be registered for
+  the interface process.  Default is 'false'.</p>
+ 
+  <p><em>register</em><br />
+  </p><p>Same as {register, true}.</p>
+ 
+  <p><em>{baud, BitsPerSecond}</em> or <em>{baudrate, BitsPerSecond}</em><br />
+  </p><p>
+  Supported by Windows backend:
+ 	</p><list>
+ 		<item><p>BitsPerSecond = <code>110 | 300 | 600 | 1200 | 2400 | 4800 | 9600 | 14400 | 19200 | 38400 | 56000 | 57600 | 115200 | 128000 | 256000 | integer()</code></p></item>
+ 	</list><p>
+  Supported by POSIX backend:
+ 	</p><list>
+ 		<item><p>BitsPerSecond = <code>110 | 134 | 150 | 200 | 300 | 600 | 1200 | 2400 | 4800 | 9600 | 19200 | 38400 | 57600 | 115200 | 230400 | 460800 | 500000 | 576000 | 921600 | 1000000 | 1152000 | 1500000 | 2000000 | 2500000 | 3000000 | 3500000 | 4000000</code></p></item>
+ 	</list><p>
+  </p>
+  <p>Set the baud rate of the serial port, as the number of bits to
+  transfer per second.  Most serial ports will only accept a subset
+  of the baud rates listed above. The interface will accept any baud
+  rate over 1 bit per second and attempt to configure the backend
+  driver for that rate. If a rate listed above for the appropriate
+  backend is rejected, it is because the OS cannot support that rate,
+  or the hardware cannot support that rate. Default is 9600 as this
+  is extremely common.</p>
+ 
+  <p><em>{bytesz, BitsPerByte}</em><br />
+ 	</p><list>
+ 		<item><p>BitsPerByte = <code>5 | 6 | 7 | 8</code></p></item>
+ 	</list><p>
+  </p><p>Set the number of bits per data byte. Default is 8. Again, the
+  OS and the device may or may not support a particular setting.</p>
+ 
+  <p><em>{parity, Parity}</em><br />
+ 	</p><list>
+ 		<item><p>Parity = <code>none | odd | even</code></p></item>
+ 	</list><p>
+  </p><p>Enable or disable parity checking.  Default is none.</p>
+ 
+  <p><em>{stop_bits, StopBits}</em><br />
+ 	</p><list>
+ 		<item><p>StopBits = <code>1 | 1.5 | 2</code></p></item>
+ 	</list><p>
+  </p><p>Set the number of stop bits used.  Default is 1. A setting of 1.5
+  is unsupported by the POSIX backend (it has the same effect as 1).</p>
+ 
+  <p><em>{flow_control, Type}</em><br />
+ 	</p><list>
+ 		<item><p>Type = <code>none | software | hardware</code></p></item>
+ 	</list><p>
+  </p><p>Select the type of flow control which will be used by the serial
+  port. Hardware is also known as RTS/CTS and software as XON/XOFF
+  flow control. Default is hardware as it is the most reliable
+  form.</p>
+ 
+  <p><em>Packet options</em></p>
+ 
+  <p>These refer to the incoming packet only. Outgoing packets are
+  sent directly in whatever pieces and units of data the user calls
+  the send functions with.</p>
+ 
+  <p><em>{packet, none}</em><br />
+  </p><p>No packet formatting is done by the driver. All bytes are
+  delivered as they are received, one or more bytes at a time
+  (depending on the interface speed and the speed and workload of the
+  system).  If the application needs to assemble packets from the
+  data, it is up to the application developer to properly buffer data
+  and assemble the packets prior to processing.</p>
+ 
+  <p><em>{packet, cr}</em><br />
+  </p><p>Packets are line oriented, terminated by a single carriage
+  return ($\r, ASCII value 13, hex 0D).  If this packet format is
+  used, the option 'bufsz' must be set large enough to hold the
+  longest line, including the carriage return character.  The
+  carriage return is stripped from the data packet before the
+  packet is delivered to the application.</p>
+  <p>Same as {packet, {delimited, &lt;&lt;"\r"&gt;&gt;}}.</p>
+ 
+  <p><em>{packet, lf}</em><br />
+  </p><p>Packets are line oriented, terminated by a single line feed
+  ($\n, ASCII value 10, hex 0A).  If this packet format is
+  used, the option 'bufsz' must be set large enough to hold the
+  longest line, including the line feed character.  The line feed
+  is stripped from the data packet before the packet is delivered
+  to the application.</p>
+  <p>Same as {packet, {delimited, &lt;&lt;"\n"&gt;&gt;}}.</p>
+ 
+  <p><em>{packet, crlf}</em><br />
+  </p><p>Packets are line oriented, terminated by a carriage return /
+  line feed pair ("\r\n", ASCII value 13, hex 0D followed by ASCII value
+  10 hex 0A).  If this packet format is used, the option 'bufsz' must
+  be set large enough to hold the longest line, including the
+  carriage return and line feed characters.  The carriage return and
+  line feed are both stripped from the data packet before the
+  packet is delivered to the application.</p>
+  <p>Same as {packet, {delimited, &lt;&lt;"\r\n"&gt;&gt;}}.</p>
+ 
+  <p><em>{packet, {delimited, Delimiter}}</em><br />
+ 	</p><list>
+ 		<item><p>Delimiter = <code>binary()</code>
+                               when size(Delimiter) =&lt; 8</p></item>
+ 	</list><p>
+  </p><p>Packets are variable length and delimited by a sequence of one
+  or more bytes.  All bytes in Delimiter must occur in order to form
+  a packet boundary.  The Delimiter cannot exceed 8 bytes in length
+  due to internal limitations in the driver.  If this packet format
+  is used, the 'bufsz' option must specify a buffer large enough to
+  hold the largest packet and the complete Delimiter.</p>
+  <p>Delimiter may contain any binary data sequence necessary, as
+  the driver is fully 8 bit clean.</p>
+ 
+  <p><em>{packet, {fixed, Bytes}}</em><br />
+ 	</p><list>
+ 		<item><p>Bytes = <code>integer()</code></p></item>
+ 	</list><p>
+  </p><p>Packets are fixed length in size, with every packet being exactly
+  Bytes number of bytes in length.  The application will not be given a
+  packet until exactly Bytes number of bytes have been received by
+  the serial port.  If this option is used, 'bufsz' may be smaller than
+  Bytes, the driver is smart enough to not fragment the packet.</p>
+ 
+  <p><marker id="-options-active"><em>{active, When}</em></marker><br />
+ 	</p><list>
+ 		<item><p>When = <code>false | true | once</code></p></item>
+ 	</list><p>
+  </p><p>Just like the active option to <code>ssl</code> or
+  <code>gen_tcp</code>.  When set to 'true' the port owner will receive
+  all data packets as Erlang messages.  If set to 'once' the port owner
+  will receive a single data packet, and the active setting will be
+  set to 'false'.  The 'once' option prevents the port owner from being
+  flooded with data on a fast link.  If 'false', the port owner will
+  not receive any data packets at all, until set to 'true' or 'once'.
+  <em>Currently only active mode is supported!</em>
+  </p>
+ </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-device_name">device_name() = string() | atom() | integer()</h3></div>
+    <div class="type"><h3 id="type-option">option() = atom() | {atom(), term()}</h3></div>
+    <div class="type"><h3 id="type-option_list">option_list() = [<a href="#type-option" class="seealso">option()</a>]</h3></div>
+    <div class="type"><h3 id="type-port_ref">port_ref()</h3></div>
+    <div class="type"><h3 id="type-time_in_ms">time_in_ms() = integer()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open/2">open(Device, Options) -&gt; {ok, PortRef} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Device = device_name()</code></li><li><code>Options = option_list()</code></li><li><code>PortRef = port_ref()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Open a serial port for communications.
+  </p><p>
+  When a serial port is opened, the caller is setup as the port
+  owner.  (See <a href="#set_owner/1" class="seealso">set_owner/1</a>, <a href="#set_owner/2" class="seealso">set_owner/2</a>.)
+  At open, the port is linked to the owner, ensuring that if the owner
+  terminates, the port will be automatically closed as well.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="setopts/2">setopts(PortRef, Options) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Options = [{active, When}]</code></li><li><code>When = false | true | once</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Change the current options on the serial port.
+  </p><p>
+  <i>Currently only the active flag can be changed, but note that
+  only the setting {active, true} is supported at this time.</i>
+  </p>
+  <p>See <a href="#-options-active" class="seealso">{active, When}</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_owner/1">set_owner(PortRef) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#set_owner/2" class="seealso">set_owner(PortRef, self())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_owner/2">set_owner(PortRef, To) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>To = pid()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Change the owner of the serial port to another process.</p>
+ 
+  <p>
+  The owner of the serial port receives a set of messages, similar
+  to the messages sent by the gen_tcp or ssl modules.  The messages
+  are defined above in <a href="#-messages" class="seealso">Port Owner Messages</a>.
+  </p>
+  <p>
+  The port is always linked to the port owner process.  If the port
+  owner exits, the serial port will automatically close, ensuring
+  resources are freed up automatically.
+  </p>
+ 
+<p><em>See also:</em> <a href="#set_owner/1" class="seealso">set_owner/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(PortRef) -&gt; ok | killed</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#close/2" class="seealso">close(PortRef, 3000)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="close/2">close(PortRef, Timeout) -&gt; ok | killed</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Timeout = time_in_ms()</code></li></ul>
+<div class="description">
+
+<p>Close an open serial port.</p>
+ 
+  <p>
+  This call is not always necessary, as the port will automatically
+  close when the port owner terminates.
+  </p>
+  <p>
+  A timeout can be supplied, as this call blocks until it receives
+  confirmation from the serial port process that all pending output
+  has been transferred to the endpoint, and the port has closed down
+  gracefully.
+  </p>
+  <p>
+  If the port's output buffer is full (because the endpoint has stopped
+  receiving data, or flow control has been broken), the close command
+  may not be able to be processed in a timely fashion. In this case,
+  this function will wait for <code>Timeout</code> to expire, and then
+  brutually kill the serial port.  Brutally killing the port will
+  release all resources correctly, but data will be lost when the output
+  buffers are destroyed.  If the brutal kill is required, the atom
+  <code>killed</code> is returned instead of <code>ok</code>.  The
+  brutal kill version of this function will not cause the port owner
+  process to crash, as the exit reason used is <code>normal</code>.
+  </p>
+  <p>
+  Special note: If the caller attempts to use the atom 'infinity' as
+  the Timeout value, it will be silently converted to 60 seconds to
+  prevent locking up the caller indefinitely.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="recv/2">recv(PortRef, Length) -&gt; {ok, Packet} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Length = integer()</code></li><li><code>Packet = binary()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#recv/3" class="seealso">recv(PortRef, Length, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="recv/3">recv(PortRef, Length, Timeout) -&gt; {ok, Packet} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Length = integer()</code></li><li><code>Timeout = infinity | time_in_ms()</code></li><li><code>Packet = binary()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Read data from an open serial port.</p>
+ 
+  <p>
+  Reads exactly <code>Length</code> bytes from the serial port and
+  returns them as a single binary object.  If the port has less than
+  <code>Length</code> bytes immediately available in the receive
+  buffers, this call will block until the timeout expires or the
+  total number of bytes requested has been received.
+  </p>
+  <p>
+  If the caller doesn't want to block while waiting for data, the
+  caller should either use a short timeout, or use an active mode
+  port instead of using <a href="#recv/2" class="seealso">recv/2</a> or <a href="#recv/3" class="seealso">recv/3</a>.
+  </p>
+  <p>
+  <i>Note: currently only active mode is supported and thus
+  recv/2 and recv/3 are not implemented by the backend driver.
+  Do not use them!</i>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="send/2">send(PortRef, Packet) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Packet = binary() | [binary()]</code></li></ul>
+<div class="description">
+
+<p>Partially asynchronous data transmission.</p>
+ 
+  <p>
+  Sends data through the serial port.  The caller sends the data
+  out the port directly, which means the caller may block indefinitely
+  if all IO buffers are full and flow control has broken down.  This
+  is the fastest way to send data to the serial port, as it does not
+  have to pass through the interface process first, but may be risky
+  due to the flow control issues.
+  </p>
+  <p>
+  When this call returns, the data may only be queued for delivery.
+  There are no guarantees that the data was actually transmitted
+  out the serial port.  Use <a href="#flush/1" class="seealso">flush/1</a>, <a href="#flush/2" class="seealso">flush/2</a> or
+  <a href="#bsend/2" class="seealso">bsend/2</a> to wait for the data to have actually been sent out
+  the serial port to the endpoint.
+  </p>
+  <p>
+  If the caller wants true nonblocking sends, see <a href="#asend/2" class="seealso">asend/2</a>.
+  </p>
+ 
+<p><em>See also:</em> <a href="#asend/2" class="seealso">asend/2</a>, <a href="#bsend/2" class="seealso">bsend/2</a>, <a href="#bsend/3" class="seealso">bsend/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="asend/2">asend(PortRef, Packet) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Packet = binary() | [binary()]</code></li></ul>
+<div class="description">
+
+<p>Asynchronous data transmission.</p>
+ 
+  <p>
+  Sends data through the serial port.  The data is first sent to the
+  interface process, which means the caller should never block when
+  this method is called, even if flow control has broken down and
+  all IO buffers are full (as the interface process' message queue
+  is only limited by the memory ERTS can obtain from the OS).
+  </p>
+  <p>
+  When this call returns, the data may only be queued for delivery.
+  There are no guarantees that the data was actually transmitted
+  out the serial port.  Use <a href="#flush/1" class="seealso">flush/1</a>, <a href="#flush/2" class="seealso">flush/2</a> or
+  <a href="#bsend/2" class="seealso">bsend/2</a> to wait for the data to have actually been sent out
+  the serial port to the endpoint.
+  </p>
+ 
+<p><em>See also:</em> <a href="#bsend/2" class="seealso">bsend/2</a>, <a href="#bsend/3" class="seealso">bsend/3</a>, <a href="#send/2" class="seealso">send/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="bsend/2">bsend(PortRef, Packet) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Packet = binary() | [binary()]</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#bsend/3" class="seealso">bsend(PortRef, Packet, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="bsend/3">bsend(PortRef, Packet, Timeout) -&gt; ok | {error, timeout} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Packet = binary() | [binary()]</code></li><li><code>Timeout = infinity | time_in_ms()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Synchronous data transmission.</p>
+ 
+  <p>
+  Sends data through the serial port.  Unlike all other forms of the
+  send call, <a href="#bsend/2" class="seealso">bsend/2</a> and <a href="#bsend/3" class="seealso">bsend/3</a> wait until the
+  endpoint has received the data before returning to the caller.
+  This may take some time, depending on the speed of the serial port
+  and how much data is already queued up in the output queues.
+  </p>
+  <p>
+  Callers are encouraged to use this form rather than <a href="#bsend/2" class="seealso">bsend/2</a>, as it allows specification of a timeout that prevents
+  hanging in case flow control has broken down and the data already
+  buffered cannot be sent.
+  </p>
+  <p>
+  This function is equivalent to (but easier to use than):
+  </p>
+  <pre class="sh_erlang">
+ 	case send(PortRef, Packet) of
+ 	    ok -&gt; flush(PortRef, Timeout);
+ 	    Other -&gt; Other
+ 	end
+  </pre>
+ 
+<p><em>See also:</em> <a href="#asend/2" class="seealso">asend/2</a>, <a href="#bsend/2" class="seealso">bsend/2</a>, <a href="#send/2" class="seealso">send/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="flush/1">flush(PortRef) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#flush/2" class="seealso">flush(PortRef, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="flush/2">flush(PortRef, Timeout) -&gt; ok | {error, timeout} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>PortRef = port_ref()</code></li><li><code>Timeout = infinity | time_in_ms()</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p>Wait until buffered data has been transmitted to the endpoint.</p>
+ 
+  <p>
+  Waits until the port's outgoing data buffers have been fully drained
+  and transmitted to the endpoint.  If any error is detected during
+  transmission (while waiting for the data to finish being sent), the
+  error will both be returned by this function and sent to the port
+  owner as a message unless the caller is the port owner, in which
+  case the error is returned and no message is sent.
+  </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

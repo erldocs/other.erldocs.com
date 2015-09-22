@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erlcloud_s3_multipart (erlcloud) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erlcloud_s3_multipart</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-aws_config">aws_config() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#aws_config{ec2_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s3_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s3_port = integer() >= 0,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s3_prot = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdb_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elb_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sqs_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mturk_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mon_host = string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;access_key_id = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;secret_access_key = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http_options = <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a>}</h3></div>
+    <div class="type"><h3 id="type-etag">etag() = string()</h3></div>
+    <div class="type"><h3 id="type-etag_list">etag_list() = [{<a href="#type-part_num" class="seealso">part_num()</a>, <a href="#type-etag" class="seealso">etag()</a>}]</h3></div>
+    <div class="type"><h3 id="type-part_num">part_num() = integer() &gt;= 1</h3></div>
+    <div class="type"><h3 id="type-proplist">proplist() = <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="initiate_upload/1">initiate_upload(BucketName::string(), Key::string(), ContentType::string(), Headers::proplist()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Functions to support multipart uploading of documents using
+  the S3 API.</p>
+</div></div>
+<div class="function">
+<h3 id="initiate_upload/1-1">initiate_upload(BucketName::string(), Key::string(), ContentType::string(), Headers::proplist(), Config::aws_config()) -&gt; proplist()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upload_part/1">upload_part(BucketName::string(), Key::string(), UploadId::string(), PartNum::pos_integer(), PartData::binary()) -&gt; {term(), term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upload_part/1-1">upload_part(BucketName::string(), Key::string(), UploadId::string(), PartNum::pos_integer(), PartData::binary(), Config::aws_config()) -&gt; {term(), term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="complete_upload/1">complete_upload(BucketName::string(), Key::string(), UploadId::string(), EtagList::etag_list()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="complete_upload/1-1">complete_upload(BucketName::string(), Key::string(), UploadId::string(), EtagList::etag_list(), Config::aws_config()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="abort_upload/1">abort_upload(BucketName::string(), Key::string(), UploadId::string()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="abort_upload/1-1">abort_upload(BucketName::string(), Key::string(), UploadId::string(), Config::aws_config()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upload_parts/1">upload_parts(BucketName::string(), Key::string(), Value::binary(), UploadId::string(), ChunkSize::undefined | pos_integer(), Config::aws_config()) -&gt; {ok, proplist()}</h3>
+
+
+<div class="description">
+
+<p>Split a value into a set of <code>ChunkSize</code> parts and upload them
+  sequentially. The chunk size is specified in bytes.</p>
+</div></div>
+<div class="function">
+<h3 id="upload_file/1">upload_file(BucketName::string(), FileName::string(), UploadId::string(), ChunkSize::undefined | pos_integer(), Config::aws_config()) -&gt; {ok, proplist()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Upload a file using multipart upload. The chunk size should be
+  specified in bytes. Any path information in <code>FileName</code> is removed
+  to form the <code>Key</code> used to store the the file. To otherwise specify the
+  <code>Key</code>, use <code>upload_file/6</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="upload_file/1-1">upload_file(BucketName::string(), Key::string(), FileName::string(), UploadId::string(), ChunkSize::undefined | pos_integer(), Config::aws_config()) -&gt; {ok, proplist()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Upload a file using multipart upload. The chunk size should be
+  specified in bytes.</p>
+</div></div>
+<div class="function">
+<h3 id="upload_id/1">upload_id(XmlElement::#xmlElement{}) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Parse the upload id for an initiated multipart upload from the
+  XML response</p>
+</div></div>
+<div class="function">
+<h3 id="list_uploads/1">list_uploads(BucketName::string(), Options::proplist(), Config::aws_config()) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>List all the active multipart uploads for a bucket</p>
+</div></div>
+<div class="function">
+<h3 id="list_parts/1">list_parts(BucketName::string(), Key::string(), UploadId::string(), Options::proplist(), Config::aws_config()) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>List all the parts for a multipart upload</p>
+</div></div>
+<div class="function">
+<h3 id="initiate_result_to_term/1">initiate_result_to_term(Xml::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Convert the response XML from an <code>Initiate Multipart Upload</code>
+  request to an erlang term</p>
+</div></div>
+<div class="function">
+<h3 id="parts_to_term/1">parts_to_term(Xml::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Convert the response XML from a <code>List Parts</code> request to an
+  erlang term</p>
+</div></div>
+<div class="function">
+<h3 id="uploads_to_term/1">uploads_to_term(Xml::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Convert the response XML from a <code>List Multipart Uploads</code>
+  request to an erlang term</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang-dates','erlang-dates','[application]'],['mod','erlang-dates','date_range','   Dates module for handling ranges of dates and '],['fun','erlang-dates','date_range:create_range/1','    Creates a list of dates from the from date to'],['fun','erlang-dates','date_range:create_range/1','    Creates a list of dates from the from date to']];

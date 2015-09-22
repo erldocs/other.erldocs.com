@@ -1,0 +1,1 @@
+var index = [['app','epocxy','epocxy','[application]'],['mod','epocxy','batch_feeder','     Batches are often used as a way to increase '],['fun','epocxy','batch_feeder:get_next_batch_list/1',[]],['fun','epocxy','batch_feeder:process_data/1',[]]];

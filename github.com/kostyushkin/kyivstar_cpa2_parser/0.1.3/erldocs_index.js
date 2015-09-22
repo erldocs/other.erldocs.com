@@ -1,0 +1,1 @@
+var index = [['app','kyivstar_cpa2_parser','kyivstar_cpa2_parser','[application]'],['mod','kyivstar_cpa2_parser','kyivstar_cpa2_parser',[]],['fun','kyivstar_cpa2_parser','kyivstar_cpa2_parser:build_request/4',[]],['fun','kyivstar_cpa2_parser','kyivstar_cpa2_parser:parse_response/1',[]]];

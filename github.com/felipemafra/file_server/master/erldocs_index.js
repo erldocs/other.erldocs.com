@@ -1,0 +1,1 @@
+var index = [['app','file_server','file_server','[application]'],['mod','file_server','afile_client','.'],['mod','file_server','afile_server','.'],['fun','file_server','afile_client:get_file/2',[]],['fun','file_server','afile_client:ls/1',[]],['fun','file_server','afile_server:loop/1',[]],['fun','file_server','afile_server:start/1',[]]];

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>elysium_queue (elysium) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>elysium_queue</h1>
+<h2 class="modsummary">     
+Elysium_queue is a gen_fsm that handles client queries about the     
+state of the session, pending_requests and load balancing     
+ets_buffer queues.</h2>
+<div class="description">
+<p>     
+Elysium_queue is a gen_fsm that handles client queries about the     
+state of the session, pending_requests and load balancing     
+ets_buffer queues. These queues are owned by elysium_buffer_sup     
+but are queried by elysium_queue so that there is no risk of     
+a query crashing the owner of an ets table.</p>
+  
+     There currently may only be one elysium_queue per application
+     because it is a registered name and there is only one worker
+     configuration. In future it is hoped that the registered
+     ets table name constraint will be removed so that multiple
+     independent Cassandra clusters may be used in a single
+     application, however, this may prove difficult to do without
+     introducing a serial bottleneck or highly contended ets table.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-config_type">config_type() = config_app_config<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {config_mod, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {vbisect, <a href="vbisect.html#type-bindict" class="seealso">vbisect:bindict()</a>}</h3></div>
+    <div class="type"><h3 id="type-connection_count_error">connection_count_error() = <a href="ets_buffer.html#type-buffer_error" class="seealso">ets_buffer:buffer_error()</a></h3></div>
+    <div class="type"><h3 id="type-max_connections">max_connections() = integer() >= 1 | <a href="#type-connection_count_error" class="seealso">connection_count_error()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Config::config_type()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Create an gen_fsm for querying the current application status.</p>
+</div></div>
+<div class="function">
+<h3 id="register_connection_supervisor/1">register_connection_supervisor(Connection_Sup::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Register the connection supervisor so that it can be manually controlled.</p>
+</div></div>
+<div class="function">
+<h3 id="get_connection_supervisor/0">get_connection_supervisor() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Get the registered connection supervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="activate/0">activate() -&gt; Max_Allowed::max_connections()</h3>
+
+
+<div class="description">
+
+<p>Change to the active state, creating new Cassandra sessions.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/0">deactivate() -&gt; {Num_Terminated::max_connections(), Max_Allowed::max_connections()}</h3>
+
+
+<div class="description">
+
+<p>Change to the inactive state, deleting Cassandra sessions.</p>
+</div></div>
+<div class="function">
+<h3 id="enable/0">enable() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Change disabled to inactive state, allowing new session creation.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Jay Nelson</aname>
+<email>jay@duomark.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

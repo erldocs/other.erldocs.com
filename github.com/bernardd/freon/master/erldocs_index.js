@@ -1,0 +1,1 @@
+var index = [['app','freon','freon','[application]'],['mod','freon','ac_data',[]],['mod','freon','freon',[]],['mod','freon','freon_web',[]],['mod','freon','freon_websocket',[]],['mod','freon','rc_server',[]],['fun','freon','freon_web:handle/2',[]],['fun','freon','freon_web:init/3',[]],['fun','freon','freon_web:terminate/3',[]]];

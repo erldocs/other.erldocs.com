@@ -1,0 +1,1 @@
+var index = [['app','fabric','fabric','[application]'],['mod','fabric','fabric_dict',[]],['mod','fabric','fabric_doc_attachments',[]],['fun','fabric','fabric_doc_attachments:receiver/2',[]]];

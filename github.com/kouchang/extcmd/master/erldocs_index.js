@@ -1,0 +1,1 @@
+var index = [['app','extcmd','extcmd','[application]'],['mod','extcmd','extcmd',[]],['fun','extcmd','extcmd:execute/1',[]],['fun','extcmd','extcmd:execute/1',[]],['fun','extcmd','extcmd:generate_command/1',[]]];

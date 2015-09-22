@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>env_resource (wmexamples) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>env_resource</h1>
+<h2 class="modsummary">env_resource is a toy webmachine resource intended to       
+demonstrate possible implementations of several resource       
+functions.</h2>
+<div class="description">
+<p>env_resource is a toy webmachine resource intended to       
+demonstrate possible implementations of several resource       
+functions.  The functionality it represents is inspecting and       
+modifying OS-environment variables.</p>
+ 
+       <p>The development of this resource was described at:       
+http://blog.beerriot.com         
+/2009/04/13/simple-webmachine-proper-http-resources/         
+/2009/04/22/simple-webmachine-put/         
+/2009/04/23/simple-webmachine-authorization/         
+/2009/04/24/simple-webmachine-etags/         
+/2009/04/27/simple-webmachine-delete/</p>
+ 
+       <p>GET - see resource_exists/2 and to_json/2         
+/_env/           
+should return a JSON structure with environment variable           
+names as keys and their values as values         
+/_env/KEY           
+should return a JSON string with the value of the           
+environment variable named KEY</p>
+ 
+       <p>PUT - see from_json/2         
+/_env/   body={"KEY1":"VALUE1","KEY2":"VALUE2"}           
+should set the value of environment variable KEY1 to VALUE1           
+and the value of KEY2 to VALUE2         
+/_env/KEY   body="VALUE"           
+should set the value of environment variable KEY to VALUE</p>
+ 
+       <p>DELETE - see delete_resource/2         
+/_env/KEY           
+should "delete" KEY, such that GET /_env/ will not have           
+KEY as a key in its response, and GET /_env/KEY will           
+return 404 (actual implementation is that the value of           
+environment variable KEY is set to the empty list)</p>
+ 
+       <p>PUT and DELETE method require a proper Authorization header,       
+using username "webmachine" and password "rules"       
+(see is_authorized/2)</p>
+ 
+       <p>Conditional requests may be performed by adding If-Match or
+       If-None-Match headers.  Etag headers with the values to use
+       in If-* headers are produced by generate_etag/2</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="content_types_provided/2">content_types_provided(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="resource_exists/2">resource_exists(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_json/2">to_json(RD, Result) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="allowed_methods/2">allowed_methods(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="content_types_accepted/2">content_types_accepted(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="from_json/2">from_json(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_authorized/2">is_authorized(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="generate_etag/2">generate_etag(RD, Result) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_resource/2">delete_resource(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Bryan Fink</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

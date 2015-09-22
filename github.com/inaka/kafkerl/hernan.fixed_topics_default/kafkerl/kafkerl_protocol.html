@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>kafkerl_protocol (kafkerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>kafkerl_protocol</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-address_host">address_host() = string()</h3></div>
+    <div class="type"><h3 id="type-address_port">address_port() = 1..65535</h3></div>
+    <div class="type"><h3 id="type-basic_message">basic_message() = {<a href="#type-topic" class="seealso">topic()</a>, <a href="#type-partition" class="seealso">partition()</a>, <a href="#type-payload" class="seealso">payload()</a>}</h3></div>
+    <div class="type"><h3 id="type-broker">broker() = {<a href="#type-broker_id" class="seealso">broker_id()</a>, <a href="#type-socket_address" class="seealso">socket_address()</a>}</h3></div>
+    <div class="type"><h3 id="type-broker_id">broker_id() = integer()</h3></div>
+    <div class="type"><h3 id="type-client_id">client_id() = binary()</h3></div>
+    <div class="type"><h3 id="type-compression">compression() = none | gzip | snappy</h3></div>
+    <div class="type"><h3 id="type-correlation_id">correlation_id() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-error">error() = {error, atom() | {atom(), any()}}</h3></div>
+    <div class="type"><h3 id="type-error_code">error_code() = -1..16</h3></div>
+    <div class="type"><h3 id="type-fetch_max_bytes">fetch_max_bytes() = integer()</h3></div>
+    <div class="type"><h3 id="type-fetch_offset">fetch_offset() = integer()</h3></div>
+    <div class="type"><h3 id="type-fetch_partition">fetch_partition() = {<a href="#type-partition" class="seealso">partition()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-fetch_offset" class="seealso">fetch_offset()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-fetch_max_bytes" class="seealso">fetch_max_bytes()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-fetch_partition" class="seealso">fetch_partition()</a>]</h3></div>
+    <div class="type"><h3 id="type-fetch_request">fetch_request() = {<a href="#type-topic" class="seealso">topic()</a>, <a href="#type-fetch_partition" class="seealso">fetch_partition()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-fetch_request" class="seealso">fetch_request()</a>]</h3></div>
+    <div class="type"><h3 id="type-fetch_response">fetch_response() = {ok, integer(), <a href="#type-messages" class="seealso">messages()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {incomplete,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-messages" class="seealso">messages()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-fetch_state" class="seealso">fetch_state()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-error" class="seealso">error()</a></h3></div>
+    <div class="type"><h3 id="type-fetch_state">fetch_state() = {binary(), integer(), [any()]}</h3></div>
+    <div class="type"><h3 id="type-isr">isr() = integer()</h3></div>
+    <div class="type"><h3 id="type-merged_message">merged_message() = <a href="#type-basic_message" class="seealso">basic_message()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-topic" class="seealso">topic()</a>, [{<a href="#type-partition" class="seealso">partition()</a>, <a href="#type-payload" class="seealso">payload()</a>}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-merged_message" class="seealso">merged_message()</a>]</h3></div>
+    <div class="type"><h3 id="type-messages">messages() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{<a href="#type-topic" class="seealso">topic()</a>, [{{<a href="#type-partition" class="seealso">partition()</a>, integer()}, [binary()]}]}]</h3></div>
+    <div class="type"><h3 id="type-metadata">metadata() = {[<a href="#type-broker" class="seealso">broker()</a>], [<a href="#type-topic_metadata" class="seealso">topic_metadata()</a>]}</h3></div>
+    <div class="type"><h3 id="type-metadata_response">metadata_response() = {ok, <a href="#type-correlation_id" class="seealso">correlation_id()</a>, <a href="#type-metadata" class="seealso">metadata()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-error" class="seealso">error()</a></h3></div>
+    <div class="type"><h3 id="type-partition">partition() = integer()</h3></div>
+    <div class="type"><h3 id="type-partition_metadata">partition_metadata() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-error_code" class="seealso">error_code()</a>, <a href="#type-partition" class="seealso">partition()</a>, <a href="#type-broker_id" class="seealso">broker_id()</a>, [<a href="#type-replica" class="seealso">replica()</a>], [<a href="#type-isr" class="seealso">isr()</a>]}</h3></div>
+    <div class="type"><h3 id="type-payload">payload() = binary() | [binary()]</h3></div>
+    <div class="type"><h3 id="type-produce_partition">produce_partition() = {<a href="#type-partition" class="seealso">partition()</a>, <a href="#type-error_code" class="seealso">error_code()</a>, integer()}</h3></div>
+    <div class="type"><h3 id="type-produce_response">produce_response() = {ok, <a href="#type-correlation_id" class="seealso">correlation_id()</a>, [<a href="#type-produce_topic" class="seealso">produce_topic()</a>]}</h3></div>
+    <div class="type"><h3 id="type-produce_topic">produce_topic() = {<a href="#type-topic" class="seealso">topic()</a>, [<a href="#type-produce_partition" class="seealso">produce_partition()</a>]}</h3></div>
+    <div class="type"><h3 id="type-replica">replica() = integer()</h3></div>
+    <div class="type"><h3 id="type-socket_address">socket_address() = {<a href="#type-address_host" class="seealso">address_host()</a>, <a href="#type-address_port" class="seealso">address_port()</a>}</h3></div>
+    <div class="type"><h3 id="type-topic">topic() = binary()</h3></div>
+    <div class="type"><h3 id="type-topic_metadata">topic_metadata() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-error_code" class="seealso">error_code()</a>, <a href="#type-topic" class="seealso">topic()</a>, [<a href="#type-partition_metadata" class="seealso">partition_metadata()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="build_produce_request/1">build_produce_request(Data::merged_message(), ClientId::client_id(), CorrelationId::correlation_id(), Compression::compression()) -&gt; iodata()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="build_fetch_request/1">build_fetch_request(Data::fetch_request(), ClientId::client_id(), CorrelationId::correlation_id(), MaxWait::integer(), MinBytes::integer()) -&gt; iodata()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="build_metadata_request/1">build_metadata_request(Topics::topic() | [topic()], CorrelationId::correlation_id(), ClientId::client_id()) -&gt; iodata()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_produce_response/1">parse_produce_response(X1::binary()) -&gt; produce_response()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_fetch_response/1">parse_fetch_response(Other::binary()) -&gt; fetch_response()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_fetch_response/1-1">parse_fetch_response(Bin::binary(), X2::fetch_state()) -&gt; fetch_response()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="parse_metadata_response/1">parse_metadata_response(Other::binary()) -&gt; metadata_response()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

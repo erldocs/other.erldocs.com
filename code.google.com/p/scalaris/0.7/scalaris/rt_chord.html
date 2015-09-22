@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rt_chord (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rt_chord</h1>
+<h2 class="modsummary">Routing Table.</h2>
+<div class="description">
+<p>Routing Table</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-client_key">client_key() = [<a href="#type-unicode_char" class="seealso">unicode_char()</a>]</h3></div>
+    <div class="type"><h3 id="type-custom_message">custom_message() = {rt_get_node,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source_PID :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Index :: <a href="#type-index" class="seealso">index()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {rt_get_node_response,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Index :: <a href="#type-index" class="seealso">index()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Node :: <a href="node.html#type-node_type" class="seealso">node:node_type()</a>}</h3></div>
+    <div class="type"><h3 id="type-external_rt">external_rt() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="gb_trees.html#type-tree" class="seealso">gb_trees:tree</a>(NodeId :: <a href="#type-key" class="seealso">key()</a>, Node :: <a href="node.html#type-node_type" class="seealso">node:node_type()</a>)</h3></div>
+    <div class="type"><h3 id="type-index">index() = {integer() &gt;= 1, integer() &gt;= 0}</h3></div>
+    <div class="type"><h3 id="type-key">key() = 0..340282366920938463463374607431768211455</h3></div>
+    <div class="type"><h3 id="type-rt">rt()</h3></div>
+    <div class="type"><h3 id="type-unicode_char">unicode_char() = 0..55295 | 57344..65533 | 65536..1114111</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="client_key_to_binary/1">client_key_to_binary(Key::client_key()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(Neighbors::neighborhood() (see module nodelist)) -&gt; rt()</h3>
+
+
+<div class="description">
+
+<p>Initialize the routing table. This function is allowed to send messages.</p>
+</div></div>
+<div class="function">
+<h3 id="hash_key/1">hash_key(Key::binary() | client_key()) -&gt; key()</h3>
+
+
+<div class="description">
+
+<p>Hashes the key to the identifier space.</p>
+</div></div>
+<div class="function">
+<h3 id="get_random_node_id/0">get_random_node_id() -&gt; key()</h3>
+
+
+<div class="description">
+
+<p>Generates a random node id, i.e. a random 128-bit number, based on the
+       parameters set in the config file (key_creator and key_creator_bitmask).</p>
+</div></div>
+<div class="function">
+<h3 id="init_stabilize/1">init_stabilize(Neighbors::neighborhood() (see module nodelist), RT::rt()) -&gt; rt()</h3>
+
+
+<div class="description">
+
+<p>Starts the stabilization routine.</p>
+</div></div>
+<div class="function">
+<h3 id="filter_dead_node/1">filter_dead_node(RT::rt(), DeadPid::mypid() (see module comm), Reason::reason() (see module fd)) -&gt; rt()</h3>
+
+
+<div class="description">
+
+<p>Removes dead nodes from the routing table.</p>
+</div></div>
+<div class="function">
+<h3 id="to_pid_list/1">to_pid_list(RT::rt()) -&gt; [mypid() (see module comm)]</h3>
+
+
+<div class="description">
+
+<p>Returns the pids of the routing table entries.</p>
+</div></div>
+<div class="function">
+<h3 id="get_size/1">get_size(RT::rt() | external_rt()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the size of the routing table.</p>
+</div></div>
+<div class="function">
+<h3 id="n/0">n() -&gt; 340282366920938463463374607431768211456</h3>
+
+
+<div class="description">
+
+<p>Returns the size of the address space.</p>
+</div></div>
+<div class="function">
+<h3 id="add_range/1">add_range(Key::key(), Range::non_neg_integer()) -&gt; key()</h3>
+
+
+<div class="description">
+
+<p>Adds the given range, i.e. Range/n() parts of the key space, to the
+       given key.</p>
+</div></div>
+<div class="function">
+<h3 id="get_range/1">get_range(Begin::key(), End::key() | 340282366920938463463374607431768211456) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>Gets the number of keys in the interval (Begin, End]. In the special
+       case of Begin==End, the whole key range as specified by n/0 is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="get_split_key/1">get_split_key(Begin::key(), End::key() | 340282366920938463463374607431768211456, SplitFraction::{Num::number(), Denom::pos_integer()}) -&gt; key() | 340282366920938463463374607431768211456</h3>
+
+
+<div class="description">
+
+<p>Gets the key that splits the interval (Begin, End] so that the first
+       interval will (roughly) be (Num/Denom) * range(Begin, End). In the
+       special case of Begin==End, the whole key range is split.
+       Beware: (Num/Denom) must be in [0, 1]; the final key will be rounded
+       down and may thus be Begin.</p>
+</div></div>
+<div class="function">
+<h3 id="get_split_keys/1">get_split_keys(Begin::key(), End::key() | 340282366920938463463374607431768211456, Parts::pos_integer()) -&gt; [key()]</h3>
+
+
+<div class="description">
+
+<p>Splits the range between Begin and End into up to Parts equal parts and
+       returning the according split keys.</p>
+</div></div>
+<div class="function">
+<h3 id="get_random_in_interval/1">get_random_in_interval(X1::simple_interval2() (see module intervals)) -&gt; key()</h3>
+
+
+<div class="description">
+
+<p>Gets input similar to what intervals:get_bounds/1 returns and
+       calculates a random key in this range. Fails with an exception if there
+       is no key.</p>
+</div></div>
+<div class="function">
+<h3 id="get_replica_keys/1">get_replica_keys(Key::key()) -&gt; [key()]</h3>
+
+
+<div class="description">
+
+<p>Returns the replicas of the given key.</p>
+</div></div>
+<div class="function">
+<h3 id="get_key_segment/1">get_key_segment(Key::key()) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dump/1">dump(RT::rt()) -&gt; KeyValueList::[{Index::string(), Node::string()}]</h3>
+
+
+<div class="description">
+
+<p>Dumps the RT state for output in the web interface.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(OldRT::rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist)) -&gt; {ok | trigger_rebuild, rt()}</h3>
+
+
+<div class="description">
+
+<p>Updates the routing table due to a changed node ID, pred and/or succ.</p>
+</div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether config parameters of the rt_chord process exist and are
+       valid.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_custom_message/1">handle_custom_message(Message::custom_message(), State::state_active() (see module rt_loop)) -&gt; state_active() (see module rt_loop) | unknown_event</h3>
+
+
+<div class="description">
+
+<p>Chord reacts on 'rt_get_node_response' messages in response to its
+       'rt_get_node' messages.</p>
+</div></div>
+<div class="function">
+<h3 id="check/1">check(OldRT::rt(), NewRT::rt(), Neighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notifies the dht_node and failure detector if the routing table changed.
+       Provided for convenience (see check/5).</p>
+</div></div>
+<div class="function">
+<h3 id="check/1-1">check(OldRT::rt(), NewRT::rt(), OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), ReportToFD::boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Notifies the dht_node if the (external) routing table changed.
+       Also updates the failure detector if ReportToFD is set.
+       Note: the external routing table also changes if the Pred or Succ
+       change.</p>
+</div></div>
+<div class="function">
+<h3 id="empty_ext/1">empty_ext(Neighbors::neighborhood() (see module nodelist)) -&gt; external_rt()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next_hop/1">next_hop(State::state() (see module dht_node_state), Id::key()) -&gt; {succ | other, mypid() (see module comm)}</h3>
+
+
+<div class="description">
+
+<p>Returns the next hop to contact for a lookup.
+       If the routing table has less entries than the rt_size_use_neighbors
+       config parameter, the neighborhood is also searched in order to find a
+       proper next hop.
+       Note, that this code will be called from the dht_node process and
+       it will thus have an external_rt!</p>
+</div></div>
+<div class="function">
+<h3 id="export_rt_to_dht_node/1">export_rt_to_dht_node(RT::rt(), Neighbors::neighborhood() (see module nodelist)) -&gt; external_rt()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(State::state() (see module dht_node_state)) -&gt; snodelist() (see module nodelist)</h3>
+
+
+<div class="description">
+
+<p>Converts the (external) representation of the routing table to a list
+       in the order of the fingers, i.e. first=succ, second=shortest finger,
+       third=next longer finger,...</p>
+</div></div>
+<div class="function">
+<h3 id="wrap_message/1">wrap_message(Key::key(), Msg::message() (see module comm), State::state() (see module dht_node_state), Hops::non_neg_integer()) -&gt; message() (see module comm)</h3>
+
+
+<div class="description">
+
+<p>Wrap lookup messages. This is a noop in Chord.</p>
+</div></div>
+<div class="function">
+<h3 id="unwrap_message/1">unwrap_message(Msg::message() (see module comm), State::state() (see module dht_node_state)) -&gt; message() (see module comm)</h3>
+
+
+<div class="description">
+
+<p>Unwrap lookup messages. This is a noop in Chord.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Thorsten Schuett</aname>
+<email>schuett@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

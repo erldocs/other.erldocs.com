@@ -1,0 +1,1 @@
+var index = [['app','alsa','alsa','[application]'],['mod','alsa','alsa',[]],['fun','alsa','alsa:load_nif/0',[]],['fun','alsa','alsa:start/2',[]],['fun','alsa','alsa:start/3',[]],['fun','alsa','alsa:stop/1',[]]];

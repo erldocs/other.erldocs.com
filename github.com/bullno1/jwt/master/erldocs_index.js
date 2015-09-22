@@ -1,0 +1,1 @@
+var index = [['app','jwt','jwt','[application]'],['mod','jwt','jwt',[]],['fun','jwt','jwt:issue_token/1',[]],['fun','jwt','jwt:parse_token/1',[]]];

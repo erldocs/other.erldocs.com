@@ -1,0 +1,1 @@
+var index = [['app','midjan','midjan','[application]'],['mod','midjan','midjan_core',[]],['mod','midjan','midjan_module',[]],['mod','midjan','midjan_translator',[]],['fun','midjan','midjan_core:start/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','aini','aini','[application]'],['mod','aini','aini_app',[]],['mod','aini','aini_sql',[]],['mod','aini','aini_sup',[]],['fun','aini','aini_app:start/2',[]],['fun','aini','aini_app:stop/1',[]],['fun','aini','aini_sup:init/1',[]],['fun','aini','aini_sup:start_link/0',[]]];

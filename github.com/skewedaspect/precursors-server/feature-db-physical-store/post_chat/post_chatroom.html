@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>post_chatroom (post_chat) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>post_chatroom</h1>
+<h2 class="modsummary">A chatroom useful for humans, the server, or client plugin
+  communication.</h2>
+<div class="description">
+<p>A chatroom useful for humans, the server, or client plugin
+  communication.  When a chatroom is started, it is given a mode and
+  meta data for the mode.  The three modes are <code>user</code>, <code>system</code>, and
+  <code>plugin</code>.</p>
+ 
+  <p><em><marker id="`user'">`user'</marker></em></p>
+ 
+  <p>A user created chatroom.  The metadata is the <code>#client_info{}</code> of the  
+user who created the room, as well as an optional password.  They are  
+automatically a controller.</p>
+ 
+  <p>There must always be at least one controller.  If the last controller  
+leaves the room, a new controller is chosen from the chatters still  
+in the room.  If there are no chatters, the room's process exits  
+gracefully.</p>
+ 
+  <p><em><marker id="`system'">`system'</marker></em></p>
+ 
+  <p>A room created by the system, such as a guild chat room.  Users cannot  
+create or remove system chat rooms.  They may be created or removed  
+from the system dynamically.</p>
+ 
+  <p>The metadata for a system room is a list of options:
+  </p><list>
+  <item><p>hidden:  The channel is not advertised for joining.</p></item>
+  <item><p>no_leavers:  A user cannot leave the channel.</p></item>
+  <item><p>no_kick:  A user cannot kick other users.</p></item>
+  <item><p>no_mute:  A user cannot mute other users.</p></item>
+  </list>
+ 
+  <p><em><marker id="`plugin'">`plugin'</marker></em></p>
+ 
+  <p>A plugin room is so a client plugin can communicate with itself when
+  running on other clients.  The meta data is the #client_info{} of the
+  user which is running the plugin.  They are the first chatter.  When
+  there are no more chatters, the chatroom is destroyed.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/3">start_link(Name, Mode, ModeMeta) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Creates a new chat room.  Name is the display name of the channel
+  given to users.  Mode is the type of chat room.  ModeMeta depends on
+  the mode.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/4">start_link(Name, Mode, ModeMeta, Password) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send_message/3">send_message(Pid, Command, Payload) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="leave/2">leave(Room, Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="join/2">join(Room, Client) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="join/3">join(Room, Client, Password) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="kick/3">kick(Room, Client, Target) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mute/3">mute(Room, Client, Target) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unmute/3">unmute(Room, Client, Target) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="message/3">message(Room, Client, Message) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

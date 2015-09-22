@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>simx (erlang2v-rep) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>simx</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-boolean_param">boolean_param() = hierarchy_visible | console_visible | collision_handling_enabled | distance_handling_enabled | ik_handling_enabled | gcs_handling_enabled | dynamics_handling_enabled | joint_motion_handling_enabled | path_motion_handling_enabled | proximity_sensor_handling_enabled | vision_sensor_handling_enabled | mill_handling_enabled | browser_visible | scene_and_model_load_messages | sim_reserved0 | shape_textures_are_visible | display_enabled | infotext_visible | statustext_open | fog_enabled | rml2_available | rml4_available | mirrors_enabled | aux_clip_planes_enabled | full_model_copy_from_api | realtime_simulation | use_glfinish_cmd | force_show_wireless_emission | force_show_wireless_reception | video_recording_triggered | opengl_frame_callback_enabled | opengl_camera_view_callback_enabled | threaded_rendering_enabled | fullscreen</h3></div>
+    <div class="type"><h3 id="type-button_prop">button_prop() = button | label | slider | editbox | staydown | enabled | borderless | horizontallycentered | ignoremouse | isdown | transparent | nobackgroundcolor | rollupaction | closeaction | verticallycentered | downupevent</h3></div>
+    <div class="type"><h3 id="type-color_mode">color_mode() = grayscale | rgb</h3></div>
+    <div class="type"><h3 id="type-data_type">data_type() = 0..19</h3></div>
+    <div class="type"><h3 id="type-float_param">float_param() = rand | simulation_time_step</h3></div>
+    <div class="type"><h3 id="type-in_message">in_message() = version | message_id | client_time | server_time | scene_id | server_state</h3></div>
+    <div class="type"><h3 id="type-integer_param">integer_param() = error_report_mode | program_version | instance_count | custom_cmd_start_id | compilation_version | current_page | flymode_camera_handle | dynamic_step_divider | dynamic_engine | server_port_start | server_port_range | visible_layers | infotext_style | settings | edit_mode_type | server_port_next | qt_version | event_flags_read | event_flags_read_clear | platform | scene_unique_id | work_thread_count | mouse_x | mouse_y | core_count | work_thread_calc_time_ms | idle_fps | prox_sensor_select_down | prox_sensor_select_up</h3></div>
+    <div class="type"><h3 id="type-model_prop">model_prop() = not_collidable | not_measurable | not_renderable | not_detectable | not_cuttable | not_dynamic | not_respondable | not_reset | not_visible | not_model</h3></div>
+    <div class="type"><h3 id="type-object_type">object_type() = shape_type | joint_type | graph_type | camera_type | dummy_type | proximitysensor_type | path_type | visionsensor_type | mill_type | forcesensor_type | light_type | mirror_type | all</h3></div>
+    <div class="type"><h3 id="type-opmode">opmode() = atom() | {atom(), integer()}</h3></div>
+    <div class="type"><h3 id="type-out_message">out_message() = version | message_id | client_time</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(ClientID::string(), ClientPort::integer(), WaitUntilConnected::integer(), DoNotReconnectOnceDisconnected::integer(), TimeoutInMs::integer(), CommThreadCycleInMs::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Starts a communication thread with the server (i.e. V-REP).
+      A same client may start several communication threads. This should
+      be the very first remote API function called on the client side.
+      Make sure to start an appropriate remote API server service on the
+      server side, that will wait for a connection.</p>
+</div></div>
+<div class="function">
+<h3 id="finish/1">finish(ClientID::integer()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="addStatusbarMessage/1">addStatusbarMessage(ClientID::integer(), Message::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="appendStringSignal/1">appendStringSignal(ClientID::integer(), SignalName::string(), SignalValue::string(), SignalLength::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="auxiliaryConsoleClose/1">auxiliaryConsoleClose(ClientID::integer(), ConsoleHandle::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="auxiliaryConsoleOpen/1">auxiliaryConsoleOpen(ClientID::integer(), Title::string(), MaxLines::integer(), Mode::integer(), PositionT::{integer(), integer()}, Size::{integer(), integer()}, TextColor::{float(), float(), float()}, BackgroundColor::{float(), float(), float()}, OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="auxiliaryConsolePrint/1">auxiliaryConsolePrint(ClientID::integer(), ConsoleHandle::integer(), Text::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="auxiliaryConsoleShow/1">auxiliaryConsoleShow(ClientID::integer(), ConsoleHandle::integer(), ShowState::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="breakForceSensor/1">breakForceSensor(ClientID::integer(), ForceSensorHandle::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clearFloatSignal/1">clearFloatSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clearIntegerSignal/1">clearIntegerSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clearStringSignal/1">clearStringSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="closeScene/1">closeScene(ClientID::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="copyPasteObjects/1">copyPasteObjects(ClientID::integer(), ObjectHandles::[integer()], OperationMode::opmode()) -&gt; {atom(), [integer()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="createDummy/1">createDummy(ClientID::integer(), Size::float(), Colors::{byte(), byte(), byte(), byte(), byte(), byte(), byte(), byte(), byte(), byte(), byte(), byte()}, OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="displayDialog/1">displayDialog(ClientID::integer(), TitleText::string(), MainText::string(), DialogType::integer(), InitialText::string(), TitleColors6T::{float(), float(), float(), float(), float(), float()}, DialogColors6T::{float(), float(), float(), float(), float(), float()}, OperationMode::opmode()) -&gt; {atom(), {integer(), integer()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="endDialog/1">endDialog(ClientID::integer(), DialogHandle::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="eraseFile/1">eraseFile(ClientID::integer(), FileNameServerSide::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getAndClearStringSignal/1">getAndClearStringSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; {atom(), string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getArrayParameter/1">getArrayParameter(ClientID::integer(), ParamIdentifier::integer(), OperationMode::opmode()) -&gt; {atom(), {float(), float(), float()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getBooleanParameter/1">getBooleanParameter(ClientID::integer(), ParamIdentifier::boolean_param(), OperationMode::opmode()) -&gt; {atom(), string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getCollisionHandle/1">getCollisionHandle(ClientID::integer(), CollisionObjectName::string(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getConnectionId/1">getConnectionId(ClientID::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getDialogInput/1">getDialogInput(ClientID::integer(), DialogHandle::integer(), OperationMode::opmode()) -&gt; {atom(), string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getDialogResult/1">getDialogResult(ClientID::integer(), DialogHandle::integer(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getDistanceHandle/1">getDistanceHandle(ClientID::integer(), DistanceObjectName::string(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getFloatingParameter/1">getFloatingParameter(ClientID::integer(), ParamIdentifier::float_param(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getFloatSignal/1">getFloatSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getInMessageInfo/1">getInMessageInfo(ClientID::integer(), InboxMessageInfoType::in_message()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getIntegerParameter/1">getIntegerParameter(ClientID::integer(), ParamIdentifier::integer_param(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getIntegerSignal/1">getIntegerSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getJointMatrix/1">getJointMatrix(ClientID::integer(), JointHandle::integer(), OperationMode::opmode()) -&gt; {atom(), [float()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getJointPosition/1">getJointPosition(ClientID::integer(), JointHandle::integer(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getLastCmdTime/1">getLastCmdTime(ClientID::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getLastErrors/1">getLastErrors(ClientID::integer(), OperationMode::opmode()) -&gt; {atom(), [string()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getModelProperty/1">getModelProperty(ClientID::integer(), ObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), [model_prop()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectChild/1">getObjectChild(ClientID::integer(), ParentObjectHandle::integer(), ChildIndex::integer(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectFloatParameter/1">getObjectFloatParameter(ClientID::integer(), ObjectHandle::integer(), ParameterID::integer(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectGroupData/1">getObjectGroupData(ClientID::integer(), ObjectType::object_type(), DataType::data_type(), OperationMode::opmode()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectHandle/1">getObjectHandle(ClientID::integer(), ObjectName::string(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectIntParameter/1">getObjectIntParameter(ClientID::integer(), ObjectHandle::integer(), ParameterID::integer(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectOrientation/1">getObjectOrientation(ClientID::integer(), ObjectHandle::integer(), RelativeToObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), {float(), float(), float()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectParent/1">getObjectParent(ClientID::integer(), ObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectPosition/1">getObjectPosition(ClientID::integer(), ObjectHandle::integer(), RelativeToObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), {float(), float(), float()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjects/1">getObjects(ClientID::integer(), ObjectType::object_type(), OperationMode::opmode()) -&gt; {atom(), [integer()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectSelection/1">getObjectSelection(ClientID::integer(), OperationMode::opmode()) -&gt; {atom(), [integer()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getObjectVelocity/1">getObjectVelocity(ClientID::integer(), ObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), {float(), float(), float()}, {float(), float(), float()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getOutMessageInfo/1">getOutMessageInfo(ClientID::integer(), InfoType::out_message()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getPingTime/1">getPingTime(ClientID::integer()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getStringParameter/1">getStringParameter(ClientID::integer(), ParamIdentifier::integer(), OperationMode::opmode()) -&gt; {atom(), string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getStringSignal/1">getStringSignal(ClientID::integer(), SignalName::string(), OperationMode::opmode()) -&gt; {atom(), string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getUIButtonProperty/1">getUIButtonProperty(ClientID::integer(), UIHandle::integer(), UIButtonID::integer(), OperationMode::opmode()) -&gt; {atom(), [button_prop()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getUIEventButton/1">getUIEventButton(ClientID::integer(), UIHandle::integer(), UIEventButtonID::integer(), OperationMode::opmode()) -&gt; {atom(), integer(), {integer(), integer()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getUIHandle/1">getUIHandle(ClientID::integer(), UIName::string(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getUISlider/1">getUISlider(ClientID::integer(), UIHandle::integer(), UIButtonID::integer(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getVisionSensorDepthBuffer/1">getVisionSensorDepthBuffer(ClientID::integer(), SensorHandle::integer(), OperationMode::opmode()) -&gt; {atom(), {integer(), integer()}, binary()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="getVisionSensorImage/1">getVisionSensorImage(ClientID::integer(), SensorHandle::integer(), Options::integer(), OperationMode::opmode()) -&gt; {atom(), {color_mode(), integer(), integer()}, binary()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="jointGetForce/1">jointGetForce(ClientID::integer(), JointHandle::integer(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loadModel/1">loadModel(ClientID::integer(), ModelPathAndName::string(), Options::integer(), OperationMode::opmode()) -&gt; {atom(), integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loadScene/1">loadScene(ClientID::integer(), ScenePathAndName::string(), Options::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="loadUI/1">loadUI(ClientID::integer(), UIPathAndName::string(), Options::integer(), OperationMode::opmode()) -&gt; {atom(), [integer()]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pauseCommunication/1">pauseCommunication(ClientID::integer(), Pause::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pauseSimulation/1">pauseSimulation(ClientID::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="query/1">query(ClientID::integer(), SignalName::string(), SignalValue::string(), SignalLength::integer(), RetSignalName::string(), TimeoutInMs::integer()) -&gt; {atom(), string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readCollision/1">readCollision(ClientID::integer(), CollisionObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readDistance/1">readDistance(ClientID::integer(), DistanceObjectHandle::integer(), OperationMode::opmode()) -&gt; {atom(), float()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readForceSensor/1">readForceSensor(ClientID::integer(), ForceSensorHandle::integer(), OperationMode::opmode()) -&gt; {atom(), {float(), float(), float()}, {float(), float(), float()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readProximitySensor/1">readProximitySensor(ClientID::integer(), SensorHandle::integer(), OperationMode::opmode()) -&gt; {atom(), integer(), {{float(), float(), float()}, integer(), {float(), float(), float()}}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="readVisionSensor/1">readVisionSensor(ClientID::integer(), SensorHandle::integer(), OperationMode::opmode()) -&gt; {atom(), integer(), [[float()]]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="removeObject/1">removeObject(ClientID::integer(), ObjectHandle::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="removeUI/1">removeUI(ClientID::integer(), UIHandle::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setArrayParameter/1">setArrayParameter(ClientID::integer(), ParamIdentifier::integer(), ParamValues::{float(), float(), float()}, OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setBooleanParameter/1">setBooleanParameter(ClientID::integer(), ParamIdentifier::boolean_param(), ParamValue::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setFloatingParameter/1">setFloatingParameter(ClientID::integer(), ParamIdentifier::float_param(), ParamValue::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setFloatSignal/1">setFloatSignal(ClientID::integer(), SignalName::string(), SignalValue::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setIntegerParameter/1">setIntegerParameter(ClientID::integer(), ParamIdentifier::integer_param(), ParamValue::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setIntegerSignal/1">setIntegerSignal(ClientID::integer(), SignalName::string(), SignalValue::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setJointForce/1">setJointForce(ClientID::integer(), JointHandle::integer(), Force::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setJointPosition/1">setJointPosition(ClientID::integer(), JointHandle::integer(), Position::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setJointTargetPosition/1">setJointTargetPosition(ClientID::integer(), JointHandle::integer(), TargetPosition::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setJointTargetVelocity/1">setJointTargetVelocity(ClientID::integer(), JointHandle::integer(), TargetVelocity::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setModelProperty/1">setModelProperty(ClientID::integer(), ObjectHandle::integer(), ModelProperties::[model_prop()], OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setObjectFloatParameter/1">setObjectFloatParameter(ClientID::integer(), ObjectHandle::integer(), ParameterID::integer(), ParameterValue::float(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setObjectIntParameter/1">setObjectIntParameter(ClientID::integer(), ObjectHandle::integer(), ParameterID::integer(), ParameterValue::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setObjectOrientation/1">setObjectOrientation(ClientID::integer(), ObjectHandle::integer(), RelativeToObjectHandle::integer(), EulerAngles::{float(), float(), float()}, OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setObjectParent/1">setObjectParent(ClientID::integer(), ObjectHandle::integer(), ParentObject::integer(), KeepInPlace::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setObjectPosition/1">setObjectPosition(ClientID::integer(), ObjectHandle::integer(), RelativeToObjectHandle::integer(), Position::{float(), float(), float()}, OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setObjectSelection/1">setObjectSelection(ClientID::integer(), ObjectHandles::[integer()], OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setSphericalJointMatrix/1">setSphericalJointMatrix(ClientID::integer(), JointHandle::integer(), Matrix::{float(), float(), float(), float(), float(), float(), float(), float(), float(), float(), float(), float()}, OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setStringSignal/1">setStringSignal(ClientID::integer(), SignalName::string(), SignalValue::string(), SignalLength::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setUIButtonLabel/1">setUIButtonLabel(ClientID::integer(), UIHandle::integer(), UIButtonID::integer(), UpStateLabel::string(), DownStateLabel::string(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setUIButtonProperty/1">setUIButtonProperty(ClientID::integer(), UIHandle::integer(), UIButtonID::integer(), ButtonPropertiesL::[button_prop()], OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setUISlider/1">setUISlider(ClientID::integer(), UIHandle::integer(), UIButtonID::integer(), Position::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="setVisionSensorImage/1">setVisionSensorImage(ClientID::integer(), SensorHandle::integer(), ImageBin::binary(), Options::color_mode(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="startSimulation/1">startSimulation(ClientID::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stopSimulation/1">stopSimulation(ClientID::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="synchronous/1">synchronous(ClientID::integer(), Enable::integer()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="synchronousTrigger/1">synchronousTrigger(ClientID::integer()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transferFile/1">transferFile(ClientID::integer(), FilePathAndName::string(), FileNameServerSide::string(), Timeout::integer(), OperationMode::opmode()) -&gt; atom()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

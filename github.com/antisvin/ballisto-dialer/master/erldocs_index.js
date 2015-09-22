@@ -1,0 +1,1 @@
+var index = [['app','ballisto-dialer','ballisto-dialer','[application]'],['mod','ballisto-dialer','ballisto_app',[]],['mod','ballisto-dialer','ballisto_sup',[]],['fun','ballisto-dialer','ballisto_app:start/2',[]],['fun','ballisto-dialer','ballisto_app:stop/1',[]],['fun','ballisto-dialer','ballisto_sup:init/1',[]],['fun','ballisto-dialer','ballisto_sup:start_link/0',[]]];

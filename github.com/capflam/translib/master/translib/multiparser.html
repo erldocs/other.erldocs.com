@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>multiparser (translib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>multiparser</h1>
+<h2 class="modsummary">Parse transformer that can perform several parse_transformations.</h2>
+<div class="description">
+<p>Parse transformer that can perform several parse_transformations</p>
+ 
+  <p>Performs parse transformation that can execute many successive
+  transformations. Each transformation takes place in module that implements
+  the <a href="gen_trans.html" class="seealso">gen_trans</a> behaviour.  The parse_tranformers chain is defined as
+  an element of the compiler options list and follows the format <code>{chain,
+  [ModuleName]}</code>.</p>
+ 
+ 
+  <p><br />
+  <em><marker id="EXPORTS">EXPORTS</marker></em>
+ <marker id="parse_transform-2"> </marker>
+ </p><pre class="sh_erlang"> parse_transform(Forms, Options) -&gt; NewForms | {error, Errors, []}</pre><p>
+  <div class="REFBODY">
+    Types:
+    <div class="REFTYPES">
+      <pre class="sh_erlang">      Forms, NewForms = [erlang_form()]
+      Options = [compiler_options()] ++ [{chain, [ModuleName]}]
+         ModuleName = atom()
+      Errors = [{Filename, [ErrorInfo]}]
+         FileName = atom() | string()
+         ErrorInfo = see separate description below.</pre>
+    </div>
+ 
+    <p>Implements the actual transformation at compile time. This function is
+    called by the compiler to do the source code transformation if and when the
+    option <code>{parse_transform, multiparser}</code> is passed to the compiler.</p>
+ 
+    <p>This function loops through the list <code>[ModuleName]</code> and calls <url href="gen_trans.xml#start-3"><code>gen_trans:start/3</code></url> with <code>ModuleName</code> as callback module. The Erlang    
+abstract code format in entry of an iteration is the result of the previous    
+one.</p>
+ 
+    <p>If the abstract code format is successfully parsed, the function returns
+    <code>NewForms</code>. if it fails the function returns <code>{error, Errors, []}</code>.</p>
+ 
+    <p>See <a href="http://www.erlang.org/doc/man/compile.html" target="_top">compile(3)</a>.</p>
+ 
+  </div></p>
+ 
+  <p><br />
+  <em><marker id="Error_Information">Error Information</marker></em></p>
+ 
+  <p>The <code>ErrorInfo</code> mentioned above is the standard <code>ErrorInfo</code> structure which  
+is returned from one of the chained modules. It has the following format:</p>
+ 
+  <p><div class="example">
+ <pre class="sh_erlang">    {ErrorLine, Module, ErrorDescriptor}</pre>
+  </div></p>
+ 
+  <p>A string which describes the error is obtained with the following call:</p>
+ 
+  <p><div class="example">
+ <pre class="sh_erlang">    apply(Module, format_error, ErrorDescriptor)</pre>
+  </div>
+ </p></div>
+
+
+<authors>
+
+<aname>Christopher Faulet</aname>
+<email>christopher.faulet@capflam.org</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

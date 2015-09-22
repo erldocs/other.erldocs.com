@@ -1,0 +1,1 @@
+var index = [['app','emutton','emutton','[application]'],['mod','emutton','emtn',[]],['fun','emutton','emtn:cwd/0',[]],['fun','emutton','emtn:index/3',[]],['fun','emutton','emtn:init/1',[]],['fun','emutton','emtn:ping/0',[]],['fun','emutton','emtn:start/0',[]],['fun','emutton','emtn:status/1',[]],['fun','emutton','emtn:stop/0',[]]];

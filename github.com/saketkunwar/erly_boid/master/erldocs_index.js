@@ -1,0 +1,1 @@
+var index = [['app','erly_boid','erly_boid','[application]'],['mod','erly_boid','boid',[]],['fun','erly_boid','boid:dist/2',[]],['fun','erly_boid','boid:init_position/1',[]],['fun','erly_boid','boid:move_avoid_boid/2',[]],['fun','erly_boid','boid:start/1',[]],['fun','erly_boid','boid:test/2',[]]];

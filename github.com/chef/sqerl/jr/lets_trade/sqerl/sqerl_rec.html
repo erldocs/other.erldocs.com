@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sqerl_rec (sqerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sqerl_rec</h1>
+<h2 class="modsummary">Record to DB mapping module and behaviour.</h2>
+<div class="description">
+<p>Record to DB mapping module and behaviour.</p>
+ 
+  <p>This module helps you map records to and from the DB using prepared
+  queries. By creating a module, named the same as your record, and
+  implementing the <code>sqerl_rec</code> behaviour, you can take advantage of a  
+default set of generated prepared queries and helper functions  
+(defined in this module) that leverage those queries.</p>
+ 
+  <p>Most of the callbacks can be generated for you if you use the
+  <code>exprecs</code> parse transform. If you use this parse transform, then  
+you will only need to implement the following three callbacks in  
+your record module:</p>
+ 
+  <list>
+  <item><p><code>'#insert_fields'/0</code> A list of atoms describing the fields (which
+  should align with column names) used to insert a row into the
+  db. In many cases this is a proper subset of the record fields to
+  account for sequence ids and db generated timestamps.</p></item>
+  <item><p><code>'#update_fields'/0</code> A list of atoms giving the fields used for
+  updating a row.</p></item>
+  <item><p><code>'#statements'/0</code> A list of <code>[default | {atom(),
+  iolist()}]</code>. If the atom `default'' is included, then a default
+  set of queries will be generated. Custom queries provided as
+  <code>{Name, SQL}</code> tuples will override any default queries of the same
+  name.</p></item>
+  </list>
+ 
+  <p>If the table name associated with your record name does not follow
+  the naive pluralization rule implemented by <code>sqerl_rel</code>, you can
+  export a <code>'#table_name'/0</code> function to provide the table name for  
+the mapping.</p>
+ 
+  <p>It's also worth noting that <code>undefined</code> properties of a record will
+  be saved in the DB as <code>NULL</code>, and then translated back to <code>undefined</code>
+  when fetched from the DB.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-atom_list">atom_list() = atom() | [atom() | <a href="#type-atom_list" class="seealso">atom_list()</a>]</h3></div>
+    <div class="type"><h3 id="type-db_rec">db_rec() = tuple()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="qfetch/1">qfetch(RecName::atom(), Query::atom_list(), Vals::[any()]) -&gt; [db_rec()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Fetch using prepared query <code>Query</code> returning a list of records
+  <code>[#RecName{}]</code>. The <code>Vals</code> list is the list of parameters for the
+  prepared query. If the prepared query does not take parameters, use
+  <code>[]</code>. Note that this can be used for INSERT and UPDATE queries if
+  they use an appropriate RETURNING clause.</p>
+</div></div>
+<div class="function">
+<h3 id="cquery/1">cquery(RecName::atom(), Query::atom_list(), Vals::[any()]) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Execute query <code>Query</code> that returns a row count. If the query
+  returns results, e.g. an UPDATE ... RETURNING query, the result is
+  ignored and only the count is returned. See also <a href="#qfetch/3" class="seealso">qfetch/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="scalar_fetch/1">scalar_fetch(RecName::atom(), Query::atom(), Params::[any()]) -&gt; [any()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Execute a query that returns a list of scalar values. The
+  query must return a single column in result rows. This does
+  slightly less processing than using the rows_as_scalars transform
+  and prepends <code>RecName</code> to <code>Query</code> to match the sqerl_rec style.</p>
+</div></div>
+<div class="function">
+<h3 id="fetch/1">fetch(RecName::atom(), By::atom(), Val::any()) -&gt; [db_rec()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Return a list of <code>RecName</code> records using single parameter
+  prepared query <code>RecName_fetch_by_By</code> where <code>By</code> is a field and
+  column name and <code>Val</code> is the value of the column to match for in a
+  WHERE clause. A (possibly empty) list of record results is returned
+  even though a common use is to fetch a single row.</p>
+</div></div>
+<div class="function">
+<h3 id="fetch_all/1">fetch_all(RecName::atom()) -&gt; [db_rec()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Return all rows from the table associated with record module
+  <code>RecName</code>. Results will, by default, be ordered by the name field
+  (which is assumed to exist).</p>
+</div></div>
+<div class="function">
+<h3 id="fetch_page/1">fetch_page(RecName::atom(), StartName::string(), Limit::integer()) -&gt; [db_rec()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Fetch rows from the table associated with record module
+  <code>RecName</code> in a paginated fashion. The default generated query, like
+  that for <code>fetch_all</code>, assumes a <code>name</code> field and column and orders
+  results by this field. The <code>StartName</code> argument determines the
+  start point and <code>Limit</code> the number of items to return. To fetch the
+  "first" page, use <a href="#first_page/0" class="seealso">first_page/0</a>. Use the last name received
+  as the value for <code>StartName</code> to fetch the "next" page.</p>
+</div></div>
+<div class="function">
+<h3 id="first_page/0">first_page() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return an ascii value, as a string, that sorts less or equal
+  to any valid name.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1">insert(Rec::db_rec()) -&gt; [db_rec()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Insert record <code>Rec</code> using prepared query <code>RecName_insert</code>. The
+  fields of <code>Rec</code> passed as parameters to the query are determined by
+  <code>RecName:</code>#insert_fields/0'. This function assumes the query uses
+  "INSERT ... RETURNING" and returns a record with db assigned fields
+  (such as sequence ids and timestamps filled out).</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Rec::db_rec()) -&gt; [db_rec()] | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Update record <code>Rec</code>. Uses the prepared query with name
+  <code>RecName_update</code>. Assumes an <code>id</code> field and corresponding column
+  which is used to find the row to update. The fields from <code>Rec</code>
+  passed as parameters to the query are determined by
+  <code>RecName:</code>#update_fields/0'. This function assumes the UPDATE query
+  uses a RETURNING clause so that it can return a list of updated
+  records (similar to <a href="#insert/1" class="seealso">insert/1</a>. This allows calling code to
+  receive db generated values such as timestamps and sequence ids
+  without making an additional round trip.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Rec::db_rec(), By::atom()) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Delete the rows where the column identified by <code>By</code> matches
+  the value as found in <code>Rec</code>. Typically, one would use <code>id</code> to
+  delete a single row. The prepared query with name
+  <code>RecName_delete_by_By</code> will be used.</p>
+</div></div>
+<div class="function">
+<h3 id="statements/1">statements(RecList::[atom() | {app, term()}]) -&gt; [{atom(), binary()}]</h3>
+
+
+<div class="description">
+
+<p>This function is intended to be used as the <code>{M, F, A}</code> for sqerl's
+  <code>prepared_statements</code> app config key and returns a proplist of prepared
+  queries in the form <code>[{QueryName, SQLBinary}]</code>. The <code>RecList</code> argument
+  should be a list of modules implementing the <code>sqerl_rec</code> behaviour or
+  elements of the form <code>{app, App}</code> in which case sqerl will auto-discover all  
+modules implementing the behavior. Ordering of modules and elements is  
+ignored. Any duplicate modules generated by specifying '{app, App}'  
+will also be ignored.</p>
+ 
+  <p>Example inputs:</p>
+ 
+    <p>[mod1, mod2, mod3, {app, app1}]    
+[mod1, mod2, mod3, mod4, mod5]</p>
+ 
+ 
+  <p>If the atom <code>default</code> is present in the list, then a default set of
+  queries will be generated using the first field returned by
+  <code>RecName:'#info-'/1</code> as a unique column for the WHERE clauses of
+  UPDATE, DELETE, and SELECT of single rows. The default queries are:
+  <code>fetch_by_FF</code>, <code>delete_by_FF</code>, <code>insert</code>, and <code>update</code>, where <code>FF</code>
+  is the name of the First Field. The returned query names will have
+  <code>RecName_</code> prepended. Custom queries override default queries of
+  the same name.</p>
+</div></div>
+<div class="function">
+<h3 id="statements_for/1">statements_for(RecName::atom()) -&gt; [{atom(), binary()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="gen_delete/1">gen_delete(RecName::atom(), By::atom() | [atom()]) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>Return a SQL DELETE query appropriate for module <code>RecName</code>
+  implementing the <code>sqerl_rec</code> behaviour. Example:</p>
+ 
+  <pre class="sh_erlang">  SQL1 = gen_delete(user, id),
+  SQL1 = ["DELETE FROM ","cookers"," WHERE ","id = $1"]
+ 
+  SQL2 = gen_delete(user, [id, name]),
+  SQL2 = ["DELETE FROM ","cookers",
+          " WHERE ","id = $1 AND name = $2"]</pre>
+</div></div>
+<div class="function">
+<h3 id="gen_fetch_page/1">gen_fetch_page(RecName::atom(), OrderBy::atom()) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>Generate a paginated fetch query.</p>
+ 
+  <p>Example:
+  </p><pre class="sh_erlang">  SQL = sqerl_rec:gen_fetch_page(kitchen, name).
+  SQL = ["SELECT ", "id, name", " FROM ", "kitchens",
+         " WHERE ","name",
+         " &gt; $1 ORDER BY ","name"," LIMIT $2"]</pre>
+</div></div>
+<div class="function">
+<h3 id="gen_fetch_all/1">gen_fetch_all(RecName::atom(), OrderBy::atom()) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>Generate a query to return all rows</p>
+ 
+  <p>Example:
+  </p><pre class="sh_erlang">  SQL = sqerl_rec:gen_fetch_all(kitchen, name),
+  SQL = ["SELECT ", "id, name", " FROM ", "kitchens",
+         " ORDER BY ", "name"]</pre>
+</div></div>
+<div class="function">
+<h3 id="gen_fetch/1">gen_fetch(RecName::atom(), By::atom() | [atom()]) -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>Generate a SELECT query for <code>RecName</code> rows.</p>
+ 
+  <p>Example:
+  </p><pre class="sh_erlang">  SQL1 = sqerl_rec:gen_fetch(kitchen, name).
+  SQL1 = ["SELECT ", "id, name", " FROM ", "kitchens",
+          " WHERE ", "name = $1"]
+ 
+  SQL2 = sqerl_rec:gen_fetch(cook, [kitchen_id, name]),
+  SQL2 = ["SELECT ",
+          "id, kitchen_id, name, auth_token, auth_token_bday, "
+          "ssh_pub_key, first_name, last_name, email",
+          " FROM ", "cookers", " WHERE ",
+          "kitchen_id = $1 AND name = $2"]</pre>
+</div></div></div>
+
+<authors>
+
+<aname>Seth Falcon</aname>
+<email>seth@getchef.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

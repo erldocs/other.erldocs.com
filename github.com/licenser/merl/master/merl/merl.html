@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>merl (merl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>merl</h1>
+<h2 class="modsummary">Metaprogramming in Erlang.</h2>
+<div class="description">
+<p>Metaprogramming in Erlang.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-default_action">default_action() = fun(() -&gt; any())</h3></div>
+    <div class="type"><h3 id="type-env">env() = [{Key :: <a href="#type-id" class="seealso">id()</a>, <a href="#type-pattern_or_patterns" class="seealso">pattern_or_patterns()</a>}]</h3></div>
+    <div class="type"><h3 id="type-guard_test">guard_test() = fun((<a href="#type-env" class="seealso">env()</a>) -> boolean())</h3></div>
+    <div class="type"><h3 id="type-guarded_action">guarded_action() = <a href="#type-switch_action" class="seealso">switch_action()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-guard_test" class="seealso">guard_test()</a>, <a href="#type-switch_action" class="seealso">switch_action()</a>}</h3></div>
+    <div class="type"><h3 id="type-guarded_actions">guarded_actions() = <a href="#type-guarded_action" class="seealso">guarded_action()</a> | [<a href="#type-guarded_action" class="seealso">guarded_action()</a>]</h3></div>
+    <div class="type"><h3 id="type-id">id() = atom() | integer()</h3></div>
+    <div class="type"><h3 id="type-location">location() = <a href="erl_scan.html#type-location" class="seealso">erl_scan:location()</a></h3></div>
+    <div class="type"><h3 id="type-pattern">pattern() = <a href="#type-tree" class="seealso">tree()</a> | <a href="#type-template" class="seealso">template()</a></h3></div>
+    <div class="type"><h3 id="type-pattern_or_patterns">pattern_or_patterns() = <a href="#type-pattern" class="seealso">pattern()</a> | [<a href="#type-pattern" class="seealso">pattern()</a>]</h3></div>
+    <div class="type"><h3 id="type-switch_action">switch_action() = fun((<a href="#type-env" class="seealso">env()</a>) -> any())</h3></div>
+    <div class="type"><h3 id="type-switch_clause">switch_clause() = {<a href="#type-pattern_or_patterns" class="seealso">pattern_or_patterns()</a>, <a href="#type-guarded_actions" class="seealso">guarded_actions()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-pattern_or_patterns" class="seealso">pattern_or_patterns()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-guard_test" class="seealso">guard_test()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-switch_action" class="seealso">switch_action()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-default_action" class="seealso">default_action()</a></h3></div>
+    <div class="type"><h3 id="type-template">template() = <a href="#type-tree" class="seealso">tree()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-id" class="seealso">id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'*', <a href="#type-id" class="seealso">id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {template, atom(), term(), [[<a href="#type-template" class="seealso">template()</a>]]}</h3></div>
+    <div class="type"><h3 id="type-template_or_templates">template_or_templates() = <a href="#type-template" class="seealso">template()</a> | [<a href="#type-template" class="seealso">template()</a>]</h3></div>
+    <div class="type"><h3 id="type-text">text() = string() | binary() | [string()] | [binary()]</h3></div>
+    <div class="type"><h3 id="type-tree">tree() = <a href="erl_syntax.html#type-syntaxTree" class="seealso">erl_syntax:syntaxTree()</a></h3></div>
+    <div class="type"><h3 id="type-tree_or_trees">tree_or_trees() = <a href="#type-tree" class="seealso">tree()</a> | [<a href="#type-tree" class="seealso">tree()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="compile/1">compile(Code) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#compile/2" class="seealso">compile(Code, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="compile/2">compile(Code, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Compile a syntax tree or list of syntax trees representing a module
+  into a binary BEAM object.</p>
+<p><em>See also:</em> <a href="#compile/1" class="seealso">compile/1</a>, <a href="#compile_and_load/2" class="seealso">compile_and_load/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="compile_and_load/1">compile_and_load(Code) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#compile_and_load/2" class="seealso">compile_and_load(Code, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="compile_and_load/2">compile_and_load(Code, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Compile a syntax tree or list of syntax trees representing a module
+  and load the resulting module into memory.</p>
+<p><em>See also:</em> <a href="#compile/2" class="seealso">compile/2</a>, <a href="#compile_and_load/1" class="seealso">compile_and_load/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="var/1">var(Name::atom()) -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Create a variable.</p>
+</div></div>
+<div class="function">
+<h3 id="term/1">term(Term::term()) -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Create a syntax tree for a constant term.</p>
+</div></div>
+<div class="function">
+<h3 id="print/1">print(Ts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Pretty-print a syntax tree or template to the standard output. This
+  is a utility function for development and debugging.</p>
+</div></div>
+<div class="function">
+<h3 id="show/1">show(Ts) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Print the structure of a syntax tree or template to the standard
+  output. This is a utility function for development and debugging.</p>
+</div></div>
+<div class="function">
+<h3 id="qquote/1">qquote(Text::text(), Env::env()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Parse text and substitute meta-variables.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="qquote/1-1">qquote(StartPos::location(), Text::text(), Env::env()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Parse text and substitute meta-variables. Takes an initial scanner  
+starting position as first argument.</p>
+ 
+  <p>The macro <code>?Q(Text, Env)</code> expands to <code>merl:qquote(?LINE, Text, Env)</code>.
+ </p>
+<p><em>See also:</em> <a href="#quote/2" class="seealso">quote/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="quote/1">quote(Text::text()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Parse text.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="quote/1-1">quote(StartPos::location(), Text::text()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Parse text. Takes an initial scanner starting position as first  
+argument.</p>
+ 
+  <p>The macro <code>?Q(Text)</code> expands to <code>merl:quote(?LINE, Text, Env)</code>.
+ </p>
+<p><em>See also:</em> <a href="#quote/1" class="seealso">quote/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="template/1">template(Trees::pattern_or_patterns()) -&gt; template_or_templates()</h3>
+
+
+<div class="description">
+
+<p>Turn a syntax tree or list of trees into a template or templates.
+  Templates can be instantiated or matched against, and reverted back to
+  normal syntax trees using <a href="#tree/1" class="seealso">tree/1</a>. If the input is already a
+  template, it is not modified further.
+ </p>
+<p><em>See also:</em> <a href="#match/2" class="seealso">match/2</a>, <a href="#subst/2" class="seealso">subst/2</a>, <a href="#tree/1" class="seealso">tree/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="meta_template/1">meta_template(Templates::template_or_templates()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Turn a template into a syntax tree representing the template.
+  Meta-variables in the template are turned into normal Erlang variables if
+  their names (after the metavariable prefix characters) begin with an
+  uppercase character. E.g., <code>_@Foo</code> in the template becomes the variable
+  <code>Foo</code> in the meta-template. Furthermore, variables ending with <code>@</code> are
+  automatically wrapped in a call to merl:term/1, so e.g. <code>_@Foo@ in the
+  template becomes `merl:term(Foo)</code> in the meta-template.</p>
+</div></div>
+<div class="function">
+<h3 id="template_vars/1">template_vars(Template::template_or_templates()) -&gt; [id()]</h3>
+
+
+<div class="description">
+
+<p>Return an ordered list of the metavariables in the template.</p>
+</div></div>
+<div class="function">
+<h3 id="tree/1">tree(Templates::template_or_templates()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Revert a template to a normal syntax tree. Any remaining
+  metavariables are turned into <code>@</code>-prefixed atoms or <code>909</code>-prefixed
+  integers.</p>
+<p><em>See also:</em> <a href="#template/1" class="seealso">template/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="subst/1">subst(Trees::pattern_or_patterns(), Env::env()) -&gt; tree_or_trees()</h3>
+
+
+<div class="description">
+
+<p>Substitute metavariables in a pattern or list of patterns, yielding
+  a syntax tree or list of trees as result. Both for normal metavariables
+  and glob metavariables, the substituted value may be a single element or
+  a list of elements. For example, if a list representing <code>1, 2, 3</code> is
+  substituted for <code>var</code> in either of <code>[foo, _@var, bar]</code> or <code>[foo, _@var,
+  bar]</code>, the result represents <code>[foo, 1, 2, 3, bar]</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="tsubst/1">tsubst(Trees::pattern_or_patterns(), Env::env()) -&gt; template_or_templates()</h3>
+
+
+<div class="description">
+
+<p>Like subst/2, but does not convert the result from a template back
+  to a tree. Useful if you want to do multiple separate substitutions.</p>
+<p><em>See also:</em> <a href="#subst/2" class="seealso">subst/2</a>, <a href="#tree/2" class="seealso">tree/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="alpha/1">alpha(Trees::pattern_or_patterns(), Env::[{id(), id()}]) -&gt; template_or_templates()</h3>
+
+
+<div class="description">
+
+<p>Alpha converts a pattern (renames variables). Similar to tsubst/1,
+  but only renames variables (including globs).</p>
+<p><em>See also:</em> <a href="#tsubst/2" class="seealso">tsubst/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="match/1">match(Patterns::pattern_or_patterns(), Trees::tree_or_trees()) -&gt; {ok, env()} | error</h3>
+
+
+<div class="description">
+
+<p>Match a pattern against a syntax tree (or patterns against syntax
+  trees) returning an environment mapping variable names to subtrees; the
+  environment is always sorted on keys. Note that multiple occurrences of
+  metavariables in the pattern is not allowed, but is not checked.
+ </p>
+<p><em>See also:</em> <a href="#switch/2" class="seealso">switch/2</a>, <a href="#template/1" class="seealso">template/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="switch/1">switch(Trees::tree_or_trees(), Cs::[switch_clause()]) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Match against one or more clauses with patterns and optional guards.</p>
+ 
+  <p>Note that clauses following a default action will be ignored.
+ </p>
+<p><em>See also:</em> <a href="#match/2" class="seealso">match/2</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Richard Carlsson</aname>
+<email>carlsson.richard@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

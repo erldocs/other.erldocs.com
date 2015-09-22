@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>emp_plugin (empd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>emp_plugin</h1>
+<h2 class="modsummary">
+   This module defines a host of functions that EMP plugins can use to
+   access and set state, trigger events and generally talk to the core of
+   EMP.</h2>
+<div class="description">
+<p>
+   This module defines a host of functions that EMP plugins can use to
+   access and set state, trigger events and generally talk to the core of
+   EMP. This module is also an erlang behaviour, that specifies several
+   callbacks that are required by the EMP Plugin API; these are:<br /></p>
+ 
+   <list>
+     <item><pre class="sh_erlang"> registration_info() -&gt; [ {atom(), any()} ].</pre><p>
+       EMP requires, upon plugin installation/registration, that the plugin
+       informs EMP of the permissions that it will need, in order to function
+       correctly. For a list of these permissions, and all options that can
+       be specified, please check the PluginAPI documentation.
+     </p></item>
+ 
+     <item><pre class="sh_erlang"> register_cmds() -&gt; [ 'EMPCOMMAND'() ].</pre><p>
+       When a plugin is registered, it needs to give a complete list of all
+       commands that can be run on it. Please see emptypes.hrl for more
+       information on how to construct an EMPCOMMAND.
+     </p></item>
+ 
+     <item><pre class="sh_erlang"> register_events() -&gt; [ 'EMPEVENT'() ].</pre><p>
+       When a plugin is registered, it needs to give a complete list of all
+       events that can be triggered. That is, all types of events possible,
+       not the event instances themselves (i.e., TimerEnded is an event type,
+       and Timer #2315123 just ending is an instance of the event TimerEnded.)
+       Please see emptypes.hrl for more information on how to construct an
+       EMPEVENT.
+     </p></item>
+   </list><p>
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-STATEID">STATEID() = pid()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="trigger_event/1">trigger_event(StatePid::STATEID(), EventName::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Trigger an event that your plugin has registered previously. If it doesn't
+  exist, these functions will fail silently. If no override values are provided,
+  the event will be triggered with default parameters.</p>
+</div></div>
+<div class="function">
+<h3 id="trigger_event/1-1">trigger_event(StatePid::STATEID(), EventName::binary(), ValueList::[{binary(), any()}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Trigger an event that your plugin has registered previously. If it doesn't
+  exist, these functions will fail silently.</p>
+</div></div>
+<div class="function">
+<h3 id="request_shutdown/1">request_shutdown(StatePid::STATEID(), Reason::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Request that the plugin be shutdown. If its not shutdown, then it could be
+  restarted next time a user or event trigger a command to be run on the
+  module. A use for this is if the plugin shouldn't be run (i.e. a missing
+  library).</p>
+</div></div>
+<div class="function">
+<h3 id="get_var/1">get_var(StatePid::STATEID(), VarName::binary()) -&gt; {ok, any()} | {error, binary()}</h3>
+
+
+<div class="description">
+
+<p>Get some variable you saved in EMP.</p>
+</div></div>
+<div class="function">
+<h3 id="set_var/1">set_var(StatePid::STATEID(), VarName::binary(), X) -&gt; {ok, X} | {error, binary()}</h3>
+
+
+<div class="description">
+
+<p>
+  Set some variable you want to save in EMP. This will override the
+  current value in EMP if its present, otherwise it will add it.</p>
+</div></div>
+<div class="function">
+<h3 id="set_var_async/1">set_var_async(StatePid::STATEID(), VarName::binary(), X) -&gt; {ok, X}</h3>
+
+
+<div class="description">
+
+<p>
+  Does not wait on EMP to finish saving your state. This can be dangerous
+  if your plugin is using unsaved state, as any commands triggered after that
+  point wont have that new data.</p>
+</div></div>
+<div class="function">
+<h3 id="update_var/1">update_var(StatePid::STATEID(), VarName::binary(), ApplyFun::function()) -&gt; {ok, any()} | {error, binary()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em><em>WARNING:</em> THIS IS AN ERLANG ONLY FUNCTION CALL.<br /></p>
+
+<p>
+  Runs a function on the EMP server to update a state variable. Useful
+  for running async foreach loops on a variable that is a list.</p>
+</div></div></div>
+<div class="section"><h4>See also</h4><p><a href="plugrunner.html" class="seealso"><em>Plugin Runner</em>
+ </a></p></div>
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

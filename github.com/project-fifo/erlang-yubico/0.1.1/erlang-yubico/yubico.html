@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>yubico (erlang-yubico) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>yubico</h1>
+<h2 class="modsummary">     YubiCloud OTP key verification client.</h2>
+<div class="description">
+<p>     YubiCloud OTP key verification client.</p>
+  
+             <p>This is the API module to an implementation of the             
+Yubico Validation Protocol Version 2.0.</p>
+  
+             <p>That protocol describes two different mechanisms. One             
+uses SSL (with certificate validation) to secure the             
+communication between client and YubiCloud servers, the             
+other one uses plain text communication (over HTTP)             
+with HMAC verification of the contents of the exchanged             
+packets.</p>
+  
+             <p>The second one is the one implemented this far. This             
+means you MUST have an API key to use this module. The             
+API key is a shared secret between you and the Yubico             
+server(s). If you use the YubiCloud servers (the             
+default,currently five servers on three continents) you             
+must first get an API key from Yubico. This is done at             
+https://upgrade.yubico.com/getapikey/.</p>
+  
+             <p>Valid Options :</p>
+  
+               <p>{logfun, fun()}                   
+default is a quiet fun</p>
+  
+               <p>{verify_servers, [string()]}                   
+default is to query the five YubiCloud servers</p>
+  
+               <p>{sign_request, bool()}                   
+sign request or not? optional in spec                   
+default is to sign requests.</p>
+  
+               <p>{http_client, Module :: atom()}                   
+use Module to perform the actual requests                   
+default is 'yubico_http_client'</p>
+  
+               <p>{req_nonce, nonempty_string()}                   
+nonce to use (must be 16..40 bytes)                   
+default is to generate using crypto:rand_bytes()</p>
+  
+               <p>{req_timestamp, bool()}                   
+should we request timestamp and session counter                   
+information in the response?                   
+default is 'false'</p>
+  
+               <p>{req_synclevel, integer() | 'fast' | 'secure'}                   
+controls what "sl=" we should put in the request                   
+default is to let the server decide completely</p>
+  
+               {req_timeout, integer()}
+                   specify the server-to-server sync timeout
+                   default is to let servers decide
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-apikey">apikey() = binary()</h3></div>
+    <div class="type"><h3 id="type-yubico_client_options">yubico_client_options() = [{Key :: atom(), Value :: any()}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="simple_verify/1">simple_verify(OTP::nonempty_string(), Id::nonempty_string(), APIkey::apikey() | string(), Options::yubico_client_options()) -&gt; {auth, ok} | {bad_auth, bad_auth_code() (see module yubico_response)} | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>    Perform a 'verify' web service request, using as sensible           
+defaults as possible.</p>
+ 
+             <p>OTP: the string outputed by your YubiKey (without             
+the ending "\n").</p>
+ 
+             <p>Id: a string with your API key Id (e.g. "87").</p>
+ 
+             <p>APIkey: either your API key as a binary, or in the             
+base64-encoded format Yubico supplies it in.</p>
+ 
+             <p>Options: List of {Key, Value} options. See module                      
+documentation for details.</p>
+ 
+           <p>Returns :</p>
+ 
+             <p>{auth, ok} on successful validation
+             {bad_auth, Code :: atom()} on failed validation
+             {error, Reason :: any()} on errors</p>
+</div></div>
+<div class="function">
+<h3 id="yubikey_id/1">yubikey_id(OTP::nonempty_string()) -&gt; string() | none</h3>
+
+
+<div class="description">
+
+<p>    Get the static Yubikey ID from an OTP string.</p>
+ 
+             <p>OTP: the string outputed by your YubiKey (without             
+the ending "\n").</p>
+ 
+           <p>Returns :</p>
+ 
+             <p>KeyId :: string() if OTP contains a key id
+             none</p>
+</div></div></div>
+
+<authors>
+
+<aname>Fredrik Thulin</aname>
+<email>fredrik@thulin.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

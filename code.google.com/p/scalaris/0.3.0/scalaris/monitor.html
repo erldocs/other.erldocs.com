@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>monitor (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>monitor</h1>
+<h2 class="modsummary">   Monitors data from different processes, e.g.</h2>
+<div class="description">
+<p>   Monitors data from different processes, e.g. for performance
+          evaluations.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-key">key() = string()</h3></div>
+    <div class="type"><h3 id="type-message">message() = {proc_report,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ProcTable :: <a href="pdb.html#type-tableid" class="seealso">pdb:tableid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LastReport :: <a href="util.html#type-time" class="seealso">util:time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CurrentReport :: <a href="util.html#type-time" class="seealso">util:time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KVList :: [{<a href="#type-key" class="seealso">key()</a>, term()}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {purge_old_data}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {web_debug_info, Requestor :: <a href="comm.html#type-erl_local_pid" class="seealso">comm:erl_local_pid()</a>}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <a href="#type-tid" class="seealso">tid()</a> | atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="proc_init/1">proc_init(Process::atom()) -&gt; tableid() (see module pdb)</h3>
+
+
+<div class="description">
+
+<p>Initialises a process' monitor DB. Needs to be called prior to the
+       other proc_* methods!
+       Beware: there is only one monitor table available per process if pdb
+       uses erlang:put/get!</p>
+</div></div>
+<div class="function">
+<h3 id="proc_set_value/1">proc_set_value(Table::tableid() (see module pdb), Key::key(), Value::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets the value at Key.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_get_value/1">proc_get_value(Table::tableid() (see module pdb), Key::key()) -&gt; term() | undefined</h3>
+
+
+<div class="description">
+
+<p>Gets the value stored at Key.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_inc_value/1">proc_inc_value(Table::tableid() (see module pdb), Key::key()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Increases the value stored at Key by 1. If there is no such value, 1
+       is stored.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_inc_value/1-1">proc_inc_value(Table::tableid() (see module pdb), Key::key(), Inc::number()) -&gt; ok | unsupported</h3>
+
+
+<div class="description">
+
+<p>Increases the value stored at Key by Inc. If there is no such value,
+       Inc is stored. Note: Inc may be negative in order to decrease values.
+       If the stored value is no number, unsupported is returned and nothing
+       is changed.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_report_to_my_monitor/1">proc_report_to_my_monitor(Table::tableid() (see module pdb)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Reports all collected Key/Value pairs to the process' monitor process
+       and resets the values and the list of stored keys.</p>
+</div></div>
+<div class="function">
+<h3 id="on/1">on(X1::message(), Table::state()) -&gt; state()</h3>
+
+
+<div class="description">
+
+<p>Message handler when the rm_loop module is fully initialized.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(DHTNodeGroup::groupname() (see module pid_groups)) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts the monitor process, registers it with the process dictionary
+       and returns its pid for use by a supervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::null) -&gt; state()</h3>
+
+
+<div class="description">
+
+<p>Initialises the module with an empty state.</p>
+</div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether config parameters of the rm_tman process exist and are
+       valid.</p>
+</div></div>
+<div class="function">
+<h3 id="proc_get_report_interval/0">proc_get_report_interval() -&gt; Seconds::pos_integer()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Nico Kruber</aname>
+<email>kruber@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

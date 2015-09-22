@@ -1,0 +1,1 @@
+var index = [['app','erlang-fibonacci','erlang-fibonacci','[application]'],['mod','erlang-fibonacci','fibo',[]],['fun','erlang-fibonacci','fibo:fibo/1',[]]];

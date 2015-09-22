@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>exometer_util (exometer_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>exometer_util</h1>
+<h2 class="modsummary">Exometer utility functions.</h2>
+<div class="description">
+<p>Exometer utility functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-timestamp">timestamp() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="timestamp/0">timestamp() -&gt; timestamp()</h3>
+
+
+<div class="description">
+
+<p>Generate a millisecond-resolution timestamp.</p>
+ 
+  <p>This timestamp format is used e.g. by the <code>exometer_slide</code> and
+  <code>exometer_histogram</code> implementations.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp_to_datetime/1">timestamp_to_datetime(TS::timestamp()) -&gt; {datetime() (see module calendar), non_neg_integer()}</h3>
+
+
+<div class="description">
+
+<p>Convert timestamp to a regular datetime.</p>
+ 
+  <p>The timestamp is expected</p>
+</div></div>
+<div class="function">
+<h3 id="get_env/2">get_env(Key, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_opt/3">get_opt(K, Opts, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="tables/0">tables() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="table/0">table() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="drop_duplicates/1">drop_duplicates(List0::[tuple()]) -&gt; [tuple()]</h3>
+
+
+<div class="description">
+
+<p>
+  <code>drop_duplicates/1</code> will drop all duplicate elements from a list of tuples identified by their first element.
+  Elements which are not tuples will be dropped as well.
+  If called with a non-list argument, the argument is returned as is.</p>
+</div></div>
+<div class="function">
+<h3 id="histogram/1">histogram(Values) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="histogram/2">histogram(Values, DataPoints) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_statistics/1">get_statistics(Length::non_neg_integer(), Total::non_neg_integer(), Sorted::list()) -&gt; [{atom(), number()}]</h3>
+
+
+<div class="description">
+
+<p>Calculate statistics from a sorted list of values.</p>
+ 
+  <p>This function assumes that you have already sorted the list, and  
+now the number and sum of the elements in the list.</p>
+ 
+  <p>The stats calculated are min, max, mean, median and the 50th,  
+75th, 90th, 95th, 99th, and 99.9th percentiles (note that the  
+99.9th percentile is labeled 999).</p>
+ 
+  <p>This function is similar to <code>bear:get_statistics_subset/2</code>.
+  <code>mean</code> refers to the arithmetic mean.</p>
+ 
+  <p>Fulpatchad med min/max av Magnus Feuer.</p>
+</div></div>
+<div class="function">
+<h3 id="get_statistics2/4">get_statistics2(L, Sorted, Total, Mean) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pick_items/1">pick_items(Vals::[number()], Items::[{atom() | integer(), integer()}]) -&gt; [{atom(), number()}]</h3>
+
+
+<div class="description">
+
+<p>Pick values from specified positions in a sorted list of numbers.</p>
+ 
+  <p>This function is used to extract datapoints (usually percentiles) from
+  a sorted list of values. <code>Items</code> is a list of <code>{Datapoint, Position}</code>
+  entries.</p>
+</div></div>
+<div class="function">
+<h3 id="report_type/3">report_type(Key, Extra, TypeMap) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_datapoints/1">get_datapoints(Exometer_entry) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_call_count/2">set_call_count(X1, Bool) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_call_count/3">set_call_count(M, F, Bool) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_status/1">get_status(St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_status/2">set_status(X1, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_event_flag/2">set_event_flag(X1, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clear_event_flag/2">clear_event_flag(X1, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="test_event_flag/2">test_event_flag(X1, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang_test','erlang_test','[application]'],['mod','erlang_test','mnesia_userdefined_transform',[]]];

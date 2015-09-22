@@ -1,0 +1,1 @@
+var index = [['app','erlang_project','erlang_project','[application]'],['mod','erlang_project','countProcs',[]],['mod','erlang_project','deleg',[]],['mod','erlang_project','kvs',[]],['mod','erlang_project','maindeleg',[]],['fun','erlang_project','countProcs:max/1',[]]];

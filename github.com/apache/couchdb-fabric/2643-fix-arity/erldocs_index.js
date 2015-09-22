@@ -1,0 +1,1 @@
+var index = [['app','couchdb-fabric','couchdb-fabric','[application]'],['mod','couchdb-fabric','fabric_dict',[]]];

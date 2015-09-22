@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_moves (gen_moves) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_moves</h1>
+<h2 class="modsummary">
+  generates moves that can be used for load testing.</h2>
+<div class="description">
+<p>
+  generates moves that can be used for load testing.<br />  
+Warning: a trained monkey would kick this module's ass in the game!</p>
+ 
+  <p>an "order-<code>dict</code>" is a dict, that contains some standardized fields:
+  </p>
+    
+      Key
+      Value
+      Number
+      Comment
+    <br />
+    
+      <code>phase</code>
+      <code>atom ()</code>
+      <code>1..1</code>
+      the game phase the orders are valid for
+    <br />
+    
+      <code>season</code>
+      <code>spring | fall</code>
+      <code>1..1</code>
+      the season the orders are valid for
+    <br />
+    
+      <code>year</code>
+      integer ()
+      <code>1..1</code>
+      the year the orders are valid for
+    <br />
+    
+      <code>{orders, Nation}</code>
+      <code>[Orders :: tuple ()]</code>
+      <code>0..inf</code>
+      for each nation that has units, there is one such key
+    <br />
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="generate_orders/1">generate_orders(Map) -&gt; [dict()]</h3>
+
+<ul class="type">
+<li><code>Map = any()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns a list of  order-<code>dicts</code>. <br />
+  Don't rely on the order of those dicts,
+  use the included <code>year</code>/<code>season</code>/<code>phase</code> infos instead.</p>
+</div></div>
+<div class="function">
+<h3 id="apply_order_season/2">apply_order_season(Map, OrderDict) -&gt; [Reply]</h3>
+
+<ul class="type">
+<li><code>Map = any()</code></li><li><code>OrderDict = dict()</code></li><li><code>Reply = any()</code></li></ul>
+<div class="description">
+
+<p>
+  receives a map and a single order dict (<a href="#generate_orders/1" class="seealso">generate_orders/1</a> gives you
+  a whole list of them!) and applies the orders to a map.
+  It returns the answer-list from <a href="game.html#process/4" class="seealso">game:process/4</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>stephan.brandauer@gmail.com</aname>
+<email>stephan.brandauer@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

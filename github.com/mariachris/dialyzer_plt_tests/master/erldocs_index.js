@@ -1,0 +1,1 @@
+var index = [['app','dialyzer_plt_tests','dialyzer_plt_tests','[application]'],['mod','dialyzer_plt_tests','test1',[]],['fun','dialyzer_plt_tests','test1:bar/0',[]],['fun','dialyzer_plt_tests','test1:foo/0',[]]];

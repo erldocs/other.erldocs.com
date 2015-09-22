@@ -1,0 +1,1 @@
+var index = [['app','ej','ej','[application]'],['mod','ej','ej','Tools for working with Erlang terms representing J'],['fun','ej','ej:delete/1','Remove the item specified by Keys.'],['fun','ej','ej:get/1','Extract a value from Obj'],['fun','ej','ej:set/1','Set a value in Obj']];

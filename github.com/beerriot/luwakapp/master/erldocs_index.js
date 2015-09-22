@@ -1,0 +1,1 @@
+var index = [['app','luwakapp','luwakapp','[application]'],['app','luwakapp','luwakapp','[application]'],['mod','luwakapp','luwakapp_app',[]],['mod','luwakapp','luwakapp_sup',[]],['fun','luwakapp','luwakapp_app:start/2',[]],['fun','luwakapp','luwakapp_app:stop/1',[]],['fun','luwakapp','luwakapp_sup:init/1',[]],['fun','luwakapp','luwakapp_sup:start_link/0',[]]];

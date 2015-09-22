@@ -1,0 +1,1 @@
+var index = [['app','oc_chef_authz','oc_chef_authz','[application]'],['mod','oc_chef_authz','chef_authz_http','chef_authzs interface to the authz server.'],['fun','oc_chef_authz','chef_authz_http:ping/0',[]],['fun','oc_chef_authz','chef_authz_http:request/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','cookiecart-2.0','cookiecart-2.0','[application]'],['mod','cookiecart-2.0','image',[]],['mod','cookiecart-2.0','order',[]],['mod','cookiecart-2.0','price',[]],['fun','cookiecart-2.0','order:add/1',[]]];

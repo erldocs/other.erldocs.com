@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sqlite3 (erlang-sqlite3) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sqlite3</h1>
+<h2 class="modsummary">Library module for sqlite3.</h2>
+<div class="description">
+<p>Library module for sqlite3
+  </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-column_constraint">column_constraint() = non_null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| primary_key<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {primary_key, <a href="#type-pk_constraints" class="seealso">pk_constraints()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unique<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {default, <a href="#type-sql_value" class="seealso">sql_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-column_constraints">column_constraints() = <a href="#type-column_constraint" class="seealso">column_constraint()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-column_constraint" class="seealso">column_constraint()</a>]</h3></div>
+    <div class="type"><h3 id="type-column_id">column_id() = <a href="#type-sql_id" class="seealso">sql_id()</a></h3></div>
+    <div class="type"><h3 id="type-option">option() = {file, string()} | temporary | in_memory</h3></div>
+    <div class="type"><h3 id="type-pk_constraint">pk_constraint() = autoincrement | desc | asc</h3></div>
+    <div class="type"><h3 id="type-pk_constraints">pk_constraints() = <a href="#type-pk_constraint" class="seealso">pk_constraint()</a> | [<a href="#type-pk_constraint" class="seealso">pk_constraint()</a>]</h3></div>
+    <div class="type"><h3 id="type-result">result() = {ok, pid()} | ignore | {error, any()}</h3></div>
+    <div class="type"><h3 id="type-sql_id">sql_id() = atom() | binary() | string()</h3></div>
+    <div class="type"><h3 id="type-sql_non_query_result">sql_non_query_result() = ok<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-sqlite_error" class="seealso">sqlite_error()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {rowid, integer()}</h3></div>
+    <div class="type"><h3 id="type-sql_params">sql_params() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-sql_value" class="seealso">sql_value()</a> | {atom() | string() | integer(), <a href="#type-sql_value" class="seealso">sql_value()</a>}]</h3></div>
+    <div class="type"><h3 id="type-sql_result">sql_result() = <a href="#type-sql_non_query_result" class="seealso">sql_non_query_result()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [{columns, [<a href="#type-column_id" class="seealso">column_id()</a>]} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{rows, [tuple()]} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-sqlite_error" class="seealso">sqlite_error()</a>]</h3></div>
+    <div class="type"><h3 id="type-sql_type">sql_type() = integer | text | double | real | blob | string()</h3></div>
+    <div class="type"><h3 id="type-sql_value">sql_value() = number() | null | iodata() | {blob, binary()}</h3></div>
+    <div class="type"><h3 id="type-sqlite_error">sqlite_error() = {error, integer(), string()} | {error, term()}</h3></div>
+    <div class="type"><h3 id="type-table_constraint">table_constraint() = {primary_key, [atom()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {unique, [atom()]}</h3></div>
+    <div class="type"><h3 id="type-table_constraints">table_constraints() = <a href="#type-table_constraint" class="seealso">table_constraint()</a> | [<a href="#type-table_constraint" class="seealso">table_constraint()</a>]</h3></div>
+    <div class="type"><h3 id="type-table_id">table_id() = <a href="#type-sql_id" class="seealso">sql_id()</a></h3></div>
+    <div class="type"><h3 id="type-table_info">table_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{<a href="#type-column_id" class="seealso">column_id()</a>, <a href="#type-sql_type" class="seealso">sql_type()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<a href="#type-column_id" class="seealso">column_id()</a>, <a href="#type-sql_type" class="seealso">sql_type()</a>, <a href="#type-column_constraints" class="seealso">column_constraints()</a>}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Db::atom()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>
+    Opens the sqlite3 database in file Db.db in the working directory
+    (creating this file if necessary). This is the same as open/1.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Db::atom(), Options::[option()]) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>
+    Opens a sqlite3 database creating one if necessary. By default the
+    database will be called Db.db in the current path. This can be changed
+    by passing the option {file, DbFile :: String()}. DbFile must be the
+    full path to the sqlite3 db file. start_link/1 can be use with stop/0,
+    sql_exec/1, create_table/2, list_tables/0, table_info/1, write/2,
+    read/2, delete/2 and drop_table/1. This is the same as open/2.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(Db::atom()) -&gt; result()</h3>
+
+
+<div class="description">
+
+<p>
+    Opens the sqlite3 database in file Db.db in the working directory
+    (creating this file if necessary). This is the same as open/1.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(Db::atom(), Options::[option()]) -&gt; {ok, Pid::pid()} | ignore | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>
+    Opens a sqlite3 database creating one if necessary. By default the database
+    will be called Db.db in the current path. This can be changed by
+    passing the option {file, DbFile :: string()}. DbFile must be the full
+    path to the sqlite3 db file. Can be use to open multiple sqlite3 databases
+    per node. Must be use in conjunction with stop/1, sql_exec/2,
+    create_table/3, list_tables/1, table_info/2, write/3, read/3, delete/3
+    and drop_table/2.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Db::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+    Closes the Db sqlite3 database.</p>
+</div></div>
+<div class="function">
+<h3 id="close_timeout/1">close_timeout(Db::atom(), Timeout::timeout()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+    Closes the Db sqlite3 database.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+    Closes the sqlite3 database.</p>
+</div></div>
+<div class="function">
+<h3 id="enable_load_extension/2">enable_load_extension(Db, Value) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sql_exec/1">sql_exec(SQL::iodata()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement directly.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec/1-1">sql_exec(Db::atom(), SQL::iodata()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement directly on the Db database. Returns the
+    result of the Sql call.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec/1-2">sql_exec(Db::atom(), SQL::iodata(), Params::[sql_value() | {atom() | string() | integer(), sql_value()}]) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement with parameters Params directly on the Db
+    database. Returns the result of the Sql call.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec_timeout/1">sql_exec_timeout(Db::atom(), SQL::iodata(), Timeout::timeout()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement directly on the Db database. Returns the
+    result of the Sql call.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec_timeout/1-1">sql_exec_timeout(Db::atom(), SQL::iodata(), Params::[sql_value() | {atom() | string() | integer(), sql_value()}], Timeout::timeout()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Executes the Sql statement with parameters Params directly on the Db
+    database. Returns the result of the Sql call.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec_script/1">sql_exec_script(Db::atom(), SQL::iodata()) -&gt; [sql_result()]</h3>
+
+
+<div class="description">
+
+<p>    
+Executes the Sql script (consisting of semicolon-separated statements)    
+directly on the Db database.</p>
+ 
+    <p>If an error happens while executing a statement, no further statements are executed.</p>
+ 
+    <p>The return value is the list of results of all executed statements.</p>
+</div></div>
+<div class="function">
+<h3 id="sql_exec_script_timeout/1">sql_exec_script_timeout(Db::atom(), SQL::iodata(), Timeout::timeout()) -&gt; [sql_result()]</h3>
+
+
+<div class="description">
+
+<p>    
+Executes the Sql script (consisting of semicolon-separated statements)    
+directly on the Db database.</p>
+ 
+    <p>If an error happens while executing a statement, no further statements are executed.</p>
+ 
+    <p>The return value is the list of results of all executed statements.</p>
+</div></div>
+<div class="function">
+<h3 id="prepare/1">prepare(Db::atom(), SQL::iodata()) -&gt; {ok, reference()} | sqlite_error()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bind/1">bind(Db::atom(), Ref::reference(), Params::sql_params()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next/1">next(Db::atom(), Ref::reference()) -&gt; tuple() | done | sqlite_error()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reset/1">reset(Db::atom(), Ref::reference()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clear_bindings/1">clear_bindings(Db::atom(), Ref::reference()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="finalize/1">finalize(Db::atom(), Ref::reference()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="columns/1">columns(Db::atom(), Ref::reference()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prepare_timeout/1">prepare_timeout(Db::atom(), SQL::iodata(), Timeout::timeout()) -&gt; {ok, reference()} | sqlite_error()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bind_timeout/1">bind_timeout(Db::atom(), Ref::reference(), Params::sql_params(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next_timeout/1">next_timeout(Db::atom(), Ref::reference(), Timeout::timeout()) -&gt; tuple() | done | sqlite_error()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reset_timeout/1">reset_timeout(Db::atom(), Ref::reference(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clear_bindings_timeout/1">clear_bindings_timeout(Db::atom(), Ref::reference(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="finalize_timeout/1">finalize_timeout(Db::atom(), Ref::reference(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="columns_timeout/1">columns_timeout(Db::atom(), Ref::reference(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_table/1">create_table(Tbl::table_id(), Columns::table_info()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table using TblInfo as the table structure. The    
+table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="create_table/1-1">create_table(Db::atom(), Tbl::table_id(), Columns::table_info()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table in Db using Columns as the table structure.    
+The table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="create_table_timeout/1">create_table_timeout(Db::atom(), Tbl::table_id(), Columns::table_info(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table in Db using Columns as the table structure.    
+The table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="create_table/1-2">create_table(Db::atom(), Tbl::table_id(), Columns::table_info(), Constraints::table_constraints()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table in Db using Columns as the table structure and    
+Constraints as table constraints.    
+The table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="create_table_timeout/1-1">create_table_timeout(Db::atom(), Tbl::table_id(), Columns::table_info(), Constraints::table_constraints(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>    
+Creates the Tbl table in Db using Columns as the table structure and    
+Constraints as table constraints.    
+The table structure is a list of {column name, column type} pairs.    
+e.g. [{name, text}, {age, integer}]</p>
+ 
+    <p>Returns the result of the create table call.</p>
+</div></div>
+<div class="function">
+<h3 id="list_tables/0">list_tables() -&gt; [table_id()]</h3>
+
+
+<div class="description">
+
+<p>
+    Returns a list of tables.</p>
+</div></div>
+<div class="function">
+<h3 id="list_tables/1">list_tables(Db::atom()) -&gt; [table_id()]</h3>
+
+
+<div class="description">
+
+<p>
+    Returns a list of tables for Db.</p>
+</div></div>
+<div class="function">
+<h3 id="list_tables_timeout/1">list_tables_timeout(Db::atom(), Timeout::timeout()) -&gt; [table_id()]</h3>
+
+
+<div class="description">
+
+<p>
+    Returns a list of tables for Db.</p>
+</div></div>
+<div class="function">
+<h3 id="table_info/1">table_info(Tbl::table_id()) -&gt; table_info()</h3>
+
+
+<div class="description">
+
+<p>
+     Returns table schema for Tbl.</p>
+</div></div>
+<div class="function">
+<h3 id="table_info/1-1">table_info(Db::atom(), Tbl::table_id()) -&gt; table_info()</h3>
+
+
+<div class="description">
+
+<p>
+    Returns table schema for Tbl in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="table_info_timeout/1">table_info_timeout(Db::atom(), Tbl::table_id(), Timeout::timeout()) -&gt; table_info()</h3>
+
+
+<div class="description">
+
+<p>
+    Returns table schema for Tbl in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(Tbl::table_id(), Data::[{column_id(), sql_value()}]) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Write Data into Tbl table. Value must be of the same type as
+    determined from table_info/2.</p>
+</div></div>
+<div class="function">
+<h3 id="write/1-1">write(Db::atom(), Tbl::table_id(), Data::[{column_id(), sql_value()}]) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Write Data into Tbl table in Db database. Value must be of the
+    same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="write_timeout/1">write_timeout(Db::atom(), Tbl::table_id(), Data::[{column_id(), sql_value()}], Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Write Data into Tbl table in Db database. Value must be of the
+    same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="write_many/1">write_many(Tbl::table_id(), Data::[[{column_id(), sql_value()}]]) -&gt; [sql_result()]</h3>
+
+
+<div class="description">
+
+<p>
+    Write all records in Data into table Tbl. Value must be of the
+    same type as determined from table_info/2.</p>
+</div></div>
+<div class="function">
+<h3 id="write_many/1-1">write_many(Db::atom(), Tbl::table_id(), Data::[[{column_id(), sql_value()}]]) -&gt; [sql_result()]</h3>
+
+
+<div class="description">
+
+<p>
+    Write all records in Data into table Tbl in database Db. Value
+    must be of the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="write_many_timeout/1">write_many_timeout(Db::atom(), Tbl::table_id(), Data::[[{column_id(), sql_value()}]], Timeout::timeout()) -&gt; [sql_result()]</h3>
+
+
+<div class="description">
+
+<p>
+    Write all records in Data into table Tbl in database Db. Value
+    must be of the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Tbl::table_id(), X2::{column_id(), sql_value()}, Data::[{column_id(), sql_value()}]) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+     Updates rows into Tbl table such that the Value matches the
+     value in Key with Data.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1-1">update(Db::atom(), Tbl::table_id(), X3::{column_id(), sql_value()}, Data::[{column_id(), sql_value()}]) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+     Updates rows into Tbl table in Db database such that the Value
+     matches the value in Key with Data.</p>
+</div></div>
+<div class="function">
+<h3 id="update_timeout/1">update_timeout(Db::atom(), Tbl::table_id(), X3::{column_id(), sql_value()}, Data::[{column_id(), sql_value()}], Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+     Updates rows into Tbl table in Db database such that the Value
+     matches the value in Key with Data.</p>
+</div></div>
+<div class="function">
+<h3 id="read_all/1">read_all(Db::atom(), Tbl::table_id()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads all rows from Table in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="read_all_timeout/1">read_all_timeout(Db::atom(), Tbl::table_id(), Timeout::timeout()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads all rows from Table in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="read_all/1-1">read_all(Db::atom(), Tbl::table_id(), Columns::[column_id()]) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads Columns in all rows from Table in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="read_all_timeout/1-1">read_all_timeout(Db::atom(), Tbl::table_id(), Columns::[column_id()], Timeout::timeout()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads Columns in all rows from Table in Db.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(Tbl::table_id(), Key::{column_id(), sql_value()}) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads a row from Tbl table such that the Value matches the
+    value in Column. Value must have the same type as determined
+    from table_info/2.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1-1">read(Db::atom(), Tbl::table_id(), X3::{column_id(), sql_value()}) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads a row from Tbl table in Db database such that the Value
+    matches the value in Column. ColValue must have the same type
+    as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1-2">read(Db::atom(), Tbl::table_id(), X3::{column_id(), sql_value()}, Columns::[column_id()]) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+     Reads a row from Tbl table in Db database such that the Value
+     matches the value in Column. Value must have the same type as
+     determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="read_timeout/1">read_timeout(Db::atom(), Tbl::table_id(), X3::{column_id(), sql_value()}, Timeout::timeout()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Reads a row from Tbl table in Db database such that the Value
+    matches the value in Column. ColValue must have the same type
+    as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="read_timeout/1-1">read_timeout(Db::atom(), Tbl::table_id(), X3::{column_id(), sql_value()}, Columns::[column_id()], Timeout::timeout()) -&gt; sql_result()</h3>
+
+
+<div class="description">
+
+<p>
+     Reads a row from Tbl table in Db database such that the Value
+     matches the value in Column. Value must have the same type as
+     determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Tbl::table_id(), Key::{column_id(), sql_value()}) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Delete a row from Tbl table in Db database such that the Value
+    matches the value in Column.
+    Value must have the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_timeout/1">delete_timeout(Db::atom(), Tbl::table_id(), Key::{column_id(), sql_value()}, Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Delete a row from Tbl table in Db database such that the Value
+    matches the value in Column.
+    Value must have the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(Db::atom(), Tbl::table_id(), Key::{column_id(), sql_value()}) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Delete a row from Tbl table in Db database such that the Value
+    matches the value in Column.
+    Value must have the same type as determined from table_info/3.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_table/1">drop_table(Tbl::table_id()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Drop the table Tbl.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_table/1-1">drop_table(Db::atom(), Tbl::table_id()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Drop the table Tbl from Db database.</p>
+</div></div>
+<div class="function">
+<h3 id="drop_table_timeout/1">drop_table_timeout(Db::atom(), Tbl::table_id(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Drop the table Tbl from Db database.</p>
+</div></div>
+<div class="function">
+<h3 id="vacuum/0">vacuum() -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Vacuum the default database.</p>
+</div></div>
+<div class="function">
+<h3 id="vacuum/1">vacuum(Db::atom()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Vacuum the Db database.</p>
+</div></div>
+<div class="function">
+<h3 id="vacuum_timeout/1">vacuum_timeout(Db::atom(), Timeout::timeout()) -&gt; sql_non_query_result()</h3>
+
+
+<div class="description">
+
+<p>
+    Vacuum the Db database.</p>
+</div></div>
+<div class="function">
+<h3 id="value_to_sql_unsafe/1">value_to_sql_unsafe(X::sql_value()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>     
+Converts an Erlang term to an SQL string.     
+Currently supports integers, floats, 'null' atom, and iodata     
+(binaries and iolists) which are treated as SQL strings.</p>
+ 
+     <p>Note that it opens opportunity for injection if an iolist includes     
+single quotes! Replace all single quotes (') with '' manually, or     
+use value_to_sql/1 if you are not sure if your strings contain     
+single quotes (e.g. can be entered by users).</p>
+ 
+     <p>Reexported from sqlite3_lib:value_to_sql/1 for user convenience.</p>
+</div></div>
+<div class="function">
+<h3 id="value_to_sql/1">value_to_sql(X::sql_value()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>     
+Converts an Erlang term to an SQL string.     
+Currently supports integers, floats, 'null' atom, and iodata     
+(binaries and iolists) which are treated as SQL strings.</p>
+ 
+     <p>All single quotes (') will be replaced with ''.</p>
+ 
+     <p>Reexported from sqlite3_lib:value_to_sql/1 for user convenience.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Tee Teoh</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_core_coverage_fsm (riak_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_core_coverage_fsm</h1>
+<h2 class="modsummary">The coverage fsm is a behavior used to create       
+a plan to cover a set of VNodes, distribute       
+a specified command to each VNode in the plan       
+and then compile the results.</h2>
+<div class="description">
+<p>The coverage fsm is a behavior used to create       
+a plan to cover a set of VNodes, distribute       
+a specified command to each VNode in the plan       
+and then compile the results.</p>
+ 
+       <p>The number of VNodes required for full coverage       
+is based on the number of partitions, the bucket       
+n_val, and the number of primary VNodes from the       
+preference list that are configured to be used by       
+the module implementing this behavior.</p>
+ 
+       <p>Modules implementing this behavior should return       
+a 5 member tuple from their init function that looks       
+like this:</p>
+ 
+          <p><code>{ok, ModFun, PrimaryVNodeCoverage,
+             NodeCheckService, VNodeMaster}</code></p>
+ 
+       <p>The description of the tuple members is as follows:</p>
+ 
+       <list>
+       <item><p>ModFun - The function that will be called by each
+                VNode that is part of the coverage plan.</p></item>
+       <item><p>PrimaryVNodeCoverage - The number of primary VNodes
+       from the preference list to use in creating the coverage
+       plan.</p></item>
+       <item><p>NodeCheckService - The service to use to check for available
+       nodes (e.g. riak_kv).</p></item>
+       <item><p>VNodeMaster - The atom to use to reach the vnode master module.</p></item>
+       </list></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = all | binary()</h3></div>
+    <div class="type"><h3 id="type-filter">filter() = none | function() | [mfa()]</h3></div>
+    <div class="type"><h3 id="type-from">from() = {raw, <a href="#type-req_id" class="seealso">req_id()</a>, pid()}</h3></div>
+    <div class="type"><h3 id="type-req_id">req_id() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(X1::atom()) -&gt; undefined | [{atom(), arity()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Mod::module(), From::from(), ItemFilter::filter(), RequestArgs::list(), Timeout::timeout(), ClientType::atom()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start a riak_core_coverage_fsm.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(Mod::module(), From::from(), Bucket::bucket(), ItemFilter::filter(), RequestArgs::list(), Timeout::timeout(), ClientType::atom()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start a riak_core_coverage_fsm.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

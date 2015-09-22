@@ -1,0 +1,1 @@
+var index = [['app','riak_geo','riak_geo','[application]'],['mod','riak_geo','spacak_app',[]],['mod','riak_geo','spacak_sup',[]],['fun','riak_geo','spacak_app:start/2',[]],['fun','riak_geo','spacak_app:stop/1',[]],['fun','riak_geo','spacak_sup:init/1',[]],['fun','riak_geo','spacak_sup:start_link/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','couch_view_merger','couch_view_merger','[application]'],['mod','couch_view_merger','couch_skew',[]],['fun','couch_view_merger','couch_skew:in/3',[]],['fun','couch_view_merger','couch_skew:min/1',[]],['fun','couch_view_merger','couch_skew:new/0',[]],['fun','couch_view_merger','couch_skew:out/2',[]],['fun','couch_view_merger','couch_skew:size/1',[]]];

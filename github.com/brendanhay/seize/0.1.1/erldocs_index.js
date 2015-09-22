@@ -1,0 +1,1 @@
+var index = [['app','seize','seize','[application]'],['mod','seize','seize','Run system commands via ports.'],['fun','seize','seize:cmd/1',[]],['fun','seize','seize:cmd/1',[]],['fun','seize','seize:cmd/1',[]]];

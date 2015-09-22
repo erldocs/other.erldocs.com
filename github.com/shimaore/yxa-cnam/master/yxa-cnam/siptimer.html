@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>siptimer (yxa-cnam) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>siptimer</h1>
+<h2 class="modsummary">     Module to manage timers, for use in client and server
+              transactions.</h2>
+<div class="description">
+<p>     Module to manage timers, for use in client and server
+              transactions. Make it easier to cancel timers and
+              revive them when we get provisional responses etc.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-siptimer">siptimer() = #siptimer{}</h3></div>
+    <div class="type"><h3 id="type-siptimerlist">siptimerlist() = #siptimerlist{}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add_timer/4">add_timer(Timeout, Description, AppSignal, TimerList) -&gt; NewTimerList</h3>
+
+<ul class="type">
+<li><code>Timeout = integer()</code></li><li><code>Description = string()</code></li><li><code>AppSignal = term()</code></li><li><code>TimerList = #siptimerlist{}</code></li><li><code>NewTimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Create a new timer and add it to TimerList.</p>
+</div></div>
+<div class="function">
+<h3 id="empty/0">empty() -&gt; NewTimerList</h3>
+
+<ul class="type">
+<li><code>NewTimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Create an empty siptimerlist.</p>
+</div></div>
+<div class="function">
+<h3 id="reset_timers/2">reset_timers(T::Timers, TimerList) -&gt; NewTimerList</h3>
+
+<ul class="type">
+<li><code>Timers = [#siptimer{}]</code></li><li><code>TimerList = #siptimerlist{}</code></li><li><code>NewTimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Reset all timers listed in Timers to their original
+           timeout value.</p>
+</div></div>
+<div class="function">
+<h3 id="revive_timer/3">revive_timer(SipTimer, NewTimeout, TimerList) -&gt; NewTimerList</h3>
+
+<ul class="type">
+<li><code>SipTimer = #siptimer{}</code></li><li><code>NewTimeout = integer()</code></li><li><code>TimerList = #siptimerlist{}</code></li><li><code>NewTimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Revive a sip timer. This means we start a new timer with
+           the same parameters as the old one, but with a new
+           timeout value. Don't revive a timer that hasn't fired or
+           you will have two timers that might fire!</p>
+</div></div>
+<div class="function">
+<h3 id="get_timer/2">get_timer(Ref, TimerList) -&gt; #siptimer{} | none</h3>
+
+<ul class="type">
+<li><code>Ref = ref()</code></li><li><code>TimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Locate a timer in TimerList whose reference matches Ref.</p>
+</div></div>
+<div class="function">
+<h3 id="get_timers_appsignal_matching/2">get_timers_appsignal_matching(AppSignal, TimerList) -&gt; [#siptimer{}]</h3>
+
+<ul class="type">
+<li><code>AppSignal = term()</code></li><li><code>TimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Locate all timers in TimerList which have their
+           'appsignal' element matching AppSignal.</p>
+</div></div>
+<div class="function">
+<h3 id="extract/2">extract(Values, SipTimer) -&gt; [term()]</h3>
+
+<ul class="type">
+<li><code>Values = [ref | timeout | description | starttime | appsignal]</code></li><li><code>TimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Extract elements from a siptimer record().</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_timers/2">cancel_timers(T::Timers, TimerList) -&gt; NewTimerList</h3>
+
+<ul class="type">
+<li><code>Timers = [#siptimer{}]</code></li><li><code>TimerList = #siptimerlist{}</code></li><li><code>NewTimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Cancel a siptimer, return a new TimerList without the
+           cancelled siptimer.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_all_timers/1">cancel_all_timers(TimerList) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>TimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Cancel all siptimers in TimerList.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_timers_with_appsignal/2">cancel_timers_with_appsignal(AppSignal, TimerList) -&gt; NewTimerList</h3>
+
+<ul class="type">
+<li><code>AppSignal = term()</code></li><li><code>TimerList = #siptimerlist{}</code></li><li><code>NewTimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Cancel all siptimers in TimerList that has an appsignal
+           matching AppSignal.</p>
+</div></div>
+<div class="function">
+<h3 id="debugfriendly/1">debugfriendly(TimerList) -&gt; [string()]</h3>
+
+<ul class="type">
+<li><code>TimerList = #siptimerlist{}</code></li></ul>
+<div class="description">
+
+<p>    Format all timers in TimerList into strings suitable for
+           debug logging.</p>
+</div></div>
+<div class="function">
+<h3 id="timeout2str/1">timeout2str(Timeout) -&gt; TStr</h3>
+
+<ul class="type">
+<li><code>Timeout = integer()</code></li><li><code>TStr = string()</code></li></ul>
+<div class="description">
+
+<p>    Give string second representation of Timeout.</p>
+</div></div>
+<div class="function">
+<h3 id="get_length/1">get_length(TimerList) -&gt; Len</h3>
+
+<ul class="type">
+<li><code>TimerList = #siptimerlist{}</code></li><li><code>Len = integer()</code></li></ul>
+<div class="description">
+
+<p>    Return the length of the list of siptimers contained in
+           the siptimerlist record().</p>
+</div></div>
+<div class="function">
+<h3 id="test_get_appsignals/1">test_get_appsignals(TimerList) -&gt; AppSignals</h3>
+
+<ul class="type">
+<li><code>AppSignals = [term()]</code></li></ul>
+<div class="description">
+
+<p>    Exported function for use in unit testings of modules
+           using siptimer timers. Returns just the appsignals from
+           the timers in TimerList, in fixed order of which timers
+           would fire first.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Fredrik Thulin</aname>
+<email>ft@it.su.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

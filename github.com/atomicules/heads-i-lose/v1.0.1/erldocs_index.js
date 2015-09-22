@@ -1,0 +1,1 @@
+var index = [['app','heads-i-lose','heads-i-lose','[application]'],['mod','heads-i-lose','headsilose',[]],['fun','heads-i-lose','headsilose:get_locations/0',[]],['fun','heads-i-lose','headsilose:get_locations/1',[]],['fun','heads-i-lose','headsilose:headsilose/1',[]],['fun','heads-i-lose','headsilose:headsilose/2',[]]];

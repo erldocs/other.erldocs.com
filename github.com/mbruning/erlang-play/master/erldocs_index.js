@@ -1,0 +1,1 @@
+var index = [['app','erlang-play','erlang-play','[application]'],['mod','erlang-play','bin_sum',[]],['fun','erlang-play','bin_sum:calc_rec/1',[]]];

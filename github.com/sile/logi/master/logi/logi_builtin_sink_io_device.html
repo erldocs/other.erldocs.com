@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>logi_builtin_sink_io_device (logi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>logi_builtin_sink_io_device</h1>
+<h2 class="modsummary">A built-in IO device sink.</h2>
+<div class="description">
+<p>A built-in IO device sink</p>
+ 
+  <p>NOTE: This module is provided for debuging/testing purposes only.  
+(e.g. Overload protection is missing)</p>
+ 
+  <pre class="sh_erlang">  %%%
+  %%% Usage Example
+  %%%
+ 
+  %%
+  %% 1. The default IO device is `standard_io'
+  %%
+  &gt; logi_builtin_sink_io_device:install(info).
+  &gt; logi:info("Hello World").
+  # TODO: show output
+  &gt; logi_builtin_sink_io_device:uninstall().
+ 
+  %%
+  %% 2. Output to a file
+  %%
+  &gt; {ok, Fd} = file:open("/tmp/hoge", [write]).
+  &gt; logi_builtin_sink_io_device:install(info, [{io_device, Fd}]).
+  &gt; logi:info("Hello World").
+  &gt; logi_builtin_sink_io_device:uninstall().
+  &gt; file:read_file("/tmp/hoge").
+  # TODO: show result</pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="install/1">install(Condition::condition() (see module logi_sink)) -&gt; install_sink_result() (see module logi_channel)</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#install/2" class="seealso">install(Condition, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="install/1-1">install(Condition::condition() (see module logi_sink), Options) -&gt; install_sink_result() (see module logi_channel)</h3>
+
+<ul class="type">
+<li><code>Options = [Option]</code></li><li><code>Option = {id, id() (see module logi_sink)} | {channel, id() (see module logi_channel)} | {io_device, device() (see module io)} | {layout, layout() (see module logi_layout)} | install_sink_option() (see module logi_channel)</code></li></ul>
+<div class="description">
+
+<p>Installs a sink</p>
+ 
+  <p>The default value of <code>Options</code>: <br />
+  - id: <code>logi_builtin_sink_null</code> <br />
+  - channel: <code>logi_channel:default_channel()</code> <br />
+  - io_device: <code>standard_io</code> <br />
+  - layout: <code>logi_builtin_layout_simple</code> <br /></p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/0">uninstall() -&gt; uninstall_sink_result() (see module logi_channel)</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#uninstall/1" class="seealso">uninstall([])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/1">uninstall(Options) -&gt; uninstall_sink_result() (see module logi_channel)</h3>
+
+<ul class="type">
+<li><code>Options = [Option]</code></li><li><code>Option = {id, id() (see module logi_sink)} | {channel, id() (see module logi_channel)}</code></li></ul>
+<div class="description">
+
+<p>Uninstalls a sink</p>
+ 
+  <p>The default value of <code>Options</code>: <br />
+  - id: <code>logi_builtin_sink_null</code> <br />
+  - channel: <code>logi_channel:default_channel()</code> <br /></p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

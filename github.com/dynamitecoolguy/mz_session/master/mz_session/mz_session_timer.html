@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mz_session_timer (mz_session) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mz_session_timer</h1>
+<h2 class="modsummary">セッション用のメッセージリスナー.</h2>
+<div class="description">
+<p>セッション用のメッセージリスナー</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>サービス開始</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(SessionId::string()) -&gt; {ok, #session_timer{fired=undefined | integer(), sid=undefined | string(), module=undefined | module(), interval=undefined | integer(), param=undefined | term()}}</h3>
+
+
+<div class="description">
+
+<p>セッションの取得</p>
+</div></div>
+<div class="function">
+<h3 id="get_list/0">get_list() -&gt; [#session_timer{fired=undefined | integer(), sid=undefined | string(), module=undefined | module(), interval=undefined | integer(), param=undefined | term()}]</h3>
+
+
+<div class="description">
+
+<p>セッションデータの取得</p>
+</div></div>
+<div class="function">
+<h3 id="get_id_list/0">get_id_list() -&gt; [string()]</h3>
+
+
+<div class="description">
+
+<p>セッションIdの取得</p>
+</div></div>
+<div class="function">
+<h3 id="clear_all/0">clear_all() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>セッション一覧のクリア</p>
+</div></div>
+<div class="function">
+<h3 id="get_firing_schedule/0">get_firing_schedule() -&gt; [{integer(), string()}]</h3>
+
+
+<div class="description">
+
+<p>発火予定一覧の取得</p>
+</div></div>
+<div class="function">
+<h3 id="clear_firing_schedule/0">clear_firing_schedule() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>発火予定一覧のリセット</p>
+</div></div>
+<div class="function">
+<h3 id="set/1">set(Module::module(), SessionId::string(), Interval::integer(), Param::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>セッションインターバルをセット</p>
+</div></div>
+<div class="function">
+<h3 id="reset/1">reset(Module::module(), SessionId::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>セッションインターバルをカウンターをリセット</p>
+</div></div>
+<div class="function">
+<h3 id="clear/1">clear(Module::module(), SessionId::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>セッションインターバルを削除</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Module::module(), SessionId::string(), Param::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>パラメータを更新</p>
+</div></div>
+<div class="function">
+<h3 id="update/1-1">update(Module::module(), SessionId::string(), Interval::integer(), Param::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>時間とパラメータを更新</p>
+</div></div>
+<div class="function">
+<h3 id="timer_ticked/1">timer_ticked(Pid::pid()) -&gt; none</h3>
+
+
+<div class="description">
+
+<p>定期的にチェックするためのタイマー</p>
+</div></div>
+<div class="function">
+<h3 id="fire_timer/1">fire_timer(Session_timer::[#session_timer{fired=undefined | integer(), sid=undefined | string(), module=undefined | module(), interval=undefined | integer(), param=undefined | term()}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>handle_cast({check_interval}からspawnされる)</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; {ok, term()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>start_linkから呼び出される</p>
+<p><em>See also:</em> <a href="gen_server.html" class="seealso">gen_server</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, Handle) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>同期処理</p>
+<p><em>See also:</em> <a href="gen_server.html" class="seealso">gen_server</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(X1, Handle) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>非同期処理</p>
+<p><em>See also:</em> <a href="gen_server.html" class="seealso">gen_server</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), X2::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>終了処理</p>
+<p><em>See also:</em> <a href="gen_server.html" class="seealso">gen_server</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::timeout | term(), State::term()) -&gt; {noreply, term()}</h3>
+
+
+<div class="description">
+
+<p>handle_info</p>
+<p><em>See also:</em> <a href="gen_server.html" class="seealso">gen_server</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVsn::term(), State::term(), Extra::term()) -&gt; {ok, term()}</h3>
+
+
+<div class="description">
+
+<p>コードアップグレード</p>
+<p><em>See also:</em> <a href="gen_server.html" class="seealso">gen_server</a>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>s.kodama</aname>
+<email>dynamitecoolguy@pfb.jp</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

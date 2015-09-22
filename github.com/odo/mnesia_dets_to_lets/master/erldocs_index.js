@@ -1,0 +1,1 @@
+var index = [['app','mnesia_dets_to_lets','mnesia_dets_to_lets','[application]'],['mod','mnesia_dets_to_lets','dets_to_lets',[]],['fun','mnesia_dets_to_lets','dets_to_lets:init/0',[]],['fun','mnesia_dets_to_lets','dets_to_lets:test/1',[]]];

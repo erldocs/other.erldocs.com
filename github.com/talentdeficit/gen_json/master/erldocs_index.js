@@ -1,0 +1,1 @@
+var index = [['app','gen_json','gen_json','[application]'],['mod','gen_json','gen_json',[]],['fun','gen_json','gen_json:behaviour_info/1',[]],['fun','gen_json','gen_json:handle_event/2',[]],['fun','gen_json','gen_json:init/1',[]],['fun','gen_json','gen_json:parser/1',[]],['fun','gen_json','gen_json:parser/2',[]],['fun','gen_json','gen_json:parser/3',[]]];

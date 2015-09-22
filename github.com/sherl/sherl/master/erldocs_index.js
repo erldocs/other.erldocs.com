@@ -1,0 +1,1 @@
+var index = [['app','sherl','sherl','[application]'],['mod','sherl','sherl_cmd','POSIX shell command split, join and escape.'],['fun','sherl','sherl_cmd:escape/1',[]],['fun','sherl','sherl_cmd:join/1',[]],['fun','sherl','sherl_cmd:split/1',[]]];

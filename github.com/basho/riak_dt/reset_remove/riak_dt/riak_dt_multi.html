@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_dt_multi (riak_dt) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_dt_multi</h1>
+<h2 class="modsummary">a multi CRDT holder.</h2>
+<div class="description">
+<p>a multi CRDT holder.  A Document-ish thing.  Consists of two
+  elements, a Schema and a value list. The schema is an OR-Set of
+  {name, type} tuples that identify a field and it's type (type must
+  be a CRDT module, yes, even this one.)  The value list is a dict of
+  {name, type} -&gt; CRDT value mappings.  The value list may have it's
+  CRDT value removed as soon as the key is removed from the
+  keyset. The Keyset requries consensus for GC.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-crdt_mod">crdt_mod() = riak_dt_gcounter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_pncounter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_lwwreg<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_orset<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_vvorset<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_zorset<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| riak_dt_multi</h3></div>
+    <div class="type"><h3 id="type-field">field() = {Name :: term(), Type :: <a href="#type-crdt_mod" class="seealso">crdt_mod()</a>}</h3></div>
+    <div class="type"><h3 id="type-multi">multi()</h3></div>
+    <div class="type"><h3 id="type-multi_q">multi_q() = size<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get, <a href="#type-field" class="seealso">field()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_crdt, <a href="#type-field" class="seealso">field()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| keyset<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {contains, <a href="#type-field" class="seealso">field()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; multi()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="value/1">value(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>get the current set of values for this multi</p>
+</div></div>
+<div class="function">
+<h3 id="value/1-1">value(X1::multi_q(), Map::multi()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>execute the given <code>multi_q()</code> against the given
+  <code>multi()</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="update/3">update(X1, Actor, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="merge/1">merge(X1::multi(), X2::multi()) -&gt; multi()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="equal/1">equal(X1::multi(), X2::multi()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reset/1">reset(Map::multi(), Actor::term()) -&gt; multi()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(Map) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="from_binary/1">from_binary(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

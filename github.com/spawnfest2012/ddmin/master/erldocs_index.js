@@ -1,0 +1,1 @@
+var index = [['app','ddmin','ddmin','[application]'],['mod','ddmin','naive_recorder','Naive recorder of messages to a process using dbg '],['fun','ddmin','naive_recorder:get_recorded_messages/1',[]],['fun','ddmin','naive_recorder:pause/1',[]],['fun','ddmin','naive_recorder:record/1',[]],['fun','ddmin','naive_recorder:stop/1',[]]];

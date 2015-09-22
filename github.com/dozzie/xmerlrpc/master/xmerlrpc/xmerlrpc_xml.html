@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>xmerlrpc_xml (xmerlrpc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>xmerlrpc_xml</h1>
+<h2 class="modsummary">     
+Parsing and forming XML-RPC messages for xmerlrpc.</h2>
+<div class="description">
+<p>     
+Parsing and forming XML-RPC messages for xmerlrpc.</p>
+  
+     Module uses data structures after <code>jsx</code> application, which in turn uses
+     <url href="http://www.erlang.org/eeps/eep-0018.html">EEP-18</url>
+     structures.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-jsx_array">jsx_array() = [<a href="#type-jsx_value" class="seealso">jsx_value()</a>]</h3></div>
+    <div class="type"><h3 id="type-jsx_hash">jsx_hash() = [{}] | [{<a href="#type-jsx_hash_key" class="seealso">jsx_hash_key()</a>, <a href="#type-jsx_value" class="seealso">jsx_value()</a>}, ...]</h3></div>
+    <div class="type"><h3 id="type-jsx_hash_key">jsx_hash_key() = string() | binary() | atom()</h3></div>
+    <div class="type"><h3 id="type-jsx_scalar">jsx_scalar() = binary() | number() | null | true | false</h3></div>
+    <div class="type"><h3 id="type-jsx_value">jsx_value() = <a href="#type-jsx_hash" class="seealso">jsx_hash()</a> | <a href="#type-jsx_array" class="seealso">jsx_array()</a> | <a href="#type-jsx_scalar" class="seealso">jsx_scalar()</a></h3></div>
+    <div class="type"><h3 id="type-optlist">optlist() = [{atom(), term()} | atom()]</h3></div>
+    <div class="type"><h3 id="type-proc_arg">proc_arg() = <a href="#type-jsx_value" class="seealso">jsx_value()</a></h3></div>
+    <div class="type"><h3 id="type-proc_name">proc_name() = string() | binary() | atom()</h3></div>
+    <div class="type"><h3 id="type-xml_node">xml_node() = #xmlElement{} | #xmlText{}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_exception">xmlrpc_exception() = {Code :: integer(), Message :: string()}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_request">xmlrpc_request() = {<a href="#type-proc_name" class="seealso">proc_name()</a>, [<a href="#type-proc_arg" class="seealso">proc_arg()</a>]}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_result">xmlrpc_result() = <a href="#type-jsx_value" class="seealso">jsx_value()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="request/1">request(ProcName::proc_name(), ProcParams::[proc_arg()], Opts::optlist()) -&gt; {ok, iolist()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Form XML document containing XML-RPC request (function call).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="result/1">result(Result::proc_arg(), Opts::optlist()) -&gt; {ok, iolist()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Form XML document carrying call result (function reply).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="exception/1">exception(Code::integer(), MessageIOL::iolist(), Opts::optlist()) -&gt; {ok, iolist()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Form XML document carrying exception information (function reply).
+ </p>
+</div></div>
+<div class="function">
+<h3 id="parse/1">parse(XML::binary() | string(), Opts::optlist()) -&gt; {ok, request, xmlrpc_request()} | {ok, result, xmlrpc_result()} | {ok, exception, xmlrpc_exception()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Parse XML message to request, result or exception.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="parse_request/1">parse_request(XML::binary() | string(), Opts::optlist()) -&gt; {ok, request, xmlrpc_request()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Parse XML message to request.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="parse_response/1">parse_response(XML::binary() | string(), Opts::optlist()) -&gt; {ok, result, Result::xmlrpc_result()} | {ok, exception, Message::xmlrpc_exception()} | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Parse XML message to result or exception.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

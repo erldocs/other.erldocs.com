@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>grass (grass) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>grass</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-error">error() = not_found | already_exists | {eleveldb, binary()}</h3></div>
+    <div class="type"><h3 id="type-graph">graph() = binary() | pid()</h3></div>
+    <div class="type"><h3 id="type-key">key() = binary()</h3></div>
+    <div class="type"><h3 id="type-tag">tag() = {<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>}</h3></div>
+    <div class="type"><h3 id="type-value">value() = term()</h3></div>
+    <div class="type"><h3 id="type-vertex">vertex() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="graphs/0">graphs() -&gt; [graph(), ...] | []</h3>
+
+
+<div class="description">
+
+<p>Shows list of available graphs.</p>
+</div></div>
+<div class="function">
+<h3 id="create/1">create(G::graph()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Creates a new graph G.</p>
+</div></div>
+<div class="function">
+<h3 id="destroy/1">destroy(G::graph()) -&gt; ok | error()</h3>
+
+
+<div class="description">
+
+<p>Deletes the graph G.
+   This function not only drops all the verticies on the graph, but also
+   removes graph's directory and shutting down graph's server.</p>
+</div></div>
+<div class="function">
+<h3 id="verticies/1">verticies(G::graph()) -&gt; list() | error()</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all verticies of the graph G.
+   If the graph is empty, returns an empty list.</p>
+</div></div>
+<div class="function">
+<h3 id="verticies/1-1">verticies(G::graph(), V::vertex()) -&gt; list() | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Returns a list of the verticies of graph G connected to the vertex V.
+   If the vertex doesn't have the connections returns an empty list.</p>
+</div></div>
+<div class="function">
+<h3 id="vertex_exists/1">vertex_exists(G::graph(), V::vertex()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks is the vertex V exists in graph G.</p>
+</div></div>
+<div class="function">
+<h3 id="add_vertex/1">add_vertex(G::graph(), V::vertex()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Creates a new vertex V in graph G</p>
+</div></div>
+<div class="function">
+<h3 id="clone_vertex/1">clone_vertex(G::graph(), From::vertex(), To::vertex()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Creates an exact copy of the vertex V1 with name V2 in graph G.
+   Duplicates all the edges connecting to V1.</p>
+</div></div>
+<div class="function">
+<h3 id="modify_vertex/1">modify_vertex(G::graph(), From::vertex(), To::vertex()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Convinience funtion. Creates an exact copy of the vertex V1 with name V2 in graph G.
+   and deletes the vertex V1.</p>
+</div></div>
+<div class="function">
+<h3 id="del_vertex/1">del_vertex(G::graph(), V::vertex()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Deletes the vertex V in graph G.</p>
+</div></div>
+<div class="function">
+<h3 id="edges/1">edges(G::graph()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all edges of the graph G.
+   If the graph is empty, returns an empty list.</p>
+</div></div>
+<div class="function">
+<h3 id="edges/1-1">edges(G::graph(), V::vertex()) -&gt; list() | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Returns a list of the edges connecting to the vertex V in graph G.</p>
+</div></div>
+<div class="function">
+<h3 id="edge_exists/1">edge_exists(G::graph(), From::vertex(), To::vertex()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks if an edge between verticies 'From' and 'To' exists in graph G.</p>
+</div></div>
+<div class="function">
+<h3 id="add_edge/1">add_edge(G::graph(), From::vertex(), To::vertex()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Adds edge between verticies 'From' and 'To' in graph G.
+   Returns 'ok' even if the edge already exists.</p>
+</div></div>
+<div class="function">
+<h3 id="del_edge/1">del_edge(G::graph(), From::vertex(), To::vertex()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Deletes the edge between the verticies 'From' and 'To' in graph G.
+   Returns 'ok' even if the edge doesn't exist.</p>
+</div></div>
+<div class="function">
+<h3 id="tags/1">tags(G::graph(), V::vertex()) -&gt; [tag(), ...] | [] | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Gets all the attributes that belong to a given vertex V in graph G.</p>
+</div></div>
+<div class="function">
+<h3 id="tags/1-1">tags(G::graph(), V::vertex(), Key::key()) -&gt; {key(), value()} | undefined | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Gets the value of the attribute K in vertex V of graph G
+   Return undefined if there is no such attribute.</p>
+</div></div>
+<div class="function">
+<h3 id="add_tag/1">add_tag(G::graph(), V::vertex(), Key::key(), Val::value()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Adds the attribute to a vertex V in graph G.
+   If the attribute already exists, updates it.</p>
+</div></div>
+<div class="function">
+<h3 id="del_tag/1">del_tag(G::graph(), V::vertex(), Key::key()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Removes the attribute with key K from vertex V in graph G.
+   If the attribute doesn't exists just returns ok.</p>
+</div></div>
+<div class="function">
+<h3 id="is_empty/1">is_empty(G::graph()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks if the graph G have any verticies.</p>
+</div></div>
+<div class="function">
+<h3 id="drop/1">drop(G::graph()) -&gt; ok | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Deletes all the verticies and edges in the graph G.
+    Kind of like ab analog of 'drop table' in RDBMS.</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(G) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="example/1">example(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/2">start(Type, StartArgs) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Vitaliy Avdeyev</aname>
+<email>eiri@eiri.ca</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

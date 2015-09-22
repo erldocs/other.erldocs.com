@@ -1,0 +1,1 @@
+var index = [['app','gen_netlink','gen_netlink','[application]'],['mod','gen_netlink','gen_netlink_app',[]],['mod','gen_netlink','gen_netlink_sup',[]],['fun','gen_netlink','gen_netlink_app:start/2',[]],['fun','gen_netlink','gen_netlink_app:stop/1',[]],['fun','gen_netlink','gen_netlink_sup:init/1',[]],['fun','gen_netlink','gen_netlink_sup:start_link/0',[]]];

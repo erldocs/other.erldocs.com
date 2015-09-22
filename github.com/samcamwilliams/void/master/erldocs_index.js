@@ -1,0 +1,1 @@
+var index = [['app','void','void','[application]'],['mod','void','vo',[]],['mod','void','vo_console',[]],['mod','void','vo_db',[]],['mod','void','vo_write',[]],['fun','void','vo:add/0',[]],['fun','void','vo:console/0',[]],['fun','void','vo_console:loop/0',[]],['fun','void','vo_db:load/0',[]],['fun','void','vo_db:save/1',[]],['fun','void','vo_write:add/0',[]]];

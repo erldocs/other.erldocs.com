@@ -1,0 +1,1 @@
+var index = [['app','docopt.erl','docopt.erl','[application]'],['mod','docopt.erl','docopt',[]],['mod','docopt.erl','docopt_spec',[]],['fun','docopt.erl','docopt:parse/2',[]],['fun','docopt.erl','docopt_spec:opt/2',[]],['fun','docopt.erl','docopt_spec:parse/1',[]]];

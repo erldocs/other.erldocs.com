@@ -1,0 +1,1 @@
+var index = [['app','io_nif','io_nif','[application]'],['mod','io_nif','io_nif',[]],['mod','io_nif','io_nif_test',[]],['fun','io_nif','io_nif:io_printf_8_bytes/1',[]],['fun','io_nif','io_nif:io_printf_using_size/2',[]],['fun','io_nif','io_nif:run_printf/1',[]],['fun','io_nif','io_nif_test:do_profiling/1',[]],['fun','io_nif','io_nif_test:simple2_test/0',[]]];

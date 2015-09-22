@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ejabberd_commands (ejabberd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ejabberd_commands</h1>
+<h2 class="modsummary">Management of ejabberd commands.</h2>
+<div class="description">
+<p>Management of ejabberd commands.</p>
+  
+   <p>An ejabberd command is an abstract function identified by a name,   
+with a defined number and type of calling arguments and type of   
+result, that can be defined in any Erlang module and executed   
+using any valid frontend.</p>
+  
+  
+   <em><marker id="Define_a_new_ejabberd_command">Define a new ejabberd command</marker></em>
+  
+   <p>ejabberd commands can be defined and registered in   
+any Erlang module.</p>
+  
+   <p>Some commands are procedures; and their purpose is to perform an   
+action in the server, so the command result is only some result   
+code or result tuple.  Other commands are inspectors, and their   
+purpose is to gather some information about the server and return   
+a detailed response: it can be integer, string, atom, tuple, list   
+or a mix of those ones.</p>
+  
+   <p>The arguments and result of an ejabberd command are strictly   
+defined.  The number and format of the arguments provided when   
+calling an ejabberd command must match the definition of that   
+command.  The format of the result provided by an ejabberd command   
+must be exactly its definition. For example, if a command is said   
+to return an integer, it must always return an integer (except in   
+case of a crash).</p>
+  
+   <p>If you are developing an Erlang module that will run inside   
+ejabberd and you want to provide a new ejabberd command to   
+administer some task related to your module, you only need to:   
+implement a function, define the command, and register it.</p>
+  
+  
+   <em><marker id="Define_a_new_ejabberd_command">Define a new ejabberd command</marker></em>
+  
+   <p>An ejabberd command is defined using the Erlang record   
+'ejabberd_commands'.  This record has several elements that you   
+must define. Note that 'tags', 'desc' and 'longdesc' are optional.</p>
+  
+   <p>For example let's define an ejabberd command 'pow' that gets the   
+integers 'base' and 'exponent'. Its result will be an integer   
+'power':</p>
+  
+   <pre class="sh_erlang">#ejabberd_commands{name = pow, tags = [test],
+                   desc = "Return the power of base for exponent",
+                   longdesc = "This is an example command. The formula is:\n"
+                   "  power = base ^ exponent",
+                   module = ?MODULE, function = pow,
+                   args = [{base, integer}, {exponent, integer}],
+                   result = {power, integer}}</pre>
+  
+  
+   <em><marker id="Implement_the_function_associated_to_the_command">Implement the function associated to the command</marker></em>
+  
+   <p>Now implement a function in your module that matches the arguments   
+and result of the ejabberd command.</p>
+  
+   <p>For example the function calc_power gets two integers Base and   
+Exponent. It calculates the power and rounds to an integer:</p>
+  
+   <pre class="sh_erlang">calc_power(Base, Exponent) -&gt;
+      PowFloat = math:pow(Base, Exponent),
+      round(PowFloat).</pre>
+  
+   Since this function will be called by ejabberd_commands, it must be exported.
+   Add to your module:
+   <pre class="sh_erlang">-export([calc_power/2]).</pre>
+  
+   <p>Only some types of result formats are allowed.   
+If the format is defined as 'rescode', then your function must return:     
+ok | true | atom()   
+where the atoms ok and true as considered positive answers,   
+and any other response atom is considered negative.</p>
+  
+   <p>If the format is defined as 'restuple', then the command must return:     
+{rescode(), string()}</p>
+  
+   <p>If the format is defined as '{list, something()}', then the command   
+must return a list of something().</p>
+  
+  
+   <em><marker id="Register_the_command">Register the command</marker></em>
+  
+   <p>Define this function and put inside the #ejabberd_command you   
+defined in the beginning:</p>
+  
+   <pre class="sh_erlang">commands() -&gt;
+      [
+  
+      ].</pre>
+  
+   <p>You need to include this header file in order to use the record:</p>
+  
+   <pre class="sh_erlang">-include("ejabberd_commands.hrl").</pre>
+  
+   <p>When your module is initialized or started, register your commands:</p>
+  
+   <pre class="sh_erlang">ejabberd_commands:register_commands(commands()),</pre>
+  
+   <p>And when your module is stopped, unregister your commands:</p>
+  
+   <pre class="sh_erlang">ejabberd_commands:unregister_commands(commands()),</pre>
+  
+   <p>That's all! Now when your module is started, the command will be   
+registered and any frontend can access it. For example:</p>
+  
+   <pre class="sh_erlang">$ ejabberdctl help pow
+  
+     Command Name: pow
+  
+     Arguments: base::integer
+                exponent::integer
+  
+     Returns: power::integer
+  
+     Tags: test
+  
+     Description: Return the power of base for exponent
+  
+   This is an example command. The formula is:
+    power = base ^ exponent
+  
+   $ ejabberdctl pow 3 4
+   81
+   </pre>
+  
+  
+   <em><marker id="Execute_an_ejabberd_command">Execute an ejabberd command</marker></em>
+  
+   <p>ejabberd commands are mean to be executed using any valid   
+frontend.  An ejabberd commands is implemented in a regular Erlang   
+function, so it is also possible to execute this function in any   
+Erlang module, without dealing with the associated ejabberd   
+commands.</p>
+  
+  
+   <em><marker id="Frontend_to_ejabberd_commands">Frontend to ejabberd commands</marker></em>
+  
+   <p>Currently there are two frontends to ejabberd commands: the shell
+   script <url href="/home/pete/wefwefwef/docs/other/7a0cce0af47d3d7fba5640207320822c28a1af2b/repo/v2.1.5/.xml/ejabberd/./ejabberd_ctl.xml">ejabberdctl</url>, and the XML-RPC server   
+ejabberd_xmlrpc.</p>
+  
+  
+   <em><marker id="ejabberdctl_as_a_frontend_to_ejabberd_commands">ejabberdctl as a frontend to ejabberd commands</marker></em>
+  
+   <p>It is possible to use ejabberdctl to get documentation of any   
+command. But ejabberdctl does not support all the argument types   
+allowed in ejabberd commands, so there are some ejabberd commands   
+that cannot be executed using ejabberdctl.</p>
+  
+   <p>Also note that the ejabberdctl shell administration script also   
+manages ejabberdctl commands, which are unrelated to ejabberd   
+commands and can only be executed using ejabberdctl.</p>
+  
+  
+   <em><marker id="ejabberd_xmlrpc_as_a_frontend_to_ejabberd_commands">ejabberd_xmlrpc as a frontend to ejabberd commands</marker></em>
+  
+   <p>ejabberd_xmlrpc provides an XML-RPC server to execute ejabberd commands.   
+ejabberd_xmlrpc is a contributed module published in ejabberd-modules SVN.</p>
+  
+   <p>Since ejabberd_xmlrpc does not provide any method to get documentation   
+of the ejabberd commands, please use ejabberdctl to know which   
+commands are available, and their usage.</p>
+  
+   The number and format of the arguments provided when calling an
+   ejabberd command must match the definition of that command. Please
+   make sure the XML-RPC call provides the required arguments, with
+   the specified format. The order of the arguments in an XML-RPC
+   call is not important, because all the data is tagged and will be
+   correctly prepared by ejabberd_xmlrpc before executing the ejabberd
+   command.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-aterm">aterm() = {Name::atom(), Type::atype()}</h3></div>
+    <div class="type"><h3 id="type-atype">atype() = integer | string | {tuple, [aterm()]} | {list, aterm()}</h3></div>
+    <div class="type"><h3 id="type-ejabberd_commands">ejabberd_commands() = #ejabberd_commands{name=atom(), tags=[atom()], desc=string(), longdesc=string(), module=atom(), function=atom(), args=[aterm()], result=rterm()}</h3></div>
+    <div class="type"><h3 id="type-rterm">rterm() = {Name::atom(), Type::rtype()}</h3></div>
+    <div class="type"><h3 id="type-rtype">rtype() = integer | string | atom | {tuple, [rterm()]} | {list, rterm()} | rescode | restuple</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="register_commands/1">register_commands(Commands::[ejabberd_commands()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Register ejabberd commands.
+  If a command is already registered, a warning is printed and the old command is preserved.</p>
+</div></div>
+<div class="function">
+<h3 id="unregister_commands/1">unregister_commands(Commands::[ejabberd_commands()]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unregister ejabberd commands.</p>
+</div></div>
+<div class="function">
+<h3 id="list_commands/0">list_commands() -&gt; [{Name::atom(), Args::[aterm()], Desc::string()}]</h3>
+
+
+<div class="description">
+
+<p>Get a list of all the available commands, arguments and description.</p>
+</div></div>
+<div class="function">
+<h3 id="get_command_format/1">get_command_format(Name::atom()) -&gt; {Args::[aterm()], Result::rterm()} | {error, command_unknown}</h3>
+
+
+<div class="description">
+
+<p>Get the format of arguments and result of a command.</p>
+</div></div>
+<div class="function">
+<h3 id="get_command_definition/1">get_command_definition(Name::atom()) -&gt; ejabberd_commands() | command_not_found</h3>
+
+
+<div class="description">
+
+<p>Get the definition record of a command.</p>
+</div></div>
+<div class="function">
+<h3 id="execute_command/1">execute_command(Name::atom(), Arguments) -&gt; ResultTerm | {error, command_unknown}</h3>
+
+
+<div class="description">
+
+<p>Execute a command.</p>
+</div></div>
+<div class="function">
+<h3 id="execute_command/3">execute_command(AccessCommands, Auth, Name::atom(), Arguments) -&gt; ResultTerm | {error, Error}</h3>
+
+<ul class="type">
+<li><code>AccessCommands = [{Access, CommandNames, Arguments}]</code></li><li><code>Auth = {User::string(), Server::string(), Password::string()} | noauth</code></li><li><code>Method = atom()</code></li><li><code>Arguments = [any()]</code></li><li><code>Error = command_unknown | account_unprivileged | invalid_account_data | no_auth_provided</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_tags_commands/0">get_tags_commands() -&gt; [{Tag::string(), [CommandName::string()]}]</h3>
+
+
+<div class="description">
+
+<p>Get all the tags and associated commands.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

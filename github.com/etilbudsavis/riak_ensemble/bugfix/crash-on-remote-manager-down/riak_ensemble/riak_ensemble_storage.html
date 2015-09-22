@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_ensemble_storage (riak_ensemble) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_ensemble_storage</h1>
+<h2 class="modsummary">  
+This module implements a central storage manager for riak_ensemble.</h2>
+<div class="description">
+<p>  
+This module implements a central storage manager for riak_ensemble.  
+Previously, individual ensembles as well as the ensemble manager would  
+independently save their own state to disk. However, such an approach  
+scaled poorly as the number of independent ensembles increased. It was  
+not uncommon to see thousands of synchronous writes issued to disk per  
+second, overwhelming the I/O subsystem. To solve this issue, this storage  
+manager was created.</p>
+ 
+  <p>Rather than storing data independently, the storage manager combines the
+  state from multiple ensembles as well as the ensemble manager into a
+  single entity that is stored together in a single file. Since this file
+  is now a critical single point of failure, the storage manager uses the
+  new <a href="riak_ensemble_save.html" class="seealso">riak_ensemble_save</a> logic to save this data to disk such that  
+there are four redundant copies to recover from.</p>
+ 
+  <p>This manager is also responsible for coalescing multiple writes together  
+to reduce disk traffic. Individual writes are staged in an ETS table and  
+then flushed to disk after a delay (eg. 50ms).</p>
+ 
+  <p>There are two ways to save data to disk that are used by other components  
+in riak_ensemble: synchronous and asynchronous.</p>
+ 
+  <p>For synchronous writes components use the sequence:    
+riak_ensemble_storage:put(Key, Data),    
+riak_ensemble_storage:sync().  
+The sync() call than blocks until the data has successfully been written,  
+to disk.</p>
+ 
+  <p>For asynchronous writes, components simply use put() without sync(). The
+  data will then be written to disk either when another component calls sync,
+  or after next storage manager tick (eg. every 5 seconds).
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sync/0">sync() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="put/1">put(Key::term(), Value::term()) -&gt; true</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/1">get(Key::term()) -&gt; {ok, term()} | not_found</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

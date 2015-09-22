@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pre_client (pre_communication_layer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pre_client</h1>
+<h2 class="modsummary">The client's connection process.</h2>
+<div class="description">
+<p>The client's connection process.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(SslProto::pid(), Cookie::binary()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start a new client process with the given
+  <a href="pre_channels_proto.html" class="seealso">pre_channels_proto</a> pid and cookie.</p>
+</div></div>
+<div class="function">
+<h3 id="ensure_ets/0">ensure_ets() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Starts the ETS table needed for the TCP cookie lookup.</p>
+</div></div>
+<div class="function">
+<h3 id="connect_tcp/1">connect_tcp(TcpProto::pid(), Cookie::binary(), RequestID::binary()) -&gt; ClientPid::pid() | {stop, Reason::atom()}</h3>
+
+
+<div class="description">
+
+<p>Looks up the client pid by Cookie, and informs that pid of the
+  <code>TcpProto</code> pid. Then deletes the entry in the ets table. (This helps
+  keep the table nice and small.)</p>
+</div></div>
+<div class="function">
+<h3 id="get_aes/1">get_aes(ClientPid::pid()) -&gt; {AESKey::binary(), AESVec::binary()}</h3>
+
+
+<div class="description">
+
+<p>Retuns the AES key and AES vector in use by the TCP connection.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_messages/1">handle_messages(ClientPid::pid(), Transport::atom(), Messages::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Processes a list of incoming channel messages.</p>
+<p><em>See also:</em> <a href="#handle_message/3" class="seealso">handle_message/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_message/1">handle_message(ClientPid::pid(), Trasnport::atom(), Message::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Process an incoming channel message from the client.</p>
+</div></div>
+<div class="function">
+<h3 id="send_event/1">send_event(ClientPid::pid(), Channel::binary(), Content::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an event to the client, over tcp.</p>
+<p><em>See also:</em> <a href="#send_event/4" class="seealso">send_event/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_event/1-1">send_event(ClientPid::pid(), Transport::ssl | tcp, Channel::binary(), Content::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an event to the client. <code>Content</code> must be able JSON serializable. (Note: this method is responsible for
+  wrapping <code>Content</code> in the envelope structure.)</p>
+</div></div>
+<div class="function">
+<h3 id="send_response/1">send_response(ClientPid::pid(), Channel::binary(), ID::any(), Content::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send a response to the client over tcp.</p>
+<p><em>See also:</em> <a href="#send_response/5" class="seealso">send_response/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_response/1-1">send_response(ClientPid::pid(), Transport::ssl | tcp, Channel::binary(), ID::any(), Content::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send a response to the client. <code>Content</code> must be able JSON serializable. (Note: this method is responsible for
+  wrapping <code>Content</code> in the envelope structure.)</p>
+</div></div>
+<div class="function">
+<h3 id="send_request/1">send_request(ClientPid::pid(), Channel::binary(), ID::any(), Content::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send a request to the client over tcp.</p>
+<p><em>See also:</em> <a href="#send_request/5" class="seealso">send_request/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_request/1-1">send_request(ClientPid::pid(), Transport::ssl | tcp, Channel::binary(), ID::any(), Content::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send a request to the client. <code>Content</code> must be able JSON serializable. (Note: this method is responsible for
+  wrapping <code>Content</code> in the envelope structure.)</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

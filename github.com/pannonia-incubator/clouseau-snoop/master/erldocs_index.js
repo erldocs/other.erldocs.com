@@ -1,0 +1,1 @@
+var index = [['app','clouseau-snoop','clouseau-snoop','[application]'],['mod','clouseau-snoop','snoop_app',[]],['mod','clouseau-snoop','snoop_sup',[]],['fun','clouseau-snoop','snoop_app:start/2',[]],['fun','clouseau-snoop','snoop_app:stop/1',[]],['fun','clouseau-snoop','snoop_sup:init/1',[]],['fun','clouseau-snoop','snoop_sup:start_link/0',[]]];

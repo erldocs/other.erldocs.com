@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erlrcdynamic (erlrc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erlrcdynamic</h1>
+<h2 class="modsummary">Dynamic hooks intended to be called from packaging systems.</h2>
+<div class="description">
+<p>Dynamic hooks intended to be called from packaging systems.
+  Includes routines for starting, stopping, upgrading, and downgrading
+  applications.  Automatically generates requisite .appup files (only if
+  they don't exist already).</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="downgrade/1">downgrade(Application::atom(), OldVersion::string(), NewVersion::string()) -&gt; {ok, Reason::atom()} | {ok, [Unpurged]} | restart_new_emulator | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>OldDir and NewDir are assumed to be in the standard
+  location under code:lib_dir ().</p>
+</div></div>
+<div class="function">
+<h3 id="downgrade/1-1">downgrade(Application::atom(), OldVersion::string(), NewVersion::string(), OldDir::string(), NewDir::string()) -&gt; {ok, Reason::atom()} | {ok, [Unpurged]} | restart_new_emulator | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Downgrade an application from new version to old version.  Generates an
+  .appup file and then calls release_handler:downgrade_app/2.</p>
+</div></div>
+<div class="function">
+<h3 id="start/1">start(Application::atom(), Version::string()) -&gt; already_running | started | version_mismatch | version_load_mismatch | bad_directory</h3>
+
+
+<div class="description">
+
+<p>Assumes Dir is the standard location under code:lib_dir ().</p>
+</div></div>
+<div class="function">
+<h3 id="start/1-1">start(Application::atom(), Version::string(), AppDir::string()) -&gt; already_running | started | started_included_stopped | included | version_mismatch | version_load_mismatch | bad_directory</h3>
+
+
+<div class="description">
+
+<p>Start the specified application version located in Dir.
+  Returns 'already_running'
+  if that version of the application has been previously started.
+  Returns 'started' if the application version is succesfully started.
+  Returns 'started_included_stopped' if the application is successfully
+  started and any included applications were successfully stopped.
+  Returns 'included' if application is included in another application
+  (and does not start it).
+  Returns 'version_mismatch' if
+  the application is running with a different version
+  (use <a href="#upgrade/5" class="seealso">upgrade/5</a> instead).  Returns 'version_load_mismatch' if the
+  application was attempted to be loaded, but a different version was found.
+  Returns 'bad_directory' if AppDir/ebin does not exist.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Application::atom(), Version::string()) -&gt; stopped | stopped_included_started | version_mismatch | not_running</h3>
+
+
+<div class="description">
+
+<p>Stop the specified application version.  Does not unload modules
+  or adjust the code path.
+  Returns 'stopped' if the application version
+  was previously running.
+  Returns 'version_mismatch' if a different
+  version of the application is running (use downgrade instead).
+  Returns 'not_running' if the application version was not previously
+  running.
+  Returns 'stopped_included_started' if the application
+  was stopped and any included applications listed in /applications
+  were started successfully.</p>
+</div></div>
+<div class="function">
+<h3 id="unload/1">unload(Application::atom(), Version::string()) -&gt; unloaded | version_load_mismatch | bad_directory</h3>
+
+
+<div class="description">
+
+<p>Assumes Dir is the standard location under code:lib_dir ().</p>
+</div></div>
+<div class="function">
+<h3 id="unload/1-1">unload(Application::atom(), Version::string(), AppDir::string()) -&gt; unloaded | version_load_mismatch | bad_directory</h3>
+
+
+<div class="description">
+
+<p>Unload the modules corresponding to application version (as
+  indicated by the app spec file) and remove
+  the application directory from the code path.  Returns 'unloaded' if
+  the modules were unloaded.
+  Returns 'version_load_mismatch' if the application
+  was attempted to be unloaded, but a different version was found.</p>
+</div></div>
+<div class="function">
+<h3 id="upgrade/1">upgrade(Application::atom(), OldVersion::string(), NewVersion::string()) -&gt; {ok, Reason::atom()} | {ok, [Unpurged]} | restart_new_emulator | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>OldDir and NewDir are assumed to be in the standard
+  location under code:lib_dir ().</p>
+</div></div>
+<div class="function">
+<h3 id="upgrade/1-1">upgrade(Application::atom(), OldVersion::string(), NewVersion::string(), OldDir::string(), NewDir::string()) -&gt; {ok, Reason::atom()} | {ok, [Unpurged]} | restart_new_emulator | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Upgrade an application from old version to new version.  Generates an
+  .appup file and then calls release_handler:upgrade_app/2.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

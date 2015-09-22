@@ -1,0 +1,1 @@
+var index = [['app','erl-spidev','erl-spidev','[application]'],['mod','erl-spidev','spidev',[]],['mod','erl-spidev','spitest',[]],['fun','erl-spidev','spidev:close/0',[]],['fun','erl-spidev','spidev:init/0',[]],['fun','erl-spidev','spidev:open/1',[]],['fun','erl-spidev','spidev:xfer2/1',[]],['fun','erl-spidev','spitest:test/0',[]]];

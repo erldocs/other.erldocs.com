@@ -1,0 +1,1 @@
+var index = [['app','spacerls','spacerls','[application]'],['mod','spacerls','spacerls_app',[]],['mod','spacerls','spacerls_sup',[]],['fun','spacerls','spacerls_app:start/2',[]],['fun','spacerls','spacerls_app:stop/1',[]],['fun','spacerls','spacerls_sup:init/1',[]],['fun','spacerls','spacerls_sup:start_link/0',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','econcur','econcur','[application]'],['mod','econcur','econcur',[]],['mod','econcur','example',[]],['fun','econcur','econcur:parse_transform/1',[]],['fun','econcur','example:tc/1',[]],['fun','econcur','example:test/1',[]]];

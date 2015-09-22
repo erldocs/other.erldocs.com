@@ -1,0 +1,1 @@
+var index = [['app','connexion','connexion','[application]'],['mod','connexion','connexion',[]],['fun','connexion','connexion:initialize/2',[]],['fun','connexion','connexion:interpretedProperties/0',[]],['fun','connexion','connexion:new/1',[]],['fun','connexion','connexion:new/2',[]],['fun','connexion','connexion:setup/0',[]],['fun','connexion','connexion:stop/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlang-examples','erlang-examples','[application]'],['mod','erlang-examples','dijkstra',[]],['fun','erlang-examples','dijkstra:dijkstra/2',[]],['fun','erlang-examples','dijkstra:test/0',[]],['fun','erlang-examples','dijkstra:tests/0',[]]];

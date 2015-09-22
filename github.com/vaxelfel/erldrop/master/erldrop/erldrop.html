@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erldrop (erldrop) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erldrop</h1>
+<h2 class="modsummary">  
+Dropbox REST API v1 erlang client.</h2>
+<div class="description">
+<p>  
+Dropbox REST API v1 erlang client.</p>
+ 
+  <p><em><marker id="Function_Convention">Function Convention</marker></em>
+  </p><list>
+  <item><p> Every REST API endpoint has a corresponding underscore joined erlang
+  function, e.g. /account/info =&gt; account_info. </p></item>
+  <item><p>Visit <a href="../https///www.dropbox.html#com/developers/reference/api" class="seealso">
+  Dropbox REST API</a> for detailed documentation. </p></item>
+  <item><p>Required parameters for an API call are implemented as function
+  parameters while optional ones are passed in as key-value list. </p></item>
+  </list><p>
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-ctx">ctx()</h3></div>
+    <div class="type"><h3 id="type-data">data() = binary()</h3></div>
+    <div class="type"><h3 id="type-err_msg">err_msg() = <a href="#type-json" class="seealso">json()</a></h3></div>
+    <div class="type"><h3 id="type-http_status_code">http_status_code() = integer()</h3></div>
+    <div class="type"><h3 id="type-json">json() = binary()</h3></div>
+    <div class="type"><h3 id="type-params">params() = [{atom(), number() | string()}]</h3></div>
+    <div class="type"><h3 id="type-resp">resp() = {ok, <a href="#type-json" class="seealso">json()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ok, <a href="#type-json" class="seealso">json()</a>, <a href="#type-data" class="seealso">data()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, <a href="#type-http_status_code" class="seealso">http_status_code()</a>, <a href="#type-err_msg" class="seealso">err_msg()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="request_token/1">request_token(ApiKey::string(), ApiSecret::string()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="request_token/1-1">request_token(ApiKey::string(), ApiSecret::string(), Options) -&gt; resp()</h3>
+
+<ul class="type">
+<li><code>Options = [{timeout, infinity | pos_integer()} | {signature_method, hmac_sha1 | plaintext | hmac_rsa1}]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="authorize/1">authorize(Token::string()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="authorize/1-1">authorize(Token::string(), Options) -&gt; {ok, URL::string()}</h3>
+
+<ul class="type">
+<li><code>Options = [{oauth_callback, string()} | {locale, string()}]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="access_token/1">access_token(ApiKey::string(), ApiSecret::string(), Token::string(), TokenSecret::string()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="account_info/1">account_info(OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="files_get/1">files_get(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="files_put/1">files_put(Path::string(), Content::binary(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="metadata/1">metadata(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delta/1">delta(OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="revisions/1">revisions(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="restore/1">restore(Path::string(), Rev::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="search/1">search(Path::string(), Query::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="shares/1">shares(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="media/1">media(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="copy_ref/1">copy_ref(Path::string(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="thumbnails/1">thumbnails(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fileops_copy/1">fileops_copy(FromPath::string(), ToPath::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fileops_create_folder/1">fileops_create_folder(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fileops_delete/1">fileops_delete(Path::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fileops_move/1">fileops_move(FromPath::string(), ToPath::string(), OptParams::params(), Ctx::ctx()) -&gt; resp()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="file_to_ctx/1">file_to_ctx(File::string()) -&gt; ctx()</h3>
+
+
+<div class="description">
+
+<p>config file to context</p>
+</div></div>
+<div class="function">
+<h3 id="ctx_to_file/1">ctx_to_file(Ctx::ctx(), File::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>save context to file</p>
+</div></div>
+<div class="function">
+<h3 id="start_deps/0">start_deps() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="token/1">token(Res) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="token_secret/1">token_secret(Res) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

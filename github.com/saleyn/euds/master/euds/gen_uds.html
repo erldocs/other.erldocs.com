@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_uds (euds) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_uds</h1>
+<h2 class="modsummary">Unix Domain Socket support.</h2>
+<div class="description">
+<p>Unix Domain Socket support</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-listen_options">listen_options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="gen_tcp.html#type-listen_option" class="seealso">gen_tcp:listen_option()</a> | <a href="gen_udp.html#type-listen_option" class="seealso">gen_udp:listen_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-socket">socket() = <a href="gen_tcp.html#type-socket" class="seealso">gen_tcp:socket()</a></h3></div>
+    <div class="type"><h3 id="type-uds_option">uds_option() = stream<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| dgram<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="gen_tcp.html#type-option" class="seealso">gen_tcp:option()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="gen_udp.html#type-option" class="seealso">gen_udp:option()</a></h3></div>
+    <div class="type"><h3 id="type-uds_options">uds_options() = [<a href="#type-uds_option" class="seealso">uds_option()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/0">init() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Initialize UDS library</p>
+</div></div>
+<div class="function">
+<h3 id="connect/1">connect(Filename::string(), Options::uds_options()) -&gt; {ok, socket() (see module gen_tcp) | socket() (see module gen_udp)} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Connects to a server on UDS socket associated with the <code>Filename</code> on the local host.
+       See <code>gen_tcp:connect/2</code> and <code>inet:setopts/2</code> for a list of available options.</p>
+</div></div>
+<div class="function">
+<h3 id="connect/3">connect(Filename, Port, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Method provided for compatibility with gen_tcp:connect/3</p>
+</div></div>
+<div class="function">
+<h3 id="connect/4">connect(Filename, Port, Options, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Method provided for compatibility with gen_tcp:connect/4</p>
+</div></div>
+<div class="function">
+<h3 id="listen/1">listen(Filename::string(), Options::listen_options()) -&gt; {ok, socket() (see module gen_uds)} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Sets up a UNIX Domain socket to listen on the <code>Filename</code> on the local host.
+       See <code>gen_tcp:listen/2</code> and <code>inet:setopts/2</code> for a list of available options.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Sock::socket() (see module gen_uds), Data::binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close a UDS socket.</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(Sock::socket() (see module gen_uds)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close a UDS socket.</p>
+</div></div>
+<div class="function">
+<h3 id="accept/1">accept(LSock::socket()) -&gt; {ok, socket()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Accepts an incoming connection request on a listen socket. Socket must be a
+       socket returned from <code>listen/3</code>.  This function blocks indefinitely until a
+       client connection is established.</p>
+</div></div>
+<div class="function">
+<h3 id="accept/1-1">accept(LSock::socket(), Timeout::integer() | infinity) -&gt; {ok, socket()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Accepts an incoming connection request on a listen socket. Socket must be a
+       socket returned from <code>listen/3</code>. Timeout specifies a timeout value in ms.</p>
+</div></div>
+<div class="function">
+<h3 id="async_accept/1">async_accept(LSock::socket()) -&gt; {ok, Ref::integer()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>An asynchronous version of <code>accept/1</code>.  The caller will receive
+       <code>{inet_async, LSock, Ref::integer(), {ok, CliSocket::socket()}}</code> or
+       <code>{inet_async, ListSock, Ref, {error, Reason}}</code> upon successful/unsuccessful
+       client connection.  The function needs to be called again in order to
+       begin asynchronous accept of the next client socket.  When a successful
+       socket message <code>{ok, CliSocket::socket()}</code> is received, the server must
+       call <code>set_sockopt/2</code> function in order to register the socket with the inet
+       driver.</p>
+</div></div>
+<div class="function">
+<h3 id="set_sockopt/1">set_sockopt(LSock::socket(), Sock::socket()) -&gt; ok | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Set socket options and register <code>Sock</code> with inet driver.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','bankerl','bankerl','[application]'],['mod','bankerl','bank',[]],['fun','bankerl','bank:accounts/2',[]],['fun','bankerl','bank:balance/3',[]],['fun','bankerl','bank:close/3',[]],['fun','bankerl','bank:deposit/4',[]],['fun','bankerl','bank:init/0',[]],['fun','bankerl','bank:open/3',[]],['fun','bankerl','bank:size/1',[]],['fun','bankerl','bank:withdraw/4',[]]];

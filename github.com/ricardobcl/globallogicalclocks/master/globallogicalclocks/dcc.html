@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>dcc (globallogicalclocks) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>dcc</h1>
+<h2 class="modsummary">
+  An Erlang implementation of a Dotted Causal Container.</h2>
+<div class="description">
+<p>
+  An Erlang implementation of a Dotted Causal Container.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bvv">bvv() = [{Key :: <a href="#type-id" class="seealso">id()</a>, Entry :: <a href="#type-entry" class="seealso">entry()</a>}]</h3></div>
+    <div class="type"><h3 id="type-counter">counter() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-dcc">dcc() = {<a href="#type-dots" class="seealso">dots()</a>, <a href="#type-vv" class="seealso">vv()</a>}</h3></div>
+    <div class="type"><h3 id="type-dot">dot() = {<a href="#type-id" class="seealso">id()</a>, <a href="#type-counter" class="seealso">counter()</a>}</h3></div>
+    <div class="type"><h3 id="type-dots">dots() = [{<a href="#type-dot" class="seealso">dot()</a>, <a href="#type-value" class="seealso">value()</a>}]</h3></div>
+    <div class="type"><h3 id="type-entry">entry() = {<a href="#type-counter" class="seealso">counter()</a>, <a href="#type-counter" class="seealso">counter()</a>}</h3></div>
+    <div class="type"><h3 id="type-id">id() = term()</h3></div>
+    <div class="type"><h3 id="type-value">value() = any()</h3></div>
+    <div class="type"><h3 id="type-vv">vv() = [{Key :: <a href="#type-id" class="seealso">id()</a>, Entry :: <a href="#type-counter" class="seealso">counter()</a>}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>Constructs a new clock set without causal history,
+  and receives one value that goes to the anonymous list.</p>
+</div></div>
+<div class="function">
+<h3 id="values/1">values(X1::dcc()) -&gt; [value()]</h3>
+
+
+<div class="description">
+
+<p>Returns the set of values held in the DCC.</p>
+</div></div>
+<div class="function">
+<h3 id="context/1">context(X1::dcc()) -&gt; vv()</h3>
+
+
+<div class="description">
+
+<p>Returns the causal context of a DCC, which is representable as a
+  Version Vector.</p>
+</div></div>
+<div class="function">
+<h3 id="sync/1">sync(X1::dcc(), X2::dcc()) -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>Performs the synchronization of two DCCs; it discards versions (
+  {dot,value} pairs) made obsolete by the other DCC, by preserving the
+  versions that are present in both, together with the versions in either of
+  them that are not covered by the relevant entry in the other's causal
+  context; the causal context is obtained by a standard version vector merge
+  function (performing the pointwise maximum).</p>
+</div></div>
+<div class="function">
+<h3 id="add/1">add(BVV::bvv(), X2::dcc()) -&gt; bvv()</h3>
+
+
+<div class="description">
+
+<p>Adds the dots corresponding to each version in the DCC to the BVV; this
+  is accomplished by using the standard fold higher-order function, passing
+  the function bvv:add/2 defined over BVV and dots, the BVV, and the list of
+  dots in the DCC.</p>
+</div></div>
+<div class="function">
+<h3 id="add/1-1">add(X1::dcc(), Dot::{id(), counter()}, Value::value()) -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>This function is to be used at node I after dcc:discard/2, and adds a
+  mapping, from the Dot (I, N) (which should be obtained by previously applying
+  bvv:event/2 to the BVV at node I) to the Value, to the DCC, and also advances
+  the i component of the VV in the DCC to N.</p>
+</div></div>
+<div class="function">
+<h3 id="discard/1">discard(X1::dcc(), C::vv()) -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>It discards versions in DCC {D,V} which are made obsolete by a causal
+  context (a version vector) C, and also merges C into DCC causal context V.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/1">strip(X1::dcc(), B::bvv()) -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>It discards all entries from the version vector V in the DCC that are
+  covered by the corresponding base component of the BVV B; only entries with
+  greater sequence numbers are kept. The idea is that DCCs are stored after
+  being stripped of their causality information that is already present in the
+  node clock BVV.</p>
+</div></div>
+<div class="function">
+<h3 id="fill/1">fill(X1::dcc(), BVV::bvv()) -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>Function fill adds back causality information to a stripped DCC, before
+  any operation is performed.</p>
+</div></div>
+<div class="function">
+<h3 id="fill/1-1">fill(X1::dcc(), BVV::bvv(), Ids::[id()]) -&gt; dcc()</h3>
+
+
+<div class="description">
+
+<p>Same as fill/2 but only adds entries that are elements of a list of Ids,
+  instead of adding all entries in the BVV.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Ricardo Gonçalves</aname>
+<email>tome.wave@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang-exif','erlang-exif','[application]'],['mod','erlang-exif','exif',[]],['fun','erlang-exif','exif:read/1',[]],['fun','erlang-exif','exif:read_binary/1',[]]];

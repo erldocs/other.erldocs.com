@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wpart_utils (wpart) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wpart_utils</h1>
+<h2 class="modsummary">Module holding the helper functions for wpart application.</h2>
+<div class="description">
+<p>Module holding the helper functions for wpart application.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="url_encode/1">url_encode(URL::string()) -&gt; EncodedURL::string()</h3>
+
+
+<div class="description">
+
+<p>Url-encodes a string.
+  All URLs in HTML documents must be URL encoded. <br /></p>
+ 
+  <p>This function escapes everything except url-safe characters
+  [-._0-9a-zA-Z] AND SLASHES, which sould be very DWIM-y
+  It should be consistent with Python3's urllib.parse.quote
+ </p>
+</div></div>
+<div class="function">
+<h3 id="url_decode/1">url_decode(URL::string()) -&gt; DecodedURL::string()</h3>
+
+
+<div class="description">
+
+<p>Decode url-encoded string.
+  A URL  encoded  string  is  a  string
+  where  all  alfa  numeric characters and the the character _ are
+  preserved and all other characters are encode as "%XY"  where  X
+  and  Y  are the hex values of the least respective most
+  significant 4 bits in the 8 bit character.<br />
+  This function has been taken from <i>Yaws</i> web server.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="integer_to_hex/1">integer_to_hex(Integer::integer()) -&gt; Hex::string()</h3>
+
+
+<div class="description">
+
+<p>Converts the integer to the hex format.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="hex_to_integer/1">hex_to_integer(Hex::string()) -&gt; Integer::integer()</h3>
+
+
+<div class="description">
+
+<p>Converts the hex to the integer format.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="xml2proplist/1">xml2proplist(XMLAttributes::[tuple()]) -&gt; AttributesProplist::[tuple()]</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="wpart.html#xml2proplist/1" class="seealso">wpart:xml2proplist/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="proplist2html/1">proplist2html(AttributesProplist::[tuple()]) -&gt; HTML::string()</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="wpart.html#proplist2html/1" class="seealso">wpart:proplist2html/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="getValue/1">getValue(AttributesProplist::[tuple()]) -&gt; HTML::string()</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="wpart.html#getValue/1" class="seealso">wpart:getValue/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="normalize_html_attrs/1">normalize_html_attrs(AttributesProplist::[tuple()]) -&gt; NormalizedAttributesProplist::[tuple()]</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="wpart.html#normalize_html_attrs/1" class="seealso">wpart:normalize_html_attrs/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="string2term/1">string2term(Type::atom(), String::string()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, Term::any()} | {error, Reason::term()}</code></li></ul>
+<div class="description">
+
+<p>The same as <i>string2term(Type, String, [])</i>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="string2term/3">string2term(Type, String, Params0::Parameters) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Type = atom()</code></li><li><code>String = string()</code></li><li><code>Parameters = list()</code></li><li><code>Result = {ok, Term::any()} | {error, Reason::term()}</code></li></ul>
+<div class="description">
+
+<p>Converts the string to the particular type.
+  </p><p>Type-specific validators are used for casting the string representation
+  of the term (e.g. taken from the HTML form) to the Erlang internal one.</p>
+  <p>The <i>Parameters</i> should be a list of constraints such as taken from
+  the Type_types record.</p>
+ 
+</div></div>
+<div class="function">
+<h3 id="term2string/1">term2string(Type::atom(), Term::term()) -&gt; String::string()</h3>
+
+
+<div class="description">
+
+<p>The same as <i>term2string(Type, Term, "")</i>.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="term2string/1-1">term2string(Type::atom(), Term::term(), Format::string()) -&gt; String::string()</h3>
+
+
+<div class="description">
+
+<p>Converts the Term to the string representation using the Format.
+  The type-specific handle_call is used to do the conversion.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="pk2string/1">pk2string(Record::tuple()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {PKPosition, PKString}</code></li><li><code>PKPosition = integer()</code></li><li><code>PKString = string()</code></li></ul>
+<div class="description">
+
+<p>Converts the primary key field of the record to its string representation
+  The returning value is a tuple consisting of the primary key
+  position in the record (note that first element of the tuple is
+  the record name) and the converted primary key.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="find_pk/1">find_pk(TypeOptions::list()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = no_pk | {PKPosition::integer(), PKOptions::list()}</code></li></ul>
+<div class="description">
+
+<p>Search the primary key in the list of the type's options.
+  TypeOptions == tl(get_record_info(Type_types)).
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Michal Ptaszek</aname>
+<email>michal.ptaszek@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

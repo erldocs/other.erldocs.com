@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sipparse_util (yxa-cnam) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sipparse_util</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="split_fields/2">split_fields(FieldStr, Sep) -&gt; {First, Second} | {First}</h3>
+
+<ul class="type">
+<li><code>FieldStr = string()</code></li><li><code>Sep = char()</code></li><li><code>Reason = no_first_part | no_second_part | more_than_one_separator</code></li></ul>
+<div class="description">
+
+<p>    split FieldStr into two parts where Sep is encountered
+           Example, if Sep = @ then: <code>"foo@bar" = {"foo", "bar"}
+           "foo" = {"foo"} "foo@" = throw() "@bar" = throw()
+           "foo@bar" = throw() "@" = throw() "" = {""} XXX is this
+           ok ? nothing currently depends on this behaviour.</code>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="split_quoted_string/1">split_quoted_string(Rest::In) -&gt; {ok, First, Second}</h3>
+
+<ul class="type">
+<li><code>In = string()</code></li><li><code>First = string()</code></li><li><code>Second = string()</code></li></ul>
+<div class="description">
+
+<p>    Parse out a quoted string from In and return the quoted
+           part as First and the rest as Second.</p>
+</div></div>
+<div class="function">
+<h3 id="split_non_quoted/2">split_non_quoted(Delim, In) -&gt; {ok, Result} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Delim = char()</code></li><li><code>In = string()</code></li><li><code>Result = [string()]</code></li><li><code>Reason = atom()</code></li></ul>
+<div class="description">
+
+<p>    Split In using Delim as delimeter, but don't split on
+           delimeters inside quotes.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_host/1">parse_host(Host) -&gt; Host</h3>
+
+<ul class="type">
+<li><code>Host = string()</code></li><li><code>Host = string()</code></li><li><code>{error, Reason} | {'EXIT', Reason}</code></li></ul>
+<div class="description">
+
+<p>    return Host if it is wellformed, a exception is thrown if
+           the Host is malformed
+           the host rule alows for a varity of formats:
+           hostname ipv4address ipv6reference
+ </p>
+</div></div>
+<div class="function">
+<h3 id="parse_hostport/1">parse_hostport(HostPort) -&gt; {Host, Port}</h3>
+
+<ul class="type">
+<li><code>HostPort = string()</code></li><li><code>Host = string()</code></li><li><code>Port = integer() | none</code></li></ul>
+<div class="description">
+
+<p>    splits the string into it's two parts, a exception is
+           thrown if the Host or Port is malformed
+           the host:port section of the sip url can be formated in a
+           varity of ways:
+           hostname:port hostname ipv4address:port ipv4address
+           [ipv6reference]:port ipv6reference
+ </p>
+</div></div>
+<div class="function">
+<h3 id="is_alpha/1">is_alpha(Char) -&gt; true | false</h3>
+
+<ul class="type">
+<li><code>Char = integer()</code></li></ul>
+<div class="description">
+
+<p>    Check if Char is alphanumeric. Based on RFC3261 BNF,
+           chapter 25.</p>
+</div></div>
+<div class="function">
+<h3 id="is_digit/1">is_digit(Char) -&gt; true | false</h3>
+
+<ul class="type">
+<li><code>Char = integer()</code></li></ul>
+<div class="description">
+
+<p>    Check if Char is a digit. Based on RFC3261 BNF, chapter
+           25.</p>
+</div></div>
+<div class="function">
+<h3 id="is_alphanum/1">is_alphanum(Char) -&gt; true | false</h3>
+
+<ul class="type">
+<li><code>Char = integer()</code></li></ul>
+<div class="description">
+
+<p>    Check if Char is alphanumeric or a digit. Based on RFC3261
+           BNF, chapter 25.</p>
+</div></div>
+<div class="function">
+<h3 id="is_token/1">is_token(Str) -&gt; true | false</h3>
+
+<ul class="type">
+<li><code>Str = string()</code></li></ul>
+<div class="description">
+
+<p>    Check if Str is a 'token'. Based on RFC3261 BNF, chapter
+           25.</p>
+</div></div>
+<div class="function">
+<h3 id="is_hostname/1">is_hostname(Host::Str) -&gt; true</h3>
+
+<ul class="type">
+<li><code>Str = string()</code></li></ul>
+<div class="description">
+
+<p>    parse host string, throw an exception if it doesn't
+           conform to the format specified in RFC3261 chapter 25.1
+           p218. Fails hard (with a badmatch or error
+           'invalid_hostname' on errors). Note : this function only
+           matches symbolic hostnames
+           These rules are the same:
+           is_digit = [0-9] is_alpha = [A-Za-z] is_alphanum =
+           [A-Za-z0-9]</p>
+</div></div>
+<div class="function">
+<h3 id="is_IPv4address/1">is_IPv4address(Host::Str) -&gt; Str</h3>
+
+<ul class="type">
+<li><code>Str = string()</code></li></ul>
+<div class="description">
+
+<p>    parse host string, throw an exception if it doesn't
+           conform to the format specified in RFC3261 chapter 25.1
+           page 218. Note : this function only matches IPv4
+           hostnames</p>
+</div></div>
+<div class="function">
+<h3 id="is_IPv6reference/1">is_IPv6reference(IPv6Str) -&gt; true | false</h3>
+
+<ul class="type">
+<li><code>IPv6Str = string()</code></li></ul>
+<div class="description">
+
+<p>    parse host string, throw an exception if it doesn't
+           conform to the format specified in RFC3261 chapter 25.1
+           page 218. Note : this function only matches IPv6
+           hostnames</p>
+</div></div>
+<div class="function">
+<h3 id="str_to_float/1">str_to_float(Str) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>    convert Str containing float() or integer() value, to a
+           float(). Note : user need to strip any preceding or
+           trailing spaces (or other chars themselves) XXX
+           q_value(...) in contact.erl uses similar code XXX this
+           should be in a utility module</p>
+</div></div>
+<div class="function">
+<h3 id="str_to_qval/1">str_to_qval(R::Str) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>    parse a qvalue string qvalue = ( "0" [ "." 0*3DIGIT ] ) /
+           ( "1" [ "." 0*3("0") ] ) - RFC 3261</p>
+</div></div>
+<div class="function">
+<h3 id="is_qval/1">is_qval(Str) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>    parse a qvalue string qvalue = ( "0" [ "." 0*3DIGIT ] ) /
+           ( "1" [ "." 0*3("0") ] ) - RFC 3261</p>
+</div></div>
+<div class="function">
+<h3 id="strip/3">strip(Str, X2::Direction, StripChars) -&gt; NewString</h3>
+
+<ul class="type">
+<li><code>NewString = string()</code></li></ul>
+<div class="description">
+
+<p>    works like string:strip/3 but can strip several types of
+           char() at once</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

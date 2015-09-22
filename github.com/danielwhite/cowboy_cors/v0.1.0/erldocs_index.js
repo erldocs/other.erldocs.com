@@ -1,0 +1,1 @@
+var index = [['app','cowboy_cors','cowboy_cors','[application]'],['mod','cowboy_cors','cowboy_cors_policy',[]]];

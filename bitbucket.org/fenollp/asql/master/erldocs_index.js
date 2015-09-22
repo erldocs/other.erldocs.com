@@ -1,0 +1,1 @@
+var index = [['app','asql','asql','[application]'],['mod','asql','asql',[]],['fun','asql','asql:compile/1',[]],['fun','asql','asql:parse/1',[]],['fun','asql','asql:run/1',[]],['fun','asql','asql:run/1',[]],['fun','asql','asql:scan/1',[]]];

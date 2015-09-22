@@ -1,0 +1,1 @@
+var index = [['app','wigo','wigo','[application]'],['mod','wigo','wigo',[]],['fun','wigo','wigo:main/1',[]]];

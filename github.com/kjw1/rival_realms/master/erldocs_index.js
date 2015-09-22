@@ -1,0 +1,1 @@
+var index = [['app','rival_realms','rival_realms','[application]'],['mod','rival_realms','rival_realms_app',[]],['mod','rival_realms','rival_realms_sup',[]],['fun','rival_realms','rival_realms_app:start/2',[]],['fun','rival_realms','rival_realms_app:stop/1',[]],['fun','rival_realms','rival_realms_sup:init/1',[]],['fun','rival_realms','rival_realms_sup:start_link/0',[]]];

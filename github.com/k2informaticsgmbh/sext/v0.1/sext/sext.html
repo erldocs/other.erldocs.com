@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>sext (sext) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>sext</h1>
+<h2 class="modsummary">Sortable serialization library.</h2>
+<div class="description">
+<p>Sortable serialization library</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="encode/1">encode(T::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encodes any Erlang term into a binary.
+  The lexical sorting properties of the encoded binary match those of the
+  original Erlang term. That is, encoded terms sort the same way as the
+  original terms would.</p>
+</div></div>
+<div class="function">
+<h3 id="encode_sb32/1">encode_sb32(Term::any()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encodes any Erlang term into an sb32-encoded binary.
+  This is similar to <a href="#encode/1" class="seealso">encode/1</a>, but produces an octet string that  
+can be used without escaping in file names (containing only the characters  
+0..9, A..V and '-'). The sorting properties are preserved.</p>
+ 
+  <p>Note: The encoding used is inspired by the base32 encoding described in
+  RFC3548, but uses a different alphabet in order to preserve the sort order.</p>
+</div></div>
+<div class="function">
+<h3 id="encode_hex/1">encode_hex(Term::any()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encodes any Erlang term into a hex-encoded binary.
+  This is similar to <a href="#encode/1" class="seealso">encode/1</a>, but produces an octet string that  
+can be used without escaping in file names (containing only the characters  
+0..9 and A..F). The sorting properties are preserved.</p>
+ 
+  <p>Note: The encoding used is regular hex-encoding, with the proviso that only
+  capital letters are used (mixing upper- and lowercase characters would break
+  the sorting property).</p>
+</div></div>
+<div class="function">
+<h3 id="prefix/1">prefix(X::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encodes a binary for prefix matching of similar encoded terms.
+  Lists and tuples can be prefixed by using the '_' marker, similarly
+  to Erlang match specifications. For example:
+  </p><list>
+   <item><p><code>prefix({1,2,</code>_','_'})' will result in a binary that is the same as
+     the first part of any encoded 4-tuple with the first two elements being
+     1 and 2. The prefix algorithm will search for the first '_', and treat
+     all following elements as if they were '_'.</p></item>
+   <item><p><code>prefix([1,2|</code>_'])' will result in a binary that is the same as the
+     first part of any encoded list where the first two elements are 1 and 2.
+     <code>prefix([1,2,</code>_'])' will give the same result, as the prefix pattern
+     is the same for all lists starting with [1,2|...].</p></item>
+   <item><p><code>prefix(Binary)</code> will result in a binary that is the same as the encoded
+     version of Binary, except that, instead of padding and terminating, the
+     encoded binary is truncated to the longest byte-aligned binary. The same
+     is done for bitstrings.</p></item>
+   <item><p><code>prefix({1,[1,2|</code>_'],'_'})' will prefix-encode the second element, and
+     let it end the resulting binary. This prefix will match any 3-tuple where
+     the first element is 1 and the second element is a list where the first
+     two elements are 1 and 2.</p></item>
+   <item><p><code>prefix([1,[1|</code>_']|'_'])' will result in a prefix that matches all lists
+     where the first element is 1 and the second element is a list where the
+     first element is 1.</p></item>
+   <item><p>For all other data types, the prefix is the same as the encoded term.
+     </p></item>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="prefix_sb32/1">prefix_sb32(X::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates an sb32-encoded binary for prefix matching.
+  This is similar to <a href="#prefix/1" class="seealso">prefix/1</a>, but generates a prefix for binaries
+  encoded with <a href="#encode_sb32/1" class="seealso">encode_sb32/1</a>, rather than <a href="#encode/1" class="seealso">encode/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="prefix_hex/1">prefix_hex(X::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Generates a hex-encoded binary for prefix matching.
+  This is similar to <a href="#prefix/1" class="seealso">prefix/1</a>, but generates a prefix for binaries
+  encoded with <a href="#encode_hex/1" class="seealso">encode_hex/1</a>, rather than <a href="#encode/1" class="seealso">encode/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1">decode(B::binary()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Decodes a binary generated using the function <a href="sext.html#encode/1" class="seealso">sext:encode/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="decode_sb32/1">decode_sb32(Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Decodes a binary generated using the function <a href="#encode_sb32/1" class="seealso">encode_sb32/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="decode_hex/1">decode_hex(Data) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_sb32/1">to_sb32(Bits::bitstring()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts a bitstring into an sb-encoded bitstring</p>
+ 
+  <p>sb32 (Sortable base32) is a variant of RFC3548, slightly rearranged to  
+preserve the lexical sorting properties. Base32 was chosen to avoid  
+filename-unfriendly characters. Also important is that the padding  
+character be less than any character in the alphabet</p>
+ 
+  <p>sb32 alphabet:
+  </p><pre class="sh_erlang">
+  0 0     6 6     12 C     18 I     24 O     30 U
+  1 1     7 7     13 D     19 J     25 P     31 V
+  2 2     8 8     14 E     20 K     26 Q  (pad) -
+  3 3     9 9     15 F     21 L     27 R
+  4 4    10 A     16 G     22 M     28 S
+  5 5    11 B     17 H     23 N     29 T
+  </pre>
+</div></div>
+<div class="function">
+<h3 id="from_sb32/1">from_sb32(Bits::bitstring()) -&gt; bitstring()</h3>
+
+
+<div class="description">
+
+<p>Converts from an sb32-encoded bitstring into a 'normal' bitstring</p>
+ 
+  <p>This function is the reverse of <a href="#to_sb32/1" class="seealso">to_sb32/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_hex/1">to_hex(Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts a binary into a hex-encoded binary
+  This is conventional hex encoding, with the proviso that
+  only capital letters are used, e.g. <code>0..9A..F</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="from_hex/1">from_hex(Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Converts from a hex-encoded binary into a 'normal' binary</p>
+ 
+  <p>This function is the reverse of <a href="#to_hex/1" class="seealso">to_hex/1</a>.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Ulf Wiger</aname>
+<email>ulf.wiger@erlang-solutions.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

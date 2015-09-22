@@ -1,0 +1,1 @@
+var index = [['app','knighttour','knighttour','[application]'],['mod','knighttour','knight_tour',[]],['fun','knighttour','knight_tour:solve/2',[]]];

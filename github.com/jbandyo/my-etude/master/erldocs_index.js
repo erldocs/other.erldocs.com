@@ -1,0 +1,1 @@
+var index = [['app','my-etude','my-etude','[application]'],['mod','my-etude','game_master',[]],['mod','my-etude','geom',[]],['mod','my-etude','player',[]],['fun','my-etude','game_master:game/0',[]],['fun','my-etude','geom:area/2',[]],['fun','my-etude','player:play/1',[]]];

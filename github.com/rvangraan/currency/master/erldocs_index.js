@@ -1,0 +1,1 @@
+var index = [['app','currency','currency','[application]'],['mod','currency','currency_app',[]],['mod','currency','currency_sup',[]],['fun','currency','currency_app:start/2',[]],['fun','currency','currency_app:stop/1',[]],['fun','currency','currency_sup:init/1',[]],['fun','currency','currency_sup:start_link/0',[]]];

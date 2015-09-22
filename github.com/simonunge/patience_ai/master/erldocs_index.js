@@ -1,0 +1,1 @@
+var index = [['app','patience_ai','patience_ai','[application]'],['mod','patience_ai','patience_ai_app',[]],['mod','patience_ai','patience_ai_sup',[]],['fun','patience_ai','patience_ai_app:start/2',[]],['fun','patience_ai','patience_ai_app:stop/1',[]],['fun','patience_ai','patience_ai_sup:init/1',[]],['fun','patience_ai','patience_ai_sup:start_link/0',[]]];

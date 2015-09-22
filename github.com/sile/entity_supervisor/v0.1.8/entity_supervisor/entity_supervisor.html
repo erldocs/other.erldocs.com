@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>entity_supervisor (entity_supervisor) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>entity_supervisor</h1>
+<h2 class="modsummary">Simple Supervisor for Entity Processes.</h2>
+<div class="description">
+<p>Simple Supervisor for Entity Processes</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-attribute">attribute() = {Key :: term(), Value :: term()}</h3></div>
+    <div class="type"><h3 id="type-entity">entity() = {<a href="#type-entity_id" class="seealso">entity_id()</a>, pid(), [<a href="#type-attribute" class="seealso">attribute()</a>]}</h3></div>
+    <div class="type"><h3 id="type-entity_id">entity_id() = term()</h3></div>
+    <div class="type"><h3 id="type-manager_name">manager_name() = {local, LocalName :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {global, GlobalName :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {via, module(), ViaName :: term()}</h3></div>
+    <div class="type"><h3 id="type-manager_ref">manager_ref() = atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), node()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {global, GlobalName :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {via, module(), ViaName :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| pid()</h3></div>
+    <div class="type"><h3 id="type-mfargs">mfargs() = {module(), Function :: atom(), Args :: [term()]}</h3></div>
+    <div class="type"><h3 id="type-restart">restart() = temporary</h3></div>
+    <div class="type"><h3 id="type-shutdown">shutdown() = brutal_kill | timeout()</h3></div>
+    <div class="type"><h3 id="type-system_event">system_event() = {'ENTITY_CREATED', <a href="#type-entity" class="seealso">entity()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'ENTITY_DELETED', <a href="#type-entity" class="seealso">entity()</a>, Reason :: term()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Module::module(), Args::[term()]) -&gt; {ok, pid()} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/1-1">start_link(ManagerName::manager_name(), Module::module(), Args::[term()]) -&gt; {ok, pid()} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = {already_started, pid()} | term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_entity/1">create_entity(ManagerRef::manager_ref(), EntityId::entity_id(), Attrs::[attribute()], Args::[term()], Timeout::timeout()) -&gt; {ok, pid()} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = {already_exists, pid()} | {timeout, manager_ref()} | {noproc, manager_ref()} | term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_entity/1-1">create_entity(ManagerRef::manager_ref(), EntityId::entity_id(), Attrs::[attribute()], Args::[term()]) -&gt; {ok, pid()} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = {already_exists, pid()} | {timeout, manager_ref()} | {noproc, manager_ref()} | term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_entity/1">find_entity(ManagerRef::manager_ref(), EntityId::entity_id()) -&gt; {ok, entity()} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = not_found | {timeout, manager_ref()} | {noproc, manager_ref()} | term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_entity_by_attributes/1">find_entity_by_attributes(ManagerRef::manager_ref(), Attributes::[attribute()]) -&gt; {ok, [entity()]} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = {timeout, manager_ref()} | {noproc, manager_ref()} | term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_entity/1">delete_entity(ManagerRef::manager_ref(), EntityId::entity_id()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#delete_entity/3" class="seealso">delete_entity(ManagerRef, EntityId, shutdown)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_entity/1-1">delete_entity(ManagerRef::manager_ref(), EntityId::entity_id(), Reason::term()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_entities/1">get_entities(ManagerRef::manager_ref()) -&gt; {ok, [entity()]} | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = {timeout, manager_ref()} | {noproc, manager_ref()} | term()</code></li></ul>
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

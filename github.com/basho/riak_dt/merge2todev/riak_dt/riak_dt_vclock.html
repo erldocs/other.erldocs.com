@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_dt_vclock (riak_dt) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_dt_vclock</h1>
+<h2 class="modsummary">A simple Erlang implementation of vector clocks as inspired by Lamport logical clocks.</h2>
+<div class="description">
+<p>A simple Erlang implementation of vector clocks as inspired by Lamport logical clocks.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-binary_vclock">binary_vclock() = binary()</h3></div>
+    <div class="type"><h3 id="type-counter">counter() = integer()</h3></div>
+    <div class="type"><h3 id="type-vc_entry">vc_entry() = {<a href="#type-vclock_node" class="seealso">vclock_node()</a>, <a href="#type-counter" class="seealso">counter()</a>}</h3></div>
+    <div class="type"><h3 id="type-vclock">vclock() = [<a href="#type-vc_entry" class="seealso">vc_entry()</a>]</h3></div>
+    <div class="type"><h3 id="type-vclock_node">vclock_node() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="fresh/0">fresh() -&gt; vclock()</h3>
+
+
+<div class="description">
+
+<p>Create a brand new vclock.</p>
+</div></div>
+<div class="function">
+<h3 id="descends/1">descends(Va::vclock() | [], Vb::vclock() | []) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Return true if Va is a direct descendant of Vb, else false -- remember, a vclock is its own descendant!</p>
+</div></div>
+<div class="function">
+<h3 id="dominates/1">dominates(A::vclock(), B::vclock()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="subtract_dots/1">subtract_dots(DotList::vclock(), VClock::vclock()) -&gt; vclock()</h3>
+
+
+<div class="description">
+
+<p>subtract the VClock from the DotList.
+  what this means is that any <code>{actor(), count()}</code> pair in
+  DotList that is &lt;= an entry in  VClock is removed from DotList
+  Example [{a, 3}, {b, 2}, {d, 14}, {g, 22}] -
+          [{a, 4}, {b, 1}, {c, 1}, {d, 14}, {e, 5}, {f, 2}] =
+          [{{b, 2}, {g, 22}]</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(VClocks::[vclock()]) -&gt; vclock() | []</h3>
+
+
+<div class="description">
+
+<p>Combine all VClocks in the input list into their least possible
+      common descendant.</p>
+</div></div>
+<div class="function">
+<h3 id="get_counter/1">get_counter(Node::vclock_node(), VClock::vclock()) -&gt; counter()</h3>
+
+
+<div class="description">
+
+<p>Get the counter value in VClock set from Node.</p>
+</div></div>
+<div class="function">
+<h3 id="increment/1">increment(Node::vclock_node(), VClock::vclock()) -&gt; vclock()</h3>
+
+
+<div class="description">
+
+<p>Increment VClock at Node.</p>
+</div></div>
+<div class="function">
+<h3 id="all_nodes/1">all_nodes(VClock::vclock()) -&gt; [vclock_node()]</h3>
+
+
+<div class="description">
+
+<p>Return the list of all nodes that have ever incremented VClock.</p>
+</div></div>
+<div class="function">
+<h3 id="equal/1">equal(VClockA::vclock(), VClockB::vclock()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Compares two VClocks for equality.</p>
+</div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(Clock::vclock()) -&gt; binary_vclock()</h3>
+
+
+<div class="description">
+
+<p>an effecient format for disk / wire.
+5 @see from_binary/1</p>
+</div></div>
+<div class="function">
+<h3 id="from_binary/1">from_binary(Bin::binary_vclock()) -&gt; vclock()</h3>
+
+
+<div class="description">
+
+<p>takes the output of <code>to_binary/1</code> and returns a vclock</p>
+</div></div>
+<div class="function">
+<h3 id="glb/1">glb(Clock1::vclock(), Clock2::vclock()) -&gt; vclock()</h3>
+
+
+<div class="description">
+
+<p>take two vclocks and return a vclock that summerizes only the
+  events both have seen.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

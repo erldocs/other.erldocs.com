@@ -1,0 +1,1 @@
+var index = [['app','stree','stree','[application]'],['mod','stree','ptree','Draws the process tree of a given supervisor.'],['mod','stree','stree','Draws the supervision tree of a given supervisor.'],['fun','stree','ptree:main/1',[]],['fun','stree','ptree:main/2',[]],['fun','stree','stree:main/1',[]]];

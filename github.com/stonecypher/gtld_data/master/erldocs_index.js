@@ -1,0 +1,1 @@
+var index = [['app','gtld_data','gtld_data','[application]'],['mod','gtld_data','gtld_data',[]],['fun','gtld_data','gtld_data:as_string/0','Copy pasta string data from https://www.logicboxes'],['fun','gtld_data','gtld_data:ga_only/0','Lists only generally available gTLDs; drops date i'],['fun','gtld_data','gtld_data:parsed/0','Breaks data apart into list-of-lists .']];

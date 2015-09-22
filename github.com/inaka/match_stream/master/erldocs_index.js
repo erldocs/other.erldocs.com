@@ -1,0 +1,1 @@
+var index = [['app','match_stream','match_stream','[application]'],['mod','match_stream','match_stream_user_mgr','Supervisor for User Processes.'],['fun','match_stream','match_stream_user_mgr:start_link/1',' Starts the supervisor process.'],['fun','match_stream','match_stream_user_mgr:start_user/1',' Starts a new client process.']];

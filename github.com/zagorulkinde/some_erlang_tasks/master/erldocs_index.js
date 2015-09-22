@@ -1,0 +1,1 @@
+var index = [['app','some_erlang_tasks','some_erlang_tasks','[application]'],['mod','some_erlang_tasks','euler7',[]],['fun','some_erlang_tasks','euler7:main/0',[]]];

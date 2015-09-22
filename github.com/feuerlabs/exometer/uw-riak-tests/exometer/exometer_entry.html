@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>exometer_entry (exometer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>exometer_entry</h1>
+<h2 class="modsummary">
+  Creating custom exometer entries.</h2>
+<div class="description">
+<p>
+  <em><marker id="Creating_custom_exometer_entries">Creating custom exometer entries</marker></em>
+ 
+  </p><p>An exometer_entry behavior implementation can be created when custom  
+processing of various metrics is needed.</p>
+ 
+  <p>A custom exometer entry is invoked by mapping a type to the module
+  name of the custom exometer entry module. All metrics created with the
+  given type will trigger the invocation of the new entry module. See
+  <a href="#Configuring_type_-_entry_maps" class="seealso">Configuring type - entry maps</a> for details on how to setup  
+such maps.</p>
+ 
+  <p>The life cycle of a an exometer entry consists of the following steps.</p>
+ 
+  <p>+ Metrics Creation
+      <br /><code>new/3</code> is invoked by exometer to signal that a new metrics      
+should be created. The name of the new metric will be provided as      
+a list of atoms.</p>
+ 
+  <p>+ Update Data
+      <br />Values will be sent to the entry through the <code>update/4</code>      
+function. The custom entry should store this value for the given      
+metric and break it down into data points that can be reported for      
+the metric.</p>
+ 
+  <p>+ Retrieve Value
+      <br /><code>get_value/4</code> will be invoked by exometer to retrieve specific      
+data points from a given metric.</p>
+ 
+  <p>See individual functions for details on the  
+in the exometer_entry behavior.</p>
+ 
+  <p><em><marker id="behaviour/0">behaviour/0</marker></em></p>
+ 
+  <p>The <code>behaviour()</code> function for an entry implementation should return
+  the atom <code>entry</code>. This function will be involved by the  
+exometer system in order to determine if a callback is  
+an entry or a probe.</p>
+ 
+  <p><em><marker id="new/3">new/3</marker></em></p>
+ 
+  <p>The <code>new()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       new(Name, Type, Options)</pre>
+ 
+  <p>The custom entry should create the necessary state for the new metric and store
+  it for furure access through <code>update()</code> and <code>get_value()</code> calls.</p>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to be created as a list of atoms.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map). It can be used if several      
+different types are mapped to the same entry module.</p>
+ 
+  <p>+ <code>Options</code>
+      <br />Specifies an option list that contains additional setup directives to      
+the entry. The actual options to support are implementation dependent.</p>
+ 
+  <p>The <code>new()</code> function should return <code>{ok, Ref}</code> where Ref is a  
+tuple that will be provided as a reference argument to other calls  
+made into the module. Any other return formats will cancel the  
+creation of the new metric.</p>
+ 
+  <p><em><marker id="delete/3">delete/3</marker></em></p>
+ 
+  <p>The <code>delete()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       delete(Name, Type, Ref)</pre>
+ 
+  <p>The custom entry should free all resources associated with the given name.</p>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to be deleted as a list of atoms.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's <code>new()</code> function.</p>
+ 
+  <p>The <code>delete()</code> function shall return <code>ok</code>.</p>
+ 
+ 
+  <p><em><marker id="get_value/4">get_value/4</marker></em></p>
+ 
+  <p>The <code>get_value()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       get_value(Name, Type, Ref, DataPoints)</pre>
+ 
+  <p>The custom entry should retrieve the metric with the given name and
+  return the values of the specified data points. Data points can be
+  expected to be one or more of those returned by the entry's
+  <code>get_datapoints()</code> function.</p>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to update with a value.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's <code>new()</code> function.</p>
+ 
+  <p>+ <code>DataPoints</code>
+      <br />Will contain a list of data points, each picked from the list returned by
+      the module's <code>get_datapoints()</code> function.</p>
+ 
+  <p>The <code>get_value()</code> function should calculate the values of the given
+  data points based on previous calls to <code>update()</code> and return them to the caller.</p>
+ 
+  <p>The return format shall be:</p>
+ 
+  <pre lang="erlang">
+       {ok, [ { DataPoint, Value }, ...]}</pre>
+ 
+  <p>Each <code>{ DataPoint, Value }</code> tuple shall contain the name and value of
+  one of the data points provided as arguments to <code>get_value()</code>.</p>
+ 
+  <p>If a data point is not valid (i.e. not in the list returned by
+  <code>get_datapoints()</code>), the returned tuple should be <code>{ DataPoint,
+  undefined }</code>.</p>
+ 
+ 
+  <p><em><marker id="update/4">update/4</marker></em></p>
+ 
+  <p>The <code>update()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       update(Name, Value, Type, Ref)</pre>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to update.</p>
+ 
+  <p>+ <code>Value</code>
+      <br />Specifies the new value to integrate into the given metric.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's <code>new()</code> function.</p>
+ 
+  <p>The <code>update()</code> function should update the data points for the metric with the
+  given name in preparation for future calls to <code>get_value()</code>.</p>
+ 
+  <p>The return format shall be <code>ok</code>.</p>
+ 
+ 
+  <p><em><marker id="reset/3">reset/3</marker></em></p>
+ 
+  <p>The <code>reset()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       reset(Name, Type, Ref)</pre>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to reset.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's <code>new()</code> function.</p>
+ 
+  <p>The <code>reset()</code> function should revert the metric with the given name to  
+its original state. A counter, for example, should be reset to 0 while  
+histograms should be emptied.</p>
+ 
+  <p>The return format shall be <code>ok</code>.</p>
+ 
+  <p><em><marker id="sample/3">sample/3</marker></em></p>
+ 
+  <p>The <code>sample()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       sample(Name, Type, Ref)</pre>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to run the sample.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's
+      <code>new()</code> function.</p>
+ 
+  <p>This function is only used by probes, where it is periodically called  
+to sample a local sub system such as /proc or netlink in order to  
+update its data points.</p>
+ 
+  <p>Any exometer entry-based implementation should do nothing and return
+  <code>ok</code>.</p>
+ 
+  <p><em><marker id="get_datapoints/3">get_datapoints/3</marker></em></p>
+ 
+  <p>The <code>get_datapoints()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       get_datapoints(Name, Type, Ref)</pre>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to return available datapoints for.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's
+      <code>new()</code> function.</p>
+ 
+  <p>This function should return a list of all data points supported by
+  the exometer entry implementation. The returned data points shall
+  be supported by the module's <code>get_value()</code> function.</p>
+ 
+ 
+  <p><em><marker id="setopts/4">setopts/4</marker></em></p>
+ 
+  <p>The <code>setopts()</code> function is invoked as follows:</p>
+ 
+  <pre lang="erlang">
+       setopts(Name, Options, Type, Ref)</pre>
+ 
+  <p>+ <code>Name</code>
+      <br />Specifies the name of the metric to return available datapoints for.</p>
+ 
+  <p>+ <code>Options</code>
+      <br />Specifies an option list that contains additional setup directives to      
+the entry. The actual options to support are implementation dependent.</p>
+ 
+  <p>+ <code>Type</code>
+      <br />Specifies the type provided to the <code>exometer:new()</code> call (before it      
+was translated by the type - exometer entry map).</p>
+ 
+  <p>+ <code>Ref</code>
+      <br />Will contain the same tuple returned as <code>Ref</code> by the module's
+      <code>new()</code> function.</p>
+ 
+  <p>This function should modify the behavior of the given metric by the
+  options provided in the <code>Options</code> property list.</p>
+ 
+  <p>The function should return either <code>ok</code> or <code>{error, Reason}</code>, where
+  <code>Reason</code> contins a descriptive reason for a failure to set one or more
+  options.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-datapoint">datapoint() = atom()</h3></div>
+    <div class="type"><h3 id="type-datapoints">datapoints() = [<a href="#type-datapoint" class="seealso">datapoint()</a>]</h3></div>
+    <div class="type"><h3 id="type-error">error() = {error, any()}</h3></div>
+    <div class="type"><h3 id="type-name">name() = list()</h3></div>
+    <div class="type"><h3 id="type-options">options() = [{atom(), any()}]</h3></div>
+    <div class="type"><h3 id="type-ref">ref() = any()</h3></div>
+    <div class="type"><h3 id="type-type">type() = atom()</h3></div>
+    <div class="type"><h3 id="type-value">value() = any()</h3></div></div>
+
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

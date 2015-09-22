@@ -1,0 +1,1 @@
+var index = [['app','egojson','egojson','[application]'],['mod','egojson','egojson',[]],['fun','egojson','egojson:decode/1',[]]];

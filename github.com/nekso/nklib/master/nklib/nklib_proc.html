@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nklib_proc (nklib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nklib_proc</h1>
+<h2 class="modsummary">Nekso Process Registry.</h2>
+<div class="description">
+<p>Nekso Process Registry.</p>
+ 
+  <p>This module implements an ETS-based process registry.
+  It allows a process to register any <code>term()</code> as a process identification,
+  and store any metadata with it. When the process exists, these terms are deleted.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="put/1">put(Name::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>put(Name, undefined, self())</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1-1">put(Name::term(), Value::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>put(Name, Value, self())</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1-2">put(Name::term(), Value::term(), Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Registers <code>Name</code> (and <code>Value</code>) as associated with this process.
+  Several processes can register the same <code>Name</code> with the same of different values.
+  When the process ends, its registrations are deleted.</p>
+</div></div>
+<div class="function">
+<h3 id="del/1">del(Name::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>del(Name, self())</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="del/1-1">del(Name::term(), Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unregisters a previously registered <code>Name</code>, associated to this process.</p>
+</div></div>
+<div class="function">
+<h3 id="del_all/0">del_all() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>del_all(self())</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="del_all/1">del_all(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unregisters all registrations from this process.</p>
+</div></div>
+<div class="function">
+<h3 id="values/1">values(Name::term()) -&gt; [{Value::term(), Pid::pid()}]</h3>
+
+
+<div class="description">
+
+<p>Gets all registered Values for <code>Name</code>, along with registering pids.</p>
+</div></div>
+<div class="function">
+<h3 id="reg/1">reg(Name::term()) -&gt; true | {false, pid()}</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>reg(Name, undefined, self())</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="reg/1-1">reg(Name::term(), Value::term()) -&gt; true | {false, pid()}</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>reg(Name, Value, self())</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="reg/1-2">reg(Name::term(), Value::term(), Pid::pid()) -&gt; true | {false, pid()}</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>put(Name, Value, Pid)</code> but only allows for one single registration.
+  Returns <code>true</code> if this registration has succeded, or <code>false</code> if another process
+  has already registered this name.</p>
+</div></div>
+<div class="function">
+<h3 id="reg/1-3">reg(Name::term(), Value::term(), Pid::pid(), Timeout::integer() | infinity) -&gt; true | timeout</h3>
+
+
+<div class="description">
+
+<p>Similar to <code>reg(Name, Value, Pid)</code>, but, in case other process has already
+  registered this name, waits for it to be unregistered and then we are automatically
+  registered.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_put/1">wait_put(Name::term()) -&gt; {ok, pid()} | timeout</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>wait_put(Name, 5000)</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_put/1-1">wait_put(Name::term(), Timeout::integer() | infinity) -&gt; {ok, {Value::term(), pid()}} | timeout</h3>
+
+
+<div class="description">
+
+<p>Waits for <code>Name</code> to be registered from any process before <code>Timeout</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_del/1">wait_del(Name::term()) -&gt; ok | timeout</h3>
+
+
+<div class="description">
+
+<p>Equivalent to <code>wait_del(Name, 5000))</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_del/1-1">wait_del(Name::term(), Timeout::integer() | infinity) -&gt; ok | timeout</h3>
+
+
+<div class="description">
+
+<p>Waits for <code>Name</code> to be unregistered from all pids before <code>Timeout</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="register_name/1">register_name(Name::term(), Pid::pid()) -&gt; yes | no</h3>
+
+
+<div class="description">
+
+<p>Process registration compatible with <code>global:register_name/2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="unregister_name/1">unregister_name(Name::term()) -&gt; pid() | undefined</h3>
+
+
+<div class="description">
+
+<p>Unregistration compatible with <code>global:unregister_name/1</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="whereis_name/1">whereis_name(Name::term()) -&gt; pid() | undefined</h3>
+
+
+<div class="description">
+
+<p>Finds a registered <code>Name</code> compatible with <code>global:whereis_name/1</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Name::term(), Msg::term()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Sends a message to a registered process compatible with <code>global:send/2</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="fold_names/1">fold_names(UserFun::function(), Acc0::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Folds over all registered names in the same way as <code>lists:foldl/3</code>.
+  <code>UserFun</code> will be called for each record as <code>UserFun(Name, Values, Acc)</code> when
+  <code>Values :: [{Value::term(), pid()}]</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="fold_pids/2">fold_pids(UserFun, Acc0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Folds over all registered pids in the same way as <code>lists:foldl/3</code>.
+  <code>UserFun</code> will be called for each record as <code>UserFun(Pid, Items, Acc)</code> when
+  <code>Names :: [{name|put|del|reg, term()}]</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="start/2">start(Type::server | fsm, Name::term(), Module::atom(), Args::[term()]) -&gt; {ok, pid()} | ignore | {error, {already_started, pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Starts a new gen_server or gen_fsm, allowing registration under any term.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/2">start_link(Type::server | fsm, Name::term(), Module::atom(), Args::[term()]) -&gt; {ok, pid()} | ignore | {error, {already_started, pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Starts a new <code>gen_server</code> or <code>gen_fsm</code>, allowing registration under any term,
+  and linking the new process.</p>
+</div></div>
+<div class="function">
+<h3 id="try_call/1">try_call(Fun::function(), Ref::term(), Time::pos_integer(), Tries::pos_integer()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Tries to call a function with a previous lock
+  If it is locked, sleeps and tries again</p>
+</div></div>
+<div class="function">
+<h3 id="size/0">size() -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Gets the number of registered processes</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

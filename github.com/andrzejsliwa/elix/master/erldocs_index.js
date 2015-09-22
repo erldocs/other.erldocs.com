@@ -1,0 +1,1 @@
+var index = [['app','elix','elix','[application]'],['mod','elix','elix','Elix - Learning Elixir internals.'],['fun','elix','elix:main/1',[]]];

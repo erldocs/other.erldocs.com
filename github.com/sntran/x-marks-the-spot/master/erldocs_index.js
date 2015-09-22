@@ -1,0 +1,1 @@
+var index = [['app','x-marks-the-spot','x-marks-the-spot','[application]'],['mod','x-marks-the-spot','rabbitmq_marks_the_spot_app',[]],['fun','x-marks-the-spot','rabbitmq_marks_the_spot_app:init/1',[]],['fun','x-marks-the-spot','rabbitmq_marks_the_spot_app:start/2',[]],['fun','x-marks-the-spot','rabbitmq_marks_the_spot_app:stop/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','couchdb-footrest','couchdb-footrest','[application]'],['mod','couchdb-footrest','footrest',[]],['fun','couchdb-footrest','footrest:init/0',[]]];

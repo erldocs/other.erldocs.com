@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nifty (nifty) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nifty</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-addr">addr() = integer()</h3></div>
+    <div class="type"><h3 id="type-options">options() = <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a></h3></div>
+    <div class="type"><h3 id="type-ptr">ptr() = {<a href="#type-addr" class="seealso">addr()</a>, nonempty_string()}</h3></div>
+    <div class="type"><h3 id="type-reason">reason() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="compile/1">compile(InterfaceFile::string(), Module::module(), Options::options()) -&gt; ok | {error, reason()} | {warning, {not_complete, [nonempty_string()]}}</h3>
+
+
+<div class="description">
+
+<p>Generates a NIF module out of a C header file and compiles it,
+  generating wrapper functions for all functions present in the header file.
+  <code>InterfaceFile</code> specifies the header file. <code>Module</code> specifies
+  the module name of the translated NIF. <code>Options</code> specifies the compile
+  options. These options are equivalent to rebar's config options.</p>
+</div></div>
+<div class="function">
+<h3 id="get_types/0">get_types() -&gt; dict() (see module dict)</h3>
+
+
+<div class="description">
+
+<p>Returns nifty's base types as a dict</p>
+</div></div>
+<div class="function">
+<h3 id="dereference/1">dereference(Pointer::ptr()) -&gt; ptr() | integer() | float() | list() | {string(), integer()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Dereference a nifty pointer</p>
+</div></div>
+<div class="function">
+<h3 id="free/1">free(X1::ptr()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Free's the memory associated with a nifty pointer</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_cstr/1">list_to_cstr(X1::string()) -&gt; ptr()</h3>
+
+
+<div class="description">
+
+<p>Converts an erlang string into a 0 terminated C string and returns a nifty pointer to it</p>
+</div></div>
+<div class="function">
+<h3 id="cstr_to_list/1">cstr_to_list(X1::ptr()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Converts a nifty pointer to a 0 terminated C string into a erlang string.</p>
+</div></div>
+<div class="function">
+<h3 id="size_of/1">size_of(Type::nonempty_string()) -&gt; integer() | undef</h3>
+
+
+<div class="description">
+
+<p>size of a base type, no error handling</p>
+</div></div>
+<div class="function">
+<h3 id="pointer/0">pointer() -&gt; ptr()</h3>
+
+
+<div class="description">
+
+<p>Returns a pointer to a memory area that is the size of a pointer</p>
+</div></div>
+<div class="function">
+<h3 id="pointer/1">pointer(Type::nonempty_string()) -&gt; ptr() | undef</h3>
+
+
+<div class="description">
+
+<p>Returns a pointer to the specified <code>Type</code>. This function allocates memory of <em>sizeof(</em><code>Type</code><em>)</em></p>
+</div></div>
+<div class="function">
+<h3 id="pointer_of/1">pointer_of(Ptr::ptr()) -&gt; ptr() | undef</h3>
+
+
+<div class="description">
+
+<p>Returns a pointer to the given pointer</p>
+</div></div>
+<div class="function">
+<h3 id="pointer_of/1-1">pointer_of(Value::term(), Type::string()) -&gt; ptr() | undef</h3>
+
+
+<div class="description">
+
+<p>Returns a pointer to the <code>Value</code> with the type <code>Type</code></p>
+</div></div>
+<div class="function">
+<h3 id="mem_write/1">mem_write(Ptr::ptr(), Data::binary() | list()) -&gt; ptr()</h3>
+
+
+<div class="description">
+
+<p>Writes the <code>Data</code> to the memory area pointed to by <code>Ptr</code> and returns a the pointer; the list elements are interpreted as byte values</p>
+</div></div>
+<div class="function">
+<h3 id="mem_write/1-1">mem_write(Data::binary() | list()) -&gt; ptr()</h3>
+
+
+<div class="description">
+
+<p>Writes the <code>Data</code> to memory and returns a nifty pointer to it; the list elements are interpreted as byte values</p>
+</div></div>
+<div class="function">
+<h3 id="mem_read/1">mem_read(X1::ptr(), X2::integer()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Reads <code>X2</code> bytes from the pointer <code>X1</code> and returns it as list</p>
+</div></div>
+<div class="function">
+<h3 id="mem_alloc/1">mem_alloc(X1::non_neg_integer()) -&gt; ptr()</h3>
+
+
+<div class="description">
+
+<p>Allocates <code>X1</code> bytes and returns a pointer to it</p>
+</div></div>
+<div class="function">
+<h3 id="get_config/0">get_config() -&gt; proplist() (see module proplists)</h3>
+
+
+<div class="description">
+
+<p>Returns the platform specific configuration of nifty</p>
+</div></div>
+<div class="function">
+<h3 id="get_env/0">get_env() -&gt; {integer(), nonempty_string()}</h3>
+
+
+<div class="description">
+
+<p>Returns erlangs NIF environment</p>
+</div></div>
+<div class="function">
+<h3 id="as_type/1">as_type(Ptr::ptr(), Type::nonempty_string()) -&gt; ptr() | undef</h3>
+
+
+<div class="description">
+
+<p>Casts a pointer to <code>Type</code>; returns <code>undef</code>
+   if the specified type is invalid</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

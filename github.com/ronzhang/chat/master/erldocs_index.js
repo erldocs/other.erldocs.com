@@ -1,0 +1,1 @@
+var index = [['app','chat','chat','[application]'],['mod','chat','chat_client',[]],['mod','chat','widget','@todo Add description to widget.'],['fun','chat','widget:start/1',[]]];

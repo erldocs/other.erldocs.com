@@ -1,0 +1,1 @@
+var index = [['app','bioerl','bioerl','[application]'],['mod','bioerl','assembly',[]],['mod','bioerl','compare',[]],['mod','bioerl','motif',[]],['mod','bioerl','origc',[]],['mod','bioerl','pattern',[]],['mod','bioerl','rearr',[]],['mod','bioerl','seq',[]],['mod','bioerl','suffix',[]],['mod','bioerl','util',[]]];

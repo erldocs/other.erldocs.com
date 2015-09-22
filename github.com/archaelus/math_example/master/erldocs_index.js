@@ -1,0 +1,1 @@
+var index = [['app','math_example','math_example','[application]'],['mod','math_example','math_server',[]],['fun','math_example','math_server:add/1',[]],['fun','math_example','math_server:start/0',[]],['fun','math_example','math_server:start_link/0','Starts the server.']];

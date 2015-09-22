@@ -1,0 +1,1 @@
+var index = [['app','bbcode','bbcode','[application]'],['mod','bbcode','bbcode',[]],['fun','bbcode','bbcode:compile/1',[]]];

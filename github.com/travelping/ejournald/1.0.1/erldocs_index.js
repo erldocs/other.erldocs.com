@@ -1,0 +1,1 @@
+var index = [['app','ejournald','ejournald','[application]'],['mod','ejournald','journald_api',[]],['fun','ejournald','journald_api:sendv/1',[]],['fun','ejournald','journald_api:stream_fd/3',[]]];

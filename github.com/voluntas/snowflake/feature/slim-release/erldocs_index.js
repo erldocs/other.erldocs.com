@@ -1,0 +1,1 @@
+var index = [['app','snowflake','snowflake','[application]'],['mod','snowflake','snowflake',[]],['mod','snowflake','snowflake_app',[]],['mod','snowflake','snowflake_sup',[]],['fun','snowflake','snowflake_app:start/2',[]],['fun','snowflake','snowflake_app:stop/1',[]],['fun','snowflake','snowflake_sup:init/1',[]],['fun','snowflake','snowflake_sup:start_link/0',[]]];

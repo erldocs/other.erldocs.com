@@ -1,0 +1,1 @@
+var index = [['app','erlgeoip','erlgeoip','[application]'],['mod','erlgeoip','erlgeoip',[]],['fun','erlgeoip','erlgeoip:init/0',[]],['fun','erlgeoip','erlgeoip:lookup/1',[]],['fun','erlgeoip','erlgeoip:normalize_city/1',[]]];

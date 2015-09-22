@@ -1,0 +1,1 @@
+var index = [['app','clif','clif','[application]'],['mod','clif','clif',[]],['fun','clif','clif:cl_info/0',[]],['fun','clif','clif:init/0',[]]];

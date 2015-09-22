@@ -1,0 +1,1 @@
+var index = [['app','docbuilderl','docbuilderl','[application]'],['mod','docbuilderl','example',[]],['fun','docbuilderl','example:do_stuff/2',[]]];

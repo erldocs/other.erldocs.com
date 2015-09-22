@@ -1,0 +1,1 @@
+var index = [['app','reducks','reducks','[application]'],['mod','reducks','reducks',[]],['fun','reducks','reducks:purge/2','Purge keys by tags.'],['fun','reducks','reducks:snap/1',[]]];

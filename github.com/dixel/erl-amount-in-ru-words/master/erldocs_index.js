@@ -1,0 +1,1 @@
+var index = [['app','erl-amount-in-ru-words','erl-amount-in-ru-words','[application]'],['mod','erl-amount-in-ru-words','amount_in_words',[]],['fun','erl-amount-in-ru-words','amount_in_words:render/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','json-erlang.mk','json-erlang.mk','[application]'],['mod','json-erlang.mk','qlp_app',[]],['mod','json-erlang.mk','qlp_sup',[]],['fun','json-erlang.mk','qlp_app:start/2',[]],['fun','json-erlang.mk','qlp_app:stop/1',[]],['fun','json-erlang.mk','qlp_sup:init/1',[]],['fun','json-erlang.mk','qlp_sup:start_link/0',[]]];

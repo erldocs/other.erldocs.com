@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>slide_op (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>slide_op</h1>
+<h2 class="modsummary">   Slide operation structure for node moves, joins and leaves.</h2>
+<div class="description">
+<p>   Slide operation structure for node moves, joins and leaves.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-id">id() = <a href="util.html#type-global_uid" class="seealso">util:global_uid()</a></h3></div>
+    <div class="type"><h3 id="type-next_op">next_op() = {slide, continue, Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {jump, continue, Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {leave, continue}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {join, Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {slide,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred | succ,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tag :: any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-erl_local_pid" class="seealso">comm:erl_local_pid()</a> | null}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {jump,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id :: <a href="rt_chord.html#type-key" class="seealso">rt_chord:key()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tag :: any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-erl_local_pid" class="seealso">comm:erl_local_pid()</a> | null}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {leave}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {none}</h3></div>
+    <div class="type"><h3 id="type-phase">phase() = null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_other_mte<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_node_update<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_pred_update_join<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_pred_update_data_ack<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_change_id<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_req_data<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_data_ack<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_delta_ack<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_change_op<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_data<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| wait_for_delta</h3></div>
+    <div class="type"><h3 id="type-slide_op">slide_op()</h3></div>
+    <div class="type"><h3 id="type-type">type() = {slide, pred | succ, send | rcv}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {join, send | rcv}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {leave, send | rcv}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {jump, send | rcv}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new_slide/1">new_slide(MoveId::global_uid() (see module util), Type::type(), CurTargetId::key() (see module rt_chord), Tag::any(), SourcePid::erl_local_pid() (see module comm) | null, OtherMTE::unknown | pos_integer(), NextOp::next_op(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a slide operation of the given type. One of the nodes will
+       change its ID to TargetId.</p>
+</div></div>
+<div class="function">
+<h3 id="new_slide_i/1">new_slide_i(MoveId::global_uid() (see module util), Type::type(), CurTargetId::key() (see module rt_chord), FinalTargetId::key() (see module rt_chord), Tag::any(), SourcePid::erl_local_pid() (see module comm) | null, OtherMTE::unknown | pos_integer(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up an incremental slide operation of the given type. One of the
+       nodes will change its ID to CurTargetId and finally FinalTargetId.</p>
+</div></div>
+<div class="function">
+<h3 id="new_receiving_slide_join/1">new_receiving_slide_join(MoveId::global_uid() (see module util), NewPred::node_type() (see module node), NewSucc::node_type() (see module node), MyNewKey::key() (see module rt_chord), Tag::any()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a new slide operation for a joining node (see
+       dht_node_join.erl). MyKey is the joining node's new Id and will be used
+       as the target id of the slide operation.</p>
+</div></div>
+<div class="function">
+<h3 id="new_sending_slide_join/1">new_sending_slide_join(MoveId::global_uid() (see module util), JoiningNode::node_type() (see module node), Tag::any(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a new slide operation for a node which sends a joining node
+       some of its data.
+       Throws 'throw:not_responsible' if the current node is not responsible
+       for the ID of JoiningNode.</p>
+</div></div>
+<div class="function">
+<h3 id="new_sending_slide_leave/1">new_sending_slide_leave(MoveId::id(), Tag::any(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a new slide operation for a node which is about to leave its
+       position in the ring and transfer its data to its successor.</p>
+</div></div>
+<div class="function">
+<h3 id="new_sending_slide_leave/1-1">new_sending_slide_leave(MoveId::id(), CurTargetId::key() (see module rt_chord), Tag::any(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a new slide operation for a node which is about to leave its
+       position in the ring incrementally (current step is to move to
+       CurTargetId) and transfer its data to its successor.</p>
+</div></div>
+<div class="function">
+<h3 id="new_sending_slide_jump/1">new_sending_slide_jump(MoveId::id(), TargetId::key() (see module rt_chord), Tag::any(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a new slide operation for a node which is about to leave its
+       position in the ring, transfer its data to its successor and afterwards
+       join somewhere else.</p>
+</div></div>
+<div class="function">
+<h3 id="new_sending_slide_jump/1-1">new_sending_slide_jump(MoveId::id(), CurTargetId::key() (see module rt_chord), FinalTargetId::key() (see module rt_chord), Tag::any(), Neighbors::neighborhood() (see module nodelist)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets up a new slide operation for a node which is about to leave its
+       position in the ring, transfer its data to its successor
+       incrementally (current step is to move to CurTargetId) and afterwards
+       join somewhere else.</p>
+</div></div>
+<div class="function">
+<h3 id="get_id/1">get_id(SlideOp::slide_op()) -&gt; id()</h3>
+
+
+<div class="description">
+
+<p>Returns the id of a receiving or sending slide operation.</p>
+</div></div>
+<div class="function">
+<h3 id="get_node/1">get_node(SlideOp::slide_op()) -&gt; node_type() (see module node)</h3>
+
+
+<div class="description">
+
+<p>Returns the node to exchange data with.</p>
+</div></div>
+<div class="function">
+<h3 id="get_interval/1">get_interval(SlideOp::slide_op()) -&gt; interval() (see module intervals)</h3>
+
+
+<div class="description">
+
+<p>Returns the interval of data to receive or send.</p>
+</div></div>
+<div class="function">
+<h3 id="get_target_id/1">get_target_id(SlideOp::slide_op()) -&gt; key() (see module rt_chord)</h3>
+
+
+<div class="description">
+
+<p>Returns the target id a node participating in a receiving or sending
+       slide operation moves to (note: this may be the other node).</p>
+</div></div>
+<div class="function">
+<h3 id="get_source_pid/1">get_source_pid(SlideOp::slide_op()) -&gt; erl_local_pid() (see module comm) | null</h3>
+
+
+<div class="description">
+
+<p>Gets the pid of the (local) process that requested the move or null if
+       no local process initiated it.</p>
+</div></div>
+<div class="function">
+<h3 id="get_tag/1">get_tag(SlideOp::slide_op()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Returns the tag of a slide operation. This will be send to the
+       originating process (along with the result message).</p>
+<p><em>See also:</em> <a href="#get_source_pid/1" class="seealso">get_source_pid/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_sendORreceive/1">get_sendORreceive(SlideOp::slide_op() | type()) -&gt; send | rcv</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide operation sends or receives data.</p>
+</div></div>
+<div class="function">
+<h3 id="get_predORsucc/1">get_predORsucc(SlideOp::slide_op() | type()) -&gt; pred | succ</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide operation works with the successor or
+       predecessor.</p>
+</div></div>
+<div class="function">
+<h3 id="get_type/1">get_type(SlideOp::slide_op()) -&gt; type()</h3>
+
+
+<div class="description">
+
+<p>Returns the given slide operation's (full) type.</p>
+</div></div>
+<div class="function">
+<h3 id="other_type_to_my_type/1">other_type_to_my_type(X1::type()) -&gt; type()</h3>
+
+
+<div class="description">
+
+<p>Converts the given slide type to the type the other participating node
+       can use.</p>
+</div></div>
+<div class="function">
+<h3 id="is_join/1">is_join(SlideOp::slide_op() | type()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide op or type is a join operation.</p>
+</div></div>
+<div class="function">
+<h3 id="is_join/1-1">is_join(SlideOp::slide_op() | type(), SendOrReceive::send | rcv) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide op or type is a join operation sending
+       or receiving data as provided.</p>
+</div></div>
+<div class="function">
+<h3 id="is_leave/1">is_leave(SlideOp::slide_op() | type()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide op or type is a leave operation.</p>
+</div></div>
+<div class="function">
+<h3 id="is_leave/1-1">is_leave(SlideOp::slide_op() | type(), SendOrReceive::send | rcv) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide op or type is a leave operation sending
+       or receiving data as provided.</p>
+</div></div>
+<div class="function">
+<h3 id="is_jump/1">is_jump(SlideOp::slide_op() | type()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide op or type is a jump operation.</p>
+</div></div>
+<div class="function">
+<h3 id="is_incremental/1">is_incremental(SlideOp::slide_op()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns whether the given slide op is part of an incremental slide.</p>
+</div></div>
+<div class="function">
+<h3 id="get_timer/1">get_timer(SlideOp::slide_op()) -&gt; {TRef::reference(), Msg::message() (see module comm), Timeouts::non_neg_integer()} | {TRef::null, Msg::nomsg, Timeouts::non_neg_integer()}</h3>
+
+
+<div class="description">
+
+<p>Returns the timer of the slide operation or {null, nomsg} if no timer
+       is set.</p>
+</div></div>
+<div class="function">
+<h3 id="set_timer/1">set_timer(SlideOp::slide_op(), TimeOut::pos_integer(), Message::message() (see module comm)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets a timer that will send the given Message in Timeout ms. If Timeout
+       is null, no timer will be send and the stored timer will be set to
+       {null, nomsg}.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_timer/1">cancel_timer(SlideOp::slide_op()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Resets the timer of the given SlideOp, consumes any of its timeout
+       messages and resets the timeout counter.</p>
+</div></div>
+<div class="function">
+<h3 id="get_timeouts/1">get_timeouts(SlideOp::slide_op()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of timeouts received by a timer.</p>
+</div></div>
+<div class="function">
+<h3 id="inc_timeouts/1">inc_timeouts(SlideOp::slide_op()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Increases the number of timeouts received by a timer by 1.</p>
+</div></div>
+<div class="function">
+<h3 id="reset_timeouts/1">reset_timeouts(SlideOp::slide_op()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Resets the number of timeouts to 0.</p>
+</div></div>
+<div class="function">
+<h3 id="get_phase/1">get_phase(SlideOp::slide_op()) -&gt; phase()</h3>
+
+
+<div class="description">
+
+<p>Returns the current phase of the slide operation.</p>
+</div></div>
+<div class="function">
+<h3 id="set_phase/1">set_phase(SlideOp::slide_op(), NewPhase::phase()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets the slide operation's current phase.</p>
+</div></div>
+<div class="function">
+<h3 id="is_setup_at_other/1">is_setup_at_other(SlideOp::slide_op()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns wether the current slide op has already been set up at the
+       other node.</p>
+</div></div>
+<div class="function">
+<h3 id="set_setup_at_other/1">set_setup_at_other(SlideOp::slide_op()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+
+<p>Sets that the current slide op has already been set up at the
+       other node.</p>
+</div></div>
+<div class="function">
+<h3 id="get_next_op/1">get_next_op(SlideOp::slide_op()) -&gt; next_op()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_next_op/1">set_next_op(SlideOp::slide_op(), NextOp::next_op()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_other_max_entries/1">get_other_max_entries(SlideOp::slide_op()) -&gt; unknown | pos_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_other_max_entries/1">set_other_max_entries(SlideOp::slide_op(), OtherMTE::pos_integer()) -&gt; slide_op()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_msg_fwd/1">get_msg_fwd(SlideOp::slide_op() | null) -&gt; [{interval() (see module intervals), mypid() (see module comm)}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_msg_fwd/1">set_msg_fwd(SlideOp::slide_op(), Interval::interval() (see module intervals)) -&gt; slide_op()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Nico Kruber</aname>
+<email>kruber@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

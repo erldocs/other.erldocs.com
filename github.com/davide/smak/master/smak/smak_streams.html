@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smak_streams (smak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>smak_streams</h1>
+<h2 class="modsummary">Smak "streams" implementation for compatibility with EWGI.</h2>
+<div class="description">
+<p>Smak "streams" implementation for compatibility with EWGI. It makes
+  extensive use of the DELAY and FORCE macros to make the code slightly more
+  readable. Of course, it probably really only comes down to a matter of
+  personal taste. I'm sure some people will get irritated by
+  it. Unfortunately, the BEAM compiler doesn't have any special
+  optimizations for laziness, so this is not a useful module for general
+  functional programming problems. It can probably be used to express
+  certain solutions elegantly, but they will likely suffer severe
+  performance penalties.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="empty/0">empty() -&gt; function()</h3>
+
+
+<div class="description">
+
+<p>Returns an empty stream</p>
+</div></div>
+<div class="function">
+<h3 id="push/1">push(H::any(), T::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Pushes H onto the head of T</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(S::stream()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Converts a stream into a list. Note that it will never return if an
+  infinite stream is passed to this function. It also has the effect of
+  forcing every lazy element of the stream.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_stream/1">list_to_stream(L::list()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Turns a proper normal list into a stream.</p>
+</div></div>
+<div class="function">
+<h3 id="append/1">append(S1::stream(), S2::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Append the stream S2 to S1, returning a new stream.</p>
+</div></div>
+<div class="function">
+<h3 id="seq/1">seq(From::integer()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Returns an *infinite* stream starting at From in ascending order.</p>
+</div></div>
+<div class="function">
+<h3 id="seq/1-1">seq(From::integer(), To::integer()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Returns a stream consisting of integers in the interval From..To in ascending order.</p>
+</div></div>
+<div class="function">
+<h3 id="seq/1-2">seq(From::integer(), To::integer(), D::integer()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream of integers [From, From + D, From + 2*D, ..., From +
+  D*((To - From) mod D)]. The interval is empty if D does not have the same
+  sign as the difference To - From.</p>
+</div></div>
+<div class="function">
+<h3 id="integers/1">integers(N::integer()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream of integers starting at N.</p>
+<p><em>See also:</em> <a href="#seq/1" class="seealso">seq/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="constant/1">constant(X::any()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The infinite stream of elements X.</p>
+</div></div>
+<div class="function">
+<h3 id="duplicate/1">duplicate(N::integer(), X::any()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream of length N, where each element is X.</p>
+</div></div>
+<div class="function">
+<h3 id="first/1">first(N::non_neg_integer(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream consisting of the first N elements of S, or the stream S
+  if the length of S is not greater than N.</p>
+</div></div>
+<div class="function">
+<h3 id="takewhile/1">takewhile(P::function(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Accumulates elements from a stream while the unary predicate is
+  true. It forces each of the elements of the stream it must test.</p>
+</div></div>
+<div class="function">
+<h3 id="drop/1">drop(N::non_neg_integer(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream [EN+1, EN+2, ...], if S is [E1, ..., EN, EN+1, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="dropwhile/1">dropwhile(P::function(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Drops elements from a stream while the unary predicate is true. It
+  forces each of the elements of the stream it must test.</p>
+</div></div>
+<div class="function">
+<h3 id="subsequence/1">subsequence(N::non_neg_integer(), D::pos_integer(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream [EN, EN+1, ..., EN+D], if S is [E1, E2, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="map/1">map(F::function(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream [F(E1), F(E2), F(E3), ...] if S is [E1, E2, E3, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="filter/1">filter(P::function(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>The stream of all elements E in S (in the same order) for which P(E)
+  returns <code>true</code>. P must return either <code>true</code> or <code>false</code> for all elements in
+  S.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(P::function(), S1::function(), S2::function()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Returns the stream of elements in S1 and S2 where the respective
+  relative order of elements is preserved, and each element Y of S2 is
+  ordered before the first possible X of S1 such that P(X, Y) yields
+  <code>false</code>. P(X, Y) must yield either <code>true</code> or <code>false</code> for all X in S1 and Y
+  in S2. (P can be read as "less than".)</p>
+</div></div>
+<div class="function">
+<h3 id="member/1">member(X::any(), S::stream()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if X is in the stream S, and <code>false</code> otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="nth/1">nth(N::integer(), S::stream()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Returns the Nth element of stream S.</p>
+</div></div>
+<div class="function">
+<h3 id="nthtail/1">nthtail(N::non_neg_integer(), S::stream()) -&gt; stream()</h3>
+
+
+<div class="description">
+
+<p>Returns the stream [AN+1, AN+2, ...] if S is [A1, A2, ..., AN, AN+1,
+  AN+2, ...].</p>
+</div></div>
+<div class="function">
+<h3 id="foldl/1">foldl(A::any(), F::function(), S::stream()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Computes (...((A F E1) F E2)... F EN), if S is [E1, E2, ..., EN] and
+  F is a binary function (here written as an infix operator).</p>
+</div></div>
+<div class="function">
+<h3 id="foldr/1">foldr(S::stream(), F::function(), A::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Computes (E1 F ...(EN-1 F (EN F A))...), if S is [E1, E2, ..., EN]
+  and F is a binary function (here written as an infix operator).</p>
+</div></div>
+<div class="function">
+<h3 id="foreach/1">foreach(F::function(), S::stream()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Evaluates F(E1), F(E2), ..., if S is [E1, E2, ...]. Always returns
+  <code>ok</code>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Hunter Morris</aname>
+<email>hunter.morris@smarkets.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

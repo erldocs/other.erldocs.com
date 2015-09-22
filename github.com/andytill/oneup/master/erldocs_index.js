@@ -1,0 +1,1 @@
+var index = [['app','oneup','oneup','[application]'],['mod','oneup','oneup',[]],['fun','oneup','oneup:get/1',[]],['fun','oneup','oneup:inc/1',[]],['fun','oneup','oneup:inc2/1',[]],['fun','oneup','oneup:inc_if_less_than/1',[]],['fun','oneup','oneup:is_lock_free/0',[]],['fun','oneup','oneup:new_counter/0',[]],['fun','oneup','oneup:num_counters/0',[]]];

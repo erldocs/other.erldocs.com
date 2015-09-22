@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>setup_gen (setup) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>setup_gen</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="main/1">main(Args) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="help/0">help() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run/1">run(Options) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Generates .rel file(s) and boot scripts for a given configuration.</p>
+ 
+  <p>This function reads a configuration specification and generates the
+  files needed to start a node from an OTP boot script. Optionally, it can
+  also generate a 'setup' script, which contains the same applications, but
+  only loaded (except the <code>setup</code> application, if present, which is started).  
+This way, a node can be started with all paths set, and all environment  
+variables defined, such that a database can be created, and other setup  
+tasks be performed.</p>
+ 
+  <p>Mandatory options:
+  * <code>{name, Name}</code>  - Name of the release (and of the .rel and .script files)
+  * <code>{outdir, Dir}</code> - Where to put the generated files. Dir is created if not
+                      already present.
+  * <code>{conf, Conf}</code>  - Config file listing apps and perhaps other options
+  * <code>{relconf, File}</code> - can be used instead of <code>conf</code>, and identifies a
+        reltool.config file (see <url href="/home/pete/wefwefwef/docs/other/16be41863ddd2ece79df392e41e8e0b472e864f0/setup-branch-uw-nested-configs/reltool/doc/index.html">reltool</url>) to be used as
+        system description. If a <code>conf</code> option is present, it will be used;
+        otherwise, a <code>relconf</code> option must be present.</p>
+ 
+  <p>Additional options:</p>
+ 
+  <p>* <code>{apps, [App]}</code> - List of applications to include in the release. Only the
+                      first instance of this option is considered.
+  * <code>{add_apps, [App]}</code> - Adds applications to the ones given in the <code>apps</code>
+                          option.
+  * <code>{remove_apps, Apps}</code> - Remove <code>Apps</code> from the list of applications.
+  * <code>{sort_app, App, Before}</code> - Change the sort order so that <code>App</code> comes
+                        before <code>Before</code>.
+  * <code>{include, ConfigFile}</code> - include options from the given file. The file
+                              is processed using <code>file:script/2</code>.
+  * <code>{include_lib, ConfigFile}</code> - As above, but ConfigFile is named as with
+                  the <code>-include_lib(...)</code> directive in Erlang source code.
+  * <code>{sys, SysConfigFile}</code> - Read an existing sys.config file. The environment
+         found in this file may be redefined by <code>env</code> and <code>set_env</code> entries
+         (see below).
+  * <code>{env, [{App, [{K,V}]}]}</code> - Environment variables for the <code>sys.config</code>
+         file. <code>setup_gen</code> will merge all <code>env</code> entries, where later entries
+         replace earlier entries (based on the environment variable name).
+  * <code>{set_env, [{App, [{KeyPath, V}]}]}</code> - Modifies existing environment
+         structures, where <code>KeyPath</code> is a list of names (top name must be
+         an atom) describing a path in a tree structure, where each node
+         is either a <code>{Key, SubTree}</code> or a <code>{Key, Any, SubTree}</code> tuple. The
+         <code>set_env</code> function will continue into <code>SubTree</code> and either replace
+         the value representing the full <code>KeyPath</code> or create the remaining
+         subtree.
+  * <code>{target, Dir}</code> - Where to produce the generated files. The files will
+         end up in <code>Dir/releases/Vsn/</code>. If a <code>reltool.config</code> file is used,
+         the <code>{target_dir, D}</code> option will be translated into <code>{target,D}</code>.
+  * <code>{vsn, Vsn}</code> - System version, used to determine where to generate the
+         files (see <code>target</code> above).
+  * <code>{root, RootDir}</code> - Where to look for applications. Normally, <code>RootDir</code>
+         should represent either <code>RootDir/lib/*/ebin</code>, or <code>RootDir/*/ebin</code>,
+         but if the option <code>{wild_roots,true}</code> is given, it can be either
+         an "ebin" directory, or any parent directory to "ebin" directories.
+         Multiple <code>root</code> options can be given. If <code>target</code> is not given
+         "boot variables" will be generated for each root directory in turn,
+         named <code>V1 ... Vn</code>, then generating a relocatable boot script.
+  * <code>{pa, Path}</code> - Prepends <code>Path</code> to the code path. Multiple <code>pa</code> options
+         can be given.
+  * <code>{pz, Path}</code> - Appends <code>Path</code> to the code path. Multiple <code>pz</code> options
+         can be given.
+  * <code>{install, true|false}</code> - Tells setup whether to also build "install"
+         scripts and config files. An install script contains the same
+         applications as the normal script, but only loads them, starting
+         only the <code>setup</code> application. This allows a system to be installed
+         using "setup hooks", while having all the target system code
+         and environment available. An "install.config" file is also created,
+         which, if a <code>{nodes, Ns}</code> option is given, also configures Erlang
+         to wait for all given nodes, and then start the <code>setup</code> application
+         on the first node.
+  * <code>{verbose, true|false}</code> - (Default: <code>false</code>) Turns on verbose printouts.</p>
+ 
+  <p><em><marker id="Application_entries">Application entries</marker></em></p>
+ 
+  <p>Applications can be represented in a number of different ways:
+  * <code>AppName::atom()</code> - <code>setup</code> will search for the latest version
+        along the current code path.
+  * <code>{App::atom(), Vsn::latest|list()}</code> - where <code>Vsn</code> is an explicit version
+        identifying the application. <code>latest</code> instructs <code>setup</code> to pick the
+        latest version, if several versions can be found along the path.
+  * <code>{App::atom(), Type::atom()}</code> - where
+      <code>Type::permanent|temporary|transient|load</code> is the application start
+      type (or, in the case of 'load', no start at all).
+  * <code>{App, Vsn, Type}</code> - see <code>App</code>, <code>Vsn</code> and <code>Type</code> above
+  * <code>{App, Vsn, Incl}</code> - where <code>Incl</code> is a list of included applications.
+  * <code>{App, Vsn, Type, Incl}</code></p>
+ 
+  <p><em><marker id="Command-line_options">Command-line options</marker></em></p>
+ 
+  <p>The following options can be given on the command line of <code>setup_gen</code>:
+  * <code>-target Dir</code> - Equivalent to <code>{target, Dir}</code>
+  * <code>-name Name</code>  - Equivalent to <code>{name, Name}</code>
+  * <code>-root Dir</code>   - Equivalent to <code>{root, Dir}</code>
+  * <code>-relconf F</code>  - Equivalent to <code>{relconf, F}</code>
+  * <code>-conf F</code>     - Equivalent to <code>{conf, F}</code>
+  * <code>-install</code>    - Equivalent to <code>{install, true}</code>
+  * <code>-sys F</code>      - Equivalent to <code>{sys, F}</code>
+  * <code>-vsn V</code>      - Equivalent to <code>{vsn, V}</code>
+  * <code>-pa Dir</code>     - Equivalent to <code>{pa, Dir}</code>
+  * <code>-pz Dir</code>     - Equivalent to <code>{pa, Dir}</code>
+  * <code>-v</code>          - Equivalent to <code>{verbose, true}</code>
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','linc-config-generator','linc-config-generator','[application]'],['mod','linc-config-generator','config_generator','Code that parses a config file in JSON format and '],['fun','linc-config-generator','config_generator:parse/1','Takes a file name and returns the linc element t']];

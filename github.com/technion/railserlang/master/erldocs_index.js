@@ -1,0 +1,1 @@
+var index = [['app','railserlang','railserlang','[application]'],['mod','railserlang','obtaincookie',[]],['fun','railserlang','obtaincookie:obtaincookie/0',[]]];

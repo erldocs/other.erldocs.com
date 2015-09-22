@@ -1,0 +1,1 @@
+var index = [['app','edtnd','edtnd','[application]'],['mod','edtnd','edtnd_app',[]],['mod','edtnd','edtnd_sup',[]],['fun','edtnd','edtnd_app:start/2',[]],['fun','edtnd','edtnd_app:stop/1',[]],['fun','edtnd','edtnd_sup:init/1',[]],['fun','edtnd','edtnd_sup:start_link/0',[]]];

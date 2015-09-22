@@ -1,0 +1,1 @@
+var index = [['app','erlang_destructure_json','erlang_destructure_json','[application]'],['mod','erlang_destructure_json','destructure_json',[]],['mod','erlang_destructure_json','json',[]],['fun','erlang_destructure_json','destructure_json:file/1',[]],['fun','erlang_destructure_json','destructure_json:parse/1',[]],['fun','erlang_destructure_json','json:destructure/2',[]]];

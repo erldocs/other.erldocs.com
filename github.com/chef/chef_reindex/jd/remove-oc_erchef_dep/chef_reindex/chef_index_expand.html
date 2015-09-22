@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>chef_index_expand (chef_reindex) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>chef_index_expand</h1>
+<h2 class="modsummary">Chef object flatten/expand and POSTing to Solr.</h2>
+<div class="description">
+<p>Chef object flatten/expand and POSTing to Solr</p>
+ 
+  <p>This module implements Chef object flatten/expand using the same
+  algorithm as <code>chef-expander</code> and handles POSTing updates (both adds  
+and deletes) to Solr. You will interact with four functions:</p>
+ 
+  <list>
+  <item><a href="#init_items/1" class="seealso"><code>init_items/1</code></a></item>
+  <item><a href="#add_item/4" class="seealso"><code>add_item/4</code></a></item>
+  <item><a href="#delete_item/4" class="seealso"><code>delete_item/4</code></a></item>
+  <item><a href="#send_items/1" class="seealso"><code>send_items/1</code></a></item>
+  </list>
+ 
+  <p>Start by initializing an item context object using <a href="#init_items/1" class="seealso">init_items/1</a> to which you pass the URL for the Solr instance you  
+want to work with.</p>
+ 
+  <p>Next, use <a href="#add_item/4" class="seealso">add_item/4</a> to add/update items in the
+  index. These items will go through the flatten/expand process. If
+  you want to stage an item delete, use <a href="#delete_item/4" class="seealso">delete_item/4</a>. Both  
+of these functions take an item context object and return a  
+possibly updated context. It is important to keep track of the  
+possibly modified context to use for your next call. This API  
+allows this module to handle the flatten/expand and post in  
+different ways. For example, the flatten/expand can be done inline,  
+accumulating the result in the context, or the context can contain  
+a pid and the work can be done async and in parallel.</p>
+ 
+  <p>Finally, call <a href="#send_items/1" class="seealso">send_items/1</a> passing the accumulated context
+  object. Calling this function triggers the actual POST to solr.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-index_expand_ctx">index_expand_ctx()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init_items/1">init_items(Pid::pid(), NumberItems::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Create a new index expand context.</p>
+</div></div>
+<div class="function">
+<h3 id="add_item/5">add_item(Pid, Id, Ejson, Index, OrgId) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_item/4">delete_item(Pid, Id, Index, OrgId) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="send_items/1">send_items(Pid::pid() | index_expand_ctx()) -&gt; ok | {error, {term(), term()}}</h3>
+
+
+<div class="description">
+
+<p>Send items accumulated in the index expand context to
+  Solr. The URL used to talk to Solr is embedded in the context
+  object and determined when <code>&lt;a href="#init_items-1"&gt;&lt;code&gt;init_items/1&lt;/code&gt;&lt;/a&gt;</code> was called.</p>
+</div></div>
+<div class="function">
+<h3 id="make_command/2">make_command(Action::add | delete, Type::binary() | atom(), ID::binary(), DatabaseName::binary() | string(), Item::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Create a "command" EJSON term given Chef object attributes
+  <code>Type</code>, <code>ID</code>, <code>DatabaseName</code>, and <code>Item</code>. The returned EJSON has
+  the same form as we use to place on the RabbitMQ queue for indexing
+  and that chef-expander expects to find for processing. The
+  <code>DatabaseName</code> can be either an OrgId or "chef_1deadbeef". The
+  <code>Item</code> should be the EJSON representation for the object  
+appropriate for indexing. In particular, this means a deep merged  
+structure for node objects.</p>
+ 
+  <p>The code here is largely copied from the <code>chef_index</code> repo and the
+  <code>chef_index_queue</code> module, but isn't tied to rabbitmq client
+  libraries or actual queue publishing.</p>
+</div></div>
+<div class="function">
+<h3 id="post_multi/1">post_multi(Commands::list(), Index::atom() | binary()) -&gt; ok | {error, {term(), term()}}</h3>
+
+
+<div class="description">
+
+<p>Given a list of command EJSON terms, as returned by <a href="#make_command/4" class="seealso">make_command/4</a>, perform the appropriate flatten/expand operation
+  and POST the result to Solr as a single update.</p>
+</div></div>
+<div class="function">
+<h3 id="post_single/1">post_single(Command::term(), Index::atom() | binary()) -&gt; ok | {error, {term(), term()}}</h3>
+
+
+<div class="description">
+
+<p>Given a command EJSON term as returned by <a href="#make_command/4" class="seealso">make_command/4</a>, flatten/expand and POST to Solr.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="gather/1">gather(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, Idx_exp_ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

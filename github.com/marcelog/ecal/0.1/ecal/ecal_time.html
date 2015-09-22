@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ecal_time (ecal) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ecal_time</h1>
+<h2 class="modsummary">General calendar functions.</h2>
+<div class="description">
+<p>General calendar functions.</p>
+  
+   <p>Copyright 2012 Marcelo Gornstein &lt;marcelog@gmail.com&gt;</p>
+  
+   <p>Licensed under the Apache License, Version 2.0 (the "License");   
+you may not use this file except in compliance with the License.   
+You may obtain a copy of the License at</p>
+  
+       <p>http://www.apache.org/licenses/LICENSE-2.0</p>
+  
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-day">day() = 1 | 2 | 3 | 4 | 5 | 6 | 0</h3></div>
+    <div class="type"><h3 id="type-month">month() = 0<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 11<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| feb_leap</h3></div>
+    <div class="type"><h3 id="type-timespec">timespec() = integer()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="now/0">now() -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of seconds since year 1 up to now.</p>
+</div></div>
+<div class="function">
+<h3 id="datetime_to_secs/1">datetime_to_secs(DateTime::datetime() (see module calendar)) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of seconds since year 1 that the given datetime
+  represents.</p>
+</div></div>
+<div class="function">
+<h3 id="month_of_time/1">month_of_time(Timespec::timespec()) -&gt; {timespec(), month()}</h3>
+
+
+<div class="description">
+
+<p>Returns the timespec for the start, and the numeric month, of the
+  current ongoing year according to the given timestamp, starting at
+  0 (january) and up to 11 (december).</p>
+</div></div>
+<div class="function">
+<h3 id="beginning_of_month/1">beginning_of_month(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the 00:00:00 hours of the 1st day of the current month
+  according to the given timestamp.</p>
+</div></div>
+<div class="function">
+<h3 id="end_of_month/1">end_of_month(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the 23:59:59 hours of the last day of the current month
+  according to the given timestamp.</p>
+</div></div>
+<div class="function">
+<h3 id="day_of_month/1">day_of_month(Timespec::timespec()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the day of the month, starting at 0.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_month/1">plus_month(Timespec::timespec(), YearIsLeap::boolean(), Month::month()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds the given month to timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_month/1">minus_month(Timespec::timespec(), YearIsLeap::boolean(), Month::month()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts the given month to timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="beginning_of_year/1">beginning_of_year(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the first second of the current ongoing
+  year according to the given timespec (backwards in time).</p>
+</div></div>
+<div class="function">
+<h3 id="end_of_year/1">end_of_year(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the last second of the current ongoing
+  year according to the given timespec (forward in time).</p>
+</div></div>
+<div class="function">
+<h3 id="day_of_week/1">day_of_week(Timespec::timespec()) -&gt; day()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of the current day of the week according to the
+  timespec, starting at saturday(0) up to friday(6).</p>
+</div></div>
+<div class="function">
+<h3 id="days_in/1">days_in(Length::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of complete days found in Length (given in seconds).</p>
+</div></div>
+<div class="function">
+<h3 id="beginning_of_week/1">beginning_of_week(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the 00:00:00hrs of the first day of the week (saturday).</p>
+</div></div>
+<div class="function">
+<h3 id="end_of_week/1">end_of_week(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the 23:59:59hrs of the last day of the week (friday).</p>
+</div></div>
+<div class="function">
+<h3 id="year_of_time/1">year_of_time(Timespec::timespec()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of the year for the given Timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="timespec_for_year/1">timespec_for_year(Year::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns the Jan 1st, 00:00:00 for the given year.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_years/1">plus_years(Timespec::timespec(), Years::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds the given number of years to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_years/1">minus_years(Timespec::timespec(), Years::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts the given number of years to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="inc_year/1">inc_year(Year::integer(), Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Increments a year, based on if Year is a leap year.</p>
+</div></div>
+<div class="function">
+<h3 id="dec_year/1">dec_year(Year::integer(), Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Decrements a year, based on if Year is a leap year. This one will
+  actually substract the PREVIOUS year TO the GIVEN year. So the timespec
+  resulting from substracting a year to 1999, is 1999 minus the length of
+  1998, so, 1/1/1998.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_leap_year/1">plus_leap_year(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds a complete leap year to the given timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_leap_year/1">minus_leap_year(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts a complete leap year to the given timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_year/1">plus_year(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds a complete year to the given timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_year/1">minus_year(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts a complete year to the given timespec.</p>
+</div></div>
+<div class="function">
+<h3 id="day_of_time/1">day_of_time(Timespec::timespec()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of complete days in the given timestamp.</p>
+</div></div>
+<div class="function">
+<h3 id="second_of_day/1">second_of_day(Timespec::timespec()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the current second of the current day of the given timestamp
+  (0 - 86400).</p>
+</div></div>
+<div class="function">
+<h3 id="minute_of_day/1">minute_of_day(Timespec::timespec()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the current minute of the current day of the given timestamp
+  (0 - 1440).</p>
+</div></div>
+<div class="function">
+<h3 id="hour_of_day/1">hour_of_day(Timespec::timespec()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the current hour of the current day of the given timestamp
+  (0 - 23).</p>
+</div></div>
+<div class="function">
+<h3 id="tomorrow/1">tomorrow(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the first second of the next
+  day according to the given timespec (forward in time).</p>
+</div></div>
+<div class="function">
+<h3 id="yesterday/1">yesterday(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the first second of the previous
+  day according to the given timespec (backwards in time).</p>
+</div></div>
+<div class="function">
+<h3 id="beginning_of_day/1">beginning_of_day(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the first second of the current ongoing
+  day according to the given timespec (backwards in time).</p>
+</div></div>
+<div class="function">
+<h3 id="end_of_day/1">end_of_day(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the last second of the current ongoing
+  day according to the given timespec (forward in time).</p>
+</div></div>
+<div class="function">
+<h3 id="beginning_of_minute/1">beginning_of_minute(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the first second of the current ongoing
+  minute according to the given timespec (backwards in time).</p>
+</div></div>
+<div class="function">
+<h3 id="end_of_minute/1">end_of_minute(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the last second of the current ongoing
+  minute according to the given timespec (forward in time).</p>
+</div></div>
+<div class="function">
+<h3 id="beginning_of_hour/1">beginning_of_hour(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the first second of the current ongoing hour
+  according to the given timespec (backwards in time).</p>
+</div></div>
+<div class="function">
+<h3 id="end_of_hour/1">end_of_hour(Timespec::timespec()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Returns a timespec equal to the last second of the current ongoing hour
+  according to the given timespec (forward in time).</p>
+</div></div>
+<div class="function">
+<h3 id="plus_weeks/1">plus_weeks(Timespec::timespec(), Weeks::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="minus_weeks/1">minus_weeks(Timespec::timespec(), Weeks::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="plus_days/1">plus_days(Timespec::timespec(), Hours::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds the given number of days to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_days/1">minus_days(Timespec::timespec(), Hours::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts the given number of days to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_hours/1">plus_hours(Timespec::timespec(), Hours::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds the given number of hours to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_hours/1">minus_hours(Timespec::timespec(), Hours::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts the given number of hours to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_minutes/1">plus_minutes(Timespec::timespec(), Minutes::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds the given number of minutes to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_minutes/1">minus_minutes(Timespec::timespec(), Minutes::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts the given number of minutes to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="plus_seconds/1">plus_seconds(Timespec::timespec(), Seconds::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Adds the given number of seconds to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="minus_seconds/1">minus_seconds(Timespec::timespec(), Seconds::integer()) -&gt; timespec()</h3>
+
+
+<div class="description">
+
+<p>Substracts the given number of seconds to the specified time.</p>
+</div></div>
+<div class="function">
+<h3 id="is_leapyear/1">is_leapyear(Year::integer()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns true if the given year is a leap year.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Marcelo Gornstein</aname>
+<email>marcelog@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

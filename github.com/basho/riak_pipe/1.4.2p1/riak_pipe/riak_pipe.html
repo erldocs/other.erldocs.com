@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_pipe (riak_pipe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_pipe</h1>
+<h2 class="modsummary">Basic interface to riak_pipe.</h2>
+<div class="description">
+<p>Basic interface to riak_pipe.</p>
+ 
+       <p>Clients of riak_pipe are most likely to be interested in
+       <a href="#exec/2" class="seealso">exec/2</a>, <a href="#wait_first_fitting/1" class="seealso">wait_first_fitting/1</a>,
+       <a href="#receive_result/1" class="seealso">receive_result/1</a>, and <a href="#collect_results/1" class="seealso">collect_results/1</a>.</p>
+ 
+       <p>Basic client usage should go something like this:
+  </p><pre class="sh_erlang">  % define the pipeline
+  PipelineSpec = [#fitting_spec{name="passer"
+                                module=riak_pipe_w_pass}],
+ 
+  % start things up
+  {ok, Pipe} = riak_pipe:exec(PipelineSpec, []),
+ 
+  % send in some work
+  riak_pipe:queue_work(Pipe, "work item 1"),
+  riak_pipe:queue_work(Pipe, "work item 2"),
+  riak_pipe:queue_work(Pipe, "work item 3"),
+  riak_pipe:eoi(Pipe),
+ 
+  % wait for results (alternatively use receive_result/1 repeatedly)
+  {ok, Results} = riak_pipe:collect_results(Pipe).</pre>
+ 
+       <p>Many examples are included in the source code, and exported
+       as functions named <code>example</code>*.</p>
+ 
+       <p>The functions <a href="#result/3" class="seealso">result/3</a>, <a href="#eoi/1" class="seealso">eoi/1</a>, and <a href="#log/3" class="seealso">log/3</a> are used by workers and fittings to deliver messages to
+       the sink.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-exec_option">exec_option() = {sink, <a href="#type-fitting" class="seealso">fitting()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {sink_type, <a href="riak_pipe_sink.html#type-sink_type" class="seealso">riak_pipe_sink:sink_type()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {trace, list() | <a href="riak_pipe_log.html#type-trace_filter" class="seealso">riak_pipe_log:trace_filter()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {log, sink | sasl}</h3></div>
+    <div class="type"><h3 id="type-exec_opts">exec_opts() = [<a href="#type-exec_option" class="seealso">exec_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-fitting">fitting() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#fitting{pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref = undefined | reference(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chashfun = undefined | <a href="riak_pipe_vnode.html#type-chashfun" class="seealso">riak_pipe_vnode:chashfun()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nval = undefined | <a href="riak_pipe_vnode.html#type-nval" class="seealso">riak_pipe_vnode:nval()</a>}</h3></div>
+    <div class="type"><h3 id="type-fitting_spec">fitting_spec() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#fitting_spec{name = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;module = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arg = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chashfun = <a href="riak_pipe_vnode.html#type-chashfun" class="seealso">riak_pipe_vnode:chashfun()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nval = <a href="riak_pipe_vnode.html#type-nval" class="seealso">riak_pipe_vnode:nval()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q_limit = integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-pipe">pipe() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pipe{builder = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fittings = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [{Name :: term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#fitting{pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref = undefined | reference(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chashfun = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-chashfun" class="seealso">riak_pipe_vnode:chashfun()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nval = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-nval" class="seealso">riak_pipe_vnode:nval()</a>}}],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sink = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| #fitting{pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ref = undefined | reference(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chashfun = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-chashfun" class="seealso">riak_pipe_vnode:chashfun()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nval = undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="riak_pipe_vnode.html#type-nval" class="seealso">riak_pipe_vnode:nval()</a>}}</h3></div>
+    <div class="type"><h3 id="type-stat">stat() = {atom(), term()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="exec/1">exec(Spec::[fitting_spec()], Options::exec_opts()) -&gt; {ok, Pipe::pipe()}</h3>
+
+
+<div class="description">
+
+<p>Setup a pipeline.  This function starts up fitting/monitoring       
+processes according the fitting specs given, returning a       
+handle to the pipeline.  Inputs may then be sent to vnodes,       
+tagged with that head fitting.</p>
+ 
+       <p>The pipeline is specified as an ordered list of
+       <code>#fitting_spec{}</code> records.  Each record has the fields:
+ </p><taglist><dt>
+       <code>name</code>
+ </dt><item><p>
+       Any term. Will be used in logging, trace, and result messages.
+ </p></item><dt>
+       <code>module</code>
+ </dt><item><p>
+       Atom. The name of the module implementing the fitting.  This
+       module must implement the <code>riak_pipe_vnode_worker</code> behavior.
+ </p></item><dt>
+       <code>arg</code>
+ </dt><item><p>
+       Any term. Will be available to the fitting-implementation
+       module's initialization function.  This is a good way to
+       parameterize general fittings.
+ </p></item><dt>
+      <code>chashfun</code>
+ </dt><item><p>
+       A function of arity 1.  The consistent-hashing function used
+       to determine which vnode should receive an input.  This
+       function will be evaluated as <code>Fun(Input)</code>.  The result of
+       that evaluation should be a binary, 160 bits in length, which
+       will be used to choose the working vnode from a
+       <code>riak_core_ring</code>.  (Very similar to the <code>chash_keyfun</code> bucket
+       property used in <code>riak_kv</code>.)</p>
+ 
+       <p>The default is <code>fun chash:key_of/1</code>, which will distribute
+       inputs according to the SHA-1 hash of the input.
+ </p></item><dt>
+       <code>nval</code>
+ </dt><item><p>
+       Either a positive integer, or a function of arity 1 that
+       returns a positive integer.  This field determines the maximum
+       number of vnodes that might be asked to handle the input.  If
+       a worker is unable to process an input on a given vnode, it
+       can ask to have the input sent to a different vnode.  Up to
+       <code>nval</code> vnodes will be tried in this manner.</p>
+ 
+       <p>If <code>nval</code> is an integer, that static number is used for all
+       inputs.  If <code>nval</code> is a function, the function is evaluated as
+       <code>Fun(Input)</code> (much like <code>chashfun</code>), and is expected to return
+       a positive integer.
+ </p></item></taglist>
+ 
+       <p>Defined elements of the <code>Options</code> list are:
+ </p><taglist><dt>
+       <code>{sink, Sink}</code>
+ </dt><item><p>
+       If no <code>sink</code> option is provided, one will be created, such
+       that the calling process will receive all messages sent to the
+       sink (all output, logging, and trace messages).  If specified,
+       <code>Sink</code> should be a <code>#fitting{}</code> record, filled with the pid of
+       the process prepared to receive these messages.
+ </p></item><dt>
+       <code>{sink_type, Type}</code>
+ </dt><item><p>
+       Specifies the way in which messages are delivered to the
+       sink. If <code>Type</code> is the atom <code>raw</code>, messages are delivered as
+       plain Erlang messages. If <code>Type</code> is the tuple <code>{fsm,
+       Period, Timeout}</code>, messages are delivered by calling <a href="gen_fsm.html#send_event/2" class="seealso">gen_fsm:send_event/2</a> <code>Period` times with the sink</code>s pid and
+       the result message, then calling <a href="gen_fsm.html#sync_send_event/3" class="seealso">gen_fsm:sync_send_event/3</a> once with the sink's pid, the
+       result message, and the specified timeout. If no <code>sink_type</code>
+       option is provided, <code>Type</code> defaults to <code>raw</code>.</p>
+ 
+       <p>Some simple <code>fsm</code> period examples: <code>{fsm, 0, T}` will send
+       every message synchronously, `{fsm, infinity, T}` will send
+       every message asynchronously, `{fsm, 1, T}` will alternate
+       every message, `{fsm, 10, T}` sends ten messages
+       asynchronously then one synchronously. For every period except
+       `infinity</code> the first message is always sent synchrounously.
+ </p></item><dt>
+       <code>{trace, TraceMatches}</code>
+ </dt><item><p>
+       If no <code>trace</code> option is provided, tracing will be disabled for
+       this pipeline.  If specified, <code>TraceMatches</code> should be either
+       the atom <code>all</code>, in which case all trace messages will be
+       delivered, or a list of trace tags to match, in which case
+       only messages with matching tags will be delivered.
+ </p></item><dt>
+       <code>{log, LogTarget}</code>
+ </dt><item><p>
+       If no <code>log</code> option is provided, logging will be disabled for
+       this pipeline.  If specified, <code>LogTarget</code> should be one of the
+       following atoms:
+    </p><taglist><dt>
+       <code>sink</code>
+    </dt><item><p>
+       all log (and trace) messages will be delivered to the sink
+    </p></item><dt>
+       <code>sasl</code>
+    </dt><item><p>
+       all log (and trace) messages will be printed via
+       <code>error_logger</code> to the SASL log
+    </p></item><dt>
+       <code>lager</code>
+    </dt><item><p>
+       all log (and trace) messages will be printed to the Riak
+       node's log via the lager utility
+    </p></item></taglist><p>
+ </p></item></taglist>
+ 
+       <p>Other values are allowed, but ignored, in <code>Options</code>.  The
+       value of <code>Options</code> is provided to all fitting modules during
+       initialization, so it can be a good vector for global
+       configuration of general fittings.</p>
+</div></div>
+<div class="function">
+<h3 id="eoi/1">eoi(Pipe::pipe()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send an end-of-inputs message to the head of the pipe.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_work/2">queue_work(Pipe, Input) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#queue_work/3" class="seealso">queue_work(Pipe, Input, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_work/1">queue_work(Pipe::pipe(), Input::term(), Timeout::qtimeout() (see module riak_pipe_vnode)) -&gt; ok | {error, qerror() (see module riak_pipe_vnode)}</h3>
+
+
+<div class="description">
+
+<p>Send inputs to the head of the pipe.</p>
+ 
+       <p>Note that <code>Timeout</code> options are only <code>infinity</code> and <code>noblock</code>,
+       not generic durations yet.</p>
+</div></div>
+<div class="function">
+<h3 id="receive_result/1">receive_result(Pipe::pipe()) -&gt; {result, {From::term(), Result::term()}} | {log, {From::term(), Message::term()}} | eoi | timeout</h3>
+
+
+<div class="description">
+
+<p>Pull the next pipeline result out of the sink's mailbox.
+       The <code>From</code> element of the <code>result</code> and <code>log</code> messages will
+       be the name of the fitting that generated them, as specified
+       in the <code>#fitting_spec{}</code> record used to start the pipeline.
+       This function assumes that it is called in the sink's process.
+       Passing the #fitting{} structure is only needed for reference
+       to weed out misdirected messages from forgotten pipelines.
+       A static timeout of five seconds is hard-coded (TODO).</p>
+</div></div>
+<div class="function">
+<h3 id="receive_result/1-1">receive_result(Pipe::pipe(), Timeout::integer() | infinity) -&gt; {result, {From::term(), Result::term()}} | {log, {From::term(), Message::term()}} | eoi | timeout</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="collect_results/1">collect_results(Pipe::pipe()) -&gt; {eoi | timeout, Results::[{From::term(), Result::term()}], Logs::[{From::term(), Message::term()}]}</h3>
+
+
+<div class="description">
+
+<p>Receive all results and log messages, up to end-of-inputs
+       (unless <a href="receive_result.html" class="seealso">receive_result</a> times out before the eoi       
+arrives).</p>
+ 
+       <p>If end-of-inputs was the last message received, the first
+       element of the returned tuple will be the atom <code>eoi</code>.  If the
+       receive timed out before receiving end-of-inputs, the first
+       element of the returned tuple will be the atom <code>timeout</code>.</p>
+ 
+       <p>The second element will be a list of all result messages       
+received, while the third element will be a list of all log       
+messages received.</p>
+ 
+       <p>This function assumes that it is called in the sink's process.
+       Passing the #fitting{} structure is only needed for reference
+       to weed out misdirected messages from forgotten pipelines.  A
+       static inter-message timeout of five seconds is hard-coded
+       (TODO).</p>
+</div></div>
+<div class="function">
+<h3 id="collect_results/1-1">collect_results(Pipe::pipe(), Timeout::integer() | infinity) -&gt; {eoi | timeout, Results::[{From::term(), Result::term()}], Logs::[{From::term(), Message::term()}]}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="destroy/1">destroy(Pipe::pipe()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Brutally kill a pipeline.  Use this when it is necessary to
+       stop all parts of a pipeline as quickly as possible, instead
+       of waiting for an <code>eoi</code> to propagate through.</p>
+</div></div>
+<div class="function">
+<h3 id="active_pipelines/1">active_pipelines(Node::node() | global) -&gt; [#pipe{builder=undefined | pid(), fittings=undefined | [{Name::term(), #fitting{pid=undefined | pid(), ref=undefined | reference(), chashfun=undefined | chashfun() (see module riak_pipe_vnode), nval=undefined | nval() (see module riak_pipe_vnode)}}], sink=undefined | #fitting{pid=undefined | pid(), ref=undefined | reference(), chashfun=undefined | chashfun() (see module riak_pipe_vnode), nval=undefined | nval() (see module riak_pipe_vnode)}}] | error | [{node(), [#pipe{builder=undefined | pid(), fittings=undefined | [{Name::term(), #fitting{pid=undefined | pid(), ref=undefined | reference(), chashfun=undefined | chashfun() (see module riak_pipe_vnode), nval=undefined | nval() (see module riak_pipe_vnode)}}], sink=undefined | #fitting{pid=undefined | pid(), ref=undefined | reference(), chashfun=undefined | chashfun() (see module riak_pipe_vnode), nval=undefined | nval() (see module riak_pipe_vnode)}}] | error}]</h3>
+
+
+<div class="description">
+
+<p>Get all active pipelines hosted on <code>Node</code>.  Pass the atom
+       <code>global</code> instead of a node name to get all pipelines hosted on       
+all nodes.</p>
+ 
+       <p>The return value for a Node is a list of <code>#pipe{}</code> records.
+       When <code>global</code> is used, the return value is a list of <code>{Node,
+       [#pipe{}]}</code> tuples.</p>
+</div></div>
+<div class="function">
+<h3 id="status/1">status(Pipe::pipe()) -&gt; [{FittingName::term(), [PartitionStatus::[stat()]]}]</h3>
+
+
+<div class="description">
+
+<p>Retrieve details about the status of the workers in this
+       pipeline.  The form of the return is a list with one entry per
+       fitting in the pipe.  Each fitting's entry is a 2-tuple of the
+       form <code>{FittingName, WorkerDetails}</code>, where <code>FittingName</code> is
+       the name that was given to the fitting in the call to <url href="/home/pete/wefwefwef/docs/other/92c4c06c63455eb022b0457e56c647aa54779682/repo/1.4.2p1/.xml/riak_pipe/./riak_pipe.xml#exec-2">riak_pipe:exec/2</url>, and <code>WorkerDetails</code> is a list with one
+       entry per worker.  Each worker entry is a proplist, of the
+       form returned by <a href="riak_pipe_vnode.html#status/1" class="seealso">riak_pipe_vnode:status/1</a>, with two
+       properties added: <code>node</code>, the node on which the worker is
+       running, and <code>partition</code>, the index of the vnode that the
+       worker belongs to.</p>
+</div></div>
+<div class="function">
+<h3 id="example/0">example() -&gt; {eoi | timeout, list(), list()}</h3>
+
+
+<div class="description">
+
+<p>An example run of a simple pipe.  Uses <a href="#example_start/0" class="seealso">example_start/0</a>,
+       <a href="#example_send/0" class="seealso">example_send/0</a>, and <a href="#example_receive/0" class="seealso">example_receive/0</a> to send       
+nonsense through a pipe.</p>
+ 
+       <p>If everything behaves correctly, this function should return
+  </p><pre class="sh_erlang">  {eoi, [{empty_pass, "hello"}], _LogMessages}.</pre>
+</div></div>
+<div class="function">
+<h3 id="example_start/0">example_start() -&gt; {ok, Pipe::pipe()}</h3>
+
+
+<div class="description">
+
+<p>An example of starting a simple pipe.  Starts a pipe with one
+       "pass" fitting.  Sink is pointed at the current process.
+       Logging is pointed at the sink.  All tracing is enabled.</p>
+</div></div>
+<div class="function">
+<h3 id="example_send/1">example_send(Pipe::pipe()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>An example of sending data into a pipeline.  Queues the string
+       <code>"hello"</code> for the fitting provided, then signals end-of-inputs
+       to that fitting.</p>
+</div></div>
+<div class="function">
+<h3 id="example_receive/1">example_receive(Pipe::pipe()) -&gt; {eoi | timeout, list(), list()}</h3>
+
+
+<div class="description">
+
+<p>An example of receiving data from a pipeline.  Reads all
+       results sent to the given sink.</p>
+</div></div>
+<div class="function">
+<h3 id="example_transform/0">example_transform() -&gt; {eoi | timeout, list(), list()}</h3>
+
+
+<div class="description">
+
+<p>Another example pipeline use.  This one sets up a simple       
+"transform" fitting, which expects lists of numbers as       
+input, and produces the sum of that list as output.</p>
+ 
+       <p>If everything behaves correctly, this function should return
+  </p><pre class="sh_erlang">  {eoi, [{"sum transform", 55}], []}.</pre>
+</div></div>
+<div class="function">
+<h3 id="generic_transform/4">generic_transform(MsgFun, DriverFun, ExecOpts, NumFittings) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="example_reduce/0">example_reduce() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Another example pipeline use.  This one sets up a simple
+       "reduce" fitting, which expects tuples of the form
+       <code>{Key::term(), Value::number()}</code>, and produces results of the       
+same form, where the output value is the sum of all of the       
+input values for a given key.</p>
+ 
+       <p>If everything behaves correctly, this function should return
+  </p><pre class="sh_erlang">  {eoi, [{"sum reduce", {a, [55]}}, {"sum reduce", {b, [155]}}], []}.</pre>
+</div></div>
+<div class="function">
+<h3 id="example_tick/3">example_tick(TickLen, NumTicks, ChainLen) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="example_tick/4">example_tick(TickLen, BatchSize, NumTicks, ChainLen) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="zero_part/1">zero_part(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>dummy chashfun for tests and examples
+       sends everything to partition 0</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

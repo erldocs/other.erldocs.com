@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etbx (etbx) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etbx</h1>
+<h2 class="modsummary">The ETBX library is a set of Erlang (http://www.erlang.org) functions to perform common tasks that are a recurrent theme during development of Erlang applications.</h2>
+<div class="description">
+<p>The ETBX library is a set of Erlang (<url href="http://www.erlang.org">http://www.erlang.org</url>) functions to perform common tasks that are a recurrent theme during development of Erlang applications.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-proplist">proplist() = [tuple()]</h3></div>
+    <div class="type"><h3 id="type-recspec">recspec() = tuple()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="any/2">any(Pred, T) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Returns one element from the list for which Pred(Elem) is not false.
+  Kinda like lists:any but instead of returning true, it returns
+  the value returned by the predicate.</p>
+</div></div>
+<div class="function">
+<h3 id="eval/1">eval(Expr::string()) -&gt; {ok, term(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Same as eval(Expr, [])</p>
+</div></div>
+<div class="function">
+<h3 id="eval/1-1">eval(Expr0::string(), Bindings::list()) -&gt; {ok, term(), list()} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Evaluates an Erlang expression</p>
+</div></div>
+<div class="function">
+<h3 id="get_env/1">get_env(K::atom()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Retrieves an Application env setting</p>
+</div></div>
+<div class="function">
+<h3 id="get_env/1-1">get_env(K::atom(), Default::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Retrieves a Hypervisor Application env setting</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_apply/1">maybe_apply(Mod::module(), Fun::function(), Args::list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Call the specified function if it exists, otherwise just don't and
+  return undefined</p>
+</div></div>
+<div class="function">
+<h3 id="maybe_apply/1-1">maybe_apply(Mod::module(), Fun::function(), Args::list(), Return::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Call the specified function if it exists, otherwise just don't and
+  return the given Return parameter instead</p>
+</div></div>
+<div class="function">
+<h3 id="set_loglevel/1">set_loglevel(Level::log_level() (see module lager)) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Set lager logging level at runtime. Specify one of debug, info,
+  notice, warning, error, critical, alert or emergency.</p>
+</div></div>
+<div class="function">
+<h3 id="start_app/1">start_app(App::atom()) -&gt; {ok, atom(), list()} | any()</h3>
+
+
+<div class="description">
+
+<p>Starts all dependencies for a given application and then the
+  application itself. It returns an application start token that can
+  be used later to stop the application and all dependencies</p>
+</div></div>
+<div class="function">
+<h3 id="stop_app/2">stop_app(Apps::{ok, atom(), list()} | [string()]) -&gt; ok | any()</h3>
+
+
+<div class="description">
+
+<p>Stops an application and all its dependencies. The start token
+  that needs to be provided here is the one returned by start_app()</p>
+</div></div>
+<div class="function">
+<h3 id="is_nil/1">is_nil(X1::any()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>a common sense test for what one would expect should be a
+  "nil" value. Seriously Ericsson.</p>
+</div></div>
+<div class="function">
+<h3 id="is_nil/0">is_nil() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="if_nil/1">if_nil(V::any(), D::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>checks if value is_nil and returns the given default value if it is</p>
+</div></div>
+<div class="function">
+<h3 id="index_of/1">index_of(X::any(), L::list()) -&gt; number() | undefined</h3>
+
+
+<div class="description">
+
+<p>returns the index for the first occurrence of an element in a list
+  or undefined if the element is not in the list</p>
+</div></div>
+<div class="function">
+<h3 id="first/1">first(T::list() | tuple() | binary()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>returns the first element of the specified list, tuple or binary</p>
+</div></div>
+<div class="function">
+<h3 id="to_rec/1">to_rec(X1::recspec(), P::proplist()) -&gt; record()</h3>
+
+
+<div class="description">
+
+<p>converts a property list into a record.</p>
+</div></div>
+<div class="function">
+<h3 id="contains/1">contains(X::any(), T::list()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Tests if X is present in the given list.</p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(K::any(), V::any(), L::proplist() | #{}) -&gt; proplist() | #{}</h3>
+
+
+<div class="description">
+
+<p>update property K with value V in an associate structure</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(K::any(), L::proplist() | #{}) -&gt; proplist() | #{}</h3>
+
+
+<div class="description">
+
+<p>delete property K from associative structure</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(L::[proplist() | dict() (see module dict)]) -&gt; proplist() | dict() (see module dict)</h3>
+
+
+<div class="description">
+
+<p>merge objects in list L. It returns a single object with
+  all the merged values. If a key is present in the list more than once,
+  the value will be that of the object found last on the list (from left
+  to right).
+  Objects can be proplists or dictionaries</p>
+</div></div>
+<div class="function">
+<h3 id="merge_with/2">merge_with(F, L) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_string/1">to_string(X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_float/1">to_float(X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_atom/1">to_atom(X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_atom/2">to_atom(X, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_tuple/1">to_tuple(X) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run/1">run(Cmd) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run/2">run(Cmd, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="run/3">run(Cmd, Input, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pretty_stacktrace/0">pretty_stacktrace() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="trim/1">trim(List) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_value/1">get_value(K::any(), O::#{} | proplist()) -&gt; any() | undefined</h3>
+
+
+<div class="description">
+
+<p>same as get_value(K, O, undefined)</p>
+</div></div>
+<div class="function">
+<h3 id="get_value/1-1">get_value(K::any(), O::#{} | proplist(), D::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>looks up key in an associative structure. If no value for that key
+  is found, it returns the passed in default parameter</p>
+</div></div>
+<div class="function">
+<h3 id="get_in/3">get_in(KS, D, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Recursively look up a value in an associative structure</p>
+</div></div>
+<div class="function">
+<h3 id="select/1">select(O::#{} | proplist(), L::list()) -&gt; #{} | proplist</h3>
+
+
+<div class="description">
+
+<p>returns an associative structure of the same passed in type containing
+  only key/value pairs for keys present in the list provided</p>
+</div></div>
+<div class="function">
+<h3 id="remap/1">remap(F::function(), P::proplist()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>given a function F and a property list P, apply F to the values of the
+  property list possibly recursing into nested property lists.</p>
+</div></div>
+<div class="function">
+<h3 id="expand/1">expand(M::proplist() | #{}, T::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>same as expand(M, T, 10)</p>
+</div></div>
+<div class="function">
+<h3 id="expand/1-1">expand(M::proplist() | #{}, T::any(), N::integer()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>given an associative structure M any term T and an integer N,
+  it expands up to N times recursively all terms found in T which map to an
+  expression in M.</p>
+</div></div>
+<div class="function">
+<h3 id="split/1">split(N::integer(), L::list()) -&gt; {list(), list()}</h3>
+
+
+<div class="description">
+
+<p>basically lists:split without the mental retardation.</p>
+</div></div>
+<div class="function">
+<h3 id="partition/1">partition(N::integer(), L::list()) -&gt; [list()]</h3>
+
+
+<div class="description">
+
+<p>Split a list into multiple lists of n items each. The last partition
+  will contain less than n elements if the length of the list is not a multiple
+  of n</p>
+</div></div>
+<div class="function">
+<h3 id="pad/1">pad(N::integer(), L::list(), P::any()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>if the length of the list L is less than N, pad the list
+  with the provided padding term P</p>
+</div></div>
+<div class="function">
+<h3 id="to_hex/1">to_hex(Bits) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="seq/1">seq(List) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="seq/2">seq(Generator, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="take/2">take(N, Seq) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="range/0">range() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="range/1">range(Min) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="range/2">range(Min, Max) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="range/3">range(Min, Max, Step) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="doall/1">doall(Seq) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Erick Gonzalez</aname>
+<email>erick@codemonkeylabs.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

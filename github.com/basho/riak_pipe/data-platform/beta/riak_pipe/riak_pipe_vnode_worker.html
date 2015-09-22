@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_pipe_vnode_worker (riak_pipe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_pipe_vnode_worker</h1>
+<h2 class="modsummary">Basic worker process implementation, to be parameterized with       
+fitting implementation module.</h2>
+<div class="description">
+<p>Basic worker process implementation, to be parameterized with       
+fitting implementation module.</p>
+ 
+       <p>Modules that implement this behavior need to export at least       
+three functions:</p>
+ 
+  <pre class="sh_erlang">  init(Partition :: riak_pipe_vnode:partition(),
+       FittingDetails :: riak_pipe_fitting:details())
+    -&gt; {ok, ModuleState :: term()}</pre>
+ 
+       <p>The <code>init/2</code> function is called when the worker starts.  The
+       module should do whatever it needs to get ready before
+       processing inputs.  The module will probably also want to
+       store the <code>Parition</code> and <code>FittingDetails</code> arguments in its
+       state, as it will need them to send outputs later.  The
+       <code>ModuleState</code> returned from this function will be passed to
+       the <code>process/3</code> function later.</p>
+ 
+  <pre class="sh_erlang">  process(Input :: term(),
+          LastInPreflist :: boolean(),
+          ModuleState :: term())
+    -&gt; {ok, NewModuleState :: term()}
+      |forward_preflist.</pre>
+ 
+       <p>The <code>process/3</code> function is called once for each input
+       delivered to the worker.  The module should do whatever
+       processing is needed, sending outputs if appropriate.  The
+       <code>NewModuleState</code> returned from <code>process/3</code> will be passed back       
+in on the next input.</p>
+ 
+       <p><code>LastInPreflist</code> is an indicator as to whether this worker is
+       the last in the partition preflist for this input.  When this
+       parameter is <code>false</code>, the function may return the atom
+       <code>forward_preflist</code> to have the input sent to the next vnode in
+       the prefence list.  When is parameter is <code>true</code>, returning
+       <code>forward_preflist</code> will cause an error trace message to be
+       generated, with the reason <code>preflist_exhausted</code>.</p>
+ 
+  <pre class="sh_erlang">  done(ModuleState :: term()) -&gt; ok.</pre>
+ 
+       <p>The <code>done/1</code> function is called when all inputs have been
+       processed, and the end-of-inputs flag has been received from
+       the fitting.  The module should clean up any resources it
+       needs to clean up, and send any outputs it still needs to
+       send.  When <code>done/1</code> returns, the worker will terminate.</p>
+ 
+       <p>There are also four optional functions that a worker behavior       
+module can export:</p>
+ 
+  <pre class="sh_erlang">  validate_arg(Arg :: term()) -&gt; ok | {error, Reason :: iolist()}.</pre>
+ 
+       <p>The <code>validate_arg/1</code> function is called before a pipeline is
+       constructed.  If the behavior module exports this function,
+       then it will be evaluated on the value of the <code>arg</code> field of a
+       <code>#fitting_spec{}</code> record that points to this module.  If the
+       argument is valid, this function should return the atom <code>ok</code>.       
+If the argument is invalid, the function should return an       
+error tuple, with the Reason being a printable iolist.</p>
+ 
+  <pre class="sh_erlang">  archive(ModuleState :: term()) -&gt; {ok, Archive :: term()}.</pre>
+ 
+       <p>The <code>archive/1</code> function is called when the vnode that owns
+       this worker is being handed off to another node.  The worker
+       should produce some erlang term that represents its state.
+       This <code>Archive</code> term will be passed to the <code>handoff/2</code> function       
+of the module, by the worker running on the handoff target.</p>
+ 
+  <pre class="sh_erlang">  handoff(Archive :: term(),
+          ModuleState :: term()) -&gt;
+     {ok, NewModuleState :: term()}.</pre>
+ 
+       <p>The <code>handoff/2</code> function is called when a vnode receives a
+       handoff archive from another vnode.  The module should "merge"
+       the <code>Archive</code> with its <code>ModuleState</code> (in whatever sense
+       "merge" may mean for this fitting), and return the resulting
+       <code>NewModuleState</code>.</p>
+ 
+  <pre class="sh_erlang">  no_input_run_reduce_once() -&gt; boolean().</pre>
+ 
+  <p>If present and returns <code>true</code>, then in the case that a fitting has  
+no input (as measured by having zero workers), then a "fake" worker  
+will be started for the express purpose of running its computation  
+once and sending some output downstream.  Right now, the only  
+fitting that needs this feature is riak_kv_w_reduce.erl, which  
+needs the capability to run its reduce function once (with input of  
+an empty list) in order to maintain full compatibility with Riak  
+KV's Map/Reduce.</p>
+ 
+  <p>For riak_kv_w_reduce.erl and any other pipe behavior callback
+  module where this function returns <code>true</code>, the
+  <code>#fitting_details.options</code> property list will contain the property
+  <code>pipe_fitting_no_input</code> to indicate that the fitting has no input.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-state">state()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Partition::partition() (see module riak_pipe_vnode), VnodePid::pid(), FittingDetails::details() (see module riak_pipe_fitting)) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Start a worker for the specified fitting+vnode.</p>
+</div></div>
+<div class="function">
+<h3 id="send_input/1">send_input(WorkerPid::pid(), Input::done | {term(), preflist() (see module riak_core_apl)}) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send input to the worker.  Note: this should only be called
+       by the vnode that owns the worker, as the result of the worker
+       asking for its next input.</p>
+</div></div>
+<div class="function">
+<h3 id="send_handoff/1">send_handoff(WorkerPid::pid(), Archive::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Ask the worker to merge handoff data from an archived worker.
+       Note: this should only be called by the vnode that owns the
+       worker, as the result of the worker asking for its next input
+       when the vnode has received handoff data for the worker's
+       fitting.</p>
+</div></div>
+<div class="function">
+<h3 id="send_archive/1">send_archive(WorkerPid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Ask the worker to archive itself.  The worker will send the
+       archive data to the owning vnode when it has done so.  Once
+       it has sent the archive, the worker shuts down normally.</p>
+</div></div>
+<div class="function">
+<h3 id="send_output/3">send_output(Output, FromPartition, Details) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#send_output/4" class="seealso">send_output(Output, FromPartition, Details, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send_output/1">send_output(Output::term(), FromPartition::partition() (see module riak_pipe_vnode), Fitting_details::details() (see module riak_pipe_fitting), Timeout::qtimeout() (see module riak_pipe_vnode)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send output from the given fitting to the next output down the
+       line. <code>FromPartition</code> is used in the case that the next
+       fitting's partition function is <code>follow</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="recurse_input/3">recurse_input(Input, FromPartition, Details) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#recurse_input/4" class="seealso">recurse_input(Input, FromPartition, Details, noblock)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="recurse_input/1">recurse_input(Input::term(), FromPartition::partition() (see module riak_pipe_vnode), Details::details() (see module riak_pipe_fitting), Timeout::qtimeout() (see module riak_pipe_vnode)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send a new input from this fitting, to itself.  This can be       
+used to write fittings that perform recursive calculation,       
+where steps in the recursion might be done in parallel.</p>
+ 
+       <p>For example, when walking intermediate tree nodes, using
+       <code>recurse_input/3</code> to send children to other vnodes, instead of       
+processing them in the same worker, may be a useful strategy.</p>
+ 
+       <p>WARNING: Using recurse_input with a <code>Timeout</code> of <code>infinity</code> is
+       discouraged, unless you can guarantee that the queues for a
+       fitting will never be full.  Otherwise, it's possible to
+       deadlock a fitting by blocking on enqueueing an input for a
+       worker that is blocking on enqueueing an input for the sender
+       (circular blocking).  Use <code>noblock</code> and handle timeout       
+failures to prevent deadlock.</p>
+ 
+       <p>Internal details: This works because of the nature of the
+       blocking enqueue operation.  It is guaranteed that as long as
+       this worker is alive, the fitting for which it works will not
+       receive all of its <code>done</code> messages.  So, the vnode that
+       enqueues this input will still be able to ask the fitting for
+       details, and the fitting will know that it has to wait on that
+       vnode.</p>
+</div></div>
+<div class="function">
+<h3 id="send_output/1-1">send_output(Output::term(), FromPartition::partition() (see module riak_pipe_vnode), Details::details() (see module riak_pipe_fitting), FittingOverride::fitting() (see module riak_pipe), Timeout::qtimeout() (see module riak_pipe_vnode)) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Send output from the given fitting to a specific fitting.
+       This is most often used to send output to the sink, but also
+       happens to be the internal implementation of <a href="#send_output/3" class="seealso">send_output/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[partition() (see module riak_pipe_vnode) | pid() | details() (see module riak_pipe_fitting)]) -&gt; {ok, initial_input_request, state(), 0} | {stop, {init_failed, term(), term()}}</h3>
+
+
+<div class="description">
+
+<p>Initialize the worker.  This function calls the implementing
+       module's init function.  If that init function fails, the
+       worker stops with an <code>{init_failed, Type, Error}</code> reason.</p>
+</div></div>
+<div class="function">
+<h3 id="initial_input_request/2">initial_input_request(X1::timeout, State::state()) -&gt; {next_state, wait_for_input, state()}</h3>
+
+
+<div class="description">
+
+<p>The worker has just started, and should request its first
+       input from its owning vnode.  This is done after a zero
+       timeout instead of in the init function to get around the
+       deadlock that would result from having the worker wait for a
+       message from the vnode, which is waiting for a response from
+       this process.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_input/2">wait_for_input(X1::{input, done | {term(), preflist() (see module riak_core_apl)}} | {handoff, term()} | archive, State::state()) -&gt; {next_state, wait_for_input, state()} | {stop, normal, state()}</h3>
+
+
+<div class="description">
+
+<p>The worker has requested its next input item, and is waiting       
+for it.</p>
+ 
+       <p>If the input is <code>done</code>, due to end-of-inputs from the fitting,
+       then the implementing module's <code>done</code> function is evaluated,       
+the the worker terminates normally.</p>
+ 
+       <p>If the input is any regular input, then the implementing
+       module's <code>process</code> function is evaluated.  When it finishes,       
+the next input is requested from the vnode.</p>
+ 
+       <p>If the input is a handoff from another vnode, the worker asks       
+the implementing module to merge the archive, if the worker       
+exports that functionality.</p>
+ 
+       <p>If the input is a request to archive, the worker asks the
+       implementing module to archive itself, if the worker exports
+       that functionality.  When the archiving process has finished,
+       the worker terminates normally.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_event/1">handle_event(Event::term(), StateName::atom(), State::state()) -&gt; {next_state, atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_sync_event/1">handle_sync_event(Event::term(), From::term(), StateName::atom(), State::state()) -&gt; {reply, ok, atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::term(), StateName::atom(), State::state()) -&gt; {next_state, atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), StateName::atom(), State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/1">code_change(OldVsn::term(), StateName::atom(), State::state(), Extra::term()) -&gt; {ok, atom(), state()}</h3>
+
+
+<div class="description">
+
+<p>Unused.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

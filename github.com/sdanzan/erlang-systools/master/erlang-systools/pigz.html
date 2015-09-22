@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pigz (erlang-systools) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pigz</h1>
+<h2 class="modsummary">A wrapper around the pigz program.</h2>
+<div class="description">
+<p>A wrapper around the pigz program. Provide a "compressor" process
+        to send file compresion orders.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create_compressor/1">create_compressor(Options::list()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Create a compressor process to wait for compression tasks.
+       Allowed options:
+               { level, Level }: compression level (default 9).
+               { parallel, Parallel }: compression threads.
+               silent: no logging.</p>
+</div></div>
+<div class="function">
+<h3 id="create_compressor/0">create_compressor() -&gt; pid()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#create_compressor/1" class="seealso">create_compressor([])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_compressor/1">delete_compressor(Compressor::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Requires the given compressor to stop serving compression tasks.</p>
+</div></div>
+<div class="function">
+<h3 id="compress/1">compress(String::string(), Compressor::pid()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Synchronously compress a given file and return the compressed file name.</p>
+</div></div>
+<div class="function">
+<h3 id="start_compress/1">start_compress(String::string(), Compressor::pid()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Send a compression request to a compressor. Once finished the
+       compressor will send back a message:
+          { Compressor, { success, CompressedFileName } }
+       or { Compressor, { error, Reason } }</p>
+</div></div></div>
+
+<authors>
+
+<aname>Serge Danzanvilliers</aname>
+<email>serge.danzanvilliers@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

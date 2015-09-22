@@ -1,0 +1,1 @@
+var index = [['app','erlang-growl-client','erlang-growl-client','[application]'],['mod','erlang-growl-client','config',[]],['mod','erlang-growl-client','growl',[]]];

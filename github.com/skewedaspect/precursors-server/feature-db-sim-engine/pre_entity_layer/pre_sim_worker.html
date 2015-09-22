@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>pre_sim_worker (pre_entity_layer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>pre_sim_worker</h1>
+<h2 class="modsummary">The entity simulation worker.</h2>
+<div class="description">
+<p>The entity simulation worker.</p>
+  
+   <p>This module has exactly one purpose: it runs entity simulations. That is all that it does.</p>
+  
+   <p>The worker owns the authoritative copy of each entity's physical state. This is stored as a proplist rather than as
+   a dict, for performance reasons. Incoming update requests are stored in a dict for easy lookup, and applied at the
+   next <code>simulate</code> call.</p>
+  
+   The entire reason for this extra process is to move the load of physics simulation to a different process from the
+   one that has to reply to updates, or communicate with the rest of the system. This process can run at full speed,
+   only responding to, or generating updates. The rest is handled by the entity event engine.
+   -------------------------------------------------------------------------------------------------------------------</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="add_entity/4">add_entity(WorkerPid, EntityID, EntityController, EntityState) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>WorkerPid = pid()</code></li><li><code>EntityID = integer()</code></li><li><code>EntityController = atom()</code></li><li><code>EntityState = term()</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="remove_entity/1">remove_entity(EntityID) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_entity_state/1">get_entity_state(EntityID) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Reply = {ok, EntityState} | {error, term()}</code></li><li><code>EntityState = term()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_position/2">update_position(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_linear_momentum/2">update_linear_momentum(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_orientation/2">update_orientation(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = quat() (see module quaternion)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_angular_momentum/2">update_angular_momentum(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="apply_force_absolute/2">apply_force_absolute(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="apply_force_relative/2">apply_force_relative(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="apply_torque_absolute/2">apply_torque_absolute(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="apply_torque_relative/2">apply_torque_relative(EntityID, Value) -&gt; Reply</h3>
+
+<ul class="type">
+<li><code>EntityID = integer()</code></li><li><code>Value = vec() (see module vector)</code></li><li><code>Reply = ok | {error, term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init_node/0">init_node() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sets up the worker process group and the worker ETS tables for this node.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts up with the given arguements.</p>
+</div></div>
+<div class="function">
+<h3 id="simulate/0">simulate() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Starts a simulation run on all local workers.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

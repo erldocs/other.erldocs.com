@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cyclon (scalaris_old) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cyclon</h1>
+<h2 class="modsummary">Cyclon overlay network.</h2>
+<div class="description">
+<p>Cyclon overlay network.</p>
+ 
+       <p>This can be used in order to get random nodes, e.g. by vivaldi and
+       gossip.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-message">message() = {cy_shuffle}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {rm_changed, NewNode :: <a href="node.html#type-node_type" class="seealso">node:node_type()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {cy_subset,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PSubset :: <a href="cyclon_cache.html#type-cache" class="seealso">cyclon_cache:cache()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {cy_subset_response,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QSubset :: <a href="cyclon_cache.html#type-cache" class="seealso">cyclon_cache:cache()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PSubset :: <a href="cyclon_cache.html#type-cache" class="seealso">cyclon_cache:cache()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_node_details_response,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="node_details.html#type-node_details" class="seealso">node_details:node_details()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_dht_nodes_response, Nodes :: [<a href="comm.html#type-mypid" class="seealso">comm:mypid()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_ages, SourcePid :: <a href="comm.html#type-erl_local_pid" class="seealso">comm:erl_local_pid()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {get_subset_rand,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N :: integer() >= 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SourcePid :: <a href="comm.html#type-erl_local_pid" class="seealso">comm:erl_local_pid()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {web_debug_info, Requestor :: <a href="comm.html#type-erl_local_pid" class="seealso">comm:erl_local_pid()</a>}</h3></div>
+    <div class="type"><h3 id="type-state_active">state_active() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{RandomNodes :: <a href="cyclon_cache.html#type-cache" class="seealso">cyclon_cache:cache()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MyNode :: <a href="node.html#type-node_type" class="seealso">node:node_type()</a> | null,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cycles :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TriggerState :: <a href="trigger.html#type-state" class="seealso">trigger:state()</a>}</h3></div>
+    <div class="type"><h3 id="type-state_inactive">state_inactive() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{inactive,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QueuedMessages :: <a href="msg_queue.html#type-msg_queue" class="seealso">msg_queue:msg_queue()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TriggerState :: <a href="trigger.html#type-state" class="seealso">trigger:state()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="activate/0">activate() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Activates the cyclon process. If not activated, the cyclon process will
+       queue most messages without processing them.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/0">deactivate() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deactivates the cyclon process.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subset_rand/1">get_subset_rand(N::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends a (local) message to the cyclon process of the requesting
+       process' group asking for a random subset of the stored nodes.
+       see on_active({get_subset_rand, N, SourcePid}, State) and
+       msg_get_subset_response/2</p>
+</div></div>
+<div class="function">
+<h3 id="get_subset_rand_next_interval/1">get_subset_rand_next_interval(N::pos_integer()) -&gt; reference()</h3>
+
+
+<div class="description">
+
+<p>Sends a delayed (local) message to the cyclon process of the requesting
+       process' group asking for a random subset of the stored nodes with a
+       delay equal to the cyclon_interval config parameter.
+       see on_active({get_subset_rand, N, SourcePid}, State) and
+       msg_get_subset_response/2.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subset_rand_next_interval/1-1">get_subset_rand_next_interval(N::pos_integer(), Pid::erl_local_pid() (see module comm)) -&gt; reference()</h3>
+
+
+<div class="description">
+
+<p>Same as get_subset_rand_next_interval/1 but sends the reply back to the
+       given Pid.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(DHTNodeGroup::groupname() (see module pid_groups)) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts the cyclon process, registers it with the process dictionary and
+       returns its pid for use by a supervisor.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; state_inactive()</h3>
+
+
+<div class="description">
+
+<p>Initialises the module with an empty state.</p>
+</div></div>
+<div class="function">
+<h3 id="on_inactive/1">on_inactive(Msg::message(), State::state_inactive()) -&gt; state_inactive()</h3>
+
+
+<div class="description">
+
+<p>Message handler during start up phase (will change to on_active/2 when a
+       'activate_cyclon' message is received). Queues getter-messages for
+       faster startup of dependent processes.</p>
+</div></div>
+<div class="function">
+<h3 id="on_active/1">on_active(X1::message(), State::state_active()) -&gt; state_active()</h3>
+
+
+<div class="description">
+
+<p>Message handler when the process is activated.</p>
+</div></div>
+<div class="function">
+<h3 id="rm_send_changes/1">rm_send_changes(Pid::pid(), Tag::cyclon, OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends changes to a subscribed cyclon process when the neighborhood
+       changes.</p>
+</div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks whether config parameters of the cyclon process exist and are
+       valid.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Christian Hennig</aname>
+<email>hennig@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

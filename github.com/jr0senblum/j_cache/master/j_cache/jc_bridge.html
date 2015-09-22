@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jc_bridge (j_cache) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jc_bridge</h1>
+<h2 class="modsummary">   
+Receives requests in the form of {CallerPid::pid(), Message::tuple()}, calls   
+the appropriate jc function and returns the result to the caller.</h2>
+<div class="description">
+<p>   
+Receives requests in the form of {CallerPid::pid(), Message::tuple()}, calls   
+the appropriate jc function and returns the result to the caller. Primarily   
+used to communicate with the Java node (via jinterface).</p>
+  
+   <p>Nearly always spawns a new process to handle the actual request.</p>
+  
+   <p>jc_bridge  currently responds to the following messages
+    <item><p>{From, {clear, Map}} -&gt; {ok}</p></item>
+    <item><p>{From, {contains, Map, Key}} -&gt; {true} | {false}</p></item>
+    <item><p>{From, {evict, Map, Key}} -&gt; {ok}</p></item>
+    <item><p>{From, {evict_match, Map, Criteria}}, State) -&gt; {ok}</p></item>
+    <item><p>{From, {get, Map, Key}} -&gt; {ok, V} | {miss} </p></item>
+    <item><p>{From, {get_all, Map, Keys}} -&gt; {ok, [V1,..., Vn]} | {miss} </p></item>
+    <item><p>{From, {key_set, Map}} -&gt; {ok, [K1,..., Kn]</p></item>
+    <item><p>{From, {put, Map, Key, Value}} -&gt; {ok, {key, Key}}</p></item>
+    <item><p>{From, {put, Map, Key, Value, TTL}} -&gt; {ok, {key, Key}}</p></item>
+    <item><p>{From, {put_all, Map, List}} -&gt; {ok, N}, N is no. inserted</p></item>
+    <item><p>{From, {put, Map, List, TTL}} -&gt; {ok, N}, N is no. inserted</p></item>
+    <item><p>{From, {values, Map}} -&gt; {ok, [V1, V2, ..., Vn]}</p></item>
+    <item><p>{From, {values_match, Map, Criteria}} -&gt; {ok, [{K1,V1}, {K2,V2},...]}</p></item></p>
+  
+    <p><item><p>{From, {size}} -&gt;
+          {size,[
+                 {schema,{records,6},{bytes,8632}},
+                 {key_to_value,{records,2},{bytes,1112}},
+                 {ttl,{records,0},{bytes,2440}},
+                 {stats,{records,1},{bytes,2592}},
+                 {ps_sub,{records,0},{bytes,2440}},
+                 {ps_client,{records,0},{bytes,2440}}
+                ]
+           }</p></item>
+    <item><p>{From, {nodes}} -&gt; {configured, [N1, N2,...]}</p></item></p>
+  
+    <p><item><p>{From, {topic_subscribe, Topic, Value}} -&gt; ok | {error, badarg},
+             client gets: {Topic, Value} </p></item></p>
+  
+    <p><item><p>{From, {map_subscribe, Map, Key|any, write|delete|any}} -&gt;
+                              ok| {error, badarg},
+             client gets: {map, key, write|delete}</p></item></p>
+  
+    <p><item><p>{From, {node_topic_sub}} -&gt; ok | {error, badarg},
+             client gets: {jc_node_events,{nodedown, Node}} </p></item>
+    <item><p>{From, {topic_unsubscribe, Topic, Value}} -&gt; ok| {error, badarg}, </p></item>
+    <item><p>{From, {map_unsubscribe, Map, Key, Ops}} -&gt; ok| {error, badarg}, </p></item>
+    <item><p>{From, {topic_event, Topic, Value}} -&gt; no_return() </p></item></p>
+  
+  </div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; ignore | {error, term()} | {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Starts the server
+ </p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1::[]) -&gt; {ok, #state{}}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Jim Rosenblum</aname>
+<email>Jim Rosenblum</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

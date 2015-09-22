@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>couchbeam_changes (couchbeam) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>couchbeam_changes</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-changes_args">changes_args() = #changes_args{}</h3></div>
+    <div class="type"><h3 id="type-changes_option">changes_option() = continuous<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| longpoll<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| normal<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| include_docs<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {since, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {timeout, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| heartbeat<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {heartbeat, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {filter, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {filter,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{string(), string() | integer()}]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| conflicts<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {style, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| descending</h3></div>
+    <div class="type"><h3 id="type-changes_options">changes_options() = [<a href="#type-changes_option" class="seealso">changes_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-db">db() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#db{server = undefined | <a href="#type-server" class="seealso">server()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options = list()}</h3></div>
+    <div class="type"><h3 id="type-server">server() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#server{host = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prefix = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options = list()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="stream/1">stream(Db::db(), Client::pid() | function()) -&gt; {ok, StartRef::term(), ChangesPid::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#stream/3" class="seealso">stream(Db, Client, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stream/1-1">stream(Db::db(), Client::pid() | function(), Options::changes_options()) -&gt; {ok, StartRef::term(), ChangesPid::pid()} | {ok, ChangesPid::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Stream changes to a pid
+   </p><p>Db : a db record</p>
+   <p>Client : pid  or callback where to send changes events where events are
+   The pid receive these events:
+   </p><taglist>
+       <dt>{change, StartRef, {done, Lastseq::integer()}</dt>
+           <item><p>Connection terminated or you got all changes</p></item>
+       <dt>{change, StartRef, Row :: ejson_object()}</dt>
+           <item><p>Line of change</p></item>
+       <dt>{error, LastSeq::integer(), Msg::term()}</dt>
+           <item><p>Got an error, connection is closed when an error
+           happend.</p></item>
+  </taglist><p>
+     LastSeq is the last sequence of changes.</p>
+  While the callbac could be like:
+ <pre class="sh_erlang">
+       fun({done, LastSeq}) -&gt;
+           ok;
+       fun({done, LastSeq}) -&gt;
+           ok;
+       fun({done, LastSeq}) -&gt;
+           ok.</pre>
+  <pre class="sh_erlang">&gt;ChangesOptions :: changes_options() [continuous | longpoll | normal
+     | include_docs | {since, integer()}
+     | {timeout, integer()}
+     | heartbeat | {heartbeat, integer()}
+     | {filter, string()} | {filter, string(), list({string(), string() | integer()})}
+     | {view, string()}]</pre><list>
+       <item><p><code>continuous | longpoll | normal</code>: set the type of changes
+           feed to get</p></item>
+       <item><p><code>include_doc</code>: if you want to include the doc in the line of
+           change</p></item>
+       <item><p><code>{timeout, Timeout::integer()}</code>: timeout</p></item>
+       <item><p><code>heartbeat | {heartbeat, Heartbeat::integer()}</code>: set couchdb
+           to send a heartbeat to maintain connection open</p></item>
+       <item><p><code>{filter, FilterName} | {filter, FilterName, Args::list({key,
+           value})}</code>: set the filter to use with optional arguments</p></item>
+       <item><p><code>{view, ViewName}</code>: use a view function as filter. Note
+           that it requires to set filter special value <code>"_view"</code>
+           to enable this feature.</p></item>
+    </list>
+ 
+  <p> Return {ok, StartRef, ChangesPid} or {error, Error}. Ref can be
+  used to disctint all changes from this pid. ChangesPid is the pid of
+  the changes loop process. Can be used to monitor it or kill it
+  when needed.</p>
+</div></div>
+<div class="function">
+<h3 id="fetch/1">fetch(Db::db()) -&gt; {ok, LastSeq::integer(), Rows::list()} | {error, LastSeq::integer(), Error::term()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#fetch/2" class="seealso">fetch(Db, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="fetch/1-1">fetch(Db::db(), Options::changes_options()) -&gt; {ok, LastSeq::integer(), Rows::list()} | {error, LastSeq::integer(), Error::term()}</h3>
+
+
+<div class="description">
+
+<p>Collect Changes. Could be used to make a blocking call to a
+  longpoll change feed
+   </p><p>Db : a db record</p>
+  <pre class="sh_erlang">ChangesOptions :: changes_options() [continuous | longpoll | normal
+     | include_docs | {since, integer()}
+     | {timeout, integer()}
+     | heartbeat | {heartbeat, integer()}
+     | {filter, string()} | {filter, string(), list({string(), string() | integer()})}]</pre><list>
+       <item><p><code>longpoll | normal</code>: set the type of changes
+           feed to get</p></item>
+       <item><p><code>include_docs</code>: if you want to include the doc in the line of
+           change</p></item>
+       <item><p><code>{timeout, Timeout::integer()}</code>: timeout</p></item>
+       <item><p><code>heartbeat | {heartbeat, Heartbeat::integer()}</code>: set couchdb
+           to send a heartbeat to maintain connection open</p></item>
+       <item><p><code>{filter, FilterName} | {filter, FilterName, Args::list({key,
+           value})</code>: set the filter to use with optional arguments</p></item>
+       <item><p><code>{view, ViewName}</code>: use a view function as filter. Note
+           that it requires to set filter special value <code>"_view"</code>
+           to enable this feature.</p></item>
+    </list>
+ 
+  <p>Result: <code>{ok, LastSeq::integer(), Rows::list()}</code> or
+  <code>{error, LastSeq, Error}</code>. LastSeq is the last sequence of changes.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_changes_options/1">parse_changes_options(Options::changes_options()) -&gt; changes_args()</h3>
+
+
+<div class="description">
+
+<p>parse changes options and return a changes_args record</p>
+</div></div>
+<div class="function">
+<h3 id="changes_loop/1">changes_loop(Args::changes_args(), UserFun::function(), Params::{Url::string(), IbrowseOpts::list()}) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

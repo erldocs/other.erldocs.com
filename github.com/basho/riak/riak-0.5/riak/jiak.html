@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jiak (riak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jiak</h1>
+<h2 class="modsummary">Jiak: Riak utilities, focused on JSON-encoded data.</h2>
+<div class="description">
+<p>Jiak: Riak utilities, focused on JSON-encoded data.</p>
+ 
+       <p>Riak is web-shaped, and one of the most useful       
+interchange formats on the web is JSON.  The Jiak libraries       
+are intended to provide a simple system for serving data from       
+Riak in the JSON format.</p>
+ 
+       <p>Jiak objects take the shape of JSON objects of the form:
+ </p><pre class="sh_erlang">
+       {
+        "bucket":"foo",
+        "key":"123",
+        "object":{
+                  "barField":"bar",
+                  "bazField":42
+                 }
+        "links":[
+                 ["quuxbucket","quuxkey","quuxtag"],
+                 ["abcbucket","abckey","qbctag"]
+                ]
+        "vclock":"opaque-riak-vclock",
+        "lastmod":"Mon, 03 Aug 2009 18:49:42 GMT"
+       }
+ </pre><p>       
+Within Riak, these fields get broken into their appropriate       
+places in riak_object, but using the Jiak interface,       
+applications see only mochijson2-encoded objects.  An       
+application can choose to either dig through the structure the       
+Erlang pattern-match way, or by using the interface provided       
+by the jiak_object module.</p>
+ 
+       <p>Access to these objects as JSON is provided to clients that
+       can speak HTTP by way of the jiak_resource Webmachine resource
+       module.  Clients can GET bucket schemas and key lists, as well
+       as fetch and store objects.  Semantics about which fields are
+       allowed/readable/editable/etc. are provided by user-defined
+       Erlang modules named for the bucket of the object.  For an
+       example of such a module, see <url href="/home/pete/wefwefwef/docs/other/95306bbd5411b9614bd1e32f2ba0c465/repo/riak-0.5/.xml/riak/./jiak_example.xml">jiak_example</url>.</p>
+ 
+       <p>Further access is provided by means of 'link' mapreduce specs
+       and jaywalker_resource.  To support each of these, you should
+       open a jiak_client, then call set_bucket/2 with your bucket
+       name and the result of default_jiak_bucket_props/0.  Without
+       that setting, the mapreduce system won't know how to extract
+       links for following.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="local_client/0">local_client() -&gt; {ok, jiak_client()} | error_term()</h3>
+
+
+<div class="description">
+
+<p>Open a Riak client for modifying Jiak objects.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/95306bbd5411b9614bd1e32f2ba0c465/repo/riak-0.5/.xml/riak/./riak.xml.html#local_client/0" class="seealso">riak:local_client/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="client_connect/1">client_connect(Node::node()) -&gt; {ok, Client::jiak_client()} | exception</h3>
+
+
+<div class="description">
+
+<p>The usual way to get a client.  Timeout often means either a bad
+       cookie or a poorly-connected distributed erlang network.</p>
+</div></div>
+<div class="function">
+<h3 id="default_jiak_bucket_props/0">default_jiak_bucket_props() -&gt; [bucket_prop()]</h3>
+
+
+<div class="description">
+
+<p>Returns the default additional bucket parameters for Jiak
+       buckets, suitable for the second parameter in a call to
+       jiak_client:set_bucket/2.
+       The only property is currently 'linkfun' which sets up
+       the given bucket to support the {link, Bucket, Tag, Acc}
+       mapreduce spec.</p>
+</div></div>
+<div class="function">
+<h3 id="standard_sibling_merge/1">standard_sibling_merge(Sibs) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>basic strategy:
+ </p><list><item><p> set-union all links
+ </p></item><item><p>create an object with most-recent version of each field,
+            according to object's last-modified date - fields missing
+            in newer versions will have their values taken from older
+            versions
+ </p></item></list>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

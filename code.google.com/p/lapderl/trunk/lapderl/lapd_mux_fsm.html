@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lapd_mux_fsm (lapderl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lapd_mux_fsm</h1>
+<h2 class="modsummary">A behaviour module for implementing the Q.921 LAPD multiplex procedures.</h2>
+<div class="description">
+<p>A behaviour module for implementing the Q.921 LAPD multiplex procedures.
+   	</p><p>This module encapsulates the functionality required of the multiplex
+   	procedures.  Adaptations to specific layer 1 implementations may be
+   	implemented using this module.  This module behaves to gen_fsm.</p>
+  
+   	<p>The pupose of the multiplex procedures are to distribute frames
+   	received from layer 1 to the correct data link entity (DLE).  The
+   	<code>lapd_mux_fsm</code> behaviour module handles this distribution
+   	function by maintaining a table of DLCIs for point-to-point and
+   	broadcast DLEs which stores those pids.  The <code>lapd_mux_fsm</code>
+   	behaviour module will handle L1 &lt;- L2 primitives.  The callback
+   	module must convert the implementation specific layer 1 API to the
+   	primitive form expected.  The callback module must also accept the
+   	primitive form of L1 &lt;- L2 and convert to the layer 1
+   	implementation specific API.</p>
+   	
+   	<em>Usage</em>
+   	<p>The callback module should be implemented as a gen_fsm behaviour
+   	but with a <code>lapd_mux_fsm</code> behaviour module attribute:</p>
+   	<pre class="sh_erlang">-behaviour(lapd_mux_fsm).</pre>
+  
+   	<p>The call back module must handle the L1 &lt;- L2 primitives
+   	in it's state(s):</p>
+   	<pre class="sh_erlang">StateName({'PH', 'ACTIVATE', request, _}, StateData) -&gt;</pre>
+   	<p>In the above state handler the callback module will enable the
+   	layer 1 implementation using the implementation specific API.</p>
+  
+   	<pre class="sh_erlang">StateName({'PH', 'DATA', request, PDU}, StateData) when is_binary(PDU) -&gt;</pre>
+   	<p>In the above state handler the callback module will forward the
+   	PDU to the layer 1 implementation using the implementation specific
+   	API.</p>
+  
+   	<p>The callback module must convert the implementation specific API
+   	for received frames to send a primitive event for handling by the
+   	<code>lapd_mux_fsm</code> behaviour module:</p>
+  
+   	<pre class="sh_erlang">handle_info({_Port, {'L3L4m', _CtrlBin, _DataBin}}, StateName, StateData) -&gt;
+   	     gen_fsm:send_event(self(), {'PH', 'DATA', indication, DataBin}),
+   	     {next_state, StateName, StateData}.
+   	</pre>
+   	
+  </div>
+
+
+<authors>
+
+<aname>Vance Shipley</aname>
+<email>vances@motivity.ca</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

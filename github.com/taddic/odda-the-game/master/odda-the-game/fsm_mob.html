@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>fsm_mob (odda-the-game) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>fsm_mob</h1>
+<h2 class="modsummary">
+  Generic FSM for monsters.</h2>
+<div class="description">
+<p>
+  Generic FSM for monsters.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>State = unknown</code></li><li><code>Result = {ok, pid()}</code></li></ul>
+<div class="description">
+
+<p>
+  Starts a fsm_mob process.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>State = unknown</code></li><li><code>Result = {ok, StateName, State, 1000}</code></li><li><code>StateName = idle</code></li></ul>
+<div class="description">
+
+<p>
+  Initializes a fsm_mob process after it has started.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(Event, StateName, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = term()</code></li><li><code>StateName = atom()</code></li><li><code>State = unknown</code></li><li><code>Result = {next_state, NewStateName, NewState, 1000}</code></li><li><code>NewStateName = atom()</code></li><li><code>NewState = unknown</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when an asynchronus message is recieved and the message is
+  coming from gen_fsm:send_all_state_event/2</p>
+</div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(Event, From, StateName, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = term()</code></li><li><code>From = {pid(), atom()}</code></li><li><code>StateName = atom()</code></li><li><code>State = unknown</code></li><li><code>Result = {reply, Event, NewStateName, NewState, 1000}</code></li><li><code>NewStateName = atom()</code></li><li><code>NewState = unknown</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when a synchronus message is recieved and the message is
+  coming from gen_fsm:sync_send_all_state_event/2
+  or gen_fsm:sync_send_all_state_event/3</p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/3">handle_info(Event, StateName, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = timeout | term()</code></li><li><code>StateName = atom()</code></li><li><code>State = unknown</code></li><li><code>Result = {next_state, NewStateName, NewState, 1000}</code></li><li><code>NewStateName = atom()</code></li><li><code>NewState = unknown</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when a synchronus message is recieved and the message is
+  coming from gen_fsm:sync_send_all_state_event/2
+  or gen_fsm:sync_send_all_state_event/3</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/3">terminate(Reason, StateName, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Reason = atom()</code></li><li><code>StateName = atom()</code></li><li><code>State = unknown</code></li><li><code>Result = ok</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when gen_fsm is about to terminate.</p>
+</div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>OldVsn = term()</code></li><li><code>StateName = atom()</code></li><li><code>State = unknown</code></li><li><code>Extra = term()</code></li><li><code>Result = {ok, StateName, State}</code></li></ul>
+<div class="description">
+
+<p>
+  Callback called when gen_fsm code is upgraded.</p>
+</div></div>
+<div class="function">
+<h3 id="aggro/2">aggro(Event, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = attack | player_dead | hp_zero | no_player_close</code></li><li><code>State = unknown</code></li><li><code>Result = {next_state, NextState, NewState, 1000}</code></li><li><code>NextState = aggro | idle | dead</code></li><li><code>NewState = unknown</code></li></ul>
+<div class="description">
+
+<p>
+  FSM State "aggro"</p>
+</div></div>
+<div class="function">
+<h3 id="dead/2">dead(Event, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = spawn</code></li><li><code>State = unknown</code></li><li><code>Result = {next_state, NextState, NewState, 1000}</code></li><li><code>NextState = idle</code></li><li><code>NewState = unknown</code></li></ul>
+<div class="description">
+
+<p>
+  FSM State "dead"</p>
+</div></div>
+<div class="function">
+<h3 id="idle/2">idle(Event, State) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Event = player_close | walk | attacked</code></li><li><code>State = unknown</code></li><li><code>Result = {next_state, NextState, NewState, 1000}</code></li><li><code>NextState = aggro | idle | dead</code></li><li><code>NewState = unknown</code></li></ul>
+<div class="description">
+
+<p>
+  FSM State "idle"</p>
+</div></div></div>
+
+<authors>
+
+<aname>Taddic</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>baseball_flr (baseball) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>baseball_flr</h1>
+<h2 class="modsummary">Compute baseball stats using Riak Map/Reduce.</h2>
+<div class="description">
+<p>Compute baseball stats using Riak Map/Reduce.</p>
+ 
+       <p>This module works with data from the Retrosheet archive       
+(http://www.retrosheet.org/) to compute baseball statistics       
+(currently only batting average).</p>
+ 
+       <p>This module performs the same computation as the baseball
+       module, but does so by storing fixed-length records ("flr" in
+       the module name), instead of re-parsing the line-based, CSV
+       format provided by Retrosheet.  The conversion to fixed-length
+       records is done at load-time, so data loaded with
+       baseball:load_events/1 is incompatible with
+       baseball_flr:batting_average/2 (and data loaded wth
+       baseball_flr:load_events/1 is incompatible with
+       baseball:batting_average/2).</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="load_events/1">load_events(Directory::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Loads all of the "play" records from event files (*.EV*) into
+       a luwak file named for the directory plus a "_flr" suffix,
+       that is, it concatenates all events files into one big Luwak file.</p>
+</div></div>
+<div class="function">
+<h3 id="batting_average/1">batting_average(Filename::binary(), PlayerId::binary()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Find the batting average for the specified player in the
+       specified Luwak file.
+       The basic idea is to evaluate a map on the file's blocks that
+       picks out every at-bat for the player id, and then reduce the
+       results.</p>
+</div></div>
+<div class="function">
+<h3 id="ba_map/1">ba_map(LuwakBlock::luwak_block(), X2::term(), PlayerId::binary()) -&gt; [{integer(), integer()}]</h3>
+
+
+<div class="description">
+
+<p>Find the at-bat results in this block for the given player.
+       Result is a one-element list of {Hits, AtBats}</p>
+</div></div>
+<div class="function">
+<h3 id="ba_reduce/1">ba_reduce(Counts::[{integer(), integer()}], X2::binary()) -&gt; [{integer(), integer()}]</h3>
+
+
+<div class="description">
+
+<p>Sum the intermediate results produced by the map phase
+       Result is a one-element lis of {Hits, AtBats}.</p>
+</div></div>
+<div class="function">
+<h3 id="count_at_bats/1">count_at_bats(Data::binary(), PlayerId::binary()) -&gt; {integer(), integer()}</h3>
+
+
+<div class="description">
+
+<p>Find the at-bat results in this block for the given player.
+       Result is {Hits, AtBats}</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

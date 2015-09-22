@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>dflow (dflow) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>dflow</h1>
+<h2 class="modsummary">     
+This is a flow processing library which aims to make it easy to     
+write streamed routines for processing data.</h2>
+<div class="description">
+<p>     
+This is a flow processing library which aims to make it easy to     
+write streamed routines for processing data.</p>
+  
+     <p>Each step in the process is handled as a own server allowing them     
+to work indipendantly and take advantage of multi core sytems.</p>
+  
+     <p>Most opperations are handled in a asyncronous fashion to prevent     
+a slower process from blocking it's children, however to prevent     
+unbounded message queue growth the emit changes to syncornous     
+mode guaranteeing a maximal queue length of     
+(max_q_len) + (num_children).</p>
+  
+     <p>The steps of a flow need to implement the dflow behaviour.</p>
+  
+  
+   <p>The <em>dflow</em> behaviour requires the following callbacks,
+   please see <url href="/home/pete/wefwefwef/docs/other/691cc1c549de002e72ebe9139c9c682e39d34d7a/repo/master/.xml/dflow/./dflow_debug.xml">dflow_debug</url> and <a href="dflow_send.html" class="seealso">dflow_send</a> for examples.</p>
+  
+   <pre class="sh_erlang">
+   init(Args :: [term()]) -&gt;
+      {ok, State :: term(), ChildSteps :: child_steps()}.
+   </pre>
+  
+   <p>Called as part of <a href="#build/2" class="seealso">build/2</a>, must return a initial state
+   as well as its <a href="#type-child_steps" class="seealso">child_steps()</a>.</p>
+  
+   <p>To simplify matters the child reference can be obmitted or if   
+only a single item is the child only this item can be returned   
+without wrapping it in a list.</p>
+  
+   <p>When references are provided for child steps the <em>emit</em>
+   and <em>done</em> events will carry those refs even when a child   
+links to multiple parents.</p>
+  
+   <pre class="sh_erlang">
+   describe(State :: term()) -&gt;
+      Description :: iodata().
+   </pre>
+  
+   <p>Called as part of <a href="#describe/1" class="seealso">describe/1</a> must return a description of   
+the step.</p>
+  
+   <p>A simple example is just a human readable name but runtime data   
+can be included.</p>
+  
+   <pre class="sh_erlang">
+   start(Payload :: term(), State :: term()) -&gt;
+      dflow_return().
+   </pre>
+  
+   <p>Called as part of <a href="#start/2" class="seealso">start/2</a>, however child processes only
+   are triggered when <em>all</em> the parent processses linking   
+to them are started.</p>
+  
+   <p>This is done to guarantee no child is started untill all the   
+parents it will emit data to are ready.</p>
+  
+   <p>However order between different children is not guaranteed!</p>
+  
+   <pre class="sh_erlang">
+   emit(Child :: reference(), Data :: term(), State :: term()) -&gt;
+      dflow_return().
+   </pre>
+  
+   <p>A child of the step emitted data, the data and the current state   
+is passed.</p>
+  
+   <p>Erlang guarantees ordered delivery between two processes, so   
+emits from a single child will arrive in the order they are generatd   
+however the order amongst children is not guaranteed.</p>
+  
+   <p>The <em>Child</em> reference can be used to identify the child.</p>
+  
+   <pre class="sh_erlang">
+   done(Child :: reference()| {last, Child :: reference()}, State :: term()) -&gt;
+      dflow_return().
+   </pre>
+  
+   <p>This is called when a child process singals that it's work is done.</p>
+  
+   <p>The <em>Child</em> reference can be used to identify the child.</p>
+  
+   <p>The DFlow keeps track of the children that are done with their work
+   and the last <em>done</em> message will have a touple as child in
+   the form <em>{last, Child :: reference()}</em>. This will signal that   
+all children now have finished and there will be no more downstream   
+work.</p>
+  
+   The <em>done</em> event does <em>not</em> indicate termination of the
+   process unless the <em>terminate_when_done</em> option was passed.
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-dflow_return">dflow_return() = {ok, State} | {emit, Data, State} | {done, Data, State} | {done, State}</h3></div>
+    <div class="type"><h3 id="type-flow_optsions">flow_optsions() = optimize<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| terminate_when_done<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {max_q_len, QLen :: integer() >= 1 | infinity}</h3></div>
+    <div class="type"><h3 id="type-step">step() = {Module :: atom(), Args :: [term()]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="build/1">build(Head::step()) -&gt; {ok, Ref, Pid}</h3>
+
+
+<div class="description">
+
+<p>See <a href="#build/2" class="seealso">build/2</a> with <em>Options</em> set to [optmize].
+ </p>
+</div></div>
+<div class="function">
+<h3 id="build/1-1">build(Head::step(), Options::[flow_options()]) -&gt; {ok, Ref::reference(), Pid::pid()}</h3>
+
+
+<div class="description">
+
+<p>Builds a flow process tree or graph based the <em>Head</em>
+  and the <em>Options</em> passed. It returns the <em>Ref</em> the  
+calling process should know this process as when dealing with it as  
+a flow child.</p>
+ 
+ 
+</div></div>
+<div class="function">
+<h3 id="describe/1">describe(Head::pid()) -&gt; Desc::step_desc()</h3>
+
+
+<div class="description">
+
+<p>Traverses the process tree to give a representation of it's  
+layout including IO counters and other information provided by  
+each process.</p>
+ 
+ 
+</div></div>
+<div class="function">
+<h3 id="start/1">start(Head::pid(), Payload::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends a start signal to the Flow. The start signal is send  
+asyncronous so the order is not guaranteed, however a child will  
+not get the start message until it's it's parents are started and  
+it will get it only once.</p>
+ 
+  <p>The <em>Payload</em> passed will be handed to each flow process
+  that is started and stays unmodified throughout the entire call
+  chain.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Head::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Terminates a Flow. This can only be called on the <em>Head</em>  
+of the flow, it will terminate the process by using the dflow_sup  
+supervisor and propagate the terminate by the links to the children.</p>
+ 
+ 
+</div></div></div>
+
+<authors>
+
+<aname>Heinz Nikolaus Gies</aname>
+<email>heinz@licenser.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

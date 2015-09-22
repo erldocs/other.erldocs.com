@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jiak_client (riak_search) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jiak_client</h1>
+<h2 class="modsummary">The equivalent of riak_client, but for the "jiak"
+       pattern of access.</h2>
+<div class="description">
+<p>The equivalent of <url href="/home/pete/wefwefwef/docs/other/d52037d3ce4bd4ff3f87c9a49c6f54652a7ea4a7/repo/riak-0.5/.xml/riak_search/./riak_client.xml">riak_client</url>, but for the "jiak"
+       pattern of access.  Functions defined here are equivalent
+       to the like-named functions in riak_client, but expect
+       jiak-style paramenters (like binary object keys) and
+       return <url href="/home/pete/wefwefwef/docs/other/d52037d3ce4bd4ff3f87c9a49c6f54652a7ea4a7/repo/riak-0.5/.xml/riak_search/./jiak_object.xml">jiak_object</url>s.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-default_timeout">default_timeout() = 15000</h3></div>
+    <div class="type"><h3 id="type-jiak_client">jiak_client() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="mapred/2">mapred(Inputs, Query) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#mapred/3" class="seealso">mapred(Inputs, Query, default_timeout())</a>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/d52037d3ce4bd4ff3f87c9a49c6f54652a7ea4a7/repo/riak-0.5/.xml/riak_search/./riak_object.xml.html#mapred/2" class="seealso">riak_object:mapred/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="mapred/3">mapred(Inputs, Query, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="/home/pete/wefwefwef/docs/other/d52037d3ce4bd4ff3f87c9a49c6f54652a7ea4a7/repo/riak-0.5/.xml/riak_search/./riak_client.xml.html#mapred/3" class="seealso">riak_client:mapred(Inputs, Query, Timeout)</a>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/d52037d3ce4bd4ff3f87c9a49c6f54652a7ea4a7/repo/riak-0.5/.xml/riak_search/./riak_object.xml.html#mapred/3" class="seealso">riak_object:mapred/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Bucket::bucket() (see module riak_object), Key::key() (see module jiak_object), R::integer()) -&gt; {ok, jiak_object()} | {error, notfound} | {error, timeout} | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Fetch the object at Bucket/Key.  Return a value as soon as R
+       nodes have responded with a value or error.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1-1">get(Bucket::riak_object() (see module riak_object), Key::key() (see module jiak_object), R::integer(), TimeoutMillisecs::integer()) -&gt; {ok, jiak_object()} | {error, notfound} | {error, timeout} | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Fetch the object at Bucket/Key.  Return a value as soon as R
+       nodes have responded with a value or error, or TimeoutMillisecs passes.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(JiakObject::jiak_object(), W::integer()) -&gt; ok | {error, too_many_fails} | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Store RObj in the cluster.
+       Return as soon as at least W nodes have received the request.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1-1">put(JiakObject::jiak_object(), W::integer(), RW::integer()) -&gt; ok | {error, too_many_fails} | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Store RObj in the cluster.
+       Return as soon as at least W nodes have received the request, and
+       at least DW nodes have stored it in their storage backend.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1-2">put(JiakObject::jiak_object(), W::integer(), RW::integer(), TimeoutMillisecs::integer()) -&gt; ok | {error, too_many_fails} | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Store RObj in the cluster.
+       Return as soon as at least W nodes have received the request, and
+       at least DW nodes have stored it in their storage backend, or
+       TimeoutMillisecs passes.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Bucket::bucket() (see module riak_object), Key::key() (see module jiak_object), RW::integer()) -&gt; ok | {error, too_many_fails} | {error, notfound} | {error, timeout} | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Delete the object at Bucket/Key.  Return a value as soon as RW
+       nodes have responded with a value or error.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1-1">delete(Bucket::bucket() (see module niak_object), Key::key() (see module jiak_object), RW::integer(), TimeoutMillisecs::integer()) -&gt; ok | {error, too_many_fails} | {error, notfound} | {error, timeout} | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>Delete the object at Bucket/Key.  Return a value as soon as RW
+       nodes have responded with a value or error, or TimeoutMillisecs passes.</p>
+</div></div>
+<div class="function">
+<h3 id="list_keys/1">list_keys(Bucket::bucket() (see module riak_object)) -&gt; {ok, [Key::key() (see module riak_object)]} | {error, timeout} | {error, Err::term()}</h3>
+
+
+<div class="description">
+
+<p>List the keys known to be present in Bucket.
+       Key lists are updated asynchronously, so this may be slightly
+       out of date if called immediately after a put or delete.</p>
+</div></div>
+<div class="function">
+<h3 id="set_bucket/1">set_bucket(BucketName::bucket() (see module riak_object), BucketProps::[BucketProp::{atom(), term()}]) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the given properties for Bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="get_bucket/1">get_bucket(BucketName::bucket() (see module riak_object)) -&gt; [BucketProp::{atom(), term()}]</h3>
+
+
+<div class="description">
+
+<p>Get all properties for Bucket.</p>
+</div></div>
+<div class="function">
+<h3 id="reload_all/1">reload_all(Module::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Force all Riak nodes to reload Module.
+       This is used when loading new modules for map/reduce functionality.</p>
+</div></div>
+<div class="function">
+<h3 id="riak_client/0">riak_client() -&gt; riak_client()</h3>
+
+
+<div class="description">
+
+<p>Get the riak_client that this jiak_client is using.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

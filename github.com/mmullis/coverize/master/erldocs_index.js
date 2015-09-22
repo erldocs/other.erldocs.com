@@ -1,0 +1,1 @@
+var index = [['app','coverize','coverize','[application]'],['mod','coverize','coverize',[]],['fun','coverize','coverize:module_summary_file/1',[]],['fun','coverize','coverize:run/1',[]],['fun','coverize','coverize:run/1',[]],['fun','coverize','coverize:run/1',[]]];

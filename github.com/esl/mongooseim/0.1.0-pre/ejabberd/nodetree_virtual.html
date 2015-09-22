@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>nodetree_virtual (ejabberd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>nodetree_virtual</h1>
+<h2 class="modsummary">The module nodetree_virtual is the PubSub node tree plugin that
+   allow virtual nodes handling.</h2>
+<div class="description">
+<p>The module <em>nodetree_virtual</em> is the PubSub node tree plugin that
+   allow virtual nodes handling.
+   </p><p>PubSub node tree plugins are using the <a href="gen_nodetree.html" class="seealso">gen_nodetree</a> behaviour.</p>
+   <p>This plugin development is still a work in progress. Due to optimizations in
+   mod_pubsub, this plugin can not work anymore without altering functioning.
+   Please, send us comments, feedback and improvements.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/3">init(Host, ServerHost, Opts) -&gt; any()</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>ServerHost = host()</code></li><li><code>Opts = list()</code></li></ul>
+<div class="description">
+
+<p>Called during pubsub modules initialisation. Any pubsub plugin must
+  implement this function. It can return anything.</p>
+  <p>This function is mainly used to trigger the setup task necessary for the
+  plugin. It can be used for example by the developer to create the specific
+  module database schema if it does not exists yet.</p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Host, ServerHost) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="options/0">options() -&gt; [Option]</h3>
+
+<ul class="type">
+<li><code>Option = nodetreeOption() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Returns the default pubsub node tree options.</p>
+</div></div>
+<div class="function">
+<h3 id="set_node/1">set_node(NodeRecord) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>NodeRecord = pubsub_node() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>No node record is stored on database. Just do nothing.</p>
+</div></div>
+<div class="function">
+<h3 id="get_node/3">get_node(Host, Node, From) -&gt; pubsubNode()</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li><li><code>From = jid() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle a node database. Any node is considered
+  as existing. Node record contains default values.</p>
+</div></div>
+<div class="function">
+<h3 id="get_node/2">get_node(Host, Node) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_node/1">get_node(NodeId) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_nodes/2">get_nodes(Host, From) -&gt; [pubsubNode()]</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub) | jid() (see module mod_pubsub)</code></li><li><code>From = jid() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle a node database. Any node is considered
+  as existing. Nodes list can not be determined.</p>
+</div></div>
+<div class="function">
+<h3 id="get_nodes/1">get_nodes(Host) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_parentnodes/3">get_parentnodes(Host, Node, From) -&gt; [pubsubNode()]</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li><li><code>From = jid() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle parent/child. Child list is empty.</p>
+</div></div>
+<div class="function">
+<h3 id="get_parentnodes_tree/3">get_parentnodes_tree(Host, Node, From) -&gt; [pubsubNode()]</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li><li><code>From = jid() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle parent/child. Child list is empty.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subnodes/3">get_subnodes(Host, Node, From) -&gt; [pubsubNode()]</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li><li><code>From = jid() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle parent/child. Child list is empty.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subnodes_tree/3">get_subnodes_tree(Host, Node, From) -&gt; [pubsubNode()]</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li><li><code>From = jid() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle parent/child. Child list is empty.</p>
+</div></div>
+<div class="function">
+<h3 id="create_node/6">create_node(Host, Node, Type, Owner, Options, Parents) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li><li><code>Type = nodeType() (see module mod_pubsub)</code></li><li><code>Owner = jid() (see module mod_pubsub)</code></li><li><code>Options = list()</code></li></ul>
+<div class="description">
+
+<p>No node record is stored on database. Any valid node
+  is considered as already created.</p>
+  <p>default allowed nodes: /home/host/user/any/node/name</p>
+</div></div>
+<div class="function">
+<h3 id="delete_node/2">delete_node(Host, Node) -&gt; [node() (see module mod_pubsub)]</h3>
+
+<ul class="type">
+<li><code>Host = host() (see module mod_pubsub)</code></li><li><code>Node = pubsubNode() (see module mod_pubsub)</code></li></ul>
+<div class="description">
+
+<p>Virtual node tree does not handle parent/child.
+  node deletion just affects the corresponding node.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Christophe Romain</aname>
+<email>christophe.romain@process-one.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','messageerlangnode','messageerlangnode','[application]'],['mod','messageerlangnode','node',[]],['fun','messageerlangnode','node:start/0',[]]];

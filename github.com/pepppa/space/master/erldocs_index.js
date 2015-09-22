@@ -1,0 +1,1 @@
+var index = [['app','space','space','[application]'],['mod','space','cutting',[]],['mod','space','gtt_or_nextgen',[]],['mod','space','list_to_tupl',[]],['fun','space','cutting:cut/1',[]],['fun','space','cutting:run/0',[]],['fun','space','cutting:write/0',[]],['fun','space','gtt_or_nextgen:chose/2',[]],['fun','space','list_to_tupl:run/1',[]]];

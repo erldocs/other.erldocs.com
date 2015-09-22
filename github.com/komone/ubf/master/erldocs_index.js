@@ -1,0 +1,1 @@
+var index = [['app','ubf','ubf','[application]'],['mod','ubf','ubf',[]],['fun','ubf','ubf:deabstract/1',[]],['fun','ubf','ubf:decode/1',[]],['fun','ubf','ubf:decode/2',[]],['fun','ubf','ubf:encode/1',[]],['fun','ubf','ubf:encode/2',[]],['fun','ubf','ubf:encode_print/1',[]],['fun','ubf','ubf:ubf2term/1',[]]];

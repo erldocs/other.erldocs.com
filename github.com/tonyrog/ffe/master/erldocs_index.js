@@ -1,0 +1,1 @@
+var index = [['app','ffe','ffe','[application]'],['mod','ffe','ffe',[]],['mod','ffe','ffe_beam','      Generate beam code:      Initial idea crea'],['fun','ffe','ffe:create/2',[]],['fun','ffe','ffe:run/0',[]]];

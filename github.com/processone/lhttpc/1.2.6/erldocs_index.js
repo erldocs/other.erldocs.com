@@ -1,0 +1,1 @@
+var index = [['app','lhttpc','lhttpc','[application]'],['mod','lhttpc','lhttpc_sup','Top supervisor for the lhttpc application.'],['fun','lhttpc','lhttpc_sup:start_link/0','Starts and links to the supervisor.']];

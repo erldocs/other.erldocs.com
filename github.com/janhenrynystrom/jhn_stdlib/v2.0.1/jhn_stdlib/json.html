@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>json (jhn_stdlib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>json</h1>
+<h2 class="modsummary">    
+A JSON library based on:      
+The application/json Media Type for JavaScript Object Notation (JSON)                                                                      
+(rfc4627)      
+The JavaScript Object Notation (JSON) Data Interchange Format   (rfc7159)      
+JavaScript Object Notation (JSON) Pointer                       (rfc6901)      
+JSON Reference                             (draft-pbryan-zyp-json-ref-03)      
+JSON Schema: core definitions and terminology  (draft-zyp-json-schema-04)      
+JSON Schema: interactive and non interactive validation                                          
+(draft-fge-json-schema-validation-00).</h2>
+<div class="description">
+<p>    
+A JSON library based on:      
+The application/json Media Type for JavaScript Object Notation (JSON)                                                                      
+(rfc4627)      
+The JavaScript Object Notation (JSON) Data Interchange Format   (rfc7159)      
+JavaScript Object Notation (JSON) Pointer                       (rfc6901)      
+JSON Reference                             (draft-pbryan-zyp-json-ref-03)      
+JSON Schema: core definitions and terminology  (draft-zyp-json-schema-04)      
+JSON Schema: interactive and non interactive validation                                          
+(draft-fge-json-schema-validation-00)</p>
+  
+    <p>JSON is represented as follows:</p>
+  
+    <p>text          : value    
+rfc4627_text  : object | array (rfc4627 compability mode)    
+pointer       : [integer | string | '-']    
+schema        : object</p>
+  
+    <p>value         : true | false | null | object | array | number | string</p>
+  
+    <p>object        : {[{string, value}*]} |
+                    map() (maps option enabled)
+    array         : [value*]
+    string        : atom() | <code>&lt;&lt;octet*&gt;&gt;</code>    
+number        : integer() | float()    
+true          : atom(true)    
+false         : atom(false)    
+null          : atom(null)</p>
+  
+    <p>Strings can be represented by atoms when generating JSON, but will not    
+not be generated when converting JSON to erlang. It can be specified    
+what encoding is used for the strings with UTF-8 being the default.    
+All atoms are assumed to be in UTF-8 and can not be specified.</p>
+  
+    <p>The encoding of a JSON text is determined and can be specified when    
+converting from Erlang terms with the deafult being UTF-8.</p>
+  
+    <p>When converting Erlang terms to JSON iolists are generated but    
+it can generate a binary if so instructed.</p>
+  
+    <p>Objects can be represented directly as maps but that does not allow    
+for duplicate keys so a safe  option is provided for decoding.    
+This will change in later realeases where the two object formats     
+will be separated and the slightly more complex maps one will be safe.</p>
+  
+    <p>When encoding pointers a pointer flag must be given since they  cannot be    
+automatically recognised. Pointer evaluation deviates from standard in    
+objects with duplicate keys, they are not checked, this will be provided    
+in coming releases as a strict flag.</p>
+  
+    <p>When validating a JSON the flags to the validation has to be the same    
+has to be the same as used when decoding either the JSON or schema.    
+When a JSON should be decoded by the validation that has to be indicated    
+by the decode flag.</p>
+  
+    <p>Only one URI resolver is provided for now and that is against jhn_stdlib's    
+priv dir, is another is provided and validation of schemas is used    
+it has to be abe to resolve http://json-schema.org/draft-04/schema#.</p>
+  
+    <p>UTF formats are defined in Unicode 5.0 (ISBN 0-321-48091-0).</p>
+  
+   Only supports R17 and later.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-encoding">encoding() = utf8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {utf16, little | big}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {utf32, little | big}</h3></div>
+    <div class="type"><h3 id="type-json">json() = <a href="#type-json_value" class="seealso">json_value()</a> | <a href="#type-json_rfc4627_text" class="seealso">json_rfc4627_text()</a></h3></div>
+    <div class="type"><h3 id="type-json_array">json_array() = [<a href="#type-json_value" class="seealso">json_value()</a>]</h3></div>
+    <div class="type"><h3 id="type-json_object">json_object() = {[{<a href="#type-json_string" class="seealso">json_string()</a>, <a href="#type-json_value" class="seealso">json_value()</a>}]} | #{}</h3></div>
+    <div class="type"><h3 id="type-json_rfc4627_text">json_rfc4627_text() = <a href="#type-json_object" class="seealso">json_object()</a> | <a href="#type-json_array" class="seealso">json_array()</a></h3></div>
+    <div class="type"><h3 id="type-json_string">json_string() = atom() | string()</h3></div>
+    <div class="type"><h3 id="type-json_value">json_value() = false<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| true<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| number()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_string" class="seealso">json_string()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_object" class="seealso">json_object()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_array" class="seealso">json_array()</a></h3></div>
+    <div class="type"><h3 id="type-opt">opt() = {atom_strings, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom_keys<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom_keys, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| existing_atom_keys<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {existing_atom_keys, boolean()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| bom<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| iolist<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| decode<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| encode<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {plain_string, <a href="#type-encoding" class="seealso">encoding()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {encoding, <a href="#type-encoding" class="seealso">encoding()</a>}</h3></div>
+    <div class="type"><h3 id="type-pointer">pointer() = [binary() | atom() | '-' | integer() &gt;= 1]</h3></div>
+    <div class="type"><h3 id="type-resolver">resolver() = fun((<a href="uri.html#type-uri" class="seealso">uri:uri()</a>, <a href="plist.html#type-plist" class="seealso">plist:plist()</a> | #{}) -> <a href="#type-json" class="seealso">json()</a>)</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="encode/1">encode(Term::json()) -&gt; iolist()</h3>
+
+
+<div class="description">
+
+<p>
+    Encodes the structured Erlang term as an iolist.
+    Equivalent of encode(Term, []) -&gt; JSON.</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1-1">encode(Term::json() | pointer(), State::[opt()] | #state{pointer=boolean(), maps=boolean() | safe, rfc4627=boolean(), encoding=encoding(), plain_string=encoding(), atom_strings=boolean(), atom_keys=boolean(), existing_atom_keys=boolean(), bom=boolean(), return_type=iolist | binary, decode=boolean(), encode=boolean(), resolver={resolver(), plist() (see module plist) | #{}}, step=1 | 2 | 4, pos=integer(), top=undefined | json(), top_uri=uri() (see module uri), scope=uri() (see module uri), schema=undefined | json(), props_validated=boolean(), orig_call=any()}) -&gt; iolist() | binary()</h3>
+
+
+<div class="description">
+
+<p>
+    Encodes the structured Erlang term as an iolist or binary.
+    Encode will give an exception if the erlang term is not well formed.
+    Options are:
+      pointer -&gt; the term represents a pointer
+      rfc4627 -&gt; compability rfc4627 mode
+      maps -&gt; shorthand for {maps, true}
+      {maps, Bool} -&gt; if true maps is a valid representation for objects,
+                      default false.
+      binary -&gt; a binary is returned
+      iolist -&gt; an iolist is returned (default)
+      bom -&gt; a UTF byte order mark is added at the head of the encoding
+      {atom_strings, Bool} -&gt; determines if atoms for strings are allowed
+      {plain_string, Format} -&gt; what format the strings are encoded in
+      {encoding, Encoding} -&gt; what encoding is used for the resulting JSON</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1">decode(Binary::binary()) -&gt; json()</h3>
+
+
+<div class="description">
+
+<p>
+    Decodes the binary into a structured Erlang term.
+    Equivalent of decode(JSON, []) -&gt; Term.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(Binary::binary(), State::[opt()] | #state{pointer=boolean(), maps=boolean() | safe, rfc4627=boolean(), encoding=encoding(), plain_string=encoding(), atom_strings=boolean(), atom_keys=boolean(), existing_atom_keys=boolean(), bom=boolean(), return_type=iolist | binary, decode=boolean(), encode=boolean(), resolver={resolver(), plist() (see module plist) | #{}}, step=1 | 2 | 4, pos=integer(), top=undefined | json(), top_uri=uri() (see module uri), scope=uri() (see module uri), schema=undefined | json(), props_validated=boolean(), orig_call=any()}) -&gt; json()</h3>
+
+
+<div class="description">
+
+<p>
+    Decodes the binary into a structured Erlang.
+    Decode will give an exception if the binary is not well formed JSON.
+    Options are:
+      rfc4627 -&gt; compability rfc4627 mode
+      maps -&gt; shorthand for {maps, true}
+      {maps, safe} -&gt; maps are used as representation for objects with unique
+                      items
+      {maps, Bool} -&gt; if true maps are used as representation for objects,
+                      since this causes potential compatibility issues it is
+                      recomended only in combination with schema validation
+                      where the schema requires unique items, default false.
+      bom -&gt; the binary to decode has a UTF byte order mark
+      {plain_string, Format} -&gt; what format the strings are encoded in
+      atom_keys -&gt; shorthand for {atom_keys, true}
+      {atom_keys, Bool} -&gt; if true all object keys are converted to atoms,
+                           default is false.
+      existing_atom_keys -&gt; shorthand for {existing_atom_keys, true}
+      {existing_atom_keys, Bool} -&gt; if true all object keys are converted
+                           to atoms, decoding fails if the atom does not
+                           already exist, default is false.</p>
+</div></div>
+<div class="function">
+<h3 id="eval/1">eval(Pointer::binary(), JSON::binary()) -&gt; json() | binary() | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+    Selects and decodes a Fragment of a JSON document based on the Pointer.
+    Equivalent of select(JSONPointer, JSON, []) -&gt; Term.</p>
+</div></div>
+<div class="function">
+<h3 id="eval/1-1">eval(Pointer::pointer() | binary(), JSON::json() | binary(), State::[opt()]) -&gt; json() | binary() | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+    Selects and optionally decodes a Fragment of a JSON document based on
+    the Pointer.
+    Select will give an exception if the binary is not well formed JSON,
+    the pointer not well formed JSON Pointer.
+    Options are:
+      decode -&gt; the JSON selected(value) is decoded
+      bom -&gt; the binary to decode has a UTF byte order mark
+    Options passed to decoding if enabled or the JSON decoded:
+      maps
+      {plain_string, Format}
+      {atom_keys, Bool}
+      {existing_atom_keys, Bool}</p>
+</div></div>
+<div class="function">
+<h3 id="validate/1">validate(Schema::json() | binary()) -&gt; {true, json()} | false</h3>
+
+
+<div class="description">
+
+<p>
+    Validates a JSONSchema document based on the json-schema schema.</p>
+</div></div>
+<div class="function">
+<h3 id="validate/1-1">validate(Schema::json() | binary(), JSON::json()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>
+    Validates a JSON document based on the Schema.
+    Equivalent of validate(JSONSchema, JSON, [])</p>
+</div></div>
+<div class="function">
+<h3 id="validate/1-2">validate(Schema::json() | binary(), JSON::json() | binary(), State::[opt()]) -&gt; true | {true, json()} | false</h3>
+
+
+<div class="description">
+
+<p>    
+Validates a JSON document, and optionally decodes, based on the Schema</p>
+ 
+    <p>If either the schema or the json is already decode they have to be decoded    
+with the same flags and thos provided to the validation.</p>
+ 
+    <p>Options are:
+      decode -&gt; the JSON validated is decoded
+      bom -&gt; the binary to decode has a UTF byte order mark
+      {resolver, Fun, Conf} -&gt; a fun that will used to resolve non local refs
+    Options passed to decoding if enabled or the JSON decoded:
+      maps
+      {plain_string, Format}
+      {atom_keys, Bool}
+      {existing_atom_keys, Bool}</p>
+</div></div>
+<div class="function">
+<h3 id="resolve_local_file/2">resolve_local_file(Uri, Conf) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Jan Henry Nystrom</aname>
+<email>JanHenryNystrom@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

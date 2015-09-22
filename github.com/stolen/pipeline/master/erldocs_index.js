@@ -1,0 +1,1 @@
+var index = [['app','pipeline','pipeline','[application]'],['mod','pipeline','pipeline',[]],['mod','pipeline','pipeline_demo',[]],['fun','pipeline','pipeline:parse_transform/2',[]],['fun','pipeline','pipeline_demo:cut/1',[]],['fun','pipeline','pipeline_demo:local/1',[]],['fun','pipeline','pipeline_demo:match/1',[]],['fun','pipeline','pipeline_demo:remote/2',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlang_dtrace_nif_example','erlang_dtrace_nif_example','[application]'],['mod','erlang_dtrace_nif_example','erlang_dtrace',[]],['fun','erlang_dtrace_nif_example','erlang_dtrace:log/1',[]]];

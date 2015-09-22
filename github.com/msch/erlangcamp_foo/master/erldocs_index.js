@@ -1,0 +1,1 @@
+var index = [['app','erlangcamp_foo','erlangcamp_foo','[application]'],['mod','erlangcamp_foo','foo',[]],['mod','erlangcamp_foo','foo_app',[]],['mod','erlangcamp_foo','foo_sup',[]],['fun','erlangcamp_foo','foo:add_value/2',[]],['fun','erlangcamp_foo','foo:get_value/1',[]],['fun','erlangcamp_foo','foo:start_link/0',[]],['fun','erlangcamp_foo','foo_sup:start_link/0',[]]];

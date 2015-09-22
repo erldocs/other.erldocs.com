@@ -1,0 +1,1 @@
+var index = [['app','ducc','ducc','[application]'],['mod','ducc','main',[]],['fun','ducc','main:start/1',[]]];

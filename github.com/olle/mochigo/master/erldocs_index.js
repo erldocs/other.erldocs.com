@@ -1,0 +1,1 @@
+var index = [['app','mochigo','mochigo','[application]'],['mod','mochigo','mochigo',[]],['fun','mochigo','mochigo:response/1',[]],['fun','mochigo','mochigo:start/2',[]],['fun','mochigo','mochigo:stop/1',[]]];

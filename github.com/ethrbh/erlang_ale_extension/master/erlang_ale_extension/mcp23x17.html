@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mcp23x17 (erlang_ale_extension) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mcp23x17</h1>
+<h2 class="modsummary">
+  This module provides interface to able to control MCP23S17 and MCP23017
+  IO expander devices.</h2>
+<div class="description">
+<p>
+  This module provides interface to able to control MCP23S17 and MCP23017
+  IO expander devices.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-hw_addr">hw_addr() = integer()</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_comm_type">mcp23x17_comm_type() = <a href="#type-mcp23x17_comm_type_spi/0" class="seealso">mcp23x17_comm_type_spi0()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-mcp23x17_comm_type_spi/0" class="seealso">mcp23x17_comm_type_spi0()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-select_spi_dev_mfa" class="seealso">select_spi_dev_mfa()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-unselect_spi_dev_mfa" class="seealso">unselect_spi_dev_mfa()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_comm_type_i2c/1" class="seealso">mcp23x17_comm_type_i2c1()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_comm_type_i2c1">mcp23x17_comm_type_i2c1() = i2c1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_comm_type_spi0">mcp23x17_comm_type_spi0() = spi0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_def_comp_val">mcp23x17_def_comp_val() = <a href="#type-mcp23x17_def_comp_val_high" class="seealso">mcp23x17_def_comp_val_high()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_def_comp_val_low" class="seealso">mcp23x17_def_comp_val_low()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_def_comp_val_high">mcp23x17_def_comp_val_high() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_def_comp_val_low">mcp23x17_def_comp_val_low() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_in_pol">mcp23x17_in_pol() = <a href="#type-mcp23x17_in_pol_opposite_of_pin_logic" class="seealso">mcp23x17_in_pol_opposite_of_pin_logic()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_in_pol_same_of_pin_logic" class="seealso">mcp23x17_in_pol_same_of_pin_logic()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_in_pol_opposite_of_pin_logic">mcp23x17_in_pol_opposite_of_pin_logic() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_in_pol_same_of_pin_logic">mcp23x17_in_pol_same_of_pin_logic() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_int_pin_mirror">mcp23x17_int_pin_mirror() = <a href="#type-mcp23x17_int_pin_mirrored" class="seealso">mcp23x17_int_pin_mirrored()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_int_pin_notmirrored" class="seealso">mcp23x17_int_pin_notmirrored()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_int_pin_mirrored">mcp23x17_int_pin_mirrored() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_int_pin_notmirrored">mcp23x17_int_pin_notmirrored() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_int_pol">mcp23x17_int_pol() = <a href="#type-mcp23x17_int_pol_high" class="seealso">mcp23x17_int_pol_high()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_int_pol_low" class="seealso">mcp23x17_int_pol_low()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_int_pol_high">mcp23x17_int_pol_high() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_int_pol_low">mcp23x17_int_pol_low() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_io_dir">mcp23x17_io_dir() = <a href="#type-mcp23x17_io_input" class="seealso">mcp23x17_io_input()</a> | <a href="#type-mcp23x17_io_output" class="seealso">mcp23x17_io_output()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_io_input">mcp23x17_io_input() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_io_logical_high">mcp23x17_io_logical_high() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_io_logical_level">mcp23x17_io_logical_level() = <a href="#type-mcp23x17_io_logical_low" class="seealso">mcp23x17_io_logical_low()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_io_logical_high" class="seealso">mcp23x17_io_logical_high()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_io_logical_low">mcp23x17_io_logical_low() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_io_output">mcp23x17_io_output() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_ioc_comp_val">mcp23x17_ioc_comp_val() = <a href="#type-mcp23x17_ioc_comp_with_def_comp_val" class="seealso">mcp23x17_ioc_comp_with_def_comp_val()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_ioc_comp_with_prev_pin_val" class="seealso">mcp23x17_ioc_comp_with_prev_pin_val()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_ioc_comp_with_def_comp_val">mcp23x17_ioc_comp_with_def_comp_val() = 1</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_ioc_comp_with_prev_pin_val">mcp23x17_ioc_comp_with_prev_pin_val() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_pin">mcp23x17_pin() = 0..7</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_port">mcp23x17_port() = <a href="#type-mcp23x17_port_a" class="seealso">mcp23x17_port_a()</a> | <a href="#type-mcp23x17_port_b" class="seealso">mcp23x17_port_b()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_port_a">mcp23x17_port_a() = 'A'</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_port_b">mcp23x17_port_b() = 'B'</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_pull_up_res">mcp23x17_pull_up_res() = <a href="#type-mcp23x17_pull_up_res_en" class="seealso">mcp23x17_pull_up_res_en()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-mcp23x17_pull_up_res_dis" class="seealso">mcp23x17_pull_up_res_dis()</a></h3></div>
+    <div class="type"><h3 id="type-mcp23x17_pull_up_res_dis">mcp23x17_pull_up_res_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-mcp23x17_pull_up_res_en">mcp23x17_pull_up_res_en() = 1</h3></div>
+    <div class="type"><h3 id="type-reg_addr">reg_addr() = integer()</h3></div>
+    <div class="type"><h3 id="type-reg_value">reg_value() = integer()</h3></div>
+    <div class="type"><h3 id="type-select_spi_dev_mfa">select_spi_dev_mfa() = mfa()</h3></div>
+    <div class="type"><h3 id="type-unselect_spi_dev_mfa">unselect_spi_dev_mfa() = mfa()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start MCP23x17 driver.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Stop MCP23x17 driver.</p>
+</div></div>
+<div class="function">
+<h3 id="interrupt_polarity_setup/1">interrupt_polarity_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), IntPol::mcp23x17_int_pol()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup interrupt pin polarity
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 IntPol		: 1 = Active-high | 0 = Active-low.
+  Output:
+ 	 -</p>
+</div></div>
+<div class="function">
+<h3 id="interrupt_pin_mirror_setup/1">interrupt_pin_mirror_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), IntPinMirror::mcp23x17_int_pin_mirror()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup interrupt mirroring
+  Input:
+ 	 CommType		: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr			: HW address of MCP chip
+ 	 IntPinMirror	: 1 = The INT pins are internally connected
+ 					  0 = The INT pins are not connected. INTA is associated with PortA and INTB is associated with PortB
+  Output:
+ 	 -</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_interrupt_setup/1">gpio_interrupt_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, IPol::mcp23x17_in_pol(), PullUpRes::mcp23x17_pull_up_res(), DefComp::mcp23x17_def_comp_val(), IntCtrl::mcp23x17_ioc_comp_val()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="gpio_interrupt_enable/1">gpio_interrupt_enable(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Enable interrupt on Port/Pin
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 Port		: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin		: the Pin id of Port
+  Output:
+ 	 -</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_interrupt_disable/1">gpio_interrupt_disable(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Disable interrupt on Port/Pin
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 Port		: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin		: the Pin id of Port
+  Output:
+ 	 -</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_interrupt_read/1">gpio_interrupt_read(CommType::mcp23x17_comm_type(), HwAddr::hw_addr()) -&gt; {ok, [{mcp23x17_port(), {reg_value(), [mcp23x17_pin()]}}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read corresponding register if interrupt occurred</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_interrupt_read/1-1">gpio_interrupt_read(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port()) -&gt; {ok, [{mcp23x17_port(), {reg_value(), [mcp23x17_pin()]}}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read corresponding register if interrupt occurred</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_interrupt_get_pin_list_with_int_enabled/1">gpio_interrupt_get_pin_list_with_int_enabled(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port()) -&gt; {ok, [mcp23x17_pin()]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Give the list of PINs where interrupt is enabled.</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_interrupt_on_change_ctrl_setup/1">gpio_interrupt_on_change_ctrl_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, IntCtrl::mcp23x17_ioc_comp_val()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup interrupt-on-change control of Port/Pin.</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_default_compare_reg_for_int_on_change_setup/1">gpio_default_compare_reg_for_int_on_change_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, DefComp::mcp23x17_def_comp_val()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup default compare register for interrupt-on-change event of Port/Pin.</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_io_direction_setup/1">gpio_io_direction_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, IODir::mcp23x17_io_dir()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup IO direction of Port/Pin.</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_io_direction_get/1">gpio_io_direction_get(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port()) -&gt; {ok, [mcp23x17_io_dir()]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read IO direction of Port/Pin.</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_io_logical_level_setup/1">gpio_io_logical_level_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, LogicalLevel::mcp23x17_io_logical_level()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup IO logical level of Port/Pin. So set to LOW or HIGH the pin.
+  Input:
+ 	 CommType		: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr			: HW address of MCP chip
+ 	 Port			: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin			: the Pin id of Port
+ 	 LogicalLevel	: mcp23x17_io_logical_level()
+  Output:
+ 	 ok | {error, Reason}</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_io_logical_level_get/1">gpio_io_logical_level_get(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port()) -&gt; {ok, mcp23x17_io_logical_level()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get IO logical level of Port/Pin.
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 Port		: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+  Output:
+ 	 {ok, list(mcp23x17_io_logical_level())} | {error, Reason}</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_io_logical_level_get/1-1">gpio_io_logical_level_get(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin()) -&gt; {ok, mcp23x17_io_logical_level()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Get IO logical level of Port/Pin.
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 Port		: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin		: the Pin id of Port
+  Output:
+ 	 {ok, mcp23x17_io_logical_level()} | {error, Reason}</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_pull_up_resistor_setup/1">gpio_pull_up_resistor_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, PullUpRes::mcp23x17_pull_up_res()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup pull-up resistor of Port/Pin
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 Port		: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin		: the Pin id of Port
+ 	 PullUpRes	: mcp23x17_pull_up_res_en() | mcp23x17_pull_up_res_dis()
+  Output:
+ 	 -</p>
+</div></div>
+<div class="function">
+<h3 id="gpio_input_polarity_setup/1">gpio_input_polarity_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, IPol::mcp23x17_in_pol()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup input polarity of Port/Pin
+  Input:
+ 	 CommType	: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr		: HW address of MCP chip
+ 	 Port		: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin		: the Pin id of Port
+ 	 IPol		: mcp23x17_in_pol()
+  Output:
+ 	 -</p>
+</div></div>
+<div class="function">
+<h3 id="register_read/1">register_read(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), RegAddress::reg_addr()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read register in MCP23x17 device.</p>
+</div></div>
+<div class="function">
+<h3 id="i2c_driver_stop/1">i2c_driver_stop(CommType::mcp23x17_comm_type(), HwAddr::hw_addr()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Stop I2C driver.</p>
+</div></div>
+<div class="function">
+<h3 id="spi_driver_stop/1">spi_driver_stop(CommType::mcp23x17_comm_type()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Stop SPI driver.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, State} | {ok, State, Timeout} | {ok, State, hibernate} | {stop, Reason::term()} | ignore</code></li><li><code>State = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:init-1">gen_server:init/1</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/1">handle_call(Request::term(), From::{pid(), Tag::term()}, State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {reply, Reply, NewState} | {reply, Reply, NewState, Timeout} | {reply, Reply, NewState, hibernate} | {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason, Reply, NewState} | {stop, Reason, NewState}</code></li><li><code>Reply = term()</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_call-3">gen_server:handle_call/3</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Request::term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_cast-2">gen_server:handle_cast/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::timeout | term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_info-2">gen_server:handle_info/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State::term()) -&gt; Any::term()</h3>
+
+<ul class="type">
+<li><code>Reason = normal | shutdown | {shutdown, term()} | term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:terminate-2">gen_server:terminate/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="code_change/2">code_change(OldVsn, State::term(), Extra::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, NewState::term()} | {error, Reason::term()}</code></li><li><code>OldVsn = Vsn | {down, Vsn}</code></li><li><code>Vsn = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:code_change-3">gen_server:code_change/3</url></p>
+</div></div>
+<div class="function">
+<h3 id="do_gpio_io_logical_level_setup/1">do_gpio_io_logical_level_setup(CommType::mcp23x17_comm_type(), HwAddr::hw_addr(), Port::mcp23x17_port(), Pin::mcp23x17_pin() | [mcp23x17_pin()] | {mcp23x17_pin(), mcp23x17_pin()}, LogicalLevel::mcp23x17_io_logical_level()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup IO logical level of Port/Pin. So set to LOW or HIGH the pin.
+  Input:
+ 	 CommType		: type of serial communication. It can be MCP_COMM_TYPE_SPI | MCP_COMM_TYPE_I2C
+ 	 HwAddr			: HW address of MCP chip
+ 	 Port			: possible value can be MCP23X17_PORT_A | MCP23X17_PORT_B
+ 	 Pin			: the Pin id of Port
+ 	 LogicalLevel	: mcp23x17_io_logical_level()
+  Output:
+ 	 ok | {error, Reason}</p>
+</div></div>
+<div class="function">
+<h3 id="set_hwaddr_for_read/1">set_hwaddr_for_read(HwAddr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="set_hwaddr_for_write/1">set_hwaddr_for_write(HwAddr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>ethrbh, Robert Balogh, ethrbh@gmail.com</aname>
+<email>ethrbh, Robert Balogh, ethrbh@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

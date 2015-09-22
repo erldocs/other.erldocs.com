@@ -1,0 +1,1 @@
+var index = [['app','riakc-escript','riakc-escript','[application]'],['mod','riakc-escript','riakc_cli',[]],['fun','riakc-escript','riakc_cli:main/1',[]]];

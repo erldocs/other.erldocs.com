@@ -1,0 +1,1 @@
+var index = [['app','rvi','rvi','[application]'],['mod','rvi','rvi_app',[]],['mod','rvi','rvi_sup',[]],['fun','rvi','rvi_app:start/2',[]],['fun','rvi','rvi_app:start_phase/3',[]],['fun','rvi','rvi_app:stop/1',[]],['fun','rvi','rvi_sup:init/1',[]],['fun','rvi','rvi_sup:start_link/0',[]]];

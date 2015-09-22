@@ -1,0 +1,1 @@
+var index = [['app','zml','zml','[application]'],['mod','zml','out_scratch',[]],['fun','zml','out_scratch:render/1',[]],['fun','zml','out_scratch:test/0',[]]];

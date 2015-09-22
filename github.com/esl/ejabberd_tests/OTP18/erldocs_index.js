@@ -1,0 +1,1 @@
+var index = [['app','ejabberd_tests','ejabberd_tests','[application]'],['mod','ejabberd_tests','run_common_test',[]],['fun','ejabberd_tests','run_common_test:analyze/1',[]],['fun','ejabberd_tests','run_common_test:main/1',[]]];

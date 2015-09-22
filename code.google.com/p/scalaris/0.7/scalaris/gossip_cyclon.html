@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gossip_cyclon (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gossip_cyclon</h1>
+<h2 class="modsummary">Gossip based membership management using CYCLON.</h2>
+<div class="description">
+<p>Gossip based membership management using CYCLON.</p>
+ 
+  <p>CYCLON provides an unstructured overlay which can be used to obtain the address  
+of a random node from the entirety of all nodes. This is useful for instance for  
+gossiping algorithms which need a random peers to communicate with.</p>
+ 
+  <p>The basic idea is as follows: Every node maintains cache of known peers. At the
+  beginning of every cycle a random peer is chosen from the cache and a random
+  subset of the node's neighbours is exchanged with that peer. The receiving
+  peer uses the subset to update its own cache and also sends back a subset of
+  its cache, which is merged with the cache of the initial peer.
+  For details refer to the given paper.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-data">data() = <a href="cyclon_cache.html#type-cache" class="seealso">cyclon_cache:cache()</a></h3></div>
+    <div class="type"><h3 id="type-round">round() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Nodes :: <a href="cyclon_cache.html#type-cache" class="seealso">cyclon_cache:cache()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MyNode :: <a href="node.html#type-node_type" class="seealso">node:node_type()</a> | null}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="trigger_interval/0">trigger_interval() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The time interval in ms after which a new cycle is triggered by the gossip
+       module.</p>
+</div></div>
+<div class="function">
+<h3 id="fanout/0">fanout() -&gt; pos_integer()</h3>
+
+
+<div class="description">
+
+<p>The fanout (in cyclon always 1).</p>
+</div></div>
+<div class="function">
+<h3 id="min_cycles_per_round/0">min_cycles_per_round() -&gt; infinity</h3>
+
+
+<div class="description">
+
+<p>The minimum number of cycles per round.
+       Returns infinity, as rounds are not implemented by cyclon.</p>
+</div></div>
+<div class="function">
+<h3 id="max_cycles_per_round/0">max_cycles_per_round() -&gt; infinity</h3>
+
+
+<div class="description">
+
+<p>The maximum number of cycles per round.
+       Returns infinity, as rounds are not implemented by cyclon.</p>
+</div></div>
+<div class="function">
+<h3 id="check_config/0">check_config() -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_subset_rand/1">get_subset_rand(N::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Sends a (local) message to the gossip module of the requesting process'
+       group asking for a random subset of the stored nodes.
+       The response in the form {cy_cache, [Node]} will be send (local) to the
+       requesting process.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subset_rand_next_interval/1">get_subset_rand_next_interval(N::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Same as get_subset_rand/1, but the request is delayed with a delay equal
+       to the gossip_cyclon_interval config parameter.</p>
+</div></div>
+<div class="function">
+<h3 id="get_subset_rand_next_interval/1-1">get_subset_rand_next_interval(N::pos_integer(), Pid::erl_local_pid() (see module comm)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Same as get_subset_rand_next_interval/1 but sends the reply back to the
+       given Pid.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::[property() (see module proplists)]) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Initiate the gossip_cyclon module. <br />
+       Called by the gossip module upon startup. <br />
+       The Instance information is ignored, {gossip_cyclon, default} is always used.</p>
+</div></div>
+<div class="function">
+<h3 id="select_node/1">select_node(State::state()) -&gt; {true, state()}</h3>
+
+
+<div class="description">
+
+<p>Returns true, i.e. peer selection is done by gossip_cyclon module.</p>
+</div></div>
+<div class="function">
+<h3 id="select_data/1">select_data(State::state()) -&gt; {ok | discard_msg, state()}</h3>
+
+
+<div class="description">
+
+<p>Select and prepare the subset of the cache to be sent to the peer. <br />
+       Called by the gossip module at the beginning of every cycle. <br />
+       The selected exchange data (i.e. the selected subset of the cache) is
+       sent back to the gossip module as a message of the form
+       {selected_data, Instance, ExchangeData}.
+       gossip_trigger -&gt; select_data() is equivalent to cy_shuffle in the old
+       cyclon module.</p>
+</div></div>
+<div class="function">
+<h3 id="select_reply_data/1">select_reply_data(PSubset::data(), Ref::pos_integer(), Round::round(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Process the subset from the requestor (P) and select a subset as reply
+       data (at Q). <br />
+       Called by the behaviour module upon a p2p_exch message. <br />
+       PSubset: exchange data (subset) from the p2p_exch request <br />
+       Ref: used by the gossip module to identify the request <br />
+       Round: ignored, as cyclon does not implement round handling
+       p2p_exch msg -&gt; seleft_reply_data() is equivalent to cy_subset msg in the
+       old cyclon module.</p>
+</div></div>
+<div class="function">
+<h3 id="integrate_data/1">integrate_data(QData::{data(), data()}, Round::round(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Integrate the received subset (at node P). <br />
+       Called by the behaviour module upon a p2p_exch_reply message. <br />
+       QData: the subset from the peer (QSubset) and the subset wich was sent
+           in the request (PSubset) <br />
+       Round: ignored, as cyclon does not implement round handling
+       Upon finishing the processing of the data, a message of the form
+       {integrated_data, Instance, RoundStatus} is to be sent to the gossip module.
+       p2p_exch_reply msg -&gt; integrate_data() is equivalent to the cy_subset_response
+       msg in the old cyclon module.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_msg/2">handle_msg(Message, State::state()) -&gt; {ok, state()}</h3>
+
+<ul class="type">
+<li><code>Message = {rm_changed, NewNode::node_type() (see module node)} | {get_ages, SourcePid::erl_local_pid() (see module comm)} | {get_subset_rand, N::pos_integer(), SourcePid::erl_local_pid() (see module comm)} | {get_node_details_response, node_details() (see module node_details)} | {get_dht_nodes_response, Nodes::[mypid() (see module comm)]}</code></li></ul>
+<div class="description">
+
+<p>Handle messages</p>
+</div></div>
+<div class="function">
+<h3 id="round_has_converged/1">round_has_converged(State::state()) -&gt; {false, state()}</h3>
+
+
+<div class="description">
+
+<p>Always returns false, as cyclon does not implement rounds.</p>
+</div></div>
+<div class="function">
+<h3 id="notify_change/1">notify_change(X1::any(), X2::any(), State::state()) -&gt; {ok, state()}</h3>
+
+
+<div class="description">
+
+<p>Notifies the module about changes. <br />
+       Changes can be new rounds, leadership changes or exchange failures. All
+       of them are ignored, as cyclon doesn't use / implements this features.</p>
+</div></div>
+<div class="function">
+<h3 id="web_debug_info/1">web_debug_info(State::state()) -&gt; {KeyValueList::[{Key::string(), Value::string()}, ...], state()}</h3>
+
+
+<div class="description">
+
+<p>Returns a key-value list of debug infos for the Web Interface. <br />
+       Called by the gossip module upon {web_debug_info} messages.</p>
+</div></div>
+<div class="function">
+<h3 id="shutdown/1">shutdown(State::state()) -&gt; {ok, shutdown}</h3>
+
+
+<div class="description">
+
+<p>Shut down the gossip_cyclon module. <br />
+       Called by the gossip module upon stop_gossip_task(CBModule).</p>
+</div></div>
+<div class="function">
+<h3 id="rm_check/3">rm_check(Neighbors, Neighbors, Reason) -&gt; boolean()</h3>
+
+<ul class="type">
+<li><code>Neighbors = neighborhood() (see module nodelist)</code></li><li><code>Reason = reason() (see module rm_loop)</code></li></ul>
+<div class="description">
+
+<p>Filter Function for subscribing to the rm loop</p>
+</div></div>
+<div class="function">
+<h3 id="rm_send_changes/1">rm_send_changes(Pid::pid(), Tag::cyclon, OldNeighbors::neighborhood() (see module nodelist), NewNeighbors::neighborhood() (see module nodelist), Reason::reason() (see module rm_loop)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Exec Function for subscribing to the rm loop.
+       Sends changes to a subscribed cyclon process when the neighborhood
+       changes.</p>
+</div></div>
+<div class="function">
+<h3 id="select_data_feeder/1">select_data_feeder(State::state()) -&gt; {state()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Christian Hennig</aname>
+<email>hennig@zib.de</email>
+<aname>Jens V. Fischer</aname>
+<email>jensvfischer@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>client (cse535_finalproject) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>client</h1>
+<h2 class="modsummary">This is the client API.</h2>
+<div class="description">
+<p>This is the client API.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="client_start/0">client_start() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>start client the process.</p>
+</div></div>
+<div class="function">
+<h3 id="send/3">send(Server, Tar, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>for sending messages between processes.
+ </p><pre class="sh_erlang"> 	Different types of messages will be differentiated by atomic indicating its type
+ 	send(Server, Tar, send2Server) -&gt;:  %% A-&gt; S : A,B, N_A for reaching B
+ 	send(Tar, Msg, needAuth) -&gt;: %% A -&gt; B formard msg from S to B for
+ 	send(Tar, Msg, replyAuth) -&gt;: %% B -&gt; A with B's nonce indicating authentication complete
+ 	send(Tar, Msg, varify) -&gt;: %% A -&gt; B with a -1 for B's nonce for varify completion
+ 	send(Tar, Msg, ok) -&gt;: %%  protocol done, processes' are ready</pre>
+</div></div>
+<div class="function">
+<h3 id="loop/0">loop() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>loop to receive message from other processes.
+  	</p><pre class="sh_erlang"> 	Different types of messages will be differentiated by atomic indicating its type
+ 	{Server, Tar, send2Server} -&gt;: %%Alice receive a command telling her to send server a message for identification
+ 	{From, Msg, replyKey} -&gt;: %%Alice receive message from server with Kab
+ 	{From, Msg, needAuth} -&gt;: %%Bob receive message from Alice with the encrypted key forwarded from server
+ 	{From, Msg, replyAuth} -&gt;: %%Alice receive a nonce from Bob
+ 	{From, Ms, verify} -&gt;: %%Bob receive a nonce-1 from Alice</pre>
+</div></div>
+<div class="function">
+<h3 id="nonce_gen/1">nonce_gen(PID) -&gt; number()</h3>
+
+
+<div class="description">
+
+<p>generate random nonce.</p>
+</div></div>
+<div class="function">
+<h3 id="decrypt/2">decrypt(Msg, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>decrypt message using AES provided by ERLANG crypto module.</p>
+</div></div>
+<div class="function">
+<h3 id="encrypt/3">encrypt(Msg, Key, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>encrypt message using AES provided by ERLANG crypto module.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

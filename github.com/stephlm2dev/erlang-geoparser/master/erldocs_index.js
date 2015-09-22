@@ -1,0 +1,1 @@
+var index = [['app','erlang-geoparser','erlang-geoparser','[application]'],['mod','erlang-geoparser','geo_parser',[]],['mod','erlang-geoparser','geo_parser_tests',[]],['fun','erlang-geoparser','geo_parser:analyser/2',[]],['fun','erlang-geoparser','geo_parser:start/2',[]],['fun','erlang-geoparser','geo_parser:stop/1',[]]];

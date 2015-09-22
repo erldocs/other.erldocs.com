@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>etorrent_io_file (etorrent_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>etorrent_io_file</h1>
+<h2 class="modsummary">Wrap a file-handle.</h2>
+<div class="description">
+<p>Wrap a file-handle</p>
+ 
+  <p>Server that wraps a file-handle and exposes an interface
+  that enables clients to read and write data at specified offsets.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-block_bin">block_bin() = <a href="etorrent_types.html#type-block_bin" class="seealso">etorrent_types:block_bin()</a></h3></div>
+    <div class="type"><h3 id="type-block_len">block_len() = <a href="etorrent_types.html#type-block_len" class="seealso">etorrent_types:block_len()</a></h3></div>
+    <div class="type"><h3 id="type-block_offset">block_offset() = <a href="etorrent_types.html#type-block_offset" class="seealso">etorrent_types:block_offset()</a></h3></div>
+    <div class="type"><h3 id="type-file_path">file_path() = <a href="etorrent_types.html#type-file_path" class="seealso">etorrent_types:file_path()</a></h3></div>
+    <div class="type"><h3 id="type-torrent_id">torrent_id() = <a href="etorrent_types.html#type-torrent_id" class="seealso">etorrent_types:torrent_id()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(TorrentID::torrent_id(), Path::file_path(), FullPath::file_path()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Start the file wrapper server
+  </p><p>Of the two paths given, one is the partial path used internally
+  and the other is the full path where to store the file in question.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1">open(FilePid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Request to open the file</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(FilePid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Request to close the file</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(FilePid::pid(), Offset::block_offset(), Length::block_len()) -&gt; {ok, block_bin()} | {error, eagain}</h3>
+
+
+<div class="description">
+
+<p>Read bytes from file handle
+  </p><p>Read <code>Length</code> bytes from filehandle at <code>Offset</code></p>
+</div></div>
+<div class="function">
+<h3 id="write/1">write(FilePid::pid(), Offset::block_offset(), Chunk::block_bin()) -&gt; ok | {error, eagain}</h3>
+
+
+<div class="description">
+
+<p>Write bytes to file
+  </p><p>Assume that the <code>Chunk</code> is of binary() type. Write it to the
+  file at <code>Offset</code></p>
+</div></div>
+<div class="function">
+<h3 id="allocate/1">allocate(FilePid::pid(), Size::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Allocate the file up to the given size</p>
+</div></div></div>
+
+<authors>
+
+<aname>Magnus Klaar</aname>
+<email>magnus.klaar@sgsstudentbostader.se</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','giddyup_coverage','giddyup_coverage','[application]'],['mod','giddyup_coverage','giddyup_coverage_escript',[]],['fun','giddyup_coverage','giddyup_coverage_escript:main/1',[]]];

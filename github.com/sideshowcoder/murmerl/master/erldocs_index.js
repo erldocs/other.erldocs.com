@@ -1,0 +1,1 @@
+var index = [['app','murmerl','murmerl','[application]'],['mod','murmerl','murmerl',[]],['fun','murmerl','murmerl:murmur3_128/1','murmur3_128/3 is a wrapper for the murmur3 C libra'],['fun','murmerl','murmerl:murmur3_128/1','murmur3_128/2 is a wrapper for the murmur3 C libra'],['fun','murmerl','murmerl:murmur3_32/1','murmur3_32/2 is a wrapper for the murmur3 C librar']];

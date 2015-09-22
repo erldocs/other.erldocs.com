@@ -1,0 +1,1 @@
+var index = [['app','mytrie','mytrie','[application]'],['mod','mytrie','mytrie',[]],['fun','mytrie','mytrie:find/1',[]],['fun','mytrie','mytrie:find_longest_prefix/1',[]],['fun','mytrie','mytrie:new/0',[]],['fun','mytrie','mytrie:store/1',[]]];

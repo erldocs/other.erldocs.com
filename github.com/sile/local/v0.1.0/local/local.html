@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>local (local) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>local</h1>
+<h2 class="modsummary">A Local Name Registration Facility.</h2>
+<div class="description">
+<p>A Local Name Registration Facility</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-name">name() = {<a href="#type-name_server_name" class="seealso">name_server_name()</a>, <a href="#type-process_name" class="seealso">process_name()</a>}</h3></div>
+    <div class="type"><h3 id="type-name_server_name">name_server_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-process_name">process_name() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_name_server/1">start_name_server(ServerName::name_server_name()) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = already_present</code></li></ul>
+<div class="description">
+
+<p>Starts a name server process</p>
+ 
+  <p>The process is registered locally as <code>ServerName</code> using <code>register/2</code>.</p>
+ 
+  <p>If the process is successfully started the function returns <code>ok</code>.</p>
+ 
+  <p>If there already exists a process with the specified <code>ServerName</code> the function returnes <code>{error, already_present}</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop_name_server/1">stop_name_server(ServerName::name_server_name()) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Reason = not_found</code></li></ul>
+<div class="description">
+
+<p>Stops the name server <code>ServerName</code></p>
+ 
+  <p>If successful, the function returns <code>ok</code>.
+  If the name server identified by <code>ServerName</code> does not exist, the function returns <code>{error, not_found}</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="which_name_servers/0">which_name_servers() -&gt; [name_server_name()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of running name server</p>
+</div></div>
+<div class="function">
+<h3 id="register_name/1">register_name(Name::name(), Pid::pid()) -&gt; yes | no</h3>
+
+
+<div class="description">
+
+<p>Locally assocates the name <code>Name</code> with a pid <code>Pid</code>.</p>
+ 
+  <p>Let <code>NameServer</code> is <code>element(1, Name)</code>, the registered name is limited to the name server <code>NameServer</code> scope.</p>
+ 
+  <p>Assumes that the name server is already started, crashes otherwise.</p>
+ 
+  <p>The function returns <code>yes</code> if successful, <code>no</code> if it failes.
+  For example, <code>no</code> is returned if an attempt is made to register an already registered process or
+  to register a process with a name that is already in use.</p>
+</div></div>
+<div class="function">
+<h3 id="unregister_name/1">unregister_name(Name::name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Removes the locally registered name <code>Name</code></p>
+</div></div>
+<div class="function">
+<h3 id="whereis_name/1">whereis_name(Name::name()) -&gt; pid() | undefined</h3>
+
+
+<div class="description">
+
+<p>Returns the pid with the locally registered name <code>Name</code></p>
+ 
+  <p>Returns <code>undefined</code> if the name is not locally registered.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Name::name(), Msg::term()) -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>Sends the message <code>Msg</code> to the pid locally registered as <code>Name</code></p>
+ 
+  <p>Failure: If <code>Name</code> is not a locally registered name, the calling function will exit with reason <code>{badarg, {Name, Msg}}</code></p>
+</div></div>
+<div class="function">
+<h3 id="name_server_child_spec/1">name_server_child_spec(Name::name_server_name()) -&gt; child_spec() (see module supervisor)</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#name_server_child_spec/3" class="seealso">name_server_child_spec(Name, Name, 5000)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="name_server_child_spec/3">name_server_child_spec(ChildId, ServerName, Shutdown) -&gt; ChildSpec</h3>
+
+<ul class="type">
+<li><code>ChildId = child_id() (see module supervisor)</code></li><li><code>ServerName = name_server_name()</code></li><li><code>Shutdown = shutdown() (see module supervisor)</code></li><li><code>ChildSpec = child_spec() (see module supervisor)</code></li></ul>
+<div class="description">
+
+<p>Returns the child spec for a local name server that is used in embedded mode.</p>
+ 
+  <p>To embed a local name server in your application, you can simply add <code>ChildSpec</code> to your supervision tree.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

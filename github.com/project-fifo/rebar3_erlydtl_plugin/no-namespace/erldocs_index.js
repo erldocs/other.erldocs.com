@@ -1,0 +1,1 @@
+var index = [['app','rebar3_erlydtl_plugin','rebar3_erlydtl_plugin','[application]'],['mod','rebar3_erlydtl_plugin','rebar3_erlydtl_plugin',[]],['fun','rebar3_erlydtl_plugin','rebar3_erlydtl_plugin:do/1',[]],['fun','rebar3_erlydtl_plugin','rebar3_erlydtl_plugin:format_error/1',[]],['fun','rebar3_erlydtl_plugin','rebar3_erlydtl_plugin:init/1',[]]];

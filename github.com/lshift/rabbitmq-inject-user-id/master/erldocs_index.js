@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-inject-user-id','rabbitmq-inject-user-id','[application]'],['mod','rabbitmq-inject-user-id','rabbitmq_inject_user_id_app',[]],['fun','rabbitmq-inject-user-id','rabbitmq_inject_user_id_app:init/1',[]],['fun','rabbitmq-inject-user-id','rabbitmq_inject_user_id_app:start/2',[]],['fun','rabbitmq-inject-user-id','rabbitmq_inject_user_id_app:stop/1',[]]];

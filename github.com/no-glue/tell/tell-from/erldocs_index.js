@@ -1,0 +1,1 @@
+var index = [['app','tell','tell','[application]'],['mod','tell','tell',[]],['fun','tell','tell:reply/2',[]],['fun','tell','tell:tell/2',[]],['fun','tell','tell:tell_from/3',[]]];

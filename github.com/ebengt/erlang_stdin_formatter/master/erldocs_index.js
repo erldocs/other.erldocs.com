@@ -1,0 +1,1 @@
+var index = [['app','erlang_stdin_formatter','erlang_stdin_formatter','[application]'],['mod','erlang_stdin_formatter','bepp','Format Erlang code from stdin.'],['fun','erlang_stdin_formatter','bepp:main/1',[]],['fun','erlang_stdin_formatter','bepp:stdin/0',[]],['fun','erlang_stdin_formatter','bepp:string/1',[]]];

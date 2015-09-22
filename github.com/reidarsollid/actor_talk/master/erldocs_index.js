@@ -1,0 +1,1 @@
+var index = [['app','actor_talk','actor_talk','[application]'],['mod','actor_talk','area_actor',[]],['mod','actor_talk','hello_world',[]],['fun','actor_talk','area_actor:loop/0',[]],['fun','actor_talk','hello_world:start/0',[]]];

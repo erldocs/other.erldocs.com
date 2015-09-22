@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>baseball (baseball) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>baseball</h1>
+<h2 class="modsummary">Compute baseball stats using Riak Map/Reduce.</h2>
+<div class="description">
+<p>Compute baseball stats using Riak Map/Reduce.</p>
+ 
+       <p>This module works with data from the Retrosheet archive
+       (http://www.retrosheet.org/) to compute baseball statistics
+       (currently only batting average).</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bat_count">bat_count() = {Hits::integer(), AtBats::integer()}</h3></div>
+    <div class="type"><h3 id="type-chunk">chunk() = {chunk_type(), Offset::integer(), Data::binary()}</h3></div>
+    <div class="type"><h3 id="type-chunk_type">chunk_type() = suffix | prefix</h3></div>
+    <div class="type"><h3 id="type-map_result">map_result() = bat_count() | chunk()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="load_events/1">load_events(Directory::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Loads all of the event files (*.EV*) into a luwak file named
+       for the directory, that is, it concatenates all events files
+       into one big Luwak file.</p>
+</div></div>
+<div class="function">
+<h3 id="batting_average/1">batting_average(Filename::binary(), PlayerID::binary()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Find the batting average for the specified player in the
+       specified Luwak file.
+       The basic idea is to evaluate a map on the file's blocks that
+       picks out every at-bat for the player id, and then reduce the
+       results.</p>
+</div></div>
+<div class="function">
+<h3 id="ba_map/1">ba_map(LuwakBlock::luwak_block(), Offset::term(), PlayerId::binary()) -&gt; [map_result()]</h3>
+
+
+<div class="description">
+
+<p>Find the at-bat results in this block for the given player.
+       Result is a list of at least one element, a tuple of the form
+       {Hits, AtBats}.  The result may also include one suffix and/or
+       one prefix record.</p>
+</div></div>
+<div class="function">
+<h3 id="ba_reduce/1">ba_reduce(CountsAndChunks::[map_result()], PlayerId::binary()) -&gt; [map_result()]</h3>
+
+
+<div class="description">
+
+<p>Sum the intermediate results produced by the map phase.
+       Result is a list of of at least one element, a tuple of the
+       form {Hits, AtBats}.  The result may also include suffix and
+       prefix records that could not be matched to other prefix and
+       suffix records.</p>
+</div></div>
+<div class="function">
+<h3 id="count_at_bats/1">count_at_bats(Data::binary(), PlayerId::binary()) -&gt; bat_count()</h3>
+
+
+<div class="description">
+
+<p>Find the at-bat results in this block for the given player.
+       Result is {Hits, AtBats}</p>
+</div></div>
+<div class="function">
+<h3 id="find_uncounted_chunks/1">find_uncounted_chunks(Data::binary(), PlayerId::binary(), Offset::integer()) -&gt; [chunk()]</h3>
+
+
+<div class="description">
+
+<p>Finds chunks that are not complete records at the starts and       
+ends of blocks.  Return is an empty list if there are no       
+incomplete records, a list of two elements if there is an       
+incomplete record at the start and at the end, or a list of       
+one element if there is only a incomplete record at either the       
+start or the end.</p>
+ 
+       <p>Incomplete records at the start of a block are marked       
+'suffix', and their offset is that of the first byte of their       
+data.  Incomplete records at the end of a block are marked       
+'prefix', and their offset is that of the byte immediately       
+following their last byte.  The intention is that a prefix       
+should be matched with its suffix by matching the offset of       
+the two.</p>
+ 
+       <p>------------blockN---------|---------blockN+1------------
+       --|---recordR---|--prefix--|--suffix--|---recordR+2---|--
+                                   ^
+                          offset field of both</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

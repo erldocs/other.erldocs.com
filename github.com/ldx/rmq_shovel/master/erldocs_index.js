@@ -1,0 +1,1 @@
+var index = [['app','rmq_shovel','rmq_shovel','[application]'],['mod','rmq_shovel','rmq_shovel',[]],['fun','rmq_shovel','rmq_shovel:main/1',[]]];

@@ -1,0 +1,38 @@
+branches:
+   only: gh-pages
+language: erlang
+otp_release: 17.4
+env:
+  global:
+    - secure: "aoyYDVQ7fmBNkKUzW54gwZbiUL9J9TP6bHp6BB/YwQ8dA//aNdWXXg8Xanvqb9w2u7K8buCyMLLlyVy8dBqsba76yMmTnkN1tLiFMc9+TZeuK4bNv5ieZurOHPer3nFF8OPvJiBfYxsSnrrbjxeav4p71jPv8hcCtEJLMupVA/s="
+sudo: required
+script:
+  - set -e
+  - bash -c "[[ $TRAVIS_PULL_REQUEST != false ]]"
+  - ToDo=todo.txt
+  - Gen=gen
+  - cd $TRAVIS_BUILD_DIR
+  - bash -c "[[ -f $ToDo ]]"  # Fail if not found
+  - mkdir other
+  - cp $ToDo $Gen
+  - export PR_commit=$TRAVIS_COMMIT
+  - git checkout gh-pages
+  - git clone https://github.com/erldocs/erldocs_other.git erldocs_other.git
+  - cd erldocs_other.git
+  - make -j app
+  - $TRAVIS_BUILD_DIR/long_running.sh $TRAVIS_BUILD_DIR $Gen
+  - cd $TRAVIS_BUILD_DIR
+  - mv other/ erldocs_other.git/ $ToDo $Gen ..
+  - echo 'apps = [' >apps.js
+  - find . -name meta.txt | cut -c3- | sed 's/.........$/",/' | sed 's/^/"/' | tr -d '\n' >>apps.js
+  - echo '];' >>apps.js
+  - git remote set-url --push origin https://$GHT@github.com/erldocs/other.erldocs.com.git
+  - git config user.email travis@atdot.dot
+  - git config user.name 'Travis CI'
+  - echo '' >$ToDo
+  - git add -A .
+  - git commit -m "Successfully applied Pull Request \#$TRAVIS_PULL_REQUEST, please close PR & delete branch"
+  - git pull --no-edit --force origin gh-pages
+  - git push origin gh-pages
+after_success:
+  - find . -name meta.txt | cut -c3- | sed 's/.........$//' | wc -l

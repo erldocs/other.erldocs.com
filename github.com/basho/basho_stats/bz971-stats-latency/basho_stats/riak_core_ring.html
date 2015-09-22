@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_core_ring (basho_stats) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_core_ring</h1>
+<h2 class="modsummary">riak_core_ring manages a riak node's local view of partition ownership.</h2>
+<div class="description">
+<p>riak_core_ring manages a riak node's local view of partition ownership.
+       The functions in this module revolve around use of the chstate record,
+       which should be treated as opaque by other modules.  Riak nodes exchange
+       instances of these records via gossip in order to converge on a common
+       view of node/partition ownership.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-chstate">chstate() = <a href="#type-riak_core_ring" class="seealso">riak_core_ring()</a></h3></div>
+    <div class="type"><h3 id="type-meta_entry">meta_entry()</h3></div>
+    <div class="type"><h3 id="type-riak_core_ring">riak_core_ring() = #chstate{}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="fresh/0">fresh() -&gt; chstate()</h3>
+
+
+<div class="description">
+
+<p>This is used only when this node is creating a brand new cluster.</p>
+</div></div>
+<div class="function">
+<h3 id="fresh/1">fresh(NodeName::term()) -&gt; chstate()</h3>
+
+
+<div class="description">
+
+<p>Equivalent to fresh/0 but allows specification of the local node name.
+      Called by fresh/0, and otherwise only intended for testing purposes.</p>
+</div></div>
+<div class="function">
+<h3 id="fresh/1-1">fresh(RingSize::integer(), NodeName::term()) -&gt; chstate()</h3>
+
+
+<div class="description">
+
+<p>Equivalent to fresh/1 but allows specification of the ring size.
+      Called by fresh/1, and otherwise only intended for testing purposes.</p>
+</div></div>
+<div class="function">
+<h3 id="my_indices/1">my_indices(State::chstate()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>Return all partition indices owned by the node executing this function.</p>
+</div></div>
+<div class="function">
+<h3 id="random_other_index/1">random_other_index(State::chstate()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return a partition index not owned by the node executing this function.
+      If this node owns all partitions, return any index.</p>
+</div></div>
+<div class="function">
+<h3 id="random_other_index/1-1">random_other_index(State::chstate(), Exclude::[term()]) -&gt; integer() | no_indices</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="index_owner/1">index_owner(State::chstate(), Idx::integer()) -&gt; Node::term()</h3>
+
+
+<div class="description">
+
+<p>Return the node that owns the given index.</p>
+</div></div>
+<div class="function">
+<h3 id="owner_node/1">owner_node(State::chstate()) -&gt; Node::term()</h3>
+
+
+<div class="description">
+
+<p>Return the node that is responsible for a given chstate.</p>
+</div></div>
+<div class="function">
+<h3 id="all_members/1">all_members(State::chstate()) -&gt; [Node::term()]</h3>
+
+
+<div class="description">
+
+<p>Produce a list of all nodes that own any partitions.</p>
+</div></div>
+<div class="function">
+<h3 id="random_node/1">random_node(State::chstate()) -&gt; Node::term()</h3>
+
+
+<div class="description">
+
+<p>Return a randomly-chosen node from amongst the owners.</p>
+</div></div>
+<div class="function">
+<h3 id="random_other_node/1">random_other_node(State::chstate()) -&gt; Node::term() | no_node</h3>
+
+
+<div class="description">
+
+<p>Return a randomly-chosen node from amongst the owners other than this one.</p>
+</div></div>
+<div class="function">
+<h3 id="all_owners/1">all_owners(State::chstate()) -&gt; [{Index::integer(), Node::term()}]</h3>
+
+
+<div class="description">
+
+<p>Provide all ownership information in the form of {Index,Node} pairs.</p>
+</div></div>
+<div class="function">
+<h3 id="diff_nodes/1">diff_nodes(State1::chstate(), State2::chstate()) -&gt; [node()]</h3>
+
+
+<div class="description">
+
+<p>For two rings, return the list of owners that have differing ownership.</p>
+</div></div>
+<div class="function">
+<h3 id="num_partitions/1">num_partitions(State::chstate()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of partitions in this Riak ring.</p>
+</div></div>
+<div class="function">
+<h3 id="preflist/1">preflist(Key::binary(), State::chstate()) -&gt; [{Index::integer(), Node::term()}]</h3>
+
+
+<div class="description">
+
+<p>For a given object key, produce the ordered list of
+      {partition,node} pairs that could be responsible for that object.</p>
+</div></div>
+<div class="function">
+<h3 id="all_preflists/1">all_preflists(State::chstate(), N::integer()) -&gt; [[{Index::integer(), Node::term()}]]</h3>
+
+
+<div class="description">
+
+<p>Provide every preflist in the ring, truncated at N.</p>
+</div></div>
+<div class="function">
+<h3 id="transfer_node/1">transfer_node(Idx::integer(), Node::term(), MyState::chstate()) -&gt; chstate()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="rename_node/1">rename_node(State::chstate(), OldNode::atom(), NewNode::atom()) -&gt; chstate()</h3>
+
+
+<div class="description">
+
+<p> Rename OldNode to NewNode in a Riak ring.</p>
+</div></div>
+<div class="function">
+<h3 id="reconcile/1">reconcile(ExternState::chstate(), MyState::chstate()) -&gt; {no_change, chstate()} | {new_ring, chstate()}</h3>
+
+
+<div class="description">
+
+<p>Incorporate another node's state into our view of the Riak world.</p>
+</div></div>
+<div class="function">
+<h3 id="equal_rings/1">equal_rings(A::chstate(), B::chstate()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_meta/1">get_meta(Key::term(), State::chstate()) -&gt; {ok, term()} | undefined</h3>
+
+
+<div class="description">
+
+<p>Return a value from the cluster metadata dict</p>
+</div></div>
+<div class="function">
+<h3 id="update_meta/1">update_meta(Key::term(), Val::term(), State::chstate()) -&gt; chstate()</h3>
+
+
+<div class="description">
+
+<p>Set a key in the cluster metadata dict</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

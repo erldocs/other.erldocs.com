@@ -1,0 +1,1 @@
+var index = [['app','rebar_lol_plugin','rebar_lol_plugin','[application]'],['mod','rebar_lol_plugin','rebar_lol_compiler',[]],['fun','rebar_lol_plugin','rebar_lol_compiler:compile/2',[]],['fun','rebar_lol_plugin','rebar_lol_compiler:compile_lol/3',[]]];

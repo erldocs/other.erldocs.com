@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>xmlrpc (xmlrpc) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>xmlrpc</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-base64">base64() = {base64, string()}</h3></div>
+    <div class="type"><h3 id="type-call_result">call_result() = {ok, <a href="#type-response_payload" class="seealso">response_payload()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ok, <a href="#type-socket" class="seealso">socket()</a>, <a href="#type-response_payload" class="seealso">response_payload()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, Reason :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error, <a href="#type-socket" class="seealso">socket()</a>, Reason :: term()}</h3></div>
+    <div class="type"><h3 id="type-host">host() = string() | <a href="#type-ip_address" class="seealso">ip_address()</a></h3></div>
+    <div class="type"><h3 id="type-ip_address">ip_address() = <a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a></h3></div>
+    <div class="type"><h3 id="type-iso8601date">iso8601date() = {date, string()}</h3></div>
+    <div class="type"><h3 id="type-response_payload">response_payload() = {response, [<a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {response,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{fault,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message :: string()}}</h3></div>
+    <div class="type"><h3 id="type-socket">socket() = term()</h3></div>
+    <div class="type"><h3 id="type-uri">uri() = string()</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_array">xmlrpc_array() = {array, [<a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>]}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_struct">xmlrpc_struct() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{struct, [{Key :: atom(), Value :: <a href="#type-xmlrpc_value" class="seealso">xmlrpc_value()</a>}]}</h3></div>
+    <div class="type"><h3 id="type-xmlrpc_value">xmlrpc_value() = integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| float()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| boolean()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-iso8601date" class="seealso">iso8601date()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-base/64" class="seealso">base64()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-xmlrpc_struct" class="seealso">xmlrpc_struct()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-xmlrpc_array" class="seealso">xmlrpc_array()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="cbs_record/1">cbs_record(Cback_state) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_new/0">cbs_new() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_ip/1">cbs_ip(Cback_state) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_ip/2">cbs_ip(Cback_state, Ip) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_port/1">cbs_port(Cback_state) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_port/2">cbs_port(Cback_state, Port) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_opaque/1">cbs_opaque(Cback_state) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cbs_opaque/2">cbs_opaque(Cback_state, Opaque) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="ssl_call/3">ssl_call(Socket, URI, Payload) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Socket = socket()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#ssl_call/5" class="seealso">ssl_call(Socket, URI, Payload, false, 60000)</a>.</p>
+<p><em>See also:</em> <a href="#ssl_call/5" class="seealso">ssl_call/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_call/4">ssl_call(Host, Port, URI, Payload) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#ssl_call/6" class="seealso">ssl_call(Host, Port, URI, Payload, false, 60000)</a>.</p>
+<p><em>See also:</em> <a href="#ssl_call/6" class="seealso">ssl_call/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_call/5">ssl_call(Socket, URI, Payload, KeepAlive, Timeout) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Socket = socket()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li></ul>
+<div class="description">
+
+<p>Calls an XML-RPC server on an open SSL connection.</p>
+<p><em>See also:</em> <a href="#ssl_call/6" class="seealso">ssl_call/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="ssl_call/6">ssl_call(Host, Port, URI, Payload, KeepAlive, Timeout) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li></ul>
+<div class="description">
+
+<p>Calls an SSL XML-RPC server listening on <code>Host:Port</code> over.</p>
+<p><em>See also:</em> <a href="#call/6" class="seealso">call/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/4">call(Host, Port, URI, Payload) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#call/6" class="seealso">call(Host, Port, URI, Payload, false, 60000)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/6">call(Host, Port, URI, Payload, KeepAlive, Timeout) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Host = host()</code></li><li><code>Port = integer()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li></ul>
+<div class="description">
+
+<p>Calls an XML-RPC server listening on <code>Host:Port</code>. The arguments
+  <code>URI</code> and <code>Payload</code> are used in the HTTP POST request sent to the server.
+  The <code>Arguments</code> are converted to XML for the request body.</p>
+ 
+  <p>If <code>KeepAlive</code> is <code>true</code>, a socket is returned. The socket can be used
+  to send several calls on the same connection in accordance with HTTP 1.1.
+  If no server response is received within <code>Timeout</code> milliseconds
+  <code>{error, timeout}</code> or <code>{error, Socket, timeout}</code> is returned.</p>
+ 
+  <p><code>KeepAlive</code> and <code>Timeout</code> default to <code>false</code> and <code>60000</code> milliseconds,
+  respectively.
+ </p>
+<p><em>See also:</em> <a href="#ssl_call/6" class="seealso">ssl_call/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/3">call(Path, URI, Payload) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Path = list()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#call/5" class="seealso">call(Socket, URI, Payload, false, 60000)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/5">call(Socket, URI, Payload, KeepAlive, Timeout) -&gt; call_result()</h3>
+
+<ul class="type">
+<li><code>Socket = socket()</code></li><li><code>URI = uri()</code></li><li><code>Payload = {call, Method::atom(), Arguments::[xmlrpc_value()]}</code></li><li><code>KeepAlive = boolean()</code></li><li><code>Timeout = integer()</code></li></ul>
+<div class="description">
+
+<p>Calls an XML-RPC server on an open connection.</p>
+<p><em>See also:</em> <a href="#call/6" class="seealso">call/6</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Handler) -&gt; {ok, pid()} | {error, Reason::term()}</h3>
+
+<ul class="type">
+<li><code>Handler = {Module::atom(), Function::atom()}</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#start_link/5" class="seealso">start_link(4567, 1000, 60000, Handler, undefined)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/5">start_link(Port, MaxSessions, Timeout, Handler, State) -&gt; {ok, pid()} | {error, Reason::term()}</h3>
+
+<ul class="type">
+<li><code>Port = integer()</code></li><li><code>MaxSessions = integer()</code></li><li><code>Timeout = integer()</code></li><li><code>Handler = {Module::atom(), Function::atom()}</code></li><li><code>State = term()</code></li></ul>
+<div class="description">
+<p>Equivalent to <a href="#start_link/6" class="seealso">start_link(all, Port, MaxSessions, Timeout, Handler,
+	   State)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/6">start_link(IP, Port, MaxSessions, Timeout, Handler, State) -&gt; {ok, pid()} | {error, Reason::term()}</h3>
+
+<ul class="type">
+<li><code>IP = ip_address()</code></li><li><code>Port = integer()</code></li><li><code>MaxSessions = integer()</code></li><li><code>Timeout = integer()</code></li><li><code>Handler = {Module::atom(), Function::atom()}</code></li><li><code>State = term()</code></li></ul>
+<div class="description">
+
+<p>Starts an XML-RPC server listening on <code>IP:Port</code>. If no IP address is
+  given, the server listens on <code>Port</code> for all available IP addresses.
+  <code>MaxSessions</code> is used to restrict the number of concurrent connections.
+  If <code>MaxSessions</code> is reached, the server accepts no new connections for 5  
+seconds, i.e., blocks new connect attempts.</p>
+ 
+  <p><code>Handler</code> is a callback, implemented by <code>Module:Function/2</code>, which is
+  used to instantiate an XML-RPC server. The <code>Timeout</code> value is used if the
+  handler is keepalive-oriented. <code>State</code> is the initial state given to
+  <code>Module:Function/2</code>. The resulting pid can be used as input to <a href="xmlrpc.html#stop/1" class="seealso">xmlrpc:stop/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/7">start_link(Register, IP, Port, MaxSessions, Timeout, Handler, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/1">stop(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops a running XML-RPC server.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Joakim Grebenö</aname>
+<email>jocke@tail-f.com</email>
+<aname>Torbjörn Törnkvist</aname>
+<email>etnt@redhoterlang.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

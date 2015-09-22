@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ejabberd_odbc (ejabberd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ejabberd_odbc</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-odbc_server">odbc_server() = <a href="ejabberd.html#type-server" class="seealso">ejabberd:server()</a> | pid() | {atom(), pid()}</h3></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{db_ref = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db_type = undefined | atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_interval = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host = undefined | <a href="#type-odbc_server" class="seealso">odbc_server()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent_pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dedicated = undefined | boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max_pending_requests_len = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pending_requests = any()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Host::server() (see module ejabberd), StartInterval::integer(), Dedicated::boolean()) -&gt; ignore | {error, term()} | {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sql_query/1">sql_query(Host::odbc_server(), Query::any()) -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_dedicated_connection/1">get_dedicated_connection(Host::atom()) -&gt; ignore | {error, term()} | {ok, {Host::atom(), pid()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sql_transaction/1">sql_transaction(Host::odbc_server(), Queries::function() | maybe_improper_list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>SQL transaction based on a list of queries</p>
+</div></div>
+<div class="function">
+<h3 id="sql_bloc/1">sql_bloc(Host::odbc_server(), F::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>SQL bloc, based on a erlang anonymous function (F = fun)</p>
+</div></div>
+<div class="function">
+<h3 id="keep_alive/1">keep_alive(PID) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>perform a harmless query on all opened connexions to avoid connexion close.</p>
+</div></div>
+<div class="function">
+<h3 id="get_db_info/1">get_db_info(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sql_query_t/1">sql_query_t(Query) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="escape/1">escape(S::binary() | string()) -&gt; binary() | string()</h3>
+
+
+<div class="description">
+
+<p>Escape character that will confuse an SQL engine</p>
+</div></div>
+<div class="function">
+<h3 id="escape_like/1">escape_like(S::binary() | string()) -&gt; binary() | string()</h3>
+
+
+<div class="description">
+
+<p>Escape character that will confuse an SQL engine
+  Percent and underscore only need to be escaped for
+  pattern matching like statement
+  INFO: Used in mod_vcard_odbc.</p>
+</div></div>
+<div class="function">
+<h3 id="escape_format/1">escape_format(Host::odbc_server()) -&gt; hex | simple_escape</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="escape_binary/2">escape_binary(X1::hex | simple_escape, Bin::binary()) -&gt; binary() | string()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unescape_binary/2">unescape_binary(X1::hex | simple_escape, Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unescape_odbc_binary/1">unescape_odbc_binary(X1::atom(), Bin::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="result_to_integer/1">result_to_integer(Int::binary() | integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_bool/1">to_bool(B::binary() | string() | atom() | integer() | any()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connecting/1">connecting(Event::term(), State::state()) -&gt; {next_state, connecting | session_established, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="connecting/1-1">connecting(Req::term(), From::any(), State::state()) -&gt; {next_state, connecting, term()} | {reply, {error, badarg}, connecting, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="session_established/1">session_established(Request::term(), From::term(), State::state()) -&gt; {next_state, session_established, term()} | {stop, closed | timeout, term()} | {reply, {error, badarg}, session_established, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="session_established/1-1">session_established(Event::term(), State::state()) -&gt; {next_state, session_established, term()} | {stop, closed | timeout, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_event/3">handle_event(Event, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_sync_event/4">handle_sync_event(Event, From, StateName, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::term(), StateName::term(), State::term()) -&gt; {next_state, term(), term()} | {stop, term(), state()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/1">terminate(Reason::term(), StateName::term(), State::state()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="print_state/1">print_state(State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="db_engine/1">db_engine(Host::odbc_server()) -&gt; value() (see module ejabberd_config)</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

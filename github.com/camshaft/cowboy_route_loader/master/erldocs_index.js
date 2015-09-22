@@ -1,0 +1,1 @@
+var index = [['app','cowboy_route_loader','cowboy_route_loader','[application]'],['mod','cowboy_route_loader','cowboy_route_loader',[]],['fun','cowboy_route_loader','cowboy_route_loader:compile/1',[]],['fun','cowboy_route_loader','cowboy_route_loader:compile/2',[]]];

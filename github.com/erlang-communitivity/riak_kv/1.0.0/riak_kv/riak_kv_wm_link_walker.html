@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_wm_link_walker (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_wm_link_walker</h1>
+<h2 class="modsummary">Raw link walker resource provides an interface to riak object       
+linkwalking over HTTP.</h2>
+<div class="description">
+<p>Raw link walker resource provides an interface to riak object       
+linkwalking over HTTP.  The interface exposed is:</p>
+ 
+       <p>/riak/Bucket/Key[/b,t,acc] (OLD)       
+/buckets/Bucket/keys/Key[/b,t,acc] (NEW)</p>
+ 
+       <p>where:</p>
+ 
+       <p>Bucket/Key tells the link walker where to start</p>
+ 
+       <p>each /b,t,acc segment is a request to follow some links</p>
+ 
+       <p>b is a filter on buckets       
+t is a filter on tags       
+acc is whether or not to return the objects from that step</p>
+ 
+       <p>each of b,t,acc may be underscore, to signify wildcard</p>
+ 
+       <p>acc is by default '0' (do not return these objects), except       
+for the final /b,t,acc segment, for which it is by default '1'       
+(return the objects)</p>
+ 
+       <p>Return from the walker resource is a multipart/mixed body each       
+portion of that body being a list of results for the       
+corresponding link step (itself a multipart/mixed list, each       
+portion of which is a matching object, encoded as an HTTP       
+request would have been from the riak_kv_wm_raw).</p>
+ 
+       <p>so:</p>
+ 
+       <p>/riak/foo/123/bar,_,_ : returns all bar objects       
+attached to foo 123:         
+Content-type: multipart/mixed; boundary=ABC</p>
+ 
+         <p>--ABC         
+Content-type: multipart/mixed; boundary=XYZ</p>
+ 
+         <p>--XYZ         
+Content-type: bar1-content-type</p>
+ 
+         <p>bar1-body         
+--XYZ         
+Content-type: bar2-content-type</p>
+ 
+         <p>bar2-body         
+--XYZ--       
+--ABC--</p>
+ 
+       <p>/riak/foo/123/bar,_,1/_,_,_ : returns all       
+bar objects attached to foo 123, and all objects attached       
+to those bar objects:         
+Content-type: multipart/mixed; boundary=ABC</p>
+ 
+         <p>--ABC         
+Content-type: multipart/mixed; boundary=XYZ</p>
+ 
+         <p>--XYZ         
+Content-type: bar1-content-type</p>
+ 
+         <p>bar1-body         
+--XYZ         
+Content-type: bar2-content-type</p>
+ 
+         <p>bar2-body         
+--XYZ--         
+--ABC         
+Content-type: multipart/mixed; boundary=QRS</p>
+ 
+         <p>--QRS         
+Content-type: baz1-content-type</p>
+ 
+         <p>baz1-body         
+--QRS         
+Content-type: quux2-content-type</p>
+ 
+         <p>quux2-body         
+--QRS--       
+--ABC--</p>
+ 
+  <p>Webmachine dispatch line for this resource should look like:</p>
+ 
+   <p>{["riak", bucket, key, '*'],    
+riak_kv_wm_raw,    
+[{prefix, "riak"},     
+{riak, local}, %% or {riak, {'riak@127.0.0.1', riak_cookie}}     
+{cache_secs, 60}    
+]}.</p>
+ 
+  <p>These example dispatch lines will expose this resource at
+  /riak/Bucket/Key/*.  The resource will attempt to
+  connect to Riak on the same Erlang node one which the resource
+  is executing.  Using the alternate {riak, {Node, Cookie}} form
+  will cause the resource to connect to riak on the specified
+  Node with the specified Cookie.  The Expires header will be
+  set 60 seconds in the future (default is 600 seconds).</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-context">context() = term()</h3></div>
+    <div class="type"><h3 id="type-link">link() = {{Bucket::binary(), Key::binary()}, Tag::binary()}</h3></div>
+    <div class="type"><h3 id="type-linkquery">linkquery() = {Bucket::binary() | '_', Tag::binary() | '_', Acc::boolean()}</h3></div>
+    <div class="type"><h3 id="type-tokenizedlink">tokenizedlink() = [string()]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ping/2">ping(ReqData, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mapreduce_linkfun/2">mapreduce_linkfun(Object::{error, notfound} | riak_object(), X2::term(), X3::{binary(), binary()}) -&gt; [link()]</h3>
+
+
+<div class="description">
+
+<p>Extract the links from Object that match {Bucket, Tag}.
+       Set this function as the bucket property linkfun to enable
+       {link, Bucket, Key, Acc} syntax in mapreduce queries on the bucket.
+       Client:set_bucket(Bucket, [{linkfun, {modfun, riak_kv_wm_link_walker,
+                                             mapreduce_linkfun}}])</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Props::proplist()) -&gt; {ok, context()}</h3>
+
+
+<div class="description">
+
+<p>Initialize the resource.  This function extacts the 'prefix',
+       'riak', and 'chache_secs' properties from the dispatch args.</p>
+</div></div>
+<div class="function">
+<h3 id="malformed_request/1">malformed_request(RD::reqdata(), Ctx::context()) -&gt; {boolean(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Parse link walk query and determine if it's
+       valid.</p>
+</div></div>
+<div class="function">
+<h3 id="service_available/1">service_available(RD::reqdata(), Ctx::context()) -&gt; {boolean(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Determine whether or not a connection to Riak
+       can be established.  This function also takes this
+       opportunity to extract the 'bucket' and 'key' path
+       bindings from the dispatch.</p>
+</div></div>
+<div class="function">
+<h3 id="allowed_methods/1">allowed_methods(RD::reqdata(), Ctx::context()) -&gt; {[method()], reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Get the list of methods this resource supports.
+       HEAD, GET, and POST are supported.  POST does nothing,
+       though, and is only exposed for browser-cache-clearing
+       purposes</p>
+</div></div>
+<div class="function">
+<h3 id="content_types_provided/1">content_types_provided(RD::reqdata(), Ctx::context()) -&gt; {[{ContentType::string(), Producer::atom()}], reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>List the content types available for representing this
+       resource.  Currently only multipart/mixed is supported.</p>
+</div></div>
+<div class="function">
+<h3 id="expires/2">expires(RD, Ctx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="resource_exists/1">resource_exists(RD::reqdata(), Ctx::context()) -&gt; {boolean(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>This resource exists if Riak returns {ok, riak_object()} from
+       a get of the starting document.</p>
+</div></div>
+<div class="function">
+<h3 id="to_multipart_mixed/1">to_multipart_mixed(RD::reqdata(), Ctx::context()) -&gt; {iolist(), reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>Execute the link walking query, and build the response body.
+       This function has to explicitly set the Content-Type header,
+       because Webmachine doesn't know to add the "boundary" parameter to it.</p>
+</div></div>
+<div class="function">
+<h3 id="process_post/1">process_post(RD::reqdata(), Ctx::context()) -&gt; {true, reqdata(), context()}</h3>
+
+
+<div class="description">
+
+<p>do nothing with POST
+       just allow client to use it to invalidate browser cache</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

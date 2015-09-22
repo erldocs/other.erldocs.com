@@ -1,0 +1,1 @@
+var index = [['app','libterm','libterm','[application]'],['mod','libterm','libterm',[]],['fun','libterm','libterm:edit_distance/2',[]],['fun','libterm','libterm:percent_difference/2',[]]];

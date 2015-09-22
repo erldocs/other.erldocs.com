@@ -1,0 +1,1 @@
+var index = [['app','jex','jex','[application]'],['mod','jex','jex_app',[]],['mod','jex','jex_sup',[]],['fun','jex','jex_app:start/2',[]],['fun','jex','jex_app:stop/1',[]],['fun','jex','jex_sup:init/1',[]],['fun','jex','jex_sup:start_link/0',[]]];

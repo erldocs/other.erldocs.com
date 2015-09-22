@@ -1,0 +1,1 @@
+var index = [['app','launcher','launcher','[application]'],['mod','launcher','tech1_launcher',[]],['fun','launcher','tech1_launcher:send_raw/1',[]],['fun','launcher','tech1_launcher:start/2',[]],['fun','launcher','tech1_launcher:stop/1',[]]];

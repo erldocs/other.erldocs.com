@@ -1,0 +1,1 @@
+var index = [['app','dk_yaws','dk_yaws','[application]'],['mod','dk_yaws','dk_utils','     Useful utility functions for all DuoMark (dk'],['fun','dk_yaws','dk_utils:get_app_env/1','    Get config parameter for the running applicat']];

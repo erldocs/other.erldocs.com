@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>isbn (isbnerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>isbn</h1>
+<h2 class="modsummary">ISBN utilities for Erlang including ISBN-10 and ISBN-13 check digit  
+generators and validators.</h2>
+<div class="description">
+<p>ISBN utilities for Erlang including ISBN-10 and ISBN-13 check digit  
+generators and validators.  Also included is a  ISBN-10 to  
+ISBN-13 conversion, and ISBN-13 to ISBN-10 when applicable.</p>
+ 
+  <p>A full test suite accompanies this module in the file
+  isbn_test.erl</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="check_digit_10/1">check_digit_10(Isbn::List) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Given a 9 digit list, calculates the ISBN-10 check digit and returns it.</p>
+</div></div>
+<div class="function">
+<h3 id="check_digit_10_string/1">check_digit_10_string(Isbn::string()) -&gt; integer() | string()</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN string containing 9 characters and optionally "-" characters,
+  generate a list, chomping "-" characters, and then pass the results to
+  check_digit_10/1.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_10/1">validate_10(Isbn::List) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Given a 10 digit ISBN, generates check digit and checks to see
+  that is matches the last integer passed in.  Returns true or
+  false, depending on if they match or not.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_10_string/1">validate_10_string(Isbn::string()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN string containing 10 characters and optionally "-" characters,
+  generate a list, chomping "-" characters, and then pass the results to
+  validate_10/1.</p>
+</div></div>
+<div class="function">
+<h3 id="check_digit_13/1">check_digit_13(Isbn::List) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Given a 12 digit list, calculates the ISBN-13 check digit and
+  returns it.</p>
+</div></div>
+<div class="function">
+<h3 id="check_digit_13_string/1">check_digit_13_string(Isbn::string()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Given 12 out of 13 characters of an ISBN as a string, chomp "-"
+  characters and pass the result on to check_digit_13/1.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_13/1">validate_13(Isbn::List) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Given a 13 digit ISBN as a list of integers, generates the check
+  digit and returns true if it matches the check digit passed in,
+  false otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="validate_13_string/1">validate_13_string(Isbn::string()) -&gt; bool()</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN in string form, 13 characters total with optional "-"
+  seperators, chomp "-" characters, convert them to a list and pass them
+  on to validate_13/1.</p>
+</div></div>
+<div class="function">
+<h3 id="convert_10_to_13/1">convert_10_to_13(Isbn::List) -&gt; List</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN-10, converts it to ISBN-13, checks validity, and
+  returns the ISBN-13 or throws an error.</p>
+</div></div>
+<div class="function">
+<h3 id="convert_10_to_13_string/1">convert_10_to_13_string(Isbn::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN-10 in string form, convert to a list,
+  removing any "-" characters, and then pass it on to
+  convert_10_to_13/1, converting it back to a string when
+  it is done.</p>
+</div></div>
+<div class="function">
+<h3 id="convert_13_to_10/1">convert_13_to_10(Isbn::List) -&gt; List</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN-13, returns the correct ISBN-10 by  
+dropping the first three digits and check digit then  
+recalculating the new ISBN-10 check digit.</p>
+ 
+  <p>If the given ISBN-13 does not begin with [9,7,8],
+  an error is thrown because only 978- ISBN-13's can
+  be translated in to ISBN-10.</p>
+</div></div>
+<div class="function">
+<h3 id="convert_13_to_10_string/1">convert_13_to_10_string(Isbn::string()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Given an ISBN-13 in string form, convert it to a
+  list and sent it to convert_13_to_10/1, converting it
+  back to a string when it's done.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Matt Croydon</aname>
+<email>matt@ooiio.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>cowdb (cowdb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>cowdb</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-compression_method">compression_method() = snappy<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| lz4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| gzip<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {deflate, Level :: integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| none</h3></div>
+    <div class="type"><h3 id="type-db">db() = #db{} | pid()</h3></div>
+    <div class="type"><h3 id="type-fold_options">fold_options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{dir, fwd | rev} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{start_key, term()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{end_key, term()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{end_key_gt, term()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{key_group_fun, function()}]</h3></div>
+    <div class="type"><h3 id="type-fsync_options">fsync_options() = [before_header | after_header | on_file_open]</h3></div>
+    <div class="type"><h3 id="type-mfa">mfa() = {local, Name :: atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {global, GlobalName :: term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {via, ViaName :: term()}</h3></div>
+    <div class="type"><h3 id="type-open_options">open_options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{compression, <a href="#type-compression_method" class="seealso">compression_method()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{fsync_options, <a href="#type-fsync_options" class="seealso">fsync_options()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_compact |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{auto_compact, boolean()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{compact_limit, integer()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{reduce, function()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{less, function()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{init_func, function()}]</h3></div>
+    <div class="type"><h3 id="type-timeout">timeout() = infinity | integer()</h3></div>
+    <div class="type"><h3 id="type-transact_fn">transact_fn() = {module(), function(), [any()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {module(), function()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| function()</h3></div>
+    <div class="type"><h3 id="type-transact_id">transact_id() = integer() | tx_end</h3></div>
+    <div class="type"><h3 id="type-transact_ops">transact_ops() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{add, term(), any()} | {remove, term()} | {fn, <a href="#type-transact_fn" class="seealso">transact_fn()</a>}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open/1">open(FilePath::string()) -&gt; {ok, Db::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>open a cowdb database, pass a function to initialise the stores and
+  indexes.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-1">open(FilePath::string(), Option::open_options()) -&gt; {ok, Db::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>open a cowdb database, pass a function to initialise the stores and
+  indexes.</p>
+</div></div>
+<div class="function">
+<h3 id="open/1-2">open(Name::mfa(), FilePath::string(), Option::open_options()) -&gt; {ok, Db::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Create or open a cowdb store with a registered name.</p>
+</div></div>
+<div class="function">
+<h3 id="open_link/1">open_link(FilePath::string()) -&gt; {ok, Db::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>open a cowdb databas as part of the supervision treee, pass a
+  function to initialise the stores and indexes.</p>
+</div></div>
+<div class="function">
+<h3 id="open_link/1-1">open_link(FilePath::string(), Option::open_options()) -&gt; {ok, Db::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>open a cowdb database as part of the supervision tree</p>
+</div></div>
+<div class="function">
+<h3 id="open_link/1-2">open_link(Name::mfa(), FilePath::string(), Option::open_options()) -&gt; {ok, Db::pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>open a cowdb database as part of the supervision tree with a
+  registerd name</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(DbPid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close the file.</p>
+</div></div>
+<div class="function">
+<h3 id="db_info/1">db_info(DbPid::db()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>display database infos</p>
+</div></div>
+<div class="function">
+<h3 id="count/1">count(DbPid::db()) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>get the number of objects stored in the database.</p>
+</div></div>
+<div class="function">
+<h3 id="data_size/1">data_size(DbPid::db()) -&gt; {ok, integer()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>get the number of objects stored in the database.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Db::db(), Key::any()) -&gt; {ok, any()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>get an object from its key</p>
+</div></div>
+<div class="function">
+<h3 id="lookup/1">lookup(Db::db(), Keys::[any()]) -&gt; {ok, any()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>get a list of object from theyir key</p>
+</div></div>
+<div class="function">
+<h3 id="fold/1">fold(DbPid::db(), Fun::function(), Acc::any()) -&gt; {ok, any(), any()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>fold all objects form the database</p>
+</div></div>
+<div class="function">
+<h3 id="fold/1-1">fold(DbPid::db(), Fun::function(), Acc::any(), Options::fold_options()) -&gt; {ok, any()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>fold all objects form the database with range options</p>
+</div></div>
+<div class="function">
+<h3 id="full_reduce/1">full_reduce(DbPid::db()) -&gt; {ok, any()}</h3>
+
+
+<div class="description">
+
+<p>return the full reduced value</p>
+</div></div>
+<div class="function">
+<h3 id="fold_reduce/4">fold_reduce(DbPid, Fun, Acc, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>fold the reduce function over the results.</p>
+</div></div>
+<div class="function">
+<h3 id="put/1">put(DbPid::db(), Key::term(), Value::any()) -&gt; {ok, transact_id()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>add one object to a store</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(DbPid::db(), Key::term()) -&gt; {ok, transact_id()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>delete one object from the store</p>
+</div></div>
+<div class="function">
+<h3 id="transact/1">transact(Ref::db(), OPs::transact_ops()) -&gt; {ok, transact_id()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>execute a transaction
+  A transaction received operations to execute as a list:
+  </p><list>
+  <item><p><code>{add, Key, Value}</code> to add an object</p></item>
+  <item><p><code>{remove, Key}</code> to remove a value</p></item>
+ <item><p> <code>{fn, Func}</code> a transaction function. A transaction function
+ reveived the db value like it was at the beginning of the transaction
+ as an argument. It's possible to pass arguments to it. A transaction
+ function return a list of operations and can wuery/maniuplate
+ function. The list of operations returned can also contain a
+ function.</p></item>
+ </list><p>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="transact/1-1">transact(Ref::db(), OPs::transact_ops(), Timeout::timeout()) -&gt; {ok, transact_id()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="compact/1">compact(Ref::db()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>compact the database file</p>
+</div></div>
+<div class="function">
+<h3 id="cancel_compact/1">cancel_compact(Ref::db()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>cancel compaction</p>
+</div></div>
+<div class="function">
+<h3 id="log/1">log(Db::db(), StartT::transact_id(), Function::function(), Acc::any()) -&gt; {ok, NbTransactions::integer(), Acc2::any()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>fold the transaction log</p>
+</div></div>
+<div class="function">
+<h3 id="log/1-1">log(Db::db(), StartT::transact_id(), EndT::transact_id(), Function::function(), Acc::any()) -&gt; {ok, NbTransactions::integer(), Acc2::any()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>fold the transaction log
+  Args:
+  </p><list>
+  <item><p><code>Db</code>: the db value (in transaction function) or pid</p></item>
+  <item><p><code>StartT</code>: transaction ID to start from</p></item>
+  <item><p><code>EndT</code>: transaction ID to stop</p></item>
+  <item><p><code>Fun</code>: function collection log result:
+  </p><pre class="sh_erlang">  fun({TransactId, Op, {K,V}, Ts}, Acc) -&gt;
+       {ok, Acc2} | {stop, Acc2}
+   end</pre><p>
+  where TransactId is the transaction ID <code>Transactid</code> where the <code>OP</code>
+  (<code>add</code> or <code>remove</code>) on the Key/Value pair <code>{K, V}</code> has been run on
+  the unix time <code>Ts</code>.</p></item>
+  <item><p><code>Acc</code>: initial value to pass to the function.</p></item>
+  </list><p>
+  The function return the total number of transactions in the range and
+  the values collected during folding.</p>
+</div></div>
+<div class="function">
+<h3 id="get_snapshot/1">get_snapshot(DbPid::db(), TransactId::transact_id()) -&gt; {ok, db()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>get a snapshot of the database at some point.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','erlang_types_talk','erlang_types_talk','[application]'],['mod','erlang_types_talk','cards',[]],['mod','erlang_types_talk','dynamic',[]],['fun','erlang_types_talk','cards:kind/1',[]],['fun','erlang_types_talk','cards:main/0',[]],['fun','erlang_types_talk','cards:suit/1',[]],['fun','erlang_types_talk','dynamic:example/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','erlang_send_msg_to_process','erlang_send_msg_to_process','[application]'],['mod','erlang_send_msg_to_process','main',[]],['fun','erlang_send_msg_to_process','main:factorial/2',[]],['fun','erlang_send_msg_to_process','main:messageRec/0',[]]];

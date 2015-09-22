@@ -1,0 +1,1 @@
+var index = [['app','news','news','[application]'],['mod','news','parser_nefertiti',[]],['mod','news','parser_nefertiti_init',[]],['fun','news','parser_nefertiti:check_text/2',[]],['fun','news','parser_nefertiti_init:get_info/0',[]]];

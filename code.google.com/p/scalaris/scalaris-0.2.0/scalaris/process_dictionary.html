@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>process_dictionary (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>process_dictionary</h1>
+<h2 class="modsummary">This module provides a mechanism to implement process     
+groups.</h2>
+<div class="description">
+<p>This module provides a mechanism to implement process     
+groups. Within a process group, the names of processes have to     
+be unique, but the same name can be used in different     
+groups. The motivation for this module was to run several Chord#     
+nodes in one erlang vm. But for the processes forming a Chord#     
+node being able to talk to each other, they have to now their     
+names (cs_node, config, etc.). This module allows the processes     
+to keep their names.</p>
+
+     <p>When a new process group is created, a unique "instance_id" is     
+created, which has to be shared by all nodes in this     
+group.</p>
+
+     <p><a href="#register_process/3" class="seealso">register_process/3</a> registers the name of a process in
+     his group and stores the instance_id in the calling processes'
+     environment using <a href="erlang.html#put/2" class="seealso">erlang:put/2</a>.</p>
+
+     <a href="#lookup_process/2" class="seealso">lookup_process/2</a> will lookup in the process group for a
+     process with the given name.</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="register_process/1">register_process(InstanceId::term(), Name::term(), Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>register a process with InstanceId and Name</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_process/1">lookup_process(InstanceId::term(), Name::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>looks up a process with InstanceId and Name in the dictionary</p>
+</div></div>
+<div class="function">
+<h3 id="lookup_process/1-1">lookup_process(Pid::pid()) -&gt; {any(), any()} | failed</h3>
+
+
+<div class="description">
+
+<p>find the process group and name of a process by pid</p>
+</div></div>
+<div class="function">
+<h3 id="find_cs_node/0">find_cs_node() -&gt; pid()</h3>
+
+
+<div class="description">
+
+<p>tries to find a cs_node process</p>
+</div></div>
+<div class="function">
+<h3 id="find_all_cs_nodes/0">find_all_cs_nodes() -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>tries to find all cs_node processes</p>
+</div></div>
+<div class="function">
+<h3 id="find_all_processes/1">find_all_processes(Name::any()) -&gt; list()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_group/1">find_group(Process::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>tries to find a process group with a specific process inside</p>
+</div></div>
+<div class="function">
+<h3 id="get_groups/0">get_groups() -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>find groups for web interface</p>
+</div></div>
+<div class="function">
+<h3 id="get_processes_in_group/1">get_processes_in_group(InstanceId::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>find processes in a group (for web interface)</p>
+</div></div>
+<div class="function">
+<h3 id="get_info/1">get_info(InstanceId::term(), Name::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>get info about process (for web interface)</p>
+</div></div>
+<div class="function">
+<h3 id="get_all_pids/0">get_all_pids() -&gt; [pid()]</h3>
+
+
+<div class="description">
+
+<p>get all pids (for fprof)</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Starts the server</p>
+</div></div>
+<div class="function">
+<h3 id="start_link_for_unittest/0">start_link_for_unittest() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Starts the server for unit testing</p>
+</div></div>
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Starts the server; for use with the test framework</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stops the server</p>
+</div></div></div>
+
+<authors>
+
+<aname>Thorsten Schuett</aname>
+<email>schuett@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mcp7940n (erlang_ale_extension) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mcp7940n</h1>
+<h2 class="modsummary">
+  This module provides interface to able to control MCP7940n RTC device.</h2>
+<div class="description">
+<p>
+  This module provides interface to able to control MCP7940n RTC device.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-address">address() = integer()</h3></div>
+    <div class="type"><h3 id="type-date">date() = {<a href="#type-year" class="seealso">year()</a>, <a href="#type-month" class="seealso">month()</a>, <a href="#type-day" class="seealso">day()</a>}</h3></div>
+    <div class="type"><h3 id="type-datetime">datetime() = <a href="#type-datetime_12h" class="seealso">datetime_12h()</a> | <a href="#type-datetime_24h" class="seealso">datetime_24h()</a></h3></div>
+    <div class="type"><h3 id="type-datetime_12h">datetime_12h() = {<a href="#type-date" class="seealso">date()</a>, <a href="#type-time_12h" class="seealso">time_12h()</a>}</h3></div>
+    <div class="type"><h3 id="type-datetime_24h">datetime_24h() = {<a href="#type-date" class="seealso">date()</a>, <a href="#type-time_24h" class="seealso">time_24h()</a>}</h3></div>
+    <div class="type"><h3 id="type-day">day() = 1..31</h3></div>
+    <div class="type"><h3 id="type-hour">hour() = 0..23</h3></div>
+    <div class="type"><h3 id="type-hour12">hour12() = 0..12</h3></div>
+    <div class="type"><h3 id="type-hour_am">hour_am() = 0</h3></div>
+    <div class="type"><h3 id="type-hour_ampm_ind">hour_ampm_ind() = <a href="#type-hour_am" class="seealso">hour_am()</a> | <a href="#type-hour_pm" class="seealso">hour_pm()</a></h3></div>
+    <div class="type"><h3 id="type-hour_pm">hour_pm() = 1</h3></div>
+    <div class="type"><h3 id="type-int_data">int_data() = 0..255</h3></div>
+    <div class="type"><h3 id="type-minute">minute() = 0..59</h3></div>
+    <div class="type"><h3 id="type-month">month() = 1..12</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_id">rtc_alarm_id() = 0..1</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_clear">rtc_alarm_interrupt_clear() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_dis">rtc_alarm_interrupt_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_en">rtc_alarm_interrupt_en() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_en_status">rtc_alarm_interrupt_en_status() = <a href="#type-rtc_alarm_interrupt_en" class="seealso">rtc_alarm_interrupt_en()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_alarm_interrupt_dis" class="seealso">rtc_alarm_interrupt_dis()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_out_pol">rtc_alarm_interrupt_out_pol() = <a href="#type-rtc_alarm_interrupt_out_pol_high" class="seealso">rtc_alarm_interrupt_out_pol_high()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_alarm_interrupt_out_pol_low" class="seealso">rtc_alarm_interrupt_out_pol_low()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_out_pol_high">rtc_alarm_interrupt_out_pol_high() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_out_pol_low">rtc_alarm_interrupt_out_pol_low() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_interrupt_set">rtc_alarm_interrupt_set() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_mask">rtc_alarm_mask() = <a href="#type-rtc_alarm_mask_sec" class="seealso">rtc_alarm_mask_sec()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_alarm_mask_min" class="seealso">rtc_alarm_mask_min()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_alarm_mask_hour" class="seealso">rtc_alarm_mask_hour()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_alarm_mask_wday" class="seealso">rtc_alarm_mask_wday()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_alarm_mask_all" class="seealso">rtc_alarm_mask_all()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_mask_all">rtc_alarm_mask_all() = 7</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_mask_hour">rtc_alarm_mask_hour() = 2</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_mask_min">rtc_alarm_mask_min() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_mask_sec">rtc_alarm_mask_sec() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_alarm_mask_wday">rtc_alarm_mask_wday() = 3</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_crstrim">rtc_ctrl_bit_crstrim() = <a href="#type-rtc_ctrl_bit_crstrim_en" class="seealso">rtc_ctrl_bit_crstrim_en()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_crstrim_dis" class="seealso">rtc_ctrl_bit_crstrim_dis()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_crstrim_dis">rtc_ctrl_bit_crstrim_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_crstrim_en">rtc_ctrl_bit_crstrim_en() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_extosc">rtc_ctrl_bit_extosc() = <a href="#type-rtc_ctrl_bit_extosc_en" class="seealso">rtc_ctrl_bit_extosc_en()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_extosc_dis" class="seealso">rtc_ctrl_bit_extosc_dis()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_extosc_dis">rtc_ctrl_bit_extosc_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_extosc_en">rtc_ctrl_bit_extosc_en() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_out">rtc_ctrl_bit_out() = <a href="#type-rtc_ctrl_bit_out_high" class="seealso">rtc_ctrl_bit_out_high()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_out_low" class="seealso">rtc_ctrl_bit_out_low()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_out_high">rtc_ctrl_bit_out_high() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_out_low">rtc_ctrl_bit_out_low() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwen">rtc_ctrl_bit_sqwen() = <a href="#type-rtc_ctrl_bit_sqwen_en" class="seealso">rtc_ctrl_bit_sqwen_en()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_sqwen_dis" class="seealso">rtc_ctrl_bit_sqwen_dis()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwen_dis">rtc_ctrl_bit_sqwen_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwen_en">rtc_ctrl_bit_sqwen_en() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwfs">rtc_ctrl_bit_sqwfs() = <a href="#type-rtc_ctrl_bit_sqwfs_1Hz" class="seealso">rtc_ctrl_bit_sqwfs_1Hz()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_sqwfs_4096Hz" class="seealso">rtc_ctrl_bit_sqwfs_4096Hz()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_sqwfs_8192Hz" class="seealso">rtc_ctrl_bit_sqwfs_8192Hz()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_ctrl_bit_sqwfs_32768Hz" class="seealso">rtc_ctrl_bit_sqwfs_32768Hz()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwfs_1Hz">rtc_ctrl_bit_sqwfs_1Hz() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwfs_32768Hz">rtc_ctrl_bit_sqwfs_32768Hz() = 3</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwfs_4096Hz">rtc_ctrl_bit_sqwfs_4096Hz() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_ctrl_bit_sqwfs_8192Hz">rtc_ctrl_bit_sqwfs_8192Hz() = 2</h3></div>
+    <div class="type"><h3 id="type-rtc_osc_do_start">rtc_osc_do_start() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_osc_do_stop">rtc_osc_do_stop() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_osc_start">rtc_osc_start() = <a href="#type-rtc_osc_do_start" class="seealso">rtc_osc_do_start()</a> | <a href="#type-rtc_osc_do_stop" class="seealso">rtc_osc_do_stop()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_oscrun">rtc_oscrun() = <a href="#type-rtc_oscrun_en" class="seealso">rtc_oscrun_en()</a> | <a href="#type-rtc_oscrun_dis" class="seealso">rtc_oscrun_dis()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_oscrun_dis">rtc_oscrun_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_oscrun_en">rtc_oscrun_en() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_pwrfail">rtc_pwrfail() = <a href="#type-rtc_pwrfail_primary_power_lost" class="seealso">rtc_pwrfail_primary_power_lost()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-rtc_pwrfail_primary_power_not_lost" class="seealso">rtc_pwrfail_primary_power_not_lost()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_pwrfail_primary_power_lost">rtc_pwrfail_primary_power_lost() = 1</h3></div>
+    <div class="type"><h3 id="type-rtc_pwrfail_primary_power_not_lost">rtc_pwrfail_primary_power_not_lost() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_vbaten">rtc_vbaten() = <a href="#type-rtc_vbaten_en" class="seealso">rtc_vbaten_en()</a> | <a href="#type-rtc_vbaten_dis" class="seealso">rtc_vbaten_dis()</a></h3></div>
+    <div class="type"><h3 id="type-rtc_vbaten_dis">rtc_vbaten_dis() = 0</h3></div>
+    <div class="type"><h3 id="type-rtc_vbaten_en">rtc_vbaten_en() = 1</h3></div>
+    <div class="type"><h3 id="type-second">second() = 0..59</h3></div>
+    <div class="type"><h3 id="type-time_12h">time_12h() = {{<a href="#type-hour_ampm_ind" class="seealso">hour_ampm_ind()</a>, <a href="#type-hour/12" class="seealso">hour12()</a>}, <a href="#type-minute" class="seealso">minute()</a>, <a href="#type-second" class="seealso">second()</a>}</h3></div>
+    <div class="type"><h3 id="type-time_24h">time_24h() = {<a href="#type-hour" class="seealso">hour()</a>, <a href="#type-minute" class="seealso">minute()</a>, <a href="#type-second" class="seealso">second()</a>}</h3></div>
+    <div class="type"><h3 id="type-time_format">time_format() = <a href="#type-time_format_12h" class="seealso">time_format_12h()</a> | <a href="#type-time_format_24h" class="seealso">time_format_24h()</a></h3></div>
+    <div class="type"><h3 id="type-time_format_12h">time_format_12h() = 1</h3></div>
+    <div class="type"><h3 id="type-time_format_24h">time_format_24h() = 0</h3></div>
+    <div class="type"><h3 id="type-wday">wday() = 1..7</h3></div>
+    <div class="type"><h3 id="type-year">year() = integer()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/1">start(TimeFormat::time_format(), VBatEn::rtc_vbaten(), ForceToSetDateAndTime::boolean()) -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start driver.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Stop driver.</p>
+</div></div>
+<div class="function">
+<h3 id="ctrl_bit_out_set/1">ctrl_bit_out_set(CtrlBitOut::rtc_ctrl_bit_out()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. OUT bit</p>
+</div></div>
+<div class="function">
+<h3 id="ctrl_bit_sqwen_set/1">ctrl_bit_sqwen_set(Sqwen::rtc_ctrl_bit_sqwen()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. SQWEN bit</p>
+</div></div>
+<div class="function">
+<h3 id="ctrl_bit_extosc_set/1">ctrl_bit_extosc_set(Extosc::rtc_ctrl_bit_extosc()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. EXTOSC bit</p>
+</div></div>
+<div class="function">
+<h3 id="ctrl_bit_crstrim_set/1">ctrl_bit_crstrim_set(Crstrim::rtc_ctrl_bit_crstrim()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. CRSTRIM bit</p>
+</div></div>
+<div class="function">
+<h3 id="ctrl_bit_sqwfs_set/1">ctrl_bit_sqwfs_set(Sqwfs::rtc_ctrl_bit_sqwfs()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. SQWFS bit</p>
+</div></div>
+<div class="function">
+<h3 id="pwrfail_bit_read/0">pwrfail_bit_read() -&gt; {ok, rtc_pwrfail()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read PWRFAIL bit</p>
+</div></div>
+<div class="function">
+<h3 id="pwrfail_bit_clear/0">pwrfail_bit_clear() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Clear PWRFAIL bit</p>
+</div></div>
+<div class="function">
+<h3 id="pwr_down_date_and_time_get/0">pwr_down_date_and_time_get() -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read PWR DOWN Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="pwr_up_date_and_time_get/0">pwr_up_date_and_time_get() -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read PWR UP Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="pwr_status_change_subscribe/0">pwr_status_change_subscribe() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Subscribe to PWR DOWN/UP events.</p>
+</div></div>
+<div class="function">
+<h3 id="pwr_status_change_subscribe/1">pwr_status_change_subscribe(PidToSendNotification::pid()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Subscribe to PWR DOWN/UP events.</p>
+</div></div>
+<div class="function">
+<h3 id="pwr_status_change_unsubscribe/1">pwr_status_change_unsubscribe(PidToSendNotification::pid()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Unsubscribe to PWR DOWN/UP events.</p>
+</div></div>
+<div class="function">
+<h3 id="vbaten_read/0">vbaten_read() -&gt; {ok, rtc_vbaten()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read VBATEN bit</p>
+</div></div>
+<div class="function">
+<h3 id="vbaten_set/1">vbaten_set(Vbaten::rtc_vbaten()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Set VBATEN bit</p>
+</div></div>
+<div class="function">
+<h3 id="alarm_interrupt_enable_disable/1">alarm_interrupt_enable_disable(AlarmId::rtc_alarm_id(), AlarmInterruptEnableStatus::rtc_alarm_interrupt_en_status()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Enable/Disable Alarm interrupt.</p>
+</div></div>
+<div class="function">
+<h3 id="alarm_interrupt_is_enabled/1">alarm_interrupt_is_enabled(AlarmId::rtc_alarm_id()) -&gt; {ok, rtc_alarm_interrupt_en_status()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Alarm interrupt enabled bit.</p>
+</div></div>
+<div class="function">
+<h3 id="alarm_interrupt_flag_clear/1">alarm_interrupt_flag_clear(AlarmId::rtc_alarm_id()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Clear interrupt flag bit.</p>
+</div></div>
+<div class="function">
+<h3 id="alarm_interrupt_flag_check/1">alarm_interrupt_flag_check(AlarmId::rtc_alarm_id()) -&gt; {ok, rtc_alarm_interrupt_set()} | {ok, rtc_alarm_interrupt_clear()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Check interrupt flag bit.</p>
+</div></div>
+<div class="function">
+<h3 id="alarm_configure/1">alarm_configure(AlarmId::rtc_alarm_id(), DateAndTime::datetime(), Mask::rtc_alarm_mask(), InterruptEnStatus::rtc_alarm_interrupt_en_status(), InterruptOutPol::rtc_alarm_interrupt_out_pol()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure alarm.
+  NOTE: YEAR will be ignored in datetime(), because this attribute does not implemented in Alarm module in RTC,
+ 		 but it should be set for keep the same logic as date_and_time_set/1 has.</p>
+</div></div>
+<div class="function">
+<h3 id="alarm_date_and_time_get/1">alarm_date_and_time_get(AlarmId::rtc_alarm_id()) -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read the configured alarm date and time settings.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_is_running/0">oscillator_is_running() -&gt; {ok, rtc_oscrun()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read OSCRUN bit- This tells that oscillator is running or not.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_is_started/0">oscillator_is_started() -&gt; {ok, rtc_osc_start()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read ST bit- This tells that oscillator is started or not.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_start/0">oscillator_start() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start Oscillator.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_stop/0">oscillator_stop() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Stop Oscillator.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_status_change_subscribe/0">oscillator_status_change_subscribe() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Subscribe to OSCILLATOR status change events.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_status_change_subscribe/1">oscillator_status_change_subscribe(PidToSendNotification::pid()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Subscribe to OSCILLATOR status change events.</p>
+</div></div>
+<div class="function">
+<h3 id="oscillator_status_change_unsubscribe/1">oscillator_status_change_unsubscribe(PidToSendNotification::pid()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Unsubscribe to OSCILLATOR status change events.</p>
+</div></div>
+<div class="function">
+<h3 id="date_and_time_set/1">date_and_time_set(DateTimeOrTimeFormat::datetime() | time_format()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="date_and_time_get/0">date_and_time_get() -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="date_and_time_get_in_str/0">date_and_time_get_in_str() -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date and Time in RTC device and convert it to string.
+  The timestamp string loks liek this: 2015-09-09 10:03:54</p>
+</div></div>
+<div class="function">
+<h3 id="date_and_time_get_in_str/1">date_and_time_get_in_str(DateAndTime::datetime() | {ok, datetime()}) -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date and Time in RTC device and convert it to string.
+  The timestamp string loks liek this: 2015-09-09 10:03:54</p>
+</div></div>
+<div class="function">
+<h3 id="read_register/1">read_register(Addr::address()) -&gt; {ok, int_data()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read register</p>
+</div></div>
+<div class="function">
+<h3 id="write_register/1">write_register(Addr::address(), Data::int_data()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Write register</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(Args::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, State} | {ok, State, Timeout} | {ok, State, hibernate} | {stop, Reason::term()} | ignore</code></li><li><code>State = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:init-1">gen_server:init/1</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_call/1">handle_call(Request::term(), From::{pid(), Tag::term()}, State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {reply, Reply, NewState} | {reply, Reply, NewState, Timeout} | {reply, Reply, NewState, hibernate} | {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason, Reply, NewState} | {stop, Reason, NewState}</code></li><li><code>Reply = term()</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li><li><code>Reason = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_call-3">gen_server:handle_call/3</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_cast/1">handle_cast(Request::term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_cast-2">gen_server:handle_cast/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="handle_info/1">handle_info(Info::timeout | term(), State::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {noreply, NewState} | {noreply, NewState, Timeout} | {noreply, NewState, hibernate} | {stop, Reason::term(), NewState}</code></li><li><code>NewState = term()</code></li><li><code>Timeout = non_neg_integer() | infinity</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:handle_info-2">gen_server:handle_info/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State::term()) -&gt; Any::term()</h3>
+
+<ul class="type">
+<li><code>Reason = normal | shutdown | {shutdown, term()} | term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:terminate-2">gen_server:terminate/2</url></p>
+</div></div>
+<div class="function">
+<h3 id="code_change/2">code_change(OldVsn, State::term(), Extra::term()) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, NewState::term()} | {error, Reason::term()}</code></li><li><code>OldVsn = Vsn | {down, Vsn}</code></li><li><code>Vsn = term()</code></li></ul>
+<div class="description">
+
+<p><url href="http://www.erlang.org/doc/man/gen_server.html#Module:code_change-3">gen_server:code_change/3</url></p>
+</div></div>
+<div class="function">
+<h3 id="do_ctrl_bit_out_set/1">do_ctrl_bit_out_set(CtrlBitOut::rtc_ctrl_bit_out()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. OUT bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_ctrl_bit_sqwen_set/1">do_ctrl_bit_sqwen_set(Sqwen::rtc_ctrl_bit_sqwen()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. SQWEN bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_ctrl_bit_extosc_set/1">do_ctrl_bit_extosc_set(Extosc::rtc_ctrl_bit_extosc()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. EXTOSC bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_ctrl_bit_crstrim_set/1">do_ctrl_bit_crstrim_set(Crstrim::rtc_ctrl_bit_crstrim()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. CRSTRIM bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_ctrl_bit_sqwfs_set/1">do_ctrl_bit_sqwfs_set(Sqwfs::rtc_ctrl_bit_sqwfs()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure CONTROL REG. SQWFS bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_pwrfail_bit_read/1">do_pwrfail_bit_read(DoPrintErrorIfItIs::boolean()) -&gt; {ok, rtc_pwrfail()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read PWRFAIL bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_pwrfail_bit_clear/0">do_pwrfail_bit_clear() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Clear PWRFAIL bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_pwr_down_date_and_time_get/0">do_pwr_down_date_and_time_get() -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read PWR DOWN Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_pwr_up_date_and_time_get/0">do_pwr_up_date_and_time_get() -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read PWR UP Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_vbaten_read/0">do_vbaten_read() -&gt; {ok, rtc_vbaten()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read VBATEN bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_vbaten_set/1">do_vbaten_set(Vbaten::rtc_vbaten()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Set VBATEN bit</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_enable_disable/1">do_alarm_interrupt_enable_disable(AlarmId::rtc_alarm_id(), AlarmInterruptEnableStatus::rtc_alarm_interrupt_en_status()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Enable/Disable Alarm interrupt.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_enable/1">do_alarm_interrupt_enable(AlarmId::rtc_alarm_id()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Enable Alarm interrupt.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_disable/1">do_alarm_interrupt_disable(AlarmId::rtc_alarm_id()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Disable Alarm interrupt.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_is_enabled/1">do_alarm_interrupt_is_enabled(AlarmId::rtc_alarm_id()) -&gt; {ok, rtc_alarm_interrupt_en_status()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Alarm interrupt enabled bit.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_flag_clear/1">do_alarm_interrupt_flag_clear(AlarmId::rtc_alarm_id()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Clear interrupt flag bit.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_flag_check/1">do_alarm_interrupt_flag_check(AlarmId::rtc_alarm_id()) -&gt; {ok, rtc_alarm_interrupt_set()} | {ok, rtc_alarm_interrupt_clear()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Check interrupt flag bit.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_configure/1">do_alarm_configure(AlarmId::rtc_alarm_id(), DateAndTime::datetime(), Mask::rtc_alarm_mask(), InterruptEnStatus::rtc_alarm_interrupt_en_status(), InterruptOutPol::rtc_alarm_interrupt_out_pol()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Configure alarm.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_date_and_time_get/1">do_alarm_date_and_time_get(AlarmId::rtc_alarm_id()) -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read the configured alarm date and time settings.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_mask_set/1">do_alarm_mask_set(AlarmId::rtc_alarm_id(), Mask::rtc_alarm_mask()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Alarm Mask in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_alarm_interrupt_out_pol_set/1">do_alarm_interrupt_out_pol_set(AlarmId::rtc_alarm_id(), InterruptOutPol::rtc_alarm_interrupt_out_pol()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Alarm Interrupt Output Polarity in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_oscillator_is_running/0">do_oscillator_is_running() -&gt; {ok, rtc_oscrun()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read OSCRUN bit- This tells that oscillator is running or not.</p>
+</div></div>
+<div class="function">
+<h3 id="do_oscillator_is_started/0">do_oscillator_is_started() -&gt; {ok, rtc_osc_start()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read ST bit- This tells that oscillator is strted or not.</p>
+</div></div>
+<div class="function">
+<h3 id="do_oscillator_start/0">do_oscillator_start() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Start Oscillator.</p>
+</div></div>
+<div class="function">
+<h3 id="do_oscillator_stop/0">do_oscillator_stop() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Stop Oscillator.</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_and_time_set/1">do_date_and_time_set(TimeFormat::datetime() | time_format()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_year_set/1">do_year_set(RegType::atom(), Year::year()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Year in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_month_set/1">do_month_set(RegType::atom(), Month::month()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Month in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_set/1">do_date_set(RegType::atom(), Day::day()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Date in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_hour_set/1">do_hour_set(RegType::atom(), Hour::{hour_ampm_ind(), hour12()} | hour()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Hour in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_minute_set/1">do_minute_set(RegType::atom(), Minute::minute()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Minute in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_second_set/1">do_second_set(RegType::atom(), Second::second()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Second in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_wday_set/1">do_wday_set(RegType::atom(), WDay::wday()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Setup Week Day in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_and_time_get/0">do_date_and_time_get() -&gt; {ok, datetime()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date and Time in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_and_time_get_in_str/0">do_date_and_time_get_in_str() -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date and Time in RTC device and convert it to string</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_and_time_get_in_str/1">do_date_and_time_get_in_str(DateAndTime::datetime() | {ok, datetime()}) -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date and Time in RTC device and convert it to string</p>
+</div></div>
+<div class="function">
+<h3 id="do_year_get/1">do_year_get(RegType::atom()) -&gt; {ok, year()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Year in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_month_get/1">do_month_get(RegType::atom()) -&gt; {ok, month()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Month in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_get/1">do_date_get(RegType::atom()) -&gt; {ok, day()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Date in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_hour_get/1">do_hour_get(RegType::atom()) -&gt; {ok, {hour_am() | hour_pm(), hour12()}} | {ok, hour()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Hour in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_minute_get/1">do_minute_get(RegType::atom()) -&gt; {ok, minute()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Minute in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_second_get/1">do_second_get(RegType::atom()) -&gt; {ok, second()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Second in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="do_wday_get/1">do_wday_get(RegType::atom()) -&gt; {ok, wday()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Read Week Day in RTC device.</p>
+</div></div>
+<div class="function">
+<h3 id="hour_convert_to_12h_format/1">hour_convert_to_12h_format(Hour::hour()) -&gt; {hour_ampm_ind(), hour12()}</h3>
+
+
+<div class="description">
+
+<p>
+  Convert Hour in 24H time format to 12H format.</p>
+</div></div>
+<div class="function">
+<h3 id="hour_convert_to_24h_format/1">hour_convert_to_24h_format(AMPM::hour_ampm_ind(), Hour::hour12()) -&gt; hour()</h3>
+
+
+<div class="description">
+
+<p>
+  Convert Hour in 12H time format to 24H format.</p>
+</div></div></div>
+
+<authors>
+
+<aname>ethrbh, Robert Balogh, ethrbh@gmail.com</aname>
+<email>ethrbh, Robert Balogh, ethrbh@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

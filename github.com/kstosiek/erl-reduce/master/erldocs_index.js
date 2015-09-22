@@ -1,0 +1,1 @@
+var index = [['app','erl-reduce','erl-reduce','[application]'],['mod','erl-reduce','main',[]],['fun','erl-reduce','main:start/0','Runs MapReduce on given input.']];

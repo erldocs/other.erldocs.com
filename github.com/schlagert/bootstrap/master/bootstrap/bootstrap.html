@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bootstrap (bootstrap) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bootstrap</h1>
+<h2 class="modsummary">
+   Main module of the bootstrap application.</h2>
+<div class="description">
+<p>
+   Main module of the <code>bootstrap</code> application.</p>
+  
+   This module contains the API for bootstrap handler registration. Furthermore
+   this module implements the application callback as well as the top level
+   supervisor of the <code>bootstrap</code> application.</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="monitor_nodes/1">monitor_nodes(Flag::boolean()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Similar to <a href="net_kernel.html#monitor_nodes/1" class="seealso">net_kernel:monitor_nodes/1</a>, signalling only mactching  
+nodes. The calling process subscribes or unsubscribes to node status change  
+messages. A nodeup message is delivered to all subscribing processes when a  
+new matching node is connected, and a nodedown message is delivered when a  
+matching node gets disconnected.</p>
+ 
+  <p>In contrast to <code>net_kernel</code> nodeup messages for already connected matching  
+nodes will also be delivered to newly subscribing processes.</p>
+ 
+  <p>If <code>Flag</code> is <code>true</code>, a new subscription is started. If <code>Flag</code> is <code>false</code> a  
+previous subscription is stopped. There's no limit on the number of different  
+added handler processes. Subscribing an already subscribed process has no  
+effect. If a handler process exits it will automatically be unsubscribed.</p>
+ 
+  <p>Message format is (also defined in bootstrap.hrl):
+  * <code>{bootstrap, {nodeup, Node :: atom()}}</code>
+  * <code>{bootstrap, {nodedown, Node :: atom(), Reason :: term()}}</code>
+ </p>
+</div></div>
+<div class="function">
+<h3 id="handlers/0">handlers() -&gt; [pid()]</h3>
+
+
+<div class="description">
+
+<p>
+  Return a list of all registered bootstrap handler processes.</p>
+</div></div>
+<div class="function">
+<h3 id="deactivate/0">deactivate() -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Deactivates bootstrap discovery on this node. This means that this node will
+  not (actively) take part in the discovery process any more. However, the
+  application will still be running and notifications for matching nodes will
+  still be delivered in case other active instances connect to this node
+  (passive mode). All network ports aquired by the application will be
+  released. Discovery can be restarted at any time using <a href="#reactivate/0" class="seealso">reactivate/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="reactivate/0">reactivate() -&gt; {ok, pid()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Reactivates bootstrap discovery on this node. This only works when the
+  application has been deactivated before using <a href="#deactivate/0" class="seealso">deactivate/0</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="info/0">info() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Print information about the bootstrap instances on all connected nodes.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

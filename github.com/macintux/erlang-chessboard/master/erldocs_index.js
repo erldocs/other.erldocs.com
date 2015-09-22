@@ -1,0 +1,1 @@
+var index = [['app','erlang-chessboard','erlang-chessboard','[application]'],['mod','erlang-chessboard','newpiece','.']];

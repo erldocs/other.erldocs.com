@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eqm_sub (eqm) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eqm_sub</h1>
+<h2 class="modsummary">A Subscriber is a component that accepts a sequenced stream of elements
+  provided by a Publisher and pass them to an owner.</h2>
+<div class="description">
+<p>A Subscriber is a component that accepts a sequenced stream of elements
+  provided by a Publisher and pass them to an owner.
+  At any given time a Subscriber might be subscribed to at most one Publisher.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-subscriber">subscriber()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/4">start_link(Publisher, Owner, Size, StateName) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Starts new subscriber process which subscribes at start to publisher.
+  The initial state is wait, process is waiting for subscription from publisher.</p>
+</div></div>
+<div class="function">
+<h3 id="cancel/1">cancel(Sub::subscriber()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Cancel subscription, returns all messages from buffer and stops
+  subscriber.</p>
+</div></div>
+<div class="function">
+<h3 id="notify/1">notify(Sub::subscriber()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Forces the buffer into its notify state, where it will send a single
+  message alerting the Owner of new messages before going back to the passive
+  state.</p>
+</div></div>
+<div class="function">
+<h3 id="notify_full/1">notify_full(Sub::subscriber()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Forces the buffer into its notify_full state, where it will send a
+  message alerting the Owner of full buffer before going back to the passive
+  state.</p>
+</div></div>
+<div class="function">
+<h3 id="active/1">active(Sub::subscriber()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Forces the buffer into an active state where it will
+  send the data it has accumulated.</p>
+</div></div>
+<div class="function">
+<h3 id="resize/1">resize(Sub::subscriber(), Size::pos_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Allows to take a given buffer, and make it larger or smaller.</p>
+</div></div>
+<div class="function">
+<h3 id="info/1">info(Sub::subscriber()) -&gt; {ok, [{max, non_neg_integer()} | {size, non_neg_integer()}]}</h3>
+
+
+<div class="description">
+
+<p>Returns info about buffer, size and number of messages</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(Sub::subscriber()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops subscriber and drops messages from buffer</p>
+</div></div>
+<div class="function">
+<h3 id="ref/1">ref(Subscriber::subscriber()) -&gt; reference()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pid/1">pid(Subscriber::subscriber()) -&gt; pid()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="subscription/1">subscription(Sub::pid(), Subscription::subscription() (see module eqm_pub)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Publisher calls this function after successful subscription.</p>
+</div></div>
+<div class="function">
+<h3 id="post/1">post(Sub::pid(), Msg::any()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Publisher calls this function to send new message.</p>
+</div></div>
+<div class="function">
+<h3 id="cancelled/1">cancelled(Sub::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Publisher calls this function to confirm that subscription is
+  cancelled.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Lukasz Biedrycki</aname>
+<email>lukasz.biedrycki@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

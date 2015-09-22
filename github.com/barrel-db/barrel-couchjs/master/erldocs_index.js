@@ -1,0 +1,1 @@
+var index = [['app','barrel-couchjs','barrel-couchjs','[application]'],['mod','barrel-couchjs','barrel_couchjs',[]],['fun','barrel-couchjs','barrel_couchjs:prompt/2',[]],['fun','barrel-couchjs','barrel_couchjs:set_timeout/2',[]],['fun','barrel-couchjs','barrel_couchjs:start_link/1',[]]];

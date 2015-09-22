@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>jsone (jsone) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>jsone</h1>
+<h2 class="modsummary">JSON decoding/encoding module.</h2>
+<div class="description">
+<p>JSON decoding/encoding module</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-datetime_encode_format">datetime_encode_format() = <a href="#type-datetime_format" class="seealso">datetime_format()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Format :: <a href="#type-datetime_format" class="seealso">datetime_format()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeZone :: <a href="#type-timezone" class="seealso">timezone()</a>}</h3></div>
+    <div class="type"><h3 id="type-datetime_format">datetime_format() = iso8601</h3></div>
+    <div class="type"><h3 id="type-decode_option">decode_option() = {object_format, tuple | proplist | map}</h3></div>
+    <div class="type"><h3 id="type-encode_option">encode_option() = native_utf8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {float_format, [<a href="#type-float_format_option" class="seealso">float_format_option()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {datetime_format, <a href="#type-datetime_encode_format" class="seealso">datetime_encode_format()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {object_key_type, string | scalar | value}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {space, integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {indent, integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-float_format_option">float_format_option() = {scientific, Decimals :: 0..249}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {decimals, Decimals :: 0..253}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| compact</h3></div>
+    <div class="type"><h3 id="type-json_array">json_array() = [<a href="#type-json_value" class="seealso">json_value()</a>]</h3></div>
+    <div class="type"><h3 id="type-json_boolean">json_boolean() = boolean()</h3></div>
+    <div class="type"><h3 id="type-json_number">json_number() = number()</h3></div>
+    <div class="type"><h3 id="type-json_object">json_object() = <a href="#type-json_object_format_tuple" class="seealso">json_object_format_tuple()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_object_format_proplist" class="seealso">json_object_format_proplist()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_object_format_map" class="seealso">json_object_format_map()</a></h3></div>
+    <div class="type"><h3 id="type-json_object_format_map">json_object_format_map() = #{}</h3></div>
+    <div class="type"><h3 id="type-json_object_format_proplist">json_object_format_proplist() = [{}] | <a href="#type-json_object_members" class="seealso">json_object_members()</a></h3></div>
+    <div class="type"><h3 id="type-json_object_format_tuple">json_object_format_tuple() = {<a href="#type-json_object_members" class="seealso">json_object_members()</a>}</h3></div>
+    <div class="type"><h3 id="type-json_object_members">json_object_members() = [{<a href="#type-json_string" class="seealso">json_string()</a>, <a href="#type-json_value" class="seealso">json_value()</a>}]</h3></div>
+    <div class="type"><h3 id="type-json_scalar">json_scalar() = <a href="#type-json_boolean" class="seealso">json_boolean()</a> | <a href="#type-json_number" class="seealso">json_number()</a> | <a href="#type-json_string" class="seealso">json_string()</a></h3></div>
+    <div class="type"><h3 id="type-json_string">json_string() = binary() | atom() | <a href="calendar.html#type-datetime" class="seealso">calendar:datetime()</a></h3></div>
+    <div class="type"><h3 id="type-json_value">json_value() = <a href="#type-json_number" class="seealso">json_number()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_string" class="seealso">json_string()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_array" class="seealso">json_array()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_object" class="seealso">json_object()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-json_boolean" class="seealso">json_boolean()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| null</h3></div>
+    <div class="type"><h3 id="type-timezone">timezone() = utc | local | <a href="#type-utc_offset_seconds" class="seealso">utc_offset_seconds()</a></h3></div>
+    <div class="type"><h3 id="type-utc_offset_seconds">utc_offset_seconds() = -86399..86399</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="decode/1">decode(Json::binary()) -&gt; json_value()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#decode/2" class="seealso">decode(Json, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1-1">decode(Json::binary(), Options::[decode_option()]) -&gt; json_value()</h3>
+
+
+<div class="description">
+
+<p>Decodes an erlang term from json text (a utf8 encoded binary)</p>
+ 
+  <p>Raises an error exception if input is not valid json</p>
+ 
+  <pre class="sh_erlang">  &gt; jsone:decode(&lt;&lt;"1"&gt;&gt;, []).
+  1
+ 
+  &gt; jsone:decode(&lt;&lt;"wrong json"&gt;&gt;, []).
+  ** exception error: bad argument
+      in function  jsone_decode:number_integer_part/4
+         called as jsone_decode:number_integer_part(&lt;&lt;"wrong json"&gt;&gt;,1,[],&lt;&lt;&gt;&gt;)
+      in call from jsone:decode/1 (src/jsone.erl, line 71)</pre>
+</div></div>
+<div class="function">
+<h3 id="try_decode/1">try_decode(Json::binary()) -&gt; {ok, json_value(), Remainings::binary()} | {error, {Reason::term(), [stack_item() (see module erlang)]}}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#try_decode/2" class="seealso">try_decode(Json, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="try_decode/1-1">try_decode(Json::binary(), Options::[decode_option()]) -&gt; {ok, json_value(), Remainings::binary()} | {error, {Reason::term(), [stack_item() (see module erlang)]}}</h3>
+
+
+<div class="description">
+
+<p>Decodes an erlang term from json text (a utf8 encoded binary)</p>
+ 
+  <pre class="sh_erlang">  &gt; jsone:try_decode(&lt;&lt;"[1,2,3] \"next value\""&gt;&gt;, []).
+  {ok,[1,2,3],&lt;&lt;" \"next value\""&gt;&gt;}
+ 
+  &gt; jsone:try_decode(&lt;&lt;"wrong json"&gt;&gt;, []).
+  {error,{badarg,[{jsone_decode,number_integer_part,
+                                [&lt;&lt;"wrong json"&gt;&gt;,1,[],&lt;&lt;&gt;&gt;],
+                                [{line,208}]}]}}</pre>
+</div></div>
+<div class="function">
+<h3 id="encode/1">encode(JsonValue::json_value()) -&gt; binary()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#encode/2" class="seealso">encode(JsonValue, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1-1">encode(JsonValue::json_value(), Options::[encode_option()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encodes an erlang term into json text (a utf8 encoded binary)</p>
+ 
+  <p>Raises an error exception if input is not an instance of type <code>json_value()</code></p>
+ 
+  <pre class="sh_erlang">  &gt; jsone:encode([1, null, 2]).
+  &lt;&lt;"[1,null,2]"&gt;&gt;
+ 
+  &gt; jsone:encode([1, hoge, 2]).  % 'hoge' atom is not a json value
+  ** exception error: bad argument
+       in function  jsone_encode:value/3
+          called as jsone_encode:value(hoge,[{array_values,[2]}],&lt;&lt;"[1,"&gt;&gt;)
+       in call from jsone:encode/1 (src/jsone.erl, line 97)</pre>
+</div></div>
+<div class="function">
+<h3 id="try_encode/1">try_encode(JsonValue::json_value()) -&gt; {ok, binary()} | {error, {Reason::term(), [stack_item() (see module erlang)]}}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#try_encode/2" class="seealso">try_encode(JsonValue, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="try_encode/1-1">try_encode(JsonValue::json_value(), Options::[encode_option()]) -&gt; {ok, binary()} | {error, {Reason::term(), [stack_item() (see module erlang)]}}</h3>
+
+
+<div class="description">
+
+<p>Encodes an erlang term into json text (a utf8 encoded binary)</p>
+ 
+  <pre class="sh_erlang">  &gt; jsone:try_encode([1, null, 2]).
+  {ok,&lt;&lt;"[1,null,2]"&gt;&gt;}
+ 
+  &gt; jsone:try_encode([1, hoge, 2]).  % 'hoge' atom is not a json value
+  {error,{badarg,[{jsone_encode,value,
+                                [hoge,[{array_values,[2]}],&lt;&lt;"[1,"&gt;&gt;],
+                                [{line,86}]}]}}</pre>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

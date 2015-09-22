@@ -1,0 +1,1 @@
+var index = [['app','hashdir.erl','hashdir.erl','[application]'],['mod','hashdir.erl','hash',[]],['fun','hashdir.erl','hash:run/1',[]]];

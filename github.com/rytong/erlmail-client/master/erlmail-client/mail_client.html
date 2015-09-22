@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>mail_client (erlmail-client) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>mail_client</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-mail">mail() = #mail{from=binary(), to=binary(), cc=binary(), bcc=binary(), date=binary(), id=binary(), subject=binary(), content=binary() | [binary()] | {html, binary()} | [binary() | {html, binary()}], attachments=list()}</h3></div>
+    <div class="type"><h3 id="type-mailbox">mailbox() = #mailbox{name=list(), flags=list(), permflags=list(), exists=integer(), messages=integer(), recent=integer(), unseen=integer(), uidvalidity=integer(), uidnext=integer(), myrights=list(), readwrite=boolean(), highestmodseq=integer()}</h3></div>
+    <div class="type"><h3 id="type-openopt">openopt() = [imap | ssl | {timeout, integer()}]</h3></div>
+    <div class="type"><h3 id="type-type">type() = plain</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="open_retrieve_session/1">open_retrieve_session(Host::string(), Port::integer(), User::string(), Passwd::string(), Options::openopt()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Open pop/imap connection for operation later.</p>
+</div></div>
+<div class="function">
+<h3 id="close_retrieve_session/1">close_retrieve_session(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close pop/imap connection.</p>
+</div></div>
+<div class="function">
+<h3 id="list_size/1">list_size(Pid::pid()) -&gt; {ok, integer()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_list_size/1 instead.</p>
+<p>Equivalent to <a href="#pop_list_size/1" class="seealso">pop_list_size(Pid)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_list_size/1">pop_list_size(Pid::pid()) -&gt; {ok, integer()}</h3>
+
+
+<div class="description">
+
+<p>Return the size of mails on pop server.</p>
+</div></div>
+<div class="function">
+<h3 id="list_top/1">list_top(Pid::pid()) -&gt; {ok, proplist()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_list_top/1 instead.</p>
+<p>Equivalent to <a href="#pop_list_top/1" class="seealso">pop_list_top(Pid)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_list_top/1">pop_list_top(Pid::pid()) -&gt; {ok, proplist()}</h3>
+
+
+<div class="description">
+
+<p>Return the headers of the message on pop
+  server.</p>
+</div></div>
+<div class="function">
+<h3 id="list/1">list(Pid::pid()) -&gt; {ok, proplist()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_list/1 instead.</p>
+<p>Equivalent to <a href="#pop_list/1" class="seealso">pop_list(Pid)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_list/1">pop_list(Pid::pid()) -&gt; {ok, proplist()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve all mails on pop server.</p>
+</div></div>
+<div class="function">
+<h3 id="retrieve/1">retrieve(Pid::pid(), MessageID::integer()) -&gt; {ok, mail()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_retrieve/2 instead.</p>
+<p>Equivalent to <a href="#pop_retrieve/2" class="seealso">pop_retrieve(Pid, MessageID)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="retrieve/1-1">retrieve(Pid::pid(), MessageID::integer(), Type::type()) -&gt; {ok, mail()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_retrieve/3 instead.</p>
+<p>Equivalent to <a href="#pop_retrieve/3" class="seealso">pop_retrieve(Pid, MessageID, Type)</a>.</p>
+<p><em>See also:</em> <a href="#pop_retrieve/3" class="seealso">pop_retrieve/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_retrieve/1">pop_retrieve(Pid::pid(), MessageID::integer()) -&gt; {ok, mail()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#pop_retrieve/3" class="seealso">pop_retrieve(Pid, MessageID, plain)</a>.</p>
+<p><em>See also:</em> <a href="#pop_retrieve/3" class="seealso">pop_retrieve/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_retrieve/1-1">pop_retrieve(Pid::pid(), MessageID::integer(), Type::type()) -&gt; {ok, mail()}</h3>
+
+
+<div class="description">
+
+<p>Retrieve the message specified by <code>MessageID</code>.
+  Only support text/plain type currently.</p>
+</div></div>
+<div class="function">
+<h3 id="top/1">top(Pid::pid(), MessageID::integer()) -&gt; proplist()</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_top/2 instead.</p>
+<p>Equivalent to <a href="#list_top/2" class="seealso">list_top(Pid, MessageID)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="pop_top/1">pop_top(Pid::pid(), MessageID::integer()) -&gt; proplist()</h3>
+
+
+<div class="description">
+
+<p>Return headers of specified message by <code>MessageID</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="capabilities/1">capabilities(Pid::pid()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+<p><em>This function is deprecated: </em>Use pop_capabilities/1 instead.</p>
+ </div></div>
+<div class="function">
+<h3 id="pop_capabilities/1">pop_capabilities(Pid::pid()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Return capabilities of pop server.</p>
+</div></div>
+<div class="function">
+<h3 id="open_send_session/1">open_send_session(Server::string(), Port::integer(), User::string(), Passwd::string(), Options::list()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+
+<p>Open smtp connection to send mails later.</p>
+</div></div>
+<div class="function">
+<h3 id="close_send_session/1">close_send_session(Fsm::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Close smtp connection.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Fsm::pid(), From::string(), To::list(), Cc::list(), Subject::list(), Body::list(), Attatchments::list()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#send/8" class="seealso">send(Fsm, From, To, Cc, [], Subject, Body, Attatchments)</a>.</p>
+<p><em>See also:</em> <a href="#send/8" class="seealso">send/8</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1-1">send(Fsm::pid(), From::string(), To::list(), Cc::list(), Bcc::list(), Subject::list(), Body::list(), Attatchments::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send mail to receivers specified by <code>To</code>,<code>Cc</code>,<code>Bcc</code>.</p>
+<p><em>See also:</em> <a href="/home/pete/wefwefwef/docs/other/9181768225/repo/master/.xml/erlmail-client/./send_util.xml.html#encode_mail/7" class="seealso">send_util:encode_mail/7</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_list_mailbox/1">imap_list_mailbox(Pid::pid()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+ <p><em>See also:</em> <a href="#imap_list_mailbox/2" class="seealso">imap_list_mailbox/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_list_mailbox/1-1">imap_list_mailbox(Pid::pid(), RefName::string()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Return a subset of mailbox names with its utf8 name
+  and essential info from the complete set of all names
+  available to the client filtered by <code>RefName</code>.</p>
+ 
+  <p>See <url href="http://tools.ietf.org/html/rfc3501#section-6.3.8">http://tools.ietf.org/html/rfc3501#section-6.3.8</url> for
+  more information about <code>RefName</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_select_mailbox/1">imap_select_mailbox(Pid::pid()) -&gt; {ok, mailbox(), list()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#imap_select_mailbox/2" class="seealso">imap_select_mailbox(Pid, "INBOX")</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_select_mailbox/1-1">imap_select_mailbox(Pid::pid(), Mailbox::list()) -&gt; {ok, mailbox(), list()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#imap_select_mailbox/3" class="seealso">imap_select_mailbox(Pid, Mailbox, 5)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_select_mailbox/1-2">imap_select_mailbox(Pid::pid(), Mailbox::list(), Size::integer()) -&gt; {ok, mailbox(), list()}</h3>
+
+
+<div class="description">
+
+<p>Enter selected state, and return <code>Size</code> messages.
+  See <url href="http://tools.ietf.org/html/rfc3501#section-3.3">http://tools.ietf.org/html/rfc3501#section-3.3</url> for
+  more information about <code>Selected State</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_list_message/1">imap_list_message(Pid::pid(), Seq::integer()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#imap_list_message/3" class="seealso">imap_list_message(Pid, Seq, Seq)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_list_message/1-1">imap_list_message(Pid::pid(), FromSeq::integer(), ToSeq::integer()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Return headers and bodystructures of messages
+  specified by <code>FromSeq</code> and <code>ToSeq</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_retrieve_message/1">imap_retrieve_message(Pid::pid(), MsgSeq::integer()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#imap_retrieve_message/3" class="seealso">imap_retrieve_message(Pid, MsgSeq, MsgSeq)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_retrieve_message/1-1">imap_retrieve_message(Pid::pid(), FromSeq::integer(), ToSeq::integer()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+
+<p>Return the entire raw messages specified by <code>FromSeq</code>
+  and <code>ToSeq</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_retrieve_part/1">imap_retrieve_part(Pid::pid(), Section::string(), Seq::integer()) -&gt; {ok, list()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#imap_retrieve_part/3" class="seealso">imap_retrieve_part(Pid, [Section], Seq)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_save_draft/1">imap_save_draft(Pid::pid(), RFC2822Msg::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Save draft message into <code>draft</code> mailbox. The RFC2822Msg
+  should be in RFC-2822 format.
+  See <url href="http://tools.ietf.org/html/rfc3501#section-6.3.11">http://tools.ietf.org/html/rfc3501#section-6.3.11</url> for
+  more information.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_seen_message/1">imap_seen_message(Pid::pid(), MsgSeq::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Set the \Seen flag on <code>MsgSeq</code> message.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_trash_message/1">imap_trash_message(Pid::pid(), MsgSeq::integer()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Move <code>MsgSeq</code> message to <code>Trash</code> mailbox.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_move_message/1">imap_move_message(Pid::pid(), MsgSeq::integer(), Mailbox::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Move message specified by <code>MsgSeq</code> to mailbox specified
+  by <code>Mailbox</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="imap_clear_mailbox/1">imap_clear_mailbox(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Permanently removes all messages that have the
+  \Deleted flag set from the currently selected mailbox.
+  See <url href="http://tools.ietf.org/html/rfc3501#section-6.4.3">http://tools.ietf.org/html/rfc3501#section-6.4.3</url>
+  for more information.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

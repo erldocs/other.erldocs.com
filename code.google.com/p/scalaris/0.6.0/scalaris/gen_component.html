@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>gen_component (scalaris) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>gen_component</h1>
+<h2 class="modsummary">Generic component framework.</h2>
+<div class="description">
+<p>Generic component framework. This component and its usage
+       are described in more detail in the 'User and Developers Guide'
+       which can be found in user-dev-guide/main.pdf and online at
+       <url href="http://code.google.com/p/scalaris/wiki/UsersDevelopersGuide">http://code.google.com/p/scalaris/wiki/UsersDevelopersGuide</url>.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bp">bp() = {bp, MsgTag :: <a href="comm.html#type-msg_tag" class="seealso">comm:msg_tag()</a>, <a href="#type-bp_name" class="seealso">bp_name()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {bp_cond, Condition :: function(), <a href="#type-bp_name" class="seealso">bp_name()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {bp_cond, {module(), atom(), integer() >= 1}, <a href="#type-bp_name" class="seealso">bp_name()</a>}</h3></div>
+    <div class="type"><h3 id="type-bp_msg">bp_msg() = {'$gen_component', bp, breakpoint, step, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'$gen_component', bp, breakpoint, cont}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'$gen_component', bp, msg_in_bp_waiting, pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'$gen_component', bp, barrier}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'$gen_component',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_set_cond,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-bp_name" class="seealso">bp_name()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid() | none}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'$gen_component',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_set,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="comm.html#type-msg_tag" class="seealso">comm:msg_tag()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-bp_name" class="seealso">bp_name()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid() | none}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {'$gen_component',<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_del,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-bp_name" class="seealso">bp_name()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid() | none}</h3></div>
+    <div class="type"><h3 id="type-bp_name">bp_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-gc_state">gc_state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-handler" class="seealso">handler()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-bp" class="seealso">bp()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-bp_msg" class="seealso">bp_msg()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pid() | unknown}</h3></div>
+    <div class="type"><h3 id="type-handler">handler() = fun((<a href="comm.html#type-message" class="seealso">comm:message()</a>, <a href="#type-user_state" class="seealso">user_state()</a>) -> <a href="#type-user_state" class="seealso">user_state()</a>)</h3></div>
+    <div class="type"><h3 id="type-user_state">user_state() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="behaviour_info/1">behaviour_info(Other::atom()) -&gt; [{atom(), arity()}] | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="kill/1">kill(Pid::pid() | port() | atom()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sleep/1">sleep(Pid::pid() | port() | atom(), TimeInMs::integer() | infinity) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_gen_component/1">is_gen_component(Pid::pid()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="runnable/1">runnable(Pid::pid()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_state/1">get_state(Pid::pid()) -&gt; user_state() | failed</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_state/1-1">get_state(Pid::pid(), Timeout::non_neg_integer()) -&gt; user_state() | failed</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_component_state/1">get_component_state(Pid::pid()) -&gt; gc_state()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_component_state/1-1">get_component_state(Pid::pid(), Timeout::non_neg_integer()) -&gt; gc_state() | failed</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="change_handler/1">change_handler(UState::user_state(), Handler::handler()) -&gt; {'$gen_component', [{on_handler, Handler::handler()}], user_state()}</h3>
+
+
+<div class="description">
+
+<p>change the handler for handling messages</p>
+</div></div>
+<div class="function">
+<h3 id="post_op/1">post_op(UState::user_state(), Msg::message() (see module comm)) -&gt; {'$gen_component', [{post_op, message() (see module comm)}], user_state()}</h3>
+
+
+<div class="description">
+
+<p>perform a post op, i.e. handle a message directly after another</p>
+</div></div>
+<div class="function">
+<h3 id="bp_set/1">bp_set(Pid::pid(), MsgTag::msg_tag() (see module comm), BPName::bp_name()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bp_set_cond/1">bp_set_cond(Pid::pid(), Cond::{module(), atom(), 2} | (message() (see module comm), State::any()) -&gt; boolean(), BPName::bp_name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Module:Function(Message, State, Params) will be evaluated to decide
+  whether a BP is reached. Params can be used as a payload.</p>
+</div></div>
+<div class="function">
+<h3 id="bp_set_cond_async/1">bp_set_cond_async(Pid::pid(), Cond::{module(), atom(), 2} | (message() (see module comm), State::any()) -&gt; boolean(), BPName::bp_name()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bp_del/1">bp_del(Pid::pid(), BPName::bp_name()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bp_del_async/1">bp_del_async(Pid::pid(), BPName::bp_name()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bp_step/1">bp_step(Pid::pid()) -&gt; {module(), On::atom(), message() (see module comm)}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bp_cont/1">bp_cont(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bp_barrier/1">bp_barrier(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>delay further breakpoint requests until a breakpoint actually occurs</p>
+</div></div>
+<div class="function">
+<h3 id="bp_about_to_kill/1">bp_about_to_kill(Pid::pid()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Brings the given gen_component into a state that is paused in
+       preparation of a graceful shutdown of all children of a supervisor.
+       Note: A monitor is used to safe-guard the (synchronous) creation of the
+       breakpoint in cases of another interfering shutdown process.</p>
+<p><em>See also:</em> <a href="sup.html#sup_terminate_childs/1" class="seealso">sup:sup_terminate_childs/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_link/1">start_link(Module::module(), Handler::handler(), Args::term(), Options::list()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(Module::module(), Handler::handler(), Args::term(), Options::list()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1-1">start(Module::module(), DefaultHandler::handler(), Args::term(), Options::list(), Supervisor::pid()) -&gt; no_return() | ok</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Thorsten Schuett</aname>
+<email>schuett@zib.de</email>
+<aname>Florian Schintke</aname>
+<email>schintke@zib.de</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

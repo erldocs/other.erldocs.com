@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smtp (util) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>smtp</h1>
+<h2 class="modsummary">SMTP mail client.</h2>
+<div class="description">
+<p>SMTP mail client.  This module can sent emails to one or more        
+recipients, using primary/backup SMTP servers.  Messages can        
+contain attachments.</p>
+  
+   <pre class="sh_erlang">   Example:
+       % Send a message to two recipients with a file attachment using
+       % SSL protocol at mail server "mail.bevemyr.com":
+       smtp:send(ssl, "Alex &lt;jb@bevemyr.com&gt;",
+                 ["katrin@bevemyr.com","jb@bevemyr.com"],
+                 "Test Subject", "My Message",
+                 [{server, "mail.bevemyr.com"},
+                  {username, "alex"}, {password, "secret"},
+                  {attachments, ["file1.txt"]}]).
+  
+       % Send a message to a recipient with a file attachment given custom
+       % MIME type using localhost mail server
+       smtp:send(tcp, "jb@bevemyr.com",
+                 ["katrin@bevemyr.com"], "Test Subject", "My Message",
+                 [{server, "mail.bevemyr.com"},
+                  {username, "alex"}, {password, "secret"},
+                  {attachments, [{"file1.bin","application/custom_MIME"}]}]).
+  
+       % Send a message to two recipients with an attachment given as list
+       smtp:send(tcp, "jb@bevemyr.com",
+                 ["katrin@bevemyr.com","jb@bevemyr.com"],
+                 "Test Subject", "My Message",
+                 [{"file1.txt","text/plain","Attachment past as list"}]).</pre>
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-proto">proto() = tcp | ssl</h3></div>
+    <div class="type"><h3 id="type-smtp_options">smtp_options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{server, Server :: string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{relay, Relay :: string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{port, Port :: integer()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{auth, Auth :: always | never} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{username, Username :: string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{password, Password :: string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{tls, Tls :: always | if_available} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{domain, Domain :: string()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{timeout, Millisec :: integer()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{verbose, debug} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{attachments,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Filename :: string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Filename :: string(), ContentType :: string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Filename :: string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ContentType :: string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data :: list()}]}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="send/1">send(Proto::proto(), From::string() | binary(), To::string() | binary(), Subj::string() | binary(), Msg::string() | binary()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send a message to a list of <code>To</code> receipients using <code>localhost</code>.
+       Error is thrown if unable to send a message.
+       Use inet:format_error/1 to decode the Reason if it is an atom.</p>
+</div></div>
+<div class="function">
+<h3 id="send/1-1">send(Proto::proto(), From::string() | binary(), To::string() | binary(), Subj::string() | binary(), Msg::string() | binary(), Opts::smtp_options()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send a message to a list of recipients by connecting to an SMTP
+       server Server.  The message can contain attachments in the
+       Attachments list.  See examples on the top of this page.
+       Error is thrown if unable to send a message.</p>
+</div></div>
+<div class="function">
+<h3 id="domain/0">domain() -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Get domain that this host belongs to.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Johan Bevemyr, Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

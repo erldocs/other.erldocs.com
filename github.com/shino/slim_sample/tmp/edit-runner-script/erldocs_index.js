@@ -1,0 +1,1 @@
+var index = [['app','slim_sample','slim_sample','[application]'],['mod','slim_sample','slim_sample_app',[]],['mod','slim_sample','slim_sample_sup',[]],['fun','slim_sample','slim_sample_app:start/2',[]],['fun','slim_sample','slim_sample_app:stop/1',[]],['fun','slim_sample','slim_sample_sup:init/1',[]],['fun','slim_sample','slim_sample_sup:start_link/0',[]]];

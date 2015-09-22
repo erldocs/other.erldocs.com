@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>dby_load (dobby_clib) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>dby_load</h1>
+<h2 class="modsummary">
+  Load data from files.</h2>
+<div class="description">
+<p>
+  Load data from files.  Data files are Erlang terms.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="load/1">load(Publisher::binary(), Filename::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#load/3" class="seealso">load(Publisher, Filename, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="load/1-1">load(Publisher::binary(), Filename::string(), BatchSize::inifinity | non_neg_integer()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  <code>load/3</code> reads <code>Filename</code> and calls <code>dby:publish/3</code> with the contents
+  of the file using <code>Publisher</code> as te publisher.
+  The maximum batch size
+  is <code>BatchSize</code>.  If <code>BatchSize</code> is <code>infinity</code> the contents of the file
+  are not batched.</p>
+</div></div>
+<div class="function">
+<h3 id="dirload/1">dirload(Publisher::binary(), Dirname::string()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#dirload/3" class="seealso">dirload(Publisher, Dirname, infinity)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="dirload/1-1">dirload(Publisher::binary(), Dirname::string(), BatchSize::infinity | non_neg_integer()) -&gt; ok | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  <code>dirload/3</code> finds all the files in <code>Dirname</code> with the
+  <code>.dobby</code> extension and calls <code>load/2</code> on each one. Processing
+  aborts if there is an error. Each file is loaded as a separate
+  transaction, so an abort will result in a partial load of the data.
+  The maximum batch size
+  is <code>BatchSize</code>.  If <code>BatchSize</code> is <code>infinity</code> the contents of the file
+  are not batched.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

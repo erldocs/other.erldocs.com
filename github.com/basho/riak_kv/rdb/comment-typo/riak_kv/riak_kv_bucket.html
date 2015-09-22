@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_bucket (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_bucket</h1>
+<h2 class="modsummary">KV Bucket validation functions.</h2>
+<div class="description">
+<p>KV Bucket validation functions</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-error">error() = {PropName :: atom(), ErrorReason :: <a href="#type-error_reason" class="seealso">error_reason()</a>}</h3></div>
+    <div class="type"><h3 id="type-error_reason">error_reason() = atom() | string()</h3></div>
+    <div class="type"><h3 id="type-errors">errors() = [<a href="#type-error" class="seealso">error()</a>]</h3></div>
+    <div class="type"><h3 id="type-prop">prop() = {PropName :: atom(), PropValue :: any()}</h3></div>
+    <div class="type"><h3 id="type-props">props() = [<a href="#type-prop" class="seealso">prop()</a>]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="validate/2">validate(X1::create | update, Bucket::{bucket_type() (see module riak_core_bucket_type), undefined | binary()} | binary(), Existing::undefined | props(), BucketProps::props()) -&gt; {props(), errors()}</h3>
+
+
+<div class="description">
+
+<p>called by riak_core in a few places to ensure bucket   
+properties are sane. The arguments combinations have the following   
+meanings:-</p>
+ 
+  <p>The first argument is the <code>Phase</code> of the bucket/bucket type
+  mutation and can be either <code>create</code> or <code>update</code>.</p>
+ 
+  <p><code>create</code> always means that we are creating a new bucket type or
+  updating an inactive bucket type. In the first case <code>Existing</code> is
+  the atom <code>undefined</code>, in the second it is a list of the valid
+  properties returned from the first invocation of <code>validate/4</code>. The
+  value of <code>Bucket</code> will only ever be a two-tuple of <code>{binary(),
+  undefined}</code> for create, as it is only used on bucket types. The
+  final argument <code>BucketProps</code> is a list of the properties the user
+  provided for type creation merged with the default properties
+  defined in <code>riak_core_bucket_type:defaults/0</code> The job of the
+  function is to validate the given <code>BucketProps</code> and return a two
+  tuple <code>{Good, Bad}</code> where the first element is the list of valid
+  properties and the second a list of <code>error()</code> tuples. Riak_Core
+  will store the <code>Good</code> list in metadata iif the <code>Bad</code> list is the
+  empty list. It is worth noting that on <code>create</code> we must ignore the
+  <code>Existing</code> argument altogether.</p>
+ 
+  <p><code>update</code> means that we are either updating a bucket type or a
+  bucket. If <code>Bucket</code> is a <code>binary()</code> or a tuple <code>{binary(),
+  binary()}</code> then, a bucket is being updated. If <code>bucket</code> is a two
+  tuple of <code>{binary(), undefined}</code> then a bucket type is being
+  updated. When <code>validate/4</code> is called with <code>update</code> as the phase
+  then <code>Existing</code> will be the set of properties stored in metadata
+  for this bucket (the set returned as <code>Good</code> from the <code>create</code>
+  phase) and <code>BucketProps</code> will be ONLY the properties that user has
+  supplied as those to update (note: update may mean adding new
+  properties.) The job of <code>validate/4</code> in this case is to validate
+  the new properties and return a complete set of bucket properties
+  (ie the new properties merged with the existing propeties) in
+  <code>Good</code>, riak will then persist these <code>Good</code> properties, providing
+  <code>Bad</code> is empty.</p>
+ 
+  <p><code>validate/4</code> can be used to enforce immutable or co-invariant bucket
+  properties, like "only non-default bucket types can have a
+  <code>datatype</code> property", and that "<code>datatype</code> buckets must be
+  allow_mult" and "once set, <code>datatype</code> cannot be changed".</p>
+ 
+  <p>There is no way to _remove_ a property
+ </p>
+<p><em>See also:</em> <a href="#assert_no_datatype/1" class="seealso">assert_no_datatype/1</a>, <a href="#validate_dt_props/3" class="seealso">validate_dt_props/3</a>.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ast_manager (eastrisk) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>ast_manager</h1>
+<h2 class="modsummary">
+   This module provides a behaviour and library functions for for the Asterisk
+   Manager interface.</h2>
+<div class="description">
+<p>
+   This module provides a behaviour and library functions for for the Asterisk
+   Manager interface.
+   </p><p>
+   The implementing callback must export the function
+   <code>handle_event/2</code>, which
+   will be called when a Asterisk Manager Event has been received.
+   </p>
+   <p>
+   If the manager event manager (<a href="ast_manager_events.html" class="seealso">ast_manager_events</a>) is used, this
+   behaviour is already implemented
+   by the Eastrisk application, and events will be distributed by the event
+   manager. To perform actions however, the library functions in this module
+   will be used.
+   </p>
+   <p>
+   To use the manager, and understand the return values, please include
+   ast_mgr.hrl
+   </p>
+   <p>
+   IAXPeers implemented 2009-11-20 by bartlomiej.puzon@erlang-consulting.com
+   </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-address">address() = string() | atom() | ip_address()</h3></div>
+    <div class="type"><h3 id="type-ip_adrress">ip_adrress()</h3></div>
+    <div class="type"><h3 id="type-mgr_event">mgr_event() = {Id, Params}</h3></div>
+    <div class="type"><h3 id="type-mgr_response">mgr_response() = ok | {ok, Params} | {error, Params}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(Callback::atom(), Host::address(), Port::integer(), Args::term) -&gt; {ok, Pid::pid()}</h3>
+
+
+<div class="description">
+
+<p>
+  Starts the manager and links to the calling process.
+  </p><p>
+  This function should be called from a supervisor.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Stops the manager.
+  </p><p>
+  This will cause the manager to call the Callback:terminate/2 function with
+  reason normal.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="absolute_timeout/1">absolute_timeout(Channel::string(), Timeout::integer()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Hangup a channel after a certain time.
+  </p><p>
+  Hangs up the channel <em>Channel</em> after <em>Timeout</em> seconds.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="agent_callback_login/1">agent_callback_login(Agent::string(), Exten::string(), Context::string(), AckCall::bool(), WrapupTime::integer()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Sets an agent as logged in with callback.
+  </p><p>
+  Sets the <em>Agent</em> as logged in with the <em>Exten</em> in
+  <em>Context</em> as callback. If <em>AckCall</em> is <code>true</code> the
+  agent will have to acknowledge the call with the <em>#</em> key before it is
+  answered. <em>WrapupTime</em> is the amount of milliseconds after
+  disconnecting the caller(?) can receive a new call.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="agent_logoff/1">agent_logoff(Agent) -&gt; {Stats, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Sets an agent as no longer logged in.</p>
+</div></div>
+<div class="function">
+<h3 id="agents/0">agents() -&gt; {ok, Agents}</h3>
+
+<ul class="type">
+<li><code>Agents = [Agent]</code></li><li><code>Agent = record()</code></li></ul>
+<div class="description">
+
+<p>
+  Will list information about all available agents.
+  </p><pre class="sh_erlang">
+  -record(agent,
+  {
+      id,        % int()
+      name,      % string()
+      status,    % atom()
+      channel,   % string()
+      time,      % int()
+      talking_to % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="change_monitor/1">change_monitor(Channel::string(), File::string()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Changes the file used to monitor a channel.
+  </p><p>
+  Will make the audio to be saved to another file then then original one
+  specified by <a href="#monitor/2" class="seealso">monitor/2</a>, <a href="#monitor/3" class="seealso">monitor/3</a> or <a href="#monitor/4" class="seealso">monitor/4</a>
+  function.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="command/1">command(Command::string()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Execute an Asterisk CLI command.
+  </p><p>
+  NOTE: Does not return anything useful in Asterisk 1.2.9.1 or earlier.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="db_get/2">db_get(Family, Key) -&gt; {ok, Value} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>Value = string()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Retrieves a value for the Asterisk DB.</p>
+</div></div>
+<div class="function">
+<h3 id="db_put/1">db_put(Family::string(), Key::string(), Value::string()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Inserts a value in the Asterisk database.</p>
+</div></div>
+<div class="function">
+<h3 id="extension_state/1">extension_state(Exten::string(), Context::string()) -&gt; {ok, State}</h3>
+
+<ul class="type">
+<li><code>State = record()</code></li></ul>
+<div class="description">
+
+<p>
+  Report the extension state for given extension.
+  </p><pre class="sh_erlang">
+  -record(exten_state,
+  {
+      status,  % integer()
+      hint,    % string()
+      context, % string()
+      exten    % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="events/1">events(List::EventMask) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>EventMask = true | false | List</code></li><li><code>List = [Flag]</code></li><li><code>Flag = call | system | log</code></li></ul>
+<div class="description">
+
+<p>
+  Enable/Disable sending of events to this manager.
+  </p><p>
+  Please note that that this would affect all event handlers connected to the
+  manager event manager.
+  </p>
+  <p>
+  <em>EventMask</em> must not include more than three flags.
+  </p>
+  <p>
+  Returns <code>ok</code> if <em>EventMask</em> is <code>true</code>, otherwise
+  a normal mgr_response().
+  </p>
+</div></div>
+<div class="function">
+<h3 id="get_var/1">get_var(Variable::string()) -&gt; {ok, Value} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>Value = string()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Get the value of a global variable.</p>
+</div></div>
+<div class="function">
+<h3 id="get_var/1-1">get_var(Channel::string(), Variable::string()) -&gt; {ok, Value} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>Value = string()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Get the value of a channel variable.</p>
+</div></div>
+<div class="function">
+<h3 id="hangup/1">hangup(Channel::string()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Hangs up a channel.</p>
+</div></div>
+<div class="function">
+<h3 id="iax_netstats/0">iax_netstats() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Show IAX Netstats.
+  </p><p>
+  NOTE: This does not seem to return anything useful in Asterisk 1.2.9.1 or
+  earlier.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="list_commands/0">list_commands() -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the action name and synopsis for every action that is available to
+  the user.
+  NOTE: The return is just a list of strings, not very good for a machine.</p>
+</div></div>
+<div class="function">
+<h3 id="login/1">login(Name::string(), Passwd::string()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Login using MD5 challenge.</p>
+</div></div>
+<div class="function">
+<h3 id="logoff/0">logoff() -&gt; ok | {error, Message}</h3>
+
+<ul class="type">
+<li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Logs of the manager.
+  </p><p>
+  Please note: This will cause the TCP connection to the manager to be closed,
+  and the manager to be Tarted, if it supposed to do that according to it's
+  supervisor. If the manager event manager is used the server will be
+  Tarted, and the manager logged in again.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="mailbox_count/1">mailbox_count(Mailbox::string()) -&gt; {ok, MboxCount} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>MboxCount = record()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Checks a voicemail account for new messages.
+  </p><p>
+  <em>Mailbox</em> is a complete mailbox ID e.g. 1234@default.
+  </p>
+  <pre class="sh_erlang">
+  -record(mbox_count,
+  {
+      old_messages, % integer()
+      new_messages  % integer()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="mailbox_status/1">mailbox_status(Mailbox::string()) -&gt; {ok, Waiting} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>Waiting = integer()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Checks a voicemail account for status.
+  </p><p>
+  <em>Mailbox</em> is a complete mailbox ID e.g. 1234@default.
+  Returns the amount of waiting messages.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="monitor/1">monitor(Channel::string(), Mix::bool()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Records the audio on a channel.
+  </p><p>
+  Records the audio on a channel to a file named the same as the channel, with
+  slashes changed into dashes. Mix tells whether the channels should be mixed
+  together when playback is finished.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="monitor/1-1">monitor(Channel::string(), Format, Mix::bool()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Format = atom() | string()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Records the audio on a channel.
+  </p><p>
+  Works as <a href="#monitor/2" class="seealso">monitor/2</a> except that the file format will be
+  <em>Format</em>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="monitor/1-2">monitor(Channel::string(), FileName, Format, Mix::bool()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Format = atom() | string()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Records the audio on a channel.
+  </p><p>
+  Works as <a href="#monitor/3" class="seealso">monitor/3</a> except the file will be named <em>FileName</em>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="originate/1">originate(Channel::string(), Application::string(), Data::string(), Timeout::integer(), CallerID::string(), Async::bool(), Variables) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Priority = integer() | string() | atom()</code></li><li><code>Variables = [Var]</code></li><li><code>Var = {Name, Value}</code></li><li><code>Name = string()</code></li><li><code>Value = string() | integer() | atom()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Generates an outgoing call using an Application.
+  </p><p>
+  Generates a call to the <em>Channel</em>, using the <em>Application</em>
+  with <em>Data</em> as arguments. Gives up if the line has not been answered
+  before <em>Timeout</em>.
+  </p>
+  <p>
+  <em>Application</em> is a dialplan application.
+  If <em>Data</em> should hold more than one parameter, separate them with
+  <em>|</em>.
+  </p>
+  <p>
+  If <em>Async</em> is <code>false</code> the Asterisk Manager will block until
+  the origination has actually been picked up by the channel. The
+  <a href="ast_manager.html" class="seealso">ast_manager</a> Erlang module will <u>not</u> block, but many actions
+  might time out.
+  If Async is <code>true</code> the origination is asynchronous in the asterisk
+  manager, and other events can be handled during the timeout. The calling
+  process will however be blocked until it has either succeeded or failed.
+  </p>
+  <p>
+  <em>CallerID</em> includes both the <em>caller_id_name</em> and
+  <em>caller_id</em> in the form <code>caller_id_name
+  &lt;caller_id&gt;</code>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="originate/1-1">originate(Channel::string(), Context::string(), Exten, Priority, Timeout::integer(), CallerID::string(), Async::bool(), Variables) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Exten = integer() | string() | atom()</code></li><li><code>Priority = integer() | string() | atom()</code></li><li><code>Variables = [Var]</code></li><li><code>Var = {Name, Value}</code></li><li><code>Name = string()</code></li><li><code>Value = string() | integer() | atom()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Generates an outgoing call to a Extension, Context and Priority.
+  </p><p>
+  Generates a call to the <em>Context</em>, <em>Extention</em> and
+  <em>Priority</em>. Gives up if the line has not been answered
+  before <em>Timeout</em>.
+  </p>
+  <p>
+  If <em>Async</em> is <code>false</code> the Asterisk Manager will block until
+  the origination has actually been picked up by the channel. The
+  <a href="ast_manager.html" class="seealso">ast_manager</a> Erlang module will <u>not</u> block, but many actions
+  might time out.
+  If Async is <code>true</code> the origination is asynchronous in the asterisk
+  manager, and other events can be handled during the timeout. The calling
+  process will however be blocked until it has either succeeded or failed.
+  </p>
+  <p>
+  <em>CallerID</em> includes both the <em>caller_id_name</em> and
+  <em>caller_id</em> in the form <code>caller_id_name
+  &lt;caller_id&gt;</code>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="parked_calls/0">parked_calls() -&gt; {ok, ParkedCalls} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>ParkedCalls = [ParkedCall]</code></li><li><code>ParkedCall = record()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  List parked calls.
+  </p><pre class="sh_erlang">
+  -record(park_call,
+  {
+      privilege,     % [atom()]
+      exten,         % string()
+      channel,       % string()
+      from,          % string()
+      timeout,       % integer()
+      caller_id,     % string()
+      caller_id_name % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="ping/0">ping() -&gt; pong</h3>
+
+
+<div class="description">
+
+<p>
+  Send a ping, receive a Pong.
+  </p><p>
+  Said to be a keep alive command by the Asterisk documentation but no
+  keep alive is really necessary for the manager interface.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="play_dtmf/1">play_dtmf(Channel::string(), Digit::string()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Plays a dtmf digit on the specified channel.
+  </p><p>
+  NOTE: Said to be in Asterisk 1.2.8 but is <u>not</u> in Asterisk 1.2.9.1.
+  This might not exist in any version of Asterisk and is <u>not</u> tested.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="queue_add/4">queue_add(Queue, Interface, Penalty, Paused) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Add interface to queue.</p>
+</div></div>
+<div class="function">
+<h3 id="queue_pause/1">queue_pause(Queue::string(), Interface::string(), Paused::bool()) -&gt; {Status, Message} | {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Makes a queue member temporarily unavailable or available again.
+  </p><p>
+  <em>Interface</em> is the queue member to be paused/made available  in
+  <em>Queue</em>.
+  In the queue member record the <em>Interface</em> is called
+  <code>location</code>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="queue_remove/2">queue_remove(Queue, Interface) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Remove an agent/interface from queue.
+  </p><p>
+  <em>Interface</em> is the queue member to be removed from <em>Queue</em>.
+  In the queue member record the <em>Interface</em> is called
+  <code>location</code>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="queues/0">queues() -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Lists queues.
+  </p><p>
+  NOTE: Does not work with Asterisk 1.2.9.1 or earlier.
+  Does not work with asterisk 1.2.10 either...
+  </p>
+</div></div>
+<div class="function">
+<h3 id="queue_status/0">queue_status() -&gt; {ok, {QueueEntries, QueueMembers, QueueParams}}</h3>
+
+<ul class="type">
+<li><code>QueueEntries = [QueueEntry]</code></li><li><code>QueueEntry = record()</code></li><li><code>QueueMembers = [QueueMember]</code></li><li><code>QueueMember = record()</code></li><li><code>QueueParams = [QueueParams]</code></li><li><code>QueueParam = record()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns Queue Status.
+  </p><pre class="sh_erlang">
+  -record(queue_entry,
+  {
+      queue,          % string()
+      position,       % integer()
+      channel,        % string()
+      caller_id,      % string()
+      caller_id_name, % string()
+      wait            % integer()
+  }).
+  </pre><p>
+  </p>
+  <pre class="sh_erlang">
+  -record(queue_member,
+  {
+      privilege,   % [atom()]
+      queue,       % string()
+      location,    % string()
+      membership,  % string()
+      penalty,     % integer()
+      calls_taken, % integer()
+      last_call,   % integer()
+      status,      % integer()
+      paused       % bool()
+  }).
+  </pre><p>
+  </p>
+  <pre class="sh_erlang">
+  -record(queue_params,
+  {
+      queue,              % string()
+      max,                % integer()
+      calls,              % integer()
+      holdtime,           % integer()
+      completed,          % integer()
+      abandoned,          % integer()
+      service_level,      % integer()
+      service_level_perf, % number()
+      weight              % integer()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="redirect/1">redirect(Channel::string(), Context::string(), Exten::string(), Priority) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Priority = string() | integer() | atom()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Redirect/transfer a call.
+  </p><p>
+  Redirects <em>Channel</em>  to <em>Exten</em> in <em>Context</em> with
+  <em>Priority</em>.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="redirect/1-1">redirect(Channel::string(), ExtraChannel::string(), Context::string(), Exten::string(), Priority) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Priority = string() | integer() | atom()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Redirect/transfer a call.
+  </p><p>
+  Redirects <em>Channel</em>  to <em>Exten</em> in <em>Context</em> with
+  <em>Priority</em>. <em>ExtraChannel</em> is the second call leg to transfer.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="set_cdr_user_field/1">set_cdr_user_field(Channel::string(), UserField, Append) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>UserField = string() | integer() | atom()</code></li><li><code>Append = bool()</code></li><li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Set the CDR user field.</p>
+</div></div>
+<div class="function">
+<h3 id="set_var/1">set_var(Variable::string(), Value::string()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Set a global variable.</p>
+</div></div>
+<div class="function">
+<h3 id="set_var/1-1">set_var(Channel::string(), Variable::string(), Value::string()) -&gt; {Status, Message}</h3>
+
+<ul class="type">
+<li><code>Status = ok | error</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Set a local channel variable.</p>
+</div></div>
+<div class="function">
+<h3 id="sip_peers/0">sip_peers() -&gt; {ok, PeerList}</h3>
+
+<ul class="type">
+<li><code>PeerList = [PeerInfo]</code></li><li><code>PeerInfo = record()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns SIP peers status.
+  </p><pre class="sh_erlang">
+  -record(sip_peer,
+  {
+      channeltype,      % string()
+      object_name,      % string()
+      chan_object_type, % atom() peer | user
+      ip_address,       % string()
+      ip_port,          % integer()
+      dynamic,          % bool()
+      nat_support,      % bool()
+      acl,              % bool()
+      status            % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="iax_peers/0">iax_peers() -&gt; {ok, IAXData}</h3>
+
+<ul class="type">
+<li><code>IAXData = record()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns IAX peers status.
+  </p><pre class="sh_erlang">
+  -record(iax_peers,
+  	{
+  	  data,           % [#iax_peer{}]
+  	  summary         % string()
+  	}).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="sip_show_peer/1">sip_show_peer(Peer::string()) -&gt; {ok, PeerDetails} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>PeerDetails = record()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Show one SIP peer with details on current status.
+  NOTE! Using this function will cause a crash due to bug in Asterisk!
+  </p><pre class="sh_erlang">
+  -record(sip_peer_details,
+  {
+      channeltype,        % string()
+      object_name,        % string()
+      chan_object_type,   % string()
+      secret_exists,      % bool()
+      md5_secret_exists,  % bool()
+      context,            % string()
+      language,           % string()
+      ama_flags,          % string()
+      cid_calling_pres,   % integer()
+      callgroup,          % string()
+      pickupgroup,        % string()
+      voice_mailbox,      % string()
+      last_msg_sent,      % integer()
+      call_limit,         % integer()
+      dynamic,            % bool()
+      caller_id,          % string()
+      reg_expire,         % integer()
+      sip_auth_insecure,  % atom() port, invite, port_invite, no
+      sip_nat_support,    % atom() No | Route | Always | RFC3581 | Unknown
+      acl,                % bool()
+      sip_can_reinvite,   % bool()
+      sip_primisc_redir,  % bool()
+      sip_user_phone,     % bool()
+      sip_dtmf_mode,      % atom() rfc2833 | info | inband | auto
+      sip_last_msg,       % integer()
+      to_host,            % string()
+      ip_address,         % string()
+      ip_port,            % integer()
+      default_ip_address, % string()
+      default_ip_port,    % integer()
+      default_user_name,  % string()
+      codecs,             % {Identifier, Names},
+          Names = [Name], Name = atom()
+      codec_order,        % Names
+      status,             % string()
+      sip_user_agent,     % string()
+      reg_contact         % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="status/0">status() -&gt; {ok, Channels}</h3>
+
+<ul class="type">
+<li><code>Channels = [ChannelStatus]</code></li><li><code>ChannelStatus = record()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns status for channels.
+  </p><pre class="sh_erlang">
+  -record(channel_status,
+  {
+      privilege,      % [atom()]
+      channel,        % string()
+      caller_id,      % string()
+      caller_id_name, % string()
+      account,        % string()
+      state,          % atom(),
+          'Up' | 'Ringing' | 'Busy' | 'Down' | 'Rsrvd' |
+          'OffHook' | 'Dialing' | 'Ring'
+      context,        % string()
+      extension,      % string()
+      priority,       % string()
+      seconds,        % integer()
+      link,           % string()
+      unique_id       % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="status/1">status(Channel::string()) -&gt; {ok, ChannelStatus} | {error, Message}</h3>
+
+<ul class="type">
+<li><code>ChannelStatus = record()</code></li><li><code>Message = string()</code></li></ul>
+<div class="description">
+
+<p>
+  Returns channel status.
+  </p><pre class="sh_erlang">
+  -record(channel_status,
+  {
+      privilege,      % [atom()]
+      channel,        % string()
+      caller_id,      % string()
+      caller_id_name, % string()
+      account,        % string()
+      state,          % atom(),
+          'Up' | 'Ringing' | 'Busy' | 'Down' | 'Rsrvd' |
+          'OffHook' | 'Dialing' | 'Ring'
+      context,        % string()
+      extension,      % string()
+      priority,       % string()
+      seconds,        % integer()
+      link,           % string()
+      unique_id       % string()
+  }).
+  </pre><p>
+  </p>
+</div></div>
+<div class="function">
+<h3 id="stop_monitor/1">stop_monitor(Channel::string()) -&gt; {Status, Message}</h3>
+
+
+<div class="description">
+
+<p>
+  Stops monitoring a channel.
+  </p><p>
+  The <em>Channel</em> must be monitored with the <a href="#monitor/4" class="seealso">monitor/4</a> command.
+  </p>
+</div></div>
+<div class="function">
+<h3 id="zap_dial_off_hook/1">zap_dial_off_hook(ZapChannel::integer(), Number::string()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Dial over Zap channel while offhook.</p>
+</div></div>
+<div class="function">
+<h3 id="zap_dnd_off/1">zap_dnd_off(ZapChannel::integer()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Toggle Zap channel Do Not Disturb status OFF</p>
+</div></div>
+<div class="function">
+<h3 id="zap_dnd_on/1">zap_dnd_on(ZapChannel::integer()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Toggle Zap channel Do Not Disturb status OFF</p>
+</div></div>
+<div class="function">
+<h3 id="zap_hangup/1">zap_hangup(ZapChannel::integer()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Hangup a Zap channel</p>
+</div></div>
+<div class="function">
+<h3 id="zap_show_channels/0">zap_show_channels() -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Show status of zapata channels.</p>
+</div></div>
+<div class="function">
+<h3 id="zap_transfer/1">zap_transfer(ZapChannel::integer()) -&gt; mgr_response()</h3>
+
+
+<div class="description">
+
+<p>
+  Transfer a Zap Channel</p>
+</div></div></div>
+
+<authors>
+
+<aname>Oscar Hellström</aname>
+<email>oscar@erlang-consulting.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

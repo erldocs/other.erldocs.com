@@ -1,0 +1,1 @@
+var index = [['app','powerset','powerset','[application]'],['mod','powerset','powerset',[]],['fun','powerset','powerset:cons/1',[]],['fun','powerset','powerset:run/0',[]]];

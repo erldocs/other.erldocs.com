@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_cluster_tbl_ring (leo_redundant_manager) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_cluster_tbl_ring</h1>
+<h2 class="modsummary">The cluster ring table's operation.</h2>
+<div class="description">
+<p>The cluster ring table's operation</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-mnesia_copies">mnesia_copies() = disc_copies | ram_copies</h3></div>
+    <div class="type"><h3 id="type-table_info">table_info() = {mnesia, atom()} | {ets, atom()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create_table_current/1">create_table_current(Mode) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Mode = mnesia_copies()</code></li></ul>
+<div class="description">
+
+<p>create ring-current table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create_table_current/2">create_table_current(Mode, Nodes) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Mode = mnesia_copies()</code></li><li><code>Nodes = [atom()]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_table_prev/1">create_table_prev(Mode) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Mode = mnesia_copies()</code></li></ul>
+<div class="description">
+
+<p>create ring-prev table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create_table_prev/2">create_table_prev(Mode, Nodes) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Mode = mnesia_copies()</code></li><li><code>Nodes = [atom()]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_table_for_test/3">create_table_for_test(Mode, Nodes, Table) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>create table for the test
+ </p>
+</div></div>
+<div class="function">
+<h3 id="lookup/2">lookup(TableInfo, VNodeId) -&gt; #ring_0_16_8{vnode_id=integer(), node=undefined | atom(), clock=non_neg_integer()} | not_found | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li><li><code>VNodeId = integer()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a record by key from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="insert/2">insert(TableInfo, Ring) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li><li><code>Ring = #ring{vnode_id=integer(), node=undefined | atom()} | #ring_0_16_8{vnode_id=integer(), node=undefined | atom(), clock=non_neg_integer()} | tuple()</code></li></ul>
+<div class="description">
+
+<p>Insert a record into the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bulk_insert/2">bulk_insert(TableInfo, List) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li><li><code>List = [{integer(), atom(), integer()}]</code></li></ul>
+<div class="description">
+
+<p>Insert bulk of records into the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete/2">delete(TableInfo, VNodeId) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li><li><code>VNodeId = integer()</code></li></ul>
+<div class="description">
+
+<p>Remove a record from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="bulk_delete/2">bulk_delete(TableInfo, List) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li><li><code>List = [integer()]</code></li></ul>
+<div class="description">
+
+<p>Remove bulk of records from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="first/1">first(TableInfo) -&gt; integer() | '$end_of_table'</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a first record from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="last/1">last(TableInfo) -&gt; integer() | '$end_of_table'</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a last record from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="prev/2">prev(TableInfo, VNodeId) -&gt; integer() | '$end_of_table'</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li><li><code>VNodeId = integer()</code></li></ul>
+<div class="description">
+
+<p>Retrieve a previous record from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="next/2">next(X1::{mnesia | ets, atom()}, VNodeId::integer()) -&gt; integer() | '$end_of_table'</h3>
+
+
+<div class="description">
+
+<p>Retrieve a next record from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_all/1">delete_all(TableInfo) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li></ul>
+<div class="description">
+
+<p>Remove all objects from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(TableInfo) -&gt; integer()</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li></ul>
+<div class="description">
+
+<p>Retrieve total of records
+ </p>
+</div></div>
+<div class="function">
+<h3 id="tab2list/1">tab2list(TableInfo) -&gt; [tuple()] | [#ring_0_16_8{vnode_id=integer(), node=undefined | atom(), clock=non_neg_integer()}] | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li></ul>
+<div class="description">
+
+<p>Retrieve list from the table
+ </p>
+</div></div>
+<div class="function">
+<h3 id="overwrite/2">overwrite(TableInfo, TableInfo) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>TableInfo = table_info()</code></li></ul>
+<div class="description">
+
+<p>Overwrite current records by source records
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smak_route (smak) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>smak_route</h1>
+<h2 class="modsummary">Smak URL routing.</h2>
+<div class="description">
+<p>Smak URL routing.  We define a mechanism for building URL routes  
+using regular expressions with the possibility of a naive reverse  
+match which produces a URL from a set of matches.</p>
+ 
+  <p>Examples:
+  </p><pre class="sh_erlang">  ["users/", {name, "\w+", "foo"}, "/"]
+  gets mapped to a regular expression that looks like:
+      "^users/(?P&lt;name&gt;\w+)/$"
+ 
+  ["users/", {name, "\w+"}, "/images"]
+  becomes:
+      "^users/(?P&lt;name&gt;\w+)/images$"</pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-croute">croute() = #croute{route=route(), defaults=gb_tree(), regex=any()}</h3></div>
+    <div class="type"><h3 id="type-grpidx">grpidx() = atom() | integer()</h3></div>
+    <div class="type"><h3 id="type-mgroup">mgroup() = {grpidx(), regex()} | {grpidx(), regex(), any()}</h3></div>
+    <div class="type"><h3 id="type-mresult">mresult() = nomatch | {route_name(), route_pmatches()}</h3></div>
+    <div class="type"><h3 id="type-pattern">pattern() = [pcond()]</h3></div>
+    <div class="type"><h3 id="type-pcond">pcond() = regex() | mgroup()</h3></div>
+    <div class="type"><h3 id="type-regex">regex() = string()</h3></div>
+    <div class="type"><h3 id="type-route">route() = #route{pattern=pattern(), doc=binary(), subs=[grpidx()], name=route_name()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Routes::gb_tree()) -&gt; ewgi_app()</h3>
+
+
+<div class="description">
+
+<p>Initialises an EWGI middleware application which uses the
+  route resolving in this module to map a URL to a sub-application.
+  Attaches routes to the request so that reverse lookups are
+  possible.</p>
+</div></div>
+<div class="function">
+<h3 id="routes/1">routes(Routes::[croute()]) -&gt; gb_tree()</h3>
+
+
+<div class="description">
+
+<p>Creates a route lookup tree for the list of routes provided.</p>
+<p><em>See also:</em> <a href="#route/4" class="seealso">route/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="routes_all/0">routes_all() -&gt; gb_tree()</h3>
+
+
+<div class="description">
+
+<p>Creates a route lookup tree by searching all loaded modules
+  for a smak_routes/0 method which returns a list of routes.</p>
+<p><em>See also:</em> <a href="#routes_all/1" class="seealso">routes_all/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="routes_all/1">routes_all(Modules::[atom()]) -&gt; gb_tree()</h3>
+
+
+<div class="description">
+
+<p>Creates a route lookup tree by searching the modules specified
+  in Modules for a smak_routes/0 method which returns a list of
+  routes.</p>
+<p><em>See also:</em> <a href="#routes/1" class="seealso">routes/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="route/1">route(Name::route_name(), Pattern::pattern()) -&gt; croute()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#route/3" class="seealso">route(Name, &lt;&lt;""&gt;&gt;, Pat)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="route/1-1">route(Name::route_name(), Doc::binary(), Pattern::pattern()) -&gt; croute()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#route/4" class="seealso">route(Name, Doc, Pat, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="route/1-2">route(Name::route_name(), Doc::binary(), Pattern::pattern(), Groups::[grpidx()]) -&gt; croute()</h3>
+
+
+<div class="description">
+
+<p>Creates a named route Name with a pattern specified by  
+Pattern.  Doc is a documentation string held in the routing  
+structure for introspection.  Only group names present in Groups  
+will be returned in the resolve stage.</p>
+ 
+  <p>A pattern is specified by a list of pattern elements which are  
+matched in order from left to right.  Matching is similar to  
+'greedy' regular expression evaluation (in fact, the current  
+implementation makes use of the PCRE 're' module).</p>
+ 
+  <p>A route pattern consists of a literal or a match group:
+  </p><taglist>
+    <dt>Literal</dt>
+    <item><p>A literal is simply a PCRE regular expression which must
+        match the URI</p></item>
+    <dt>Match Group</dt>
+    <item><p>A match group is a 2 or 3-tuple of the form {Name,
+        Expression} or {Name, Expression, Default} where Name is a
+        string and Expression is a string representing a PCRE regular
+        expression. The Default value is used if the expression
+        segment doesn't match.</p></item>
+  </taglist>
+ 
+  <p>Patterns concatenate the expressions to create a full URI regular
+  expression.</p>
+</div></div>
+<div class="function">
+<h3 id="resolve/1">resolve(Routes::gb_tree() | ewgi_context(), Url::string()) -&gt; mresult()</h3>
+
+
+<div class="description">
+
+<p>Resolve a particular URL using the routing tree.  Simply
+  returns the match result for dispatching.</p>
+</div></div>
+<div class="function">
+<h3 id="reverse/1">reverse(Routes::gb_tree() | ewgi_context(), M::{route_name(), route_pmatches()}) -&gt; string() | nomatch</h3>
+
+
+<div class="description">
+
+<p>Naive reverse matching.  Ignores type of incoming data against
+  pattern.  Returns a url that fits the match specified.  If reverse
+  isn't possible, returns 'nomatch'.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Hunter Morris</aname>
+<email>hunter.morris@smarkets.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

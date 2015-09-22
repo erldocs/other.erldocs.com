@@ -1,0 +1,1 @@
+var index = [['app','erlang-ckan','erlang-ckan','[application]'],['mod','erlang-ckan','ckan_app','Callbacks for the ckan application.'],['fun','erlang-ckan','ckan_app:start/2','application start callback for ckan.'],['fun','erlang-ckan','ckan_app:stop/1','application stop callback for ckan.']];

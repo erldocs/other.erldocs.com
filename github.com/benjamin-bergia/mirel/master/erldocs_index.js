@@ -1,0 +1,1 @@
+var index = [['app','mirel','mirel','[application]'],['mod','mirel','mirel',[]],['fun','mirel','mirel:connect/0',[]],['fun','mirel','mirel:connect/1',[]],['fun','mirel','mirel:connect/2',[]],['fun','mirel','mirel:connect/3',[]],['fun','mirel','mirel:encode/1',[]],['fun','mirel','mirel:parse/1',[]],['fun','mirel','mirel:send/2',[]],['fun','mirel','mirel:split/1',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','zucchini','zucchini','[application]'],['mod','zucchini','zucchini',[]],['fun','zucchini','zucchini:parse_file/1',[]],['fun','zucchini','zucchini:parse_string/1',[]]];

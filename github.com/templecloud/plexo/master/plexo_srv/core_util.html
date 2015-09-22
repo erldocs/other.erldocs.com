@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>core_util (plexo_srv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>core_util</h1>
+<h2 class="modsummary">
+   The core_util contains various of utility functions.</h2>
+<div class="description">
+<p>
+   The core_util contains various of utility functions.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="to_atom_key_map/1">to_atom_key_map(Input::#{}) -&gt; #{}</h3>
+
+
+<div class="description">
+
+<p>  
+Take an input Map and convert any 'binary map keys' to 'atom map keys'.</p>
+ 
+  <p><em><marker id="Example_Input">Example Input</marker></em>
+    </p><pre class="sh_erlang">    #{&lt;&lt;"app_nfo"&gt;&gt; =&gt; #{
+      &lt;&lt;"description"&gt;&gt; =&gt; &lt;&lt;"ERTS  CXC 138 10"&gt;&gt;,
+      &lt;&lt;"name"&gt;&gt; =&gt; &lt;&lt;"kernel"&gt;&gt;,
+      &lt;&lt;"version"&gt;&gt; =&gt; &lt;&lt;"3.0.1"&gt;&gt;
+      }
+    }</pre>
+ 
+  <p><em><marker id="Example_Output">Example Output</marker></em>
+    </p><pre class="sh_erlang">    #{app_nfo =&gt; #{
+      description =&gt; &lt;&lt;"ERTS  CXC 138 10"&gt;&gt;,
+      name =&gt; &lt;&lt;"kernel"&gt;&gt;,
+      version =&gt; &lt;&lt;"3.0.1"&gt;&gt;
+      }
+    }</pre>
+</div></div>
+<div class="function">
+<h3 id="proplist_to_map/1">proplist_to_map(Input::[property() (see module proplists)]) -&gt; #{}</h3>
+
+
+<div class="description">
+
+<p>  
+Take an input proplist and convert it into a single map where the key-vlaue  
+(kv) pairs in the proplist become kv pairs in the resultant map. Furthermore,  
+if the value of a kv pair is another proplist then recursively process that  
+list and any child proplists. If any value is a charlist then it is  
+converted into a binary. If a value is a general list or single value it is  
+simply stored.</p>
+ 
+  <p>Mixed collections, or values not conforming to the above will probably  
+result in an error.</p>
+ 
+  <p><em><marker id="Example_Input">Example Input</marker></em>
+    </p><pre class="sh_erlang">    [{description,"SASL  CXC 138 11"},
+      {id,[]},
+      {vsn,"2.4.1"},
+      {modules,[sasl,alarm_handler,release_handler]},
+      {maxP,infinity},
+      {maxT,infinity},
+      {included_applications,[]},
+      {applications,[kernel,stdlib]},
+      {env,[{errlog_type,all},
+      {included_applications,[]},
+      {sasl_error_logger,tty}]},
+      {mod,{sasl,[]}},
+      {start_phases,undefined}
+    ]</pre>
+ 
+  <p><em><marker id="Example_Output">Example Output</marker></em>
+    </p><pre class="sh_erlang">    #{applications =&gt; [kernel,stdlib],
+      description =&gt; &lt;&lt;"SASL  CXC 138 11"&gt;&gt;,
+      env =&gt; #{errlog_type =&gt; all,
+      sasl_error_logger =&gt; tty},
+      id =&gt; &lt;&lt;&gt;&gt;,
+      included_applications =&gt; &lt;&lt;&gt;&gt;,
+      maxP =&gt; infinity,
+      maxT =&gt; infinity,
+      mod =&gt; #{sasl =&gt; &lt;&lt;&gt;&gt;},
+      modules =&gt; [sasl,alarm_handler,release_handler],
+      start_phases =&gt; undefined,
+      vsn =&gt; &lt;&lt;"2.4.1"&gt;&gt;
+    }</pre>
+</div></div>
+<div class="function">
+<h3 id="is_property/1">is_property(Item::property() (see module proplists)) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>
+  If every element in the specified item is a <a href="proplists.html#type-property" class="seealso">proplists:property()</a>
+  then return true; else false.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Temple</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','example_project','example_project','[application]'],['mod','example_project','example_project',[]],['fun','example_project','example_project:hello/0',[]]];

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eplugin (eplugin) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eplugin</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-callback_config">callback_config() = {priority, integer()}</h3></div>
+    <div class="type"><h3 id="type-callback_desc">callback_desc() = {Callback :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Function :: atom(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Config :: [<a href="#type-callback_config" class="seealso">callback_config()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Callback :: atom(), Function :: atom()}</h3></div>
+    <div class="type"><h3 id="type-module_desc">module_desc() = {Module :: atom(), [<a href="#type-callback_desc" class="seealso">callback_desc()</a>]}</h3></div>
+    <div class="type"><h3 id="type-plugin_config">plugin_config() = {dependencies, [atom()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {provides, [atom()]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {add_paths, [<a href="file.html#type-name_all" class="seealso">file:name_all()</a>]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| disabled<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {Key :: atom(), Value :: any()}</h3></div>
+    <div class="type"><h3 id="type-plugin_desc">plugin_desc() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Plugin :: atom(), [<a href="#type-module_desc" class="seealso">module_desc()</a>], [<a href="#type-plugin_config" class="seealso">plugin_config()</a>]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Starts eplugin.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_init/0">wait_for_init() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>  
+Waits until eplugin has finished starting up and has loaded all  
+plugins whose dependencies can be filled at startup.</p>
+ 
+  <p>Use this if you need to call a plugin hook during your application
+  startup for one-off configuration or other similar uses.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="callbacks/1">callbacks(Plugin::atom()) -&gt; {Module::atom(), Function::atom()}</h3>
+
+
+<div class="description">
+
+<p>
+  Lists all registered and enabled callbacks for a given Plugin. Sorted
+  by the <em>priority</em> they were given.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="apply/1">apply(Plugin::atom(), Args::[any()]) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>
+  An equivalten to erlang:apply/2 for callbacks. All enabled callbacks
+  as listed by callbacks/1. Results are retunred in an list.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Plugin::atom()) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>
+  Equivalent to eplugin:apply/2 but optimized for calls without
+  arguments by working around erlang:apply and calling the function
+  directly.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Plugin::atom(), Arg::any()) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>
+  See call/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="call/1-2">call(Plugin::atom(), Arg1::any(), Arg2::any()) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>
+  See call/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="call/1-3">call(Plugin::atom(), Arg1::any(), Arg2::any(), Arg3::any()) -&gt; [any()]</h3>
+
+
+<div class="description">
+
+<p>
+  See call/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="apply_test/1">apply_test(Plugin::atom(), Args::[any()]) -&gt; true | any()</h3>
+
+
+<div class="description">
+
+<p>
+  Executes apply/2 on the results of callbacks/1 as long as true is
+  returned, once another value is returned the execution is stopped
+  and this value returned.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="test/1">test(Plugin::atom()) -&gt; true | any()</h3>
+
+
+<div class="description">
+
+<p>
+  Equivalent to eplugin:apply_test/2 but optimized for calls without
+  arguments by working around erlang:apply and calling the function
+  directly.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="test/1-1">test(Plugin::atom(), Arg::any()) -&gt; true | any()</h3>
+
+
+<div class="description">
+
+<p>
+  See test/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="test/1-2">test(Plugin::atom(), Arg1::any(), Arg2::any()) -&gt; true | any()</h3>
+
+
+<div class="description">
+
+<p>
+  See test/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="test/1-3">test(Plugin::atom(), Arg1::any(), Arg2::any(), Arg3::any()) -&gt; true | any()</h3>
+
+
+<div class="description">
+
+<p>
+  See test/1.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="fold/1">fold(Plugin::atom(), Acc0::any()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>
+  This function folds <em>Acc0</em> through all callbacks for
+  <em>Plugin</em> as returned by callbacks/1. The result of function N is
+  passed as argument to function N+1, N0 is passed Acc0.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="config/1">config(Plugin::atom()) -&gt; undefined | any()</h3>
+
+
+<div class="description">
+
+<p>
+  Returns the configuration of a plugin or undefined when the plugin
+  is not known.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="disable/1">disable(Plugin::atom()) -&gt; {error, not_found} | ok</h3>
+
+
+<div class="description">
+
+<p>
+  Disables a plugin by removing all callbacks it has registered. The
+  callback eplugin:disable(Config) will be called on the Plugin after
+  it was disabled to allow cleanup. And eplugin:disable_plugin(Plugin)
+  will be called after the plugin was disabled to inform any other
+  interested plugins.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="enable/1">enable(Plugin::atom()) -&gt; {error, not_found} | ok</h3>
+
+
+<div class="description">
+
+<p>
+  Enables a plugin by adding all callbacks it has registered. The
+  callback eplugin:enable(Config) will be called on the Plugin
+  <em>befire</em> it is enabled to allow initialisation. And
+  eplugin:disable_plugin(Plugin) will be called after the plugin is
+  enabled to inform any other interested plugins.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="register/1">register(Plugin::atom(), Callback::atom(), Module::atom(), Function::atom(), Options::callback_config()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Registers Module:Function of the plugin Plugin for Callback. This
+  can be used to programatically hook into callbacks from outside of
+  a plugin.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="register/1-1">register(Plugin::atom(), Callback::atom(), Module::atom(), Function::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Calls register/5 with an default empty option set.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="is_enabled/1">is_enabled(Plugin::atom()) -&gt; true | false</h3>
+
+
+<div class="description">
+
+<p>
+  Checks if a certain Plugin is enabled.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="plugins/0">plugins() -&gt; [Plugin::atom()]</h3>
+
+
+<div class="description">
+
+<p>
+  Lists all installed plugins.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="provide/1">provide(What::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>
+  Registers a certain dependency as provided. This is used for the
+  loading process of plugins.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

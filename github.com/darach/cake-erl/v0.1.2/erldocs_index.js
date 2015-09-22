@@ -1,0 +1,1 @@
+var index = [['app','cake-erl','cake-erl','[application]'],['mod','cake-erl','cake',[]],['fun','cake-erl','cake:bg/1',[]],['fun','cake-erl','cake:fg/1',[]],['fun','cake-erl','cake:ta/1',[]]];

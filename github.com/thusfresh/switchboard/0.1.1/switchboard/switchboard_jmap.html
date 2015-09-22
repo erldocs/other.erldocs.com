@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>switchboard_jmap (switchboard) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>switchboard_jmap</h1>
+<h2 class="modsummary">JMAP command handler.</h2>
+<div class="description">
+<p>JMAP command handler.</p>
+ 
+  <p>This module is a websocket interface that handles JMAP commands.</p>
+ 
+  <p>1. Receives a list of JMAP commands encoded in JSON over the websocket.
+  2. Decodes the commands, and converts each command list into a tuple.
+  3. Handles each command using the <code>call</code> function.
+  4. Encodes and replies with the list of responses.
+ </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-jmap">jmap() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Method :: <a href="#type-jmap_method" class="seealso">jmap_method()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Args :: [<a href="#type-jmap_arg" class="seealso">jmap_arg()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClientID :: undefined | binary()}</h3></div>
+    <div class="type"><h3 id="type-jmap_arg">jmap_arg() = {binary(), binary() | integer()}</h3></div>
+    <div class="type"><h3 id="type-jmap_method">jmap_method() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="state_by_account/1">state_by_account(Account::binary()) -&gt; #state{connspec=connspec() (see module imap) | none, account=account() (see module imap), owner=boolean(), watched_mailboxes=set()}</h3>
+
+
+<div class="description">
+
+<p>Returns the minimal jmap state using the Account provided.</p>
+</div></div>
+<div class="function">
+<h3 id="encode/1">encode(JMAPs::[jmap()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encode JMAP call proplists as JSON.</p>
+</div></div>
+<div class="function">
+<h3 id="decode/1">decode(JSON::binary()) -&gt; [jmap()]</h3>
+
+
+<div class="description">
+
+<p>Decode a JMAP call binary into a proplist data structure.</p>
+</div></div>
+<div class="function">
+<h3 id="mailbox_name_to_id/1">mailbox_name_to_id(Conn::binary() | pid(), Name::binary()) -&gt; {ok, binary()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Returns the mailbox ID given its name.</p>
+</div></div>
+<div class="function">
+<h3 id="message_id/1">message_id(MailboxId::binary(), Uid::binary() | integer()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encode a messageId from a mailboxId and UID.</p>
+</div></div>
+<div class="function">
+<h3 id="mailbox_id/1">mailbox_id(MailboxName::binary(), UIDValidity::binary() | integer()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Encode a mailboxId from the mailbox name and UID validity number.</p>
+</div></div>
+<div class="function">
+<h3 id="connect/1">connect(Args::[property() (see module proplists)]) -&gt; {ok, account() (see module imap), connspec() (see module imap), boolean()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Connect a new account using a proplistsconnspec augmented with  
+auth data, e.g.</p>
+ 
+  <pre class="sh_erlang">  ConnSpec = [{host, Host}, {port, Port}, {auth, Auth}].</pre>
+</div></div>
+<div class="function">
+<h3 id="err/1">err(Type::binary()) -&gt; jmap()</h3>
+
+
+<div class="description">
+
+<p>Create an error message using only the error <code>Type</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="err/1-1">err(Type::binary() | atom(), X2::jmap()) -&gt; jmap()</h3>
+
+
+<div class="description">
+
+<p>Create an error message for the JMAP command by including the
+  command <code>Method</code> and <code>Args</code> with the error <code>Type</code>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Thomas Moulia</aname>
+<email>jtmoulia@pocketknife.io</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

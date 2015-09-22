@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>depsolver (depsolver) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>depsolver</h1>
+<h2 class="modsummary">   
+This is a dependency constraint solver.</h2>
+<div class="description">
+<p>   
+This is a dependency constraint solver. You add your 'world' to the   
+solver. That is the packages that exist, their versions and their   
+dependencies. Then give the system a set of targets and ask it to solve.</p>
+  
+    <p>Lets say our world looks as follows</p>
+  
+        <p>app1 that has versions "0.1"          
+depends on app3 any version greater then "0.2"         
+"0.2" with no dependencies         
+"0.3" with no dependencies</p>
+  
+        <p>app2 that has versions "0.1" with no dependencies         
+"0.2" that depends on app3 exactly "0.3"         
+"0.3" with no dependencies</p>
+  
+        <p>app3 that has versions         
+"0.1", "0.2" and "0.3" all with no dependencies</p>
+  
+   <p>we can add this world to the system all at once as follows</p>
+  
+        <p>Graph0 = depsolver:new_graph(),        
+Graph1 = depsolver:add_packages(               
+[{app1, [{"0.1", [{app2, "0.2"},                                 
+{app3, "0.2", '&gt;='}]},                                 
+{"0.2", []},                                 
+{"0.3", []}]},                
+{app2, [{"0.1", []},                         
+{"0.2",[{app3, "0.3"}]},                         
+{"0.3", []}]},                
+{app3, [{"0.1", []},                        
+{"0.2", []},                        
+{"0.3", []}]}]).</p>
+  
+   <p>We can also build it up incrementally using the other add_package and   
+add_package_version functions.</p>
+  
+   <p>Finally, once we have built up the graph we can ask depsolver to solve the   
+dependency constraints. That is to give us a list of valid dependencies by   
+using the solve function. Lets say we want the app3 version "0.3" and all of   
+its resolved dependencies. We could call solve as follows.</p>
+  
+      <p>depsolver:solve(Graph1, [{app3, "0.3"}]).</p>
+  
+   <p>That will give us the completely resolved dependencies including app3   
+itself. Lets be a little more flexible. Lets ask for a graph that is rooted   
+in anything greater then or equal to app3 "0.3". We could do that by</p>
+  
+      <p>depsolver:solve(Graph1, [{app3, "0.3", '&gt;='}]).</p>
+  
+   Of course, you can specify any number of goals at the top level.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-constraint">constraint() = pkg_name() | {pkg_name(), vsn()} | {pkg_name(), vsn(), constraint_op()} | {pkg_name(), vsn(), vsn(), between}</h3></div>
+    <div class="type"><h3 id="type-constraint_op">constraint_op/0</h3></div>
+    <div class="type"><h3 id="type-constraints">constraints() = [constraint()]</h3></div>
+    <div class="type"><h3 id="type-dep_graph">dep_graph() = gb_tree()</h3></div>
+    <div class="type"><h3 id="type-dependency_set">dependency_set() = {pkg_name(), [vsn_constraint()]}</h3></div>
+    <div class="type"><h3 id="type-fail_detail">fail_detail() = {fail, [fail_info()]} | {missing, pkg_name()}</h3></div>
+    <div class="type"><h3 id="type-fail_info">fail_info() = {[pkg()], ordered_constraints()}</h3></div>
+    <div class="type"><h3 id="type-ordered_constraints">ordered_constraints() = [{pkg_name(), constraints()}]</h3></div>
+    <div class="type"><h3 id="type-pkg">pkg() = {pkg_name(), vsn()}</h3></div>
+    <div class="type"><h3 id="type-pkg_name">pkg_name() = binary() | atom()</h3></div>
+    <div class="type"><h3 id="type-raw_constraint">raw_constraint() = pkg_name() | {pkg_name(), raw_vsn()} | {pkg_name(), raw_vsn(), constraint_op()} | {pkg_name(), raw_vsn(), vsn(), between}</h3></div>
+    <div class="type"><h3 id="type-raw_vsn">raw_vsn() = any_version() (see module ec_semver)</h3></div>
+    <div class="type"><h3 id="type-t">t()</h3></div>
+    <div class="type"><h3 id="type-vsn">vsn() = 'NO_VSN' | semver() (see module ec_semver)</h3></div>
+    <div class="type"><h3 id="type-vsn_constraint">vsn_constraint() = {raw_vsn(), [raw_constraint()]}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="parse_version/1">parse_version(RawVsn::raw_vsn() | vsn()) -&gt; vsn()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="filter_packages/1">filter_packages(PVPairs::[{pkg_name(), raw_vsn()}], RawConstraints::[raw_constraint()]) -&gt; {ok, [{pkg_name(), raw_vsn()}]} | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>given a list of package name version pairs, and a list of constraints
+  return every member of that list that matches all constraints.</p>
+</div></div>
+<div class="function">
+<h3 id="filter_package/1">filter_package(X1::{pkg_name(), vsn()}, PkgName::constraint()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Eric Merritt</aname>
+<email>ericbmerritt@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

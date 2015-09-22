@@ -1,0 +1,1 @@
+var index = [['app','moo_session','moo_session','[application]'],['mod','moo_session','moo_session',[]],['fun','moo_session','moo_session:delete/1',[]],['fun','moo_session','moo_session:execute/2',[]],['fun','moo_session','moo_session:get/1',[]],['fun','moo_session','moo_session:set/1',[]]];

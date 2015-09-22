@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>epers (epers) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>epers</h1>
+<h2 class="modsummary">Main module for epers.</h2>
+<div class="description">
+<p>Main module for epers. Use this one from your own applications.</p>
+  
+   <p>Copyright 2012 Marcelo Gornstein &lt;marcelog@gmail.com&gt;</p>
+  
+   <p>Licensed under the Apache License, Version 2.0 (the "License");   
+you may not use this file except in compliance with the License.   
+You may obtain a copy of the License at</p>
+  
+       <p>http://www.apache.org/licenses/LICENSE-2.0</p>
+  
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-epers_field">epers_field() = {<a href="#type-epers_field_name" class="seealso">epers_field_name()</a>, <a href="#type-epers_field_value" class="seealso">epers_field_value()</a>}</h3></div>
+    <div class="type"><h3 id="type-epers_field_attr">epers_field_attr() = id<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unique<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| index<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| not_null<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| auto_increment<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {length, integer()}</h3></div>
+    <div class="type"><h3 id="type-epers_field_attrs">epers_field_attrs() = [<a href="#type-epers_field_attr" class="seealso">epers_field_attr()</a>]</h3></div>
+    <div class="type"><h3 id="type-epers_field_name">epers_field_name() = atom()</h3></div>
+    <div class="type"><h3 id="type-epers_field_type">epers_field_type() = integer | string | binary | text</h3></div>
+    <div class="type"><h3 id="type-epers_field_value">epers_field_value() = term()</h3></div>
+    <div class="type"><h3 id="type-epers_schema_name">epers_schema_name() = atom()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="get_repo/1">get_repo(DocName::epers_schema_name() | #epers_doc{name=undefined | atom(), fields=proplist() (see module proplists)}) -&gt; atom()</h3>
+
+
+<div class="description">
+
+<p>Returns the process name that handles persistence for the given
+  Doc or DocName.</p>
+</div></div>
+<div class="function">
+<h3 id="create_schema/0">create_schema() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates the schema for all known (configured) docs.</p>
+</div></div>
+<div class="function">
+<h3 id="get_schema/1">get_schema(DocName::epers_schema_name()) -&gt; #epers_schema{name=undefined | atom(), fields=[#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}]}</h3>
+
+
+<div class="description">
+
+<p>Returns the schema for a given DocName.</p>
+</div></div>
+<div class="function">
+<h3 id="find_one/1">find_one(DocName::epers_schema_name(), Conditions::proplist() (see module proplists)) -&gt; proplist() (see module proplists) | notfound</h3>
+
+
+<div class="description">
+
+<p>Returns 1 doc that matches the given Conditions.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(DocName::epers_schema_name(), Id::term()) -&gt; proplist() (see module proplists) | notfound</h3>
+
+
+<div class="description">
+
+<p>Returns the doc identified by Id.</p>
+</div></div>
+<div class="function">
+<h3 id="find_by/1">find_by(DocName::epers_schema_name(), Conditions::proplist() (see module proplists), Limit::pos_integer(), Offset::pos_integer()) -&gt; [proplist() (see module proplists)]</h3>
+
+
+<div class="description">
+
+<p>Returns Limit number of docs that match Conditions, starting at
+  offset Offset.</p>
+</div></div>
+<div class="function">
+<h3 id="find_by/1-1">find_by(DocName::epers_schema_name(), Conditions::proplist() (see module proplists)) -&gt; [proplist() (see module proplists)]</h3>
+
+
+<div class="description">
+
+<p>Returns *all* docs that match Conditions.</p>
+</div></div>
+<div class="function">
+<h3 id="persist/1">persist(DocName::epers_schema_name(), State::proplists() (see module proplist)) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates or updates the given Doc.</p>
+</div></div>
+<div class="function">
+<h3 id="delete_all/1">delete_all(DocName::epers_schema_name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes all docs of type DocName.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(DocName::epers_schema_name(), Id::term()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes the doc identified by Id.</p>
+</div></div>
+<div class="function">
+<h3 id="create_schema/1">create_schema(DocName::epers_schema_name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates the schema for the docs of type DocName.</p>
+</div></div>
+<div class="function">
+<h3 id="create_schema/1-1">create_schema(DocName::epers_schema_name(), Repo::atom()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates the schema for the docs of type DocName using the given
+  repository.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(DocName::epers_schema_name(), Function::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Calls the given custom function of a repo.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(DocName::epers_schema_name(), Function::atom(), Args::[term()]) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Calls the given custom function of a repo with the given args.</p>
+</div></div>
+<div class="function">
+<h3 id="get_field/1">get_field(Name::epers_field_name(), Epers_doc::#epers_doc{name=undefined | atom(), fields=proplist() (see module proplists)}) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Returns the value of a field from an epers_doc.</p>
+</div></div>
+<div class="function">
+<h3 id="set_field/1">set_field(FieldName::epers_field_name(), Value::term(), Epers_doc::#epers_doc{name=undefined | atom(), fields=proplist() (see module proplists)}) -&gt; #epers_doc{name=undefined | atom(), fields=proplist() (see module proplists)}</h3>
+
+
+<div class="description">
+
+<p>Sets a value in an epers_doc.</p>
+</div></div>
+<div class="function">
+<h3 id="get_id_field/1">get_id_field(Epers_schema::#epers_schema{name=undefined | atom(), fields=[#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}]}) -&gt; #epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}</h3>
+
+
+<div class="description">
+
+<p>Returns field marked as ID for the given schema or doc name.</p>
+</div></div>
+<div class="function">
+<h3 id="field_name/1">field_name(Epers_field::#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}) -&gt; epers_field_name()</h3>
+
+
+<div class="description">
+
+<p>Returns the name of the given field.</p>
+</div></div>
+<div class="function">
+<h3 id="field_type/1">field_type(Epers_field::#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}) -&gt; epers_field_type()</h3>
+
+
+<div class="description">
+
+<p>Returns the type of the given field.</p>
+</div></div>
+<div class="function">
+<h3 id="field_attrs/1">field_attrs(Epers_field::#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}) -&gt; epers_field_attrs()</h3>
+
+
+<div class="description">
+
+<p>Returns all attributes of the given field.</p>
+</div></div>
+<div class="function">
+<h3 id="field_is/1">field_is(What::atom(), Epers_field::#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>True if the field has a given attribute.</p>
+</div></div>
+<div class="function">
+<h3 id="new_doc/1">new_doc(Name::epers_schema_name()) -&gt; #epers_doc{name=undefined | atom(), fields=proplist() (see module proplists)}</h3>
+
+
+<div class="description">
+
+<p>Returns a new doc without any fields</p>
+</div></div>
+<div class="function">
+<h3 id="new_doc/1-1">new_doc(Name::epers_schema_name(), Fields::[epers_field()]) -&gt; #epers_doc{name=undefined | atom(), fields=proplist() (see module proplists)}</h3>
+
+
+<div class="description">
+
+<p>Returns a new doc.</p>
+</div></div>
+<div class="function">
+<h3 id="new_schema/1">new_schema(Name::epers_schema_name(), Epers_field::[#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}]) -&gt; #epers_schema{name=undefined | atom(), fields=[#epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}]}</h3>
+
+
+<div class="description">
+
+<p>Returns a new schema.</p>
+</div></div>
+<div class="function">
+<h3 id="new_field/1">new_field(Name::epers_field_name(), Type::epers_field_type(), Attributes::[epers_field_attrs()]) -&gt; #epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}</h3>
+
+
+<div class="description">
+
+<p>Returns a new field of the given type and attributes.</p>
+</div></div>
+<div class="function">
+<h3 id="new_field/1-1">new_field(Name::epers_field_name(), Type::epers_field_type()) -&gt; #epers_field{name=undefined | atom(), type=undefined | atom(), attrs=epers_field_attrs()}</h3>
+
+
+<div class="description">
+
+<p>Returns a new field of the given type without attributes.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Marcelo Gornstein</aname>
+<email>marcelog@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

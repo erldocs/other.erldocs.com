@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>yaml_schema_failsafe (yamler) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>yaml_schema_failsafe</h1>
+<h2 class="modsummary">Minimal schema implementing the Failsafe Schema as per Yaml 1.2 section 10.1.</h2>
+<div class="description">
+<p>Minimal schema implementing the Failsafe Schema as per Yaml 1.2 section 10.1.</p>
+ 
+  <p>Schemas perform 2 tasks; tag resolution and value construction.</p>
+ 
+  <p>For tag resolution the schema module produces a fully resolved tag for every node in the document.  
+This is typically done by examining the tag provided in the yaml document, or when no tag is present, by  
+inferring the tag based on the value of the node.</p>
+ 
+  <p>For value construction the schema module produces an erlang term given the value and previously  
+resolved tag.</p>
+ 
+  <p>All tags and values provided as parameters are utf8 binaries regardless of the actual encoding of
+  the yaml file.  The parser will automatically convert tags of the form "!!xxx" to
+  "tag:yaml.org,2002:xxx".
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(Opts::proplist() (see module proplists)) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Initialize state that will be made available to all schema calls.
+  Put things like precompiled regular expressions and settings gleaned from the proplist.
+  Use of this state variable is optional; you may just return a dummy value if your schema is simple.</p>
+</div></div>
+<div class="function">
+<h3 id="destroy/1">destroy(State::term()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Destroy the schema's state.</p>
+</div></div>
+<div class="function">
+<h3 id="resolve_mapping_tag/1">resolve_mapping_tag(Tag::null | binary(), Value::binary(), State::term()) -&gt; {ok, ResolvedTag::term()} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Resolve a mapping tag.  Return nomatch if the tag is invalid.</p>
+</div></div>
+<div class="function">
+<h3 id="construct_mapping/1">construct_mapping(ResolvedTag::term(), Value::binary(), State::term()) -&gt; {ok, ConstructedValue::term()} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Construct a mapping.  Return nomatch if the tag is invalid.</p>
+</div></div>
+<div class="function">
+<h3 id="resolve_sequence_tag/1">resolve_sequence_tag(Tag::null | binary(), Value::binary(), State::term()) -&gt; {ok, ResolvedTag::term()} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Resolve a sequence tag.  Return nomatch if the tag is invalid.</p>
+</div></div>
+<div class="function">
+<h3 id="construct_sequence/1">construct_sequence(ResolvedTag::term(), Value::binary(), State::term()) -&gt; {ok, ConstructedValue::term()} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Construct a sequence.  Return nomatch if the tag is invalid.</p>
+</div></div>
+<div class="function">
+<h3 id="resolve_scalar_tag/1">resolve_scalar_tag(Tag::null | binary(), Value::binary(), Style::scalar_style() (see module yaml_libyaml), State::term()) -&gt; {ok, ResolvedTag::term()} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Resolve a scalar tag.  Return nomatch if the tag is invalid.</p>
+</div></div>
+<div class="function">
+<h3 id="construct_scalar/1">construct_scalar(ResolvedTag::term(), Value::binary(), State::term()) -&gt; {ok, ConstructedValue::term()} | nomatch</h3>
+
+
+<div class="description">
+
+<p>Construct a scalar.  Return nomatch if the tag is invalid.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Daniel Goertzen</aname>
+<email>daniel.goertzen@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

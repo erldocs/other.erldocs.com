@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_jerasure (leo_jerasure) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_jerasure</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-coding_class">coding_class() = vandrs | cauchyrs | liberation | isars</h3></div>
+    <div class="type"><h3 id="type-coding_params">coding_params() = {integer() &gt;= 1, integer() &gt;= 1, integer() &gt;= 1}</h3></div>
+    <div class="type"><h3 id="type-id_with_block">id_with_block() = {integer() &gt;= 0, binary()}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="write_blocks/3">write_blocks(FileName, DestFileL, Cnt) -&gt; Cnt</h3>
+
+<ul class="type">
+<li><code>FileName = filename() (see module file)</code></li><li><code>DestFileL = [filename() (see module file)]</code></li><li><code>Cnt = pos_integer()</code></li></ul>
+<div class="description">
+
+<p>Write Blocks to Disk</p>
+</div></div>
+<div class="function">
+<h3 id="encode_file/1">encode_file(FileName) -&gt; Cnt | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>FileName = filename() (see module file)</code></li><li><code>Cnt = pos_integer()</code></li><li><code>Reason = posix() (see module file)</code></li></ul>
+<div class="description">
+
+<p>Encode a File to Blocks and Write to Disk</p>
+</div></div>
+<div class="function">
+<h3 id="encode_file/3">encode_file(Coding, CodingParams, FileName) -&gt; Cnt | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>Coding = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>FileName = filename() (see module file)</code></li><li><code>Cnt = pos_integer()</code></li><li><code>Reason = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode_file/2">decode_file(FileName, ObjSize) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>FileName = filename() (see module file)</code></li><li><code>ObjSize = non_neg_integer()</code></li><li><code>Reason = any()</code></li></ul>
+<div class="description">
+
+<p>Read Blocks from Disk, Decode the File and Write with .dec Extension</p>
+</div></div>
+<div class="function">
+<h3 id="decode_file/4">decode_file(CodingClass, CodingParams, FileName, ObjSize) -&gt; ok | {error, Reason}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>FileName = filename() (see module file)</code></li><li><code>ObjSize = non_neg_integer()</code></li><li><code>Reason = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode/3">encode(X1::{CodingParam_K, CodingParam_M}, Bin) -&gt; {ok, IdWithBlockL} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingParam_K = pos_integer()</code></li><li><code>CodingParam_M = pos_integer()</code></li><li><code>Bin = binary()</code></li><li><code>IdWithBlockL = [id_with_block()]</code></li></ul>
+<div class="description">
+
+<p>Actual Encoding with Jerasure (NIF)</p>
+</div></div>
+<div class="function">
+<h3 id="encode/3-1">encode(CodingClass, CodingParams, Bin) -&gt; {ok, IdWithBlockL} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>Bin = binary()</code></li><li><code>IdWithBlockL = [id_with_block()]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="encode/4">encode(CodingClass, CodingParams, Bin, TotalSize) -&gt; {ok, Blocks} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>Bin = binary()</code></li><li><code>TotalSize = integer()</code></li><li><code>Blocks = [binary()]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/4">decode(X1::{CodingParam_K, CodingParam_M}, IdWithBlockL, ObjSize) -&gt; {ok, Bin} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingParam_K = pos_integer()</code></li><li><code>CodingParam_M = pos_integer()</code></li><li><code>IdWithBlockL = [id_with_block()]</code></li><li><code>ObjSize = integer()</code></li><li><code>Bin = binary()</code></li></ul>
+<div class="description">
+
+<p>Actual Decoding with Jerasure (NIF)</p>
+</div></div>
+<div class="function">
+<h3 id="decode/5">decode(CodingClass, CodingParams, BlockL, IdList, ObjSize) -&gt; {ok, Bin} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>BlockL = [binary()]</code></li><li><code>IdList = [integer()]</code></li><li><code>ObjSize = integer()</code></li><li><code>Bin = binary()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="decode/4-1">decode(CodingClass, CodingParams, IdWithBlockL, ObjSize) -&gt; {ok, Bin} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>IdWithBlockL = [id_with_block()]</code></li><li><code>ObjSize = integer()</code></li><li><code>Bin = binary()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="repair/3">repair(X1::{CodingParam_K, CodingParam_M}, IdWithBlockL) -&gt; {ok, IdWithBlockL} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingParam_K = pos_integer()</code></li><li><code>CodingParam_M = pos_integer()</code></li><li><code>IdWithBlockL = [id_with_block()]</code></li></ul>
+<div class="description">
+
+<p>Repair Multiple Blocks with Jerasure (NIF)
+ </p>
+</div></div>
+<div class="function">
+<h3 id="repair/3-1">repair(CodingClass, CodingParams, IdWithBlockL) -&gt; {ok, IdWithBlockL} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>IdWithBlockL = [id_with_block()]</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="repair/5">repair(CodingClass, CodingParams, BlockL, IdList, RepairIdList) -&gt; {ok, BlockL} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>CodingClass = coding_class()</code></li><li><code>CodingParams = coding_params()</code></li><li><code>BlockL = [binary()]</code></li><li><code>IdList = [non_neg_integer()]</code></li><li><code>RepairIdList = [non_neg_integer()]</code></li></ul>
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

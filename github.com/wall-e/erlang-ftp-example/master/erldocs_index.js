@@ -1,0 +1,1 @@
+var index = [['app','erlang-ftp-example','erlang-ftp-example','[application]'],['mod','erlang-ftp-example','ftptools',[]],['fun','erlang-ftp-example','ftptools:main/0',[]],['fun','erlang-ftp-example','ftptools:publish/5',[]]];

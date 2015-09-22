@@ -1,0 +1,1 @@
+var index = [['app','ptas','ptas','[application]'],['mod','ptas','ptas',[]],['fun','ptas','ptas:bnb/1',[]],['fun','ptas','ptas:bnb/2',[]],['fun','ptas','ptas:lpt/1',[]],['fun','ptas','ptas:lpt/2',[]],['fun','ptas','ptas:ptas/2',[]],['fun','ptas','ptas:ptas/3',[]],['fun','ptas','ptas:target_function/1',[]]];

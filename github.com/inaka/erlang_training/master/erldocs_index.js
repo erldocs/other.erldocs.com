@@ -1,0 +1,1 @@
+var index = [['app','erlang_training','erlang_training','[application]'],['mod','erlang_training','et','ET main interface.'],['fun','erlang_training','et:start/0','Starts the application.'],['fun','erlang_training','et:stop/0','Stops the application.']];

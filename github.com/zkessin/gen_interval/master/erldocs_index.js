@@ -1,0 +1,1 @@
+var index = [['app','gen_interval','gen_interval','[application]'],['mod','gen_interval','time_interval',[]],['fun','gen_interval','time_interval:get_interval/1',[]]];

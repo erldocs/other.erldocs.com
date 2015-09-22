@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>scml_base_io (scm) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>scml_base_io</h1>
+<h2 class="modsummary">Scheme base library for input and output.</h2>
+<div class="description">
+<p>Scheme base library for input and output</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-scm_boolean">scm_boolean() = <a href="scmd_types.html#type-scm_boolean" class="seealso">scmd_types:scm_boolean()</a></h3></div>
+    <div class="type"><h3 id="type-scm_byte">scm_byte() = <a href="scmd_types.html#type-scm_byte" class="seealso">scmd_types:scm_byte()</a></h3></div>
+    <div class="type"><h3 id="type-scm_bytevector">scm_bytevector() = <a href="scmd_types.html#type-scm_bytevector" class="seealso">scmd_types:scm_bytevector()</a></h3></div>
+    <div class="type"><h3 id="type-scm_char">scm_char() = <a href="scmd_types.html#type-scm_char" class="seealso">scmd_types:scm_char()</a></h3></div>
+    <div class="type"><h3 id="type-scm_end">scm_end() = <a href="scmd_types.html#type-scm_end" class="seealso">scmd_types:scm_end()</a></h3></div>
+    <div class="type"><h3 id="type-scm_eof">scm_eof() = <a href="scmd_types.html#type-scm_eof" class="seealso">scmd_types:scm_eof()</a></h3></div>
+    <div class="type"><h3 id="type-scm_false">scm_false() = <a href="scmd_types.html#type-scm_false" class="seealso">scmd_types:scm_false()</a></h3></div>
+    <div class="type"><h3 id="type-scm_k">scm_k() = <a href="scmd_types.html#type-scm_k" class="seealso">scmd_types:scm_k()</a></h3></div>
+    <div class="type"><h3 id="type-scm_obj">scm_obj() = <a href="scmd_types.html#type-scm_obj" class="seealso">scmd_types:scm_obj()</a></h3></div>
+    <div class="type"><h3 id="type-scm_port">scm_port() = <a href="scmd_types.html#type-scm_port" class="seealso">scmd_types:scm_port()</a></h3></div>
+    <div class="type"><h3 id="type-scm_proc">scm_proc() = <a href="scmd_types.html#type-scm_proc" class="seealso">scmd_types:scm_proc()</a></h3></div>
+    <div class="type"><h3 id="type-scm_start">scm_start() = <a href="scmd_types.html#type-scm_start" class="seealso">scmd_types:scm_start()</a></h3></div>
+    <div class="type"><h3 id="type-scm_string">scm_string() = <a href="scmd_types.html#type-scm_string" class="seealso">scmd_types:scm_string()</a></h3></div>
+    <div class="type"><h3 id="type-scm_symbol">scm_symbol() = <a href="scmd_types.html#type-scm_symbol" class="seealso">scmd_types:scm_symbol()</a></h3></div>
+    <div class="type"><h3 id="type-scmi_denv">scmi_denv() = <a href="scmi_types.html#type-denv" class="seealso">scmi_types:denv()</a></h3></div>
+    <div class="type"><h3 id="type-scmi_dng">scmi_dng() = <a href="scmi_types.html#type-dng" class="seealso">scmi_types:dng()</a></h3></div>
+    <div class="type"><h3 id="type-scmi_dok">scmi_dok() = <a href="scmi_types.html#type-dok" class="seealso">scmi_types:dok()</a></h3></div>
+    <div class="type"><h3 id="type-scmi_nip">scmi_nip() = <a href="scmi_types.html#type-nip" class="seealso">scmi_types:nip()</a></h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="$scml_exports/0">$scml_exports() -&gt; [{scm_symbol(), scmi_nip()}]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="call-with-port/1">call-with-port(Port::scm_port(), Proc::scm_proc(), Env::scmi_denv(), Ok::scmi_dok(), Ng::scmi_dng()) -&gt; scm_obj()</h3>
+
+
+<div class="description">
+
+<p>Calls proc with port as an argument.  If proc returns, then
+  the port is closed and the values yielded by the proc are returned.
+  Otherwise, the port is automatically closed when there are no
+  longer any references to the port.</p>
+</div></div>
+<div class="function">
+<h3 id="input-port?/1">input-port?(Obj::scm_obj()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if obj is an input port, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="output-port?/1">output-port?(Obj::scm_obj()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if obj is an output port, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="textual-port?/1">textual-port?(Obj::scm_obj()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if obj is a textual port, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="binary-port?/1">binary-port?(Obj::scm_obj()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if obj is a binary port, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="port?/1">port?(Obj::scm_obj()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if obj is a port, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="input-port-open?/1">input-port-open?(Port::scm_port()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if port is still open and capable of performing
+  input, otherwise returns #t.</p>
+</div></div>
+<div class="function">
+<h3 id="output-port-open?/1">output-port-open?(Port::scm_port()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if port is still open and capable of performing
+  output, otherwise returns #t.</p>
+</div></div>
+<div class="function">
+<h3 id="current-input-port/0">current-input-port() -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns the current input port.  The initial value is the
+  default input port.  The default input port is a textual port.  The
+  +current-input-port+ procedures behave like a parameter object,
+  which can be overridden with +parameterize+.</p>
+</div></div>
+<div class="function">
+<h3 id="current-input-port/1">current-input-port(X1::2) -&gt; scm_proc()</h3>
+
+
+<div class="description">
+
+<p>Returns the converter procedure for the current input port.</p>
+</div></div>
+<div class="function">
+<h3 id="current-input-port/2">current-input-port(X1::1, Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Saves the given port as the current input port.  Returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="current-output-port/0">current-output-port() -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns the current output port.  The initial value is the
+  default output port.  The default output port is a textual port.
+  The +current-output-port+ procedures behave like a parameter
+  object, which can be overridden with +parameterize+.</p>
+</div></div>
+<div class="function">
+<h3 id="current-output-port/1">current-output-port(X1::2) -&gt; scm_proc()</h3>
+
+
+<div class="description">
+
+<p>Returns the converter procedure for the current output port.</p>
+</div></div>
+<div class="function">
+<h3 id="current-output-port/2">current-output-port(X1::1, Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Saves the given port as the current output port.  Returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="current-error-port/0">current-error-port() -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns the current error port.  The initial value is the
+  default error port.  The default error port is a textual port.  The
+  +current-error-port+ procedures behave like a parameter object,
+  which can be overridden with +parameterize+.</p>
+</div></div>
+<div class="function">
+<h3 id="current-error-port/1">current-error-port(X1::2) -&gt; scm_proc()</h3>
+
+
+<div class="description">
+
+<p>Returns the converter procedure for the current error port.</p>
+</div></div>
+<div class="function">
+<h3 id="current-error-port/2">current-error-port(X1::1, Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Saves the given port as the current error port.  Returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="close-port/1">close-port(Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Close the resource associated with port, rendering the port
+  incapable of delivering or accepting data.  This procedure has no
+  effect if the port has already been closed.</p>
+</div></div>
+<div class="function">
+<h3 id="close-input-port/1">close-input-port(Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Close the resource associated with port, rendering the input
+  port incapable of delivering data.  This procedure has no effect if
+  the input port has already been closed.  It is an error to apply
+  this procedure to a port which is not an input port.</p>
+</div></div>
+<div class="function">
+<h3 id="close-output-port/1">close-output-port(Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Close the resource associated with port, rendering the input
+  port incapable of delivering data.  This procedure has no effect if
+  the input port has already been closed.  It is an error to apply
+  this procedure to a port which is not an input port.</p>
+</div></div>
+<div class="function">
+<h3 id="open-input-string/1">open-input-string(String::scm_string()) -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns a textual input port that delivers characters from the
+  given string.</p>
+</div></div>
+<div class="function">
+<h3 id="open-output-string/0">open-output-string() -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns a textual output port that will accumulate characters
+  for retrieval by +get-output-string+.</p>
+</div></div>
+<div class="function">
+<h3 id="get-output-string/1">get-output-string(Port::scm_port()) -&gt; scm_string()</h3>
+
+
+<div class="description">
+
+<p>Returns a string consisting of the characters that have been
+  output to the port so far in the order they were output.  It is an
+  error if port is not a textual output port.</p>
+</div></div>
+<div class="function">
+<h3 id="open-input-bytevector/1">open-input-bytevector(Bytevector::scm_bytevector()) -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns a binary input port that delivers bytes from the given
+  bytevector.</p>
+</div></div>
+<div class="function">
+<h3 id="open-output-bytevector/0">open-output-bytevector() -&gt; scm_port()</h3>
+
+
+<div class="description">
+
+<p>Returns a binary output port that will accumulate bytes for
+  retrieval by +get-output-bytevector+.</p>
+</div></div>
+<div class="function">
+<h3 id="get-output-bytevector/1">get-output-bytevector(Port::scm_port()) -&gt; scm_bytevector()</h3>
+
+
+<div class="description">
+
+<p>Returns a bytevector consisting of the bytes that have been
+  output to the port so far in the order they were output.  It is an
+  error if port is not a binary output port.</p>
+</div></div>
+<div class="function">
+<h3 id="read-char/0">read-char() -&gt; scm_char() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#read-char/1" class="seealso">'read-char'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read-char/1">read-char(Port::scm_port()) -&gt; scm_char() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Returns the next character available from the textual input
+  port, updating the port to point to the following character.  If no
+  more characters are available, an end-of-file object is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="peek-char/0">peek-char() -&gt; scm_char() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#peek-char/1" class="seealso">'peek-char'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="peek-char/1">peek-char(Port::scm_port()) -&gt; scm_char() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Returns the next character available from the textual input
+  port, but without updating the port to point to the following
+  character.  If no more characters are available, an end-of-file
+  object is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="read-line/0">read-line() -&gt; scm_string() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#read-line/1" class="seealso">'read-line'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read-line/1">read-line(Port::scm_port()) -&gt; scm_string() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Returns the next line of text available from the textual input
+  port, updating the port to point to the following character.  If an
+  end of line is read, a string containing all of the text up to (but
+  not including) the end of file is returned, and the port is updated
+  to point just past the end of line.  If an end of file is
+  encountered before any end of line is read, but some characters
+  have been read, a string containing those characters is returned.
+  If an end of file is encountered before any characters are read, an
+  end-of-file object is returned.  For the purpose of this procedure,
+  an end of line consists of either a linefeed character, a carriage
+  return character, or a sequence of a carriage return character
+  followed by a linefeed character.</p>
+</div></div>
+<div class="function">
+<h3 id="eof-object?/1">eof-object?(Obj::scm_obj()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if obj is an end-of-file object, otherwise returns
+  #f.</p>
+</div></div>
+<div class="function">
+<h3 id="eof-object/0">eof-object() -&gt; scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Returns an end-of-file object.</p>
+</div></div>
+<div class="function">
+<h3 id="char-ready?/0">char-ready?() -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#char-ready%3f/1" class="seealso">'char-ready?'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="char-ready?/1">char-ready?(Port::scm_port()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if a character is ready on the textual input port
+  or if port is at the end of the file, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="read-string/1">read-string(K::scm_k()) -&gt; scm_string() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#read-string/2" class="seealso">'read-string'(K, 'current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read-string/1-1">read-string(K::scm_k(), Port::scm_port()) -&gt; scm_string() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Reads the next k characters, or as many as are available
+  before the end of file, from the textual input port into a string
+  in left-to-right order and returns the string.  If no characters
+  are available before the end of file, an end-of-file object is
+  returned.</p>
+</div></div>
+<div class="function">
+<h3 id="read-u8/0">read-u8() -&gt; scm_byte() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#read-u8/1" class="seealso">'read-u8'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read-u8/1">read-u8(Port::scm_port()) -&gt; scm_byte() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Returns the next byte available from the binary input port,
+  updating the port to point to the following byte.  If no more bytes
+  are available, an end-of-file object is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="peek-u8/0">peek-u8() -&gt; scm_byte() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#peek-u8/1" class="seealso">'peek-u8'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="peek-u8/1">peek-u8(Port::scm_port()) -&gt; scm_byte() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Returns the next byte available from the binary input port,
+  but without updating the port to point to the following byte.  If
+  not more bytes are available, an end-of-file object is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="u8-ready?/0">u8-ready?() -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#u8-ready%3f/1" class="seealso">'u8-ready?'('current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="u8-ready?/1">u8-ready?(Port::scm_port()) -&gt; scm_boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns #t if a byte is ready on the binary input port or if
+  port is at the end of the file, otherwise returns #f.</p>
+</div></div>
+<div class="function">
+<h3 id="read-bytevector/1">read-bytevector(K::scm_k()) -&gt; scm_bytevector() | scm_eof()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#read-bytevector/2" class="seealso">'read-bytevector'(K, 'current-input-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="read-bytevector/1-1">read-bytevector(K::scm_k(), Port::scm_port()) -&gt; scm_bytevector() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>Reads the next k bytes, or as many as are available before the
+  end of file, from the binary input port into a bytevector in
+  left-to-right order and returns the bytevector.  If no bytes are
+  available before the end of file, an end-of-file object is
+  returned.</p>
+</div></div>
+<div class="function">
+<h3 id="read-bytevector!/1">read-bytevector!(V::scm_bytevector()) -&gt; scm_k() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>_unsupported_</p>
+</div></div>
+<div class="function">
+<h3 id="read-bytevector!/1-1">read-bytevector!(V::scm_bytevector(), Port::scm_port()) -&gt; scm_k() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>_unsupported_</p>
+</div></div>
+<div class="function">
+<h3 id="read-bytevector!/1-2">read-bytevector!(V::scm_bytevector(), Port::scm_port(), Start::scm_start()) -&gt; scm_k() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>_unsupported_</p>
+</div></div>
+<div class="function">
+<h3 id="read-bytevector!/1-3">read-bytevector!(V::scm_bytevector(), Port::scm_port(), Start::scm_start(), End::scm_end()) -&gt; scm_k() | scm_eof()</h3>
+
+
+<div class="description">
+
+<p>_unsupported_</p>
+</div></div>
+<div class="function">
+<h3 id="newline/0">newline() -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#newline/1" class="seealso">newline('current-output-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="newline/1">newline(Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Writes an end of line to the textual output port.</p>
+</div></div>
+<div class="function">
+<h3 id="write-char/1">write-char(C::scm_char()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-char/2" class="seealso">'write-char'(C, 'current-output-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-char/1-1">write-char(Character::scm_char(), Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Writes the character char to the given textual output port.</p>
+</div></div>
+<div class="function">
+<h3 id="write-string/1">write-string(S::scm_string()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-string/2" class="seealso">'write-string'(S, 'current-output-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-string/1-1">write-string(String::scm_string(), Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-string/3" class="seealso">'write-string'(S, 'current-output-port'(), 0)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-string/1-2">write-string(String::scm_string(), Port::scm_port(), Start::scm_start()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-string/4" class="seealso">'write-string'(S, 'current-output-port'(), Start,
+	       'string-length'(S))</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-string/1-3">write-string(S::scm_string(), Port::scm_port(), Start::scm_start(), End::scm_end()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Writes the characters of string from start to end in
+  left-right order to the textual output port.</p>
+</div></div>
+<div class="function">
+<h3 id="write-u8/1">write-u8(B::scm_byte()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-u8/2" class="seealso">'write-u8'(B, 'current-output-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-u8/1-1">write-u8(B::scm_byte(), Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Writes the byte to the given binary output port.</p>
+</div></div>
+<div class="function">
+<h3 id="write-bytevector/1">write-bytevector(V::scm_bytevector()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-bytevector/2" class="seealso">'write-bytevector'(V, 'current-output-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-bytevector/1-1">write-bytevector(Bytevector::scm_bytevector(), Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-bytevector/4" class="seealso">'write-bytevector'(V, 'current-output-port'(), 0,
+		   'bytevector-length'(V))</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-bytevector/1-2">write-bytevector(Bytevector::scm_bytevector(), Port::scm_port(), Start::scm_start()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#write-bytevector/4" class="seealso">'write-bytevector'(V, 'current-output-port'(), Start,
+		   'bytevector-length'(V))</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="write-bytevector/1-3">write-bytevector(Bytevector::scm_bytevector(), Port::scm_port(), Start::scm_start(), End::scm_end()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Writes the bytes of bytevector from start to end in
+  left-to-right order to the binary output port.</p>
+</div></div>
+<div class="function">
+<h3 id="flush-output-port/0">flush-output-port() -&gt; scm_false()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#flush-output-port/1" class="seealso">'flush-output-port'('current-output-port'())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="flush-output-port/1">flush-output-port(Port::scm_port()) -&gt; scm_false()</h3>
+
+
+<div class="description">
+
+<p>Flushes any buffered output from the buffer of output port to
+  the underlying file or device.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Joseph Wayne Norton</aname>
+<email>norton@alum.mit.edu</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

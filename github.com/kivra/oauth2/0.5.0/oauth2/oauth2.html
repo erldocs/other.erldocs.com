@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>oauth2 (oauth2) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>oauth2</h1>
+<h2 class="modsummary">Erlang OAuth 2.0 implementation.</h2>
+<div class="description">
+<p>Erlang OAuth 2.0 implementation</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-appctx">appctx() = term()</h3></div>
+    <div class="type"><h3 id="type-auth">auth() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#authorization{client = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resowner = undefined | term(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scope = undefined | <a href="#type-scope" class="seealso">scope()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ttl = integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-context">context() = <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a></h3></div>
+    <div class="type"><h3 id="type-error">error() = access_denied<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_client<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_grant<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_request<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| invalid_scope<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unauthorized_client<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| unsupported_response_type<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| server_error<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| temporarily_unavailable</h3></div>
+    <div class="type"><h3 id="type-lifetime">lifetime() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-response">response() = <a href="oauth2_response.html#type-response" class="seealso">oauth2_response:response()</a></h3></div>
+    <div class="type"><h3 id="type-scope">scope() = [binary()] | binary()</h3></div>
+    <div class="type"><h3 id="type-token">token() = binary()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="authorize_password/1">authorize_password(UId::binary(), Pwd::binary(), Scope::scope(), AppCtx1::appctx()) -&gt; {ok, {appctx(), auth()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Authorizes a resource owner's credentials. Useful for
+       Resource Owner Password Credentials Grant and Implicit Grant.</p>
+</div></div>
+<div class="function">
+<h3 id="authorize_client_credentials/1">authorize_client_credentials(CId::binary(), CSecret::binary(), Scope::scope(), AppCtx1::appctx()) -&gt; {ok, {appctx(), auth()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Authorize client via its own credentials, i.e., a combination
+       of a public client identifier and a shared client secret.
+       Should only be used for confidential clients; see the OAuth2 draft
+       for clarification.</p>
+</div></div>
+<div class="function">
+<h3 id="authorize_code_grant/1">authorize_code_grant(CId::binary(), CSecret::binary(), Code::token(), RedirUri::binary(), AppCtx1::appctx()) -&gt; {ok, {appctx(), auth()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Authorize client via its own credentials, i.e., a combination       
+of a public client identifier and a shared client secret.       
+Should only be used for confidential clients; see the OAuth2 draft       
+for clarification.</p>
+ 
+       <p>Then verify the supplied RedirectionUri and Code and if valid issue
+       an Access Token and an optional Refresh Token</p>
+</div></div>
+<div class="function">
+<h3 id="authorize_code_request/1">authorize_code_request(CId::binary(), RedirUri::binary(), UId::binary(), Pwd::binary(), Scope::scope(), AppCtx1::appctx()) -&gt; {ok, {appctx(), auth()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Issue a Code via Access Code Grant</p>
+</div></div>
+<div class="function">
+<h3 id="issue_code/1">issue_code(Authorization::auth(), AppCtx1::appctx()) -&gt; {ok, {appctx(), response()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="issue_token/1">issue_token(Authorization::auth(), AppCtx1::appctx()) -&gt; {ok, {appctx(), response()}}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="issue_token_and_refresh/1">issue_token_and_refresh(Authorization::auth(), AppCtx1::appctx()) -&gt; {ok, {appctx(), response()}}</h3>
+
+
+<div class="description">
+
+<p>Issue an Access Token and a Refresh Token.
+       The OAuth2 specification forbids or discourages issuing a refresh token
+       when no resource owner is authenticated (See 4.2.2 and 4.4.3)</p>
+</div></div>
+<div class="function">
+<h3 id="verify_access_code/1">verify_access_code(AccessCode::token(), AppCtx1::appctx()) -&gt; {ok, {appctx(), context()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Verifies an access code AccessCode, returning its associated
+       context if successful. Otherwise, an OAuth2 error code is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="verify_access_code/1-1">verify_access_code(AccessCode::token(), Client::term(), AppCtx1::appctx()) -&gt; {ok, {appctx(), context()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Verifies an access code AccessCode and it's corresponding Identity,
+       returning its associated context if successful. Otherwise, an OAuth2
+       error code is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="refresh_access_token/1">refresh_access_token(CId::binary(), CSecret::binary(), RefreshToken::token(), Scope::scope(), AppCtx1::appctx()) -&gt; {ok, {appctx(), response()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Verifies an refresh token RefreshToken, returning a new Access Token
+       if successful. Otherwise, an OAuth2 error code is returned.</p>
+</div></div>
+<div class="function">
+<h3 id="verify_access_token/1">verify_access_token(AccessToken::token(), AppCtx1::appctx()) -&gt; {ok, {appctx(), context()}} | {error, error()}</h3>
+
+
+<div class="description">
+
+<p>Verifies an access token AccessToken, returning its associated
+       context if successful. Otherwise, an OAuth2 error code is returned.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>union_find (erlang-algorithms) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>union_find</h1>
+<h2 class="modsummary">Union / Find.</h2>
+<div class="description">
+<p>Union / Find</p>
+ 
+  <p>This module implements the Union / Find data structure.</p>
+ 
+  <p>
+    The implementation is based on ETS tables for the O(1) lookup.
+    It is optimized for the basic union / find operations:
+    </p><list>
+      <item><p>
+        <code>union/3</code> in <em>O(1)</em>
+      </p></item>
+      <item><p>
+        <code>find/2</code> in ammortized <em>O(m a(n, m))</em> where
+        <em>m &gt;= n</em> finds and <em>n</em> unions and <em>a(n, m)</em> is the
+        reverse Ackermann function. Practically, the overall
+        complexity is <em>O(m)</em>.
+      </p></item>
+      <item><p>
+        <code>singletons_from_list/1</code>, <code>singletons_from_list/2</code>
+        in <em>O(n)</em>.
+      </p></item>
+    </list><p>
+  </p>
+ 
+  <p>For examples you can check the <code>union_find_demo</code> module.</p>
+ </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-uf_find">uf_find() = term() | <a href="#type-uf_undef" class="seealso">uf_undef()</a></h3></div>
+    <div class="type"><h3 id="type-uf_forest">uf_forest() = <a href="ets.html#type-tid" class="seealso">ets:tid()</a></h3></div>
+    <div class="type"><h3 id="type-uf_size">uf_size() = integer() >= 1 | <a href="#type-uf_undef" class="seealso">uf_undef()</a></h3></div>
+    <div class="type"><h3 id="type-uf_undef">uf_undef() = {error, undef_element}</h3></div>
+    <div class="type"><h3 id="type-uf_union">uf_union() = true | <a href="#type-uf_undef" class="seealso">uf_undef()</a> | {error, not_parent_elements}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="singletons_from_list/1">singletons_from_list(L::[term(), ...]) -&gt; uf_forest()</h3>
+
+
+<div class="description">
+
+<p>Create a forest of singleton sets from a list of terms.</p>
+</div></div>
+<div class="function">
+<h3 id="singletons_from_list/1-1">singletons_from_list(Fun::function(), L::[term(), ...]) -&gt; uf_forest()</h3>
+
+
+<div class="description">
+
+<p>Create a forest of singleton sets from a list of terms.
+  </p><p>Same as <code>singletons_from_list/1</code> but it applies
+  <code>Fun</code> to each term before adding it to the forest.</p>
+</div></div>
+<div class="function">
+<h3 id="union/1">union(Forest::uf_forest(), X::term(), Y::term()) -&gt; uf_union()</h3>
+
+
+<div class="description">
+
+<p>Union of two sets.
+  </p><p>The parent elements of the two sets are needed.</p>
+</div></div>
+<div class="function">
+<h3 id="find/1">find(Forest::uf_forest(), X::term()) -&gt; uf_find()</h3>
+
+
+<div class="description">
+
+<p>Find the parent element of the set which a term belongs to.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Forest::uf_forest()) -&gt; true</h3>
+
+
+<div class="description">
+
+<p>Delete a forest</p>
+</div></div>
+<div class="function">
+<h3 id="set_size/1">set_size(Forest::uf_forest(), X::term()) -&gt; uf_size()</h3>
+
+
+<div class="description">
+
+<p>Return the size of the set which an element belongs to</p>
+</div></div>
+<div class="function">
+<h3 id="set_elements/1">set_elements(Forest::uf_forest(), X::term()) -&gt; [term(), ...]</h3>
+
+
+<div class="description">
+
+<p>Return a list of all the elements of the set
+  which an element belongs to.</p>
+</div></div>
+<div class="function">
+<h3 id="number_of_sets/1">number_of_sets(Forest::uf_forest()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Return the number of sets that exist in a forest</p>
+</div></div>
+<div class="function">
+<h3 id="pprint/1">pprint(Forest::uf_forest()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Pretty print the sets of a forest</p>
+</div></div></div>
+
+<authors>
+
+<aname>Aggelos Giantsios</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

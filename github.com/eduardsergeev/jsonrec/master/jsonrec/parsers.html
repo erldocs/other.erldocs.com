@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>parsers (jsonrec) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>parsers</h1>
+<h2 class="modsummary">   
+Monadic parser combinator library.</h2>
+<div class="description">
+<p>   
+Monadic parser combinator library</p>
+  
+   This library uses meta-programming to generate parsing code</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-failure">failure() = {error, any()}</h3></div>
+    <div class="type"><h3 id="type-input">input() = binary()</h3></div>
+    <div class="type"><h3 id="type-parser">parser/0</h3></div>
+    <div class="type"><h3 id="type-q_failure">q_failure() = <a href="meta.html#type-quote" class="seealso">meta:quote</a>(any())</h3></div>
+    <div class="type"><h3 id="type-q_failure_cont">q_failure_cont/0</h3></div>
+    <div class="type"><h3 id="type-q_input">q_input() = <a href="meta.html#type-quote" class="seealso">meta:quote</a>(<a href="#type-input" class="seealso">input()</a>)</h3></div>
+    <div class="type"><h3 id="type-q_parser">q_parser/0</h3></div>
+    <div class="type"><h3 id="type-q_parser_fun">q_parser_fun(Val) = quote(Val) (see module meta)</h3></div>
+    <div class="type"><h3 id="type-q_success_cont">q_success_cont/0</h3></div>
+    <div class="type"><h3 id="type-q_value">q_value() = <a href="meta.html#type-quote" class="seealso">meta:quote</a>(any())</h3></div>
+    <div class="type"><h3 id="type-success">success(Value) = {ok, {Value, input()}}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="return/1">return(QVal::quote(Val) (see module meta)) -&gt; q_parser(Val)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="bind/1">bind(Parser::q_parser(A), Fun::(quote(A) (see module meta)) -&gt; q_parser(B)) -&gt; q_parser(B)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fail/1">fail(QErr::quote(Error) (see module meta)) -&gt; q_parser(any())</h3>
+
+<ul class="type">
+<li><code>Error = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mplus/1">mplus(Left::q_parser(A), Right::q_parser(B)) -&gt; q_parser(A | B)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_bin/0">get_bin() -&gt; q_parser(input())</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lift/1">lift(QParser::quote(parser(Val)) (see module meta)) -&gt; q_parser(Val)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match/1">match(QC::quote(Char) (see module meta)) -&gt; q_parser(Char)</h3>
+
+<ul class="type">
+<li><code>Char = char() | string()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="matches/1">matches(QCs) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="matches/1-1">matches(QCs::[quote(Char) (see module meta)], QRs::[quote(Result) (see module meta)]) -&gt; q_parser(Result)</h3>
+
+<ul class="type">
+<li><code>Char = char() | string()</code></li><li><code>Result = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="guard/1">guard(QExpFun::quote((Char) -&gt; boolean()) (see module meta)) -&gt; q_parser(Char)</h3>
+
+<ul class="type">
+<li><code>Char = char() | string()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="many/1">many(Parser::q_parser(Val)) -&gt; q_parser([Val])</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="many_acc/1">many_acc(Parser::q_parser(Val), QAcc::quote([Val]) (see module meta)) -&gt; q_parser([Val])</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="skip_many/1">skip_many(Parser::q_parser(any())) -&gt; q_parser(ok)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="skip_many1/1">skip_many1(Parser::q_parser(any())) -&gt; q_parser(ok)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="count/1">count(QN::quote(integer()) (see module meta), Parser::q_parser(Val)) -&gt; q_parser([Val])</h3>
+
+<ul class="type">
+<li><code>Val = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sep_by_till/1">sep_by_till(Parser::q_parser(Val), Sep::q_parser(Sep), End::q_parser(End)) -&gt; q_parser([Val])</h3>
+
+<ul class="type">
+<li><code>Val = any()</code></li><li><code>Sep = any()</code></li><li><code>End = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sep_by_till1/1">sep_by_till1(Parser::q_parser(Val), Sep::q_parser(Sep), End::q_parser(End)) -&gt; q_parser([Val])</h3>
+
+<ul class="type">
+<li><code>Val = any()</code></li><li><code>Sep = any()</code></li><li><code>End = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sep_by_till_acc/1">sep_by_till_acc(Parser::q_parser(Val), Sep::q_parser(Sep), End::q_parser(End), QAcc) -&gt; q_parser([Val])</h3>
+
+<ul class="type">
+<li><code>Val = any()</code></li><li><code>Sep = any()</code></li><li><code>End = any()</code></li><li><code>QAcc = quote([Val]) (see module meta)</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sep_by_till_acc1/1">sep_by_till_acc1(Parser::q_parser(Val), Sep::q_parser(Sep), End::q_parser(End), QAcc) -&gt; q_parser([Val])</h3>
+
+<ul class="type">
+<li><code>Val = any()</code></li><li><code>Sep = any()</code></li><li><code>End = any()</code></li><li><code>QAcc = quote([Val]) (see module meta)</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sep_by_till_fold/5">sep_by_till_fold(Parser, Sep, End, QFun, QAcc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sep_by_till_fold1/5">sep_by_till_fold1(Parser, Sep, End, QFun, QAcc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="option/1">option(Parser::q_parser(Val), Val) -&gt; q_parser(Val)</h3>
+
+<ul class="type">
+<li><code>Val = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="left/1">left(Left::q_parser(A), Right::q_parser(any())) -&gt; q_parser(A)</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="right/1">right(Left::q_parser(any()), Right::q_parser(A)) -&gt; q_parser(A)</h3>
+
+<ul class="type">
+<li><code>A = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sequence/1">sequence(Qs::[quote(Q) (see module meta)]) -&gt; quote([Q]) (see module meta)</h3>
+
+<ul class="type">
+<li><code>Q = any()</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="to_parser/1">to_parser(Parser::q_parser(Val), QBin::q_input()) -&gt; parser(Val)</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Eduard Sergeev</aname>
+<email>eduard.sergeev@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

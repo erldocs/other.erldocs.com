@@ -1,0 +1,1 @@
+var index = [['app','beaterl','beaterl','[application]'],['mod','beaterl','album',[]],['mod','beaterl','beaterl_albums_controller',[]],['mod','beaterl','beaterl_custom_filters',[]],['mod','beaterl','beaterl_custom_tags',[]],['mod','beaterl','beaterl_home_controller',[]]];

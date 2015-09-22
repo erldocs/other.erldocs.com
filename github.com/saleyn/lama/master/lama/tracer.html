@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>tracer (lama) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>tracer</h1>
+<h2 class="modsummary">This module implements tracing support for function calls.</h2>
+<div class="description">
+<p>This module implements tracing support for function calls.  It is
+   similar to dbg:c/3, however it can return the trace as its result.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="tp/3">tp(M, F, Args) -&gt; Result::term()</h3>
+
+
+<div class="description">
+
+<p>Trace a function call and print trace result of all functions
+       in the M module to the console.</p>
+</div></div>
+<div class="function">
+<h3 id="tp/1">tp(M::atom(), F::atom(), Args::list(), MFs) -&gt; Result::term()</h3>
+
+<ul class="type">
+<li><code>MFs = [MF]</code></li><li><code>MF = atom() | {M::atom(), F::atom()}</code></li></ul>
+<div class="description">
+
+<p>Same as tp/5 with <code>Flags=call</code>.
+       In addition to {M,F} the trace will include modules/functions
+       listed in the MFs list.</p>
+</div></div>
+<div class="function">
+<h3 id="tp/5">tp(M, F, Args, MFs, Flags::FlagList) -&gt; Result::term()</h3>
+
+<ul class="type">
+<li><code>FlagList = [Flag::atom()]</code></li><li><code>MFs = [MF]</code></li><li><code>MF = atom() | {M::atom(), F::atom()}</code></li></ul>
+<div class="description">
+
+<p>Trace a function call and print trace result to the console.
+       <code>MFs</code> can contain <code>{M, F}</code> pairs or just <code>M</code> module names
+       that need to be traced.
+       See <a href="/home/pete/wefwefwef/docs/other/5386100215/lama-branch-master/kernel/doc/erlang.html#trace/3" class="seealso">//kernel/erlang:trace/3</a> for description of Flags.</p>
+</div></div>
+<div class="function">
+<h3 id="tf/3">tf(M, F, Args) -&gt; TraceList::term()</h3>
+
+
+<div class="description">
+
+<p>Trace a function call and return trace result.</p>
+</div></div>
+<div class="function">
+<h3 id="tf/4">tf(M, F, Args, MFs::Flags) -&gt; TraceList::term()</h3>
+
+
+<div class="description">
+
+<p>Trace a function call and return trace result.
+       See <a href="/home/pete/wefwefwef/docs/other/5386100215/lama-branch-master/kernel/doc/erlang.html#trace/3" class="seealso">//kernel/erlang:trace/3</a> for description of Flags.</p>
+</div></div>
+<div class="function">
+<h3 id="tf/1">tf(M::atom(), F::atom(), Args::list(), MFs, Flags) -&gt; TraceList::term()</h3>
+
+<ul class="type">
+<li><code>MFs = [MF]</code></li><li><code>MF = atom() | {M::atom(), F::atom()}</code></li></ul>
+<div class="description">
+
+<p>Trace a function call and return trace result.
+       In addition to {M,F} the trace will include modules/functions
+       listed in the MFs list.
+       See <a href="/home/pete/wefwefwef/docs/other/5386100215/lama-branch-master/kernel/doc/erlang.html#trace/3" class="seealso">//kernel/erlang:trace/3</a> for description of Flags.</p>
+</div></div>
+<div class="function">
+<h3 id="t/1">t(M::atom(), F::atom(), Args::list()) -&gt; {Result::term(), Trace::list()}</h3>
+
+
+<div class="description">
+
+<p>Same as t/5 with MFs=[M] and Flags='call'.</p>
+</div></div>
+<div class="function">
+<h3 id="t/1-1">t(M::atom(), F::atom(), Args::list(), MFs::list()) -&gt; {Result::term(), Trace::list()}</h3>
+
+
+<div class="description">
+
+<p>Same as t/5 with Flags='call'.</p>
+</div></div>
+<div class="function">
+<h3 id="t/1-2">t(M::atom(), F::atom(), Args::list(), MFs, Flags::list()) -&gt; {Result::term(), Trace}</h3>
+
+<ul class="type">
+<li><code>MFs = [MF]</code></li><li><code>MF = atom() | {M::atom(), F::atom()}</code></li><li><code>Trace = list() | Error</code></li><li><code>Error = atom()</code></li></ul>
+<div class="description">
+
+<p>Call M:F function with Args arguments, and return a tuple
+  {Result, Trace} containing call trace of functions in module M.</p>
+</div></div>
+<div class="function">
+<h3 id="t/8">t(M, F, Args, MFs, Items, Flags, Nodes, MatchFunc) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match_trace/1">match_trace(Ret) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="match_mtrace/1">match_mtrace(Ret) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="print_mtrace/1">print_mtrace(Trace) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="print_trace/1">print_trace(Trace) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>moyo_command (moyo) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>moyo_command</h1>
+<h2 class="modsummary">外部コマンドの実行に関する処理を集めたユーティリティモジュール.</h2>
+<div class="description">
+<p>外部コマンドの実行に関する処理を集めたユーティリティモジュール.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-argument">argument() = iodata()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {iodata(), [<a href="#type-argument_option" class="seealso">argument_option()</a>, ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-option_element" class="seealso">option_element()</a></h3></div>
+    <div class="type"><h3 id="type-argument_option">argument_option() = long_option<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| equal<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| escape<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="#type-float_option" class="seealso">float_option()</a></h3></div>
+    <div class="type"><h3 id="type-command">command() = <a href="#type-iodata_or_atom" class="seealso">iodata_or_atom()</a></h3></div>
+    <div class="type"><h3 id="type-destination_file_path">destination_file_path() = binary()</h3></div>
+    <div class="type"><h3 id="type-float_option">float_option() = {decimals, Decimals :: 0..253}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {scientific, Decimals :: 0..249}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| compact</h3></div>
+    <div class="type"><h3 id="type-iodata_or_atom">iodata_or_atom() = iodata() | atom()</h3></div>
+    <div class="type"><h3 id="type-option">option() = <a href="#type-port_settings" class="seealso">port_settings()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| escape_all<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stdout, <a href="#type-destination_file_path" class="seealso">destination_file_path()</a> | stderr}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stderr, <a href="#type-destination_file_path" class="seealso">destination_file_path()</a> | stdout}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| discard_stderr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {timeout, <a href="#type-time" class="seealso">time()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {nice, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {close_function, fun((port()) -> ok)}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stdout_hook_fun, {<a href="#type-stdout_hook_fun" class="seealso">stdout_hook_fun()</a>, term()}}</h3></div>
+    <div class="type"><h3 id="type-option_argument">option_argument() = iodata() | integer() | none</h3></div>
+    <div class="type"><h3 id="type-option_character">option_character() = <a href="#type-iodata_or_atom" class="seealso">iodata_or_atom()</a></h3></div>
+    <div class="type"><h3 id="type-option_element">option_element() = {<a href="#type-option_character" class="seealso">option_character()</a>, <a href="#type-option_argument" class="seealso">option_argument()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-option_character" class="seealso">option_character()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-option_argument" class="seealso">option_argument()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-argument_option" class="seealso">argument_option()</a>]}</h3></div>
+    <div class="type"><h3 id="type-port_settings">port_settings() = term()</h3></div>
+    <div class="type"><h3 id="type-stdout_hook_fun">stdout_hook_fun() = fun((binary() | {eol | noeol, binary()},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;term()) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;term() | binary())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| fun((exit, term()) -> binary())</h3></div>
+    <div class="type"><h3 id="type-time">time() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="generate_command/1">generate_command(Command::command(), ArgumentList::[argument()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>オプションリストからコマンド文字列(バイナリ)を生成する.</p>
+</div></div>
+<div class="function">
+<h3 id="generate_command/1-1">generate_command(Command::command(), ArgumentList::[argument()], OptionList::[option()]) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>オプションリストからコマンド文字列(バイナリ)を生成する.</p>
+ 
+  <p>【argument option】<br />
+  ● <code>long_option</code>: long optionにする("--"でオプションを指定する.).<br />
+  ● <code>equal</code>      : オプション文字とオプション引数の間を"="で繋ぐ.<br />
+  ● <code>escape</code>     : オプション引数をシングルクォーテーションでエスケープする.<br /></p>
+ 
+  <p>【argument option (小数)】<br />
+  ● <code>{scientific, 0..253}</code> : 小数を指数表記で出力する.数字は有効桁数.<br />
+  ● <code>{decimals, 0..249}</code>   : 小数を実数表記で出力する.数字は有効桁数.<br />
+  ● <code>compact</code>              : 後端のゼロを省く.<br />
+   (\*) デフォルトは<code>[{decimals, 4}]</code><br />
+   (\*) 表記方法が複数指定されている�&nbsp;�合,最も後に指定された表記方法が採用される.<br /></p>
+ 
+  <p>【option】<br />
+  ● <code>escape_all</code>            : 全てのオプション引数をエスケープする.<br />
+  ● <code>{stdout, Destination}</code> : 標準出力を指定先のファイルに出力する.
+                              Destinationには出力ファイル先を指定する.<br />
+  ● <code>{stderr, Destination}</code> : 標準エラー出力を指定先のファイルに出力する.
+                              Destinationには出力ファイル先を指定する.<br />
+  ● <code>discard_stderr</code>        : 標準エラー出力を/dev/nullに捨てる.<br />
+  ● <code>{timeout, Time}</code>       : Time <code>ミリ秒</code> で処理が終わらなかった�&nbsp;�合, タイ�&nbsp;アウトする.<br />
+  ● <code>{close_function, Fun}</code> : timeoutオプションでタイ�&nbsp;アウトした時の処理を明示的に指定する.<br />
+  ● <code>{stdout_hook_fun, {Fun, Init}}</code> : 標準出力をフィルタリングする.
+                                       Initに初期値を, Funは2引数の関数で第1引数に<code>exit</code>が来た�&nbsp;�合は<code>binary</code>を返す.</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1">execute(Command::command(), ArgumentList::[argument()]) -&gt; {{ok, Output} | {error, Reason}, FullCommandBinary}</h3>
+
+<ul class="type">
+<li><code>Output = binary()</code></li><li><code>Reason = term()</code></li><li><code>FullCommandBinary = binary()</code></li></ul>
+<div class="description">
+
+<p>外部コマンドを実行する.</p>
+</div></div>
+<div class="function">
+<h3 id="execute/1-1">execute(Command::command(), ArgumentList::[argument()], OptionList::[option()]) -&gt; {{ok, Output} | {error, Reason}, FullCommandBinary}</h3>
+
+<ul class="type">
+<li><code>Output = binary()</code></li><li><code>Reason = timeout | {exit_status, Status}</code></li><li><code>Status = integer()</code></li><li><code>FullCommandBinary = binary()</code></li></ul>
+<div class="description">
+
+<p>外部コマンドを実行する.</p>
+ 
+  <p>オプション
+  generate_commandのオプション + open_portのオプション</p>
+</div></div>
+<div class="function">
+<h3 id="escape_shell_arg/1">escape_shell_arg(Binary::binary()) -&gt; EscapedBinary::binary()</h3>
+
+
+<div class="description">
+
+<p>シングルクォーテーションで両端を囲み、バイナリ中のシングルクォーテーションをエスケープする.</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_parameters/1">reduce_parameters(Parameters::[any()]) -&gt; ValidParameters::[any()]</h3>
+
+
+<div class="description">
+
+<p>パラメータリストを整理する.</p>
+ 
+  <p>パラメータリストから<code>不必要な要�&nbsp;</code>を除く.
+  <code>不必要な要�&nbsp;</code>のdefaultは, <code>undefined</code>とする.</p>
+</div></div>
+<div class="function">
+<h3 id="reduce_parameters/1-1">reduce_parameters(Parameters::[any()], UnnecessaryParameters::[any()]) -&gt; ValidParameters::[any()]</h3>
+
+
+<div class="description">
+
+<p>パラメータリストを整理する.</p>
+ 
+  <p>パラメータリストから不必要な要�&nbsp;を除く.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

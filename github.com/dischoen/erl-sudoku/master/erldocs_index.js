@@ -1,0 +1,1 @@
+var index = [['app','erl-sudoku','erl-sudoku','[application]'],['mod','erl-sudoku','sudoku',[]],['mod','erl-sudoku','sudoku_test',[]],['fun','erl-sudoku','sudoku_test:do_test/0',[]],['fun','erl-sudoku','sudoku_test:do_test2/0',[]]];

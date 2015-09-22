@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>eulerlib (cebwrpgrhyre) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>eulerlib</h1>
+<h2 class="modsummary">Support library for solving problems from project-euler.com
+  in Erlang.</h2>
+<div class="description">
+<p>Support library for solving problems from project-euler.com
+  in Erlang.<br />
+  This library contains conveniance functions that can be reused
+  in-between problems. The praxis is that when a function is used by more
+  than one problem it is placed in this file.
+  This library is also a victim of me trying out edoc for the first time.
+  Just in case you wondered why the level of documentation is far better than
+  in all any other source file that I leave behind ;)</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="abs/1">abs(Num::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the absolute value of a number.</p>
+</div></div>
+<div class="function">
+<h3 id="parse_digits/1">parse_digits(Number::integer()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>Parses a base-10 number into digits.
+  The digits are returned in a 'big-endian' list.</p>
+<p><em>See also:</em> <a href="numlist_to_integer.html" class="seealso">numlist_to_integer</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="numlist_to_integer/1">numlist_to_integer(List::[integer()]) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Interprets a list as a base-10 integer number.
+  List is interpreted in a big-endian sense, and each position in the
+  list is interpreted as a power of 10 lower than the previous one.</p>
+<p><em>See also:</em> <a href="parse_digits.html" class="seealso">parse_digits</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="count_digits/1">count_digits(Number::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Counts the number of digits in a base-10 number.%</p>
+</div></div>
+<div class="function">
+<h3 id="fac/1">fac(Number::integer()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Calculates the faculty of a number.</p>
+</div></div>
+<div class="function">
+<h3 id="fib_iter/1">fib_iter(S) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Iterate thorugh all fibonacci numbers, c-style. Returns an updated state with the newest number as next.</p>
+</div></div>
+<div class="function">
+<h3 id="proper_divisors/1">proper_divisors(Number::integer()) -&gt; [integer()]</h3>
+
+
+<div class="description">
+
+<p>Returns all the proper divisors of a number.</p>
+</div></div>
+<div class="function">
+<h3 id="is_prime/1">is_prime(Number::integer()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Checks is a number is a prime or not.
+  Number that is tested must be a true integer, e.g 123 (123.0 is not ok).</p>
+</div></div>
+<div class="function">
+<h3 id="parse_int_problem_file/1">parse_int_problem_file(Filename::atom() | string()) -&gt; [[any()]]</h3>
+
+
+<div class="description">
+
+<p>Parses a plain text file containing integer problem data.
+  The data in the file must have Unix file endings '\n' and
+  the individual tokens in the file must be space separated.
+  The file is returned as a list of lists, one for each row
+  in the file.</p>
+</div></div>
+<div class="function">
+<h3 id="mapreduce/1">mapreduce(Mapper::(any()) -&gt; any(), Reducer::(Result::any(), Acc::any()) -&gt; Acc2::any(), Data::[any()], Acc0::any()) -&gt; AccN::any()</h3>
+
+
+<div class="description">
+
+<p>A simple map-reduce implementation.<br />
+  Mapper    =&gt; Function that does the mapping. Each mapper will be spawned
+               as a separate process. The Mapper takes a value of any type and
+               returns a result that will eventually be passed to the reducer.
+               <br />
+  Reducer   =&gt; Function that does the reduction. Will be spawned as one
+               process. Takes a result from the mapper along with an
+               accumulator, returns the new accumulator.
+               <br />
+  Data      =&gt; The data that each mapper should work on.
+               One mapper will be spawned for each term in this list.
+               <br />
+  Acc0      =&gt; Initial accumulator that will be passed to the reducer, along
+               with the response from the first mapper.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Rasmus Mattsson</aname>
+<email>[rasmus.m.mattsson] [at] [gmail] [dot] [com]</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

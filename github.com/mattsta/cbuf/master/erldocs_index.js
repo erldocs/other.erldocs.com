@@ -1,0 +1,1 @@
+var index = [['app','cbuf','cbuf','[application]'],['mod','cbuf','cbuf',[]],['mod','cbuf','cbuf_server',[]],['fun','cbuf','cbuf_server:code_change/3',[]],['fun','cbuf','cbuf_server:handle_call/3',[]],['fun','cbuf','cbuf_server:handle_cast/2',[]],['fun','cbuf','cbuf_server:handle_info/2',[]],['fun','cbuf','cbuf_server:init/1',[]],['fun','cbuf','cbuf_server:terminate/2',[]]];

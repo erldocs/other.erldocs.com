@@ -1,0 +1,1 @@
+var index = [['app','mongolbichig','mongolbichig','[application]'],['mod','mongolbichig','config',[]],['mod','mongolbichig','fea2dot',[]],['mod','mongolbichig','fea2html',[]],['mod','mongolbichig','fextractor',[]],['mod','mongolbichig','main',[]],['mod','mongolbichig','utils',[]],['fun','mongolbichig','fextractor:extract_feature/1',[]],['fun','mongolbichig','main:start/0',[]]];

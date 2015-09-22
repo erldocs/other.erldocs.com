@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erlydb_mnesia (erl4db) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erlydb_mnesia</h1>
+<h2 class="modsummary">This module implements the Mnesia driver for ErlyDB.</h2>
+<div class="description">
+<p>This module implements the Mnesia driver for ErlyDB.</p>
+ 
+  <p>This is an internal ErlyDB module that you normally shouldn't have to
+  use directly. For most situations, all you have to know
+  about this module is the options you can pass to <a href="#start/1" class="seealso">start/1</a>, which
+  is called by <a href="erlydb.html#start/2" class="seealso">erlydb:start/2</a>.  Currently (Erlyweb 0.6), no options are  
+recognized/used.</p>
+ 
+ 
+  <p><em><marker id="Contents">Contents</marker></em></p>
+ 
+  <p><a href="#Introduction" class="seealso">Introduction</a><br />
+  <a href="#Conventions" class="seealso">Conventions</a><br />
+  <a href="#Types" class="seealso">Types</a><br />
+  <a href="#Example" class="seealso">Example</a><br />
+  <a href="#What's_Not_Supported" class="seealso">What's Not Supported</a><br /></p>
+ 
+ 
+  <p><em><marker id="Introduction">Introduction</marker></em></p>
+ 
+  <p>Mnesia is Erlang's distributed DataBase Management System (DBMS).  Please read the  
+Mnesia Reference Manual for more information about Mnesia.</p>
+ 
+  <p>This driver executes Erlsql queries against Mnesia.  Most Erlsql queries are  
+dynamically converted into Query List Comprehension (QLC) expressions before  
+execution.  Please see the qlc module documentation for more information on QLC.  
+Please read the Erlsql documentation for more information on Erlsql.</p>
+ 
+  <p>This driver does not add relational support to Mnesia (constraints,  
+cascades, etc).  Some relational support for Mnesia has been implemented by  
+Ulf Wiger in the user contribution rdbms (see http://erlang.org/user.html).  
+For more information visit http://ulf.wiger.net/rdbms/doc/rdbms.html. You can download a more  
+recent version of rdbms at http://ulf.wiger.net/rdbms/download/.</p>
+ 
+ 
+  <p><em><marker id="Conventions">Conventions</marker></em></p>
+ 
+  <p>The driver uses a table named 'counter' for auto-incrementing (identity) primary key columns.  
+(only valid for set or ordered-set tables). The 'counter' table must be created  
+using the following:</p>
+ 
+  <p>mnesia:create_table(counter, [{disc_copies, [node()]}, {attributes, [key, counter]}])</p>
+ 
+  <p>The key column will contain table names of the mnesia tables utilizing identity columns.  The  
+counter contains the value of the last used identity (serial integer).  The counter is updated  
+using:</p>
+ 
+  <p>mnesia:dirty_update_counter(counter, Table, 1)</p>
+ 
+  <p>You can initialize/start the identity of a particular table by executing the above statement  
+with an arbitrary number (greater than 0).  The above operation is atomic (the function name  
+is misleading).  Please read the Mnesia docs for more information.  The use of the 'counter'  
+table is currently not customizable but that will hopefully change soon.</p>
+ 
+  <p>All columns named 'id' or ending with 'id' are treated as integers.  If the column named 'id'  
+is the first attribute (column) in the mnesia table, then it is also treated as an  
+auto-incrementing identity column.</p>
+ 
+ 
+  <p><em><marker id="Types">Types</marker></em></p>
+ 
+  <p>This driver stores all fields as binary unless the field name ends with id and in that  
+case the field is treated as an integer (as discussed above).  This can be customized  
+by utilizing the user_properties for a mnesia table. The driver will do a limited  
+amount of type conversion utilizing these properties. The driver will recognize  
+user_properties for a field if defined in the following format:</p>
+ 
+  <p>{Field, {Type, Modifier}, Null, Key, Default, Extra, MnesiaType}</p>
+ 
+  <p>where Field is an atom and must be the same as the field (attribute) name,  
+Type through Extra is are as defined in erlydb_field:new/6  
+MnesiaType is the type to store the field as in mnesia.</p>
+ 
+  <p>Currently, only the following values for MnesiaType are recognized:</p>
+ 
+  <p>atom, list, binary, integer, float, datetime, date, time, undefined</p>
+ 
+  <p>The erlydb_mnesia driver will attempt to convert field values into  
+the specified type before insertion/update/query of the record in  
+mnesia...  If the MnesiaType has a value of undefined then no type  
+conversion is attempted for the field.</p>
+ 
+ 
+  <p><em><marker id="Example">Example</marker></em></p>
+ 
+  <p>Given the following record:</p>
+ 
+  <p>-record(person, {myid, type, name, age, country, office, department, genre, instrument, created_on})</p>
+ 
+  <p>Create a Mnesia table with types for the driver using:</p>
+ 
+  <p>{atomic, ok} = mnesia:create_table(person, [			 
+{disc_copies, [node()]},			  
+{attributes, record_info(fields, person)},           
+{user_properties, [{myid, {integer, undefined}, false, primary, undefined, identity, integer},                              
+{type, {varchar, undefined}, false, undefined, undefined, undefined, atom},                              
+{age, {integer, undefined}, true, undefined, undefined, undefined, integer},                              
+{created_on, {datetime, undefined}, true, undefined, undefined, undefined, undefined}]}])</p>
+ 
+  <p>Note the following:  
+1) The primary key column is called myid and is an auto-incrementing integer column.  This is the     
+same as if the column had been named 'id'.  
+2) The type and age columns have customized types.  The driver will try to convert all values     
+inserted into the table into the specified types.  
+3) The created_on column is defined as a datetime for Erlyweb but is of type undefined for the     
+Mnesia driver.  This means that no type conversion will be attempted for the created_on     
+column resulting in a Erlang datetime tuple to be stored in the column     
+{{Year, Month, Day}, {Hour, Minute, Second}} or {datetime, {{Year, Month, Day},{Hour,Minute,Second}}}     
+depending on how you create the record (creating a record from strings will result in the     
+tuple beginning with datetime).  
+4) Changing the user property for the created_on column to specify a mnesia type of datetime like     
+{created_on, {datetime, undefined}, true, undefined, undefined, undefined, datetime}     
+will result in the erlang date time tuple {{Year,Month,Day},{Hour,Minute,Second}}     
+to be stored regardless of how the record was created (ie. it will strip the redundant     
+datetime atom from the tuple</p>
+ 
+ 
+  <p>See test/erlydb/erlydb_mnesia_schema for more examples of how to create mnesia tables  
+with user_properties...</p>
+ 
+ 
+  <p><em><marker id="What's_Not_Supported">What's Not Supported</marker></em></p>
+ 
+  <p>This driver is very much still alpha quality.  Much is not supported but the most glaring
+  are unions and sub-queries.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start/1">start(StartOptions::proplist()) -&gt; ok | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Start the Mnesia driver using the options property list.  Currently, no options are recognized.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_metadata/1">get_metadata(Options::proplist()) -&gt; gb_trees()</h3>
+
+
+<div class="description">
+
+<p>Get the table names and fields for the database.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="q/1">q(Statement) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="q/2">q(Statement, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="transaction/1">transaction(Fun::function(), Options::options()) -&gt; {atomic, Result} | {aborted, Reason}</h3>
+
+
+<div class="description">
+
+<p>Execute a group of statements in a transaction.
+    Fun is the function that implements the transaction.
+    Fun can contain an arbitrary sequence of calls to
+    the erlydb_mnesia's query functions. If Fun crashes or returns
+    or throws 'error' or {error, Err}, the transaction is automatically
+    rolled back.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="select/1">select(Statement::statement(), Options::options()) -&gt; {ok, Rows::list()} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Execute a statement against Mnesia.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="select_as/1">select_as(Module::atom(), Statement::statement(), Options::options()) -&gt; {ok, Rows} | {error, Error}</h3>
+
+
+<div class="description">
+
+<p>Execute a statement for records belonging to the given module,
+    	returning all rows with additional data to support
+    	higher-level ErlyDB features.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="update/1">update(Statement::statement(), Options::options()) -&gt; {ok, NumAffected} | {error, Err}</h3>
+
+
+<div class="description">
+
+<p>Execute a update to Mnesia.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_last_insert_id/1">get_last_insert_id(Table::atom(), Options::options()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Get the id of the last inserted record.
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Matthew Pflueger (matthew.pflueger@gmail.com)</aname>
+<email>Matthew Pflueger (matthew.pflueger@gmail.com)</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

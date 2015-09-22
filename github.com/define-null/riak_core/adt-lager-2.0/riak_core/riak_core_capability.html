@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_core_capability (riak_core) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_core_capability</h1>
+<h2 class="modsummary">  
+This module implements a cluster capability system that tracks the modes  
+supported by different nodes in the cluster and automatically determines  
+the most preferred mode for each capability that is supported by all nodes.</h2>
+<div class="description">
+<p>  
+This module implements a cluster capability system that tracks the modes  
+supported by different nodes in the cluster and automatically determines  
+the most preferred mode for each capability that is supported by all nodes.  
+The primary use of this system is to support seamless transitions between  
+different node versions during a rolling upgrade -- such as speaking an  
+old protocol while the cluster still contains older nodes, and then  
+switching to a newer protocol after all nodes have been upgraded.</p>
+ 
+  <p>The capability system exposes a simple <code>register</code> and <code>get</code> API, that  
+allows applications to register a given capability and set of supported  
+modes, and then retrieve the current mode that has been safely negotiated  
+across the cluster. The system also allows overriding negotiation through  
+application environment variables (eg. in app.config).</p>
+ 
+  <p>To register a capability and set of supported modes:
+    Use <a href="#register/3" class="seealso">register/3</a> or <a href="#register/4" class="seealso">register/4</a></p>
+ 
+  <p>To query the current negotiated capability:
+    Use <a href="#get/1" class="seealso">get/1</a> or <a href="#get/2" class="seealso">get/2</a></p>
+ 
+  <p>The capability system implements implicit mode preference. When registering  
+modes, the modes listed earlier in the list are preferred over modes listed  
+later in the list.</p>
+ 
+  <p>Users can override capabilities by setting the <code>override_capability</code> app
+  variable for the appropriate application. For example, to override the
+  <code>{riak_core, vnode_routing}</code> capability, the user could add the following
+  to <code>riak_core</code> section of <code>app.config</code>:</p>
+ 
+  <p>{override_capability,    
+[{vnode_routing,      
+[{use, some_mode},       
+{prefer, some_other_mode}]    
+}]  
+}</p>
+ 
+  <p>The two override parameters are <code>use</code> and <code>prefer</code>. The <code>use</code> parameter
+  specifies a mode that will always be used for the given capability,
+  ignoring negotiation. It is a forced override. The <code>prefer</code> parameter
+  specifies a mode that will be used if safe across the entire cluster.
+  This overrides the built-in mode preference, but still only selects the
+  mode if safe. When both <code>use</code> and <code>prefer</code> are specified, <code>use</code> takes  
+precedence.</p>
+ 
+  <p>There is no inherent upgrading/downgrading of protocols in this system.
+  The system is designed with the assumption that all supported modes can
+  be used at any time (even concurrently), and is concerned solely with
+  selecting the most preferred mode common across the cluster at a given
+  point in time.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="register/4">register(Capability, Supported, Default, LegacyVar) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Register a new capability providing a list of supported modes, the
+  default mode, and an optional mapping of how a legacy application variable
+  maps to different modes. The order of modes in <code>Supported</code> determines the
+  mode preference -- modes listed earlier are more preferred.</p>
+</div></div>
+<div class="function">
+<h3 id="register/3">register(Capability, Supported, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Register a new capability providing a list of supported modes as well
+  as the default value. The order of modes in <code>Supported</code> determines the mode
+  preference -- modes listed earlier are more preferred.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(Capability) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Query the current negotiated mode for a given capability, throwing an
+       exception if the capability is unknown or the capability system is
+       unavailable.</p>
+</div></div>
+<div class="function">
+<h3 id="get/2">get(Capability, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Query the current negotiated mode for a given capability, returning
+       <code>Default</code> if the capability system is unavailable.</p>
+</div></div>
+<div class="function">
+<h3 id="all/0">all() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return a list of all negotiated capabilities</p>
+</div></div>
+<div class="function">
+<h3 id="update_ring/1">update_ring(Ring) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Add the local node's supported capabilities to the given
+  ring. Currently used during the <code>riak-admin join</code> process</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(X1, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

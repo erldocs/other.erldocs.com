@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lama (lama) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lama</h1>
+<h2 class="modsummary">This module implements LAMA - Log and Alarm Management Applicaiton.</h2>
+<div class="description">
+<p>This module implements LAMA - Log and Alarm Management Applicaiton.
+   This module provides interface functions for .</p><p />
+  </div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-expected_type">expected_type() = ExpectedType</h3></div>
+    <div class="type"><h3 id="type-option">option() = {Option::atom(), Value::term()}</h3></div>
+    <div class="type"><h3 id="type-options">options() = [Option::option()]</h3></div>
+    <div class="type"><h3 id="type-typed_option">typed_option() = {Option::atom(), Value::term(), ExpType::expected_type()}</h3></div>
+    <div class="type"><h3 id="type-typed_options">typed_options() = [TypedOption::typed_option()]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Start LAMA application.  This is a shortcut for
+       application:start/1.</p>
+<p><em>See also:</em> <a href="application.html#start/1" class="seealso">application:start/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok | {error, Reason}</h3>
+
+
+<div class="description">
+
+<p>Stop LAMA application.  This is a shortcut for
+       application:stop/1.</p>
+<p><em>See also:</em> <a href="application.html#stop/1" class="seealso">application:stop/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="set_alarm/1">set_alarm(Alarm::alarm()) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>alarm() (see module lama_alarm_h)</code></li></ul>
+<div class="description">
+
+<p>Set alarm. This function
+       is equivalent to <a href="lama_alarm_h.html#set_alarm/1" class="seealso">lama_alarm_h:set_alarm/1</a>.</p>
+<p><em>See also:</em> <a href="#check_alarm/2" class="seealso">check_alarm/2</a>, <a href="lama_alarm_h.html#set_alarm/1" class="seealso">lama_alarm_h:set_alarm/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="clear_alarm/1">clear_alarm(AlarmId::alarm_id()) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>alarm_id() (see module lama_alarm_h)</code></li></ul>
+<div class="description">
+
+<p>Clear alarm that was previously set by set_alarm/1. This function
+       is equivalent to <a href="lama_alarm_h.html#clear_alarm/1" class="seealso">lama_alarm_h:clear_alarm/1</a>.</p>
+<p><em>See also:</em> <a href="#check_alarm/2" class="seealso">check_alarm/2</a>, <a href="lama_alarm_h.html#clear_alarm/1" class="seealso">lama_alarm_h:clear_alarm/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="check_alarm/1">check_alarm(Fun::function(), Alarm::alarm()) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>Fun = () -&gt; boolean() | {true, Varbinds}</code></li><li><code>Varbinds = list()</code></li><li><code>alarm() (see module lama_alarm_h)</code></li></ul>
+<div class="description">
+
+<p>Based on the return value of Fun set or clear an Alarm.</p>
+</div></div>
+<div class="function">
+<h3 id="get_alarms/0">get_alarms() -&gt; Alarms</h3>
+
+<ul class="type">
+<li><code>Alarms = [Alarm::alarm()]</code></li></ul>
+<div class="description">
+
+<p>Get currently active alarms.</p>
+</div></div>
+<div class="function">
+<h3 id="add_alarm_trap/1">add_alarm_trap(AlarmID::atom(), Trap::atom(), Varbinds::list()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Add an alarm to trap mapping to the internal #state.alarm_map list.
+  Same as <a href="lama_alarm_h.html#add_alarm_trap/3" class="seealso">lama_alarm_h:add_alarm_trap/3</a>.</p>
+<p><em>See also:</em> <a href="lama_alarm_h.html#add_alarm_trap/3" class="seealso">lama_alarm_h:add_alarm_trap/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_app_env/1">get_app_env(App::atom(), Key::atom(), Default::term()) -&gt; Value::term()</h3>
+
+
+<div class="description">
+
+<p>Fetch a value of the application's environment variable <code>Key</code>.
+       Use <code>Default</code> if that value is not set.</p>
+</div></div>
+<div class="function">
+<h3 id="get_app_opt/1">get_app_opt(App::atom(), Key::atom(), Default::term()) -&gt; Option::option()</h3>
+
+
+<div class="description">
+
+<p>Same as get_app_env/3, but returns an Option tuple {Key, Value}
+       rather than just a Value.</p>
+</div></div>
+<div class="function">
+<h3 id="get_app_env/1-1">get_app_env(App::atom(), Key::atom(), Default::term(), ExpectedType::expected_type()) -&gt; Value::term()</h3>
+
+
+<div class="description">
+
+<p>Fetch a value of the application's environment variable <code>Key</code>.
+       Use <code>Default</code> if that value is not set.  Perform validation of
+       value type given ExpectedType.</p>
+<p><em>See also:</em> <a href="#get_app_env/5" class="seealso">get_app_env/5</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_app_opt/1-1">get_app_opt(App::atom(), Key::atom(), Default::term(), ExpectedType::expected_type()) -&gt; Option::option()</h3>
+
+
+<div class="description">
+
+<p>Same as get_app_env/4 but returns a tuple {Key, Value} rather than
+       a Value.</p>
+<p><em>See also:</em> <a href="#get_app_env/4" class="seealso">get_app_env/4</a>, <a href="#get_opt/2" class="seealso">get_opt/2</a>, <a href="#get_opt/3" class="seealso">get_opt/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_app_options/1">get_app_options(App::atom(), DefOptions::options(), TypedOptions::typed_options()) -&gt; Options::options()</h3>
+
+
+<div class="description">
+
+<p>Look up TypedOptions in the environment. If not found use defaults
+       in the DefOptions list, and if not found there, use the default
+       value from a TypedOption's tuple: {_Key, DefaultValue, _Type}.
+  </p><pre class="sh_erlang">  Example:
+     start_application(StartArgs) -&gt;
+         get_app_options(test, StartArgs, [{file, "bar", string}]),
+         ... .
+ 
+     start_application([])              -&gt;   [{file, "bar"}]
+     start_application([{file, "foo"}]) -&gt;   [{file, "foo"}]
+ 
+     If application's environment had {file, "zzz"}, than this tuple
+     would've been returned instead.</pre>
+<p><em>See also:</em> <a href="#get_app_env/4" class="seealso">get_app_env/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_app_options2/1">get_app_options2(App::atom(), Overrides::options(), TypedOptions::typed_options()) -&gt; Options::options()</h3>
+
+
+<div class="description">
+
+<p>Same as get_app_options/3, but will override environment options
+       with values in the <code>Overrides</code> list, instead of using them as
+       defaults.</p>
+</div></div>
+<div class="function">
+<h3 id="get_opt/1">get_opt(Opt::atom(), Options) -&gt; term() | throw({error, Reason})</h3>
+
+<ul class="type">
+<li><code>Options = [{Option::atom(), Value::term()}]</code></li></ul>
+<div class="description">
+
+<p>Fetch the Option's value from the <code>Options</code> list</p>
+<p><em>See also:</em> <a href="#get_app_env/4" class="seealso">get_app_env/4</a>, <a href="#get_app_env/5" class="seealso">get_app_env/5</a>, <a href="#get_opt/3" class="seealso">get_opt/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_opt/1-1">get_opt(Opt::atom(), Options, Default::term()) -&gt; term()</h3>
+
+<ul class="type">
+<li><code>Options = [{Option::atom(), Value::term()}]</code></li></ul>
+<div class="description">
+
+<p>Same as get_opt/2, but instead of throwing an error, it returns
+       a <code>Default</code> value if the <code>Opt</code> is not in the <code>Options</code> list.</p>
+<p><em>See also:</em> <a href="#get_app_env/4" class="seealso">get_app_env/4</a>, <a href="#get_app_env/5" class="seealso">get_app_env/5</a>, <a href="#get_opt/2" class="seealso">get_opt/2</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="which_loggers/0">which_loggers() -&gt; {ok, Loggers}</h3>
+
+<ul class="type">
+<li><code>Loggers = [{Type, [Module::atom()]}]</code></li><li><code>Type = one | multi</code></li></ul>
+<div class="description">
+
+<p>Return a list of registered loggers.</p>
+</div></div>
+<div class="function">
+<h3 id="which_loggers/1">which_loggers(Type) -&gt; {ok, Loggers}</h3>
+
+<ul class="type">
+<li><code>Type = one | multi</code></li><li><code>Loggers = [Module::atom()]</code></li></ul>
+<div class="description">
+
+<p>Return a list of registered loggers.</p>
+</div></div>
+<div class="function">
+<h3 id="verify_config/1">verify_config(App::atom(), Options::TypedOptions) -&gt; ok | throw({error, Reason})</h3>
+
+<ul class="type">
+<li><code>TypedOptions = typed_options()</code></li></ul>
+<div class="description">
+
+<p>Fetch selected options from the application's environment and
+       perform type verification.</p>
+<p><em>See also:</em> <a href="#get_app_env/4" class="seealso">get_app_env/4</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="verify_config/1-1">verify_config(TypedOptions::typed_options()) -&gt; Options::options() | throw({error, Reason})</h3>
+
+
+<div class="description">
+
+<p>For each <code>Option</code> in the <code>Options</code> list
+       perform type verification.</p>
+</div></div>
+<div class="function">
+<h3 id="os_path/1">os_path(OsPath) -&gt; Path::string()</h3>
+
+<ul class="type">
+<li><code>OsPath = string() | binary()</code></li></ul>
+<div class="description">
+
+<p>Perform replacement of environment variable values in the OsPath.
+  </p><pre class="sh_erlang">     Example:
+        lama:os_path("~/${HOME}/myapp") -&gt; "/home/user//home/user/myapp"</pre>
+<p><em>See also:</em> <a href="os.html#getenv/1" class="seealso">os:getenv/1</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="create_release_file/2">create_release_file(TemplateRelFile, OutRelFile) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>TemplateRelFile = filename()</code></li><li><code>OutRelFile = filename()</code></li></ul>
+<div class="description">
+
+<p>Create a release file given a release template file.</p>
+<p><em>See also:</em> <a href="#create_release_file/3" class="seealso">create_release_file/3</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="create_release_file/3">create_release_file(TemplateRelFile, OutRelFile, Vsn) -&gt; ok</h3>
+
+<ul class="type">
+<li><code>TemplateRelFile = filename()</code></li><li><code>OutRelFile = filename()</code></li><li><code>Vsn = string()</code></li></ul>
+<div class="description">
+
+<p>Create a release file given a release template file.  The
+       release template file should have the same structure as the
+       release file.  This function will ensure that latest
+       application versions are included in the release.  It will
+       also ensure that the latest erts version is specified in
+       the release file.  Note that both arguments may contain the
+       ".rel" extension, however the actual TemplateRelFile must
+       have a ".rel" extension.  The TemplateRelFile doesn't need
+       to contain application version numbers - an empty string will
+       do: <code>{kernel, ""}</code>.  This function will populate
+       the version number with current version of the application.
+       <code>Vsn</code> is the version number associated with the generated
+       release file.  If it is <code>undefined</code>, the version from the
+       <code>TemplateRelFile</code> will be used.
+  </p><pre class="sh_erlang">  Example:
+    lama:create_release_file(".drp.template.rel", "./ebin/drp.rel").</pre>
+</div></div>
+<div class="function">
+<h3 id="format_pid/1">format_pid(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="filename/1">filename(Filename::string(), X2::Date) -&gt; string()</h3>
+
+<ul class="type">
+<li><code>Date = date() | date | undefined</code></li></ul>
+<div class="description">
+
+<p>Create a filename by (optionally) appending ".YYYYMMDD" to
+       <code>Filename</code>.  The date suffix is appended only if Date is passed
+       as <code>date()</code> or <code>date</code>.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Serge Aleynikov</aname>
+<email>saleyn@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

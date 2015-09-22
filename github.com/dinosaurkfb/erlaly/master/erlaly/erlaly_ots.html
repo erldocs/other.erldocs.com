@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>erlaly_ots (erlaly) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>erlaly_ots</h1>
+<h2 class="modsummary">This is an client implementation for Aliyun's OTS WebService.</h2>
+<div class="description">
+<p>This is an client implementation for Aliyun's OTS WebService
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="init/1">init(OTS_ACCESS_ID::string(), OTS_ACCESS_KEY::string()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Initialize OTS access information.</p>
+ 
+  <p>The provided access id and access key are stored in an ets table
+  named as "erlaly_ots" which is the module name. Make sure this name
+  is not used elsewhere. As the ets table is global, erlaly_ots does
+  not support requests from different access ids simultaneously.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create_table/1">create_table(Table) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Table = table()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Create a table in OTS.</p>
+ 
+  <p>At least table name and primary keys are required to create a table  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="list_table/0">list_table() -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, Tables, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>TableNames = [string()]</code></li></ul>
+<div class="description">
+
+<p>List all tables in OTS.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="list_table_group/0">list_table_group() -&gt; Result</h3>
+
+<ul class="type">
+<li><code>Result = {ok, TableGroups, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>TableGroups = [string()]</code></li></ul>
+<div class="description">
+
+<p>List all table groups in OTS.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_table_group/1">delete_table_group(GroupName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>GroupName = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Delete a table group in OTS.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="create_table_group/2">create_table_group(GroupName, PartitionKeyType) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>GroupName = string()</code></li><li><code>PartitionKeyType = atom()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Create a table group in OTS.</p>
+ 
+  <p>A table group name and partition key type are required to create a  
+table group.  
+Partition key type can only be integer or string.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="delete_table/1">delete_table(TableName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Delete a table in OTS.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="get_table_meta/1">get_table_meta(TableName) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>Result = {ok, Table, RequestId, HostId} | {error, Desc}</code></li><li><code>Table = table()</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get a table's META in OTS.</p>
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="start_transaction/2">start_transaction(EntityName, PartitionKeyValue) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>EntityName = string()</code></li><li><code>PartitionKeyValue = string() | integer()</code></li><li><code>Result = {ok, TransactionID, RequestId, HostId} | {error, Desc}</code></li><li><code>TransactionID = string()</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Start a transaction in OTS table or table group.</p>
+ 
+  <p>A table or table group name and a partition key value are required  
+to start a transaction.  
+Partition key value can only be integer or string type.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf
+ </p>
+</div></div>
+<div class="function">
+<h3 id="commit_transaction/1">commit_transaction(TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TransactionID = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Commit a transaction.</p>
+ 
+  <p>The transaction ID will be invalid after a successful commit.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="abort_transaction/1">abort_transaction(TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TransactionID = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Abort a transaction.</p>
+ 
+  <p>All operations during this transaction will be canceled.  
+The transaction ID will be invalid after this transaction abort.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="put_data/3">put_data(TableName, Data_op::DataOp, TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>TransactionID = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Put a row of data in OTS.</p>
+ 
+  <p>At least table name and data operation are required to put data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="put_data/2">put_data(TableName, Data_op::DataOp) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Put a row of data in OTS.</p>
+ 
+  <p>At least table name and data operation are required to put data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="get_row/3">get_row(TableName, Data_op::DataOp, TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>TransactionID = string()</code></li><li><code>Result = {ok, Columns, RequestId, HostId} | {error, Desc}</code></li><li><code>Columns = [column()]</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>Code = string()</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get a row of data in OTS.</p>
+ 
+  <p>At least table name and data operation are required to get data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="get_row/2">get_row(TableName, Data_op::DataOp) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>Result = {ok, Columns, RequestId, HostId} | {error, Desc}</code></li><li><code>Columns = [column()]</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get a row of data in OTS.</p>
+ 
+  <p>At least table name and data operation are required to get data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="get_rows_by_offset/3">get_rows_by_offset(TableName, Data_op::DataOp, TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>TransactionID = string()</code></li><li><code>Result = {ok, Columns, RequestId, HostId} | {error, Desc}</code></li><li><code>Columns = [column()]</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get multi rows of data from OTS table or views by offset.</p>
+ 
+  <p>At least table name and data operation are required to get data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="get_rows_by_offset/2">get_rows_by_offset(TableName, Data_op::DataOp) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>Result = {ok, Columns, RequestId, HostId} | {error, Desc}</code></li><li><code>Columns = [column()]</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get multi rows of data from OTS table or views by range.</p>
+ 
+  <p>At least table name and data operation are required to get data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="get_rows_by_range/3">get_rows_by_range(TableName, Data_op::DataOp, TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>TransactionID = string()</code></li><li><code>Result = {ok, Columns, RequestId, HostId} | {error, Desc}</code></li><li><code>Columns = [column()]</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get multi rows of data from OTS table or views by range.</p>
+ 
+  <p>At least table name and data operation are required to get data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="get_rows_by_range/2">get_rows_by_range(TableName, Data_op::DataOp) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>Result = {ok, Columns, RequestId, HostId} | {error, Desc}</code></li><li><code>Columns = [column()]</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Get multi rows of data from OTS table or views by range.</p>
+ 
+  <p>At least table name and data operation are required to get data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="delete_data/3">delete_data(TableName, Data_op::DataOp, TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>TransactionID = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Code = string()</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Delete a row of data in OTS.</p>
+ 
+  <p>At least table name and data operation are required to delete data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="delete_data/2">delete_data(TableName, Data_op::DataOp) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Code = string()</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Delete a row of data in OTS.</p>
+ 
+  <p>At least table name and data operation are required to delete data  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div>
+<div class="function">
+<h3 id="batch_modify_data/3">batch_modify_data(TableName, DataOps::[DataOp], TransactionID) -&gt; Result</h3>
+
+<ul class="type">
+<li><code>TableName = string()</code></li><li><code>DataOp = data_op()</code></li><li><code>TransactionID = string()</code></li><li><code>Result = {ok, Code, RequestId, HostId} | {error, Desc}</code></li><li><code>Code = string()</code></li><li><code>Desc = {ErrorCode, ErrorMsg, RequestId, HostId}</code></li><li><code>RequestId = {requestId, string()}</code></li><li><code>HostId = {hostId, string()}</code></li><li><code>ErrorCode = string()</code></li><li><code>ErrorMsg = string()</code></li></ul>
+<div class="description">
+
+<p>Multiple put_data or delete_data operations in one request.</p>
+ 
+  <p>Table name and data operation list and transaction id are required  
+to finish this request.  
+The table name must be unique among the tables associated with your  
+aliyun Access ID.</p>
+ 
+ 
+  <p>See document:
+  http://ots.aliyun.com/ots_sdk/OTS_RESTful_API_2012_01_06.pdf</p>
+</div></div></div>
+
+<authors>
+
+<aname>Kong Fanbin</aname>
+<email>kfbuniversity@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

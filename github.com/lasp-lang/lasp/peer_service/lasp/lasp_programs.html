@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>lasp_programs (lasp) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>lasp_programs</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-crdt">crdt() = <a href="riak_dt.html#type-crdt" class="seealso">riak_dt:crdt()</a></h3></div>
+    <div class="type"><h3 id="type-file">file() = iolist()</h3></div>
+    <div class="type"><h3 id="type-idx">idx() = term()</h3></div>
+    <div class="type"><h3 id="type-module">module() = atom()</h3></div>
+    <div class="type"><h3 id="type-object">object() = <a href="#type-crdt" class="seealso">crdt()</a></h3></div>
+    <div class="type"><h3 id="type-reason">reason() = put | handoff | delete</h3></div>
+    <div class="type"><h3 id="type-registration">registration() = preflist | global</h3></div>
+    <div class="type"><h3 id="type-result">result() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="register/1">register(Module::module(), File::file(), Registration::registration(), Options::[{atom(), term()}]) -&gt; ok | {error, timeout} | error</h3>
+
+
+<div class="description">
+
+<p>Register an application.</p>
+ 
+       <p>Register a program with a lasp cluster.</p>
+ 
+       <p>This function will, given the path to a local file on each node,       
+read, compile, parse_transform, and load the library into       
+memory, with a copy at each replica, customized with a unique       
+name, to ensure multiple replicas can run on the same physical       
+node.</p>
+ 
+       <p><code>Module</code> should be the name you want to refer to the program as
+       when executing it using <a href="#execute/2" class="seealso">execute/2</a>.</p>
+ 
+       <p><code>File</code> is the path to the file on the node receiving the       
+register request.</p>
+ 
+       <p>When the last argument is <code>preflist</code>, the programs name will be
+       hashed and installed on <code>?N</code> replicas; when the last argument is
+       <code>global</code>, a copy will be installed on all replicas.</p>
+ 
+       <p>Programs must implement the <code>lasp_program</code> behavior to be
+       correct.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="execute/1">execute(Module::module(), Registration::registration()) -&gt; {ok, result()} | {error, timeout} | error</h3>
+
+
+<div class="description">
+
+<p>Execute an application.</p>
+ 
+       <p>Given a registered program using <a href="#register/3" class="seealso">register/3</a>, execute the       
+program and receive it's result.</p>
+ 
+       <p>When executing a <code>preflist</code> program, contact <code>?N</code> replicas, wait
+       for a majority and return the merge of the results.  When
+       executing a <code>global</code> program, use the coverage facility of
+       <code>riak_core</code> to compute a minimal covering set (or specify a <code>?R</code>
+       value, and contact all nodes, merging the results.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="register/0">register() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Register all known programs; used by Lasp during initialization.</p>
+</div></div>
+<div class="function">
+<h3 id="process/1">process(Object::object(), Reason::reason(), Idx::idx(), Node::node()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Process notifications for all registered programs.</p>
+ 
+       <p>Notify a given partition at a given node that an object has
+       changed for a particular reason.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="process/1-1">process(Module::module(), X2::registration(), Object::object(), Reason::reason(), Idx::idx(), Node::node()) -&gt; {ok, result()} | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Notification of value change.</p>
+ 
+       <p>Notify a given partition at a given node that an object has
+       changed for a particular reason.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

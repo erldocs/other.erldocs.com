@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>entl_db (entl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>entl_db</h1>
+<h2 class="modsummary">Entitlements persistent layer.</h2>
+<div class="description">
+<p>Entitlements persistent layer.
+ 		Persists permission requests in mnesia databases.
+ 		Provides layer of abstraction to accomodate new requests submission, retrieval.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="create_db/0">create_db() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates entitlements and requests database
+ </p>
+</div></div>
+<div class="function">
+<h3 id="place_request/1">place_request(Permission::any(), Handler::fun(any())) -&gt; ref()</h3>
+
+
+<div class="description">
+
+<p>Agent calls this method to claim request
+ </p>
+</div></div>
+<div class="function">
+<h3 id="take_request/1">take_request(WorkerPID::pid(), ReqId::ref()) -&gt; {atomic, {failed, already_taken}} | {atomic, ok}</h3>
+
+
+<div class="description">
+
+<p>Agent calls this method to claim request
+ </p>
+</div></div>
+<div class="function">
+<h3 id="done_request/1">done_request(ReqId::ref()) -&gt; {atomic, Request::request}</h3>
+
+
+<div class="description">
+
+<p>Agent calls this method to indicate that the request was processed
+ </p>
+</div></div>
+<div class="function">
+<h3 id="revisit_what_is_left_off/1">revisit_what_is_left_off(WorkerPID::pid()) -&gt; {atomic, ok}</h3>
+
+
+<div class="description">
+
+<p>Agent calls this method on agent's startup to force rescan of 'taken' requests to make sure that
+ 		dead agents's requests can be reprocessed.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="all_new_requests/0">all_new_requests() -&gt; [Request]</h3>
+
+
+<div class="description">
+
+<p>Returns list of 'new' requests
+ </p>
+</div></div></div>
+
+<authors>
+
+<aname>Alexander Aprelev</aname>
+<email>alexander.aprelev@db.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

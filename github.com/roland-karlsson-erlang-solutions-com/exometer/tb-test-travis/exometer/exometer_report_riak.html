@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>exometer_report_riak (exometer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>exometer_report_riak</h1>
+<h2 class="modsummary">Custom reporting probe for riak.</h2>
+<div class="description">
+<p>Custom reporting probe for riak</p>
+ 
+  <p><em>TODO: Add wildcards</em>
+  <em>TODO: Add escape sequences</em>
+  <em>TODO: Add functional argument to list.</em></p>
+ 
+  <p>The riak reporter implements a custom, ascii line based  
+protocol to manage subscriptions and report metrics.</p>
+ 
+  <p>For security and performance reasons, the protocol runs over unix  
+sockets.  The protocol is divided into two different parts.  The  
+riak reporter server accepts inbound connections on a configurable,  
+well known unix socket, where metrics collectors who wants metric  
+data can connect and manage their subscriptions.</p>
+ 
+  <p>When a subscription is setup by a metrics collector, the collector  
+will specify a reporting (unix) socket that the subscribed-to  
+metric should be delivered to. The riak reporter will, at given  
+intervals, deliver the updated metrics to the socket and its  
+collector. Subscriptions for several different metrics can be  
+reported to the same socket by having several suscription commands  
+refer to the same unix socket file path.</p>
+ 
+  <p>The riak reporter will setup an outbound client connection to a  
+metrics collector when the first subscription referring to it is  
+received. The outbound connection to the collector will be  
+terminated when the last subscription referring to it is cancelled  
+with an unsubscribed command.</p>
+ 
+  <p><em><marker id="Getting_Started">Getting Started</marker></em></p>
+ 
+  <p>Tests are done with three components:</p>
+ 
+  <p>+ Exometer test environment<br />Erlang is started and the exometer    
+application is launched.</p>
+ 
+  <p>+ Command connection<br />A unix domain client socket connection is
+    setup to the riak reporter executing inside exometer. This socket
+    is used to issue the commands listed under <a href="#Riak_Reporter_Server_Protocol" class="seealso">Riak Reporter Server Protocol</a>.</p>
+ 
+  <p>+ Metrics Collector<br />A unix domain server socket is
+    setup that will receive subscribed-to metrics from the riak reporter,
+    as described in the <a href="#Riak_Reporter_Client_Protocol" class="seealso">Riak Reporter Client Protocol</a>.</p>
+ 
+  <p><em><marker id="Setting_up_app.config">Setting up app.config</marker></em></p><p>  
+The exometer riak reporter needs to be configured in the exometer  
+application in order for the reporter to be started by exometer.  
+Below is a sample file</p>
+ 
+  <pre lang="erlang">
+   {exometer, [
+          {defaults,
+           [{['_'], function , [{module, exometer_function}]},
+            {['_'], counter  , [{module, exometer}]},
+            {['_'], histogram, [{module, exometer_histogram}]},
+            {['_'], spiral   , [{module, exometer_spiral}]},
+            {['_'], duration , [{module, exometer_folsom}]},
+            {['_'], meter    , [{module, exometer_folsom}]},
+            {['_'], gauge    , [{module, exometer_folsom}]}
+           ]},
+       {report,
+      { reporters, [
+          { exometer_report_riak, [
+          { server_path, "/tmp/riak_reporter.ux" }
+          }]
+       }]
+     }]
+   }</pre>
+ 
+  <p>The <code>defaults</code> section maps symbolic metric types (<code>histogram</code>,
+  <code>spiral</code>, etc) to exometer plugin code to store and process the  
+actual metrics. See the exometer project README file for details.</p>
+ 
+  <p>The report section specifies the exometer reporter plugins to
+  launch.  In this case we will only setup
+  <code>exometer_report_riak</code>. See the exometer project README file for  
+details.</p>
+ 
+  <p>The only supported exometer riak reporter option is <code>server_path</code>,
+  which specifies the unix domain socket that the riak reporter shall
+  setup for incoming connections. The default value is
+  <code>/tmp/exometer_report_riak.ux</code>.</p>
+ 
+  <p><em><marker id="Starting_Exometer">Starting Exometer</marker></em></p>
+ 
+  <p>Start erlang, with the correct paths to exometer and its  
+dependencies, and execute the following commands:</p>
+ 
+  <pre lang="erlang">
+  lager:start().
+  application:start(exometer).</pre>
+ 
+  <p><em><marker id="Starting_the_command_connection">Starting the command connection</marker></em></p><p>  
+Setup a unix domain client conneciton using the netcat command:</p>
+ 
+  <pre class="sh_erlang">nc -vU /tmp/exometer_report_riak.ux</pre>
+ 
+  <p>Replace the <code>/tmp/exometer_report_riak.ux</code> path with the path
+  specified by the <code>server_path</code> option in <code>app.config</code>.
+  This connection will be used to issue <code>subscribe</code>, <code>unsubscribe</code>,
+  and <code>list</code> commands.</p>
+ 
+  <p><em><marker id="Starting_the_metrics_collector_server">Starting the metrics collector server</marker></em></p><p>  
+Setup a unix domain server using the netcat command:</p>
+ 
+  <pre class="sh_erlang">nc -lvkU /tmp/test.ux</pre>
+ 
+  <p>This server will receive the metrics subscribed to through  
+the previously setup command connection.</p>
+ 
+  <p><em><marker id="Creating_metrics">Creating metrics</marker></em></p>
+ 
+  <p>Metrics can be setup and updated directly from the erlang prompt.  
+Add a metric with the following command:</p>
+ 
+  <pre lang="erlang">
+  exometer:new([a,b,c], histogram).</pre>
+ 
+  <p>The <code>[a,b,c]</code> list is a unique metric identifier (or path).<br />
+  The <code>histogram</code> is the symbolic type that is mapped to the
+  <code>exometer_historgram</code> module through <code>app.config</code>. In its default
+  behavior, <code>exometer_historgram</code> stores 60 seconds worth of metrics,
+  and provides various statistics on the stored metrics. Please see
+  the <code>exometer_histogram</code> module documentation for details.</p>
+ 
+  <p><em><marker id="Subscribing_to_metrics">Subscribing to metrics</marker></em></p><p>
+  The created <code>[a,b,c]</code> metric can be subscribed to through the command connection  
+created above.</p>
+ 
+  <p>Send the following command to the riak reporter through the command connection</p>
+ 
+  <pre class="sh_erlang">subscribe test_host a/b/c/min 5000 /tmp/test.ux</pre>
+ 
+  <p>Please see the <a href="#subscribe" class="seealso">subscribe</a> section for details on the command.
+  Once setup, the riak reporter will report the value of the <code>min</code> data point
+  residing in the <code>[a,b,c]</code> metric ever 5000 milliseconds. The reporting will
+  be done to <code>/tmp/test.ux</code> socket, served by metrics collector server  
+created above.</p>
+ 
+  <p>Every five seconds, the following line will be reported to the collector server</p>
+ 
+  <pre class="sh_erlang">report test_host 1385918754 a_b_c_min 0</pre>
+ 
+  <p>Please see the <a href="#report" class="seealso">report</a> section for details on the report command.</p>
+ 
+  <p><em><marker id="Updating_the_metric">Updating the metric</marker></em></p>
+ 
+  <p>Once created, the metric can be updated with data. Execute the  
+following commands in the erlang prompt.</p>
+ 
+  <pre lang="erlang">
+  exometer:update([a,b,c], 1).
+  exometer:update([a,b,c], 2).
+  exometer:update([a,b,c], 3).
+  exometer:update([a,b,c], 4).</pre>
+ 
+  <p>Four values are stored in the <code>[a,b,c]</code> metric. Please note that these  
+values will expire after 60 seconds, thus resetting the metric.</p>
+ 
+  <p>The <code>report</code> command sent to the metrics collector will change accordingly:</p>
+ 
+  <pre class="sh_erlang">report test_host 1385918754 a_b_c_min 1.000000</pre>
+ 
+  <p>Additional subscriptions can be setup for the same metrics, but with different  
+datapoints:</p>
+ 
+  <pre class="sh_erlang">  subscribe test_host a/b/c/max 5000 /tmp/test.ux
+  subscribe test_host a/b/c/95 5000 /tmp/test.ux
+  subscribe test_host a/b/c/mean 5000 /tmp/test.ux</pre>
+ 
+  <p><em><marker id="Protocol_Characteristics">Protocol Characteristics</marker></em></p>
+ 
+  <p>+ Line Based<br />Each command in the protocol is transmitted as a         
+newline-terminated ($10) line.</p>
+ 
+  <p>+ Field Based<br />Each command line in the protocol is separated into         
+space-separated fields.</p>
+ 
+  <p>+ Escape Characters<br />A newline can be a part of a field payload
+         if it is escaped with a backslash (<code>\n</code>).<br />A space can be
+         a part of a field payload if it is escaped with a backslash
+         (<code>\</code>).<br />A backslash can be a part of a field payload if
+         it is escaped with a backslash (<code>\\</code>).</p>
+ 
+  <p><em><marker id="Riak_Reporter_Server_Protocol">Riak Reporter Server Protocol</marker></em></p><p>  
+The server protocol is used to list, subscribe to, and unsubscribe  
+from metrics and data points.  The following commands are supported  
+on the inbound unix socket served by the riak reporter.</p>
+ 
+  <p><em><marker id="subscribe">subscribe</marker></em></p>
+ 
+  <p>The subscribe command sets up the periodic delivery of the given
+  metric and data point to a unix unix socket and its serving metrics
+  collector. The delivery will continue until either the server
+  listening to <code>[socket]</code> shuts down, or a corresponding
+  <code>unsubscribe</code> command is received.</p>
+ 
+  <p>If this is the first <code>subscribe</code> call that refers to <code>[socket]</code>,
+  the riak reporter will setup an outbound client connection to it
+  that will remain up until either the socket server shuts down, or
+  the last metric referring to <code>[socket]</code> is unsubscribed from
+  through an <code>unsubscribe</code> command.</p>
+ 
+  <p>The same metric / data point pair can be subscribed to multiple times
+  with different <code>[socket]</code> paths.</p>
+ 
+  <p><em><marker id="Request_Format">Request Format</marker></em>
+  </p><pre class="sh_erlang">subscribe [hostid] [metric]/[datapoint] [interval] [socket]</pre>
+ 
+ <p>+ <code>[hostid]</code><br /> Specifies the hostid that should be used when     
+reporting this metric This allows for multiple riak reporters to     
+send metric data to to a single collector server, thus allowing     
+the server to distinguish between different reporters through     
+their individual host ids.</p>
+ 
+ <p>+ <code>[metric]</code><br />Identifies the metric that is to be sampled and delivered.
+     Each element in the atom list is separated by a slash (<code>/</code>).
+     Thus <code>[db, cache, hits]</code> is identified as 'db/cache/hits'.</p>
+ 
+ <p>+ <code>[datapoint]</code><br />Identifies the data point within the metric     
+that is to be sampled and delivered.</p>
+ 
+ <p>+ <code>[interval]</code><br />Specifies the interval, in milliseconds, that should     
+elapse between each metric/data point delivery.</p>
+ 
+  <p>+ <code>[socket]</code><br />Specifies the unix socket file path that     
+the given metric/data point should be delivered to.</p>
+ 
+  <p><em><marker id="Reply_Format">Reply Format</marker></em></p>
+ 
+  <p>Each subscibe command will trigger a one line reply being sent  
+back to the client.</p>
+ 
+  <pre class="sh_erlang">[result] [text]</pre>
+ 
+  <p>+ <code>[result]</code><br />Result code integer. See below for details.</p>
+ 
+  <p>+ <code>[text]</code><br />Descriptive text.</p>
+ 
+ 
+  <p>The possible <code>[result]</code> codes are as follows:</p>
+ 
+  <p>+ <code>0</code> - Success<br />The subscription has been setup successfully.</p>
+ 
+  <p>+ <code>1</code> - Syntax error<br />The format of the command was not recognized.</p>
+ 
+  <p>+ <code>2</code> - No such metric<br /><code>[metric]</code> or '[datapoint]' could not be          
+found among the metrics in the exometer system.</p>
+ 
+  <p>+ <code>3</code> - Invalid socket<br /><code>[socket]</code> could not be accessed or connected to.</p>
+ 
+  <p>+ <code>4</code> - Internal error<br />Something went wrong inside the riak reporter.</p>
+ 
+  <p><em><marker id="unsubscribe">unsubscribe</marker></em></p>
+ 
+  <p>The unsubscribe command cancels the periodic delivery of the given
+  metric and data point to a metrics collector over a unix
+  socket. The metric / data point has previously been setup with a
+  <code>subscribe</code> command.</p>
+ 
+  <p>If the given metric / data point is the last pair that refers to
+  the socket file path provided to a <code>subscribe</code> command, the riak  
+reporter will disconnect an outbound client connection for that  
+socket.</p>
+ 
+  <p><em><marker id="Request_Format">Request Format</marker></em></p>
+ 
+  <pre class="sh_erlang">unsubscribe [hostid] [metric]/[datapoint] [socket]</pre>
+ 
+ 
+  <p>+ <code>[hostid]</code><br />Specifies the host id provided to the <code>subscribe</code> command     
+that creaated the subscription.</p>
+ 
+  <p>+ <code>[metric]</code><br />Identifies the metric that is to be unsubscribed from.
+     The given metric was provided to the<code>subscribe</code> command that     
+created the subscription.     
+command.</p>
+ 
+  <p>+ <code>[datapoint]</code><br />Identifies the datapoint that is to be unsubscribed from.
+     The given data point must have been provided to a previous <code>subscribe</code>     
+command.</p>
+ 
+  <p>+ <code>[socket]</code><br />Identifies the socket path that was provided to a previous
+     <code>subscribe</code> command.</p>
+ 
+  <p><em><marker id="Reply_Format">Reply Format</marker></em></p>
+ 
+  <p>Each subscibe command will trigger a one line reply being sent  
+back to the client.</p>
+ 
+  <pre class="sh_erlang">[result] [text]</pre>
+ 
+  <p>+ <code>[result]</code><br />Result code integer. See below for details.</p>
+ 
+  <p>+ <code>[text]</code><br />Descriptive text.</p>
+ 
+  <p>The possible <code>[result]</code> codes are as follows:</p>
+ 
+  <p>+ <code>0</code> - Success<br />The subscription has been cancelled.</p>
+ 
+  <p>+ <code>1</code> - Syntax error<br />The format of the command was not recognized.</p>
+ 
+  <p>+ <code>2</code> - No such metric<br /><code>[metric]</code> or '[datapoint]' could not be          
+found among the metrics in the exometer system.</p>
+ 
+  <p><em><marker id="list">list</marker></em></p>
+ 
+  <p>The list command will return a list of metrics and data points  
+available for subscription.</p>
+ 
+  <p><em><marker id="Request_Format">Request Format</marker></em>
+  </p><pre class="sh_erlang">list [metric]</pre>
+ 
+  <p>+ <code>[metric]</code><br />Identifies the metric that is to be listed. If the metric
+     only specifies the beginning of a path, all metrics whose
+     path prefix matches <code>[metric]</code> will be listed.</p>
+ 
+  <p><em><marker id="Reply_Format">Reply Format</marker></em></p>
+ 
+  <p>Each list command will trigger a reply of one or more lines  
+being sent back to the client.</p>
+ 
+  <pre class="sh_erlang">  [metric1] [datapoint1] [datapoint2] ...
+  [metric2] [datapoint1] [datapoint2] ...
+  ...
+  [metricN] [datapoint1] [datapoint2] ...
+  (empty newline)</pre>
+ 
+  <p>If there are no matching metrics, the reply will consist of  
+a single empty newline.</p>
+ 
+  <p>Each line describes a matching metric and its data points.</p>
+ 
+  <p>+ <code>[metricN]</code><br />The name of the metric, in the <code>x/y/z</code> format.</p>
+ 
+  <p>+ <code>[datapointN]</code><br />One or more data points supported by the given metric.</p>
+ 
+  <p>A combined metric and a supported data point can be sent as arguments
+  to a <code>subscribe</code> command.</p>
+ 
+  <p><em><marker id="Riak_Reporter_Client_Protocol">Riak Reporter Client Protocol</marker></em></p>
+ 
+  <p>This protocol is used by the riak reporter to deliver metrics data
+  to a metrics collector thorugh an outbound unix socket connection
+  specified by a <code>subscribe</code> command sent to the reporter using the
+  <a href="#Riak_Reporter_Server_Protocol" class="seealso">Riak Reporter Server Protocol</a>.</p>
+ 
+  <p>The riak reporter will establish an outbound client connection to a  
+socket, and its collector, the first time the socket file path is  
+referenced by a subscribe command. The connection will be  
+disconnected when the last metrics referencing the socket file path  
+is unsubscribed from by the metrics collector.</p>
+ 
+  <p>The socket will also be disconnected from, and all its referencing  
+subscriptions will be cancelled, if the metrics collector closes  
+the socket on its end.</p>
+ 
+  <p><em>Please note</em> Data is only transmitted from the riak reporter to the        
+metrics collector. No replies or other information are sent        
+from the collector to the riak reporter.</p>
+ 
+  <p><em><marker id="report">report</marker></em></p>
+ 
+  <p>The report command sends a single metric / data point value  
+to a metrics collector. The</p>
+ 
+  <p><em><marker id="Request_Format">Request Format</marker></em>
+  </p><pre class="sh_erlang">report [hostid] [timestamp] [metric]/[datapoint] [value]</pre>
+ 
+  <p>+ <code>[hostid]</code><br />Specifies the host id provided to the <code>subscribe</code> command     
+that generated this report.</p>
+ 
+  <p>+ <code>[timestamp]</code><br />Specifies the time stamp, in milliseconds since 1970-01-01 00:00:00.000</p>
+ 
+  <p>+ <code>[metric]</code><br />The name of the metric reported, in the <code>x/y/z</code> format.</p>
+ 
+  <p>+ <code>[datapoint]</code><br />The data point under the given metric reported..</p>
+ 
+  <p>+ <code>[value]</code><br />The value of the metric / data point.</p>
+ 
+  <p><em><marker id="Reply_Format">Reply Format</marker></em></p>
+ 
+  <p>No reply is sent in response to a <code>report</code> command.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="exometer_subscribe/5">exometer_subscribe(Metric, DataPoint, Extra, Interval, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_unsubscribe/4">exometer_unsubscribe(Metric, DataPoint, Extra, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_init/1">exometer_init(Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_report/5">exometer_report(Metric, DataPoint, Extra, Value, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_info/2">exometer_info(Other, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_newentry/2">exometer_newentry(Entry, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_setopts/4">exometer_setopts(Metric, Options, Status, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="exometer_terminate/2">exometer_terminate(X1, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

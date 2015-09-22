@@ -1,0 +1,1 @@
+var index = [['app','mod_sse','mod_sse','[application]'],['mod','mod_sse','mod_sse','Zotonic Server Sent Events.']];

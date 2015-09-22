@@ -1,0 +1,1 @@
+var index = [['app','ot_demo','ot_demo','[application]'],['mod','ot_demo','ot',[]],['mod','ot_demo','ot_demo_app',[]],['mod','ot_demo','ot_demo_sup',[]],['fun','ot_demo','ot_demo_app:start/2',[]],['fun','ot_demo','ot_demo_app:stop/1',[]],['fun','ot_demo','ot_demo_sup:init/1',[]],['fun','ot_demo','ot_demo_sup:start_link/0',[]]];

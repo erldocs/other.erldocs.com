@@ -1,0 +1,1 @@
+var index = [['app','sudoku','sudoku','[application]'],['mod','sudoku','sudoku',[]],['fun','sudoku','sudoku:cell_init/2',[]],['fun','sudoku','sudoku:get_initial_value/3',[]],['fun','sudoku','sudoku:getpid/2',[]],['fun','sudoku','sudoku:setpid/2',[]],['fun','sudoku','sudoku:start/0',[]]];

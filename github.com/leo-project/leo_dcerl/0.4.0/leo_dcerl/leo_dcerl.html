@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>leo_dcerl (leo_dcerl) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>leo_dcerl</h1>
+<h2 class="modsummary">The disc cache API.</h2>
+<div class="description">
+<p>The disc cache API</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/4">start(DataDir, JournalDir, MaxSize, ChunkSize) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>DataDir = string()</code></li><li><code>JournalDir = string()</code></li><li><code>MaxSize = integer()</code></li><li><code>ChunkSize = integer()</code></li></ul>
+<div class="description">
+
+<p>Start a leo_dcerl erlang process with specified settings</p>
+</div></div>
+<div class="function">
+<h3 id="put/3">put(State, Key, Val) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Key = binary()</code></li><li><code>Val = binary()</code></li></ul>
+<div class="description">
+
+<p>Put a key-value pair into the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="put_begin/2">put_begin(State, Key) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}, #dcerl_fd{key=binary(), tmp_datafile_iodev=undefined | io_device() (see module file)}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Key = binary()</code></li></ul>
+<div class="description">
+
+<p>Begin a transaction to put a large key-value pair
+       into the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="put_chunk/3">put_chunk(State, Fd, Chunk) -&gt; ok | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Fd = #dcerl_fd{key=binary(), tmp_datafile_iodev=undefined | io_device() (see module file)} | undefined</code></li><li><code>Chunk = binary()</code></li></ul>
+<div class="description">
+
+<p>Put a chunk into the specified leo_dcerl erlang process while doing transaction</p>
+</div></div>
+<div class="function">
+<h3 id="put_end/4">put_end(State, Fd, CM, Commit) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Fd = #dcerl_fd{key=binary(), tmp_datafile_iodev=undefined | io_device() (see module file)} | undefined</code></li><li><code>CM = #cache_meta{size=non_neg_integer(), md5=integer(), mtime=non_neg_integer(), content_type=string() | binary(), file_path=name_all() (see module file)}</code></li><li><code>Commit = boolean()</code></li></ul>
+<div class="description">
+
+<p>End a transaction to put a large key-value pair
+       into the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="remove/2">remove(State, Key) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Key = binary()</code></li></ul>
+<div class="description">
+
+<p>Remove a key-value pair from the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="get/2">get(State, Key) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}, binary()} | {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}, #dcerl_fd{key=binary(), tmp_datafile_iodev=undefined | io_device() (see module file)}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Key = binary()</code></li></ul>
+<div class="description">
+
+<p>Get a value corresponding with the specified key
+       from the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="get_filepath/2">get_filepath(State, Key) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}, #cache_meta{size=non_neg_integer(), md5=integer(), mtime=non_neg_integer(), content_type=string() | binary(), file_path=name_all() (see module file)}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Key = binary()</code></li></ul>
+<div class="description">
+
+<p>Get a metadata AND status corresponding with the specified key
+       from the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="get_chunk/2">get_chunk(State, Fd) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}, #dcerl_fd{key=binary(), tmp_datafile_iodev=undefined | io_device() (see module file)}, Chunk::binary(), Tail::boolean()} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li><li><code>Fd = #dcerl_fd{key=binary(), tmp_datafile_iodev=undefined | io_device() (see module file)}</code></li></ul>
+<div class="description">
+
+<p>Get a chunk corresponding with the specified file descriptor
+       from the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(State) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li></ul>
+<div class="description">
+
+<p>Delete all of key-value pairs
+       from the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="stop/1">stop(State) -&gt; {ok, #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li></ul>
+<div class="description">
+
+<p>Stop the specified leo_dcerl erlang process</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(State) -&gt; {ok, #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}}</h3>
+
+<ul class="type">
+<li><code>State = #dcerl_state{journaldir_path=string(), journalfile_iodev=io_device() (see module file) | undefined, tmp_datafile_iodev=io_device() (see module file) | undefined, datadir_path=string(), max_cache_size=pos_integer(), chunk_size=pos_integer(), redundant_op_cnt=non_neg_integer(), ongoing_keys=undefined | set(), cache_metas=undefined | dict(), cache_stats=undefined | #cache_stats{gets=non_neg_integer(), puts=non_neg_integer(), dels=non_neg_integer(), hits=non_neg_integer(), records=non_neg_integer(), cached_size=non_neg_integer()}, cache_entries=undefined | term()}</code></li></ul>
+<div class="description">
+
+<p>Get a status from the specified leo_dcerl erlang process</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

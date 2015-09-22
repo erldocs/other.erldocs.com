@@ -1,0 +1,1 @@
+var index = [['app','std_nif_example','std_nif_example','[application]'],['mod','std_nif_example','niftest','   Simple erlang NIF example taken from   http:/'],['fun','std_nif_example','niftest:hello/0','  Returns a specific string.']];

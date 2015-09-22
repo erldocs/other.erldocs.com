@@ -1,0 +1,1 @@
+var index = [['app','crypto2','crypto2','[application]'],['mod','crypto2','crypto2','Crypto compatibility layer.'],['fun','crypto2','crypto2:init_random_generator/0',[]],['fun','crypto2','crypto2:sha/1',[]],['fun','crypto2','crypto2:strong_rand_bytes/1',[]]];

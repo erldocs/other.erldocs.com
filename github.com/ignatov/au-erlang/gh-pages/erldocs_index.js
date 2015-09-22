@@ -1,0 +1,1 @@
+var index = [['app','au-erlang','au-erlang','[application]'],['mod','au-erlang','hotload',[]],['fun','au-erlang','hotload:server/1',[]],['fun','au-erlang','hotload:upgrade/1',[]]];

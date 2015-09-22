@@ -1,0 +1,1 @@
+var index = [['app','edocset','edocset','[application]'],['mod','edocset','edocset_doclet',[]],['fun','edocset','edocset_doclet:run/2','entry point of doclet.']];

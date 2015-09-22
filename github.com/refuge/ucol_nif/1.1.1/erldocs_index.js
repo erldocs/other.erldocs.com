@@ -1,0 +1,1 @@
+var index = [['app','ucol_nif','ucol_nif','[application]'],['mod','ucol_nif','ucol_nif',[]],['fun','ucol_nif','ucol_nif:compare/1',[]],['fun','ucol_nif','ucol_nif:compare/1','compare 2 binaries, result is -1 for lt, 0 for eq '],['fun','ucol_nif','ucol_nif:init/0',[]]];

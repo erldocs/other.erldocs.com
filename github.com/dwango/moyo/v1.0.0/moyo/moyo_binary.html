@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>moyo_binary (moyo) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>moyo_binary</h1>
+<h2 class="modsummary">バイナリに関する処理を集めたユーティリティモジュール.</h2>
+<div class="description">
+<p>バイナリに関する処理を集めたユーティリティモジュール.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="to_hex/1">to_hex(Raw::binary()) -&gt; Encoded::binary()</h3>
+
+
+<div class="description">
+
+<p>生のバイナリを16進数表記のバイナリに変換する.</p>
+ 
+  <p>16進数のアルファベット部分は、常に小文字が使用される. <br />
+  ex:
+  </p><pre class="sh_erlang">  &gt; moyo_binary:to_hex(&lt;&lt;"ab_YZ"&gt;&gt;).
+  &lt;&lt;"61625f595a"&gt;&gt;</pre>
+</div></div>
+<div class="function">
+<h3 id="from_hex/1">from_hex(Encoded::binary()) -&gt; Raw::binary()</h3>
+
+
+<div class="description">
+
+<p>16進数表記のバイナリを生のバイナリに変換する.  
+[0-9a-zA-Z]にマッチしない文字がある�&nbsp;�合は {invalid_hex_binary, Input} error が発生する</p>
+ 
+  <p>ex:
+  </p><pre class="sh_erlang">  &gt; moyo_binary:from_hex(&lt;&lt;"61625f595a"&gt;&gt;).
+  &lt;&lt;"ab_YZ"&gt;&gt;</pre>
+</div></div>
+<div class="function">
+<h3 id="to_binary/1">to_binary(V::term()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>Erlangの�&nbsp;�をバイナリに変換する</p>
+ 
+  <p>ユニコード値のリスト(文字列)を、UTF-8バイナリ列に変換したい�&nbsp;�合は<code>unicode</code>モジュールを使用すること.</p>
+</div></div>
+<div class="function">
+<h3 id="try_binary_to_existing_atom/1">try_binary_to_existing_atom(Binary::binary(), Encoding) -&gt; binary() | atom()</h3>
+
+<ul class="type">
+<li><code>Encoding = latin1 | unicode | utf8</code></li></ul>
+<div class="description">
+
+<p>バイナリのアト�&nbsp;への変換を試みる.</p>
+ 
+  <p>バイナリに対応するアト�&nbsp;が既に存在する�&nbsp;�合は、そのアト�&nbsp;を返し、存在しない�&nbsp;�合は元のバイナリを返す.</p>
+</div></div>
+<div class="function">
+<h3 id="format/2">format(Format, Data) -&gt; binary()</h3>
+
+<ul class="type">
+<li><code>Format = format() (see module io)</code></li><li><code>Data = [term()]</code></li></ul>
+<div class="description">
+
+<p>指定されたフォーマットのバイナリを生成して返す.</p>
+ 
+  <p><code>list_to_binary(io_lib:format(Format, Data))</code>と同等.</p>
+</div></div>
+<div class="function">
+<h3 id="generate_random_list/1">generate_random_list(ByteSize::non_neg_integer(), Count::non_neg_integer()) -&gt; [binary()]</h3>
+
+
+<div class="description">
+
+<p>ランダ�&nbsp; かつ ユニークな要�&nbsp;(バイナリ)を<code>Count</code>個含むリストを生成する.</p>
+</div></div>
+<div class="function">
+<h3 id="to_float/1">to_float(Bin::binary()) -&gt; float()</h3>
+
+
+<div class="description">
+
+<p>バイナリを小数に変換する.</p>
+ 
+  <p><a href="erlang.html#binary_to_float/1" class="seealso">erlang:binary_to_float/1</a>とは異なり<code>&lt;&lt;"5"&gt;&gt;</code>のような整数を表すバイナリも小数に変換可能.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/1">strip(Binary::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>バイナリの両端からスペース(\s)を取り除く(strip(Binary, both)).</p>
+</div></div>
+<div class="function">
+<h3 id="strip/2">strip(Binary, Direction) -&gt; Stripped</h3>
+
+<ul class="type">
+<li><code>Binary = binary()</code></li><li><code>Direction = left | right | both</code></li><li><code>Stripped = binary()</code></li></ul>
+<div class="description">
+
+<p>指定された方向のスペースを取り除く(strip(Binary, Direction, &lt;&lt;"\s"&gt;&gt;)).</p>
+</div></div>
+<div class="function">
+<h3 id="strip/3">strip(Binary, Direction, Target) -&gt; Stripped</h3>
+
+<ul class="type">
+<li><code>Binary = binary()</code></li><li><code>Direction = left | right | both</code></li><li><code>Target = binary()</code></li><li><code>Stripped = binary()</code></li></ul>
+<div class="description">
+
+<p>指定された方向から任意の1文字を全て取り除く(strip(Binary, Direction, Target, single)).</p>
+</div></div>
+<div class="function">
+<h3 id="strip/4">strip(Binary, Direction, Target, Type) -&gt; Stripped</h3>
+
+<ul class="type">
+<li><code>Binary = binary()</code></li><li><code>Direction = left | right | both</code></li><li><code>Target = binary()</code></li><li><code>Type = single | order | random</code></li><li><code>Stripped = binary()</code></li></ul>
+<div class="description">
+
+<p>指定された方向から任意の文字を取り除く.</p>
+ 
+  <p>第4引数では次の値を指定.
+  </p><list>
+    <item><p>single</p></item>
+      Targetで指定できる文字は1文字.
+    <item><p>order</p></item>
+      Targetで複数文字を指定できる. 指定�&nbsp;�序通りの�&nbsp;�合のみ取り除く.<br />
+      ex:
+  <pre class="sh_erlang">  &gt; strip(&lt;&lt;"ababbabcabcabbab"&gt;&gt;, both, &lt;&lt;"ab"&gt;&gt;, order).
+  &lt;&lt;"babcabcabb"&gt;&gt;</pre>
+    <item><p>random</p></item>
+      Targetで複数文字を指定できる. �&nbsp;�不同で, 文字それぞれを取り除く.<br />
+      ex:
+  <pre class="sh_erlang">  &gt; strip(&lt;&lt;"ababbabcabcabbab"&gt;&gt;, both, &lt;&lt;"ab"&gt;&gt;, random).
+  &lt;&lt;"cabc"&gt;&gt;</pre>
+  </list>
+</div></div>
+<div class="function">
+<h3 id="abbreviate/1">abbreviate(Bin::binary(), MaxLength::non_neg_integer()) -&gt; binary()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#abbreviate/3" class="seealso">abbreviate(Bin, MaxLength, &lt;&lt;"..."&gt;&gt;)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="abbreviate/1-1">abbreviate(Input::binary(), MaxLength::non_neg_integer(), Ellipsis::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>入力バイナリが最大長を超えている�&nbsp;�合に、指定された省略文字列を使って切り詰めを行う</p>
+ 
+  <p>省略文字列が最大長よりも長い�&nbsp;�合は、省略時には省略文字列の長さが優先される。(最大長の指定によって、省略文字列自体が切り詰められることはない)</p>
+ 
+  <p>入力バイナリが、UTF-8でエンコードされた日本語等のマルチバイト文字列の�&nbsp;�合、省略の際に文字の境界は考慮されないので、  
+省略によって不正な文字列が生成される可能性があるので注意が必要。</p>
+ 
+  <pre class="sh_erlang">  %% 省略される�&nbsp;�合
+  &gt; abbreviate(&lt;&lt;"hello world"&gt;&gt;, 6, &lt;&lt;"..."&gt;&gt;).
+  &lt;&lt;"hel..."&gt;&gt;
+ 　
+  %% 最大長よりも短い�&nbsp;�合は、入力バイナリがそのまま返る
+  &gt; abbreviate(&lt;&lt;"hello world"&gt;&gt;, 100, &lt;&lt;"..."&gt;&gt;).
+  &lt;&lt;"hello world"&gt;&gt;</pre>
+</div></div>
+<div class="function">
+<h3 id="tr/1">tr(Subject::binary(), ConvertMapping) -&gt; binary()</h3>
+
+<ul class="type">
+<li><code>ConvertMapping = [{From::char(), To::char()}]</code></li></ul>
+<div class="description">
+
+<p>入力バイナリ内の文字を、マッピング指定に従って置換する.</p>
+ 
+  <pre class="sh_erlang">  &gt; tr(&lt;&lt;"abcdef"&gt;&gt;, [{$a, $1}, {$c, $3}]).
+  &lt;&lt;"1b3def"&gt;&gt;</pre>
+</div></div>
+<div class="function">
+<h3 id="fill/1">fill(Int::integer(), Count::integer()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>同じ数字(文字)が連続したバイナリを作る.</p>
+ 
+  <pre class="sh_erlang">  &gt; fill(0, 10).
+  &lt;&lt;0,0,0,0,0,0,0,0,0,0&gt;&gt;
+  &gt; fill($a, 10).
+  &lt;&lt;"aaaaaaaaaa"&gt;&gt;</pre>
+</div></div>
+<div class="function">
+<h3 id="join/1">join(Tail::[binary()], Separator::binary()) -&gt; binary()</h3>
+
+
+<div class="description">
+
+<p>バイナリリストの要�&nbsp;をセパレータで区切ったバイナリを返す.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+var index = [['app','dist-transaction-in-erlang','dist-transaction-in-erlang','[application]'],['mod','dist-transaction-in-erlang','init_db',[]],['fun','dist-transaction-in-erlang','init_db:init/0',[]]];

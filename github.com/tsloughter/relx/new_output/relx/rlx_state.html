@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>rlx_state (relx) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>rlx_state</h1>
+<h2 class="modsummary">Provides state management services for the relx tool.</h2>
+<div class="description">
+<p>Provides state management services for the relx tool. Generally,
+   those things that are fixed have a direct api. Those things that are mutable
+   have a more mutable api.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-action">action() = release | relup | tar</h3></div>
+    <div class="type"><h3 id="type-caller">caller() = command_line | api</h3></div>
+    <div class="type"><h3 id="type-cmd_args">cmd_args() = <a href="proplists.html#type-proplist" class="seealso">proplists:proplist()</a></h3></div>
+    <div class="type"><h3 id="type-releases">releases() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ec_dictionary.html#type-dictionary" class="seealso">ec_dictionary:dictionary</a>({<a href="rlx_release.html#type-name" class="seealso">rlx_release:name()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="rlx_release.html#type-vsn" class="seealso">rlx_release:vsn()</a>},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="rlx_release.html#type-t" class="seealso">rlx_release:t()</a>)</h3></div>
+    <div class="type"><h3 id="type-t">t()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(PropList::proplist() (see module proplists), Targets::undefined | [atom()]) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>Create a new 'log level' for the system</p>
+</div></div>
+<div class="function">
+<h3 id="actions/1">actions(State_t::t()) -&gt; [action()]</h3>
+
+
+<div class="description">
+
+<p>the actions targeted for this system</p>
+</div></div>
+<div class="function">
+<h3 id="overrides/1">overrides(State_t::t()) -&gt; [{AppName::atom(), Directory::filename() (see module file)}]</h3>
+
+
+<div class="description">
+
+<p>the application overrides for the system</p>
+</div></div>
+<div class="function">
+<h3 id="overrides/1-1">overrides(State::t(), Overrides::[{AppName::atom(), Directory::filename() (see module file)}]) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>the application overrides for the system</p>
+</div></div>
+<div class="function">
+<h3 id="skip_apps/1">skip_apps(State_t::t()) -&gt; [AppName::atom()]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="skip_apps/1-1">skip_apps(State::t(), AppName::[AppName::atom()]) -&gt; t()</h3>
+
+
+<div class="description">
+
+<p>the application overrides for the system</p>
+</div></div>
+<div class="function">
+<h3 id="log/1">log(State_t::t()) -&gt; t() (see module ec_cmd_log)</h3>
+
+
+<div class="description">
+
+<p>get the current log state for the system</p>
+</div></div>
+<div class="function">
+<h3 id="output_dir/1">output_dir(State::t()) -&gt; name() (see module file)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="base_output_dir/1">base_output_dir(State_t::t()) -&gt; name() (see module file)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="base_output_dir/1-1">base_output_dir(State::t(), Directory::filename() (see module file)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="lib_dirs/1">lib_dirs(State_t::t()) -&gt; [name() (see module file)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_lib_dirs/1">add_lib_dirs(State::t(), Dirs::[name() (see module file)]) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="goals/1">goals(State_t::t()) -&gt; [constraint() (see module rlx_depsolver)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="config_file/1">config_file(State_t::t()) -&gt; filename() (see module file) | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="config_file/1-1">config_file(State::t(), ConfigFiles::filename() (see module file) | undefined) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="providers/1">providers(State_t::t()) -&gt; [t() (see module rlx_provider)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vm_args/1">vm_args(State_t::t()) -&gt; filename() (see module file) | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="vm_args/1-1">vm_args(State::t(), VmArgs::filename() (see module file)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sys_config/1">sys_config(State_t::t()) -&gt; filename() (see module file) | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sys_config/1-1">sys_config(State::t(), SysConfig::filename() (see module file)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="root_dir/1">root_dir(State_t::t()) -&gt; filename() (see module file) | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="root_dir/1-1">root_dir(State::t(), RootDir::filename() (see module file)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="providers/1-1">providers(M::t(), NewProviders::[t() (see module rlx_provider)]) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_configured_release/1">add_configured_release(M::t(), Release::t() (see module rlx_release)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_configured_release/1">get_configured_release(State_t::t(), Name::name() (see module rlx_release), Vsn::vsn() (see module rlx_release)) -&gt; t() (see module rlx_release)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="configured_releases/1">configured_releases(State_t::t()) -&gt; releases()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="realized_releases/1">realized_releases(State_t::t()) -&gt; releases()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="realized_releases/1-1">realized_releases(State::t(), Releases::releases()) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_realized_release/1">add_realized_release(State::t(), Release::t() (see module rlx_release)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_realized_release/1">get_realized_release(State_t::t(), Name::name() (see module rlx_release), Vsn::vsn() (see module rlx_release)) -&gt; t() (see module rlx_release)</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_realized_release/1">update_realized_release(M::t(), Release::t() (see module rlx_release)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="default_configured_release/1">default_configured_release(State_t::t()) -&gt; {name() (see module rlx_release) | undefined, vsn() (see module rlx_release) | undefined}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="default_configured_release/1-1">default_configured_release(M::t(), Name::name() (see module rlx_release), Vsn::vsn() (see module rlx_release)) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="available_apps/1">available_apps(State_t::t()) -&gt; [t() (see module rlx_app_info)]</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="available_apps/1-1">available_apps(M::t(), NewApps::[t() (see module rlx_app_info)]) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/1">get(State_t::t(), Key::atom()) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/1-1">get(State_t::t(), Key::atom(), DefaultValue::term()) -&gt; term()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="put/1">put(M::t(), Key::atom(), Value::term()) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="caller/1">caller(State_t::t()) -&gt; caller()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="caller/1-1">caller(S::t(), Caller::caller()) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dev_mode/1">dev_mode(State_t::t()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dev_mode/1-1">dev_mode(S::t(), DevMode::boolean()) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="include_src/1">include_src(State_t::t()) -&gt; boolean()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="include_src/1-1">include_src(S::t(), IncludeSrc::boolean()) -&gt; t()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="upfrom/1">upfrom(State_t::t()) -&gt; string() | binary() | undefined</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="format/1">format(Mod::t()) -&gt; iolist()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="format/1-1">format(State_t::t(), Indent::non_neg_integer()) -&gt; iolist()</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Eric Merritt</aname>
+<email>ericbmerritt@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

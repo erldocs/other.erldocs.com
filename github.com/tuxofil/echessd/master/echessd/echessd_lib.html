@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>echessd_lib (echessd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>echessd_lib</h1>
+<h2 class="modsummary">
+   Common utilities and library functions.</h2>
+<div class="description">
+<p>
+   Common utilities and library functions.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-administrative_offset">administrative_offset() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Sign :: -1 | 1, Hours :: 0..14, Minutes :: 0 | 30 | 45}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="ip2str/1">ip2str(X1::ip4_address() (see module inet)) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>Convert IPv4 address to canonic text representation.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/1">timestamp(Time::timestamp() (see module erlang)) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>Format time as text.</p>
+</div></div>
+<div class="function">
+<h3 id="timestamp/1-1">timestamp(Timestamp::timestamp() (see module erlang), X2::administrative_offset()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>Format time as text with the specified time offset.</p>
+</div></div>
+<div class="function">
+<h3 id="random_elem/1">random_elem(List::list()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Return random element of the given list.</p>
+</div></div>
+<div class="function">
+<h3 id="unconsult/1">unconsult(Filename::filename() (see module file), Comment::iolist(), Terms::list()) -&gt; ok | {error, Reason::any()}</h3>
+
+
+<div class="description">
+
+<p>Write the Erlang terms to a file as text.
+  The file then can be read by file:consult/1,
+  resulting the same Erlang terms.</p>
+</div></div>
+<div class="function">
+<h3 id="escape_html_entities/1">escape_html_entities(String::string()) -&gt; NewString::string()</h3>
+
+
+<div class="description">
+
+<p>Convert all chars with special meaning in HTML to
+       HTML entities.</p>
+</div></div>
+<div class="function">
+<h3 id="administrative_offsets/0">administrative_offsets() -&gt; [administrative_offset()]</h3>
+
+
+<div class="description">
+
+<p>Return a list of all adminitrative time offsets available.</p>
+</div></div>
+<div class="function">
+<h3 id="time_offset_to_list/1">time_offset_to_list(Offset::administrative_offset()) -&gt; nonempty_string()</h3>
+
+
+<div class="description">
+
+<p>Format the time offset as for ISO8601 timestamp.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_time_offset/1">list_to_time_offset(String::string()) -&gt; {ok, Offset::administrative_offset()} | error</h3>
+
+
+<div class="description">
+
+<p>Parse the time offset string representation.</p>
+</div></div>
+<div class="function">
+<h3 id="local_offset/0">local_offset() -&gt; administrative_offset()</h3>
+
+
+<div class="description">
+
+<p>Return the local time offset.</p>
+</div></div>
+<div class="function">
+<h3 id="strip/1">strip(String::string(), Characters::string()) -&gt; StrippedString::string()</h3>
+
+
+<div class="description">
+
+<p>Remove the Characters from the beginning and
+  from the end of the String.</p>
+</div></div>
+<div class="function">
+<h3 id="string_to_terms/1">string_to_terms(String::string()) -&gt; [Term::any()]</h3>
+
+
+<div class="description">
+
+<p>Parse the input string to a list of Erlang terms.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_atom/1">list_to_atom(String::string(), Atoms::[atom()]) -&gt; {ok, Atom::atom()} | error</h3>
+
+
+<div class="description">
+
+<p>"Convert" string to an atom only if the result atom
+  is present in the list, supplied as the second argument.</p>
+</div></div>
+<div class="function">
+<h3 id="list_to_atom/1-1">list_to_atom(String::string(), Atoms::[atom()], DefaultValue::atom()) -&gt; Atom::atom()</h3>
+
+
+<div class="description">
+
+<p>Same as list_to_atom/2 but return the given default value
+  on convertion error.</p>
+</div></div>
+<div class="function">
+<h3 id="split4pathNquery/1">split4pathNquery(RequestURI::string()) -&gt; {Path::string(), Query::string()}</h3>
+
+
+<div class="description">
+
+<p>Split the request URI to a Path and a Query strings
+  (delimited by '?').</p>
+</div></div></div>
+
+<authors>
+
+<aname>Aleksey Morarash</aname>
+<email>aleksey.morarash@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

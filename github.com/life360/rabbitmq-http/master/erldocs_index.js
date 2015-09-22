@@ -1,0 +1,1 @@
+var index = [['app','rabbitmq-http','rabbitmq-http','[application]'],['mod','rabbitmq-http','rabbitmq_http','RabbitMQ HTTP.'],['fun','rabbitmq-http','rabbitmq_http:start/2',[]],['fun','rabbitmq-http','rabbitmq_http:stop/1',[]]];

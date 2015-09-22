@@ -1,0 +1,1 @@
+var index = [['app','ur-sat','ur-sat','[application]'],['mod','ur-sat','alex',[]],['mod','ur-sat','clause',[]],['mod','ur-sat','cnf',[]],['mod','ur-sat','driver',[]],['mod','ur-sat','literal',[]],['fun','ur-sat','alex:array_foldl_until/4',[]],['fun','ur-sat','alex:first_sat_element/3',[]],['fun','ur-sat','alex:list_foldl_until/4',[]],['fun','ur-sat','alex:swap/3',[]]];

@@ -1,0 +1,1 @@
+var index = [['app','exmpp','exmpp','[application]'],['mod','exmpp','exmpp_known_attrs',[]],['mod','exmpp','exmpp_known_elems',[]],['mod','exmpp','exmpp_known_nss',[]],['fun','exmpp','exmpp_known_attrs:attr_as_list/1',[]],['fun','exmpp','exmpp_known_elems:elem_as_list/1',[]],['fun','exmpp','exmpp_known_nss:ns_as_list/1',[]]];

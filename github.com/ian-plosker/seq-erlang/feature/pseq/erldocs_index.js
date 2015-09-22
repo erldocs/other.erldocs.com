@@ -1,0 +1,1 @@
+var index = [['app','seq-erlang','seq-erlang','[application]'],['mod','seq-erlang','pseq',[]],['mod','seq-erlang','seq',[]],['fun','seq-erlang','pseq:run/1','Runs through the sequence in parallel.']];

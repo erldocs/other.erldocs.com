@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>x509_io (erl_sec) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>x509_io</h1>
+<h2 class="modsummary"/>
+<div class="description">
+</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="read_certs/1">read_certs(Path::filename_all() (see module file)) -&gt; [certificate() (see module x509)]</h3>
+
+
+<div class="description">
+
+<p>   Given a file or directory path, returns a list of records of type
+           <a href="x509.html#type-certificate" class="seealso">x509:certificate()</a> representing all of the identifiable,           
+unencrypted X.509 certificates at or below the specified Path.</p>
+ 
+   <p>The returned certificates HAVE NOT been verified in any way beyond
+   successfully parsing them.  See <a href="#read_cert_file/1" class="seealso">read_cert_file/1</a> for details   
+about how each located file is evaluated and parsed.</p>
+ 
+   <p>Duplicates are removed from the result set, but otherwise NO ordering is   
+assured.</p>
+ 
+   <p>If the operation cannot be completed successfully, an error is raised,
+   most likely containing one of the <a href="file.html#type-posix" class="seealso">file:posix()</a> reasons and, if
+   you're lucky, possibly the path where the error occurred.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="read_cert_file/1">read_cert_file(Path::filename_all() (see module file)) -&gt; [certificate() (see module x509)]</h3>
+
+
+<div class="description">
+
+<p>   Read a single file and return its certificates as a list of
+           records of type <a href="x509.html#type-certificate" class="seealso">x509:certificate()</a>.</p>
+ 
+   <p>Filename extensions are considered as follows, regardless of case:</p>
+ 
+   <p>Files with extension ".der" are assumed to be binary DER-encoded   
+certificates, and if they cannot be parsed as such they are ignored.</p>
+ 
+   <p>Files with extension ".pem" are assumed to be PEM-encoded, and any   
+entities identified as certificates are decoded.</p>
+ 
+   <p>Files with extension ".key" are assumed to be private keys, in any format,   
+and are ignored.</p>
+ 
+   <p>All other files are first parsed as binary DER-encoded certificates,   
+and if that fails they are re-tried as PEM-encoded, as above.</p>
+ 
+   <p>If the operation cannot be completed successfully, an error is raised,
+   most likely containing one of the <a href="file.html#type-posix" class="seealso">file:posix()</a> reasons and the
+   path where the error occurred.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="read_key_file/1">read_key_file(Path::filename_all() (see module file)) -&gt; privatekey() (see module x509)</h3>
+
+
+<div class="description">
+
+<p>   Read a single file and return its certificates as a list of
+           records of type <a href="x509.html#type-certificate" class="seealso">x509:certificate()</a>.</p>
+ 
+   <p>Filename extensions are considered as follows, regardless of case:</p>
+ 
+   <p>Files with extension ".der" are assumed to be binary DER-encoded   
+certificates, and if they cannot be parsed as such they are ignored.</p>
+ 
+   <p>Files with extension ".pem" are assumed to be PEM-encoded, and any   
+entities identified as certificates are decoded.</p>
+ 
+   <p>Files with extension ".key" are assumed to be private keys, in any format,   
+and are ignored.</p>
+ 
+   <p>All other files are first parsed as binary DER-encoded certificates,   
+and if that fails they are re-tried as PEM-encoded, as above.</p>
+ 
+   <p>If the operation cannot be completed successfully, an error is raised,
+   most likely containing either the atom 'notkey' or one of the
+   <a href="file.html#type-posix" class="seealso">file:posix()</a> reasons, and the path where the error occurred.
+ </p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

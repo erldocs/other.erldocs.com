@@ -1,0 +1,1 @@
+var index = [['app','vux','vux','[application]'],['mod','vux','vertex',[]]];

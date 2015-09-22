@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>call_queue_config (openacd) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>call_queue_config</h1>
+<h2 class="modsummary">The helper module to config the call_queues, skills, clients, and  
+queue groups.</h2>
+<div class="description">
+<p>The helper module to config the call_queues, skills, clients, and  
+queue groups.</p>
+ 
+  <p><em>Call Queue</em></p><p>  
+A Call Queue has a name, weight, skills, hold_music, group, and recipe.  
+The name is a unique identifier of the queue.  There can be only one  
+queue with a given name in a cluster.</p>
+ 
+  <p>The wieght is how important media in the queue are relative to other  
+queues.  A higher wieght indicates more importance.</p>
+ 
+  <p>Skills is a list of skills to add to media that is placed in the queue.  
+Note that media automatically get the magic '_node' skill assigned to  
+them.</p>
+ 
+  <p>Hold music really only matters to freeswitch or voice media.  It is a  
+string that defines the file the hold music is located in.</p>
+ 
+  <p>Group is which Queue Group the queue is a member of.  The skills and  
+recipe of a queue is combined with it's group on start up.</p>
+ 
+  <p>Finally, there is the recipe.  A reciepe is a list of recipe steps.  
+A recipe step is a list of contions, what actions to take when those  
+conditions are met, whether to run multiple times or only once, and  
+finally a comment describing the step.</p>
+ 
+  <p>The full description of a recipe:
+  	recipe_runs() :: run_once | run_many
+  	recipe_comparison() :: &lt; | &gt; | =	  
+recipe_condition() ::		 
+{ticks, pos_integer()} |		 
+{eligible_agents, recipe_comparison(), non_neg_integer()} |		 
+{available_agents, recipe_comparison(), non_neg_integer()} |		 
+{queue_position, recipe_comparison(), non_neg_integer()} |		 
+{calls_queued, recipe_comparison(), non_neg_integer()}).</p>
+ 
+ 	<p>recipe_operation() ::		 
+{add_skills, [atom(), ...]} |		 
+{remove_skills, [atom(), ...]} |		 
+{set_priority, integer()} |		 
+{prioritize, []} |		 
+{deprioritize, []} |		 
+{voicemail, []} |		 
+{announce, string()} |		 
+{add_recipe, recipe_step()}</p>
+ 
+ 	<p>recipe_comment() :: binary()</p>
+ 
+ 	<p>recipe_step() ::		 
+{[recipe_condition(), ...], [recipe_operation(), ...],			 
+recipe_runs(), recipe_comment()}</p>
+ 
+ 	<p>recipe() :: [recipe_step()]</p>
+ 
+  <p><em>Skills</em></p>
+ 
+  <p>A skill configuration has an atom, name, protected, description, and  
+group.</p>
+ 
+  <p>The atom is the key, and is used when routing.  Certain skills are
+  'magic' in that they expand to {atom(), string()} values under the
+  correct conditions.  A magic skill is denoted by an atom starting with
+  an underscore by convetion, such as '_queue'.  It is an error to assign
+  an unexpanded magic skill under conditions when it cannot expand.  The
+  magic skills are:
+  </p>
+  <em>Atom</em><em>Expands When</em><em>Other Notes</em><br />
+  _agentAssigned to an agent
+  	Expands to the agent's login<br />
+  _profileAssigned to an agentExpands to the
+  	name of the agent's profile.<br />
+  _queue&gt;Assigned to a media that is in a queue
+  	Expands to the name of the queue media is in<br />
+  _brandAssigned to a mediaExpands to the
+  	client's label.<br />
+  _nodeAssigned to an agent or mediaExpands to
+  	the node the agent fsm or gen_media process is running on.<br />
+  _allAlwaysDoes not actually expand, but
+  	overrides other skills, making that agent able to take any media, or
+  	the media answerable by any agent.<br />
+  
+ 
+  <p>The remaining configuration options only matter to the configuration for  
+human's sake.  The only one that's not obvious is protected.  If  
+protected is set to true, the skill cannot be edited or deleted.  The  
+magic skills are protected.</p>
+ 
+  <p><em>Queue Group</em></p>
+ 
+  <p>A queue group is a recipe and list of skills that each queue in the  
+group shares.</p>
+ 
+  <p><em>Clients</em></p>
+ 
+  <p>A client is an id, label, and list of options.  Currently the only two
+  options available are url_pop and autoend_wrapup.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-client_opt">client_opt() = {any(), any()}</h3></div>
+    <div class="type"><h3 id="type-client_opts">client_opts() = [<a href="#type-client_opt" class="seealso">client_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-recipe">recipe() = [<a href="#type-recipe_step" class="seealso">recipe_step()</a>]</h3></div>
+    <div class="type"><h3 id="type-recipe_comment">recipe_comment() = binary()</h3></div>
+    <div class="type"><h3 id="type-recipe_comparison">recipe_comparison() = '&lt;' | '&gt;' | '='</h3></div>
+    <div class="type"><h3 id="type-recipe_condition">recipe_condition() = {ticks, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {eligible_agents,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {available_agents,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {queue_position,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {calls_queued,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comparison" class="seealso">recipe_comparison()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-recipe_operation">recipe_operation() = {add_skills, [atom(), ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {remove_skills, [atom(), ...]}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {set_priority, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {prioritize, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {deprioritize, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {voicemail, []}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {announce, string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {add_recipe, tuple()}</h3></div>
+    <div class="type"><h3 id="type-recipe_runs">recipe_runs() = run_once | run_many</h3></div>
+    <div class="type"><h3 id="type-recipe_step">recipe_step() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{[<a href="#type-recipe_condition" class="seealso">recipe_condition()</a>, ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#type-recipe_operation" class="seealso">recipe_operation()</a>, ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_runs" class="seealso">recipe_runs()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-recipe_comment" class="seealso">recipe_comment()</a>}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; any()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_queue/1">get_queue(Name::string()) -&gt; {ok, #call_queue{name=string(), weight=non_neg_integer(), skills=[atom()], recipe=recipe(), hold_music=string() | undefined, wrapup_enabled=true | false, wrapup_timer=pos_integer() | undefined, auto_wrapup=pos_integer() | undefined, group=string()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Get the configuration for the passed <code>string()</code> <code>Queue</code> name.</p>
+</div></div>
+<div class="function">
+<h3 id="get_merged_queue/1">get_merged_queue(Queue::string()) -&gt; {ok, #call_queue{name=string(), weight=non_neg_integer(), skills=[atom()], recipe=recipe(), hold_music=string() | undefined, wrapup_enabled=true | false, wrapup_timer=pos_integer() | undefined, auto_wrapup=pos_integer() | undefined, group=string()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Get the configureation for the passed <code>string()</code> <code>Queue</code> name and
+  merge it with the queue group's skills and recipe.</p>
+</div></div>
+<div class="function">
+<h3 id="get_queues/0">get_queues() -&gt; {ok, [#call_queue{name=string(), weight=non_neg_integer(), skills=[atom()], recipe=recipe(), hold_music=string() | undefined, wrapup_enabled=true | false, wrapup_timer=pos_integer() | undefined, auto_wrapup=pos_integer() | undefined, group=string()}]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Get all the queue configurations (<code>[#call_queue{}]</code>).</p>
+</div></div>
+<div class="function">
+<h3 id="get_queues_by_group/1">get_queues_by_group(Group::string()) -&gt; {ok, [#call_queue{name=string(), weight=non_neg_integer(), skills=[atom()], recipe=recipe(), hold_music=string() | undefined, wrapup_enabled=true | false, wrapup_timer=pos_integer() | undefined, auto_wrapup=pos_integer() | undefined, group=string()}]} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Get all the queues that are members of the specified Group (<code>string()</code>).</p>
+</div></div>
+<div class="function">
+<h3 id="get_queue_group/1">get_queue_group(Name::string()) -&gt; {ok, #queue_group{name=string(), recipe=recipe(), skills=[atom()], sort=non_neg_integer(), protected=true | false}} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>get a <code>#queue_group{}</code> named <code>Name</code></p>
+</div></div>
+<div class="function">
+<h3 id="get_default_queue_group/0">get_default_queue_group() -&gt; {ok, #queue_group{name=string(), recipe=recipe(), skills=[atom()], sort=non_neg_integer(), protected=true | false}} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_queue_groups/0">get_queue_groups() -&gt; {ok, [#queue_group{name=string(), recipe=recipe(), skills=[atom()], sort=non_neg_integer(), protected=true | false}]} | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Gets all <code>#queue_group{}</code> in a list sorted by group.</p>
+</div></div>
+<div class="function">
+<h3 id="get_skill_key/1">get_skill_key(Name::string()) -&gt; {ok, atom()} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Check if the given <code>string()</code> <code>Skillname</code> exists.
+  Returns the <code>atom()</code> of <code>Skillname</code> or <code>undefined</code></p>
+</div></div>
+<div class="function">
+<h3 id="get_skill/1">get_skill(Key::atom()) -&gt; {ok, #skill_rec{atom=undefined | atom(), name=string(), protected=true | false, description=string(), group=string()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>get a single <code>#skill_rec{}</code></p>
+</div></div>
+<div class="function">
+<h3 id="get_skill_by_key/1">get_skill_by_key(Key::atom()) -&gt; {ok, #skill_rec{atom=undefined | atom(), name=string(), protected=true | false, description=string(), group=string()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_skill_by_name/1">get_skill_by_name(Name::string()) -&gt; {ok, #skill_rec{atom=undefined | atom(), name=string(), protected=true | false, description=string(), group=string()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_skills/0">get_skills() -&gt; {ok, [#skill_rec{atom=undefined | atom(), name=string(), protected=true | false, description=string(), group=string()}]} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Return <code>[#skill_rec{}]</code> in the system sorted by group</p>
+</div></div>
+<div class="function">
+<h3 id="get_skills_by_group/1">get_skills_by_group(Group::string()) -&gt; {ok, [#skill_rec{atom=undefined | atom(), name=string(), protected=true | false, description=string(), group=string()}]} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Returns <code>[#skill_rec{}]</code> in the system which have a group of <code>string()</code> <code>Group</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_client/1">get_client(Id::string()) -&gt; {ok, #client{id=string() | undefined, label=string() | undefined, options=client_opts(), last_integrated=undefined | pos_integer()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+
+<p>Get the <code>#client{}</code> associated with the id <code>Id</code></p>
+</div></div>
+<div class="function">
+<h3 id="get_client_by_id/1">get_client_by_id(Id::string()) -&gt; {ok, #client{id=string() | undefined, label=string() | undefined, options=client_opts(), last_integrated=undefined | pos_integer()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_client_by_name/1">get_client_by_name(Id::string()) -&gt; {ok, #client{id=string() | undefined, label=string() | undefined, options=client_opts(), last_integrated=undefined | pos_integer()}} | none | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_default_client/0">get_default_client() -&gt; {ok, #client{id=string() | undefined, label=string() | undefined, options=client_opts(), last_integrated=undefined | pos_integer()}} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_clients/0">get_clients() -&gt; {ok, [#client{id=string() | undefined, label=string() | undefined, options=client_opts(), last_integrated=undefined | pos_integer()}]} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
