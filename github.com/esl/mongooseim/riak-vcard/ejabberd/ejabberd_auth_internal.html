@@ -32,7 +32,7 @@
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-query_keyword">query_keyword() = from | to | limit | offset | prefix</h3></div>
-    <div class="type"><h3 id="type-query_value">query_value() = integer() | string()</h3></div></div>
+    <div class="type"><h3 id="type-query_value">query_value() = integer() | binary()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start/1">start(Host::server() (see module ejabberd)) -&gt; ok</h3>
@@ -79,13 +79,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="try_register/1">try_register(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd), Password::binary()) -&gt; {atomic, ok | exists} | {error, invalid_jid | not_allowed} | {aborted, term()}</h3>
+<h3 id="try_register/1">try_register(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd), Password::binary()) -&gt; ok | {error, exists | not_allowed}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="dirty_get_registered_users/0">dirty_get_registered_users() -&gt; [simple_jid() (see module ejabberd)]</h3>
+<h3 id="dirty_get_registered_users/0">dirty_get_registered_users() -&gt; [simple_bare_jid() (see module ejabberd)]</h3>
 
 
 <div class="description">
@@ -93,13 +93,13 @@
 <p>Get all registered users in Mnesia</p>
 </div></div>
 <div class="function">
-<h3 id="get_vh_registered_users/1">get_vh_registered_users(LServer::lserver() (see module ejabberd)) -&gt; [simple_jid() (see module ejabberd)]</h3>
+<h3 id="get_vh_registered_users/1">get_vh_registered_users(LServer::lserver() (see module ejabberd)) -&gt; [simple_bare_jid() (see module ejabberd)]</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_vh_registered_users/1-1">get_vh_registered_users(LServer::lserver() (see module ejabberd), Query::[{query_keyword(), query_value()}]) -&gt; [simple_jid() (see module ejabberd)]</h3>
+<h3 id="get_vh_registered_users/1-1">get_vh_registered_users(LServer::lserver() (see module ejabberd), Query::[{query_keyword(), query_value()}]) -&gt; [simple_bare_jid() (see module ejabberd)]</h3>
 
 
 <div class="description">
@@ -111,7 +111,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_vh_registered_users_number/1-1">get_vh_registered_users_number(LServer::lserver() (see module ejabberd), Query::[{prefix, string()}]) -&gt; integer()</h3>
+<h3 id="get_vh_registered_users_number/1-1">get_vh_registered_users_number(LServer::lserver() (see module ejabberd), Query::[{prefix, binary()}]) -&gt; integer()</h3>
 
 
 <div class="description">
@@ -123,7 +123,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_password_s/1">get_password_s(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd)) -&gt; binary() | false</h3>
+<h3 id="get_password_s/1">get_password_s(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd)) -&gt; binary()</h3>
 
 
 <div class="description">
@@ -135,7 +135,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="remove_user/1">remove_user(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd)) -&gt; ok | error | {error, not_allowed}</h3>
+<h3 id="remove_user/1">remove_user(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd)) -&gt; ok | {error, not_allowed}</h3>
 
 
 <div class="description">
@@ -144,7 +144,7 @@
   Note: it returns ok even if there was some problem removing the user.</p>
 </div></div>
 <div class="function">
-<h3 id="remove_user/1-1">remove_user(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd), Password::binary()) -&gt; ok | not_exists | not_allowed | bad_request | error</h3>
+<h3 id="remove_user/1-1">remove_user(LUser::luser() (see module ejabberd), LServer::lserver() (see module ejabberd), Password::binary()) -&gt; ok | {error, not_exists | not_allowed | bad_request}</h3>
 
 
 <div class="description">
@@ -152,8 +152,7 @@
 <p>Remove user if the provided password is correct.</p>
 </div></div>
 <div class="function">
-<h3 id="scram_passwords/0">scram_passwords() -&gt; term()
-</h3>
+<h3 id="scram_passwords/0">scram_passwords() -&gt; {atomic, ok}</h3>
 
 
 <div class="description">

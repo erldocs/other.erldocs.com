@@ -1,6 +1,28 @@
  :: Extracting meta information
 $ infinity  `svn ls --verbose 'http://nodefinder.googlecode.com/svn/branches' 'http://nodefinder.googlecode.com/svn/tags' 'http://nodefinder.googlecode.com/svn/trunk'  2>&1`
 >>> [repo] 1 branches, 4 tags
+WTF {ok,{{"HTTP/1.1",200,"OK"},
+         [{"cache-control","max-age=300"},
+          {"connection","keep-alive"},
+          {"date","Sat, 10 Oct 2015 11:16:49 GMT"},
+          {"via","1.1 varnish"},
+          {"accept-ranges","bytes"},
+          {"etag","\"f8b44012c5a5f4f251cdeb0b3174534e8faa9ee5\""},
+          {"vary","Authorization,Accept-Encoding"},
+          {"content-length","549"},
+          {"content-type","text/plain; charset=utf-8"},
+          {"expires","Sat, 10 Oct 2015 11:21:49 GMT"},
+          {"content-security-policy","default-src 'none'"},
+          {"x-xss-protection","1; mode=block"},
+          {"x-frame-options","deny"},
+          {"x-content-type-options","nosniff"},
+          {"strict-transport-security","max-age=31536000"},
+          {"x-served-by","cache-fra1233-FRA"},
+          {"x-cache","MISS"},
+          {"x-cache-hits","0"},
+          {"access-control-allow-origin","*"},
+          {"source-age","0"}],
+         "{name,\"nodefinder\"}.\n{target_path,\"code.google.com/p/nodefinder\"}.\n{url,\"https://code.google.com/p/nodefinder\"}.\n{vsn_format,2}.\n{vsn_pass,102}.\n{time_begin,{{2015,9,21},{11,32,50}}}.\n{method,svn}.\n{count_tags,4}.\n{count_branches,1}.\n{revisions,[{rev,branch,\"trunk\",\"84\",true,[],[]},\n            {rev,tag,\"combonodefinder\",\"70\",false,[],[]},\n            {rev,tag,\"ec2nodefinder\",\"68\",false,[],[]},\n            {rev,tag,\"nodefinder\",\"66\",undefined,[],[]},\n            {rev,tag,\"s3nodefinder\",\"73\",false,[],[]}]}.\n{time_end,{{2015,9,21},{11,32,56}}}.\n"}}
  :: Writing meta to "/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/meta.txt"
  :: Skipping branch "trunk"
  :: Skipping tag "s3nodefinder"
@@ -11,20 +33,23 @@ $ infinity  `svn ls --verbose 'http://nodefinder.googlecode.com/svn/branches' 'h
 $ cd '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder'
 $ infinity  `svn export -r '66' 'http://nodefinder.googlecode.com/svn/tags/nodefinder'  2>&1`
 $ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
->>> [stdout] "svn: E155000: Destination directory exists; please remove the directory or use --force to overwritesvn: E155000: 'nodefinder' already exists"
+$ cd '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder'
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
+$ 5000  `mv '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder' '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder'  2>&1`
+>>> [stdout] "mv: cannot move '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder' to a subdirectory of itself, '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder/nodefinder'"
  :: Error running eo_core:
 	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
-         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,126}]},
+         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,131}]},
          {eo_core,do,7,[{file,"src/eo_core.erl"},{line,106}]},
          {eo_core,'-main_/1-lc$^0/1-0-',8,
              [{file,"src/eo_core.erl"},{line,84}]},
          {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,84}]},
          {eo_core,main,1,[{file,"src/eo_core.erl"},{line,55}]},
          {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,36}]},
-         {gen_escript__escript__1442__833025__403742,seq_gen,4,
+         {gen_escript__escript__1444__472009__752466,seq_gen,4,
              [{file,"./gen.escript"},{line,52}]}]
-{throw,{sh,fetch_svn,error,1,
-           [{"svn: E155000: Destination directory exists; please remove the directory or use --force to overwrite"},
-            {"svn: E155000: 'nodefinder' already exists"}]}}
+{throw,{sh,mv,error,1,
+           [{"mv: cannot move '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder' to a subdirectory of itself, '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder-tag-nodefinder/nodefinder/nodefinder'"}]}}
  :: Finishing up
 $ 5000  `rm -r '/home/pete/wefwefwef/docs/other/b77800e99245050b05c9da505169279736a19468/nodefinder'  2>&1`

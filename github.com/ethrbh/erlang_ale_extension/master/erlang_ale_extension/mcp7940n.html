@@ -92,6 +92,7 @@
     <div class="type"><h3 id="type-rtc_vbaten_dis">rtc_vbaten_dis() = 0</h3></div>
     <div class="type"><h3 id="type-rtc_vbaten_en">rtc_vbaten_en() = 1</h3></div>
     <div class="type"><h3 id="type-second">second() = 0..59</h3></div>
+    <div class="type"><h3 id="type-time">time() = <a href="#type-time_12h" class="seealso">time_12h()</a> | <a href="#type-time_24h" class="seealso">time_24h()</a></h3></div>
     <div class="type"><h3 id="type-time_12h">time_12h() = {{<a href="#type-hour_ampm_ind" class="seealso">hour_ampm_ind()</a>, <a href="#type-hour/12" class="seealso">hour12()</a>}, <a href="#type-minute" class="seealso">minute()</a>, <a href="#type-second" class="seealso">second()</a>}</h3></div>
     <div class="type"><h3 id="type-time_24h">time_24h() = {<a href="#type-hour" class="seealso">hour()</a>, <a href="#type-minute" class="seealso">minute()</a>, <a href="#type-second" class="seealso">second()</a>}</h3></div>
     <div class="type"><h3 id="type-time_format">time_format() = <a href="#type-time_format_12h" class="seealso">time_format_12h()</a> | <a href="#type-time_format_24h" class="seealso">time_format_24h()</a></h3></div>
@@ -117,6 +118,18 @@
 
 <p>Stop driver.</p>
 </div></div>
+<div class="function">
+<h3 id="get_week_day_name/1">get_week_day_name(WDay::wday()) -&gt; {ok, atom()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_week_day_id/1">get_week_day_id(WDayName::atom()) -&gt; {ok, wday()} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="ctrl_bit_out_set/1">ctrl_bit_out_set(CtrlBitOut::rtc_ctrl_bit_out()) -&gt; ok | {error, term()}</h3>
 
@@ -280,6 +293,15 @@
   Check interrupt flag bit.</p>
 </div></div>
 <div class="function">
+<h3 id="alarm_interrupt_flag_check/0">alarm_interrupt_flag_check() -&gt; {ok, [{rtc_alarm_id(), rtc_alarm_interrupt_set() | rtc_alarm_interrupt_clear()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Check interrupt flag status for all AlarmModules</p>
+</div></div>
+<div class="function">
 <h3 id="alarm_configure/1">alarm_configure(AlarmId::rtc_alarm_id(), DateAndTime::datetime(), Mask::rtc_alarm_mask(), InterruptEnStatus::rtc_alarm_interrupt_en_status(), InterruptOutPol::rtc_alarm_interrupt_out_pol()) -&gt; ok | {error, term()}</h3>
 
 
@@ -398,7 +420,27 @@
 
 <p>
   Read Date and Time in RTC device and convert it to string.
-  The timestamp string loks liek this: 2015-09-09 10:03:54</p>
+  The timestamp string looks liek this: 2015-09-09 10:03:54</p>
+</div></div>
+<div class="function">
+<h3 id="date_get_in_str/1">date_get_in_str(Date::date() | {ok, date()}) -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Convert date to string.
+  The date string looks liek this: 2015-09-09</p>
+</div></div>
+<div class="function">
+<h3 id="time_get_in_str/1">time_get_in_str(Time::time() | {ok, time()}) -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Convert time to string.
+  The date string looks liek this: 10:03:54</p>
 </div></div>
 <div class="function">
 <h3 id="read_register/1">read_register(Addr::address()) -&gt; {ok, int_data()} | {error, term()}</h3>
@@ -626,6 +668,15 @@
   Check interrupt flag bit.</p>
 </div></div>
 <div class="function">
+<h3 id="do_alarm_interrupt_flag_check/0">do_alarm_interrupt_flag_check() -&gt; {ok, [{rtc_alarm_id(), rtc_alarm_interrupt_set() | rtc_alarm_interrupt_clear()}]} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Check interrupt flag bit.</p>
+</div></div>
+<div class="function">
 <h3 id="do_alarm_configure/1">do_alarm_configure(AlarmId::rtc_alarm_id(), DateAndTime::datetime(), Mask::rtc_alarm_mask(), InterruptEnStatus::rtc_alarm_interrupt_en_status(), InterruptOutPol::rtc_alarm_interrupt_out_pol()) -&gt; ok | {error, term()}</h3>
 
 
@@ -795,6 +846,24 @@
 
 <p>
   Read Date and Time in RTC device and convert it to string</p>
+</div></div>
+<div class="function">
+<h3 id="do_date_get_in_str/1">do_date_get_in_str(Date::date() | {ok, date()}) -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Convert date to string</p>
+</div></div>
+<div class="function">
+<h3 id="do_time_get_in_str/1">do_time_get_in_str(Time::time() | {ok, time()}) -&gt; {ok, list()} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>
+  Convert time to string</p>
 </div></div>
 <div class="function">
 <h3 id="do_year_get/1">do_year_get(RegType::atom()) -&gt; {ok, year()} | {error, term()}</h3>

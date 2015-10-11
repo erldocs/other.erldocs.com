@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>syslog (erlang-syslog) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>syslog</h1>
+<h2 class="modsummary">erlang wrapper for syslog port.</h2>
+<div class="description">
+<p>erlang wrapper for syslog port</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-facility">facility() = kern<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| user<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| mail<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| daemon<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| auth<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| syslog<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| lpr<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| news<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| uucp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| cron<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| authpriv<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ftp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| netinfo<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| remoteauth<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| install<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ras<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local0<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| local7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer() >= 0</h3></div>
+    <div class="type"><h3 id="type-openlog_opt">openlog_opt() = pid<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| cons<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| odelay<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ndelay<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| perror<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer() >= 1</h3></div>
+    <div class="type"><h3 id="type-priority">priority() = emerg<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| alert<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| crit<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| err<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| warning<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| notice<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| info<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| debug<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer() >= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; {ok, pid()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | ignore | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/1">open(Ident::string(), Logopt::[openlog_opt()], Facility::facility()) -&gt; {ok, port()} | {error, any()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log/1">log(Log::port(), Priority::priority(), Message::iolist()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="log/1-1">log(Log::port(), Priority::priority(), FormatStr::string(), FormatArgs::list()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="close/1">close(Log::port()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="priority/1">priority(N::priority() | non_neg_integer()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="facility/1">facility(N::facility() | non_neg_integer()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="openlog_opt/1">openlog_opt(N::openlog_opt() | pos_integer()) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="openlog_opts/1">openlog_opts(N::[openlog_opt() | pos_integer()] | openlog_opt() | pos_integer()) -&gt; pos_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="load/0">load() -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="unload/0">unload() -&gt; ok | {error, string()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Msg, From, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(X1, State, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

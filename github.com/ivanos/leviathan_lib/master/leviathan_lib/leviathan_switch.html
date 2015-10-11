@@ -42,26 +42,27 @@ information to Dobby.</p>
           &lt;&lt;"interfaces"&gt;&gt; =&gt; [&lt;&lt;"cen1"&gt;&gt;, &lt;&lt;"cen2"&gt;&gt;]}).</pre>
  
   <p>The Docker image named in the <code>type</code> attribute will be started with
-  the options <code>--net=host --privileged=true</code>, and the interface names
-  will be passed as command line arguments.  The Docker image should
-  have an <code>ENTRYPOINT</code> appropriately set to accept those arguments.</p></div>
+  the options <code>--net=host --privileged=true</code>, and the datapath id and
+  the interface names will be passed as command line arguments.  The
+  Docker image should have an <code>ENTRYPOINT</code> appropriately set to
+  accept those arguments.</p></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="import_binary/1">import_binary(Binary) -&gt; term()
-</h3>
+<h3 id="import_binary/1">import_binary(Binary::binary()) -&gt; [binary()]</h3>
 
 
 <div class="description">
 
 <p>Start one or more switches based on a JSON description.</p>
  
-  <p>This function parses <code>Binary</code> as JSON and passes it to <a href="#import_json/1" class="seealso">import_json/1</a>.</p>
+  <p>This function parses <code>Binary</code> as JSON and passes it to <a href="#import_json/1" class="seealso">import_json/1</a>.  It returns a list of binaries: the datapath ids of
+  the started switches.</p>
 </div></div>
 <div class="function">
-<h3 id="import_json/1">import_json(Switches) -&gt; term()
-</h3>
+<h3 id="import_json/1">import_json(Switches::Switch | [Switch]) -&gt; [binary()]</h3>
 
-
+<ul class="type">
+<li><code>Switch = #{}</code></li></ul>
 <div class="description">
 
 <p>Start one or more switches, and publish info to Dobby.</p>
@@ -72,9 +73,22 @@ map should have two keys:</p>
   <p>The <code>&lt;&lt;"type"&gt;&gt;</code> key should have a binary value, that names a  
 Docker image.</p>
  
-  <p>The <code>&lt;&lt;"interfaces"&gt;&gt;</code> key should have a list of binaries,
-  each naming an interface name that the newly started switch
-  should manage.</p>
+  <p>The <code>&lt;&lt;"interfaces"&gt;&gt;</code> key should have a list of binaries,  
+each naming an interface name that the newly started switch  
+should manage.</p>
+ 
+  <p>This function returns a list of binaries: the datapath ids of the
+  started switches.</p>
+</div></div>
+<div class="function">
+<h3 id="wait_for_switch/1">wait_for_switch(DatapathId::binary(), Timeout::integer()) -&gt; ok | {error, timeout}</h3>
+
+
+<div class="description">
+
+<p>Wait for a connection from a switch with the given <code>DatapathId</code>.</p>
+ 
+  <p>Wait for <code>Timeout</code> milliseconds before giving up.</p>
 </div></div></div>
 
 <authors>

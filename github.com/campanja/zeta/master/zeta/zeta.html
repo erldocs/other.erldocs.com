@@ -35,7 +35,8 @@
     <div class="type"><h3 id="type-event_opt">event_opt() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{t | time | desc | description | tag | tags | ttl, term()}</h3></div>
     <div class="type"><h3 id="type-loc_spec">loc_spec() = <a href="#type-atom_or_string" class="seealso">atom_or_string()</a> | {<a href="#type-atom_or_string" class="seealso">atom_or_string()</a>, <a href="#type-service" class="seealso">service()</a>}</h3></div>
     <div class="type"><h3 id="type-service">service() = <a href="#type-atom_or_string" class="seealso">atom_or_string()</a> | [<a href="#type-atom_or_string" class="seealso">atom_or_string()</a>]</h3></div>
-    <div class="type"><h3 id="type-zevent">zevent() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#zeta_event{time = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;service = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags = [string(), ...],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ttl = undefined | float(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metric_f = undefined | float()}</h3></div></div>
+    <div class="type"><h3 id="type-zattribute">zattribute() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#zeta_attribute{key = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = undefined | string()}</h3></div>
+    <div class="type"><h3 id="type-zevent">zevent() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#zeta_event{time = undefined | integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;service = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description = undefined | string(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags = [string()],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ttl = undefined | float(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attributes = [<a href="#type-zattribute" class="seealso">zattribute()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;metric_f = undefined | float()}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="ev/1">ev(Service::loc_spec() | service(), Metric::number()) -&gt; zevent()</h3>
@@ -103,6 +104,20 @@
 <div class="description">
  </div></div>
 <div class="function">
+<h3 id="sv_batch/1">sv_batch(Es) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="sv_batch/2">sv_batch(Backend, Es) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
 <h3 id="svh/2">svh(Service, Metric) -&gt; term()
 </h3>
 
@@ -139,6 +154,13 @@
  </div></div>
 <div class="function">
 <h3 id="cv/4">cv(Loc, Metric, State, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="cv_batch/1">cv_batch(Es) -&gt; term()
 </h3>
 
 
@@ -201,7 +223,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="client_config/1">client_config(Client::atom()) -&gt; t({address() (see module inet), portnumber() (see module inet), Restart::term()}) (see module maybe)</h3>
+<h3 id="client_config/1">client_config(Client::atom()) -&gt; {ok, {address() (see module inet), portnumber() (see module inet), Restart::term()}} | {error, any()}</h3>
 
 
 <div class="description">

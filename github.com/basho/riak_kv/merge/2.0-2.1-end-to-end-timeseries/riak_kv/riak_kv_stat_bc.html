@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>riak_kv_stat_bc (riak_kv) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>riak_kv_stat_bc</h1>
+<h2 class="modsummary">riak_kv_stat_bc is a module that maps the new riak_kv_stats metrics
+  to the old set of stats.</h2>
+<div class="description">
+<p>riak_kv_stat_bc is a module that maps the new riak_kv_stats metrics
+  to the old set of stats. It exists to maintain backwards compatibility for
+  those using the <code>/stats</code> endpoint and <code>riak-admin status</code>. This module  
+should be considered soon to be deprecated and temporary.</p>
+ 
+       <p>Legacy stats:
+ </p><taglist><dt>  vnode_gets
+ </dt><item><p> Total number of gets handled by all vnodes on this node
+           in the last minute.
+ </p></item>
+ <dt> vnode_puts
+ </dt><item><p> Total number of puts handled by all vnodes on this node
+           in the last minute.
+ </p></item>
+ <dt> vnode_index_reads
+ </dt><item><p> The number of index reads handled by all vnodes on this node.
+           Each query counts as an index read.
+ </p></item>
+ <dt> vnode_index_writes
+ </dt><item><p> The number of batched writes handled by all vnodes on this node.
+ </p></item>
+ <dt> vnode_index_writes_postings
+ </dt><item><p> The number of postings written to all vnodes on this node.
+ </p></item>
+ <dt> vnode_index_deletes
+ </dt><item><p> The number of batched writes handled by all vnodes on this node.
+ </p></item><item><p> update({vnode_index_delete, PostingsRemoved})</p>
+ 
+ </item><dt> vnode_index_deletes_postings
+ </dt><item><p> The number of postings written to all vnodes on this node.
+ </p></item><dt> node_gets
+ </dt><item><p> Number of gets coordinated by this node in the last
+           minute.
+ </p></item><dt> node_get_fsm_siblings
+ </dt><item><p> Stats about number of siblings per object in the last minute.
+ </p></item><dt> node_get_fsm_objsize
+ </dt><item><p> Stats about object size over the last minute. The object
+           size is an estimate calculated by summing the size of the
+           bucket name, key name, and serialized vector clock, plus
+           the value and serialized metadata of each sibling.
+ </p></item><dt> node_get_fsm_time_mean
+ </dt><item><p> Mean time, in microseconds, between when a riak_kv_get_fsm is
+           started and when it sends a reply to the client, for the
+           last minute.
+ </p></item><dt> node_get_fsm_time_median
+ </dt><item><p> Median time, in microseconds, between when a riak_kv_get_fsm
+           is started and when it sends a reply to the client, for
+           the last minute.
+ </p></item><dt> node_get_fsm_time_95
+ </dt><item><p> Response time, in microseconds, met or beaten by 95% of
+           riak_kv_get_fsm executions.
+ </p></item><dt> node_get_fsm_time_99
+ </dt><item><p> Response time, in microseconds, met or beaten by 99% of
+           riak_kv_get_fsm executions.
+ </p></item><dt> node_get_fsm_time_100
+ </dt><item><p> Response time, in microseconds, met or beaten by 100% of
+           riak_kv_get_fsm executions.
+ </p></item><dt> node_puts
+ </dt><item><p> Number of puts coordinated by this node in the last
+           minute.
+ </p></item><dt> node_put_fsm_time_mean
+ </dt><item><p> Mean time, in microseconds, between when a riak_kv_put_fsm is
+           started and when it sends a reply to the client, for the
+           last minute.
+ </p></item><dt> node_put_fsm_time_median
+ </dt><item><p> Median time, in microseconds, between when a riak_kv_put_fsm
+           is started and when it sends a reply to the client, for
+           the last minute.
+ </p></item><dt> node_put_fsm_time_95
+ </dt><item><p> Response time, in microseconds, met or beaten by 95% of
+           riak_kv_put_fsm executions.
+ </p></item><dt> node_put_fsm_time_99
+ </dt><item><p> Response time, in microseconds, met or beaten by 99% of
+           riak_kv_put_fsm executions.
+ </p></item><dt> node_put_fsm_time_100
+ </dt><item><p> Response time, in microseconds, met or beaten by 100% of
+           riak_kv_put_fsm executions.
+ </p></item><dt> cpu_nprocs
+ </dt><item><p> Value returned by <a href="cpu_sup.html#nprocs/0" class="seealso">cpu_sup:nprocs/0</a>.</p>
+ 
+ </item><dt> cpu_avg1
+ </dt><item><p> Value returned by <a href="cpu_sup.html#avg1/0" class="seealso">cpu_sup:avg1/0</a>.</p>
+ 
+ </item><dt> cpu_avg5
+ </dt><item><p> Value returned by <a href="cpu_sup.html#avg5/0" class="seealso">cpu_sup:avg5/0</a>.</p>
+ 
+ </item><dt> cpu_avg15
+ </dt><item><p> Value returned by <a href="cpu_sup.html#avg15/0" class="seealso">cpu_sup:avg15/0</a>.</p>
+ 
+ </item><dt> mem_total
+ </dt><item><p> The first element of the tuple returned by
+           <a href="memsup.html#get_memory_data/0" class="seealso">memsup:get_memory_data/0</a>.</p>
+ 
+ </item><dt> mem_allocated
+ </dt><item><p> The second element of the tuple returned by
+           <a href="memsup.html#get_memory_data/0" class="seealso">memsup:get_memory_data/0</a>.</p>
+ 
+ </item><dt> disk
+ </dt><item><p> Value returned by <a href="disksup.html#get_disk_data/0" class="seealso">disksup:get_disk_data/0</a>.</p>
+ 
+ </item><dt> pbc_connects_total
+ </dt><item><p> Total number of pb socket connections since start</p>
+ 
+ </item><dt> pbc_active
+ </dt><item><p> Number of active pb socket connections</p>
+ 
+ </item><dt> coord_redirs_total
+ </dt><item><p> Number of puts forwarded to be coordinated on a node           
+in the preflist.</p>
+ 
+ </item></taglist>
+ 
+ </div>
+
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

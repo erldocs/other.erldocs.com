@@ -59,10 +59,11 @@
 <p>Data Type: state
        where:
            partition: the partition that the vnode is responsible for.
-           prepared_tx: a list of prepared transactions.
-           committed_tx: a list of committed transactions.
-           active_txs_per_key: a list of the active transactions that
-               have updated a key (but not yet finished).
+           prepared_tx: the prepared txn for each key. Note that for
+               each key, there can be at most one prepared txn in any
+               time.
+           committed_tx: the transaction id of the last committed
+               transaction for each key.
            downstream_set: a list of the downstream operations that the
                transactions generate.
            write_set: a list of the write sets that the transactions
@@ -70,28 +71,57 @@
  ----------------------------------------------------------------------</p>
 </div></div>
 <div class="function">
-<h3 id="read_data_item/6">read_data_item(Node, TxId, Key, Type, WriteSet, ExternalSnapshots) -&gt; term()
+<h3 id="read_data_item/7">read_data_item(Node, TxId, Key, Type, Updates, ExternalSnapshots, IsLocal) -&gt; term()
 </h3>
 
 
 <div class="description">
 
-<p>Sends a read request to the Node that is responsible for the Key</p>
+<p>Sends a read request to the Node that is responsible for the Key
+       this does not actually touch the vnode, instead reads directly
+       from the ets table to allow for concurrency</p>
 </div></div>
 <div class="function">
-<h3 id="read_data_item_external/5">read_data_item_external(Node, TxId, Key, Type, WriteSet) -&gt; term()
+<h3 id="get_active_txns_call/1">get_active_txns_call(Partition) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="read_data_item/7">read_data_item(Txn, Key, Type, IsLocal, Sender, WriteSet, ExternalSnapshots) -&gt; term()
+<h3 id="read_data_item/6">read_data_item(Node, TxId, Key, Type, Updates, ExternalSnapshots) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
+<div class="function">
+<h3 id="read_data_item_external/5">read_data_item_external(Node, TxId, Key, Type, Updates) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_active_txns_key/3">get_active_txns_key(Key, Partition, TableName) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return active transactions in prepare state with their preparetime for a given key
+  should be run from same physical node</p>
+</div></div>
+<div class="function">
+<h3 id="get_active_txns/2">get_active_txns(Partition, TableName) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Return active transactions in prepare state with their preparetime for all keys for this partition
+  should be run from same physical node</p>
+</div></div>
 <div class="function">
 <h3 id="prepare/2">prepare(ListofNodes, TxId) -&gt; term()
 </h3>
@@ -101,6 +131,24 @@
 
 <p>Sends a prepare request to a Node involved in a tx identified by TxId</p>
 </div></div>
+<div class="function">
+<h3 id="single_commit/2">single_commit(X1, TxId) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Sends prepare+commit to a single partition
+       Called by a Tx coordinator when the tx only
+       affects one partition</p>
+</div></div>
+<div class="function">
+<h3 id="single_commit_sync/2">single_commit_sync(X1, TxId) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="commit/3">commit(ListofNodes, TxId, CommitTime) -&gt; term()
 </h3>
@@ -120,6 +168,13 @@
 <p>Sends a commit request to a Node involved in a tx identified by TxId</p>
 </div></div>
 <div class="function">
+<h3 id="get_cache_name/2">get_cache_name(Partition, Base) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
 <h3 id="init/1">init(X1) -&gt; term()
 </h3>
 
@@ -130,7 +185,19 @@
        the transactions it participates on.</p>
 </div></div>
 <div class="function">
-<h3 id="handle_command/3">handle_command(Message, Sender, State) -&gt; term()
+<h3 id="check_tables_ready/0">check_tables_ready() -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>The table holding the prepared transactions is shared with concurrent
+       readers, so they can safely check if a key they are reading is being updated.
+       This function checks whether or not all tables have been intialized or not yet.
+       Returns true if the have, false otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="handle_command/3">handle_command(Message, Sender, SD0) -&gt; term()
 </h3>
 
 
@@ -172,7 +239,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="encode_handoff_item/2">encode_handoff_item(ObjectName, ObjectValue) -&gt; term()
+<h3 id="encode_handoff_item/2">encode_handoff_item(StatName, Val) -&gt; term()
 </h3>
 
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>machi_chain_repair (machi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>machi_chain_repair</h1>
+<h2 class="modsummary">Perform "chain repair", i.e., resynchronization of Machi file  
+contents and metadata as servers are (re-)added to the chain.</h2>
+<div class="description">
+<p>Perform "chain repair", i.e., resynchronization of Machi file  
+contents and metadata as servers are (re-)added to the chain.</p>
+ 
+  <p>The implementation here is a very basic one, and is probably a bit
+  slower than the original "demo day" implementation at
+  <a href="../https///github.com/basho/machi/blob/master/prototype/demo-day-hack/file0_repair_server.html#escript" class="seealso">https://github.com/basho/machi/blob/master/prototype/demo-day-hack/file0_repair_server.escript</a></p>
+ 
+  <p>It's so easy to bikeshed this into a 1 year programming exercise.</p>
+ 
+  <p>General TODO note: There are a lot of areas for exploiting parallelism here.
+  I've set the bikeshed aside for now, but "make repair faster" has a
+  lot of room for exploiting concurrency, overlapping reads & writes,  
+etc etc.  There are also lots of different trade-offs to make with  
+regard to RAM use vs. disk use.</p>
+ 
+  <p>There's no reason why repair can't be done:</p>
+ 
+  <list>
+  <item> Repair in parallel across multiple repairees ... Optimization.
+  </item>
+  <item> Repair multiple byte ranges concurrently ... Optimization.
+  </item>
+  <item><p> Use bigger chunks than the client originally used to write the file     
+... Optimization ... but it would be the easiest to implement, e.g. use     
+constant-sized 4MB chunks.  Unfortuntely, it would also destroy     
+the ability to verify here that the chunk checksums are correct     
+*and* also propagate the correct checksum metadata to the     
+destination FLU.</p>
+ 
+     As an additional optimization, add a bit of #2 to start the next
+     read while the current write is still in progress.
+  </item>
+  <item> The current method centralizes the "smarts" required to compare
+     checksum differences ... move some computation to each FLU, then use
+     a Merkle- or other-compression-style scheme to reduce the amount of
+     data sent across a network.
+  </item>
+  </list>
+ 
+  <p>Most/all of this could be executed in parallel on each FLU relative to  
+its own files.  Then, in another TODO option, perhaps build a Merkle tree  
+or other summary of the local files and send that data structure to the  
+repair coordinator.</p>
+ 
+  <p>Also, as another TODO note, repair_both_present() in the  
+prototype/demo-day code uses an optimization of calculating the MD5  
+checksum of the chunk checksum data as it arrives, and if the two MD5s  
+match, then we consider the two files in sync.  If there isn't a match,  
+then we sort the lines and try another MD5, and if they match, then we're  
+in sync.  In theory, that's lower overhead than the procedure used here.</p>
+ 
+  <p>NOTE that one reason I chose the "directives list" method is to have an
+  option, later, of choosing to repair a subset of repairee FLUs if there
+  is a big discrepency between out of sync files: e.g., if FLU x has N
+  bytes out of sync but FLU y has 50N bytes out of sync, then it's likely
+  better to repair x only so that x can return to the UPI list quickly.
+  Also, in the event that all repairees are roughly comparably out of sync,
+  then the repair network traffic can be minimized by reading each chunk
+  only once.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="repair/6">repair(CMode, Src, Repairing, UPI, MembersDict, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

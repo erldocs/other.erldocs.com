@@ -123,6 +123,12 @@ has been told that the lock has been granted.</p>
 the agent will wait for the nodes to reappear, and reclaim the lock(s) when  
 they do.</p>
  
+  <p>* <code>{monitor_nodes, boolean()}</code> - default: <code>false</code>. Works like
+  <a href="net_kernel.html#monitor_nodes/1" class="seealso">net_kernel:monitor_nodes/1</a>, but <code>nodedown</code> and <code>nodeup</code> messages are
+  sent when the <code>locks</code> server on a given node either appears or disappears.
+  The messages (<code>{nodeup,Node}</code> and <code>{nodedown,Node}</code>) are sent only to
+  the client. Can also be toggled using <a href="#monitor_nodes/2" class="seealso">monitor_nodes/2</a>.</p>
+ 
   <p>* <code>{notify, boolean()}</code> - default: <code>false</code>. If <code>{notify, true}</code>, the client
   will receive <code>{locks_agent, Agent, Info}</code> messages, where <code>Info</code> is either
   a <code>#locks_info{}</code> record or <code>{have_all_locks, Deadlocks}</code>.</p>
@@ -166,6 +172,21 @@ they do.</p>
   <p>This function will return once all active lock requests have been granted.
   If the agent determines that they cannot be granted, or if it has been
   instructed to abort, this function will raise an exception.</p>
+</div></div>
+<div class="function">
+<h3 id="monitor_nodes/1">monitor_nodes(Agent::agent(), Bool::boolean()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Toggles monitoring of nodes, like net_kernel:monitor_nodes/1.</p>
+ 
+  <p>Works like <a href="net_kernel.html#monitor_nodes/1" class="seealso">net_kernel:monitor_nodes/1</a>, but <code>nodedown</code> and <code>nodeup</code>
+  messages are sent when the <code>locks</code> server on a given node either appears
+  or disappears. In this sense, the monitoring will signal when a viable
+  <code>locks</code> node becomes operational (or inoperational).
+  The messages (<code>{nodeup,Node}</code> and <code>{nodedown,Node}</code>) are sent only to
+  the client.</p>
 </div></div>
 <div class="function">
 <h3 id="end_transaction/1">end_transaction(Agent::agent()) -&gt; ok</h3>

@@ -31,7 +31,11 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-listener_option">listener_option() = inet<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| inet6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ip, tuple()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| tuple()</h3></div></div>
+    <div class="type"><h3 id="type-addr">addr() = <a href="inet.html#type-ip4_address" class="seealso">inet:ip4_address()</a> | string()</h3></div>
+    <div class="type"><h3 id="type-listener_option">listener_option() = inet<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| inet6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {ip, tuple()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| tuple()</h3></div>
+    <div class="type"><h3 id="type-port_ip_proto">port_ip_proto() = <a href="#type-portnum" class="seealso">portnum()</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-portnum" class="seealso">portnum()</a>, <a href="#type-addr" class="seealso">addr()</a> | <a href="#type-proto" class="seealso">proto()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-portnum" class="seealso">portnum()</a>, <a href="#type-addr" class="seealso">addr()</a>, <a href="#type-proto" class="seealso">proto()</a>}</h3></div>
+    <div class="type"><h3 id="type-portnum">portnum() = <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a></h3></div>
+    <div class="type"><h3 id="type-proto">proto() = tcp | udp | ws | wss</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start_link/0">start_link() -&gt; ignore | {error, term()} | {ok, pid()}</h3>
@@ -59,13 +63,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="init/1-1">init(PortIP::integer() | {term(), term()} | {term(), term(), term()}, Module::atom(), Opts::[any()]) -&gt; no_return()</h3>
+<h3 id="init/1-1">init(PortIP::port_ip_proto(), Module::atom(), Opts::[any()]) -&gt; no_return()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="parse_listener_portip/2">parse_listener_portip(PortIP, Opts) -&gt; {Port, IPT, IPS, IPV, OptsClean}</h3>
+<h3 id="parse_listener_portip/2">parse_listener_portip(PortIPProto::PortIP, Opts) -&gt; {Port, IPT, IPS, IPV, OptsClean}</h3>
 
 <ul class="type">
 <li><code>PortIP = Port | {Port, IPT | IPS}</code></li><li><code>Port = integer()</code></li><li><code>IPT = tuple()</code></li><li><code>IPS = string()</code></li><li><code>IPV = inet | inet6</code></li><li><code>Opts = [IPV | {ip, IPT} | atom() | tuple()]</code></li><li><code>OptsClean = [atom() | tuple()]</code></li></ul>
@@ -80,7 +84,7 @@
   so the option inet/inet6 is only used when no IP is specified at all.</p>
 </div></div>
 <div class="function">
-<h3 id="start_listener/1">start_listener(Port::integer(), Module::atom(), Opts::[any()]) -&gt; {error, pid()} | {ok, term()}</h3>
+<h3 id="start_listener/1">start_listener(PortIPProto::port_ip_proto(), Module::atom(), Opts::[any()]) -&gt; {error, pid()} | {ok, term()}</h3>
 
 
 <div class="description">
@@ -92,13 +96,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="stop_listener/1">stop_listener(PortIP::{integer(), tuple() | string()}, Module::atom()) -&gt; ok | {error, not_found | restarting | running | simple_one_for_one}</h3>
+<h3 id="stop_listener/1">stop_listener(PortIPProto::port_ip_proto(), Module::atom()) -&gt; ok | {error, not_found | restarting | running | simple_one_for_one}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="add_listener/1">add_listener(PortIP::integer() | {term(), term()} | {term(), term(), term()}, Module::atom(), Opts::[listener_option()]) -&gt; ok | {error, term()}</h3>
+<h3 id="add_listener/1">add_listener(PortIPProto::port_ip_proto(), Module::atom(), Opts::[listener_option()]) -&gt; ok | {error, term()}</h3>
 
 
 <div class="description">
@@ -106,13 +110,13 @@
 <p>Add a listener and store in config if success</p>
 </div></div>
 <div class="function">
-<h3 id="delete_listener/1">delete_listener(PortIP::integer() | {term(), term()} | {term(), term(), term()}, Module::atom()) -&gt; ok | {error, not_found | restarting | running | simple_one_for_one}</h3>
+<h3 id="delete_listener/1">delete_listener(PortIPProto::port_ip_proto(), Module::atom()) -&gt; ok | {error, not_found | restarting | running | simple_one_for_one}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="delete_listener/1-1">delete_listener(PortIP::integer() | {term(), term()} | {term(), term(), term()}, Module::atom(), Opts::[listener_option()]) -&gt; ok | {error, not_found | restarting | running | simple_one_for_one}</h3>
+<h3 id="delete_listener/1-1">delete_listener(PortIPProto::port_ip_proto(), Module::atom(), Opts::[listener_option()]) -&gt; ok | {error, not_found | restarting | running | simple_one_for_one}</h3>
 
 
 <div class="description">

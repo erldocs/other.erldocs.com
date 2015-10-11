@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>machi_flu_filename_mgr (machi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>machi_flu_filename_mgr</h1>
+<h2 class="modsummary">This process is responsible for managing filenames assigned to
+  prefixes.</h2>
+<div class="description">
+<p>This process is responsible for managing filenames assigned to
+  prefixes. It's started out of <code>machi_flu_psup</code>.</p>
+ 
+  <p>Supported operations include finding the "current" filename assigned to  
+a prefix. Incrementing the sequence number and returning a new file name  
+and listing all data files assigned to a given prefix.</p>
+ 
+  <p>All prefixes should have the form of <code>{prefix, P}</code>. Single filename
+  return values have the form of <code>{file, F}</code>.</p>
+ 
+  <p><em>Finding the current file associated with a sequence</em></p><p>  
+First it looks up the sequence number from the prefix name. If  
+no sequence file is found, it uses 0 as the sequence number and searches  
+for a matching file with the prefix and 0 as the sequence number.  
+If no file is found, the it generates a new filename by incorporating  
+the given prefix, a randomly generated (v4) UUID and 0 as the  
+sequence number.</p>
+ 
+  <p>If the sequence number is &gt; 0, then the process scans the filesystem
+  looking for a filename which matches the prefix and given sequence number and
+  returns that.</p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="child_spec/2">child_spec(FluName, DataDir) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="start_link/2">start_link(FluName, DataDir) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="find_or_make_filename_from_prefix/1">find_or_make_filename_from_prefix(FluName::atom(), Prefix::{prefix, string()}) -&gt; {file, Filename::string()} | {error, Reason::term()} | timeout</h3>
+
+
+<div class="description">
+
+<p>Find the latest available or make a filename from a prefix. A prefix
+ should be in the form of a tagged tuple <code>{prefix, P}</code>. Returns a tagged
+ tuple in the form of <code>{file, F}</code> or an <code>{error, Reason}</code></p>
+</div></div>
+<div class="function">
+<h3 id="increment_prefix_sequence/1">increment_prefix_sequence(FluName::atom(), Prefix::{prefix, string()}) -&gt; ok | {error, Reason::term()} | timeout</h3>
+
+
+<div class="description">
+
+<p>Increment the sequence counter for a given prefix. Prefix should
+ be in the form of <code>{prefix, P}</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="list_files_by_prefix/1">list_files_by_prefix(FluName::atom(), Prefix::{prefix, string()}) -&gt; [name() (see module file)] | timeout | {error, Reason::term()}</h3>
+
+
+<div class="description">
+
+<p>Given a prefix in the form of <code>{prefix, P}</code> return
+ all the data files associated with that prefix. Returns
+ a list.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Req, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Req, From, S) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

@@ -33,14 +33,13 @@
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-app">app() = atom()</h3></div>
     <div class="type"><h3 id="type-apply_opt">apply_opt() = ignore_errors | concurrent | pipe</h3></div>
-    <div class="type"><h3 id="type-apply_opts">apply_opts() = [apply_opt()]</h3></div>
+    <div class="type"><h3 id="type-apply_opts">apply_opts() = [<a href="#type-apply_opt" class="seealso">apply_opt()</a>]</h3></div>
+    <div class="type"><h3 id="type-data_spec">data_spec() = {module, module()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {priv_file, FileName :: string()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {file, FileName :: string()}</h3></div>
     <div class="type"><h3 id="type-handle">handle()</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
-    <div class="type"><h3 id="type-notification">notification() = {data, term()} | {modules, [module()]}</h3></div>
-    <div class="type"><h3 id="type-notify_cb">notify_cb/0</h3></div>
-    <div class="type"><h3 id="type-properties">properties() = [{key(), term()}]</h3></div>
-    <div class="type"><h3 id="type-service_id">service_id() = atom()</h3></div>
-    <div class="type"><h3 id="type-subscription">subscription() = term()</h3></div></div>
+    <div class="type"><h3 id="type-plugin_id">plugin_id() = module()</h3></div>
+    <div class="type"><h3 id="type-properties">properties() = [{<a href="#type-key" class="seealso">key()</a>, term()}]</h3></div>
+    <div class="type"><h3 id="type-service_id">service_id() = atom()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="dump/1">dump(Handle::handle()) -&gt; [Config::properties()]</h3>
@@ -97,18 +96,6 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="subscribe/1">subscribe(App::app(), Key::key(), Module::module(), Function::atom(), Args::[term()]) -&gt; {ok, SubscriptionId::subscription()}</h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
-<h3 id="unsubscribe/1">unsubscribe(SubscriptionId::subscription()) -&gt; ok</h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
 <h3 id="apply/1">apply(Handle::handle(), ServiceId::atom(), Function::atom(), Args::[term()], Opts::apply_opts()) -&gt; ok</h3>
 
 
@@ -139,7 +126,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="register_service/1">register_service(EPIKey::{ServiceId::service_id(), Key::key()}) -&gt; ok</h3>
+<h3 id="register_service/1">register_service(PluginId::plugin_id(), Children::[child_spec() (see module supervisor)]) -&gt; [child_spec() (see module supervisor)]</h3>
 
 
 <div class="description">

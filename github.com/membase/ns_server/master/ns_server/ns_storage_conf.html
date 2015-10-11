@@ -31,22 +31,13 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-bucket_name">bucket_name() = nonempty_string()</h3></div></div>
+    <div class="type"><h3 id="type-bucket_name">bucket_name() = nonempty_string()</h3></div>
+    <div class="type"><h3 id="type-ns_config">ns_config() = #config{} | [[term()]] | 'latest-config-marker'</h3></div>
+    <div class="type"><h3 id="type-quota_error">quota_error() = {total_quota_too_high,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaxAllowed :: integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {service_quota_too_low,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#type-service" class="seealso">service()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value :: integer(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MinRequired :: integer() >= 1}</h3></div>
+    <div class="type"><h3 id="type-quota_result">quota_result() = ok | {error, <a href="#type-quota_error" class="seealso">quota_error()</a>}</h3></div>
+    <div class="type"><h3 id="type-quotas">quotas() = [{<a href="#type-service" class="seealso">service()</a>, integer()}]</h3></div>
+    <div class="type"><h3 id="type-service">service() = kv | index | n1ql</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
-<div class="function">
-<h3 id="memory_quota/0">memory_quota() -&gt; term()
-</h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
-<h3 id="memory_quota/1">memory_quota(Config) -&gt; term()
-</h3>
-
-
-<div class="description">
- </div></div>
 <div class="function">
 <h3 id="setup_db_and_ix_paths/0">setup_db_and_ix_paths() -&gt; term()
 </h3>
@@ -159,28 +150,55 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="allowed_node_quota_range/0">allowed_node_quota_range() -&gt; term()
+<h3 id="check_quotas/2">check_quotas(NodeInfo::[NodeInfo], Config::ns_config(), Quotas::quotas()) -&gt; quota_result()</h3>
+
+<ul class="type">
+<li><code>NodeInfo = {node(), [service()], MemoryData::term()}</code></li></ul>
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_this_node_quotas/1">check_this_node_quotas(Services::[service()], Quotas0::quotas()) -&gt; quota_result()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_memory_quota/1">get_memory_quota(Service) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="allowed_node_quota_range/1">allowed_node_quota_range(MemoryData) -&gt; term()
+<h3 id="get_memory_quota/2">get_memory_quota(Config, X2) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="allowed_node_quota_max_for_joined_nodes/0">allowed_node_quota_max_for_joined_nodes() -&gt; term()
+<h3 id="get_memory_quota/3">get_memory_quota(Config, Service, Default) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="default_memory_quota/1">default_memory_quota(MemSupData) -&gt; term()
+<h3 id="set_quotas/2">set_quotas(Config, Quotas) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="default_quotas/1">default_quotas(Services) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="default_quotas/2">default_quotas(Services, MemSupData) -&gt; term()
 </h3>
 
 

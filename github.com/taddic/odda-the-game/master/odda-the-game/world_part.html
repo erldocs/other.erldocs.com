@@ -35,8 +35,6 @@
   player position, mobs position and handles communicating with neighbouring
   areas and players.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-pos">pos() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pos{area = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;area_pid = pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coord = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v = integer()}</h3></div>
-    <div class="type"><h3 id="type-pos">pos() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#pos{area = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;area_pid = pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coord = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v = integer()}</h3></div>
     <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{part = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mobs = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;players = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;terrain = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;neighbours = #{}}</h3></div>
     <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{part = {integer() >= 0, integer() >= 0},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mobs = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;players = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;terrain = #{},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;neighbours = #{}}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
@@ -64,16 +62,14 @@
 <h3 id="handle_call/3">handle_call(Request, From, State) -&gt; Result</h3>
 
 <ul class="type">
-<li><code>Request = request_players</code></li><li><code>From = {pid(), atom()}</code></li><li><code>State = state()</code></li><li><code>Result = {reply, FinalPos, NewState}</code></li><li><code>FinalPos = pos()</code></li><li><code>NewState = state()</code></li></ul>
+<li><code>Request = request_players | request_map</code></li><li><code>From = {pid(), atom()}</code></li><li><code>State = state()</code></li><li><code>Result = {reply, Players, NewState} | {reply, Terrain, NewState}</code></li><li><code>Players = #{}</code></li><li><code>Terrain = #{}</code></li><li><code>NewState = state()</code></li></ul>
 <div class="description">
 
 <p>  
 Callback called when a synchronus message is recieved after a call to  
 gen_server:handle_call/2 is called.</p>
  
-  <p>Messages:
-  handle_call({player_move, Pos, W, H, Orient}, _From, State) takes care of
-  calculation of terrain collision when a player is moving.</p>
+  <p>Messages:</p>
 </div></div>
 <div class="function">
 <h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; Result</h3>

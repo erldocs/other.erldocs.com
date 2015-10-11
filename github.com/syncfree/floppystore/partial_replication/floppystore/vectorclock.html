@@ -33,6 +33,7 @@
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-crdt">crdt() = term()</h3></div>
     <div class="type"><h3 id="type-dc_address">dc_address() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-dcid">dcid() = term()</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
     <div class="type"><h3 id="type-log">log() = term()</h3></div>
     <div class="type"><h3 id="type-op">op() = {term(), term()}</h3></div>
@@ -58,20 +59,14 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="now_microsec_behind/3">now_microsec_behind(ClientClock, SafeClock, X3) -&gt; term()
+<h3 id="now_microsec_behind/4">now_microsec_behind(ClientClock, SafeClock, X3, LocalDc) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_safe_time_dc/1">get_safe_time_dc(DcId::term()) -&gt; {ok, non_neg_integer()} | {error, term()}</h3>
-
-
-<div class="description">
- </div></div>
-<div class="function">
-<h3 id="get_safe_time/0">get_safe_time() -&gt; {ok, vectorclock()} | {error, term()}</h3>
+<h3 id="get_safe_time/0">get_safe_time() -&gt; {ok, vectorclock()}</h3>
 
 
 <div class="description">
@@ -84,38 +79,52 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="update_safe_vector_local/1">update_safe_vector_local(Vector::vectorclock() (see module vectorclock)) -&gt; {ok, vectorclock() (see module vectorclock)} | {error, term()}</h3>
+<h3 id="update_safe_vector_local/1">update_safe_vector_local(Vector::vectorclock() (see module vectorclock)) -&gt; {ok, vectorclock() (see module vectorclock)}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="update_safe_clock_local/1">update_safe_clock_local(DcId::term(), Timestamp::non_neg_integer()) -&gt; {ok, non_neg_integer()} | {error, term()}</h3>
+<h3 id="update_safe_clock_local/1">update_safe_clock_local(Partition::partition_id(), DcId::term(), Timestamp::non_neg_integer()) -&gt; {ok, non_neg_integer()} | {error, term()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="wait_for_clock/1">wait_for_clock(Clock::vectorclock() (see module vectorclock)) -&gt; ok | {error, term()}</h3>
+<h3 id="wait_for_clock/1">wait_for_clock(Clock::vectorclock() (see module vectorclock)) -&gt; ok</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="wait_for_local_clock/1">wait_for_local_clock(Clock::vectorclock() (see module vectorclock)) -&gt; ok | {error, term()}</h3>
+<h3 id="wait_for_local_clock/1">wait_for_local_clock(Clock::vectorclock() (see module vectorclock), DcId::dcid()) -&gt; ok | {error, term()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_random_node/0">get_random_node() -&gt; term()
+<h3 id="new/0">new() -&gt; term()
 </h3>
 
 
 <div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_stable_snapshot/0">get_stable_snapshot() -&gt; {ok, snapshot_time()}</h3>
 
-<p>Returns a random node</p>
+
+<div class="description">
+
+<p>get_stable_snapshot: Returns stable snapshot time
+  in the current DC. stable snapshot time is the snapshot available at
+  in all partitions</p>
 </div></div>
+<div class="function">
+<h3 id="get_partition_snapshot/1">get_partition_snapshot(Partition::partition_id()) -&gt; snapshot_time()</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="is_greater_than/1">is_greater_than(Clock1::vectorclock(), Clock2::vectorclock()) -&gt; boolean()</h3>
 
@@ -146,50 +155,43 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="eq/2">eq(V1, V2) -&gt; term()
-</h3>
+<h3 id="eq/1">eq(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="le/2">le(V1, V2) -&gt; term()
-</h3>
+<h3 id="le/1">le(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="ge/2">ge(V1, V2) -&gt; term()
-</h3>
+<h3 id="ge/1">ge(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="lt/2">lt(V1, V2) -&gt; term()
-</h3>
+<h3 id="lt/1">lt(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="gt/2">gt(V1, V2) -&gt; term()
-</h3>
+<h3 id="gt/1">gt(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="strict_ge/2">strict_ge(V1, V2) -&gt; term()
-</h3>
+<h3 id="strict_ge/1">strict_ge(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="strict_le/2">strict_le(V1, V2) -&gt; term()
-</h3>
+<h3 id="strict_le/1">strict_le(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">

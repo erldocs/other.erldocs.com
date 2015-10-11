@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>bpe_date (bpe) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>bpe_date</h1>
+<h2 class="modsummary">edate is a date manipulation library.</h2>
+<div class="description">
+<p>edate is a date manipulation library.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-date">date() = {<a href="#type-year" class="seealso">year()</a>, <a href="#type-month" class="seealso">month()</a>, <a href="#type-day" class="seealso">day()</a>}</h3></div>
+    <div class="type"><h3 id="type-day">day() = 1..31</h3></div>
+    <div class="type"><h3 id="type-month">month() = 1..12</h3></div>
+    <div class="type"><h3 id="type-period">period() = day<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| days<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| week<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| weeks<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| month<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| months<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| year<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| years</h3></div>
+    <div class="type"><h3 id="type-year">year() = integer() &gt;= 0</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="beginning_of_month/1">beginning_of_month(Date::date()) -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns the first date of the month containing <code>Date</code>.
+  </p><pre class="sh_erlang">  &gt; edate:beginning_of_month({2010,2,15}).
+  {2010,2,1}</pre>
+</div></div>
+<div class="function">
+<h3 id="date_to_string/1">date_to_string(Date::date()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns an <url href="http://en.wikipedia.org/wiki/Iso8601">ISO 8601</url>
+  representation of Date.
+  </p><pre class="sh_erlang">  &gt; edate:date_to_string({1976,3,18}).
+  "1976-03-18"</pre>
+</div></div>
+<div class="function">
+<h3 id="day_of_week/1">day_of_week(Date::date()) -&gt; string()</h3>
+
+
+<div class="description">
+
+<p>Returns the day of the week as a string ("monday".."sunday") for <code>Date</code>.
+  </p><pre class="sh_erlang">  &gt; edate:day_of_week({2010,7,4}).
+  "sunday"</pre>
+</div></div>
+<div class="function">
+<h3 id="easter/1">easter(Year::year()) -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns the date for Easter (Roman Catholic) in <code>Year</code>. Derived from
+  <url href="http://www.gmarts.org/index.php?go=415#geteasterdatec">http://www.gmarts.org/index.php?go=415#geteasterdatec</url>.
+  </p><pre class="sh_erlang">  &gt; edate:easter(2010).
+  {2010,4,4}</pre>
+</div></div>
+<div class="function">
+<h3 id="end_of_month/1">end_of_month(Date::date()) -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns the last date of the month containing <code>Date</code>.
+  </p><pre class="sh_erlang">  &gt; edate:end_of_month({2010,2,15}).
+  {2010,2,28}</pre>
+</div></div>
+<div class="function">
+<h3 id="is_after/1">is_after(Date1::date(), Date2::date()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>Date1</code> is after <code>Date2</code>, and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; edate:is_after({1950,7,2}, {1950,7,1}).
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="is_before/1">is_before(Date1::date(), Date2::date()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>Date1</code> is before <code>Date2</code>, and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; edate:is_before({1950,7,1}, {1950,7,2}).
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="is_in_future/1">is_in_future(Date::date()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>Date</code> is in the future, and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; edate:is_in_future({3000,7,1}).
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="is_in_past/1">is_in_past(Date::date()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>true</code> if <code>Date</code> is in the past, and <code>false</code> otherwise.
+  </p><pre class="sh_erlang">  &gt; edate:is_in_past({1950,7,1}).
+  true</pre>
+</div></div>
+<div class="function">
+<h3 id="shift/1">shift(N::integer(), Period::period()) -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns a new date after shifting today's date by <code>N</code> periods.</p>
+</div></div>
+<div class="function">
+<h3 id="shift/1-1">shift(Date::date(), N::integer(), Period::period()) -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns a new date after shifting <code>Date</code> by <code>N</code> periods.
+  </p><pre class="sh_erlang">  &gt; edate:shift({2000,1,1}, -2, days).
+  {1999,12,30}
+  &gt; edate:shift({2010,2,27}, 1, week).
+  {2010,3,6}</pre>
+</div></div>
+<div class="function">
+<h3 id="string_to_date/1">string_to_date(String::string()) -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Converts <code>String</code> to a date. The following string formats are valid
+  (with or without zero-padding):
+  YYYY-MM-DD, YYYY/MM/DD, MM-DD-YYYY, MM/DD/YYYY.
+  </p><pre class="sh_erlang">  &gt; edate:string_to_date("1976-03-18").
+  {1976,3,18}
+  &gt; edate:string_to_date("3/18/1976").
+  {1976,3,18}</pre>
+</div></div>
+<div class="function">
+<h3 id="subtract/1">subtract(Date1::date(), Date2::date()) -&gt; integer()</h3>
+
+
+<div class="description">
+
+<p>Returns <code>Date1</code> - <code>Date2</code> as an integer number of days. The number of
+  days returned will be positive if <code>Date1</code> &gt; <code>Date2</code>.
+  </p><pre class="sh_erlang">  &gt; edate:subtract({2010,7,4}, {2010,7,1}).
+  3
+  &gt; edate:subtract({2010,7,1}, {2010,7,4}).
+  -3</pre>
+</div></div>
+<div class="function">
+<h3 id="today/0">today() -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns today's date.</p>
+</div></div>
+<div class="function">
+<h3 id="tomorrow/0">tomorrow() -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns tomorrow's date.</p>
+</div></div>
+<div class="function">
+<h3 id="yesterday/0">yesterday() -&gt; date()</h3>
+
+
+<div class="description">
+
+<p>Returns yesterday's date.</p>
+</div></div></div>
+
+<authors>
+
+<aname>David Weldon</aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

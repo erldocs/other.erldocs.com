@@ -59,13 +59,7 @@
 
 
 <div class="description">
-
-<p>Data Type: state
-  where:
-     from: the pid of the calling process.
-     state: state of the transaction: {active|prepared|committing|committed}
- ----------------------------------------------------------------------</p>
-</div></div>
+ </div></div>
 <div class="function">
 <h3 id="start_link/2">start_link(From, Operations) -&gt; term()
 </h3>
@@ -83,7 +77,7 @@
 <p>Initialize the state.</p>
 </div></div>
 <div class="function">
-<h3 id="execute_batch_ops/2">execute_batch_ops(X1, SD) -&gt; term()
+<h3 id="execute_batch_ops/3">execute_batch_ops(X1, Sender, SD) -&gt; term()
 </h3>
 
 
@@ -93,6 +87,71 @@
        operation, wait for it to finish (synchronous) and go to the prepareOP
         to execute the next operation.</p>
 </div></div>
+<div class="function">
+<h3 id="receive_prepared/2">receive_prepared(X1, S0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="single_committing/2">single_committing(X1, S0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="committing_single/3">committing_single(X1, Sender, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="committing_2pc/3">committing_2pc(X1, Sender, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>after receiving all prepare_times, send the commit message to all
+       updated partitions, and go to the "receive_committed" state.
+       This state expects other process to sen the commit message to
+       start the commit phase.</p>
+</div></div>
+<div class="function">
+<h3 id="committing/3">committing(X1, Sender, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>after receiving all prepare_times, send the commit message to all
+       updated partitions, and go to the "receive_committed" state.
+       This state is used when no commit message from the client is
+       expected</p>
+</div></div>
+<div class="function">
+<h3 id="receive_committed/2">receive_committed(X1, S0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>the fsm waits for acks indicating that each partition has successfully
+ 	committed the tx and finishes operation.
+       Should we retry sending the committed message if we don't receive a
+       reply from every partition?
+       What delivery guarantees does sending messages provide?</p>
+</div></div>
+<div class="function">
+<h3 id="abort/2">abort(X1, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="handle_info/3">handle_info(Info, StateName, StateData) -&gt; term()
 </h3>

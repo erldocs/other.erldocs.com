@@ -1,0 +1,1 @@
+var index = [['app','amqp_client','amqp_client','[application]'],['mod','amqp_client','amqp_client',[]],['mod','amqp_client','uri_parser',[]],['fun','amqp_client','amqp_client:start/0',[]],['fun','amqp_client','amqp_client:start/2',[]],['fun','amqp_client','amqp_client:stop/1',[]],['fun','amqp_client','uri_parser:parse/2',[]]];

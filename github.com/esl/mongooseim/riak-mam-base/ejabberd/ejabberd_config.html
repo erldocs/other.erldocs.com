@@ -33,9 +33,9 @@
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-compare_result">compare_result() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#compare_result{to_start = list(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to_stop = list(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to_reload = list()}</h3></div>
     <div class="type"><h3 id="type-host">host() = any()</h3></div>
-    <div class="type"><h3 id="type-key">key() = atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), <a href="ejabberd.html#type-server" class="seealso">ejabberd:server()</a> | atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), atom(), atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()</h3></div>
+    <div class="type"><h3 id="type-key">key() = atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {<a href="#type-key" class="seealso">key()</a>, <a href="ejabberd.html#type-server" class="seealso">ejabberd:server()</a> | atom() | list()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {atom(), atom(), atom()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()</h3></div>
     <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{opts = list(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hosts = [<a href="#type-host" class="seealso">host()</a>],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;override_local = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;override_global = boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;override_acls = boolean()}</h3></div>
-    <div class="type"><h3 id="type-value">value() = atom() | integer() | string() | [tuple()]</h3></div></div>
+    <div class="type"><h3 id="type-value">value() = atom()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| binary()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| integer()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| string()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [<a href="#type-value" class="seealso">value()</a>]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| tuple()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="start/0">start() -&gt; ok</h3>
@@ -111,13 +111,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="reload_local/0">reload_local() -&gt; ok</h3>
+<h3 id="reload_local/0">reload_local() -&gt; {ok, iolist()} | no_return()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="reload_cluster/0">reload_cluster() -&gt; {ok, binary()}</h3>
+<h3 id="reload_cluster/0">reload_cluster() -&gt; {ok, string()} | no_return()</h3>
 
 
 <div class="description">
@@ -142,7 +142,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="check_hosts/1">check_hosts(NewHosts::[host() (see module ejabberd)], OldHosts::[host() (see module ejabberd)]) -&gt; {[host() (see module ejabberd)], [host() (see module ejabberd)]}</h3>
+<h3 id="check_hosts/1">check_hosts(NewHosts::[server() (see module ejabberd)], OldHosts::[server() (see module ejabberd)]) -&gt; {[server() (see module ejabberd)], [server() (see module ejabberd)]}</h3>
 
 
 <div class="description">
@@ -160,13 +160,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="group_host_changes/1">group_host_changes(Changes::[term()]) -&gt; {atom(), [term()]}</h3>
+<h3 id="group_host_changes/1">group_host_changes(Changes::[term()]) -&gt; [{atom(), [term()]}]</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_host_local_config/0">get_host_local_config() -&gt; [{local_config, {term(), host() (see module ejabberd)}, term()}]</h3>
+<h3 id="get_host_local_config/0">get_host_local_config() -&gt; [{local_config, {term(), server() (see module ejabberd)}, term()}]</h3>
 
 
 <div class="description">

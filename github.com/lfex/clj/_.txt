@@ -1,10 +1,60 @@
  :: Extracting meta information
 $ infinity  `git ls-remote --heads --tags 'https://github.com/lfex/clj'  2>&1`
 >>> [repo] 1 branches, 3 tags
+WTF {ok,{{"HTTP/1.1",200,"OK"},
+         [{"cache-control","max-age=300"},
+          {"connection","keep-alive"},
+          {"date","Sat, 10 Oct 2015 19:13:08 GMT"},
+          {"via","1.1 varnish"},
+          {"accept-ranges","bytes"},
+          {"etag","\"589007da9d9ff37fe82b666b27f555fc2be20c6a\""},
+          {"vary","Authorization,Accept-Encoding"},
+          {"content-length","1018"},
+          {"content-type","text/plain; charset=utf-8"},
+          {"expires","Sat, 10 Oct 2015 19:18:08 GMT"},
+          {"content-security-policy","default-src 'none'"},
+          {"x-xss-protection","1; mode=block"},
+          {"x-frame-options","deny"},
+          {"x-content-type-options","nosniff"},
+          {"strict-transport-security","max-age=31536000"},
+          {"x-served-by","cache-ams4134-AMS"},
+          {"x-cache","MISS"},
+          {"x-cache-hits","0"},
+          {"access-control-allow-origin","*"},
+          {"source-age","0"}],
+         "{name,\"clj\"}.\n{target_path,\"github.com/lfex/clj\"}.\n{url,\"https://github.com/lfex/clj\"}.\n{vsn_format,2}.\n{vsn_pass,23}.\n{time_begin,{{2015,9,21},{22,58,10}}}.\n{method,git}.\n{count_tags,3}.\n{count_branches,1}.\n{revisions,[{rev,branch,\"master\",\"1572711b8541ef02e890a08ed28e5bf291918bce\",\n                 false,[],\n                 [\"https://github.com/lfex/kla\",\n                  \"https://github.com/rvirding/lfe\"]},\n            {rev,tag,\"0.1.0\",\"07d81935921008bb7425a93aaea53c8f29e9fb8c\",false,\n                 [],\n                 [\"https://github.com/rvirding/lfe\"]},\n            {rev,tag,\"0.2.0\",\"4fc0eb9c5284ea4daaa35c9d44b45744184192e2\",false,\n                 [],\n                 [\"https://github.com/lfex/kla\",\n                  \"https://github.com/rvirding/lfe\"]},\n            {rev,tag,\"0.2.1\",\"1572711b8541ef02e890a08ed28e5bf291918bce\",false,\n                 [],\n                 [\"https://github.com/lfex/kla\",\n                  \"https://github.com/rvirding/lfe\"]}]}.\n{time_end,{{2015,9,21},{22,58,10}}}.\n"}}
  :: Writing meta to "/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/meta.txt"
  :: Skipping tag "0.1.0"
  :: Skipping tag "0.2.0"
  :: Skipping tag "0.2.1"
- :: Skipping branch "master"
+ :: Processing https://github.com/lfex/clj	{rev,branch,"master","a8ea29cb00ee84f25804f79d9d37f46ccd39cbdb",undefined,[],[]}
+ :: Fetching repo code
+$ cd '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz 'https://codeload.github.com/lfex/clj/tar.gz/master'  2>&1`
+$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
+$ cd '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj-master'
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
+$ 5000  `mv '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj-master' '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj'  2>&1`
+ :: Getting dependencies
+$ cd '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj'
+$ infinity  `rebar --config '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/rebar_deps' get-deps  2>&1`
+$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
+$ cd '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj'
+$ 5000  `find -P . -type l -delete  2>&1`
+$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
+$ cd '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj'
+$ 5000  `ls -1 deps/  2>&1`
+$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
+>>> [rebar] deps = []
+ :: Generating erldocs into /home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/repo/master
+Building clj
+Generating XML for application clj "/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master/clj" -> "/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/repo/master/.xml/clj"
+Generated clj XMLs: []
+No documentation was generated!
+Woot, finished in 0 Minutes 0 Seconds
+ :: Discovering other repos
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj-branch-master'  2>&1`
  :: Finishing up
 $ 5000  `rm -r '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/clj'  2>&1`
+$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/93ed01829a9517cd55bcb9109c8a6103abe98d01/repo/master'  2>&1`
