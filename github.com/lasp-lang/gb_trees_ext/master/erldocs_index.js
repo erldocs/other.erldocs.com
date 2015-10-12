@@ -1,0 +1,1 @@
+var index = [['app','gb_trees_ext','gb_trees_ext','[application]'],['mod','gb_trees_ext','gb_trees_ext',[]],['fun','gb_trees_ext','gb_trees_ext:equal/2',[]],['fun','gb_trees_ext','gb_trees_ext:foldl/3',[]],['fun','gb_trees_ext','gb_trees_ext:iterate/3',[]],['fun','gb_trees_ext','gb_trees_ext:merge/3',[]]];

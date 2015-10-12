@@ -198,59 +198,7 @@
 <p>Called when a dialog has updated its SDP session parameters.</p>
 </div></div>
 <div class="function">
-<h3 id="init/1">init(Args::term()) -&gt; {ok, State::term()} | {ok, State::term(), Timeout::timeout()} | {stop, Reason::term()}</h3>
-
-
-<div class="description">
-
-<p>SipApp initialization.</p>
- 
-  <p>This callback function is called when the SipApp is launched using
-  <a href="nksip.html#start/4" class="seealso">nksip:start/4</a>.</p>
- 
-  <p>If <code>{ok, State}</code> or <code>{ok, State, Timeout}</code> is returned the SipApp is started with
-  this initial state. If a <code>Timeout</code> is provided (in milliseconds) a
-  <code>timeout</code> message will be sent to the process
-  (you will need to implement <a href="#handle_info/2" class="seealso">handle_info/2</a> to receive it).
-  If <code>{stop, Reason}</code> is returned the SipApp will not start.
- </p>
-</div></div>
-<div class="function">
-<h3 id="terminate/1">terminate(Reason::term(), State::term()) -&gt; ok</h3>
-
-
-<div class="description">
-
-<p>Called when the SipApp is stopped.</p>
-</div></div>
-<div class="function">
-<h3 id="handle_call/1">handle_call(Msg::term(), From::from(), State::term()) -&gt; {reply, Reply::RetType, State::term()} | {reply, Reply::RetType, State::term(), Timeout::timeout()} | {noreply, State::term()} | {noreply, State::term(), Timeout::timeout()} | {stop, Reason::term(), Reply::RetType, State::term()} | {stop, Reason::term(), State::term()}</h3>
-
-
-<div class="description">
-
-<p>Called when a direct call to the SipApp process is made using
-  <a href="nksip.html#call/2" class="seealso">nksip:call/2</a> or <a href="nksip.html#call/3" class="seealso">nksip:call/3</a>.</p>
-</div></div>
-<div class="function">
-<h3 id="handle_cast/1">handle_cast(Msg::term(), State::term()) -&gt; {noreply, State::term()} | {noreply, State::term(), Timeout::timeout()} | {stop, Reason::term(), State::term()}</h3>
-
-
-<div class="description">
-
-<p>Called when a direct cast to the SipApp process is made using
-  <a href="nksip.html#cast/2" class="seealso">nksip:cast/2</a>.</p>
-</div></div>
-<div class="function">
-<h3 id="handle_info/1">handle_info(Msg::term(), State::term()) -&gt; {noreply, State::term()} | {noreply, State::term(), Timeout::timeout()} | {stop, Reason::term(), State::term()}</h3>
-
-
-<div class="description">
-
-<p>Called when the SipApp process receives an unknown message.</p>
-</div></div>
-<div class="function">
-<h3 id="nks_call/1">nks_call(Fun::atom(), Args::list(), AppId::app_id() (see module nksip)) -&gt; {ok, term()} | error | nks_common()</h3>
+<h3 id="nks_call/1">nks_call(Fun::atom(), Args::list(), SrvId::app_id() (see module nksip)) -&gt; {ok, term()} | error | nks_common()</h3>
 
 
 <div class="description">
@@ -422,7 +370,7 @@
 <p>Called when a new message has been sent</p>
 </div></div>
 <div class="function">
-<h3 id="nks_connection_recv/1">nks_connection_recv(AppId::app_id() (see module nksip), CallId::call_id() (see module nksip), Transp::transport() (see module nksip), Packet::binary()) -&gt; ok | nks_common()</h3>
+<h3 id="nks_connection_recv/1">nks_connection_recv(SrvId::app_id() (see module nksip), CallId::call_id() (see module nksip), Transp::transport() (see module nksip), Packet::binary()) -&gt; ok | nks_common()</h3>
 
 
 <div class="description">
@@ -473,7 +421,7 @@
 <p>Called when the SipApp is updated with a new configuration</p>
 </div></div>
 <div class="function">
-<h3 id="nks_debug/1">nks_debug(AppId::app_id() (see module nksip), CallId::call_id() (see module nksip), Info::term()) -&gt; ok | nks_common()</h3>
+<h3 id="nks_debug/1">nks_debug(SrvId::app_id() (see module nksip), CallId::call_id() (see module nksip), Info::term()) -&gt; ok | nks_common()</h3>
 
 
 <div class="description">

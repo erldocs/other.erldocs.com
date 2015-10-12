@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>exometer_shallowtree (exometer) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>exometer_shallowtree</h1>
+<h2 class="modsummary">Size-constrained leftist tree
+  Inspired by Leftist Trees by Sartaj Sahni.</h2>
+<div class="description">
+<p>Size-constrained leftist tree
+  Inspired by <url href="http://www.cise.ufl.edu/~sahni/cop5536/powerpoint/lec11.ppt">Leftist Trees</url> by Sartaj Sahni.</p>
+ 
+  <p>The purpose of this module is to efficiently store a limited number of
+  values in e.g. a lossy histogram (ex. <url href="/home/pete/wefwefwef/docs/other/32ef13e487d9bc2444c94e6424fc961d7346f075/repo/1.0/.xml/exometer/./exometer_slot_slide.xml">exometer_slot_slide</url>). The
+  complexity of insert operations is log(N), but once the tree is full,
+  only values higher than the minimum value already in the tree will be
+  inserted, and the old minimum is deleted - i.e. two O(log N) operations.
+  For other values, the cost will be only two comparisons, since the
+  top node in the tree always contains the minimum.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-tree">tree() = #t{}</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/1">new(Size::pos_integer()) -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Create an empty tree limited to <code>Size</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="size/1">size(T::tree()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the number of values stored in the given tree.</p>
+</div></div>
+<div class="function">
+<h3 id="limit/1">limit(T::tree()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+
+<p>Returns the maximum number of values for the given tree.</p>
+</div></div>
+<div class="function">
+<h3 id="insert/1">insert(K::number(), V::any(), T::tree()) -&gt; tree()</h3>
+
+
+<div class="description">
+
+<p>Insert value <code>V</code> into tree <code>T</code>.</p>
+ 
+  <p>If the tree is full and <code>V</code> is smaller than the minimum, this function
+  will return immediately, leaving the tree unchanged.</p>
+</div></div>
+<div class="function">
+<h3 id="take_min/1">take_min(T::tree()) -&gt; {number(), any(), tree()} | error</h3>
+
+
+<div class="description">
+
+<p>Extract the smallest value from the tree <code>T</code>.</p>
+ 
+  <p>If the tree is empty, <code>error</code> is returned, otherwise <code>{Minimum, NewTree}</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="to_list/1">to_list(T::tree()) -&gt; [{number(), any()}]</h3>
+
+
+<div class="description">
+
+<p>Converts a tree to a list.</p>
+ 
+  <p>The list will not be ordered, since the aim is to produce the list as
+  quickly as possible. Also, <code>lists:sort(to_list(Tree))</code>, if to_list/1
+  uses brute force, seems faster than most approaches for extracting
+  values in order.</p>
+</div></div>
+<div class="function">
+<h3 id="filter/2">filter(F, T) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fill/1">fill(Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="fill1/2">fill1(T, Tree) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

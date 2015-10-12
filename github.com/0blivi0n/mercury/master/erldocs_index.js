@@ -1,0 +1,1 @@
+var index = [['app','mercury','mercury','[application]'],['mod','mercury','mercury',[]],['mod','mercury','mercury_handler',[]],['mod','mercury','mercury_protocol',[]],['fun','mercury','mercury:start/1',[]],['fun','mercury','mercury:stop/1',[]],['fun','mercury','mercury_protocol:init/4',[]],['fun','mercury','mercury_protocol:start_link/4',[]]];
