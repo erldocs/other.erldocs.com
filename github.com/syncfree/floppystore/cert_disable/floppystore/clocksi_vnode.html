@@ -59,10 +59,11 @@
 <p>Data Type: state
        where:
            partition: the partition that the vnode is responsible for.
-           prepared_tx: a list of prepared transactions.
-           committed_tx: a list of committed transactions.
-           active_txs_per_key: a list of the active transactions that
-               have updated a key (but not yet finished).
+           prepared_tx: the prepared txn for each key. Note that for
+               each key, there can be at most one prepared txn in any
+               time.
+           committed_tx: the transaction id of the last committed
+               transaction for each key.
            downstream_set: a list of the downstream operations that the
                transactions generate.
            write_set: a list of the write sets that the transactions
