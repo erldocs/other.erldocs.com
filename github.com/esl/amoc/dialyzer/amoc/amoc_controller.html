@@ -31,35 +31,22 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-controller_state">controller_state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{scenario = undefined | module(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scenario_state = undefined | <a href="#type-scenario_state" class="seealso">scenario_state()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodes = undefined | <a href="#type-nodes" class="seealso">nodes()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node_id = undefined | <a href="#type-node_id" class="seealso">node_id()</a>}</h3></div>
-    <div class="type"><h3 id="type-error">error() = embedded | badfile | native_code | nofile | on_load</h3></div>
-    <div class="type"><h3 id="type-from">from() = {pid(), any()}</h3></div>
-    <div class="type"><h3 id="type-maybe_user_id">maybe_user_id() = <a href="#type-user_id" class="seealso">user_id()</a> | '$end_of_table'</h3></div>
-    <div class="type"><h3 id="type-node_id">node_id() = integer() &gt;= 0 | undefined</h3></div>
-    <div class="type"><h3 id="type-nodes">nodes() = integer() &gt;= 0 | undefined</h3></div>
-    <div class="type"><h3 id="type-option">option() = force | term()</h3></div>
-    <div class="type"><h3 id="type-scenario">scenario() = module() | undefined</h3></div>
-    <div class="type"><h3 id="type-scenario_state">scenario_state() = any()</h3></div>
-    <div class="type"><h3 id="type-server_reply_as">server_reply_as() = {noreply, <a href="#type-controller_state" class="seealso">controller_state()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {noreply, <a href="#type-controller_state" class="seealso">controller_state()</a>, integer()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {noreply, <a href="#type-controller_state" class="seealso">controller_state()</a>, hibernate}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {stop, any(), <a href="#type-controller_state" class="seealso">controller_state()</a>}</h3></div>
-    <div class="type"><h3 id="type-server_reply_sync">server_reply_sync(Reply) = {reply, Reply, controller_state()} | {stop, any(), controller_state()} | {stop, any(), Reply, controller_state()}</h3></div>
-    <div class="type"><h3 id="type-user_id">user_id() = integer()</h3></div>
-    <div class="type"><h3 id="type-user_ids">user_ids() = [<a href="#type-user_id" class="seealso">user_id()</a>]</h3></div>
-    <div class="type"><h3 id="type-users_info">users_info() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{count, integer()} | {last, <a href="#type-maybe_user_id" class="seealso">maybe_user_id()</a>}, ...]</h3></div></div>
+    <div class="type"><h3 id="type-state">state() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#state{scenario = undefined | <a href="amoc.html#type-scenario" class="seealso">amoc:scenario()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scenario_state = undefined | any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodes = undefined | any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node_id = undefined | any()}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | ignore | {error, {already_started, pid()}} | {error, term()}</h3>
+<h3 id="start_link/0">start_link() -&gt; {ok, pid()} | ignore | {error, term()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="do/1">do(Scenario::module(), Start::non_neg_integer(), End::non_neg_integer()) -&gt; ok | {error, {error, error()}}</h3>
+<h3 id="do/1">do(Scenario::scenario() (see module amoc), Start::non_neg_integer(), End::non_neg_integer()) -&gt; ok | {error, term()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="do/1-1">do(Node::node(), Scenario::module(), Start::non_neg_integer(), End::non_neg_integer(), Nodes::nodes(), NodeId::node_id(), Opts::list()) -&gt; ok | {error, {error, error()}}</h3>
+<h3 id="do/1-1">do(Node::node(), Scenario::scenario() (see module amoc), Start::non_neg_integer(), End::non_neg_integer(), NodesCount::non_neg_integer(), NodeId::non_neg_integer(), Opts::do_opts() (see module amoc)) -&gt; ok | {error, term()}</h3>
 
 
 <div class="description">
@@ -83,55 +70,58 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="remove/1-1">remove(Count::non_neg_integer(), Opts::[option()]) -&gt; ok</h3>
+<h3 id="remove/1-1">remove(Count::non_neg_integer(), Opts::remove_opts() (see module amoc)) -&gt; ok</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="remove/1-2">remove(Node::node(), Count::non_neg_integer(), Opts::[option()]) -&gt; ok</h3>
+<h3 id="remove/1-2">remove(Node::node(), Count::non_neg_integer(), Opts::remove_opts() (see module amoc)) -&gt; ok</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="users/0">users() -&gt; users_info()</h3>
+<h3 id="users/0">users() -&gt; [property() (see module proplists)]</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="init/1">init(X1::[]) -&gt; {ok, controller_state()}</h3>
+<h3 id="init/1">init(X1::[]) -&gt; {ok, state()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="handle_call/2">handle_call(Request::{do, scenario(), non_neg_integer(), non_neg_integer()}, From::from(), State::controller_state()) -&gt; server_reply_sync(ok) | server_reply_sync({error, {error, error()}})</h3>
+<h3 id="handle_call/3">handle_call(Request, From, State) -&gt; term()
+</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="handle_cast/2">handle_cast(Msg::{add, non_neg_integer()}, State::controller_state()) -&gt; server_reply_as()</h3>
+<h3 id="handle_cast/2">handle_cast(Msg, State) -&gt; term()
+</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="handle_info/2">handle_info(Info::{start_scenario, scenario(), user_ids(), scenario_state()}, State::controller_state()) -&gt; {noreply, controller_state()}</h3>
+<h3 id="handle_info/2">handle_info(Info, State) -&gt; term()
+</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="terminate/1">terminate(Reason::any(), State::controller_state()) -&gt; ok</h3>
+<h3 id="terminate/1">terminate(Reason::any(), State::state()) -&gt; ok</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="code_change/1">code_change(OldVsn::any(), State::controller_state(), Extra::any()) -&gt; {ok, controller_state()}</h3>
+<h3 id="code_change/1">code_change(OldVsn::any(), State::state(), Extra::any()) -&gt; {ok, state()}</h3>
 
 
 <div class="description">
