@@ -32,7 +32,7 @@
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-engine">engine() = #engine{}</h3></div>
-    <div class="type"><h3 id="type-fold_options">fold_options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{start_key, <a href="#type-key" class="seealso">key()</a>} | {end_key, <a href="#type-key" class="seealso">key()</a>} | {max, integer()}]</h3></div>
+    <div class="type"><h3 id="type-fold_options">fold_options() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{start_key, <a href="#type-key" class="seealso">key()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{end_key, <a href="#type-key" class="seealso">key()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{gt, <a href="#type-key" class="seealso">key()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{gte, <a href="#type-key" class="seealso">key()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{lt, <a href="#type-key" class="seealso">key()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{lte, <a href="#type-key" class="seealso">key()</a>} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{max, integer()} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{fill_cache, true | false}]</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
     <div class="type"><h3 id="type-keys">keys() = [<a href="#type-key" class="seealso">key()</a>]</h3></div>
     <div class="type"><h3 id="type-kvs">kvs() = [{<a href="#type-key" class="seealso">key()</a>, <a href="#type-value" class="seealso">value()</a>}]</h3></div>
@@ -45,7 +45,17 @@
 
 <div class="description">
 
-<p>open a storage, amd pass options to the backend.</p>
+<p>open a storage, amd pass options to the backend.
+  The following optinos can be used:
+  </p><list>
+  <item><p>'backend': default is rkvs_ets, folowin backend are provided in rkvs:
+  rkvs_ets, rkvs_leveldb, rkvs_rocksdb, rkvs_hanoidb, rvs_bitcask.</p></item>
+  <item><p>'db_opts': backend options, refers to the backend doc for them</p></item>
+  <item><p>'key_encoding': to encode the key. defautl is raw (binary). can be
+  term, {term, Opts} or sext</p></item>
+  <item><p>'value_encoding': to encode the value. defautl is term. can be
+  term, {term, Opts} or sext</p></item>
+  </list>
 </div></div>
 <div class="function">
 <h3 id="close/1">close(Engine::engine()) -&gt; ok | {error, any()}</h3>
@@ -125,7 +135,8 @@
 
 <div class="description">
 
-<p>fold all keys with a function</p>
+<p>fold all keys with a function
+  same parameters as in the fold function.</p>
 </div></div>
 <div class="function">
 <h3 id="fold/1">fold(Engine::engine(), Fun::function(), Acc0::any(), Opts::fold_options()) -&gt; any() | {error, term()}</h3>
@@ -133,7 +144,21 @@
 
 <div class="description">
 
-<p>fold all K/Vs with a function</p>
+<p>fold all K/Vs with a function
+  Additionnaly you can pass the following options:
+  </p><list>
+  <item><p>'gt', (greater than), 'gte' (greather than or equal): define the lower
+  bound of the range to fold. Only the records where the key is greater (or
+  equal to) will be given to the function.</p></item>
+  <item><p>'lt' (less than), 'lte' (less than or equal): define the higher bound
+  of the range to fold. Only the records where the key is less than (or equal
+  to) will be given to the function</p></item>
+  <item><p>'start_key', 'end_key', legacy to 'gte', 'lte'</p></item>
+  <item><p>'max' (default=0), the maximum of records to fold before returning the
+  resut</p></item>
+  <item><p>'fill_cache' (default is true): should be the data cached in
+  memory?</p></item>
+  </list>
 </div></div>
 <div class="function">
 <h3 id="is_empty/1">is_empty(Engine::engine()) -&gt; boolean() | {error, term()}</h3>
