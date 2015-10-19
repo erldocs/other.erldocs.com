@@ -31,15 +31,14 @@
 <div class="description">
 <p>Log Message Channels</p>
  
-  <p>A channel manages conditional sinks</p>
+  <p>A channel manages conditional sinks.</p>
  
-  <pre lang="erlang">
-  %%%
-  %%% Example
-  %%%
+  <p><em><marker id="EXAMPLE">EXAMPLE</marker></em>
+  </p><pre lang="erlang">
+  &gt; application:set_env(logi, warn_no_parse_transform, false). % Suppresses noisy warnings
  
   %%
-  %% CREATE
+  %% CREATE CHANNEL
   %%
   &gt; ok = logi_channel:create(sample_log).
   &gt; logi_channel:which_channels().
@@ -48,10 +47,26 @@
   %%
   %% INSTALL SINK
   %%
-  &gt; Sink = logi_sink:new(logi_builtin_sink_null).
+  &gt; WriteFun = fun (_, Format, Data) -&gt; io:format("[my_sink] " ++ Format ++ "\n", Data) end.
+  &gt; Sink = logi_sink:new(my_sink, logi_builtin_sink_fun, info, WriteFun). % Installs the sink with info level
   &gt; {ok, _} = logi_channel:install_sink(sample_log, Sink).
   &gt; logi_channel:which_sinks(sample_log).
-  [logi_builtin_sink_null]
+  [my_sink]
+ 
+  %%
+  %% OUTPUT LOG MESSAGE
+  %%
+  &gt; logi:debug("hello world", [], [{logger, sample_log}]).
+  % The message is not emitted (the severity is too low).
+ 
+  &gt; logi:info("hello world", [], [{logger, sample_log}]).
+  [my_sink] hello world
+ 
+  &gt; logi:alert("hello world", [], [{logger, sample_log}]).
+  [my_sink] hello world
+ 
+  &gt; logi:info("hello world"). % If logger option is omitted, the default channel will be used
+  % The message is not emitted (no sinks are installed to the default channel).
   </pre></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-id">id() = atom()</h3></div>
