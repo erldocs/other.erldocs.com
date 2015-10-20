@@ -108,7 +108,7 @@
 <p>Called when the connection starts</p>
 </div></div>
 <div class="function">
-<h3 id="conn_parse/1">conn_parse(Msg::incoming() (see module nkpacket), ConnState::conn_state()) -&gt; {ok, conn_state()} | {bridge, nkport() (see module nkpacket)} | {stop, Reason::term(), conn_state()}</h3>
+<h3 id="conn_parse/1">conn_parse(Msg::incoming() (see module nkpacket), NkPort::nkport() (see module nkpacket), ConnState::conn_state()) -&gt; {ok, conn_state()} | {bridge, nkport() (see module nkpacket)} | {stop, Reason::term(), conn_state()}</h3>
 
 
 <div class="description">
@@ -116,7 +116,7 @@
 <p>This function is called when a new message arrives to the connection</p>
 </div></div>
 <div class="function">
-<h3 id="conn_encode/1">conn_encode(Term::term(), ConnState::conn_state()) -&gt; {ok, outcoming() (see module nkpacket), conn_state()} | {error, term(), conn_state()} | {stop, Reason::term(), conn_state()}</h3>
+<h3 id="conn_encode/1">conn_encode(Term::term(), NkPort::nkport() (see module nkpacket), ConnState::conn_state()) -&gt; {ok, outcoming() (see module nkpacket), conn_state()} | {error, term(), conn_state()} | {stop, Reason::term(), conn_state()}</h3>
 
 
 <div class="description">
@@ -124,7 +124,7 @@
 <p>This function is called when a new message must be send to the connection</p>
 </div></div>
 <div class="function">
-<h3 id="conn_bridge/1">conn_bridge(Data::incoming() (see module nkpacket), Type::up | down, ConnState::conn_state()) -&gt; {ok, incoming() (see module nkpacket), conn_state()} | {skip, conn_state()} | {stop, term(), conn_state()}</h3>
+<h3 id="conn_bridge/1">conn_bridge(Data::incoming() (see module nkpacket), Type::up | down, NkPort::nkport() (see module nkpacket), ConnState::conn_state()) -&gt; {ok, incoming() (see module nkpacket), conn_state()} | {skip, conn_state()} | {stop, term(), conn_state()}</h3>
 
 
 <div class="description">
@@ -132,7 +132,7 @@
 <p>This function is called on incoming data for bridged connections</p>
 </div></div>
 <div class="function">
-<h3 id="conn_handle_call/1">conn_handle_call(Msg::term(), From::{pid(), term()}, ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>
+<h3 id="conn_handle_call/1">conn_handle_call(Msg::term(), From::{pid(), term()}, NkPort::nkport() (see module nkpacket), ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>
 
 
 <div class="description">
@@ -140,7 +140,7 @@
 <p>Called when the connection received a gen_server:call/2,3</p>
 </div></div>
 <div class="function">
-<h3 id="conn_handle_cast/1">conn_handle_cast(Msg::term(), ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>
+<h3 id="conn_handle_cast/1">conn_handle_cast(Msg::term(), NkPort::nkport() (see module nkpacket), ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>
 
 
 <div class="description">
@@ -148,7 +148,7 @@
 <p>Called when the connection received a gen_server:cast/2</p>
 </div></div>
 <div class="function">
-<h3 id="conn_handle_info/1">conn_handle_info(Msg::term(), ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>
+<h3 id="conn_handle_info/1">conn_handle_info(Msg::term(), NkPort::nkport() (see module nkpacket), ListenState::conn_state()) -&gt; {ok, conn_state()} | {stop, Reason::term(), conn_state()}</h3>
 
 
 <div class="description">
@@ -156,7 +156,7 @@
 <p>Called when the connection received an erlang message</p>
 </div></div>
 <div class="function">
-<h3 id="conn_stop/1">conn_stop(Reason::term(), State::conn_state()) -&gt; ok</h3>
+<h3 id="conn_stop/1">conn_stop(Reason::term(), NkPort::nkport() (see module nkpacket), State::conn_state()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -172,7 +172,7 @@
 <p>Called when the listening transport starts</p>
 </div></div>
 <div class="function">
-<h3 id="listen_parse/1">listen_parse(Ip::ip_address() (see module inet), Port::port_number() (see module inet), Msg::binary(), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
+<h3 id="listen_parse/1">listen_parse(Ip::ip_address() (see module inet), Port::port_number() (see module inet), Msg::binary(), NkPort::nkport() (see module nkpacket), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
 
 
 <div class="description">
@@ -180,7 +180,7 @@
 <p>This function is called only for UDP transports using no_connections=&gt;true</p>
 </div></div>
 <div class="function">
-<h3 id="listen_handle_call/1">listen_handle_call(Msg::term(), From::{pid(), term()}, ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
+<h3 id="listen_handle_call/1">listen_handle_call(Msg::term(), From::{pid(), term()}, NkPort::nkport() (see module nkpacket), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
 
 
 <div class="description">
@@ -188,7 +188,7 @@
 <p>Called when the listening transport received a gen_server:call/2,3</p>
 </div></div>
 <div class="function">
-<h3 id="listen_handle_cast/1">listen_handle_cast(Msg::term(), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
+<h3 id="listen_handle_cast/1">listen_handle_cast(Msg::term(), NkPort::nkport() (see module nkpacket), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
 
 
 <div class="description">
@@ -196,7 +196,7 @@
 <p>Called when the listening transport received a gen_server:cast/2</p>
 </div></div>
 <div class="function">
-<h3 id="listen_handle_info/1">listen_handle_info(Msg::term(), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
+<h3 id="listen_handle_info/1">listen_handle_info(Msg::term(), NkPort::nkport() (see module nkpacket), ListenState::listen_state()) -&gt; {ok, listen_state()} | {stop, Reason::term(), listen_state()}</h3>
 
 
 <div class="description">
@@ -204,7 +204,7 @@
 <p>Called when the listening transport received an erlang message</p>
 </div></div>
 <div class="function">
-<h3 id="listen_stop/1">listen_stop(Reason::term(), State::listen_state()) -&gt; ok</h3>
+<h3 id="listen_stop/1">listen_stop(Reason::term(), NkPort::nkport() (see module nkpacket), State::listen_state()) -&gt; ok</h3>
 
 
 <div class="description">
