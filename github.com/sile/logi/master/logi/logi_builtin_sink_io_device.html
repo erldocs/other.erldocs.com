@@ -31,30 +31,40 @@
 <div class="description">
 <p>A built-in IO device sink</p>
  
-  <p>NOTE: This module is provided for debuging/testing purposes only.  
+  <p>This sink writes log messages to an IO device (e.g. standard output, file, etc)</p>
+ 
+  <p><em><marker id="NOTE">NOTE</marker></em></p><p>  
+This module is provided for debugging/testing purposes only.  
 (e.g. Overload protection is missing)</p>
  
-  <pre class="sh_erlang">  %%%
-  %%% Usage Example
-  %%%
+  <p><em><marker id="EXAMPLE">EXAMPLE</marker></em>
+  </p><pre lang="erlang">
+  &gt; application:set_env(logi, warn_no_parse_transform, false). % Suppresses noisy warnings
  
   %%
-  %% 1. The default IO device is `standard_io'
+  %% 1. The default IO device is standard_io
   %%
   &gt; logi_builtin_sink_io_device:install(info).
-  &gt; logi:info("Hello World").
-  # TODO: show output
-  &gt; logi_builtin_sink_io_device:uninstall().
+  &gt; logi:info("hello world").
+  2015-10-21 05:21:52.332 [info] nonode@nohost &lt;0.91.0&gt; erl_eval:do_apply:673 [] hello world
  
   %%
-  %% 2. Output to a file
+  %% 2. Outputs to a file
   %%
   &gt; {ok, Fd} = file:open("/tmp/hoge", [write]).
-  &gt; logi_builtin_sink_io_device:install(info, [{io_device, Fd}]).
-  &gt; logi:info("Hello World").
-  &gt; logi_builtin_sink_io_device:uninstall().
+  &gt; logi_builtin_sink_io_device:install(info, [{io_device, Fd}, {if_exists, supersede}]).
+  &gt; logi:info("hello world").
   &gt; file:read_file("/tmp/hoge").
-  # TODO: show result</pre></div>
+  {ok,&lt;&lt;"2015-10-21 05:23:19.940 [info] nonode@nohost &lt;0.91.0&gt; erl_eval:do_apply:673 [] hello world\n"&gt;&gt;}
+ 
+  %%
+  %% 3. Customizes message layout
+  %%
+  &gt; Layout = logi_builtin_layout_fun:new(fun (_, Format, Data) -&gt; io_lib:format("[my_layout] " ++ Format ++ "\n", Data) end).
+  &gt; logi_builtin_sink_io_device:install(info, [{layout, Layout}, {if_exists, supersede}]).
+  &gt; logi:info("hello world").
+  [my_layout] hello world
+  </pre></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="install/1">install(Condition::condition() (see module logi_sink)) -&gt; install_sink_result() (see module logi_channel)</h3>
@@ -73,10 +83,10 @@
 <p>Installs a sink</p>
  
   <p>The default value of <code>Options</code>: <br />
-  - id: <code>logi_builtin_sink_null</code> <br />
+  - id: <code>logi_builtin_sink_io_device</code> <br />
   - channel: <code>logi_channel:default_channel()</code> <br />
   - io_device: <code>standard_io</code> <br />
-  - layout: <code>logi_builtin_layout_simple</code> <br /></p>
+  - layout: <code>logi_builtin_layout_simple:new()</code> <br /></p>
 </div></div>
 <div class="function">
 <h3 id="uninstall/0">uninstall() -&gt; uninstall_sink_result() (see module logi_channel)</h3>
@@ -95,7 +105,7 @@
 <p>Uninstalls a sink</p>
  
   <p>The default value of <code>Options</code>: <br />
-  - id: <code>logi_builtin_sink_null</code> <br />
+  - id: <code>logi_builtin_sink_io_device</code> <br />
   - channel: <code>logi_channel:default_channel()</code> <br /></p>
 </div></div></div>
 

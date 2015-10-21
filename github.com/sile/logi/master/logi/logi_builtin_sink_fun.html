@@ -27,9 +27,27 @@
         
 
 <h1>logi_builtin_sink_fun</h1>
-<h2 class="modsummary"/>
+<h2 class="modsummary">A built-in sink which consumes log messages by an arbitrary user defined function.</h2>
 <div class="description">
-</div>
+<p>A built-in sink which consumes log messages by an arbitrary user defined function</p>
+ 
+  <p><em><marker id="NOTE">NOTE</marker></em></p><p>  
+This module is provided for debuging/testing purposes only.</p>
+ 
+  <p>A sink is stored into a logi_channel's ETS.
+  Then it will be loaded every time a log message is issued.
+  Therefore if the write function (<code>write_fun/0</code>) of the sink is a huge size anonymous function,  
+all log issuers which use the channel will have to pay a non negligible cost to load it.</p>
+ 
+  <p>And there is no overload protection.</p>
+ 
+  <p><em><marker id="EXAMPLE">EXAMPLE</marker></em>
+  </p><pre lang="erlang">
+  &gt; WriteFun = fun (_, Format, Data) -&gt; io:format("[CONSUMED] " ++ Format ++ "\n", Data) end.
+  &gt; {ok, _} = logi_builtin_sink_fun:install(info, WriteFun).
+  &gt; logi:info("hello world").
+  [CONSUMED] hello world
+  </pre></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-write_fun">write_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="logi_context.html#type-context" class="seealso">logi_context:context()</a>, <a href="io.html#type-format" class="seealso">io:format()</a>, <a href="logi_layout.html#type-data" class="seealso">logi_layout:data()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any())</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
@@ -47,7 +65,7 @@
 <li><code>Options = [Option]</code></li><li><code>Option = {id, id() (see module logi_sink)} | {channel, id() (see module logi_channel)} | install_sink_option() (see module logi_channel)</code></li></ul>
 <div class="description">
 
-<p>Installs a sink</p>
+<p>Installs a sink which writes log messages by <code>Fun</code></p>
  
   <p>The default value of <code>Options</code>: <br />
   - id: <code>logi_builtin_sink_fun</code> <br />
@@ -70,7 +88,7 @@
 <p>Uninstalls a sink</p>
  
   <p>The default value of <code>Options</code>: <br />
-  - id: <code>logi_builtin_sink_null</code> <br />
+  - id: <code>logi_builtin_sink_fun</code> <br />
   - channel: <code>logi_channel:default_channel()</code> <br /></p>
 </div></div></div>
 
