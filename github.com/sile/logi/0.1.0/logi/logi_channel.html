@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>logi_channel (logi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>logi_channel</h1>
+<h2 class="modsummary">Log Message Channels.</h2>
+<div class="description">
+<p>Log Message Channels</p>
+ 
+  <p>A channel manages conditional sinks.</p>
+ 
+  <p><em><marker id="EXAMPLE">EXAMPLE</marker></em>
+  </p><pre lang="erlang">
+  &gt; application:set_env(logi, warn_no_parse_transform, false). % Suppresses noisy warnings
+ 
+  %%
+  %% CREATE CHANNEL
+  %%
+  &gt; ok = logi_channel:create(sample_log).
+  &gt; logi_channel:which_channels().
+  [sample_log,logi_default_log]  % 'logi_default_log' is created automatically when 'logi' application was started
+ 
+  %%
+  %% INSTALL SINK
+  %%
+  &gt; WriteFun = fun (_, Format, Data) -&gt; io:format("[my_sink] " ++ Format ++ "\n", Data) end.
+  &gt; Sink = logi_sink:new(my_sink, logi_builtin_sink_fun, info, WriteFun). % Installs the sink with info level
+  &gt; {ok, _} = logi_channel:install_sink(sample_log, Sink).
+  &gt; logi_channel:which_sinks(sample_log).
+  [my_sink]
+ 
+  %%
+  %% OUTPUT LOG MESSAGE
+  %%
+  &gt; logi:debug("hello world", [], [{logger, sample_log}]).
+  % The message is not emitted (the severity is too low).
+ 
+  &gt; logi:info("hello world", [], [{logger, sample_log}]).
+  [my_sink] hello world
+ 
+  &gt; logi:alert("hello world", [], [{logger, sample_log}]).
+  [my_sink] hello world
+ 
+  &gt; logi:info("hello world"). % If logger option is omitted, the default channel will be used
+  % The message is not emitted (no sinks are installed to the default channel).
+  </pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-id">id() = atom()</h3></div>
+    <div class="type"><h3 id="type-install_sink_option">install_sink_option() = {lifetime, timeout() | pid()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {if_exists, error | ignore | supersede}</h3></div>
+    <div class="type"><h3 id="type-install_sink_options">install_sink_options() = [<a href="#type-install_sink_option" class="seealso">install_sink_option()</a>]</h3></div>
+    <div class="type"><h3 id="type-install_sink_result">install_sink_result() = {ok,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OldSink :: undefined<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <a href="logi_sink.html#type-sink" class="seealso">logi_sink:sink()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {error,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{already_installed, <a href="logi_sink.html#type-sink" class="seealso">logi_sink:sink()</a>}}</h3></div>
+    <div class="type"><h3 id="type-uninstall_sink_result">uninstall_sink_result() = {ok, <a href="logi_sink.html#type-sink" class="seealso">logi_sink:sink()</a>} | error</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="default_channel/0">default_channel() -&gt; id()</h3>
+
+
+<div class="description">
+
+<p>The default channel</p>
+ 
+  <p>This channel is created automatically when <code>logi</code> application was started.</p>
+ 
+  <p>NOTE: The default channel ID is the same as the default logger ID (<a href="logi.html#default_logger/0" class="seealso">logi:default_logger/0</a>)</p>
+</div></div>
+<div class="function">
+<h3 id="create/1">create(Channel::id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Creates a new channel</p>
+ 
+  <p>If the channel already exists, nothing happens.</p>
+ 
+  <p>If there exists a process or a ETS table with the same name as <code>Channel</code>, the function crashes.</p>
+</div></div>
+<div class="function">
+<h3 id="delete/1">delete(Channel::id()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Deletes a channel</p>
+ 
+  <p>If the channel does not exists, it is silently ignored.</p>
+</div></div>
+<div class="function">
+<h3 id="which_channels/0">which_channels() -&gt; [id()]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of all existing channels</p>
+</div></div>
+<div class="function">
+<h3 id="install_sink/1">install_sink(Channel::id(), Sink::sink() (see module logi_sink)) -&gt; install_sink_result()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#install_sink/3" class="seealso">install_sink(Channel, Sink, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="install_sink/1-1">install_sink(Channel::id(), Sink::sink() (see module logi_sink), Options::install_sink_options()) -&gt; install_sink_result()</h3>
+
+
+<div class="description">
+
+<p>Installs <code>Sink</code> into <code>Channel</code></p>
+</div></div>
+<div class="function">
+<h3 id="uninstall_sink/1">uninstall_sink(Channel::id(), SinkId::id() (see module logi_sink)) -&gt; uninstall_sink_result()</h3>
+
+
+<div class="description">
+
+<p>Uninstalls the sink which has the identifier <code>SinkId</code> from <code>Channel</code></p>
+</div></div>
+<div class="function">
+<h3 id="find_sink/1">find_sink(Channel::id(), SinkId::id() (see module logi_sink)) -&gt; {ok, sink() (see module logi_sink)} | error</h3>
+
+
+<div class="description">
+
+<p>Searchs for <code>SinkId</code> in <code>Channel</code>; returns <code>{ok, Sink}</code>, or <code>error</code> if <code>SinkId</code> is not present</p>
+</div></div>
+<div class="function">
+<h3 id="which_sinks/1">which_sinks(Channel::id()) -&gt; [id() (see module logi_sink)]</h3>
+
+
+<div class="description">
+
+<p>Returns a list of installed sinks</p>
+</div></div>
+<div class="function">
+<h3 id="set_condition/1">set_condition(Channel::id(), SinkId::id() (see module logi_sink), Condition::condition() (see module logi_sink)) -&gt; {ok, condition() (see module logi_sink)} | error</h3>
+
+
+<div class="description">
+
+<p>Sets the condition of the sink which has the identifier <code>SinkId</code> to <code>Condition</code></p>
+ 
+  <p>This function returns <code>{ok, OldCondition}</code> if specified sink exists, <code>error</code> otherwise.
+  <code>OldCondition</code> is the old condition of the sink.</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

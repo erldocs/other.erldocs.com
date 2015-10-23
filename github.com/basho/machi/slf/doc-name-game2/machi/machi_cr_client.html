@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>machi_cr_client (machi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>machi_cr_client</h1>
+<h2 class="modsummary">Erlang API for the Machi client-implemented Chain Replication  
+(CORFU-style) protocol.</h2>
+<div class="description">
+<p>Erlang API for the Machi client-implemented Chain Replication  
+(CORFU-style) protocol.</p>
+ 
+  <p>See also the docs for <a href="machi_flu1_client.html" class="seealso">machi_flu1_client</a> for additional  
+details on data types and operation descriptions.</p>
+ 
+  <p>The API here is much simpler than the <a href="machi_flu1_client.html" class="seealso">machi_flu1_client</a> or
+  <a href="machi_proxy_flu1_client.html" class="seealso">machi_proxy_flu1_client</a> APIs.  This module's API is a
+  proposed simple-but-complete form for clients who are not
+  interested in being an active participant in a Machi cluster and to
+  have the responsibility for Machi internals, i.e., client-side
+  Chain Replication, client-side read repair, client-side tracking of
+  internal Machi epoch & projection changes, etc.</p>
+ 
+  <p>This client is implemented as a long-lived Erlang process using
+  <code>gen_server</code>-style OTP code practice.  A naive client can expect
+  that this process will manage all transient TCP session
+  disconnections and Machi chain reconfigurations.  This client's
+  efforts are best-effort and can require some time to retry
+  operations in certain failure cases, i.e., up to several seconds
+  during a Machi projection & epoch change when a new server is  
+added to the chain.</p>
+ 
+  <p>Doc TODO: Once this API stabilizes, add all relevant data type details  
+to the EDoc here.</p>
+ 
+ 
+  <p><em><marker id="Missing_API_features">Missing API features</marker></em></p>
+ 
+  <p>So far, there is one missing client API feature that ought to be  
+added to Machi in the near future: more flexible checksum  
+management.</p>
+ 
+  <p>Add a <code>source</code> annotation to all checksums to indicate where the  
+checksum was calculated.  For example,</p>
+ 
+  <list>
+ 
+  <item><p> Calculated by client that performed the original chunk append,
+  </p></item>
+ 
+  <item><p> Calculated by the 1st Machi server to receive an
+       un-checksummed append request
+  </p></item>
+ 
+  <item><p> Re-calculated by Machi to manage fewer checksums of blocks of
+       data larger than the original client-specified chunks.
+  </p></item>
+  </list>
+ 
+  <p>Client-side checksums would be the "strongest" type of  
+checksum, meaning that any data corruption (of the original  
+data and/or of the checksum itself) can be detected after the  
+client-side calculation.  There are too many horror stories on  
+The Net about IP PDUs that are corrupted but unnoticed due to  
+weak TCP checksums, buggy hardware, buggy OS drivers, etc.  
+Checksum versioning is also desirable if/when the current checksum  
+implementation changes from SHA-1 to something else.</p>
+ 
+ 
+  <p><em><marker id="Implementation_notes">Implementation notes</marker></em></p>
+ 
+  <p>The major operation processing is implemented in a state machine-like
+  manner.  Before attempting an operation <code>X</code>, there's an initial
+  operation <code>pre-X</code> that takes care of updating the epoch id,
+  restarting client protocol proxies, and if there's any server
+  instability (e.g. some server is wedged), then insert some sleep
+  time.  When the chain appears to have stabilized, then we try the <code>X</code>  
+operation again.</p>
+ 
+  <p>Function name for the <code>pre-X</code> stuff is usually <code>X()</code>, and the
+  function name for the <code>X</code> stuff is usually <code>X2()</code>.  (I.e., the <code>X</code>
+  stuff follows after <code>pre-X</code> and therefore has a <code>2</code> suffix on the  
+function name.)</p>
+ 
+  <p>In the case of read repair, there are two stages: find the value to
+  perform the repair, then perform the repair writes.  In the case of
+  the repair writes, the <code>pre-X</code> function is named <code>read_repair3()</code>,
+  and the <code>X</code> function is named <code>read_repair4()</code>.
+ </p></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_link/1">start_link(P_srvr_list) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Start a local, long-lived process that will be our steady
+  & reliable communication proxy with the fickle & flaky
+  remote Machi server.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk/3">append_chunk(PidSpec, Prefix, Chunk) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk/4">append_chunk(PidSpec, Prefix, Chunk, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk/5">append_chunk(PidSpec, CoC_Namespace, CoC_Locator, Prefix, Chunk) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk/6">append_chunk(PidSpec, CoC_Namespace, CoC_Locator, Prefix, Chunk, Timeout) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk_extra/4">append_chunk_extra(PidSpec, Prefix, Chunk, ChunkExtra) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk_extra/5">append_chunk_extra(PidSpec, Prefix, Chunk, ChunkExtra, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="append_chunk_extra/6">append_chunk_extra(PidSpec, CoC_Namespace, CoC_Locator, Prefix, Chunk, ChunkExtra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="append_chunk_extra/7">append_chunk_extra(PidSpec, CoC_Namespace, CoC_Locator, Prefix, Chunk, ChunkExtra, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Append a chunk (binary- or iolist-style) of data to a file
+  with <code>Prefix</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="write_chunk/4">write_chunk(PidSpec, File, Offset, Chunk) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Write a chunk of data (that has already been
+  allocated/sequenced by an earlier append_chunk_extra() call) to
+  <code>File</code> at <code>Offset</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="write_chunk/5">write_chunk(PidSpec, File, Offset, Chunk, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Read a chunk of data of size <code>Size</code> from <code>File</code> at <code>Offset</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_chunk/4">read_chunk(PidSpec, File, Offset, Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Read a chunk of data of size <code>Size</code> from <code>File</code> at <code>Offset</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="read_chunk/5">read_chunk(PidSpec, File, Offset, Size, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Read a chunk of data of size <code>Size</code> from <code>File</code> at <code>Offset</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="trim_chunk/4">trim_chunk(PidSpec, File, Offset, Size) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Trim a chunk of data of size <code>Size</code> from <code>File</code> at <code>Offset</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="trim_chunk/5">trim_chunk(PidSpec, File, Offset, Size, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Trim a chunk of data of size <code>Size</code> from <code>File</code> at <code>Offset</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="checksum_list/2">checksum_list(PidSpec, File) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Fetch the list of chunk checksums for <code>File</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="checksum_list/3">checksum_list(PidSpec, File, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Fetch the list of chunk checksums for <code>File</code>.</p>
+</div></div>
+<div class="function">
+<h3 id="list_files/1">list_files(PidSpec) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Fetch the list of all files on the remote FLU.</p>
+</div></div>
+<div class="function">
+<h3 id="list_files/2">list_files(PidSpec, Timeout0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Fetch the list of all files on the remote FLU.</p>
+</div></div>
+<div class="function">
+<h3 id="quit/1">quit(PidSpec) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Quit & close the connection to remote FLU and stop our
+  proxy process.</p>
+</div></div>
+<div class="function">
+<h3 id="init/1">init(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_call/3">handle_call(Request, From, S) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_cast/2">handle_cast(Msg, S) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="handle_info/2">handle_info(Info, S) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="terminate/2">terminate(Reason, State) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="code_change/3">code_change(OldVsn, S, Extra) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

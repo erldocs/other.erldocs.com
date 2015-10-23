@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>logi_builtin_sink_fun (logi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>logi_builtin_sink_fun</h1>
+<h2 class="modsummary">A built-in sink which consumes log messages by an arbitrary user defined function.</h2>
+<div class="description">
+<p>A built-in sink which consumes log messages by an arbitrary user defined function</p>
+ 
+  <p><em><marker id="NOTE">NOTE</marker></em></p><p>  
+This module is provided for debuging/testing purposes only.</p>
+ 
+  <p>A sink is stored into a logi_channel's ETS.
+  Then it will be loaded every time a log message is issued.
+  Therefore if the write function (<code>write_fun/0</code>) of the sink is a huge size anonymous function,  
+all log issuers which use the channel will have to pay a non negligible cost to load it.</p>
+ 
+  <p>And there is no overload protection.</p>
+ 
+  <p><em><marker id="EXAMPLE">EXAMPLE</marker></em>
+  </p><pre lang="erlang">
+  &gt; WriteFun = fun (_, Format, Data) -&gt; io:format("[CONSUMED] " ++ Format ++ "\n", Data) end.
+  &gt; {ok, _} = logi_builtin_sink_fun:install(info, WriteFun).
+  &gt; logi:info("hello world").
+  [CONSUMED] hello world
+  </pre></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-write_fun">write_fun() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun((<a href="logi_context.html#type-context" class="seealso">logi_context:context()</a>, <a href="io.html#type-format" class="seealso">io:format()</a>, <a href="logi_layout.html#type-data" class="seealso">logi_layout:data()</a>) -><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any())</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="install/1">install(Condition::condition() (see module logi_sink), Fun::write_fun()) -&gt; install_sink_result() (see module logi_channel)</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#install/3" class="seealso">install(Condition, Fun, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="install/1-1">install(Condition::condition() (see module logi_sink), Fun::write_fun(), Options) -&gt; install_sink_result() (see module logi_channel)</h3>
+
+<ul class="type">
+<li><code>Options = [Option]</code></li><li><code>Option = {id, id() (see module logi_sink)} | {channel, id() (see module logi_channel)} | install_sink_option() (see module logi_channel)</code></li></ul>
+<div class="description">
+
+<p>Installs a sink which writes log messages by <code>Fun</code></p>
+ 
+  <p>The default value of <code>Options</code>: <br />
+  - id: <code>logi_builtin_sink_fun</code> <br />
+  - channel: <code>logi_channel:default_channel()</code> <br /></p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/0">uninstall() -&gt; uninstall_sink_result() (see module logi_channel)</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#uninstall/1" class="seealso">uninstall([])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="uninstall/1">uninstall(Options) -&gt; uninstall_sink_result() (see module logi_channel)</h3>
+
+<ul class="type">
+<li><code>Options = [Option]</code></li><li><code>Option = {id, id() (see module logi_sink)} | {channel, id() (see module logi_channel)}</code></li></ul>
+<div class="description">
+
+<p>Uninstalls a sink</p>
+ 
+  <p>The default value of <code>Options</code>: <br />
+  - id: <code>logi_builtin_sink_fun</code> <br />
+  - channel: <code>logi_channel:default_channel()</code> <br /></p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
