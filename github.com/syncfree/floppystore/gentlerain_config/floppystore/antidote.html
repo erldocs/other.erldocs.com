@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>antidote (floppystore) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>antidote</h1>
+<h2 class="modsummary">This file is the public api of antidote.</h2>
+<div class="description">
+<p>This file is the public api of antidote</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bound_object">bound_object() = {<a href="#type-key" class="seealso">key()</a>, <a href="#type-type" class="seealso">type()</a>, <a href="#type-bucket" class="seealso">bucket()</a>}</h3></div>
+    <div class="type"><h3 id="type-bucket">bucket() = term()</h3></div>
+    <div class="type"><h3 id="type-client_op">client_op() = {update, {<a href="#type-key" class="seealso">key()</a>, <a href="#type-type" class="seealso">type()</a>, <a href="#type-op" class="seealso">op()</a>}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {read, {<a href="#type-key" class="seealso">key()</a>, <a href="#type-type" class="seealso">type()</a>}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {prepare, term()}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| commit</h3></div>
+    <div class="type"><h3 id="type-crdt">crdt() = term()</h3></div>
+    <div class="type"><h3 id="type-dc_address">dc_address() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-key">key() = term()</h3></div>
+    <div class="type"><h3 id="type-log">log() = term()</h3></div>
+    <div class="type"><h3 id="type-op">op() = {term(), term()}</h3></div>
+    <div class="type"><h3 id="type-op_id">op_id() = {integer() &gt;= 0, node()}</h3></div>
+    <div class="type"><h3 id="type-op_param">op_param() = term()</h3></div>
+    <div class="type"><h3 id="type-operation">operation() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#operation{op_number = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | <a href="#type-payload" class="seealso">payload()</a>}</h3></div>
+    <div class="type"><h3 id="type-partition_id">partition_id() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-payload">payload() = term()</h3></div>
+    <div class="type"><h3 id="type-preflist">preflist() = <a href="riak_core_apl.html#type-preflist" class="seealso">riak_core_apl:preflist()</a></h3></div>
+    <div class="type"><h3 id="type-reason">reason() = atom()</h3></div>
+    <div class="type"><h3 id="type-snapshot">snapshot() = term()</h3></div>
+    <div class="type"><h3 id="type-snapshot_time">snapshot_time() = <a href="vectorclock.html#type-vectorclock" class="seealso">vectorclock:vectorclock()</a></h3></div>
+    <div class="type"><h3 id="type-tx">tx() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#transaction{snapshot_time = undefined | <a href="#type-snapshot_time" class="seealso">snapshot_time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vec_snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txn_id = undefined | <a href="#type-txid" class="seealso">txid()</a>}</h3></div>
+    <div class="type"><h3 id="type-txid">txid() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#tx_id{snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid()}</h3></div>
+    <div class="type"><h3 id="type-txn_properties">txn_properties() = term()</h3></div>
+    <div class="type"><h3 id="type-type">type() = atom()</h3></div>
+    <div class="type"><h3 id="type-val">val() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start_transaction/1">start_transaction(Clock::snapshot_time(), Properties::txn_properties()) -&gt; {ok, txid()} | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="abort_transaction/1">abort_transaction(TxId::txid()) -&gt; {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit_transaction/1">commit_transaction(TxId::txid()) -&gt; {ok, snapshot_time()} | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read_objects/1">read_objects(Objects::[bound_object()], TxId::txid()) -&gt; {ok, [term()]} | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_objects/1">update_objects(Updates::[{bound_object(), op(), op_param()}], TxId::txid()) -&gt; ok | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_objects/1-1">update_objects(Clock::snapshot_time(), Properties::term(), Updates::[{bound_object(), op(), op_param()}]) -&gt; {ok, snapshot_time()} | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_bucket/2">create_bucket(Bucket, Type) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="create_object/3">create_object(Key, Type, Bucket) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_object/1">delete_object(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="append/1">append(Key::key(), Type::type(), X3::{op(), term()}) -&gt; {ok, {txid(), [], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>The append/2 function adds an operation to the log of the CRDT
+       object stored at some key.</p>
+</div></div>
+<div class="function">
+<h3 id="read/1">read(Key::key(), Type::type()) -&gt; {ok, val()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>The read/2 function returns the current value for the CRDT
+       object stored at some key.</p>
+</div></div>
+<div class="function">
+<h3 id="clocksi_execute_tx/1">clocksi_execute_tx(Clock::snapshot_time(), Operations::[client_op()]) -&gt; {ok, {txid(), [snapshot()], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>Starts a new ClockSI transaction.
+       Input:
+       ClientClock: last clock the client has seen from a successful transaction.
+       Operations: the list of the operations the transaction involves.
+       Returns:
+       an ok message along with the result of the read operations involved in the
+       the transaction, in case the tx ends successfully.
+       error message in case of a failure.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="clocksi_execute_tx/1-1">clocksi_execute_tx(Operations::[client_op()]) -&gt; {ok, {txid(), [snapshot()], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_bulk_update/1">clocksi_bulk_update(ClientClock::snapshot_time(), Operations::[client_op()]) -&gt; {ok, {txid(), [snapshot()], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_bulk_update/1-1">clocksi_bulk_update(Operations::[client_op()]) -&gt; {ok, {txid(), [snapshot()], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_read/1">clocksi_read(ClientClock::snapshot_time(), Key::key(), Type::type()) -&gt; {ok, {txid(), [snapshot()], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_read/1-1">clocksi_read(Key::key(), Type::type()) -&gt; {ok, {txid(), [snapshot()], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_istart_tx/1">clocksi_istart_tx(Clock::snapshot_time()) -&gt; {ok, txid()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>Starts a new ClockSI interactive transaction.
+       Input:
+       ClientClock: last clock the client has seen from a successful transaction.
+       Returns: an ok message along with the new TxId.
+ </p>
+</div></div>
+<div class="function">
+<h3 id="clocksi_istart_tx/0">clocksi_istart_tx() -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_iread/1">clocksi_iread(X1::txid(), Key::key(), Type::type()) -&gt; {ok, term()} | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_iupdate/1">clocksi_iupdate(X1::txid(), Key::key(), Type::type(), OpParams::term()) -&gt; ok | {error, reason()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_full_icommit/1">clocksi_full_icommit(X1::txid()) -&gt; {aborted, txid()} | {ok, {txid(), snapshot_time()}} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>This commits includes both prepare and commit phase. Thus
+       Client do not need to send to message to complete the 2PC
+       protocol. The Tx coordinator will pick the best strategie
+       automatically.
+       To keep with the current api this is still done in 2 steps,
+       but should be changed when the new transaction api is decided</p>
+</div></div>
+<div class="function">
+<h3 id="clocksi_iprepare/1">clocksi_iprepare(X1::txid()) -&gt; {aborted, txid()} | {ok, non_neg_integer()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="clocksi_icommit/1">clocksi_icommit(X1::txid()) -&gt; {aborted, txid()} | {ok, {txid(), snapshot_time()}}</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

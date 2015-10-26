@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>kvdb_paired (kvdb) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>kvdb_paired</h1>
+<h2 class="modsummary">   
+Paired backend for kvdb.</h2>
+<div class="description">
+<p>   
+Paired backend for kvdb</p>
+  
+   <p>NOTE: This is work in progress. Several things still do not work</p>
+  
+   <p>The idea with this backend is to combine two backends as a write-through   
+pair. That is: all reads are done on 'backend 1', but writes are served   
+in both 'backend 1' and 'backend 2'. An example of how to use this would   
+be e.g. a kvdb_ets backend in front of a kvdb_riak backend:</p>
+  
+   <pre lang="erlang">
+   kvdb:open(p, [{backend, kvdb_paired},
+                 {module1, kvdb_ets},
+                 {module2, kvdb_riak},
+                 {options2, [{update_index, false}]}]).
+   </pre>
+  
+   The 'options2' list applies only to the 'backend 2' (riak in this case).
+   With <code>{update_index, false}</code> on 'backend 2', we will not maintain indexes
+   on the riak side, but rebuild them when the ets backend is populated.</div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="info/2">info(Db, What) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="proxy_childspecs/2">proxy_childspecs(Name, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_table/2">is_table(Db, Tab) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_schema_mod/2">get_schema_mod(Db, Default) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="schema_write/4">schema_write(Db, Cat, K, V) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="schema_read/3">schema_read(Db, Cat, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="schema_delete/3">schema_delete(Db, Cat, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="schema_fold/3">schema_fold(Db, F, A) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="dump_tables/1">dump_tables(Db) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="open/2">open(DbName, Options) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="close/1">close(Db) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="add_table/3">add_table(Db, Table, Opts) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_tables/1">list_tables(Db) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete_table/2">delete_table(Db, Table) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="put/3">put(Db, Table, Obj) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="update_counter/4">update_counter(Db, Table, Key, Incr) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="push/4">push(Db, Table, Q, Obj) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get/3">get(Db, Tab, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="get_attrs/4">get_attrs(Db, Tab, K, As) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="index_get/4">index_get(Db, Tab, K, V) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="index_keys/4">index_keys(Db, T, K, V) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="pop/3">pop(Db, T, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prel_pop/3">prel_pop(Db, T, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="extract/3">extract(Db, T, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="delete/3">delete(Db, T, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_queue/3">list_queue(Db, T, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_queue/6">list_queue(Db, T, Q, Fltr, HeedBlock, Limit) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="list_queue/7">list_queue(Db, T, Q, Fltr, HeedBlock, Limit, Reverse) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="is_queue_empty/3">is_queue_empty(Db, T, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_read/3">queue_read(Db, T, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_insert/5">queue_insert(Db, T, K, St, Obj) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_delete/3">queue_delete(Db, T, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="mark_queue_object/4">mark_queue_object(Db, Tab, K, St) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_head_write/4">queue_head_write(Db, Tab, Q, Obj) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_head_read/3">queue_head_read(Db, Tab, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="queue_head_delete/3">queue_head_delete(Db, Tab, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="first_queue/2">first_queue(Db, Tab) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next_queue/3">next_queue(Db, Tab, Q) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="first/2">first(Db, Tab) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="last/2">last(Db, Tab) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="next/3">next(Db, Tab, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prev/3">prev(Db, Tab, K) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prefix_match/3">prefix_match(Db, Tab, Pfx) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prefix_match/4">prefix_match(Db, Tab, Pfx, Limit) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prefix_match_rel/5">prefix_match_rel(Db, Tab, Prefix, Start, Limit) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
+
+<authors>
+
+<aname>Ulf Wiger</aname>
+<email>ulf@feuerlabs.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
