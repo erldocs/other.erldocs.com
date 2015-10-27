@@ -28,48 +28,207 @@
 
 <h1>esockd_connection</h1>
 <h2 class="modsummary">
-   eSockd connection api.</h2>
+   eSockd tcp/ssl connection that wraps transport and socket.</h2>
 <div class="description">
 <p>
-   eSockd connection api.
+   eSockd tcp/ssl connection that wraps transport and socket.
   </p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-connection">connection() = {atom(), list()}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/2">start_link(SockArgs, MFArgs) -&gt; {ok, pid()} | {error, any()} | ignore</h3>
+<h3 id="new/3">new(Sock, SockFun, Opts) -&gt; connection()</h3>
 
 <ul class="type">
-<li><code>SockArgs = sock_args() (see module esockd)</code></li><li><code>MFArgs = mfargs() (see module esockd)</code></li></ul>
+<li><code>Sock = socket() (see module inet)</code></li><li><code>SockFun = sock_fun() (see module esockd)</code></li><li><code>Opts = list()</code></li></ul>
 <div class="description">
 
-<p>Start a connection.</p>
+<p>Create a connection</p>
 </div></div>
 <div class="function">
-<h3 id="ready/2">ready(Conn, SockArgs) -&gt; any()</h3>
+<h3 id="start_link/1">start_link(M::mfargs() (see module esockd), Conn::connection()) -&gt; {ok, pid()} | {error, any()} | ignore</h3>
 
-<ul class="type">
-<li><code>Conn = pid()</code></li><li><code>SockArgs = sock_args() (see module esockd)</code></li></ul>
+
 <div class="description">
 
-<p>Tell the connection that socket is ready. Called by acceptor.</p>
+<p>Start the connection process.</p>
 </div></div>
 <div class="function">
-<h3 id="accept/1">accept(SockArgs) -&gt; {ok, NewSock}</h3>
+<h3 id="go/1">go(Pid::pid(), Conn::connection()) -&gt; any()</h3>
 
-<ul class="type">
-<li><code>SockArgs = sock_args() (see module esockd)</code></li><li><code>NewSock = socket() (see module inet) | ssl_socket() (see module esockd)</code></li></ul>
+
 <div class="description">
 
-<p>Connection accept the socket. Called by connection.</p>
+<p>Tell the connection proccess that socket is ready. Called by acceptor.</p>
 </div></div>
 <div class="function">
-<h3 id="transform/1">transform(X1) -&gt; term()
+<h3 id="ack/1">ack(Conn::connection()) -&gt; {ok, connection()}</h3>
+
+
+<div class="description">
+
+<p>Connection process ack and upgrade. Called by connection process.</p>
+</div></div>
+<div class="function">
+<h3 id="upgrade/1">upgrade(X1) -&gt; term()
 </h3>
 
 
 <div class="description">
 
-<p>Transform Socket. Callbed by connection proccess.</p>
-</div></div></div>
+<p>Upgrade Socket. Callbed by connection proccess.</p>
+</div></div>
+<div class="function">
+<h3 id="sock/1">sock(X1::connection()) -&gt; socket() (see module inet) | ssl_socket() (see module esockd)</h3>
+
+
+<div class="description">
+
+<p>Socket of the connection.</p>
+</div></div>
+<div class="function">
+<h3 id="opts/1">opts(X1::connection()) -&gt; list()</h3>
+
+
+<div class="description">
+
+<p>Connection opts</p>
+</div></div>
+<div class="function">
+<h3 id="type/1">type(X1::connection()) -&gt; tcp | ssl</h3>
+
+
+<div class="description">
+
+<p>Socket type of the connection.</p>
+</div></div>
+<div class="function">
+<h3 id="sockname/1">sockname(X1::connection()) -&gt; {ok, {Address, Port}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Address = ip_address() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Sockname of the connection.</p>
+</div></div>
+<div class="function">
+<h3 id="peername/1">peername(X1::connection()) -&gt; {ok, {Address, Port}} | {error, any()}</h3>
+
+<ul class="type">
+<li><code>Address = ip_address() (see module inet)</code></li><li><code>Port = port_number() (see module inet)</code></li></ul>
+<div class="description">
+
+<p>Peername of the connection.</p>
+</div></div>
+<div class="function">
+<h3 id="getopts/2">getopts(Keys, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get socket options</p>
+</div></div>
+<div class="function">
+<h3 id="setopts/2">setopts(Options, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Set socket options</p>
+</div></div>
+<div class="function">
+<h3 id="getstat/2">getstat(Stats, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Get socket stats</p>
+</div></div>
+<div class="function">
+<h3 id="controlling_process/1">controlling_process(Owner::pid(), X2::connection()) -&gt; any()</h3>
+
+
+<div class="description">
+
+<p>Controlling Process of Connection</p>
+</div></div>
+<div class="function">
+<h3 id="send/1">send(Data::iolist(), X2::connection()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Send data</p>
+</div></div>
+<div class="function">
+<h3 id="async_send/2">async_send(Data, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Send data asynchronously by port_command/2</p>
+</div></div>
+<div class="function">
+<h3 id="recv/2">recv(Length, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Receive data</p>
+</div></div>
+<div class="function">
+<h3 id="recv/3">recv(Length, Timeout, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="async_recv/2">async_recv(Length, X2) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Receive data asynchronously</p>
+</div></div>
+<div class="function">
+<h3 id="async_recv/3">async_recv(Length, Timeout, X3) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="shutdown/2">shutdown(How, X2::connection()) -&gt; ok | {error, Reason::any()}</h3>
+
+<ul class="type">
+<li><code>How = read | write | read_write</code></li></ul>
+<div class="description">
+
+<p>Shutdown connection</p>
+</div></div>
+<div class="function">
+<h3 id="close/1">close(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Close socket</p>
+</div></div>
+<div class="function">
+<h3 id="fast_close/1">fast_close(X1) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div></div>
 
 <authors>
 <aname> </aname>

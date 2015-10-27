@@ -31,7 +31,9 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = term()</h3></div>
     <div class="type"><h3 id="type-crdt">crdt() = term()</h3></div>
+    <div class="type"><h3 id="type-dc_address">dc_address() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
     <div class="type"><h3 id="type-log">log() = term()</h3></div>
     <div class="type"><h3 id="type-op">op() = {term(), term()}</h3></div>
@@ -56,28 +58,49 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="read_key/2">read_key(Node, Key) -&gt; term()
+<h3 id="check_deps/2">check_deps(Node, Deps) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="read_key_time/3">read_key_time(Node, Key, Clock) -&gt; term()
+<h3 id="read_key/4">read_key(Node, Key, Type, TxId) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="prepare/4">prepare(Node, UId, Clock, Keys) -&gt; term()
+<h3 id="read_key_time/5">read_key_time(Node, Key, Type, TxId, Clock) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="commit/4">commit(Node, UId, Updates, Clock) -&gt; term()
+<h3 id="prepare/4">prepare(Node, Transaction, Clock, Keys) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="prepare_replicated/3">prepare_replicated(Node, TxId, Keys) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit/5">commit(Node, Transaction, Updates, Clock, TotalOps) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="commit_replicated/3">commit_replicated(Node, Transaction, Updates) -&gt; term()
 </h3>
 
 
@@ -115,14 +138,12 @@
        the transactions it participates on.</p>
 </div></div>
 <div class="function">
-<h3 id="handle_command/3">handle_command(Message, Sender, State) -&gt; term()
+<h3 id="handle_command/3">handle_command(Message, Sender, State0) -&gt; term()
 </h3>
 
 
 <div class="description">
-
-<p>starts a read_fsm to handle a read operation.</p>
-</div></div>
+ </div></div>
 <div class="function">
 <h3 id="handle_handoff_command/3">handle_handoff_command(Message, Sender, State) -&gt; term()
 </h3>
