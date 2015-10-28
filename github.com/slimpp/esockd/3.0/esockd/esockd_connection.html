@@ -34,13 +34,14 @@
    eSockd tcp/ssl connection that wraps transport and socket.
   </p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-connection">connection() = {atom(), list()}</h3></div></div>
+    <div class="type"><h3 id="type-connection">connection() = {atom(), [<a href="#type-parameter" class="seealso">parameter()</a>]}</h3></div>
+    <div class="type"><h3 id="type-parameter">parameter() = any()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="new/3">new(Sock, SockFun, Opts) -&gt; connection()</h3>
 
 <ul class="type">
-<li><code>Sock = socket() (see module inet)</code></li><li><code>SockFun = sock_fun() (see module esockd)</code></li><li><code>Opts = list()</code></li></ul>
+<li><code>Sock = socket() (see module inet)</code></li><li><code>SockFun = sock_fun() (see module esockd)</code></li><li><code>Opts = [atom() | tuple()]</code></li></ul>
 <div class="description">
 
 <p>Create a connection</p>
@@ -59,24 +60,26 @@
 
 <div class="description">
 
-<p>Tell the connection proccess that socket is ready. Called by acceptor.</p>
+<p>Tell the connection proccess that socket is ready.
+       Called by acceptor.</p>
 </div></div>
 <div class="function">
-<h3 id="ack/1">ack(Conn::connection()) -&gt; {ok, connection()}</h3>
+<h3 id="wait/1">wait(Conn::connection()) -&gt; {ok, connection()}</h3>
 
 
 <div class="description">
 
-<p>Connection process ack and upgrade. Called by connection process.</p>
+<p>Connection process wait for 'go' and upgrade self.
+       Called by connection process.</p>
 </div></div>
 <div class="function">
-<h3 id="upgrade/1">upgrade(X1) -&gt; term()
-</h3>
+<h3 id="upgrade/1">upgrade(X1::connection()) -&gt; {ok, connection()}</h3>
 
 
 <div class="description">
 
-<p>Upgrade Socket. Callbed by connection proccess.</p>
+<p>Upgrade Socket.
+       Called by connection proccess.</p>
 </div></div>
 <div class="function">
 <h3 id="sock/1">sock(X1::connection()) -&gt; socket() (see module inet) | ssl_socket() (see module esockd)</h3>
@@ -87,12 +90,12 @@
 <p>Socket of the connection.</p>
 </div></div>
 <div class="function">
-<h3 id="opts/1">opts(X1::connection()) -&gt; list()</h3>
+<h3 id="opts/1">opts(X1::connection()) -&gt; [atom() | tuple()]</h3>
 
 
 <div class="description">
 
-<p>Connection opts</p>
+<p>Connection options</p>
 </div></div>
 <div class="function">
 <h3 id="type/1">type(X1::connection()) -&gt; tcp | ssl</h3>
@@ -214,8 +217,7 @@
 <p>Shutdown connection</p>
 </div></div>
 <div class="function">
-<h3 id="close/1">close(X1) -&gt; term()
-</h3>
+<h3 id="close/1">close(X1::connection()) -&gt; ok</h3>
 
 
 <div class="description">
@@ -223,12 +225,13 @@
 <p>Close socket</p>
 </div></div>
 <div class="function">
-<h3 id="fast_close/1">fast_close(X1) -&gt; term()
-</h3>
+<h3 id="fast_close/1">fast_close(X1::connection()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div></div>
+
+<p>Close socket by port_close</p>
+</div></div></div>
 
 <authors>
 <aname> </aname>
