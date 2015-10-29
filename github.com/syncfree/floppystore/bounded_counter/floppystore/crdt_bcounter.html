@@ -36,12 +36,12 @@
   explicitly exchanging permissions to execute decrement operations.
   All operations on this CRDT are monotonic and do not keep extra tombstones.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-bcounter">bcounter()</h3></div>
+    <div class="type"><h3 id="type-bcounter">bcounter() = {<a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>, <a href="orddict.html#type-orddict" class="seealso">orddict:orddict()</a>}</h3></div>
     <div class="type"><h3 id="type-bcounter_anon_op">bcounter_anon_op() = {transfer, integer() >= 1, <a href="#type-id" class="seealso">id()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {increment, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {decrement, integer() >= 1}</h3></div>
     <div class="type"><h3 id="type-bcounter_op">bcounter_op() = <a href="#type-bcounter_anon_op" class="seealso">bcounter_anon_op()</a> | <a href="#type-bcounter_src_op" class="seealso">bcounter_src_op()</a></h3></div>
     <div class="type"><h3 id="type-bcounter_src_op">bcounter_src_op() = {<a href="#type-bcounter_anon_op" class="seealso">bcounter_anon_op()</a>, <a href="#type-id" class="seealso">id()</a>}</h3></div>
     <div class="type"><h3 id="type-binary_bcounter">binary_bcounter() = binary()</h3></div>
-    <div class="type"><h3 id="type-id">id()</h3></div></div>
+    <div class="type"><h3 id="type-id">id() = undefined | {term(), term()}</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
 <h3 id="new/0">new() -&gt; bcounter()</h3>
@@ -52,7 +52,7 @@
 <p>Return a new, empty <code>bcounter()</code>.</p>
 </div></div>
 <div class="function">
-<h3 id="localPermissions/1">localPermissions(Id::id(), X2::bcounter()) -&gt; non_neg_integer()</h3>
+<h3 id="local_permissions/1">local_permissions(Id::id(), X2::bcounter()) -&gt; non_neg_integer()</h3>
 
 
 <div class="description">
@@ -68,6 +68,14 @@
 <p>Return the total available permissions in a <code>bcounter()</code>.</p>
 </div></div>
 <div class="function">
+<h3 id="permissions_per_owner/1">permissions_per_owner(C::bcounter()) -&gt; dict()</h3>
+
+
+<div class="description">
+
+<p>Return available permissions for each <code>id()</code> in a <code>bcounter()</code>.</p>
+</div></div>
+<div class="function">
 <h3 id="value/1">value(Counter::bcounter()) -&gt; bcounter()</h3>
 
 
@@ -76,7 +84,7 @@
 <p>Return the read value of a given <code>bcounter()</code>, itself.</p>
 </div></div>
 <div class="function">
-<h3 id="generate_downstream/1">generate_downstream(X1::bcounter_op(), Actor::actor() (see module riak_dt), Counter::bcounter()) -&gt; {ok, bcounter_op()} | {error, no_permissions}</h3>
+<h3 id="generate_downstream/1">generate_downstream(Op::bcounter_anon_op(), Actor::term(), Counter::bcounter()) -&gt; {ok, bcounter_src_op()} | {error, {no_permissions, {id(), pos_integer()}}}</h3>
 
 
 <div class="description">
@@ -89,12 +97,12 @@
   and the third parameter is a <code>bcounter()</code> which holds the current snapshot.</p>
  
   <p>Return a tuple containing the operation and source replica.
-  This operation fails and returns <code>{error, no_permissions}</code>
+  This operation fails and returns <code>{error, {no_permissions, {id(), pos_integer()}}</code>
   if it tries to consume resources unavailable to the source replica
   (which prevents logging of forbidden attempts).</p>
 </div></div>
 <div class="function">
-<h3 id="update/1">update(X1::bcounter_op(), Counter::bcounter()) -&gt; {ok, bcounter()}</h3>
+<h3 id="update/1">update(X1::bcounter_src_op(), Counter::bcounter()) -&gt; {ok, bcounter()}</h3>
 
 
 <div class="description">
@@ -115,7 +123,16 @@
 
 
 <div class="description">
- </div></div></div>
+ </div></div>
+<div class="function">
+<h3 id="is_operation/1">is_operation(Operation::term()) -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>The following operation verifies
+       that Operation is supported by this particular CRDT.</p>
+</div></div></div>
 
 <authors>
 <aname> </aname>

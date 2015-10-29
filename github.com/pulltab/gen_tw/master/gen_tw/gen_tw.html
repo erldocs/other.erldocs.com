@@ -32,16 +32,19 @@
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
     <div class="type"><h3 id="type-event">event()</h3></div>
-    <div class="type"><h3 id="type-ref">ref()</h3></div></div>
+    <div class="type"><h3 id="type-event_list">event_list() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[#event{lvt = undefined | <a href="#type-virtual_time" class="seealso">virtual_time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = undefined | <a href="uuid.html#type-uuid" class="seealso">uuid:uuid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_anti = undefined | boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link = <a href="#type-ref" class="seealso">ref()</a> | undefined,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | term()}]</h3></div>
+    <div class="type"><h3 id="type-past_event_list">past_event_list() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[#event{lvt = undefined | <a href="#type-virtual_time" class="seealso">virtual_time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id = undefined | <a href="uuid.html#type-uuid" class="seealso">uuid:uuid()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_anti = undefined | boolean(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;link = <a href="#type-ref" class="seealso">ref()</a> | undefined,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | term()}]</h3></div>
+    <div class="type"><h3 id="type-ref">ref()</h3></div>
+    <div class="type"><h3 id="type-virtual_time">virtual_time() = integer()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="spawn/1">spawn(Module::atom(), Args::[term()]) -&gt; {ok, ref()}</h3>
+<h3 id="spawn/1">spawn(Module::atom(), Arg::term()) -&gt; {ok, ref()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="spawn_link/1">spawn_link(Module::atom(), Args::[term()]) -&gt; {ok, ref()}</h3>
+<h3 id="spawn_link/1">spawn_link(Module::atom(), Arg::term()) -&gt; {ok, ref()}</h3>
 
 
 <div class="description">
@@ -71,13 +74,13 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="event/1">event(LVT::integer(), Payload::term()) -&gt; event()</h3>
+<h3 id="event/1">event(LVT::virtual_time(), Payload::term()) -&gt; event()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="event/1-1">event(Link::ref(), LVT::integer(), Payload::term()) -&gt; event()</h3>
+<h3 id="event/1-1">event(Link::ref() | undefined, LVT::virtual_time(), Payload::term()) -&gt; event()</h3>
 
 
 <div class="description">
@@ -89,20 +92,19 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="init/1">init(Parent::pid(), InitialLVT::integer(), Module::atom(), Args::[term()]) -&gt; no_return()</h3>
+<h3 id="init/1">init(Parent::pid(), InitialLVT::virtual_time(), Module::atom(), Arg::term()) -&gt; no_return()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="rollback/2">rollback(LVT, Events) -&gt; term()
-</h3>
+<h3 id="rollback/1">rollback(LVT::virtual_time(), Events::past_event_list()) -&gt; {event_list(), past_event_list()}</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="uuid/0">uuid() -&gt; [byte()]</h3>
+<h3 id="uuid/0">uuid() -&gt; uuid() (see module uuid)</h3>
 
 
 <div class="description">

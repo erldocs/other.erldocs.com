@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>swc_node (globallogicalclocks) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>swc_node</h1>
+<h2 class="modsummary">
+     An Erlang implementation of a Server Wide Logical Clock,
+     in this case a Bitmapped Version Vector.</h2>
+<div class="description">
+<p>
+     An Erlang implementation of a Server Wide Logical Clock,
+     in this case a Bitmapped Version Vector.</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bvv">bvv() = [{Key :: <a href="#type-id" class="seealso">id()</a>, Entry :: <a href="#type-entry" class="seealso">entry()</a>}]</h3></div>
+    <div class="type"><h3 id="type-counter">counter() = integer() &gt;= 0</h3></div>
+    <div class="type"><h3 id="type-entry">entry() = {<a href="#type-counter" class="seealso">counter()</a>, <a href="#type-counter" class="seealso">counter()</a>}</h3></div>
+    <div class="type"><h3 id="type-id">id() = term()</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; bvv()</h3>
+
+
+<div class="description">
+
+<p>Constructs an empty BVV (an orddict in Erlang).</p>
+</div></div>
+<div class="function">
+<h3 id="ids/1">ids(B::bvv()) -&gt; [id()]</h3>
+
+
+<div class="description">
+
+<p>Returns all IDs from the entries in a BVV.</p>
+</div></div>
+<div class="function">
+<h3 id="get/1">get(K::id(), B::bvv()) -&gt; entry()</h3>
+
+
+<div class="description">
+
+<p>Returns the entry of a BVV associated with a given ID.</p>
+</div></div>
+<div class="function">
+<h3 id="norm/1">norm(X1::entry()) -&gt; entry()</h3>
+
+
+<div class="description">
+
+<p>Normalizes an entry pair, by removing dots and adding them to the base
+  if they are contiguous with the base.</p>
+</div></div>
+<div class="function">
+<h3 id="values/1">values(X1::entry()) -&gt; [counter()]</h3>
+
+
+<div class="description">
+
+<p>Returns the sequence numbers for the dots represented by an entry.</p>
+</div></div>
+<div class="function">
+<h3 id="add/1">add(BVV::bvv(), X2::{id(), counter()}) -&gt; bvv()</h3>
+
+
+<div class="description">
+
+<p>Adds a dot (ID, Counter) to a BVV.</p>
+</div></div>
+<div class="function">
+<h3 id="merge/1">merge(BVV1::bvv(), BVV2::bvv()) -&gt; bvv()</h3>
+
+
+<div class="description">
+
+<p>Merges all entries from the two BVVs.</p>
+</div></div>
+<div class="function">
+<h3 id="join/1">join(BVV1::bvv(), BVV2::bvv()) -&gt; bvv()</h3>
+
+
+<div class="description">
+
+<p>Joins entries from BVV2 that are also IDs in BVV1, into BVV1.</p>
+</div></div>
+<div class="function">
+<h3 id="base/1">base(BVV::bvv()) -&gt; bvv()</h3>
+
+
+<div class="description">
+
+<p>Takes and returns a BVV where in each entry, the bitmap is reset to zero.</p>
+</div></div>
+<div class="function">
+<h3 id="event/1">event(BVV::bvv(), Id::id()) -&gt; {counter(), bvv()}</h3>
+
+
+<div class="description">
+
+<p>Takes a BVV at node Id and returns a pair with sequence number for a new
+  event (dot) at node Id and the original BVV with the new dot added; this
+  function makes use of the invariant that the node BVV for node Id knows all
+  events generated at Id, i.e., the first component of the pair denotes the
+  last event, and the second component, the bitmap, is always zero.</p>
+</div></div>
+<div class="function">
+<h3 id="store_entry/3">store_entry(Id, Entry, BVV) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Stores an Id-Entry pair in a BVV; if the id already exists, the
+  associated entry is replaced by the new one.</p>
+</div></div></div>
+
+<authors>
+
+<aname>Ricardo Gonçalves</aname>
+<email>tome.wave@gmail.com</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>

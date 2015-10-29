@@ -31,24 +31,70 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = term()</h3></div>
     <div class="type"><h3 id="type-crdt">crdt() = term()</h3></div>
+    <div class="type"><h3 id="type-dc_address">dc_address() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
+    <div class="type"><h3 id="type-index_node">index_node() = {<a href="chash.html#type-index_as_int" class="seealso">chash:index_as_int()</a>, node()}</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
     <div class="type"><h3 id="type-log">log() = term()</h3></div>
     <div class="type"><h3 id="type-op">op() = {term(), term()}</h3></div>
     <div class="type"><h3 id="type-op_id">op_id() = {integer() &gt;= 0, node()}</h3></div>
-    <div class="type"><h3 id="type-operation">operation() = #operation{}</h3></div>
+    <div class="type"><h3 id="type-operation">operation() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#operation{op_number = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | <a href="#type-payload" class="seealso">payload()</a>}</h3></div>
     <div class="type"><h3 id="type-partition_id">partition_id() = integer() &gt;= 0</h3></div>
     <div class="type"><h3 id="type-payload">payload() = term()</h3></div>
     <div class="type"><h3 id="type-preflist">preflist() = <a href="riak_core_apl.html#type-preflist" class="seealso">riak_core_apl:preflist()</a></h3></div>
     <div class="type"><h3 id="type-reason">reason() = atom()</h3></div>
     <div class="type"><h3 id="type-snapshot">snapshot() = term()</h3></div>
-    <div class="type"><h3 id="type-txid">txid() = #tx_id{}</h3></div>
+    <div class="type"><h3 id="type-snapshot_time">snapshot_time() = <a href="vectorclock.html#type-vectorclock" class="seealso">vectorclock:vectorclock()</a></h3></div>
+    <div class="type"><h3 id="type-tx">tx() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#transaction{snapshot_time = undefined | <a href="#type-snapshot_time" class="seealso">snapshot_time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vec_snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txn_id = undefined | <a href="#type-txid" class="seealso">txid()</a>}</h3></div>
+    <div class="type"><h3 id="type-txid">txid() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#tx_id{snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid()}</h3></div>
     <div class="type"><h3 id="type-type">type() = atom()</h3></div>
     <div class="type"><h3 id="type-val">val() = term()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start_link/6">start_link(Vnode, Coordinator, Tx, Key, Type, Updates) -&gt; term()
-</h3>
+<h3 id="start_link/1">start_link(Partition::partition_id(), Id::non_neg_integer()) -&gt; {ok, pid()} | ignore | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>This starts a gen_server responsible for servicing reads to key
+       handled by this Partition.  To allow for read concurrency there
+       can be multiple copies of these servers per parition, the Id is
+       used to distinguish between them.  Since these servers will be
+       reading from ets tables shared by the clock_si and materializer
+       vnodes, they should be started on the same physical nodes as
+       the vnodes with the same partition.</p>
+</div></div>
+<div class="function">
+<h3 id="start_read_servers/1">start_read_servers(Partition::partition_id(), Count::non_neg_integer()) -&gt; non_neg_integer()</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="stop_read_servers/1">stop_read_servers(Partition::partition_id(), Count::non_neg_integer()) -&gt; ok</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="read_data_item/1">read_data_item(X1::index_node(), Key::key(), Type::type(), Transaction::tx()) -&gt; {error, term()} | {ok, snapshot()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="check_servers_ready/0">check_servers_ready() -&gt; boolean()</h3>
+
+
+<div class="description">
+
+<p>This checks all partitions in the system to see if all read
+       servers have been started up.
+       Returns true if they have been, false otherwise.</p>
+</div></div>
+<div class="function">
+<h3 id="check_partition_ready/1">check_partition_ready(Node::node(), Partition::partition_id(), Num::non_neg_integer()) -&gt; boolean()</h3>
 
 
 <div class="description">
@@ -61,36 +107,21 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="check_clock/2">check_clock(X1, SD0) -&gt; term()
-</h3>
-
-
-<div class="description">
-
-<p>check_clock: Compares its local clock with the tx timestamp.
-       if local clock is behinf, it sleeps the fms until the clock
-       catches up. CLOCK-SI: clock skew.
- </p>
-</div></div>
-<div class="function">
-<h3 id="waiting1/2">waiting1(SomeMessage, SDO) -&gt; term()
+<h3 id="handle_call/3">handle_call(X1, Coordinator, SD0) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="return/2">return(SomeMessage, SD0) -&gt; term()
+<h3 id="handle_cast/2">handle_cast(X1, SD0) -&gt; term()
 </h3>
 
 
 <div class="description">
-
-<p>return:
-   - Reads and returns the log of specified Key using replication layer.</p>
-</div></div>
+ </div></div>
 <div class="function">
-<h3 id="handle_info/3">handle_info(Info, StateName, StateData) -&gt; term()
+<h3 id="handle_info/2">handle_info(Info, SD0) -&gt; term()
 </h3>
 
 
@@ -111,14 +142,14 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="code_change/4">code_change(OldVsn, StateName, State, Extra) -&gt; term()
+<h3 id="code_change/3">code_change(OldVsn, State, Extra) -&gt; term()
 </h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="terminate/3">terminate(Reason, SN, SD) -&gt; term()
+<h3 id="terminate/2">terminate(Reason, SD) -&gt; term()
 </h3>
 
 

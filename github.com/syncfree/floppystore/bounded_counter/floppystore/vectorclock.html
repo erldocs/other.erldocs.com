@@ -31,18 +31,22 @@
 <div class="description">
 </div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = term()</h3></div>
     <div class="type"><h3 id="type-crdt">crdt() = term()</h3></div>
+    <div class="type"><h3 id="type-dc_address">dc_address() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
     <div class="type"><h3 id="type-log">log() = term()</h3></div>
     <div class="type"><h3 id="type-op">op() = {term(), term()}</h3></div>
     <div class="type"><h3 id="type-op_id">op_id() = {integer() &gt;= 0, node()}</h3></div>
-    <div class="type"><h3 id="type-operation">operation() = #operation{}</h3></div>
+    <div class="type"><h3 id="type-operation">operation() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#operation{op_number = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | <a href="#type-payload" class="seealso">payload()</a>}</h3></div>
     <div class="type"><h3 id="type-partition_id">partition_id() = integer() &gt;= 0</h3></div>
     <div class="type"><h3 id="type-payload">payload() = term()</h3></div>
     <div class="type"><h3 id="type-preflist">preflist() = <a href="riak_core_apl.html#type-preflist" class="seealso">riak_core_apl:preflist()</a></h3></div>
     <div class="type"><h3 id="type-reason">reason() = atom()</h3></div>
     <div class="type"><h3 id="type-snapshot">snapshot() = term()</h3></div>
-    <div class="type"><h3 id="type-txid">txid() = #tx_id{}</h3></div>
+    <div class="type"><h3 id="type-snapshot_time">snapshot_time() = <a href="vectorclock.html#type-vectorclock" class="seealso">vectorclock:vectorclock()</a></h3></div>
+    <div class="type"><h3 id="type-tx">tx() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#transaction{snapshot_time = undefined | <a href="#type-snapshot_time" class="seealso">snapshot_time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vec_snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txn_id = undefined | <a href="#type-txid" class="seealso">txid()</a>}</h3></div>
+    <div class="type"><h3 id="type-txid">txid() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#tx_id{snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid()}</h3></div>
     <div class="type"><h3 id="type-type">type() = atom()</h3></div>
     <div class="type"><h3 id="type-val">val() = term()</h3></div>
     <div class="type"><h3 id="type-vectorclock">vectorclock() = dict()</h3></div></div>
@@ -60,7 +64,7 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="get_stable_snapshot/0">get_stable_snapshot() -&gt; {ok, vectorclock() (see module vectorclock)} | {error, term()}</h3>
+<h3 id="get_stable_snapshot/0">get_stable_snapshot() -&gt; {ok, vectorclock() (see module vectorclock)}</h3>
 
 
 <div class="description">
@@ -70,7 +74,7 @@
   in all partitions</p>
 </div></div>
 <div class="function">
-<h3 id="update_clock/1">update_clock(Partition::non_neg_integer(), Dc_id::term(), Timestamp::non_neg_integer()) -&gt; {ok, vectorclock()} | {error, term()}</h3>
+<h3 id="update_clock/1">update_clock(Partition::non_neg_integer(), Dc_id::term(), Timestamp::non_neg_integer()) -&gt; ok | {error, term()}</h3>
 
 
 <div class="description">
@@ -105,50 +109,43 @@
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="eq/2">eq(V1, V2) -&gt; term()
-</h3>
+<h3 id="eq/1">eq(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="le/2">le(V1, V2) -&gt; term()
-</h3>
+<h3 id="le/1">le(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="ge/2">ge(V1, V2) -&gt; term()
-</h3>
+<h3 id="ge/1">ge(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="lt/2">lt(V1, V2) -&gt; term()
-</h3>
+<h3 id="lt/1">lt(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="gt/2">gt(V1, V2) -&gt; term()
-</h3>
+<h3 id="gt/1">gt(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="strict_ge/2">strict_ge(V1, V2) -&gt; term()
-</h3>
+<h3 id="strict_ge/1">strict_ge(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">
  </div></div>
 <div class="function">
-<h3 id="strict_le/2">strict_le(V1, V2) -&gt; term()
-</h3>
+<h3 id="strict_le/1">strict_le(V1::vectorclock(), V2::vectorclock()) -&gt; boolean()</h3>
 
 
 <div class="description">

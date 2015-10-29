@@ -1,0 +1,1 @@
+var index = [['app','couchdb-bear','couchdb-bear','[application]'],['mod','couchdb-bear','bear','   statistics functions for calucating based on i'],['fun','couchdb-bear','bear:get_statistics/1',[]],['fun','couchdb-bear','bear:get_statistics/2',[]]];

@@ -35,18 +35,22 @@
        involved key. when a tx is finalized (committed or aborted, the fsm
        also finishes.</p></div>
 <div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-bucket">bucket() = term()</h3></div>
     <div class="type"><h3 id="type-crdt">crdt() = term()</h3></div>
+    <div class="type"><h3 id="type-dc_address">dc_address() = {<a href="inet.html#type-ip_address" class="seealso">inet:ip_address()</a>, <a href="inet.html#type-port_number" class="seealso">inet:port_number()</a>}</h3></div>
     <div class="type"><h3 id="type-key">key() = term()</h3></div>
     <div class="type"><h3 id="type-log">log() = term()</h3></div>
     <div class="type"><h3 id="type-op">op() = {term(), term()}</h3></div>
     <div class="type"><h3 id="type-op_id">op_id() = {integer() &gt;= 0, node()}</h3></div>
-    <div class="type"><h3 id="type-operation">operation() = #operation{}</h3></div>
+    <div class="type"><h3 id="type-operation">operation() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#operation{op_number = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = undefined | <a href="#type-payload" class="seealso">payload()</a>}</h3></div>
     <div class="type"><h3 id="type-partition_id">partition_id() = integer() &gt;= 0</h3></div>
     <div class="type"><h3 id="type-payload">payload() = term()</h3></div>
     <div class="type"><h3 id="type-preflist">preflist() = <a href="riak_core_apl.html#type-preflist" class="seealso">riak_core_apl:preflist()</a></h3></div>
     <div class="type"><h3 id="type-reason">reason() = atom()</h3></div>
     <div class="type"><h3 id="type-snapshot">snapshot() = term()</h3></div>
-    <div class="type"><h3 id="type-txid">txid() = #tx_id{}</h3></div>
+    <div class="type"><h3 id="type-snapshot_time">snapshot_time() = <a href="vectorclock.html#type-vectorclock" class="seealso">vectorclock:vectorclock()</a></h3></div>
+    <div class="type"><h3 id="type-tx">tx() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#transaction{snapshot_time = undefined | <a href="#type-snapshot_time" class="seealso">snapshot_time()</a>,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vec_snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txn_id = undefined | <a href="#type-txid" class="seealso">txid()</a>}</h3></div>
+    <div class="type"><h3 id="type-txid">txid() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#tx_id{snapshot_time = any(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server_pid = undefined | pid()}</h3></div>
     <div class="type"><h3 id="type-type">type() = atom()</h3></div>
     <div class="type"><h3 id="type-val">val() = term()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
@@ -56,19 +60,7 @@
 
 
 <div class="description">
-
-<p>Data Type: state
-  where:
-     from: the pid of the calling process.
-     txid: transaction id handled by this fsm, as defined in src/antidote.hrl.
-     updated_partitions: the partitions where update operations take place.
-     num_to_ack: when sending prepare_commit,
-                 number of partitions that have acked.
-     prepare_time: transaction prepare time.
-     commit_time: transaction commit time.
-     state: state of the transaction: {active|prepared|committing|committed}
- ----------------------------------------------------------------------</p>
-</div></div>
+ </div></div>
 <div class="function">
 <h3 id="start_link/1">start_link(From) -&gt; term()
 </h3>
@@ -84,6 +76,13 @@
 <div class="description">
  </div></div>
 <div class="function">
+<h3 id="stop/1">stop(Pid) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
 <h3 id="init/1">init(X1) -&gt; term()
 </h3>
 
@@ -92,6 +91,47 @@
 
 <p>Initialize the state.</p>
 </div></div>
+<div class="function">
+<h3 id="create_transaction_record/1">create_transaction_record(ClientClock::snapshot_time() | ignore) -&gt; {tx(), txid()}</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="perform_singleitem_read/1">perform_singleitem_read(Key::key(), Type::type()) -&gt; {ok, val()} | {error, reason()}</h3>
+
+
+<div class="description">
+
+<p>This is a standalone function for directly contacting the read
+       server located at the vnode of the key being read.  This read
+       is supposed to be light weight because it is done outside of a
+       transaction fsm and directly in the calling thread.</p>
+</div></div>
+<div class="function">
+<h3 id="perform_singleitem_update/1">perform_singleitem_update(Key::key(), Type::type(), Params::{op(), term()}) -&gt; {ok, {txid(), [], snapshot_time()}} | {error, term()}</h3>
+
+
+<div class="description">
+
+<p>This is a standalone function for directly contacting the update
+       server vnode.  This is lighter than creating a transaction
+       because the update/prepare/commit are all done at one time</p>
+</div></div>
+<div class="function">
+<h3 id="perform_read/4">perform_read(Args, Updated_partitions, Transaction, Sender) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="perform_update/4">perform_update(Args, Updated_partitions, Transaction, Sender) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="execute_op/3">execute_op(X1, Sender, SD0) -&gt; term()
 </h3>
@@ -104,16 +144,32 @@
         to execute the next operation.</p>
 </div></div>
 <div class="function">
-<h3 id="prepare/2">prepare(X1, SD0) -&gt; term()
+<h3 id="prepare/1">prepare(SD0) -&gt; term()
 </h3>
 
 
 <div class="description">
 
-<p>a message from a client wanting to start committing the tx.
-       this state sends a prepare message to all updated partitions and goes
+<p>this state sends a prepare message to all updated partitions and goes
        to the "receive_prepared"state.</p>
 </div></div>
+<div class="function">
+<h3 id="prepare_2pc/1">prepare_2pc(SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>state called when 2pc is forced independently of the number of partitions
+       involved in the txs.</p>
+</div></div>
+<div class="function">
+<h3 id="process_prepared/2">process_prepared(ReceivedPrepareTime, S0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
 <div class="function">
 <h3 id="receive_prepared/2">receive_prepared(X1, S0) -&gt; term()
 </h3>
@@ -126,6 +182,36 @@
        of the received prepare_time).</p>
 </div></div>
 <div class="function">
+<h3 id="single_committing/2">single_committing(X1, S0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="committing_single/3">committing_single(X1, Sender, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>There was only a single partition with an update in this transaction
+       so the transaction has already been committed
+       so just wait for the commit message from the client</p>
+</div></div>
+<div class="function">
+<h3 id="committing_2pc/3">committing_2pc(X1, Sender, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>after receiving all prepare_times, send the commit message to all
+       updated partitions, and go to the "receive_committed" state.
+       This state expects other process to sen the commit message to
+       start the commit phase.</p>
+</div></div>
+<div class="function">
 <h3 id="committing/3">committing(X1, Sender, SD0) -&gt; term()
 </h3>
 
@@ -133,7 +219,9 @@
 <div class="description">
 
 <p>after receiving all prepare_times, send the commit message to all
-        updated partitions, and go to the "receive_committed" state.</p>
+       updated partitions, and go to the "receive_committed" state.
+       This state is used when no commit message from the client is
+       expected</p>
 </div></div>
 <div class="function">
 <h3 id="receive_committed/2">receive_committed(X1, S0) -&gt; term()
@@ -149,7 +237,7 @@
        What delivery guarantees does sending messages provide?</p>
 </div></div>
 <div class="function">
-<h3 id="abort/2">abort(X1, SD0) -&gt; term()
+<h3 id="abort/1">abort(SD0) -&gt; term()
 </h3>
 
 
@@ -159,7 +247,14 @@
   does not pass the certification check, the transaction aborts.</p>
 </div></div>
 <div class="function">
-<h3 id="reply_to_client/2">reply_to_client(X1, SD) -&gt; term()
+<h3 id="abort/2">abort(X1, SD0) -&gt; term()
+</h3>
+
+
+<div class="description">
+ </div></div>
+<div class="function">
+<h3 id="reply_to_client/1">reply_to_client(SD) -&gt; term()
 </h3>
 
 
