@@ -1,0 +1,1 @@
+var index = [['app','opscoderl_wm','opscoderl_wm','[application]'],['mod','opscoderl_wm','oc_wm_request_writer',[]],['fun','opscoderl_wm','oc_wm_request_writer:open/1','Helper function to open a wrap-type disk log.'],['fun','opscoderl_wm','oc_wm_request_writer:write/1',[]]];
