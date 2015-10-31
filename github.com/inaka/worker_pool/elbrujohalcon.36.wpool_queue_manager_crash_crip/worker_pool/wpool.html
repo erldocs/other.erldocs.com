@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>wpool (worker_pool) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>wpool</h1>
+<h2 class="modsummary">Worker pool main interface.</h2>
+<div class="description">
+<p>Worker pool main interface.
+        Use functions provided by this module to manage your pools of workers</p></div>
+<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
+    <div class="type"><h3 id="type-available_worker_timeout">available_worker_timeout() = timeout()</h3></div>
+    <div class="type"><h3 id="type-name">name() = atom()</h3></div>
+    <div class="type"><h3 id="type-option">option() = {overrun_warning, infinity | integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {overrun_handler, {Module :: atom(), Fun :: atom()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {workers, integer() >= 1}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {worker_opt, <a href="gen.html#type-options" class="seealso">gen:options()</a>}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {worker, {Module :: atom(), InitArg :: term()}}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {strategy, <a href="supervisor.html#type-strategy" class="seealso">supervisor:strategy()</a>}</h3></div>
+    <div class="type"><h3 id="type-stats">stats() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{workers, integer() >= 1} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{total_message_queue_len, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{worker_stats, [{integer() >= 1, <a href="#type-worker_stats" class="seealso">worker_stats()</a>}]}]</h3></div>
+    <div class="type"><h3 id="type-strategy">strategy() = best_worker<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| random_worker<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| next_worker<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| available_worker<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| {hash_worker, integer() >= 0}</h3></div>
+    <div class="type"><h3 id="type-worker_stats">worker_stats() = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[{messsage_queue_len, integer() >= 0} |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{memory, integer() >= 1}]</h3></div></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="start/0">start() -&gt; ok | {error, {already_started, wpool}}</h3>
+
+
+<div class="description">
+
+<p>Starts the application</p>
+</div></div>
+<div class="function">
+<h3 id="stop/0">stop() -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the application</p>
+</div></div>
+<div class="function">
+<h3 id="start_pool/1">start_pool(Name::name()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#start_pool/2" class="seealso">start_pool(Name, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_pool/1-1">start_pool(Name::name(), Options::[option()]) -&gt; {ok, pid()} | {error, {already_started, pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Starts (and links) a pool of N wpool_processes.
+       The result pid belongs to a supervisor (in case you want to add it to a
+       supervisor tree)</p>
+</div></div>
+<div class="function">
+<h3 id="start_sup_pool/1">start_sup_pool(Name::name()) -&gt; {ok, pid()}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#start_sup_pool/2" class="seealso">start_sup_pool(Name, [])</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="start_sup_pool/1-1">start_sup_pool(Name::name(), Options::[option()]) -&gt; {ok, pid()} | {error, {already_started, pid()} | term()}</h3>
+
+
+<div class="description">
+
+<p>Starts a pool of N wpool_processes supervised by <a href="wpool_sup.html" class="seealso">wpool_sup</a></p>
+</div></div>
+<div class="function">
+<h3 id="stop_pool/1">stop_pool(Name::name()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Stops the pool</p>
+</div></div>
+<div class="function">
+<h3 id="default_strategy/0">default_strategy() -&gt; strategy()</h3>
+
+
+<div class="description">
+
+<p>Default strategy</p>
+</div></div>
+<div class="function">
+<h3 id="call/1">call(Sup::name(), Call::term()) -&gt; term()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#call/3" class="seealso">call(Sup, Call, default_strategy())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-1">call(Sup::name(), Call::term(), Strategy::strategy()) -&gt; term()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#call/4" class="seealso">call(Sup, Call, Strategy, 5000)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-2">call(Sup::name(), Call::term(), Strategy::strategy(), Timeout::timeout()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Picks a server and issues the call to it.
+       For all strategies except available_worker, Timeout applies only to the
+       time spent on the actual call to the worker, because time spent finding
+       the worker in other strategies is negligible.
+       For available_worker the time used choosing a worker is also considered</p>
+</div></div>
+<div class="function">
+<h3 id="call/1-3">call(Sup::name(), Call::term(), Strategy::strategy(), Worker_Timeout::available_worker_timeout(), Timeout::timeout()) -&gt; term()</h3>
+
+
+<div class="description">
+
+<p>Picks a server and issues the call to it.
+       For all strategies except available_worker, Worker_Timeout is ignored
+       For available_worker Worker_Timeout is the time used choosing a worker</p>
+</div></div>
+<div class="function">
+<h3 id="cast/1">cast(Sup::name(), Cast::term()) -&gt; ok</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#cast/3" class="seealso">cast(Sup, Cast, default_strategy())</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="cast/1-1">cast(Sup::name(), Cast::term(), Strategy::strategy()) -&gt; ok</h3>
+
+
+<div class="description">
+
+<p>Picks a server and issues the cast to it</p>
+</div></div>
+<div class="function">
+<h3 id="stats/1">stats(Sup::name()) -&gt; stats()</h3>
+
+
+<div class="description">
+
+<p>Retrieves a snapshot of the pool stats</p>
+</div></div></div>
+
+<authors>
+
+<aname>Fernando Benavides</aname>
+<email>elbrujohalcon@inaka.net</email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
