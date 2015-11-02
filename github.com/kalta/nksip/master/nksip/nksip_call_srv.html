@@ -30,11 +30,9 @@
 <h2 class="modsummary">Call Server Process.</h2>
 <div class="description">
 <p>Call Server Process</p></div>
-<div id="types" class="category"><h4><a href="#types">Types</a></h4><hr />
-    <div class="type"><h3 id="type-from">from() = term()</h3></div></div>
 <div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
 <div class="function">
-<h3 id="start/1">start(AppId::app_id() (see module nksip), CallId::call_id() (see module nksip)) -&gt; {ok, pid()}</h3>
+<h3 id="start/1">start(SrvId::srv_id() (see module nksip), CallId::call_id() (see module nksip)) -&gt; {ok, pid()}</h3>
 
 
 <div class="description">
@@ -50,13 +48,13 @@
 <p>Stops a call (deleting  all associated transactions, dialogs and forks!).</p>
 </div></div>
 <div class="function">
-<h3 id="sync_work/1">sync_work(Pid::pid(), Ref::reference(), Sender::pid(), Work::work() (see module nksip_call_worker), From::from() | none) -&gt; ok</h3>
+<h3 id="sync_work/1">sync_work(Pid::pid(), Ref::reference(), Sender::pid(), Work::work() (see module nksip_call_worker), From::{pid(), term()} | none) -&gt; ok</h3>
 
 
 <div class="description">
 
 <p>Sends a synchronous piece of <url href="/home/pete/wefwefwef/docs/other/de6587c06212497ca54bd8b31c21d0cdf7c2e649/repo/master/.xml/nksip/./nksip_call_worker.xml#type-work">nksip_call_worker:work()</url> to the call.
-  After receiving the work, the call will send <code>{sync_work_ok, Ref}</code> to <code>Sender</code></p>
+  After receiving the work, the call will send <code>{sync_work_received, Ref}</code> to <code>Sender</code></p>
 </div></div>
 <div class="function">
 <h3 id="async_work/1">async_work(Pid::pid(), Work::work() (see module nksip_call_worker)) -&gt; ok</h3>
