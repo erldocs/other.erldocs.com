@@ -1,1 +1,0 @@
-var index = [['app','gameoflife','gameoflife','[application]'],['mod','gameoflife','game_of_life',[]],['mod','gameoflife','square',[]],['fun','gameoflife','game_of_life:bootstrap/2',[]],['fun','gameoflife','game_of_life:build_padding/1',[]],['fun','gameoflife','game_of_life:frame/5',[]],['fun','gameoflife','game_of_life:start/3',[]]];

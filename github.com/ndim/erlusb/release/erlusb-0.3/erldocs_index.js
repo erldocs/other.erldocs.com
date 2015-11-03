@@ -1,1 +1,0 @@
-var index = [['app','erlusb','erlusb','[application]'],['mod','erlusb','erlusb',[]],['fun','erlusb','erlusb:aaa/0',[]],['fun','erlusb','erlusb:bar/1',[]],['fun','erlusb','erlusb:foo/1',[]],['fun','erlusb','erlusb:init/1',[]],['fun','erlusb','erlusb:start/1',[]],['fun','erlusb','erlusb:stop/0',[]],['fun','erlusb','erlusb:xxx/0',[]],['fun','erlusb','erlusb:xxxyyy/0',[]]];

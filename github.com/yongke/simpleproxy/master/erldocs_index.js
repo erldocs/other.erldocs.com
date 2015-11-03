@@ -1,1 +1,0 @@
-var index = [['app','simpleproxy','simpleproxy','[application]'],['mod','simpleproxy','simpleproxy_handler',[]],['fun','simpleproxy','simpleproxy_handler:handle/2',[]],['fun','simpleproxy','simpleproxy_handler:init/3',[]],['fun','simpleproxy','simpleproxy_handler:one_to_other/2',[]],['fun','simpleproxy','simpleproxy_handler:terminate/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ot.erl','ot.erl','[application]'],['mod','ot.erl','ot',[]],['fun','ot.erl','ot:apply/2',[]],['fun','ot.erl','ot:transform/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','programming-erlang','programming-erlang','[application]'],['mod','programming-erlang','p8_11_1',[]],['mod','programming-erlang','p8_11_2',[]],['fun','programming-erlang','p8_11_1:blockable/1',[]],['fun','programming-erlang','p8_11_1:start/2',[]],['fun','programming-erlang','p8_11_2:ring_cycle/3',[]]];

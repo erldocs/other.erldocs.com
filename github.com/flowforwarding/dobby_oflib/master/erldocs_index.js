@@ -1,1 +1,0 @@
-var index = [['app','dobby_oflib','dobby_oflib','[application]'],['mod','dobby_oflib','dofl_publish','Module encapsulating publishing to the dobby datab'],['fun','dobby_oflib','dofl_publish:do/4',[]]];

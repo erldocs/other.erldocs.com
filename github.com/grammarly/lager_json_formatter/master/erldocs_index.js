@@ -1,1 +1,0 @@
-var index = [['app','lager_json_formatter','lager_json_formatter','[application]'],['mod','lager_json_formatter','lager_json_formatter',[]],['fun','lager_json_formatter','lager_json_formatter:format/1',[]],['fun','lager_json_formatter','lager_json_formatter:format/1',[]]];

@@ -1,5 +1,6 @@
  :: Extracting meta information
-$ infinity  `git ls-remote --heads --tags 'https://github.com/benoitc/barrel'  2>&1`
+$ cd '.'
+$ infinity  `git ls-remote --heads --tags https://github.com/benoitc/barrel`
 >>> [repo] 5 branches, 7 tags
  :: Writing meta to "/home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/meta.txt"
  :: Skipping tag "010"
@@ -12,7 +13,33 @@ $ infinity  `git ls-remote --heads --tags 'https://github.com/benoitc/barrel'  2
  :: Skipping branch "allinone"
  :: Skipping branch "feature/core"
  :: Skipping branch "fix/15"
- :: Skipping branch "master"
  :: Skipping branch "rewrite_fun"
+ :: Processing https://github.com/benoitc/barrel	{rev,branch,"master","92e28cf612e3a397e449a920750cbe156226a599",undefined,[],[]}
+ :: Fetching repo code
+$ cd '/home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel-branch-master'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz https://codeload.github.com/benoitc/barrel/tar.gz/master`
+$ cd '/home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel-branch-master/barrel-master'
+$ 5000  `find -P . -type l -delete`
+$ cd '.'
+$ 5000  `mv /home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel-branch-master/barrel-master /home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel-branch-master/barrel`
+ :: Getting dependencies
+ :: Error running eo_core:
+	[{eo_core,sh,
+                  ["/home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel-branch-master/barrel",
+                   ["rebar","--config",
+                    "/home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel-branch-master/rebar_deps",
+                    "get-deps"],
+                   infinity],
+                  []},
+         {eo_util,get_deps,2,[{file,"src/eo_util.erl"},{line,123}]},
+         {eo_util,rebar_get_deps,1,[{file,"src/eo_util.erl"},{line,88}]},
+         {eo_core,get_deps,1,[{file,"src/eo_core.erl"},{line,339}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,110}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,56}]}]
+{error,undef}
  :: Finishing up
-$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel'  2>&1`
+$ cd '.'
+$ 5000  `rm -r /home/pete/wefwefwef/docs/other/7338b380baf72baa86e2b9b28681a6e13522e6fd/barrel`

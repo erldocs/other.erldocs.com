@@ -1,5 +1,6 @@
  :: Extracting meta information
-$ infinity  `git ls-remote --heads --tags 'https://github.com/chef/erchef'  2>&1`
+$ cd '.'
+$ infinity  `git ls-remote --heads --tags https://github.com/chef/erchef`
 >>> [repo] 26 branches, 29 tags
  :: Writing meta to "/home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/meta.txt"
  :: Skipping tag "1.2.10"
@@ -21,7 +22,6 @@ $ infinity  `git ls-remote --heads --tags 'https://github.com/chef/erchef'  2>&1
  :: Skipping tag "1.2.3"
  :: Skipping tag "1.2.4"
  :: Skipping tag "1.2.5"
- :: Skipping tag "1.2.6"
  :: Skipping tag "1.2.7"
  :: Skipping tag "1.2.8"
  :: Skipping tag "1.2.9"
@@ -57,5 +57,32 @@ $ infinity  `git ls-remote --heads --tags 'https://github.com/chef/erchef'  2>&1
  :: Skipping branch "sd/sqerl-updates"
  :: Skipping branch "sf/int"
  :: Skipping branch "sf/xdl"
+ :: Processing https://github.com/chef/erchef	{rev,tag,"1.2.6","77ade20f166367b5f0cde468e3c6066b8a327475",undefined,[],[]}
+ :: Fetching repo code
+$ cd '/home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef-tag-1.2.6'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz https://codeload.github.com/chef/erchef/tar.gz/1.2.6`
+$ cd '/home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef-tag-1.2.6/erchef-1.2.6'
+$ 5000  `find -P . -type l -delete`
+$ cd '.'
+$ 5000  `mv /home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef-tag-1.2.6/erchef-1.2.6 /home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef-tag-1.2.6/erchef`
+ :: Getting dependencies
+ :: Error running eo_core:
+	[{eo_core,sh,
+                  ["/home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef-tag-1.2.6/erchef",
+                   ["rebar","--config",
+                    "/home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef-tag-1.2.6/rebar_deps",
+                    "get-deps"],
+                   infinity],
+                  []},
+         {eo_util,get_deps,2,[{file,"src/eo_util.erl"},{line,123}]},
+         {eo_util,rebar_get_deps,1,[{file,"src/eo_util.erl"},{line,88}]},
+         {eo_core,get_deps,1,[{file,"src/eo_core.erl"},{line,339}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,110}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,56}]}]
+{error,undef}
  :: Finishing up
-$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef'  2>&1`
+$ cd '.'
+$ 5000  `rm -r /home/pete/wefwefwef/docs/other/911e7265537af4c759c968830bb0d263e938a3de/erchef`

@@ -1,1 +1,0 @@
-var index = [['app','bfs-tree-erlang','bfs-tree-erlang','[application]'],['mod','bfs-tree-erlang','arbrebfsSync',[]],['fun','bfs-tree-erlang','arbrebfsSync:attente_send/5',[]],['fun','bfs-tree-erlang','arbrebfsSync:bfs/2',[]]];

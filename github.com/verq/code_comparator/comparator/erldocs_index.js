@@ -1,1 +1,0 @@
-var index = [['app','code_comparator','code_comparator','[application]'],['mod','code_comparator','main',[]]];

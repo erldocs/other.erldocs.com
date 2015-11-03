@@ -1,1 +1,0 @@
-var index = [['app','covertool','covertool','[application]'],['mod','covertool','covertool',[]],['mod','covertool','rebar_covertool',[]],['fun','covertool','covertool:generate_report/2',[]],['fun','covertool','covertool:main/1',[]],['fun','covertool','rebar_covertool:ct/2',[]],['fun','covertool','rebar_covertool:eunit/2',[]]];

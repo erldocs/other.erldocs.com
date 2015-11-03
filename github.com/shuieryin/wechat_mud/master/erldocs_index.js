@@ -1,1 +1,0 @@
-var index = [['app','wechat_mud','wechat_mud','[application]'],['mod','wechat_mud','wechat_mud_app',[]],['mod','wechat_mud','wechat_mud_sup',[]],['fun','wechat_mud','wechat_mud_app:start/2',[]],['fun','wechat_mud','wechat_mud_app:stop/1',[]],['fun','wechat_mud','wechat_mud_sup:init/1',[]],['fun','wechat_mud','wechat_mud_sup:start_link/0',[]]];

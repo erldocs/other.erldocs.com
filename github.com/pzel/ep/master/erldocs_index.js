@@ -1,1 +1,0 @@
-var index = [['app','ep','ep','[application]'],['mod','ep','doc_playground',[]],['fun','ep','doc_playground:clone/1','Exponentially clone a beta() string.'],['fun','ep','doc_playground:max/1','Take the bigger of the two values from a #gamma{} ']];

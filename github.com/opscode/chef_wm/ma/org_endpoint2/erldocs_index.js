@@ -1,1 +1,0 @@
-var index = [['app','chef_wm','chef_wm','[application]'],['mod','chef_wm','chef_wm_app',[]],['mod','chef_wm','chef_wm_darklaunch',[]],['fun','chef_wm','chef_wm_app:start/2',[]],['fun','chef_wm','chef_wm_app:stop/1',[]],['fun','chef_wm','chef_wm_darklaunch:get_proplist/1',[]],['fun','chef_wm','chef_wm_darklaunch:is_enabled/2',[]]];

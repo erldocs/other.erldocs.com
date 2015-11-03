@@ -1,1 +1,0 @@
-var index = [['app','concrete','concrete','[application]'],['mod','concrete','concrete','concrete escript module.'],['fun','concrete','concrete:main/1',[]]];

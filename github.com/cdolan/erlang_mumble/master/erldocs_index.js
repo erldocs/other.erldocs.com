@@ -1,1 +1,0 @@
-var index = [['app','erlang_mumble','erlang_mumble','[application]'],['mod','erlang_mumble','mumble_app',[]],['mod','erlang_mumble','mumble_sup',[]],['fun','erlang_mumble','mumble_app:start/2',[]],['fun','erlang_mumble','mumble_app:stop/1',[]],['fun','erlang_mumble','mumble_sup:init/1',[]],['fun','erlang_mumble','mumble_sup:start_link/0',[]]];

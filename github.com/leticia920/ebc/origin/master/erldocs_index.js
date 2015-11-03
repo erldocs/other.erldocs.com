@@ -1,1 +1,0 @@
-var index = [['app','ebc','ebc','[application]'],['mod','ebc','hacer',[]],['mod','ebc','my_node',[]],['fun','ebc','hacer:mensaje_privado/1',[]],['fun','ebc','hacer:mostrar/1',[]],['fun','ebc','my_node:conectar/1',[]],['fun','ebc','my_node:enviar/1',[]],['fun','ebc','my_node:loop/0',[]],['fun','ebc','my_node:run/0',[]]];

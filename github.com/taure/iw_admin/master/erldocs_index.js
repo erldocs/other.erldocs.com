@@ -1,1 +1,0 @@
-var index = [['app','iw_admin','iw_admin','[application]'],['mod','iw_admin','iw_admin_app',[]],['mod','iw_admin','iw_admin_sup',[]],['fun','iw_admin','iw_admin_app:start/2',[]],['fun','iw_admin','iw_admin_app:stop/1',[]],['fun','iw_admin','iw_admin_sup:init/1',[]],['fun','iw_admin','iw_admin_sup:start_link/0',[]]];

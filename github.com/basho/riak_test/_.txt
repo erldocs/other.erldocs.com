@@ -1,6 +1,7 @@
  :: Extracting meta information
-$ infinity  `git ls-remote --heads --tags 'https://github.com/basho/riak_test'  2>&1`
->>> [repo] 169 branches, 8 tags
+$ cd '.'
+$ infinity  `git ls-remote --heads --tags https://github.com/basho/riak_test`
+>>> [repo] 171 branches, 8 tags
  :: Writing meta to "/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/meta.txt"
  :: Skipping tag "1.3.1"
  :: Skipping tag "1.3.2"
@@ -64,7 +65,6 @@ $ infinity  `git ls-remote --heads --tags 'https://github.com/basho/riak_test'  
  :: Skipping branch "feature/2i-aae-1.4-jdb"
  :: Skipping branch "feature/add-2i-eqc-test"
  :: Skipping branch "feature/add-aae-test"
- :: Skipping branch "feature/az+mw/eleveldb-order-test"
  :: Skipping branch "feature/az/bdp"
  :: Skipping branch "feature/az/use-bigint-fields"
  :: Skipping branch "feature/backport-2.0-repl-tests"
@@ -178,25 +178,113 @@ $ infinity  `git ls-remote --heads --tags 'https://github.com/basho/riak_test'  
  :: Skipping branch "update-yz-tests/zl/add-deletes-to-crdt-yz"
  :: Skipping branch "verify_dt_aae_converge"
  :: Skipping branch "zl/update-riak-admin-tests-for-yokozuna-cli-updates"
- :: Processing https://github.com/basho/riak_test	{rev,branch,"riak_control_authentication-fix-","2112b54dcf7ccc819ee0df695bbb1e41490ec11c",undefined,[],[]}
+ :: Processing https://github.com/basho/riak_test	{rev,branch,"riak_control_authentication-fix-wip","2112b54dcf7ccc819ee0df695bbb1e41490ec11c",undefined,[],[]}
  :: Fetching repo code
-$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-'
-$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz 'https://codeload.github.com/basho/riak_test/tar.gz/riak_control_authentication-fix-'  2>&1`
-$ cd '/home/pete/wefwefwef/docs/erldocs_other.git'
->>> [stdout] "curl: (22) The requested URL returned error: 404 Not Found"
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-wip'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz https://codeload.github.com/basho/riak_test/tar.gz/riak_control_authentication-fix-wip`
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-wip/riak_test-riak_control_authentication-fix-wip'
+$ 5000  `find -P . -type l -delete`
+$ cd '.'
+$ 5000  `mv /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-wip/riak_test-riak_control_authentication-fix-wip /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-wip/riak_test`
+ :: Getting dependencies
  :: Error running eo_core:
-	[{eo_os,chk,2,[{file,"src/eo_os.erl"},{line,55}]},
-         {eo_scm,fetch,2,[{file,"src/eo_scm.erl"},{line,74}]},
-         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,106}]},
+	[{eo_core,sh,
+                  ["/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-wip/riak_test",
+                   ["rebar","--config",
+                    "/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-riak_control_authentication-fix-wip/rebar_deps",
+                    "get-deps"],
+                   infinity],
+                  []},
+         {eo_util,get_deps,2,[{file,"src/eo_util.erl"},{line,123}]},
+         {eo_util,rebar_get_deps,1,[{file,"src/eo_util.erl"},{line,88}]},
+         {eo_core,get_deps,1,[{file,"src/eo_core.erl"},{line,339}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,110}]},
          {eo_core,'-main_/1-lc$^0/1-0-',8,
-             [{file,"src/eo_core.erl"},{line,84}]},
-         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,84}]},
-         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,55}]},
-         {eo_core,gen,1,[{file,"src/eo_core.erl"},{line,36}]},
-         {gen_escript__escript__1446__465887__370404,seq_gen,4,
-             [{file,"./gen.escript"},{line,52}]}]
-{throw,{sh,fetch_curl,error,22,
-           [{"curl: (22) The requested URL returned "},
-            {"error: 404 Not Found"}]}}
+                  [{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,main,1,[{file,"src/eo_core.erl"},{line,56}]}]
+{error,undef}
+ :: Processing https://github.com/basho/riak_test	{rev,branch,"feature/fix_ts_api","eeae930f2ff6c41db51005266f9d1faaeb09f1ba",undefined,[],[]}
+ :: Fetching repo code
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_fix_ts_api'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz https://codeload.github.com/basho/riak_test/tar.gz/feature/fix_ts_api`
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_fix_ts_api/riak_test-feature-fix_ts_api'
+$ 5000  `find -P . -type l -delete`
+$ cd '.'
+$ 5000  `mv /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_fix_ts_api/riak_test-feature-fix_ts_api /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_fix_ts_api/riak_test`
+ :: Getting dependencies
+ :: Error running eo_core:
+	[{eo_core,sh,
+                  ["/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_fix_ts_api/riak_test",
+                   ["rebar","--config",
+                    "/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_fix_ts_api/rebar_deps",
+                    "get-deps"],
+                   infinity],
+                  []},
+         {eo_util,get_deps,2,[{file,"src/eo_util.erl"},{line,123}]},
+         {eo_util,rebar_get_deps,1,[{file,"src/eo_util.erl"},{line,88}]},
+         {eo_core,get_deps,1,[{file,"src/eo_core.erl"},{line,339}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,110}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,91}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,85}]}]
+{error,undef}
+ :: Processing https://github.com/basho/riak_test	{rev,branch,"feature/az+mw/eleveldb-order-test","57e353c7a088561bf168d6d53eae83a66e8719fd",undefined,[],[]}
+ :: Fetching repo code
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_az+mw_eleveldb-order-test'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz https://codeload.github.com/basho/riak_test/tar.gz/feature/az+mw/eleveldb-order-test`
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_az+mw_eleveldb-order-test/riak_test-feature-az-mw-eleveldb-order-test'
+$ 5000  `find -P . -type l -delete`
+$ cd '.'
+$ 5000  `mv /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_az+mw_eleveldb-order-test/riak_test-feature-az-mw-eleveldb-order-test /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_az+mw_eleveldb-order-test/riak_test`
+ :: Getting dependencies
+ :: Error running eo_core:
+	[{eo_core,sh,
+                  ["/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_az+mw_eleveldb-order-test/riak_test",
+                   ["rebar","--config",
+                    "/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-feature_az+mw_eleveldb-order-test/rebar_deps",
+                    "get-deps"],
+                   infinity],
+                  []},
+         {eo_util,get_deps,2,[{file,"src/eo_util.erl"},{line,123}]},
+         {eo_util,rebar_get_deps,1,[{file,"src/eo_util.erl"},{line,88}]},
+         {eo_core,get_deps,1,[{file,"src/eo_core.erl"},{line,339}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,110}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,91}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,85}]}]
+{error,undef}
+ :: Processing https://github.com/basho/riak_test	{rev,branch,"bugfix/mw/fix-ts-test-failures","ea4420f0f5a8a007745d5783f9c9fceffef34d23",undefined,[],[]}
+ :: Fetching repo code
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-bugfix_mw_fix-ts-test-failures'
+$ infinity  `curl --fail --silent --show-error --location --output repo.tar.gz https://codeload.github.com/basho/riak_test/tar.gz/bugfix/mw/fix-ts-test-failures`
+$ cd '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-bugfix_mw_fix-ts-test-failures/riak_test-bugfix-mw-fix-ts-test-failures'
+$ 5000  `find -P . -type l -delete`
+$ cd '.'
+$ 5000  `mv /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-bugfix_mw_fix-ts-test-failures/riak_test-bugfix-mw-fix-ts-test-failures /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-bugfix_mw_fix-ts-test-failures/riak_test`
+ :: Getting dependencies
+ :: Error running eo_core:
+	[{eo_core,sh,
+                  ["/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-bugfix_mw_fix-ts-test-failures/riak_test",
+                   ["rebar","--config",
+                    "/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test-branch-bugfix_mw_fix-ts-test-failures/rebar_deps",
+                    "get-deps"],
+                   infinity],
+                  []},
+         {eo_util,get_deps,2,[{file,"src/eo_util.erl"},{line,123}]},
+         {eo_util,rebar_get_deps,1,[{file,"src/eo_util.erl"},{line,88}]},
+         {eo_core,get_deps,1,[{file,"src/eo_core.erl"},{line,339}]},
+         {eo_core,do,7,[{file,"src/eo_core.erl"},{line,110}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,85}]},
+         {eo_core,'-main_/1-lc$^0/1-0-',8,
+                  [{file,"src/eo_core.erl"},{line,91}]},
+         {eo_core,main_,1,[{file,"src/eo_core.erl"},{line,85}]}]
+{error,undef}
  :: Finishing up
-$ 5000  `rm -r '/home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test'  2>&1`
+$ cd '.'
+$ 5000  `rm -r /home/pete/wefwefwef/docs/other/5f172a44d9d3344cfb88f2589d727b4534f329de/riak_test`

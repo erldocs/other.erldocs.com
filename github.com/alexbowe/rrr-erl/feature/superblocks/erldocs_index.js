@@ -1,1 +1,0 @@
-var index = [['app','rrr-erl','rrr-erl','[application]'],['mod','rrr-erl','bin',[]],['mod','rrr-erl','test_rrr',[]],['fun','rrr-erl','bin:fold/4',[]],['fun','rrr-erl','bin:foreach/3',[]]];

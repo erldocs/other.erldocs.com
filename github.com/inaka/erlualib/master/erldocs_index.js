@@ -1,1 +1,0 @@
-var index = [['app','erlualib','erlualib','[application]'],['mod','erlualib','lua_driver',[]],['fun','erlualib','lua_driver:close/1',[]],['fun','erlualib','lua_driver:open/0',[]]];

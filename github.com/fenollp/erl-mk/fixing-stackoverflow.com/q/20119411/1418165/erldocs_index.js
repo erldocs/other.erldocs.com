@@ -1,1 +1,0 @@
-var index = [['app','erl-mk','erl-mk','[application]'],['mod','erl-mk','dummy_lib',[]],['fun','erl-mk','dummy_lib:my_func/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','smsc_emu','smsc_emu','[application]'],['mod','smsc_emu','server',[]],['fun','smsc_emu','server:session_loop/2',[]],['fun','smsc_emu','server:start/1',[]]];

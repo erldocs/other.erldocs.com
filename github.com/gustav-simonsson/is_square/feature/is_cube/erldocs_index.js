@@ -1,1 +1,0 @@
-var index = [['app','is_square','is_square','[application]'],['mod','is_square','square','   Function to determine if four 2-D points makes']];

@@ -1,1 +1,0 @@
-var index = [['app','restclient','restclient','[application]'],['mod','restclient','restc',[]],['fun','restclient','restc:request/1',[]],['fun','restclient','restc:request/1',[]],['fun','restclient','restc:request/1',[]],['fun','restclient','restc:request/1',[]],['fun','restclient','restc:request/1',[]],['fun','restclient','restc:request/1',[]]];
