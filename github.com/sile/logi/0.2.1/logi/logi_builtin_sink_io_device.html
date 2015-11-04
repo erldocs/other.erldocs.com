@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>logi_builtin_sink_io_device (logi) -  (Erlang Documentation)</title>
+    <link href="/erldocs.css" type="text/css" rel="stylesheet"/>
+    <link href="/search.xml" rel="search" type="application/opensearchdescription+xml" title="erldocs"/>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-54292016-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+
+  <body>
+    <div id="sidebar" class="inactive">
+      <input type="text" id="search" autocomplete="off" placeholder="press TAB to search"/>
+      <ul id="results"> </ul>
+    </div>
+
+    <div id="content">
+      <div style="margin:0px; padding:10px 20px;">
+        
+
+<h1>logi_builtin_sink_io_device</h1>
+<h2 class="modsummary">A built-in IO device sink.</h2>
+<div class="description">
+<p>A built-in IO device sink</p>
+ 
+  <p>This sink writes log messages to an IO device (e.g. standard output, file, etc)</p>
+ 
+  <p>The default layout is <code>logi_builtin_layout_simple:new()</code>.</p>
+ 
+  <p><em><marker id="NOTE">NOTE</marker></em></p><p>  
+This module is provided for debugging/testing purposes only.  
+(e.g. Overload protection is missing)</p>
+ 
+  <p><em><marker id="EXAMPLE">EXAMPLE</marker></em>
+  </p><pre lang="erlang">
+  &gt; application:set_env(logi, warn_no_parse_transform, false). % Suppresses noisy warnings
+ 
+  %%
+  %% 1. The default IO device is standard_io
+  %%
+  &gt; logi_builtin_sink_io_device:install(info).
+  &gt; logi:info("hello world").
+  2015-10-21 05:21:52.332 [info] nonode@nohost &lt;0.91.0&gt; erl_eval:do_apply:673 [] hello world
+ 
+  %%
+  %% 2. Outputs to a file
+  %%
+  &gt; {ok, Fd} = file:open("/tmp/hoge", [write]).
+  &gt; logi_builtin_sink_io_device:install(info, [{io_device, Fd}, {if_exists, supersede}]).
+  &gt; logi:info("hello world").
+  &gt; file:read_file("/tmp/hoge").
+  {ok,&lt;&lt;"2015-10-21 05:23:19.940 [info] nonode@nohost &lt;0.91.0&gt; erl_eval:do_apply:673 [] hello world\n"&gt;&gt;}
+ 
+  %%
+  %% 3. Customizes message layout
+  %%
+  &gt; Layout = logi_builtin_layout_fun:new(fun (_, Format, Data) -&gt; io_lib:format("[my_layout] " ++ Format ++ "\n", Data) end).
+  &gt; logi_builtin_sink_io_device:install(info, [{layout, Layout}, {if_exists, supersede}]).
+  &gt; logi:info("hello world").
+  [my_layout] hello world
+  </pre></div>
+<div id="functions" class="category"><h4><a href="#functions">Functions</a></h4><hr />
+<div class="function">
+<h3 id="new/0">new() -&gt; sink() (see module logi_sink)</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#new/1" class="seealso">new(standard_io)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="new/1">new(IoDevice::device() (see module io)) -&gt; sink() (see module logi_sink)</h3>
+
+
+<div class="description">
+
+<p>Creates a new sink instance</p>
+</div></div></div>
+
+<authors>
+<aname> </aname>
+<email> </email></authors>
+      </div>
+  </div>
+
+    <script type="text/javascript">
+      var CURRENT_ROOT = "../";
+    </script>
+
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript" src="../erldocs_index.js"></script>
+    <script type="text/javascript" src="/erldocs.js"></script>
+  </body>
+</html>
