@@ -1,1 +1,0 @@
-var index = [['app','embjson','embjson','[application]'],['mod','embjson','embjson','Embedded JSON in Erlang sources.'],['fun','embjson','embjson:parse_transform/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang-workshop','erlang-workshop','[application]'],['mod','erlang-workshop','abacus','Abacus library provides functions for basic arithm'],['fun','erlang-workshop','abacus:addition/2',[]],['fun','erlang-workshop','abacus:division/2',[]],['fun','erlang-workshop','abacus:multiplication/2',[]],['fun','erlang-workshop','abacus:subtraction/2',[]]];

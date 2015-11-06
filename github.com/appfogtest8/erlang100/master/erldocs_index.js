@@ -1,1 +1,0 @@
-var index = [['app','erlang100','erlang100','[application]'],['mod','erlang100','reverse_a_string',[]],['fun','erlang100','reverse_a_string:main/0',[]]];

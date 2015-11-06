@@ -1,1 +1,0 @@
-var index = [['app','dynamic_compile','dynamic_compile','[application]'],['mod','dynamic_compile','dynamic_compile',[]],['fun','dynamic_compile','dynamic_compile:from_string/1',[]],['fun','dynamic_compile','dynamic_compile:from_string/2',[]],['fun','dynamic_compile','dynamic_compile:load_from_string/1',[]],['fun','dynamic_compile','dynamic_compile:load_from_string/2',[]]];

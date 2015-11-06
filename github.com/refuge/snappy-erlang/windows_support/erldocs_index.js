@@ -1,1 +1,0 @@
-var index = [['app','snappy-erlang','snappy-erlang','[application]'],['mod','snappy-erlang','snappy',[]],['fun','snappy-erlang','snappy:compress/1',[]],['fun','snappy-erlang','snappy:decompress/1',[]],['fun','snappy-erlang','snappy:get_uncompressed_length/1',[]],['fun','snappy-erlang','snappy:is_valid_compressed_buffer/1',[]]];

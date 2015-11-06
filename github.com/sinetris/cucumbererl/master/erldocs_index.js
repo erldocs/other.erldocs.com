@@ -1,1 +1,0 @@
-var index = [['app','cucumbererl','cucumbererl','[application]'],['mod','cucumbererl','cucumbererl',[]],['mod','cucumbererl','cucumbererl_lexer',[]],['fun','cucumbererl','cucumbererl:main/1',[]],['fun','cucumbererl','cucumbererl_lexer:string/1',[]]];

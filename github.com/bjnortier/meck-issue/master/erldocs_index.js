@@ -1,1 +1,0 @@
-var index = [['app','meck-issue','meck-issue','[application]'],['mod','meck-issue','a',[]],['mod','meck-issue','b',[]]];

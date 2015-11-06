@@ -1,1 +1,0 @@
-var index = [['app','denes','denes','[application]'],['mod','denes','denes_proto',[]],['fun','denes','denes_proto:compression_tests_/0',[]],['fun','denes','denes_proto:decode_packet/1',[]],['fun','denes','denes_proto:write_ll/1',[]]];

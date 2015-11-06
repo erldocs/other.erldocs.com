@@ -1,1 +1,0 @@
-var index = [['app','lolchat','lolchat','[application]'],['mod','lolchat','chat',[]],['mod','lolchat','chat_adm',[]],['mod','lolchat','chat_server',[]],['mod','lolchat','client_handler',[]],['fun','lolchat','chat:start/0',[]],['fun','lolchat','chat:start/1',[]],['fun','lolchat','chat:stop/0',[]]];

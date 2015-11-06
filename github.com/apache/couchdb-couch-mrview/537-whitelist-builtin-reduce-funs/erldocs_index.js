@@ -1,1 +1,0 @@
-var index = [['app','couchdb-couch-mrview','couchdb-couch-mrview','[application]'],['mod','couchdb-couch-mrview','couch_mrview_changes',[]],['fun','couchdb-couch-mrview','couch_mrview_changes:handle_view_changes/5',[]]];

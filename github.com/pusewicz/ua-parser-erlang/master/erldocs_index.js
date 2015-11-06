@@ -1,1 +1,0 @@
-var index = [['app','ua-parser-erlang','ua-parser-erlang','[application]'],['mod','ua-parser-erlang','ua_agent',[]],['fun','ua-parser-erlang','ua_agent:browser/0',[]],['fun','ua-parser-erlang','ua_agent:platform/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','stun-erlang','stun-erlang','[application]'],['mod','stun-erlang','stun',[]],['fun','stun-erlang','stun:request/0',[]],['fun','stun-erlang','stun:request/1',[]]];

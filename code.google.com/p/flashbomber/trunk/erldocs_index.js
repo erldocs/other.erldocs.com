@@ -1,1 +1,0 @@
-var index = [['app','flashbomber','flashbomber','[application]'],['mod','flashbomber','bmbr_srv',[]],['fun','flashbomber','bmbr_srv:listen/1',[]],['fun','flashbomber','bmbr_srv:start/0',[]]];

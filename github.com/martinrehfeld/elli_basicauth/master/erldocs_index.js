@@ -1,1 +1,0 @@
-var index = [['app','elli_basicauth','elli_basicauth','[application]'],['mod','elli_basicauth','elli_basicauth','Elli basicauth overview.'],['fun','elli_basicauth','elli_basicauth:handle/2',[]],['fun','elli_basicauth','elli_basicauth:handle_event/3',[]]];

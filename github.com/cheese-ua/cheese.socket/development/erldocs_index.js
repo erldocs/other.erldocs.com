@@ -1,1 +1,0 @@
-var index = [['app','cheese.socket','cheese.socket','[application]'],['mod','cheese.socket','cheese_socket_server','.'],['fun','cheese.socket','cheese_socket_server:start_link/0','  Starts the server.']];

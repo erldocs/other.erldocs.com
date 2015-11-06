@@ -1,1 +1,0 @@
-var index = [['app','event-server','event-server','[application]'],['mod','event-server','event',[]],['mod','event-server','evserv',[]]];

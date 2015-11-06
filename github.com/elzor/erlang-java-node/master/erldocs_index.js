@@ -1,1 +1,0 @@
-var index = [['app','erlang-java-node','erlang-java-node','[application]'],['mod','erlang-java-node','javanode_app',[]],['mod','erlang-java-node','javanode_sup',[]],['fun','erlang-java-node','javanode_app:start/2',[]],['fun','erlang-java-node','javanode_app:stop/1',[]],['fun','erlang-java-node','javanode_sup:init/1',[]],['fun','erlang-java-node','javanode_sup:start_link/0',[]]];

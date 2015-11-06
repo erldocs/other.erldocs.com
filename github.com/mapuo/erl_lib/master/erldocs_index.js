@@ -1,1 +1,0 @@
-var index = [['app','erl_lib','erl_lib','[application]'],['mod','erl_lib','esgraon','   ESGRAON: http://www.grao.bg/esgraon.html   Ad'],['fun','erl_lib','esgraon:calculate/1',[]],['fun','erl_lib','esgraon:region/1',[]],['fun','erl_lib','esgraon:sex/1',[]],['fun','erl_lib','esgraon:test/0',[]],['fun','erl_lib','esgraon:validate/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','rebar_ct_no_auto_compile','rebar_ct_no_auto_compile','[application]'],['mod','rebar_ct_no_auto_compile','rebar_ct_no_auto_compile','.'],['fun','rebar_ct_no_auto_compile','rebar_ct_no_auto_compile:pre_compile/2',[]],['fun','rebar_ct_no_auto_compile','rebar_ct_no_auto_compile:pre_ct/2',[]]];

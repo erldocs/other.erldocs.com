@@ -1,1 +1,0 @@
-var index = [['app','erlang-cnode-example','erlang-cnode-example','[application]'],['mod','erlang-cnode-example','complex3',[]],['fun','erlang-cnode-example','complex3:bar/1',[]],['fun','erlang-cnode-example','complex3:foo/1',[]]];

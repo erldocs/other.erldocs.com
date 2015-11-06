@@ -1,1 +1,0 @@
-var index = [['app','swfheader','swfheader','[application]'],['mod','swfheader','swfheader',[]],['fun','swfheader','swfheader:parse/1',[]],['fun','swfheader','swfheader:print_header/1',[]],['fun','swfheader','swfheader:test/0',[]]];

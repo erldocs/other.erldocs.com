@@ -1,1 +1,0 @@
-var index = [['app','roller','roller','[application]'],['mod','roller','roller',[]],['mod','roller','roller_op','Behaviour for roller operation.'],['fun','roller','roller:new/1','Constructor.'],['fun','roller','roller:new/1','Constructor.'],['fun','roller','roller:roll/1','Process request chain.'],['fun','roller','roller_op:behaviour_info/1',[]]];

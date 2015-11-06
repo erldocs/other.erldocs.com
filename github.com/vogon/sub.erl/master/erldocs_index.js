@@ -1,1 +1,0 @@
-var index = [['app','sub.erl','sub.erl','[application]'],['mod','sub.erl','main',[]],['mod','sub.erl','networker',[]],['fun','sub.erl','main:main/0',[]],['fun','sub.erl','networker:start/2',[]]];

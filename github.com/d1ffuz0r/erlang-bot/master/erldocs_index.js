@@ -1,1 +1,0 @@
-var index = [['app','bot','bot','[application]'],['mod','bot','bot_app',[]],['mod','bot','bot_sup',[]],['fun','bot','bot_app:start/0',[]],['fun','bot','bot_app:start/2',[]],['fun','bot','bot_app:stop/1',[]],['fun','bot','bot_sup:init/1',[]],['fun','bot','bot_sup:start_link/0',[]],['app','erlang-bot','erlang-bot','[application]']];

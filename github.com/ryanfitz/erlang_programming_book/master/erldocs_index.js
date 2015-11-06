@@ -1,1 +1,0 @@
-var index = [['app','erlang_programming_book','erlang_programming_book','[application]'],['mod','erlang_programming_book','accumulator',[]],['fun','erlang_programming_book','accumulator:average/1',[]]];

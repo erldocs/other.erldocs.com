@@ -1,1 +1,0 @@
-var index = [['app','erlgpib','erlgpib','[application]'],['mod','erlgpib','gen_gpib',[]],['mod','erlgpib','gpib_eunit',[]],['fun','erlgpib','gen_gpib:behaviour_info/1',[]]];

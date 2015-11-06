@@ -1,1 +1,0 @@
-var index = [['app','erlang-practice','erlang-practice','[application]'],['mod','erlang-practice','albumDB',[]],['mod','erlang-practice','variations',[]],['fun','erlang-practice','albumDB:close_db/1',[]],['fun','erlang-practice','albumDB:create_db/1',[]],['fun','erlang-practice','albumDB:open_db/1',[]],['fun','erlang-practice','variations:variations/2',[]]];

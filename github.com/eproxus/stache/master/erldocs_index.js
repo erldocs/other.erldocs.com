@@ -1,1 +1,0 @@
-var index = [['app','stache','stache','[application]'],['mod','stache','stache','Mustache template renderer.'],['fun','stache','stache:render/1','Render a template using the supplied variables.']];

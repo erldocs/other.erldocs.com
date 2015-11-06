@@ -1,1 +1,0 @@
-var index = [['app','wok_message_handler','wok_message_handler','[application]'],['mod','wok_message_handler','wok_message_handler',[]]];

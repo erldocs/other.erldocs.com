@@ -1,1 +1,0 @@
-var index = [['app','dateutils','dateutils','[application]'],['mod','dateutils','dateutils_tests',[]]];

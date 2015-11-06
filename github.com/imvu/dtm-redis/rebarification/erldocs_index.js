@@ -1,1 +1,0 @@
-var index = [['app','dtm-redis','dtm-redis','[application]'],['app','dtm_redis','dtm_redis','[application]']];

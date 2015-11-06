@@ -1,1 +1,0 @@
-var index = [['app','minecraft-serlver','minecraft-serlver','[application]'],['mod','minecraft-serlver','parser','   Parser for messages sent from client-side.'],['fun','minecraft-serlver','parser:parse_header/1',[]]];

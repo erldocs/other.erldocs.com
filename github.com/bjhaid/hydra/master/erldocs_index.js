@@ -1,1 +1,0 @@
-var index = [['app','hydra','hydra','[application]'],['mod','hydra','hydra_server',[]],['fun','hydra','hydra_server:echo/0',[]],['fun','hydra','hydra_server:main/1',[]],['fun','hydra','hydra_server:receiver/0',[]],['fun','hydra','hydra_server:search_file/3',[]],['fun','hydra','hydra_server:standalone/2',[]],['fun','hydra','hydra_server:start/0',[]]];

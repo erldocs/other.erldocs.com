@@ -1,1 +1,0 @@
-var index = [['app','monocle','monocle','[application]'],['mod','monocle','mlens',[]],['mod','monocle','mlists',[]],['mod','monocle','mnum',[]],['mod','monocle','monocle',[]],['mod','monocle','monocle_sup',[]],['mod','monocle','mql',[]],['mod','monocle','mtuple',[]],['fun','monocle','monocle_sup:init/1',[]],['fun','monocle','monocle_sup:start_link/0',[]]];

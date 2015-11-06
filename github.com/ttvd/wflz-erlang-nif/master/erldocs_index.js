@@ -1,1 +1,0 @@
-var index = [['app','wflz-erlang-nif','wflz-erlang-nif','[application]'],['mod','wflz-erlang-nif','wflz',[]],['fun','wflz-erlang-nif','wflz:compress/1',[]],['fun','wflz-erlang-nif','wflz:decompress/1',[]],['fun','wflz-erlang-nif','wflz:fastcompress/1',[]],['fun','wflz-erlang-nif','wflz:init/0',[]]];

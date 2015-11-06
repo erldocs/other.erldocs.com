@@ -1,1 +1,0 @@
-var index = [['app','g711','g711','[application]'],['mod','g711','g711',[]],['fun','g711','g711:alow_to_pcm/1',[]],['fun','g711','g711:alow_to_ulaw/1',[]],['fun','g711','g711:pcm_to_alow/1',[]],['fun','g711','g711:ulaw_to_alow/1',[]]];

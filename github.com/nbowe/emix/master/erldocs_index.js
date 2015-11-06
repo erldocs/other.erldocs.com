@@ -1,1 +1,0 @@
-var index = [['app','emix','emix','[application]'],['mod','emix','emix',[]],['fun','emix','emix:track/2',[]],['fun','emix','emix:track_async/2',[]],['fun','emix','emix:track_funnel/4',[]],['fun','emix','emix:track_funnel_async/4',[]],['fun','emix','emix:unixtime/0',[]]];

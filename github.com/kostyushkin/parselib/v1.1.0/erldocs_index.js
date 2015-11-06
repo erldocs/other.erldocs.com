@@ -1,1 +1,0 @@
-var index = [['app','parselib','parselib','[application]'],['mod','parselib','bstring',[]],['fun','parselib','bstring:ltrim/1',[]],['fun','parselib','bstring:rtrim/1',[]],['fun','parselib','bstring:split/2',[]],['fun','parselib','bstring:to_lower/1',[]],['fun','parselib','bstring:to_upper/1',[]],['fun','parselib','bstring:trim/1',[]]];

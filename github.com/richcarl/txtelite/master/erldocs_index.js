@@ -1,1 +1,0 @@
-var index = [['app','txtelite','txtelite','[application]'],['mod','txtelite','txtelite','Erlang implementation of the Elite universe, direc'],['fun','txtelite','txtelite:main/0',[]]];

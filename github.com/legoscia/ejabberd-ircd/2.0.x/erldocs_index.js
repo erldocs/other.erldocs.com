@@ -1,1 +1,0 @@
-var index = [['app','ejabberd-ircd','ejabberd-ircd','[application]'],['mod','ejabberd-ircd','ejabberd_sup',[]],['fun','ejabberd-ircd','ejabberd_sup:init/1',[]],['fun','ejabberd-ircd','ejabberd_sup:start_link/0',[]]];

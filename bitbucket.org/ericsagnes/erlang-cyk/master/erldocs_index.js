@@ -1,1 +1,0 @@
-var index = [['app','erlang-cyk','erlang-cyk','[application]'],['mod','erlang-cyk','cyk',[]],['fun','erlang-cyk','cyk:add_grammar_rule/1',[]],['fun','erlang-cyk','cyk:analyze/1',[]],['fun','erlang-cyk','cyk:import_grammar_file/1',[]],['fun','erlang-cyk','cyk:init_storage/0',[]],['fun','erlang-cyk','cyk:test_analyze/0',[]]];

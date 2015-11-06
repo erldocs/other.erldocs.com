@@ -1,1 +1,0 @@
-var index = [['app','nrerl','nrerl','[application]'],['mod','nrerl','nrerl',[]],['fun','nrerl','nrerl:end_web_transaction/1',[]],['fun','nrerl','nrerl:name_web_transaction/2',[]],['fun','nrerl','nrerl:start_web_transaction/0',[]]];

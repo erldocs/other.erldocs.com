@@ -1,1 +1,0 @@
-var index = [['app','etools','etools','[application]'],['mod','etools','emake',[]],['fun','etools','emake:all/0',[]],['fun','etools','emake:clean/0',[]],['fun','etools','emake:deepclean/0',[]]];

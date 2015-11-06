@@ -1,1 +1,0 @@
-var index = [['app','erlang-etudes','erlang-etudes','[application]'],['mod','erlang-etudes','geom',[]],['mod','erlang-etudes','geom_tests',[]],['fun','erlang-etudes','geom:area/1',[]]];

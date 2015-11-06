@@ -1,1 +1,0 @@
-var index = [['app','delilah','delilah','[application]'],['mod','delilah','helloworld',[]],['fun','delilah','helloworld:hello_world/0',[]]];

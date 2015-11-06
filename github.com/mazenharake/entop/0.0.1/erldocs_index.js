@@ -1,1 +1,0 @@
-var index = [['app','entop','entop','[application]'],['mod','entop','entop_collector',[]],['fun','entop','entop_collector:get_data/0',[]]];

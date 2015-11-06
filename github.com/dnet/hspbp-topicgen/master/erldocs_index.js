@@ -1,1 +1,0 @@
-var index = [['app','hspbp-topicgen','hspbp-topicgen','[application]'],['mod','hspbp-topicgen','event',[]],['mod','hspbp-topicgen','hacksense',[]],['mod','hspbp-topicgen','topicgen',[]]];

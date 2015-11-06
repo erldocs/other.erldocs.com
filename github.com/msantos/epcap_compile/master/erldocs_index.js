@@ -1,1 +1,0 @@
-var index = [['app','epcap_compile','epcap_compile','[application]'],['mod','epcap_compile','epcap_compile',[]],['fun','epcap_compile','epcap_compile:compile/1',[]],['fun','epcap_compile','epcap_compile:compile/1',[]]];

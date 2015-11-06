@@ -1,1 +1,0 @@
-var index = [['app','fancyapi','fancyapi','[application]'],['mod','fancyapi','fancyapi_app',[]],['mod','fancyapi','fancyapi_sup',[]],['fun','fancyapi','fancyapi_app:start/0',[]],['fun','fancyapi','fancyapi_app:start/2',[]],['fun','fancyapi','fancyapi_app:stop/1',[]],['fun','fancyapi','fancyapi_sup:init/1',[]],['fun','fancyapi','fancyapi_sup:start_link/0',[]]];

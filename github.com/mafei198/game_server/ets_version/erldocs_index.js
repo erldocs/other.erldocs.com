@@ -1,1 +1,0 @@
-var index = [['app','game_server','game_server','[application]'],['mod','game_server','game_server',[]],['fun','game_server','game_server:start/0',[]],['fun','game_server','game_server:start/1',[]],['fun','game_server','game_server:stop/0',[]]];

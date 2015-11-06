@@ -1,1 +1,0 @@
-var index = [['app','chicagoboss_tutorial','chicagoboss_tutorial','[application]'],['mod','chicagoboss_tutorial','cb_tutorial_greeting_controller',[]],['mod','chicagoboss_tutorial','cb_tutorial_incoming_mail_controller',[]],['mod','chicagoboss_tutorial','cb_tutorial_outgoing_mail_controller',[]],['mod','chicagoboss_tutorial','greeting',[]]];

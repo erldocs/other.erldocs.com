@@ -1,1 +1,0 @@
-var index = [['app','rfzone','rfzone','[application]'],['mod','rfzone','fine_offset',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ewhois','ewhois','[application]'],['mod','ewhois','ewhois',[]],['mod','ewhois','ewhois_parser',[]],['fun','ewhois','ewhois:is_available/1',[]],['fun','ewhois','ewhois:query/1',[]],['fun','ewhois','ewhois:query/2',[]],['fun','ewhois','ewhois_parser:bind/1',[]],['fun','ewhois','ewhois_parser:parse_vals/1',[]]];

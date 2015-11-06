@@ -1,1 +1,0 @@
-var index = [['app','decaf','decaf','[application]'],['mod','decaf','kafka_protocol',[]],['fun','decaf','kafka_protocol:producer_request/1',[]]];

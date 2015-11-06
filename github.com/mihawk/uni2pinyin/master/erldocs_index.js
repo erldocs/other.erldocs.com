@@ -1,1 +1,0 @@
-var index = [['app','uni2pinyin','uni2pinyin','[application]'],['mod','uni2pinyin','uni2pinyin',[]],['fun','uni2pinyin','uni2pinyin:decode/1',[]]];

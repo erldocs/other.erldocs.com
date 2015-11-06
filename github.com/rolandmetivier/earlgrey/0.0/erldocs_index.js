@@ -1,1 +1,0 @@
-var index = [['app','earlgrey','earlgrey','[application]'],['mod','earlgrey','earlgrey_app',[]],['mod','earlgrey','earlgrey_sup',[]],['fun','earlgrey','earlgrey_app:start/2',[]],['fun','earlgrey','earlgrey_app:stop/1',[]],['fun','earlgrey','earlgrey_sup:init/1',[]],['fun','earlgrey','earlgrey_sup:start_link/0',[]]];

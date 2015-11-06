@@ -1,1 +1,0 @@
-var index = [['app','ecli','ecli','[application]'],['mod','ecli','ecli',[]],['fun','ecli','ecli:binding/2',[]],['fun','ecli','ecli:opt/2',[]],['fun','ecli','ecli:start/2',[]]];

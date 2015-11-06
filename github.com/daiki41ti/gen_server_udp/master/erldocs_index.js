@@ -1,1 +1,0 @@
-var index = [['app','gen_server_udp','gen_server_udp','[application]'],['mod','gen_server_udp','gen_server_udp_test',[]],['fun','gen_server_udp','gen_server_udp_test:handle_call/3',[]],['fun','gen_server_udp','gen_server_udp_test:init/1',[]],['fun','gen_server_udp','gen_server_udp_test:start/0',[]],['fun','gen_server_udp','gen_server_udp_test:test/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ekdtree','ekdtree','[application]'],['mod','ekdtree','ekdtree',[]],['fun','ekdtree','ekdtree:clear/1',[]],['fun','ekdtree','ekdtree:new/1',[]],['fun','ekdtree','ekdtree:search/1',[]],['fun','ekdtree','ekdtree:size/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','zeta','zeta','[application]'],['mod','zeta','zeta',[]],['fun','zeta','zeta:format/1',[]],['fun','zeta','zeta:format/1',[]],['fun','zeta','zeta:parse_file/1',[]],['fun','zeta','zeta:parse_file/1',[]],['fun','zeta','zeta:parse_file/1',[]]];

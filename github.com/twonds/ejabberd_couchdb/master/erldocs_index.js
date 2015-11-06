@@ -1,1 +1,0 @@
-var index = [['app','ejabberd_couchdb','ejabberd_couchdb','[application]'],['mod','ejabberd_couchdb','auth_couchdb_test',[]]];

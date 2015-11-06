@@ -1,1 +1,0 @@
-var index = [['app','erlang_crudee','erlang_crudee','[application]'],['mod','erlang_crudee','rcrud',[]]];

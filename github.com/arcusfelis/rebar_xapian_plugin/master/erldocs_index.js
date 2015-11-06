@@ -1,1 +1,0 @@
-var index = [['app','rebar_xapian_plugin','rebar_xapian_plugin','[application]'],['mod','rebar_xapian_plugin','rebar_xapian_plugin',[]],['fun','rebar_xapian_plugin','rebar_xapian_plugin:preprocess/2',[]]];

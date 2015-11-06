@@ -1,1 +1,0 @@
-var index = [['app','iploc','iploc','[application]'],['mod','iploc','emp2',[]],['mod','iploc','ip_loc',[]],['mod','iploc','ip_loc_gen',[]],['mod','iploc','ip_loc_macro',[]],['fun','iploc','emp2:parse_transform/2',[]],['fun','iploc','ip_loc:ip2icp/1',[]],['fun','iploc','ip_loc_gen:ip2icp/1',[]],['fun','iploc','ip_loc_macro:gen_ip2icp_bin/0',[]]];

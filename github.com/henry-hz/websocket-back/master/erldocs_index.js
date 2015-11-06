@@ -1,1 +1,0 @@
-var index = [['app','websocket-back','websocket-back','[application]'],['mod','websocket-back','ws_handler',[]],['fun','websocket-back','ws_handler:init/2',[]],['fun','websocket-back','ws_handler:websocket_handle/3',[]],['fun','websocket-back','ws_handler:websocket_info/3',[]]];

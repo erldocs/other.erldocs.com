@@ -1,1 +1,0 @@
-var index = [['app','j-bay','j-bay','[application]'],['mod','j-bay','client_node',[]],['mod','j-bay','composer',[]],['mod','j-bay','local_server',[]],['mod','j-bay','ot',[]],['mod','j-bay','ot_client',[]],['mod','j-bay','ot_client_proxy',[]],['mod','j-bay','ot_srv',[]]];

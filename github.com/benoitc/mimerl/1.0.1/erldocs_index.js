@@ -1,1 +1,0 @@
-var index = [['app','mimerl','mimerl','[application]'],['mod','mimerl','mimerl',[]],['fun','mimerl','mimerl:extension/1','Transform an extension to a mimetype.'],['fun','mimerl','mimerl:filename/1','Return the mimetype for any file by looking at its'],['fun','mimerl','mimerl:mime_to_exts/1','Return the list of extensions for a mimetype.']];

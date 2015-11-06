@@ -1,1 +1,0 @@
-var index = [['app','erlang-certifi','erlang-certifi','[application]'],['mod','erlang-certifi','certifi',[]],['mod','erlang-certifi','certifi_pemcerts',[]],['fun','erlang-certifi','certifi:cacerts/0','CACerts builds an X.509 certificate list containin'],['fun','erlang-certifi','certifi_pemcerts:pemcerts/0',[]]];

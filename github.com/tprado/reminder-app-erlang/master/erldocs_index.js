@@ -1,1 +1,0 @@
-var index = [['app','reminder-app-erlang','reminder-app-erlang','[application]'],['mod','reminder-app-erlang','event',[]]];

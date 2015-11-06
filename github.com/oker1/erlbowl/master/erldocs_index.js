@@ -1,1 +1,0 @@
-var index = [['app','erlbowl','erlbowl','[application]'],['mod','erlbowl','bowling',[]],['mod','erlbowl','bowling_tests',[]],['fun','erlbowl','bowling:scoreGame/1',[]]];

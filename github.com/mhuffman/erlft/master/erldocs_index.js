@@ -1,1 +1,0 @@
-var index = [['app','erlft','erlft','[application]'],['mod','erlft','erlftclient',[]],['mod','erlft','erlftclientlogin',[]],['mod','erlft','erlftutils',[]],['fun','erlft','erlftclientlogin:authorize/2',[]],['fun','erlft','erlftutils:http_request/5',[]],['fun','erlft','erlftutils:url_encode/1',[]]];

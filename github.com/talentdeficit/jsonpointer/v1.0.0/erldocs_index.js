@@ -1,1 +1,0 @@
-var index = [['app','jsonpointer','jsonpointer','[application]'],['mod','jsonpointer','jsonpointer',[]],['fun','jsonpointer','jsonpointer:decode/1',[]],['fun','jsonpointer','jsonpointer:encode/1',[]],['fun','jsonpointer','jsonpointer:ref_to_int/1',[]]];

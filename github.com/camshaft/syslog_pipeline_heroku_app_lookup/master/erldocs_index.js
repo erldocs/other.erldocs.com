@@ -1,1 +1,0 @@
-var index = [['app','syslog_pipeline_heroku_app_lookup','syslog_pipeline_heroku_app_lookup','[application]'],['mod','syslog_pipeline_heroku_app_lookup','syslog_pipeline_heroku_app_lookup',[]],['fun','syslog_pipeline_heroku_app_lookup','syslog_pipeline_heroku_app_lookup:filter/1',[]],['fun','syslog_pipeline_heroku_app_lookup','syslog_pipeline_heroku_app_lookup:start/0',[]]];

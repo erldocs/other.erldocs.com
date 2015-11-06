@@ -1,1 +1,0 @@
-var index = [['app','erlenses','erlenses','[application]'],['mod','erlenses','erlenses',[]],['mod','erlenses','example',[]],['fun','erlenses','erlenses:parse_transform/2',[]]];

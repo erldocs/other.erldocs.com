@@ -1,1 +1,0 @@
-var index = [['app','erlpid','erlpid','[application]'],['mod','erlpid','erlpid_app',[]],['mod','erlpid','erlpid_sup',[]],['fun','erlpid','erlpid_app:start/2',[]],['fun','erlpid','erlpid_app:stop/1',[]],['fun','erlpid','erlpid_sup:init/1',[]],['fun','erlpid','erlpid_sup:start_link/0',[]]];

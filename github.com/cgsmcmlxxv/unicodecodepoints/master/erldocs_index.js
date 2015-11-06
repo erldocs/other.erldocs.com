@@ -1,1 +1,0 @@
-var index = [['app','unicodecodepoints','unicodecodepoints','[application]'],['mod','unicodecodepoints','ucp',[]],['fun','unicodecodepoints','ucp:detect/1',[]],['fun','unicodecodepoints','ucp:from_utf8/1',[]],['fun','unicodecodepoints','ucp:to_utf8/1',[]]];

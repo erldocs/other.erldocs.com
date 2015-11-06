@@ -1,1 +1,0 @@
-var index = [['app','cbskeletor','cbskeletor','[application]'],['app','cbskeletor','cbskeletor','[application]'],['mod','cbskeletor','cbskeletor_custom_filters',[]],['mod','cbskeletor','cbskeletor_custom_tags',[]],['mod','cbskeletor','cbskeletor_incoming_mail_controller',[]],['mod','cbskeletor','cbskeletor_outgoing_mail_controller',[]]];

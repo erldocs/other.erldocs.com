@@ -1,1 +1,0 @@
-var index = [['app','echo_server','echo_server','[application]'],['mod','echo_server','echo_server',[]],['fun','echo_server','echo_server:start/1',[]]];

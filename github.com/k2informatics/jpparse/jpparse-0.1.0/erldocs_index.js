@@ -1,1 +1,0 @@
-var index = [['app','jpparse','jpparse','[application]'],['mod','jpparse','jpparse_app',[]],['mod','jpparse','jpparse_sup',[]],['fun','jpparse','jpparse_app:start/2',[]],['fun','jpparse','jpparse_app:stop/1',[]],['fun','jpparse','jpparse_sup:init/1',[]],['fun','jpparse','jpparse_sup:start_link/0',[]]];

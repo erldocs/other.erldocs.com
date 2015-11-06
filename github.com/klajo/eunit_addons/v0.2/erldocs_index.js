@@ -1,1 +1,0 @@
-var index = [['app','eunit_addons','eunit_addons','[application]'],['mod','eunit_addons','eunit_addons','   Eunit addons make it easier to work with tests'],['fun','eunit_addons','eunit_addons:get_tests_with_setup/1','Return a list of tests which require a setup (..._']];

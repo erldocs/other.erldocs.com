@@ -1,1 +1,0 @@
-var index = [['app','beamjs_misultin','beamjs_misultin','[application]'],['mod','beamjs_misultin','beamjs_misultin',[]],['fun','beamjs_misultin','beamjs_misultin:exports/1',[]],['fun','beamjs_misultin','beamjs_misultin:init/1',[]]];

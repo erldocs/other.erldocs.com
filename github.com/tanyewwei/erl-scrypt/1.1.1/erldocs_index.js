@@ -1,1 +1,0 @@
-var index = [['app','erl-scrypt','erl-scrypt','[application]'],['mod','erl-scrypt','scrypt_app','.'],['fun','erl-scrypt','scrypt_app:start/2',[]],['fun','erl-scrypt','scrypt_app:stop/1',[]]];

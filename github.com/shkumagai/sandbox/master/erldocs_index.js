@@ -1,1 +1,0 @@
-var index = [['app','sandbox','sandbox','[application]'],['mod','sandbox','bwt',[]],['fun','sandbox','bwt:decode/1',[]],['fun','sandbox','bwt:encode/1',[]]];

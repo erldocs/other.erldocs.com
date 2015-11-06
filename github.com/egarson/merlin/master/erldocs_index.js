@@ -1,1 +1,0 @@
-var index = [['app','merlin','merlin','[application]'],['mod','merlin','mock','A mocking library for Erlang.'],['mod','merlin','util',[]]];

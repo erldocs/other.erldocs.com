@@ -1,1 +1,0 @@
-var index = [['app','eventmanager','eventmanager','[application]'],['mod','eventmanager','event',[]],['mod','eventmanager','eventsrv',[]],['mod','eventmanager','sup',[]],['fun','eventmanager','sup:init/1',[]],['fun','eventmanager','sup:loop/1',[]],['fun','eventmanager','sup:start/2',[]],['fun','eventmanager','sup:start_link/2',[]]];

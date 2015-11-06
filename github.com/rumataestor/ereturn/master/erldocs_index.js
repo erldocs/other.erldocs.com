@@ -1,1 +1,0 @@
-var index = [['app','ereturn','ereturn','[application]'],['mod','ereturn','ereturn',[]],['fun','ereturn','ereturn:parse_transform/2',[]]];

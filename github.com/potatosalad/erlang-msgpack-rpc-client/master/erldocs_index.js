@@ -1,1 +1,0 @@
-var index = [['app','erlang-msgpack-rpc-client','erlang-msgpack-rpc-client','[application]'],['mod','erlang-msgpack-rpc-client','msgpack_rpc_client_sup','.'],['fun','erlang-msgpack-rpc-client','msgpack_rpc_client_sup:init/1',[]],['fun','erlang-msgpack-rpc-client','msgpack_rpc_client_sup:start_link/0',[]]];

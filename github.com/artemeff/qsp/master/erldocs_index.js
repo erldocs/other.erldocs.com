@@ -1,1 +1,0 @@
-var index = [['app','qsp','qsp','[application]'],['mod','qsp','qsp',[]],['fun','qsp','qsp:decode/1',[]]];

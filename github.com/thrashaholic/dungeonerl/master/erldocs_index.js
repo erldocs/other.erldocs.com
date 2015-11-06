@@ -1,1 +1,0 @@
-var index = [['app','dungeonerl','dungeonerl','[application]'],['mod','dungeonerl','dungeon',[]],['fun','dungeonerl','dungeon:cave/2',[]],['fun','dungeonerl','dungeon:init/0',[]]];

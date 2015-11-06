@@ -1,1 +1,0 @@
-var index = [['app','eprotobuf','eprotobuf','[application]'],['mod','eprotobuf','org_tints_test',[]],['mod','eprotobuf','pbtest',[]],['mod','eprotobuf','protobuf',[]],['fun','eprotobuf','org_tints_test:descriptors/0',[]],['fun','eprotobuf','pbtest:test/0',[]],['fun','eprotobuf','protobuf:decode/2',[]],['fun','eprotobuf','protobuf:load/1',[]]];

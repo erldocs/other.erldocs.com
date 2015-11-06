@@ -1,1 +1,0 @@
-var index = [['app','serve_it','serve_it','[application]'],['mod','serve_it','serve_it','   A very simple web server based on cowboy to se']];

@@ -1,1 +1,0 @@
-var index = [['app','evalso','evalso','[application]'],['mod','evalso','evalso',[]],['mod','evalso','evalso_tests',[]],['fun','evalso','evalso:evaluate/2',[]],['fun','evalso','evalso:start/0',[]]];

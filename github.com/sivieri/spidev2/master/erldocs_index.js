@@ -1,1 +1,0 @@
-var index = [['app','spidev2','spidev2','[application]'],['mod','spidev2','spi3002',[]],['mod','spidev2','spi595',[]],['mod','spidev2','spidev',[]],['fun','spidev2','spi3002:test/0',[]],['fun','spidev2','spi595:test/0',[]],['fun','spidev2','spidev:close/1',[]],['fun','spidev2','spidev:init/0',[]],['fun','spidev2','spidev:setup/2',[]],['fun','spidev2','spidev:xfer/2',[]]];

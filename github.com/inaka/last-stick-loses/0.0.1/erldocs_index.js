@@ -1,1 +1,0 @@
-var index = [['app','last-stick-loses','last-stick-loses','[application]'],['mod','last-stick-loses','last_stick',[]],['fun','last-stick-loses','last_stick:start/0',[]],['fun','last-stick-loses','last_stick:start/1',[]],['fun','last-stick-loses','last_stick:stop/0',[]],['fun','last-stick-loses','last_stick:stop/1',[]]];

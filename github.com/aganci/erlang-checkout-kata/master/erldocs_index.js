@@ -1,1 +1,0 @@
-var index = [['app','erlang-checkout-kata','erlang-checkout-kata','[application]'],['mod','erlang-checkout-kata','checkout',[]],['fun','erlang-checkout-kata','checkout:price/1',[]]];

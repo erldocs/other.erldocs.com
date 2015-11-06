@@ -1,1 +1,0 @@
-var index = [['app','jian-erlang-learning','jian-erlang-learning','[application]'],['mod','jian-erlang-learning','kitchen',[]],['mod','jian-erlang-learning','linkmon',[]],['mod','jian-erlang-learning','multiproc',[]]];

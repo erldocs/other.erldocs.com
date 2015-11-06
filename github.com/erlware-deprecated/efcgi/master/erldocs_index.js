@@ -1,1 +1,0 @@
-var index = [['app','efcgi','efcgi','[application]'],['mod','efcgi','efcgi_app','     Start the efcgi stuff.'],['mod','efcgi','efcgi_sup','     Top level supervisor for the system.'],['fun','efcgi','efcgi_app:start/2',[]],['fun','efcgi','efcgi_app:stop/1',[]],['fun','efcgi','efcgi_sup:init/1',[]],['fun','efcgi','efcgi_sup:start_link/0',[]]];

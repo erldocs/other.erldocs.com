@@ -1,1 +1,0 @@
-var index = [['app','poolboy','poolboy','[application]'],['mod','poolboy','poolboy_sup',[]],['mod','poolboy','poolboy_worker',[]],['fun','poolboy','poolboy_sup:init/1',[]],['fun','poolboy','poolboy_sup:start_link/2',[]]];

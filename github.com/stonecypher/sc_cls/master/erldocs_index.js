@@ -1,1 +1,0 @@
-var index = [['app','sc_cls','sc_cls','[application]'],['mod','sc_cls','sc_cls',[]],['fun','sc_cls','sc_cls:gen_tree/1',[]]];

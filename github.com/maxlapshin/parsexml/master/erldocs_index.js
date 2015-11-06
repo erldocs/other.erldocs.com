@@ -1,1 +1,0 @@
-var index = [['app','parsexml','parsexml','[application]'],['mod','parsexml','parsexml',[]],['fun','parsexml','parsexml:parse/1',[]]];

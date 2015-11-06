@@ -1,1 +1,0 @@
-var index = [['app','sep','sep','[application]'],['mod','sep','sep',[]],['mod','sep','sep_map','       auto-generation.'],['mod','sep','sep_rec','       auto-generation.'],['fun','sep','sep:read_proto/1','decode protocol.'],['fun','sep','sep:write_proto/1','encode protocol.'],['fun','sep','sep_map:get_proto_map/1',[]],['fun','sep','sep_rec:get_proto_rec/1',[]]];

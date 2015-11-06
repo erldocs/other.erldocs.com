@@ -1,1 +1,0 @@
-var index = [['app','river_crossing','river_crossing','[application]'],['mod','river_crossing','river_crossing',[]],['fun','river_crossing','river_crossing:cross_river/1',[]],['fun','river_crossing','river_crossing:solve_puzzle/1',[]]];

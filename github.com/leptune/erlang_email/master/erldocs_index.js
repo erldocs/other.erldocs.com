@@ -1,1 +1,0 @@
-var index = [['app','erlang_email','erlang_email','[application]'],['mod','erlang_email','email',[]],['mod','erlang_email','misc',[]],['fun','erlang_email','email:send/1',[]],['fun','erlang_email','misc:basename/1',[]],['fun','erlang_email','misc:index/2',[]],['fun','erlang_email','misc:split_binary_by_digit/2',[]]];

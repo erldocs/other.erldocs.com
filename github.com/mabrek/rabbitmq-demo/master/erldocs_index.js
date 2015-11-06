@@ -1,1 +1,0 @@
-var index = [['app','rabbitmq-demo','rabbitmq-demo','[application]'],['mod','rabbitmq-demo','amqp_example',[]]];

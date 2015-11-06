@@ -1,1 +1,0 @@
-var index = [['app','euler-erlang','euler-erlang','[application]'],['mod','euler-erlang','factors',[]],['mod','euler-erlang','fibonacci',[]],['mod','euler-erlang','multiples',[]],['fun','euler-erlang','factors:factorize/1',[]],['fun','euler-erlang','fibonacci:sum_even/1',[]],['fun','euler-erlang','multiples:three_or_five/1',[]]];

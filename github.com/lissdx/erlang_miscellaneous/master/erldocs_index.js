@@ -1,1 +1,0 @@
-var index = [['app','erlang_miscellaneous','erlang_miscellaneous','[application]'],['mod','erlang_miscellaneous','ftpd',[]],['fun','erlang_miscellaneous','ftpd:control/2',[]],['fun','erlang_miscellaneous','ftpd:init/3',[]],['fun','erlang_miscellaneous','ftpd:start/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','virvel','virvel','[application]'],['mod','virvel','testclient',[]],['fun','virvel','testclient:recv/0',[]],['fun','virvel','testclient:send/1',[]],['fun','virvel','testclient:start/0',[]]];

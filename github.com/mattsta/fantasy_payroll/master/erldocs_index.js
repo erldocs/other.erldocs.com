@@ -1,1 +1,0 @@
-var index = [['app','fantasy_payroll','fantasy_payroll','[application]'],['mod','fantasy_payroll','fantasy_payroll',[]]];

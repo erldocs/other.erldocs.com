@@ -1,1 +1,0 @@
-var index = [['app','converse','converse','[application]'],['mod','converse','converseDB',[]],['mod','converse','converseDB_tests',[]],['mod','converse','converseServer',[]],['mod','converse','converseServer_tests',[]],['mod','converse','tracer',[]],['fun','converse','converseServer:start/0',[]]];

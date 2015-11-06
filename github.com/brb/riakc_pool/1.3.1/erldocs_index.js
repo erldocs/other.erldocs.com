@@ -1,1 +1,0 @@
-var index = [['app','riakc_pool','riakc_pool','[application]'],['mod','riakc_pool','riakcp_app',[]],['mod','riakc_pool','riakcp_sup',[]],['fun','riakc_pool','riakcp_app:start/2',[]],['fun','riakc_pool','riakcp_app:stop/1',[]],['fun','riakc_pool','riakcp_sup:init/1',[]],['fun','riakc_pool','riakcp_sup:start_link/0',[]]];

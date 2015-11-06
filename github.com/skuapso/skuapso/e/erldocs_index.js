@@ -1,1 +1,0 @@
-var index = [['app','skuapso','skuapso','[application]'],['mod','skuapso','ll',[]],['fun','skuapso','ll:float/1',[]],['fun','skuapso','ll:gm/1',[]]];

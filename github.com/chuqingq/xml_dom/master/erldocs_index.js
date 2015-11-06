@@ -1,1 +1,0 @@
-var index = [['app','xml_dom','xml_dom','[application]'],['mod','xml_dom','xml_dom',[]],['fun','xml_dom','xml_dom:simple_form/1',[]],['fun','xml_dom','xml_dom:simple_form/1',[]]];

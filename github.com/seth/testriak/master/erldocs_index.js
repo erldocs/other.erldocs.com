@@ -1,1 +1,0 @@
-var index = [['app','testriak','testriak','[application]'],['mod','testriak','tr',[]],['mod','testriak','tr_app',[]],['mod','testriak','tr_sup',[]],['fun','testriak','tr_app:start/2',[]],['fun','testriak','tr_app:stop/1',[]],['fun','testriak','tr_sup:init/1',[]],['fun','testriak','tr_sup:start_link/0',[]]];

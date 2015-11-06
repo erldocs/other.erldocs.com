@@ -1,1 +1,0 @@
-var index = [['app','couchapp-erlang','couchapp-erlang','[application]'],['mod','couchapp-erlang','couchapp',[]],['fun','couchapp-erlang','couchapp:compare/2',[]],['fun','couchapp-erlang','couchapp:folder_to_json/1',[]],['fun','couchapp-erlang','couchapp:sync/2',[]]];

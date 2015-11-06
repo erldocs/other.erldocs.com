@@ -1,1 +1,0 @@
-var index = [['app','cerck','cerck','[application]'],['mod','cerck','cerck',[]],['fun','cerck','cerck:check/1',[]],['fun','cerck','cerck:check/1',[]],['fun','cerck','cerck:dictpath/0',[]],['fun','cerck','cerck:has/2',[]],['fun','cerck','cerck:has/2',[]],['fun','cerck','cerck:quality/1',[]]];

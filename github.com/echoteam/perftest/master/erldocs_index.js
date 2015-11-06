@@ -1,1 +1,0 @@
-var index = [['app','perftest','perftest','[application]'],['mod','perftest','perftest',[]],['fun','perftest','perftest:comprehensive/2',[]],['fun','perftest','perftest:parallel/3',[]],['fun','perftest','perftest:sequential/2',[]],['fun','perftest','perftest:sequentialTimings/2',[]]];

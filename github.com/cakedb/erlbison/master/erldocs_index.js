@@ -1,1 +1,0 @@
-var index = [['app','erlbison','erlbison','[application]'],['mod','erlbison','bson',[]],['fun','erlbison','bson:filter/2',[]],['fun','erlbison','bson:load/1',[]],['fun','erlbison','bson:parse/1',[]],['fun','erlbison','bson:search/2',[]],['fun','erlbison','bson:validate/1',[]]];

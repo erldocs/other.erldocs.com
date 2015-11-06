@@ -1,1 +1,0 @@
-var index = [['app','plumserial','plumserial','[application]'],['mod','plumserial','serial',[]],['fun','plumserial','serial:init/2',[]],['fun','plumserial','serial:inject/2',[]],['fun','plumserial','serial:loop/2',[]],['fun','plumserial','serial:send/2',[]],['fun','plumserial','serial:start/1',[]],['fun','plumserial','serial:start/2',[]],['fun','plumserial','serial:stop/1',[]]];

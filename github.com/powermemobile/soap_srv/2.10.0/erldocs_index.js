@@ -1,1 +1,0 @@
-var index = [['app','soap_srv','soap_srv','[application]'],['mod','soap_srv','soap_srv_develop',[]],['fun','soap_srv','soap_srv_develop:init/0',[]]];

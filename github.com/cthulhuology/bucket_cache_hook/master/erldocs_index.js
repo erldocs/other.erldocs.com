@@ -1,1 +1,0 @@
-var index = [['app','bucket_cache_hook','bucket_cache_hook','[application]'],['mod','bucket_cache_hook','bucket_cache_hook',[]],['fun','bucket_cache_hook','bucket_cache_hook:create_cache/1',[]]];

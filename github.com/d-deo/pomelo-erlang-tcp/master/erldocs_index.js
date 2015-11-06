@@ -1,1 +1,0 @@
-var index = [['app','pomelo-erlang-tcp','pomelo-erlang-tcp','[application]'],['mod','pomelo-erlang-tcp','pomelo',[]],['fun','pomelo-erlang-tcp','pomelo:init/4',[]],['fun','pomelo-erlang-tcp','pomelo:loop/1',[]]];

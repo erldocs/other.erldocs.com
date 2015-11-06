@@ -1,1 +1,0 @@
-var index = [['app','erlang2.0','erlang2.0','[application]'],['mod','erlang2.0','kvs','.'],['fun','erlang2.0','kvs:lookup/1',[]],['fun','erlang2.0','kvs:start/0',[]],['fun','erlang2.0','kvs:store/2',[]]];

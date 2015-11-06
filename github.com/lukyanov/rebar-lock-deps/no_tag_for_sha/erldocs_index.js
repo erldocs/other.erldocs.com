@@ -1,1 +1,0 @@
-var index = [['app','rebar-lock-deps','rebar-lock-deps','[application]'],['mod','rebar-lock-deps','rebar_lock_deps_plugin','lock-deps: Generate Locked Dependencies for Rebar.'],['fun','rebar-lock-deps','rebar_lock_deps_plugin:list-deps-versions/2',[]],['fun','rebar-lock-deps','rebar_lock_deps_plugin:lock-deps/2',[]]];

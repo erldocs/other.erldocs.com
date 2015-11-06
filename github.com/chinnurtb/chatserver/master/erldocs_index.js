@@ -1,1 +1,0 @@
-var index = [['app','chatserver','chatserver','[application]'],['mod','chatserver','nitrogen_inets',[]],['mod','chatserver','nitrogen_init',[]],['fun','chatserver','nitrogen_inets:do/1',[]],['fun','chatserver','nitrogen_init:init/0',[]]];

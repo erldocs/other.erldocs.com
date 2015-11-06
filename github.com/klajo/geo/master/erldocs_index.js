@@ -1,1 +1,0 @@
-var index = [['app','geo','geo','[application]'],['mod','geo','geo_gpx',[]],['mod','geo','geo_wgs84',[]],['fun','geo','geo_gpx:parse_file/1',[]],['fun','geo','geo_wgs84:great_circle_distance/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','code-snippets-erlang','code-snippets-erlang','[application]'],['mod','code-snippets-erlang','helloworld','.'],['fun','code-snippets-erlang','helloworld:start/0',[]]];

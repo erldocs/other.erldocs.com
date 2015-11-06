@@ -1,1 +1,0 @@
-var index = [['app','replayer_logger','replayer_logger','[application]'],['mod','replayer_logger','replayer_log',[]],['fun','replayer_logger','replayer_log:http_get_log/3',[]],['fun','replayer_logger','replayer_log:http_post_log/4',[]],['fun','replayer_logger','replayer_log:log/3',[]],['fun','replayer_logger','replayer_log:rpc_log/4',[]]];

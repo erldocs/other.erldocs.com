@@ -1,1 +1,0 @@
-var index = [['app','watchdog','watchdog','[application]'],['mod','watchdog','watchdog',[]],['fun','watchdog','watchdog:init/1',[]],['fun','watchdog','watchdog:reset/1',[]],['fun','watchdog','watchdog:start/2',[]]];

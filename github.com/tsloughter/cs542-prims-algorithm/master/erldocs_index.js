@@ -1,1 +1,0 @@
-var index = [['app','cs542-prims-algorithm','cs542-prims-algorithm','[application]'],['mod','cs542-prims-algorithm','prims',[]],['fun','cs542-prims-algorithm','prims:start/1',[]]];

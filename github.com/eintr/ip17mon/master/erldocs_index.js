@@ -1,1 +1,0 @@
-var index = [['app','ip17mon','ip17mon','[application]'],['mod','ip17mon','ip17mon',[]],['fun','ip17mon','ip17mon:load/1',[]],['fun','ip17mon','ip17mon:lookup/2',[]]];

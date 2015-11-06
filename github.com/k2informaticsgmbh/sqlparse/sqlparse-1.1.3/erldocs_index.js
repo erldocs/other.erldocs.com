@@ -1,1 +1,0 @@
-var index = [['app','sqlparse','sqlparse','[application]'],['mod','sqlparse','sqlparse_fold',[]],['fun','sqlparse','sqlparse_fold:fold/5',[]]];

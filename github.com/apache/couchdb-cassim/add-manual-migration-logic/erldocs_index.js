@@ -1,1 +1,0 @@
-var index = [['app','couchdb-cassim','couchdb-cassim','[application]'],['mod','couchdb-cassim','cassim_app',[]],['mod','couchdb-cassim','cassim_sup',[]],['fun','couchdb-cassim','cassim_app:start/2',[]],['fun','couchdb-cassim','cassim_app:stop/1',[]],['fun','couchdb-cassim','cassim_sup:init/1',[]],['fun','couchdb-cassim','cassim_sup:start_link/0',[]]];

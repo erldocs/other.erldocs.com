@@ -1,1 +1,0 @@
-var index = [['app','vantage_pro_parser','vantage_pro_parser','[application]'],['mod','vantage_pro_parser','weather_parser',[]],['fun','vantage_pro_parser','weather_parser:main/1',[]],['fun','vantage_pro_parser','weather_parser:start/0',[]]];

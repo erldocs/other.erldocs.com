@@ -1,1 +1,0 @@
-var index = [['app','etap','etap','[application]'],['mod','etap','etap_report','A module for creating nice looking code coverage r'],['fun','etap','etap_report:create/0','Create html code coverage reports for each module ']];

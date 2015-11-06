@@ -1,1 +1,0 @@
-var index = [['app','brainfunk','brainfunk','[application]'],['mod','brainfunk','brainfunk',[]],['fun','brainfunk','brainfunk:fuck/1',[]],['fun','brainfunk','brainfunk:source/1',[]]];

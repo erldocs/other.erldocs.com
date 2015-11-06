@@ -1,1 +1,0 @@
-var index = [['app','gate','gate','[application]'],['mod','gate','gate',[]],['fun','gate','gate:approxidate/1',[]],['fun','gate','gate:init/0',[]]];

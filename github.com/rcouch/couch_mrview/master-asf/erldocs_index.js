@@ -1,1 +1,0 @@
-var index = [['app','couch_mrview','couch_mrview','[application]'],['mod','couch_mrview','couch_mrview_changes',[]],['fun','couch_mrview','couch_mrview_changes:handle_view_changes/5',[]]];

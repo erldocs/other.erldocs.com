@@ -1,1 +1,0 @@
-var index = [['app','dia_test','dia_test','[application]'],['mod','dia_test','dead_code',[]],['mod','dia_test','no_warnings',[]],['fun','dia_test','dead_code:hmm/1',[]],['fun','dia_test','no_warnings:func2/1',[]]];

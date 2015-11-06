@@ -1,1 +1,0 @@
-var index = [['app','hackerrank_solutions','hackerrank_solutions','[application]'],['mod','hackerrank_solutions','saveprincess',[]],['mod','hackerrank_solutions','user_default',[]],['fun','hackerrank_solutions','saveprincess:main/0',[]]];

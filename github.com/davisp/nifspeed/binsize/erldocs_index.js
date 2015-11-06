@@ -1,1 +1,0 @@
-var index = [['app','nifspeed','nifspeed','[application]'],['mod','nifspeed','drvsize',[]],['mod','nifspeed','nifsize',[]],['fun','nifspeed','drvsize:size/1',[]],['fun','nifspeed','drvsize:start/0',[]],['fun','nifspeed','nifsize:size/1',[]],['fun','nifspeed','nifsize:start/0',[]]];

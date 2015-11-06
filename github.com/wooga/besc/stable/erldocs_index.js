@@ -1,1 +1,0 @@
-var index = [['app','besc','besc','[application]'],['mod','besc','besc',[]],['mod','besc','besc_app',[]],['fun','besc','besc_app:init/1',[]],['fun','besc','besc_app:start/2',[]],['fun','besc','besc_app:stop/1',[]],['fun','besc','besc_app:terminate/2',[]]];

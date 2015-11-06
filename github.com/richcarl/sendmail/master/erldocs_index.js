@@ -1,1 +1,0 @@
-var index = [['app','sendmail','sendmail','[application]'],['mod','sendmail','sendmail',[]],['fun','sendmail','sendmail:create/4',[]],['fun','sendmail','sendmail:create/5',[]],['fun','sendmail','sendmail:send/4',[]],['fun','sendmail','sendmail:send/5',[]],['fun','sendmail','sendmail:send_data/3',[]],['fun','sendmail','sendmail:send_data/4',[]]];

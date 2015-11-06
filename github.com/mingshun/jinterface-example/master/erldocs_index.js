@@ -1,1 +1,0 @@
-var index = [['app','jinterface-example','jinterface-example','[application]'],['mod','jinterface-example','jcomplex',[]],['mod','jinterface-example','jcomplex2',[]],['fun','jinterface-example','jcomplex2:bar/1',[]],['fun','jinterface-example','jcomplex2:foo/1',[]],['fun','jinterface-example','jcomplex:bar/1',[]],['fun','jinterface-example','jcomplex:foo/1',[]]];

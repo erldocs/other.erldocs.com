@@ -1,1 +1,0 @@
-var index = [['app','teleutils','teleutils','[application]'],['mod','teleutils','caller_id','caller_id - Caller ID (ETS 300 659-1) parsing.'],['fun','teleutils','caller_id:cid_compose/1','Compose caller ID from chunks (MDMF).'],['fun','teleutils','caller_id:cid_compose/2','Compose caller ID from chunks.'],['fun','teleutils','caller_id:cid_parse/1','Parse caller ID to chunks.']];

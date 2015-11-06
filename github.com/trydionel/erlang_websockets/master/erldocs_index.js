@@ -1,1 +1,0 @@
-var index = [['app','erlang_websockets','erlang_websockets','[application]'],['mod','erlang_websockets','local_server',[]]];

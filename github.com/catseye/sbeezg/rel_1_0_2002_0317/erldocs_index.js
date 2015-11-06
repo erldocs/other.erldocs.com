@@ -1,1 +1,0 @@
-var index = [['app','sbeezg','sbeezg','[application]'],['mod','sbeezg','sbeezg',[]],['mod','sbeezg','sbeezg_parser',[]],['fun','sbeezg','sbeezg:run/1',[]],['fun','sbeezg','sbeezg:test/1',[]],['fun','sbeezg','sbeezg_parser:format_error/1',[]],['fun','sbeezg','sbeezg_parser:parse/1',[]],['fun','sbeezg','sbeezg_parser:parse_and_scan/1',[]]];

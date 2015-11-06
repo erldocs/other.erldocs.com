@@ -1,1 +1,0 @@
-var index = [['app','erlang4j','erlang4j','[application]'],['mod','erlang4j','simpleServer',[]],['fun','erlang4j','simpleServer:start/0',[]]];

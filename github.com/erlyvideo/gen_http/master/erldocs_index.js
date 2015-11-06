@@ -1,1 +1,0 @@
-var index = [['app','gen_http','gen_http','[application]'],['mod','gen_http','http_bench_client',[]],['mod','gen_http','micro_proxy',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','redis.erl','redis.erl','[application]'],['mod','redis.erl','redis',[]]];

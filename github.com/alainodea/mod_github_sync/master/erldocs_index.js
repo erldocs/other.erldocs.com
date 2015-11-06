@@ -1,1 +1,0 @@
-var index = [['app','mod_github_sync','mod_github_sync','[application]'],['mod','mod_github_sync','mod_github_sync','Github Sync module.']];

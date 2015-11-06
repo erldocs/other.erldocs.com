@@ -1,1 +1,0 @@
-var index = [['app','erlide','erlide','[application]'],['mod','erlide','build_reports',[]],['mod','erlide','update_versions',[]]];

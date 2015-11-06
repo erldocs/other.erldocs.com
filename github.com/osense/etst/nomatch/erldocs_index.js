@@ -1,1 +1,0 @@
-var index = [['app','etst','etst','[application]'],['mod','etst','etst',[]],['fun','etst','etst:insert/1',[]],['fun','etst','etst:lookup/1',[]],['fun','etst','etst:new/0',[]]];

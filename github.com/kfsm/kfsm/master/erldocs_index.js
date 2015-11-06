@@ -1,1 +1,0 @@
-var index = [['app','kfsm','kfsm','[application]'],['mod','kfsm','kfsm_machine',[]],['fun','kfsm','kfsm_machine:code_change/3',[]],['fun','kfsm','kfsm_machine:handle_call/3',[]],['fun','kfsm','kfsm_machine:handle_cast/2',[]],['fun','kfsm','kfsm_machine:handle_info/2',[]],['fun','kfsm','kfsm_machine:init/1',[]],['fun','kfsm','kfsm_machine:terminate/2',[]]];

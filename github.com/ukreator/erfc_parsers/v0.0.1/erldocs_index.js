@@ -1,1 +1,0 @@
-var index = [['app','erfc_parsers','erfc_parsers','[application]'],['mod','erfc_parsers','erfc_4180','This file implements rfc 4180 - the format used fo'],['fun','erfc_parsers','erfc_4180:parse/1',[]],['fun','erfc_parsers','erfc_4180:parse/3',[]],['fun','erfc_parsers','erfc_4180:parse_file/1',[]],['fun','erfc_parsers','erfc_4180:parse_file/3',[]]];

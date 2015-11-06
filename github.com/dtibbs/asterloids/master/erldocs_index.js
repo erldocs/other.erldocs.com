@@ -1,1 +1,0 @@
-var index = [['app','asterloids','asterloids','[application]'],['mod','asterloids','asterloids',[]],['fun','asterloids','asterloids:start/0',[]]];

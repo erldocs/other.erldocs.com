@@ -1,1 +1,0 @@
-var index = [['app','prime-parallel-sieve','prime-parallel-sieve','[application]'],['mod','prime-parallel-sieve','sieve',[]],['fun','prime-parallel-sieve','sieve:primes/1',[]],['fun','prime-parallel-sieve','sieve:primes_parr/2',[]],['fun','prime-parallel-sieve','sieve:primes_single/1',[]]];

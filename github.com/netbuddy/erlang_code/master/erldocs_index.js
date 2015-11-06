@@ -1,1 +1,0 @@
-var index = [['app','erlang_code','erlang_code','[application]'],['mod','erlang_code','udp_server',[]],['fun','erlang_code','udp_server:open/2',[]],['fun','erlang_code','udp_server:receiver/0',[]],['fun','erlang_code','udp_server:start/0',[]],['fun','erlang_code','udp_server:stop/1',[]]];

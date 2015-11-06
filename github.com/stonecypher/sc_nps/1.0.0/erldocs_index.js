@@ -1,1 +1,0 @@
-var index = [['app','sc_nps','sc_nps','[application]'],['mod','sc_nps','sc_nps',[]],['fun','sc_nps','sc_nps:rank/1',[]],['fun','sc_nps','sc_nps:score/1',[]]];

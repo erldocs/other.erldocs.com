@@ -1,1 +1,0 @@
-var index = [['app','pt2262','pt2262','[application]'],['mod','pt2262','pt2262',[]],['fun','pt2262','pt2262:encode/2',[]]];

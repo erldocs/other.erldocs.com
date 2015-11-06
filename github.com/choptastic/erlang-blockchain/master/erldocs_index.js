@@ -1,1 +1,0 @@
-var index = [['app','erlang-blockchain','erlang-blockchain','[application]'],['mod','erlang-blockchain','blockchain',[]],['fun','erlang-blockchain','blockchain:format_amount/1',[]],['fun','erlang-blockchain','blockchain:get_address/1',[]]];

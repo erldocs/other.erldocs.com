@@ -1,1 +1,0 @@
-var index = [['app','birdy','birdy','[application]'],['app','birdy','birdy','[application]'],['mod','birdy','birdy_app',[]],['mod','birdy','birdy_sup',[]],['fun','birdy','birdy_app:start/2',[]],['fun','birdy','birdy_app:stop/1',[]],['fun','birdy','birdy_sup:init/1',[]],['fun','birdy','birdy_sup:start_link/0',[]]];

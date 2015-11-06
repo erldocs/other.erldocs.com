@@ -1,1 +1,0 @@
-var index = [['app','erl-load-average','erl-load-average','[application]'],['mod','erl-load-average','load_average',[]],['fun','erl-load-average','load_average:get/0','Returns system load average.']];

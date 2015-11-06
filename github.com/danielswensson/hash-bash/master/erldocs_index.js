@@ -1,1 +1,0 @@
-var index = [['app','hash-bash','hash-bash','[application]'],['mod','hash-bash','hash',[]],['fun','hash-bash','hash:start/1',[]],['fun','hash-bash','hash:test/0',[]]];

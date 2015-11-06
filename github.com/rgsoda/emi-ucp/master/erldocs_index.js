@@ -1,1 +1,0 @@
-var index = [['app','emi-ucp','emi-ucp','[application]'],['mod','emi-ucp','ucp_7bit',[]]];

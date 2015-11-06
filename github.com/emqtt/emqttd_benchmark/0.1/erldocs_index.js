@@ -1,1 +1,0 @@
-var index = [['app','emqttd_benchmark','emqttd_benchmark','[application]'],['mod','emqttd_benchmark','emqttd_benchmark','   eMQTTD Benchmark Client.'],['fun','emqttd_benchmark','emqttd_benchmark:connect/3',[]],['fun','emqttd_benchmark','emqttd_benchmark:loop/3',[]],['fun','emqttd_benchmark','emqttd_benchmark:run/3',[]],['fun','emqttd_benchmark','emqttd_benchmark:start/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','stripe-erlang','stripe-erlang','[application]'],['mod','stripe-erlang','stripe',[]],['fun','stripe-erlang','stripe:charge_card/1',[]],['fun','stripe-erlang','stripe:charge_customer/1',[]],['fun','stripe-erlang','stripe:customer_create/1',[]],['fun','stripe-erlang','stripe:token_create/10',[]]];

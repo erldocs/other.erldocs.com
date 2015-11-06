@@ -1,1 +1,0 @@
-var index = [['app','raytracer','raytracer','[application]'],['mod','raytracer','raytracer',[]],['fun','raytracer','raytracer:test/1',[]],['fun','raytracer','raytracer:trace/3',[]]];

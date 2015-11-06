@@ -1,1 +1,0 @@
-var index = [['app','puzzle','puzzle','[application]'],['mod','puzzle','hakoiri',[]]];

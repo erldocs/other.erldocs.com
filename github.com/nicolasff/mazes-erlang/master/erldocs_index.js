@@ -1,1 +1,0 @@
-var index = [['app','mazes-erlang','mazes-erlang','[application]'],['mod','mazes-erlang','maze_gen',[]],['fun','mazes-erlang','maze_gen:maze/2',[]]];

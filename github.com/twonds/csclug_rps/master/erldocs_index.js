@@ -1,1 +1,0 @@
-var index = [['app','csclug_rps','csclug_rps','[application]'],['mod','csclug_rps','rps',[]],['mod','csclug_rps','rps_client',[]],['mod','csclug_rps','rps_server',[]],['fun','csclug_rps','rps:play/1',[]],['fun','csclug_rps','rps_client:play/2',[]],['fun','csclug_rps','rps_server:start/0',[]]];

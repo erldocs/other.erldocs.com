@@ -1,1 +1,0 @@
-var index = [['app','erlcql_poolboy','erlcql_poolboy','[application]'],['mod','erlcql_poolboy','erlcql_poolboy',[]],['fun','erlcql_poolboy','erlcql_poolboy:q/1',[]],['fun','erlcql_poolboy','erlcql_poolboy:q/1',[]],['fun','erlcql_poolboy','erlcql_poolboy:start_link/1',[]],['fun','erlcql_poolboy','erlcql_poolboy:start_link/1',[]]];

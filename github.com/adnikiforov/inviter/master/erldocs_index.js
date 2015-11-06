@@ -1,1 +1,0 @@
-var index = [['app','inviter','inviter','[application]'],['mod','inviter','inviter_custom_filters',[]],['mod','inviter','inviter_custom_tags',[]],['mod','inviter','inviter_incoming_mail_controller',[]],['mod','inviter','inviter_outgoing_mail_controller',[]],['mod','inviter','inviter_root_controller',[]]];

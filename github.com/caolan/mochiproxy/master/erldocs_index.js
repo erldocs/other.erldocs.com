@@ -1,1 +1,0 @@
-var index = [['app','mochiproxy','mochiproxy','[application]'],['mod','mochiproxy','mochiproxy',[]],['fun','mochiproxy','mochiproxy:handle_req/3',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','inheritor','inheritor','[application]'],['mod','inheritor','inheritor',[]],['fun','inheritor','inheritor:parse_transform/2',[]]];

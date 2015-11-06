@@ -1,1 +1,0 @@
-var index = [['app','etcol','etcol','[application]'],['mod','etcol','etcol','Small terminal color library.'],['fun','etcol','etcol:bg_color/2',[]],['fun','etcol','etcol:fg_color/2',[]],['fun','etcol','etcol:t/1',[]],['fun','etcol','etcol:test/0',[]],['fun','etcol','etcol:text_attr/2',[]]];

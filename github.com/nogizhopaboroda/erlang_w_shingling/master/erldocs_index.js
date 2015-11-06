@@ -1,1 +1,0 @@
-var index = [['app','erlang_w_shingling','erlang_w_shingling','[application]'],['mod','erlang_w_shingling','shingles',[]],['fun','erlang_w_shingling','shingles:similarity/2',[]],['fun','erlang_w_shingling','shingles:similarity/3',[]]];

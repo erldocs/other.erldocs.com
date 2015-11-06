@@ -1,1 +1,0 @@
-var index = [['app','erlang_boilerplate','erlang_boilerplate','[application]'],['mod','erlang_boilerplate','acme',[]],['mod','erlang_boilerplate','acme_app',[]],['mod','erlang_boilerplate','acme_sup',[]],['fun','erlang_boilerplate','acme:start_link/0',[]],['fun','erlang_boilerplate','acme_sup:start_link/0',[]]];

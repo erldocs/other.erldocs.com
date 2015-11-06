@@ -1,1 +1,0 @@
-var index = [['app','feeder','feeder','[application]'],['mod','feeder','feeder',[]],['fun','feeder','feeder:file/1',[]],['fun','feeder','feeder:stream/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','genetic','genetic','[application]'],['mod','genetic','genetic',[]],['fun','genetic','genetic:debug/6',[]],['fun','genetic','genetic:start/7',[]]];

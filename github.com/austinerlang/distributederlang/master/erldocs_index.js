@@ -1,1 +1,0 @@
-var index = [['app','distributederlang','distributederlang','[application]'],['mod','distributederlang','cluster',[]],['mod','distributederlang','factorial',[]],['mod','distributederlang','remote',[]]];

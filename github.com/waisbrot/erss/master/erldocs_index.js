@@ -1,1 +1,0 @@
-var index = [['app','erss','erss','[application]'],['mod','erss','erss',[]],['mod','erss','erss_parse','   Parse XML that represents RSS or Atom feeds an'],['fun','erss','erss_parse:parse_file/1',[]],['fun','erss','erss_parse:parse_string/1',[]]];

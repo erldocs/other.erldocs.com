@@ -1,1 +1,0 @@
-var index = [['app','euc-2014','euc-2014','[application]'],['mod','euc-2014','privacy',[]],['mod','euc-2014','tsung_privacy',[]]];

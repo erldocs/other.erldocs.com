@@ -1,1 +1,0 @@
-var index = [['app','malias','malias','[application]'],['mod','malias','malias',[]],['fun','malias','malias:format_error/1',[]],['fun','malias','malias:parse_transform/2',[]]];

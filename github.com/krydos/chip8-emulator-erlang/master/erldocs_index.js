@@ -1,1 +1,0 @@
-var index = [['app','chip8-emulator-erlang','chip8-emulator-erlang','[application]'],['mod','chip8-emulator-erlang','emulator',[]],['fun','chip8-emulator-erlang','emulator:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','otmp-server','otmp-server','[application]'],['mod','otmp-server','client_handler',[]],['mod','otmp-server','main',[]],['mod','otmp-server','otmpd_db',[]],['fun','otmp-server','client_handler:handler/0',[]],['fun','otmp-server','main:start/0',[]],['fun','otmp-server','otmpd_db:check_player_exists/1',[]],['fun','otmp-server','otmpd_db:register_player/2',[]]];

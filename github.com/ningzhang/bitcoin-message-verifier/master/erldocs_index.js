@@ -1,1 +1,0 @@
-var index = [['app','bitcoin-message-verifier','bitcoin-message-verifier','[application]'],['mod','bitcoin-message-verifier','bitcoin_message_verifier',[]],['fun','bitcoin-message-verifier','bitcoin_message_verifier:verify/3',[]]];

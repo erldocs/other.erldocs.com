@@ -1,1 +1,0 @@
-var index = [['app','bencode-erlang','bencode-erlang','[application]'],['mod','bencode-erlang','bencode',[]],['fun','bencode-erlang','bencode:bdecode/1',[]],['fun','bencode-erlang','bencode:bencode/1',[]]];

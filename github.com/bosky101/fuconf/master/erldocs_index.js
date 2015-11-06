@@ -1,1 +1,0 @@
-var index = [['app','fuconf','fuconf','[application]'],['mod','fuconf','fuconf',[]]];

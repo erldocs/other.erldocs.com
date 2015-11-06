@@ -1,1 +1,0 @@
-var index = [['app','websaferl','websaferl','[application]'],['mod','websaferl','websaferl',[]],['fun','websaferl','websaferl:decode/1',[]],['fun','websaferl','websaferl:encode/1',[]]];

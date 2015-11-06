@@ -1,1 +1,0 @@
-var index = [['app','erlang-rfc4122','erlang-rfc4122','[application]'],['mod','erlang-rfc4122','rfc4122',[]],['fun','erlang-rfc4122','rfc4122:external/1',[]],['fun','erlang-rfc4122','rfc4122:iolist/1',[]],['fun','erlang-rfc4122','rfc4122:v4/0',[]],['fun','erlang-rfc4122','rfc4122:v5/1',[]],['fun','erlang-rfc4122','rfc4122:version/1',[]]];

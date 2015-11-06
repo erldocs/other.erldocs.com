@@ -1,1 +1,0 @@
-var index = [['app','paxes','paxes','[application]'],['mod','paxes','PaxEs_app','PaxEs public API.'],['mod','paxes','proposing_test',[]],['fun','paxes','PaxEs_app:start/2',[]],['fun','paxes','PaxEs_app:stop/1',[]],['fun','paxes','proposing_test:start/1',[]]];

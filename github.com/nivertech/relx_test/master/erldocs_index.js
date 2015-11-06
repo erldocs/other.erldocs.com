@@ -1,1 +1,0 @@
-var index = [['app','relx_test','relx_test','[application]'],['mod','relx_test','hellothere_app',[]],['mod','relx_test','hellothere_sup',[]],['fun','relx_test','hellothere_app:start/2',[]],['fun','relx_test','hellothere_app:stop/1',[]],['fun','relx_test','hellothere_sup:init/1',[]],['fun','relx_test','hellothere_sup:start_link/0',[]]];

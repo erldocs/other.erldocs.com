@@ -1,1 +1,0 @@
-var index = [['app','ejson','ejson','[application]'],['mod','ejson','ejson',[]],['mod','ejson','ejson_decode',[]],['mod','ejson','ejson_encode',[]],['fun','ejson','ejson:decode/1',[]],['fun','ejson','ejson:encode/1',[]],['fun','ejson','ejson_decode:value/1',[]],['fun','ejson','ejson_encode:value/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ubf-abnf','ubf-abnf','[application]'],['mod','ubf-abnf','abnf_contract_parser',[]],['fun','ubf-abnf','abnf_contract_parser:parse_transform/2',[]]];

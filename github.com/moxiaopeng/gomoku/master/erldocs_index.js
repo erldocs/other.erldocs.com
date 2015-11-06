@@ -1,1 +1,0 @@
-var index = [['app','gomoku','gomoku','[application]'],['mod','gomoku','gomoku',[]],['mod','gomoku','gomoku_app',[]],['mod','gomoku','gomoku_sup',[]],['fun','gomoku','gomoku:start/0',[]],['fun','gomoku','gomoku_app:start/2',[]],['fun','gomoku','gomoku_app:stop/1',[]],['fun','gomoku','gomoku_sup:init/1',[]],['fun','gomoku','gomoku_sup:start_link/0',[]]];

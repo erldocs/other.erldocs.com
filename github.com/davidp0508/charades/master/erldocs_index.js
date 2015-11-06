@@ -1,1 +1,0 @@
-var index = [['app','charades','charades','[application]'],['mod','charades','ghs','@todo Add description to ghs.'],['mod','charades','player','@todo Add description to player.'],['mod','charades','token_ring','@todo Add description to token_ring.'],['fun','charades','player:getUsername/1',[]],['fun','charades','player:start/1',[]]];

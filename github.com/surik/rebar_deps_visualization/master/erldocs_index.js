@@ -1,1 +1,0 @@
-var index = [['app','rebar_deps_visualization','rebar_deps_visualization','[application]'],['mod','rebar_deps_visualization','rebar_deps_visualization',[]],['fun','rebar_deps_visualization','rebar_deps_visualization:visualize-deps/2',[]]];

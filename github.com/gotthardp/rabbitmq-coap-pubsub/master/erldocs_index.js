@@ -1,1 +1,0 @@
-var index = [['app','rabbitmq-coap-pubsub','rabbitmq-coap-pubsub','[application]'],['mod','rabbitmq-coap-pubsub','rabbitmq_coap_pubsub',[]],['fun','rabbitmq-coap-pubsub','rabbitmq_coap_pubsub:init_plugin/0',[]]];

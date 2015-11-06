@@ -1,1 +1,0 @@
-var index = [['app','adbt','adbt','[application]'],['mod','adbt','actordb_thrift',[]],['mod','adbt','adbt_types',[]],['fun','adbt','actordb_thrift:function_info/2',[]],['fun','adbt','actordb_thrift:struct_info/1',[]],['fun','adbt','adbt_types:struct_info/1',[]],['fun','adbt','adbt_types:struct_info_ext/1',[]]];

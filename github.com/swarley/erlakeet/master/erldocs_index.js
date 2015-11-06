@@ -1,1 +1,0 @@
-var index = [['app','erlakeet','erlakeet','[application]'],['mod','erlakeet','gen_op',[]]];

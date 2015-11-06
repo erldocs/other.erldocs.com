@@ -1,1 +1,0 @@
-var index = [['app','derp','derp','[application]'],['mod','derp','derp',[]],['fun','derp','derp:default_options/0',[]],['fun','derp','derp:gen_site/2',[]],['fun','derp','derp:gen_site/3',[]]];

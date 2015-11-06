@@ -1,1 +1,0 @@
-var index = [['app','couch_zmq','couch_zmq','[application]'],['mod','couch_zmq','couch_zmq',[]],['fun','couch_zmq','couch_zmq:version/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang_diablo3','erlang_diablo3','[application]'],['mod','erlang_diablo3','erlang_diablo3',[]],['fun','erlang_diablo3','erlang_diablo3:getProfile/1',[]]];

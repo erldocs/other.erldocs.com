@@ -1,1 +1,0 @@
-var index = [['app','bitwise','bitwise','[application]'],['mod','bitwise','bitwise',[]],['fun','bitwise','bitwise:exor/2',[]],['fun','bitwise','bitwise:exor_bad/2',[]],['fun','bitwise','bitwise:exor_chunks/2',[]],['fun','bitwise','bitwise:exor_dirty/2',[]],['fun','bitwise','bitwise:exor_yield/2',[]],['fun','bitwise','bitwise:reds/3',[]]];

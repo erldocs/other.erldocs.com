@@ -1,1 +1,0 @@
-var index = [['app','rmq_patterns','rmq_patterns','[application]'],['mod','rmq_patterns','date_utils',[]]];

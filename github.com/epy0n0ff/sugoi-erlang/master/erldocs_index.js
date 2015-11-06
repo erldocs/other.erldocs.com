@@ -1,1 +1,0 @@
-var index = [['app','sugoi-erlang','sugoi-erlang','[application]'],['mod','sugoi-erlang','unless',[]],['fun','sugoi-erlang','unless:add/2',[]]];

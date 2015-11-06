@@ -1,1 +1,0 @@
-var index = [['app','cs182e','cs182e','[application]'],['mod','cs182e','wordlist',[]],['fun','cs182e','wordlist:correct/2',[]],['fun','cs182e','wordlist:distance/3',[]],['fun','cs182e','wordlist:load/1',[]],['fun','cs182e','wordlist:main/1',[]],['fun','cs182e','wordlist:suggestions/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','recaptcherl','recaptcherl','[application]'],['mod','recaptcherl','recaptcherl',[]],['fun','recaptcherl','recaptcherl:verify/1',[]]];

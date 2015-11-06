@@ -1,1 +1,0 @@
-var index = [['app','mod_calendar','mod_calendar','[application]'],['mod','mod_calendar','mod_calendar','Calendar viewer.']];

@@ -1,1 +1,0 @@
-var index = [['app','tree-traversal','tree-traversal','[application]'],['mod','tree-traversal','mcd',[]],['fun','tree-traversal','mcd:main/0',[]]];

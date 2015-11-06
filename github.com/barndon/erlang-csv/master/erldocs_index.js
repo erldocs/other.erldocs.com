@@ -1,1 +1,0 @@
-var index = [['app','erlang-csv','erlang-csv','[application]'],['mod','erlang-csv','csv',[]],['fun','erlang-csv','csv:read/1',[]],['fun','erlang-csv','csv:read_file/1',[]]];

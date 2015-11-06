@@ -1,1 +1,0 @@
-var index = [['app','erlypoker','erlypoker','[application]'],['mod','erlypoker','poker',[]]];

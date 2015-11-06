@@ -1,1 +1,0 @@
-var index = [['app','base32_erlang','base32_erlang','[application]'],['mod','base32_erlang','base32',[]],['fun','base32_erlang','base32:decode/1',[]],['fun','base32_erlang','base32:decode/2',[]],['fun','base32_erlang','base32:encode/1',[]],['fun','base32_erlang','base32:encode/2',[]]];

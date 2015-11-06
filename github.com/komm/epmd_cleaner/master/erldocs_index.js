@@ -1,1 +1,0 @@
-var index = [['app','epmd_cleaner','epmd_cleaner','[application]'],['mod','epmd_cleaner','epmd_clean',[]],['fun','epmd_cleaner','epmd_clean:main/0',[]]];

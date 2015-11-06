@@ -1,1 +1,0 @@
-var index = [['app','erlang_sandbox','erlang_sandbox','[application]'],['mod','erlang_sandbox','fizzbuzz',[]],['mod','erlang_sandbox','fizzbuzz_tests',[]],['mod','erlang_sandbox','string_calculator_tests',[]],['fun','erlang_sandbox','fizzbuzz:evaluate/1',[]]];

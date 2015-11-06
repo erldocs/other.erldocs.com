@@ -1,1 +1,0 @@
-var index = [['app','amqp_pooler','amqp_pooler','[application]'],['mod','amqp_pooler','amqp_pooler',[]],['fun','amqp_pooler','amqp_pooler:hello/0',[]]];

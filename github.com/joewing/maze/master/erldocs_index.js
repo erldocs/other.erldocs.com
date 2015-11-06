@@ -1,1 +1,0 @@
-var index = [['app','maze','maze','[application]'],['mod','maze','maze',[]],['fun','maze','maze:main/0',[]],['fun','maze','maze:maze_server/0',[]],['fun','maze','maze:start_maze_server/0',[]]];

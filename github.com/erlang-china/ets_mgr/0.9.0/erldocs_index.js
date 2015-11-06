@@ -1,1 +1,0 @@
-var index = [['app','ets_mgr','ets_mgr','[application]'],['mod','ets_mgr','ets_mgr_app','   ETS Manager OTP Application.'],['mod','ets_mgr','ets_mgr_sup','   ETS Manager OTP Supervisor.'],['fun','ets_mgr','ets_mgr_app:start/2',[]],['fun','ets_mgr','ets_mgr_app:stop/1',[]],['fun','ets_mgr','ets_mgr_sup:init/1',[]],['fun','ets_mgr','ets_mgr_sup:start_link/0',[]]];

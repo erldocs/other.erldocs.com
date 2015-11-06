@@ -1,1 +1,0 @@
-var index = [['app','erlang-mapreduce','erlang-mapreduce','[application]'],['mod','erlang-mapreduce','mapreduce',[]]];

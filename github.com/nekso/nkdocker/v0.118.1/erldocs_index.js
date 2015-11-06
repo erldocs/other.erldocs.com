@@ -1,1 +1,0 @@
-var index = [['app','nkdocker','nkdocker','[application]'],['mod','nkdocker','nkdocker_opts','NkDOCKER Options.'],['mod','nkdocker','nkdocker_sup',[]],['mod','nkdocker','nkdocker_util','Utility module.'],['fun','nkdocker','nkdocker_opts:parse_text/0',[]],['fun','nkdocker','nkdocker_util:remove_exited/1','Removes all exited containers.']];

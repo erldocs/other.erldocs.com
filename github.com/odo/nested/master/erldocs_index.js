@@ -1,1 +1,0 @@
-var index = [['app','nested','nested','[application]'],['mod','nested','nested',[]],['fun','nested','nested:append/3',[]],['fun','nested','nested:get/2',[]],['fun','nested','nested:get/3',[]],['fun','nested','nested:is_key/2',[]],['fun','nested','nested:keys/2',[]],['fun','nested','nested:put/3',[]],['fun','nested','nested:remove/2',[]],['fun','nested','nested:update/3',[]]];

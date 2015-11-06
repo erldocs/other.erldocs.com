@@ -1,1 +1,0 @@
-var index = [['app','robotparser','robotparser','[application]'],['mod','robotparser','robotparser',[]],['fun','robotparser','robotparser:is_allowed/1',[]],['fun','robotparser','robotparser:is_allowed/1',[]],['fun','robotparser','robotparser:parse/1',[]],['fun','robotparser','robotparser:parse/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','mixer-microbench','mixer-microbench','[application]'],['mod','mixer-microbench','mt',[]],['mod','mixer-microbench','mt_base',[]],['fun','mixer-microbench','mt:init_inline/1',[]],['fun','mixer-microbench','mt:init_wrap/1',[]],['fun','mixer-microbench','mt:time_n/2',[]],['fun','mixer-microbench','mt_base:init/1',[]]];

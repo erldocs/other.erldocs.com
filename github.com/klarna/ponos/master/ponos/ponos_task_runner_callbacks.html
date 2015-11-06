@@ -37,42 +37,70 @@
 
 
 <div class="description">
- </div></div>
+
+<p>Executed by the load generator when a task should be triggered,
+  according to the load generator's <code>load_spec</code>.</p>
+</div></div>
 <div class="function">
 <h3 id="concurrency_limit/3">concurrency_limit(CbMod, LoadGenName, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Executed by the load generator when a task was prevented from
+  being triggered by the <code>max_concurrent</code> option.</p>
+ 
+  <p>This only applies to load generators where the <code>max_concurrent</code>
+  option has been set to anything other than the default value of <code>0</code>.</p>
+ 
+  <p>This will only execute once every time the concurrency limit is
+  reached.</p>
+</div></div>
 <div class="function">
 <h3 id="init/3">init(CbMod, LoadGenName, Args) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Executed by the load generator during the init phase (i.e. in  
+the gen_server callback).</p>
+ 
+  <p>The return value is used as <code>State</code> for the task runner.</p>
+</div></div>
 <div class="function">
 <h3 id="pause/3">pause(CbMod, LoadGenName, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Executed by the load generator when beeing paused.</p>
+</div></div>
 <div class="function">
 <h3 id="start/3">start(CbMod, LoadGenName, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Executed by the load generator when starting (through
+  <code>ponos:init_load_generators()</code> or by setting the option <code>{auto_init,
+  true}</code>).</p>
+ 
+  <p>Apart from <a href="#init/3" class="seealso">init/3</a>, this is the only function where altering
+  the state of the task runner is allowed.</p>
+</div></div>
 <div class="function">
 <h3 id="terminate/3">terminate(CbMod, LoadGenName, State) -&gt; term()
 </h3>
 
 
 <div class="description">
- </div></div></div>
+
+<p>Executed by the load generator when terminating.</p>
+</div></div></div>
 
 <authors>
 

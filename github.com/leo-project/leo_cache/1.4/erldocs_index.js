@@ -1,1 +1,0 @@
-var index = [['app','leo_cache','leo_cache','[application]'],['mod','leo_cache','leo_cache_app',[]],['mod','leo_cache','leo_cache_sup',[]],['fun','leo_cache','leo_cache_app:start/2',[]],['fun','leo_cache','leo_cache_app:stop/1',[]],['fun','leo_cache','leo_cache_sup:init/1',[]],['fun','leo_cache','leo_cache_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','mcs','mcs','[application]'],['mod','mcs','mcnetclient_app',[]],['mod','mcs','mcnetclient_sup',[]],['fun','mcs','mcnetclient_app:start/2',[]],['fun','mcs','mcnetclient_app:stop/1',[]],['fun','mcs','mcnetclient_sup:init/1',[]],['fun','mcs','mcnetclient_sup:start_link/0',[]]];

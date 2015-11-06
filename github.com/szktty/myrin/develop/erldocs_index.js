@@ -1,1 +1,0 @@
-var index = [['app','myrin','myrin','[application]'],['mod','myrin','myrin',[]],['fun','myrin','myrin:myfunction/1',[]],['fun','myrin','myrin:new/0',[]]];

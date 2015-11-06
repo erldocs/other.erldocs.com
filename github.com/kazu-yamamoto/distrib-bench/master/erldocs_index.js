@@ -1,1 +1,0 @@
-var index = [['app','distrib-bench','distrib-bench','[application]'],['mod','distrib-bench','erlclient',[]],['mod','distrib-bench','erlserver',[]],['fun','distrib-bench','erlclient:start_client/1',[]],['fun','distrib-bench','erlserver:counter/0',[]],['fun','distrib-bench','erlserver:start_server/0',[]]];

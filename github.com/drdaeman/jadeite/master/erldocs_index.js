@@ -1,1 +1,0 @@
-var index = [['app','jadeite','jadeite','[application]'],['mod','jadeite','jadeite',[]],['mod','jadeite','jadeite_utils',[]],['fun','jadeite','jadeite_utils:split/2',[]],['fun','jadeite','jadeite_utils:text_length/1',[]],['fun','jadeite','jadeite_utils:text_length/2',[]]];

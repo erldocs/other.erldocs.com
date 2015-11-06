@@ -1,1 +1,0 @@
-var index = [['app','rebar_plugin_gitconf','rebar_plugin_gitconf','[application]'],['mod','rebar_plugin_gitconf','rebar_gitconf',[]],['fun','rebar_plugin_gitconf','rebar_gitconf:delete-configs/2',[]],['fun','rebar_plugin_gitconf','rebar_gitconf:get-configs/2',[]]];

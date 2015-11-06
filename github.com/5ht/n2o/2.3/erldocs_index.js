@@ -1,1 +1,0 @@
-var index = [['app','n2o','n2o','[application]'],['mod','n2o','n2o_app',[]],['mod','n2o','n2o_sup',[]],['mod','n2o','static_file',[]],['mod','n2o','wf_context',[]],['fun','n2o','n2o_app:start/2',[]],['fun','n2o','n2o_app:stop/1',[]],['fun','n2o','n2o_sup:init/1',[]],['fun','n2o','n2o_sup:start_link/0',[]]];

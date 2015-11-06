@@ -1,1 +1,0 @@
-var index = [['app','rembot','rembot','[application]'],['mod','rembot','bot',[]],['fun','rembot','bot:connect/0',[]],['fun','rembot','bot:loop/1',[]]];

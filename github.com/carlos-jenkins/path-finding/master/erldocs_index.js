@@ -1,1 +1,0 @@
-var index = [['app','path-finding','path-finding','[application]'],['mod','path-finding','board',[]],['mod','path-finding','search',[]],['fun','path-finding','board:start/0',[]]];

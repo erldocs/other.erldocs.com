@@ -1,1 +1,0 @@
-var index = [['app','distributed-key-value-store-example','distributed-key-value-store-example','[application]'],['mod','distributed-key-value-store-example','kvs_tests',[]]];

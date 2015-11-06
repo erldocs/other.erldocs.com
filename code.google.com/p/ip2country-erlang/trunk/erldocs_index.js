@@ -1,1 +1,0 @@
-var index = [['app','ip2country-erlang','ip2country-erlang','[application]'],['mod','ip2country-erlang','ip2country',[]]];

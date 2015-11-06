@@ -1,1 +1,0 @@
-var index = [['app','couchdb-xo_auth','couchdb-xo_auth','[application]'],['mod','couchdb-xo_auth','xo_auth_app',[]],['mod','couchdb-xo_auth','xo_auth_sup',[]],['fun','couchdb-xo_auth','xo_auth_app:start/2',[]],['fun','couchdb-xo_auth','xo_auth_app:stop/1',[]],['fun','couchdb-xo_auth','xo_auth_sup:init/1',[]],['fun','couchdb-xo_auth','xo_auth_sup:start_link/0',[]]];

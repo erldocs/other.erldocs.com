@@ -1,1 +1,0 @@
-var index = [['app','this_is_sparta','this_is_sparta','[application]'],['mod','this_is_sparta','this_is_sparta',[]],['fun','this_is_sparta','this_is_sparta:delete_all_buckets/0',[]]];

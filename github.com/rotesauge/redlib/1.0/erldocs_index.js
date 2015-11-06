@@ -1,1 +1,0 @@
-var index = [['app','redlib','redlib','[application]'],['mod','redlib','redlib',[]]];

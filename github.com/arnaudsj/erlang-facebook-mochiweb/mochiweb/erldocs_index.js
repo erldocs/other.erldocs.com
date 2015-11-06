@@ -1,1 +1,0 @@
-var index = [['app','erlang-facebook-mochiweb','erlang-facebook-mochiweb','[application]'],['mod','erlang-facebook-mochiweb','erlang_facebook','A simple Facebook Platform API interface in Erlang'],['fun','erlang-facebook-mochiweb','erlang_facebook:handle_call/3',[]],['fun','erlang-facebook-mochiweb','erlang_facebook:init/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlycombinator','erlycombinator','[application]'],['mod','erlycombinator','erlycombinator',[]]];

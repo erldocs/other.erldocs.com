@@ -1,1 +1,0 @@
-var index = [['app','common-test-template','common-test-template','[application]'],['mod','common-test-template','emacs_template_SUITE',[]]];

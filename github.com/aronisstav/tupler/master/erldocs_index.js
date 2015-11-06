@@ -1,1 +1,0 @@
-var index = [['app','tupler','tupler','[application]'],['mod','tupler','recorder',[]],['fun','tupler','recorder:analyze/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang-edi-parser','erlang-edi-parser','[application]'],['mod','erlang-edi-parser','editest',[]],['fun','erlang-edi-parser','editest:bench/2',[]],['fun','erlang-edi-parser','editest:bench2/1',[]],['fun','erlang-edi-parser','editest:start/0',[]]];

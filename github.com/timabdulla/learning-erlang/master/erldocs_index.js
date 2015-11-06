@@ -1,1 +1,0 @@
-var index = [['app','learning-erlang','learning-erlang','[application]'],['mod','learning-erlang','quicksort',[]]];

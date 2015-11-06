@@ -1,1 +1,0 @@
-var index = [['app','mom','mom','[application]'],['mod','mom','echo',[]],['mod','mom','msg_app',[]],['mod','mom','msg_sup',[]],['fun','mom','echo:me/1',[]],['fun','mom','msg_app:start/2',[]],['fun','mom','msg_app:start1/0',[]],['fun','mom','msg_app:start_web/0',[]],['fun','mom','msg_app:stop/1',[]],['fun','mom','msg_sup:init/1',[]],['fun','mom','msg_sup:start_link/0',[]]];

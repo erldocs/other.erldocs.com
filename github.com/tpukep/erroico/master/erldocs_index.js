@@ -1,1 +1,0 @@
-var index = [['app','erroico','erroico','[application]'],['mod','erroico','erroico',[]],['mod','erroico','erroico_pt',[]],['mod','erroico','erroico_pt_debug',[]],['fun','erroico','erroico:bind/3',[]],['fun','erroico','erroico:do/1',[]],['fun','erroico','erroico_pt:parse_transform/2',[]],['fun','erroico','erroico_pt_debug:parse_transform/2',[]]];

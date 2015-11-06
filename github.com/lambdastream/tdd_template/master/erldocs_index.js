@@ -1,1 +1,0 @@
-var index = [['app','tdd_template','tdd_template','[application]'],['mod','tdd_template','lstd_template','A module to handel string and file templates.'],['fun','tdd_template','lstd_template:parse/1',[]],['fun','tdd_template','lstd_template:string/2',[]],['fun','tdd_template','lstd_template:tokens/1',[]]];

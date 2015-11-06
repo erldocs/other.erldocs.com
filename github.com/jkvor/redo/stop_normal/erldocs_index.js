@@ -1,1 +1,0 @@
-var index = [['app','redo','redo','[application]'],['mod','redo','bench',[]],['mod','redo','redo_concurrency_test',[]],['mod','redo','redo_redis_proto',[]],['mod','redo','redo_uri',[]],['fun','redo','redo_concurrency_test:run/2',[]],['fun','redo','redo_redis_proto:package/1',[]],['fun','redo','redo_redis_proto:parse/1',[]],['fun','redo','redo_uri:parse/1',[]]];

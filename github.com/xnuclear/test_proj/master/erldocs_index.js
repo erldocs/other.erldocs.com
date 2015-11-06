@@ -1,1 +1,0 @@
-var index = [['app','test_proj','test_proj','[application]'],['mod','test_proj','jinkun',[]],['fun','test_proj','jinkun:run/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','beamruby','beamruby','[application]'],['mod','beamruby','beamruby',[]],['fun','beamruby','beamruby:eval/2',[]],['fun','beamruby','beamruby:new/0',[]],['fun','beamruby','beamruby:require/2',[]]];

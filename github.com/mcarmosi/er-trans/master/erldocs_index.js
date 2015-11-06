@@ -1,1 +1,0 @@
-var index = [['app','er-trans','er-trans','[application]'],['mod','er-trans','dfa',[]],['fun','er-trans','dfa:runDFA/3',[]],['fun','er-trans','dfa:start/1',[]]];

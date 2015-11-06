@@ -1,1 +1,0 @@
-var index = [['app','pts','pts','[application]'],['mod','pts','kv8_pts',[]],['fun','pts','kv8_pts:free/1',[]],['fun','pts','kv8_pts:get/2',[]],['fun','pts','kv8_pts:init/1',[]],['fun','pts','kv8_pts:put/3',[]]];

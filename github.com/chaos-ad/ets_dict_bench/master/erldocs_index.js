@@ -1,1 +1,0 @@
-var index = [['app','ets_dict_bench','ets_dict_bench','[application]'],['mod','ets_dict_bench','ets_dict_bench',[]]];

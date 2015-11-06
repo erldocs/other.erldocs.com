@@ -1,1 +1,0 @@
-var index = [['app','gitsy','gitsy','[application]'],['mod','gitsy','gitsy_app',[]],['mod','gitsy','gitsy_sup',[]],['fun','gitsy','gitsy_app:start/2',[]],['fun','gitsy','gitsy_app:stop/1',[]],['fun','gitsy','gitsy_sup:init/1',[]],['fun','gitsy','gitsy_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','hsnif','hsnif','[application]'],['mod','hsnif','hsnif',[]],['fun','hsnif','hsnif:clean/2',[]],['fun','hsnif','hsnif:compile/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','tree_experiments','tree_experiments','[application]'],['mod','tree_experiments','bisect',[]],['mod','tree_experiments','tree_prefix',[]],['mod','tree_experiments','trie_gb',[]]];

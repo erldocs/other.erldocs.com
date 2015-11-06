@@ -1,1 +1,0 @@
-var index = [['app','erlang-introduction-for-clojure-group','erlang-introduction-for-clojure-group','[application]'],['mod','erlang-introduction-for-clojure-group','dolphins',[]],['mod','erlang-introduction-for-clojure-group','kitchen',[]],['mod','erlang-introduction-for-clojure-group','let_it_crash',[]],['mod','erlang-introduction-for-clojure-group','sequence',[]]];

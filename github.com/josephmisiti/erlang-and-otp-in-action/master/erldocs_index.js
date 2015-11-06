@@ -1,1 +1,0 @@
-var index = [['app','erlang-and-otp-in-action','erlang-and-otp-in-action','[application]'],['mod','erlang-and-otp-in-action','my_module',[]],['fun','erlang-and-otp-in-action','my_module:pie/0',[]]];

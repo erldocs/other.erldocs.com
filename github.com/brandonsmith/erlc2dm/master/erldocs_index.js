@@ -1,1 +1,0 @@
-var index = [['app','c2dm','c2dm','[application]'],['mod','c2dm','c2dm_sup',[]],['fun','c2dm','c2dm_sup:init/1',[]],['fun','c2dm','c2dm_sup:start_link/0',[]],['app','erlc2dm','erlc2dm','[application]']];

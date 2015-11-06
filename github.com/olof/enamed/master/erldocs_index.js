@@ -1,1 +1,0 @@
-var index = [['app','enamed','enamed','[application]'],['mod','enamed','dnspkt',[]],['mod','enamed','dnsutils',[]],['mod','enamed','enamed',[]],['fun','enamed','dnspkt:decode/1',[]],['fun','enamed','dnspkt:encode/1',[]],['fun','enamed','dnsutils:domain_text/1',[]],['fun','enamed','enamed:start/0',[]],['fun','enamed','enamed:start/1',[]],['fun','enamed','enamed:worker/4',[]]];

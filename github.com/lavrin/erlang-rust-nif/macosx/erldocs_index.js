@@ -1,1 +1,0 @@
-var index = [['app','erlang-rust-nif','erlang-rust-nif','[application]'],['mod','erlang-rust-nif','er',[]],['fun','erlang-rust-nif','er:f/2',[]],['fun','erlang-rust-nif','er:load/0',[]]];

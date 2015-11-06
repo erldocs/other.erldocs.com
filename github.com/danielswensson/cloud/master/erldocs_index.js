@@ -1,1 +1,0 @@
-var index = [['app','cloud','cloud','[application]'],['mod','cloud','cloud_server',[]],['mod','cloud','file_handler',[]],['mod','cloud','test',[]],['fun','cloud','cloud_server:start/1',[]],['fun','cloud','file_handler:create_dir/1',[]],['fun','cloud','file_handler:create_file/2',[]],['fun','cloud','file_handler:start/1',[]],['fun','cloud','test:test/0',[]]];

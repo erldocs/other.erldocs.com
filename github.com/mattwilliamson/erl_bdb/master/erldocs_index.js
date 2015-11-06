@@ -1,1 +1,0 @@
-var index = [['app','erl_bdb','erl_bdb','[application]'],['mod','erl_bdb','bdb_store','.'],['fun','erl_bdb','bdb_store:start_link/0','  Starts the server.']];

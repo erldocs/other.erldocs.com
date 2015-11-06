@@ -1,1 +1,0 @@
-var index = [['app','bson-erlang','bson-erlang','[application]'],['mod','bson-erlang','bson_binary',[]],['mod','bson-erlang','bson_tests',[]],['fun','bson-erlang','bson_binary:get_cstring/1',[]],['fun','bson-erlang','bson_binary:get_document/1',[]],['fun','bson-erlang','bson_binary:put_cstring/1',[]],['fun','bson-erlang','bson_binary:put_document/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','advfunass1','advfunass1','[application]'],['mod','advfunass1','rally',[]],['fun','advfunass1','rally:maxspeed/2',[]],['fun','advfunass1','rally:move/2',[]],['fun','advfunass1','rally:nextlimit/1',[]],['fun','advfunass1','rally:rally/3',[]]];

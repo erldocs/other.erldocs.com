@@ -1,1 +1,0 @@
-var index = [['app','gnamb','gnamb','[application]'],['mod','gnamb','gnamb',[]],['mod','gnamb','mc_map',[]]];

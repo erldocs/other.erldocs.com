@@ -1,1 +1,0 @@
-var index = [['app','to_unicode','to_unicode','[application]'],['mod','to_unicode','to_unicode',[]],['fun','to_unicode','to_unicode:encode_to_utf8/2',[]],['fun','to_unicode','to_unicode:to_unicode/2',[]]];

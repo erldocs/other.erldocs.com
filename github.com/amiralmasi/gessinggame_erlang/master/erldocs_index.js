@@ -1,1 +1,0 @@
-var index = [['app','gessinggame_erlang','gessinggame_erlang','[application]'],['mod','gessinggame_erlang','game',[]],['fun','gessinggame_erlang','game:start/0',[]]];

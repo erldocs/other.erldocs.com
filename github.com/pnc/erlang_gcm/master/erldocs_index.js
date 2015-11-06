@@ -1,1 +1,0 @@
-var index = [['app','erlang_gcm','erlang_gcm','[application]'],['mod','erlang_gcm','gcm',[]],['fun','erlang_gcm','gcm:send/2',[]],['fun','erlang_gcm','gcm:send/3',[]],['fun','erlang_gcm','gcm:send/4',[]]];

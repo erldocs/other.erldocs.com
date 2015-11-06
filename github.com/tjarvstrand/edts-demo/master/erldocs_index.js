@@ -1,1 +1,0 @@
-var index = [['app','edts-demo','edts-demo','[application]'],['mod','edts-demo','one',[]],['mod','edts-demo','one_two',[]],['mod','edts-demo','two',[]],['fun','edts-demo','one:one/1',[]],['fun','edts-demo','one_two:one_two_fun/1',[]],['fun','edts-demo','two:two_fun/0',[]]];

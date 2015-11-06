@@ -1,1 +1,0 @@
-var index = [['app','make2','make2','[application]'],['mod','make2','make2',[]],['fun','make2','make2:all/0',[]],['fun','make2','make2:all/1',[]],['fun','make2','make2:all/2',[]],['fun','make2','make2:color_qry/1',[]],['fun','make2','make2:files/1',[]],['fun','make2','make2:files/2',[]],['fun','make2','make2:format_error/1',[]]];

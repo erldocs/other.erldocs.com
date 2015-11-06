@@ -1,1 +1,0 @@
-var index = [['app','make-proxy','make-proxy','[application]'],['mod','make-proxy','transform',[]],['fun','make-proxy','transform:transform/1',[]]];

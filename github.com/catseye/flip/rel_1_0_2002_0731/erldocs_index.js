@@ -1,1 +1,0 @@
-var index = [['app','flip','flip','[application]'],['mod','flip','flip','The venerable and ancient computer game of FLIP.'],['fun','flip','flip:start/0','Plays a game of FLIP.']];

@@ -1,1 +1,0 @@
-var index = [['app','erl-glicko2','erl-glicko2','[application]'],['mod','erl-glicko2','glicko2',[]],['fun','erl-glicko2','glicko2:configuration/3',[]],['fun','erl-glicko2','glicko2:phi_star/2',[]],['fun','erl-glicko2','glicko2:rate/4',[]],['fun','erl-glicko2','glicko2:rate/5',[]],['fun','erl-glicko2','glicko2:read_config/1',[]]];

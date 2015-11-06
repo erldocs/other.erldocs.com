@@ -1,1 +1,0 @@
-var index = [['app','etudes-for-erlang','etudes-for-erlang','[application]'],['mod','etudes-for-erlang','convert',[]],['mod','etudes-for-erlang','drop',[]],['fun','etudes-for-erlang','convert:mps_to_kph/1',[]],['fun','etudes-for-erlang','convert:mps_to_mph/1',[]],['fun','etudes-for-erlang','drop:fall_velocity/1',[]]];

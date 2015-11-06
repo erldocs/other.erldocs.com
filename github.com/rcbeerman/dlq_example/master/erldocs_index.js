@@ -1,1 +1,0 @@
-var index = [['app','dlq_example','dlq_example','[application]'],['mod','dlq_example','dlquery_scan',[]],['fun','dlq_example','dlquery_scan:scan/1',[]]];

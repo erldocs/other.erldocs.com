@@ -124,8 +124,25 @@
 <div class="description">
 
 <p>Creates an artificial neural network from a previously saved file.
-  See the FANN documentation of create_standard:
-  <url href="http://libfann.github.io/fann/docs/files/fann_io-h.html#fann_create_from_file">http://libfann.github.io/fann/docs/files/fann_io-h.html#fann_create_from_file</url></p>
+  See
+  <url href="http://libfann.github.io/fann/docs/files/fann_io-h.html#fann_create_from_file">http://libfann.github.io/fann/docs/files/fann_io-h.html#fann_create_from_file</url>.</p>
+</div></div>
+<div class="function">
+<h3 id="copy/1">copy(Network::network_ref()) -&gt; network_ref()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#copy_on/2" class="seealso">copy_on(fannerl, Network)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="copy_on/2">copy_on(Instance, Network) -&gt; term()
+</h3>
+
+
+<div class="description">
+
+<p>Creates a copy of a fann structure. See
+  <url href="http://libfann.github.io/fann/docs/files/fann-h.html#fann_copy">http://libfann.github.io/fann/docs/files/fann-h.html#fann_copy</url>.</p>
 </div></div>
 <div class="function">
 <h3 id="destroy/1">destroy(Network::network_ref) -&gt; ok</h3>
@@ -161,131 +178,177 @@
        training data. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train_epoch">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train_epoch</url></p>
 </div></div>
 <div class="function">
-<h3 id="train/3">train(Ref, Input, DesiredOutput) -&gt; term()
-</h3>
+<h3 id="train/1">train(Network::network_ref(), Input::tuple(), DesiredOutput::tuple()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#train_on/4" class="seealso">train_on(fannerl, Network, Input, DesiredOutput)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="train/4">train(Instance, Ref, Input, DesiredOutput) -&gt; term()
-</h3>
+<h3 id="train_on/1">train_on(Instance::pid(), Network::network_ref(), Input::tuple(), DesiredOutput::tuple()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Train one iteration with a set of inputs, and a set of desired outputs.
+  This training is always incremental training (see fann_train_enum),
+  since only one pattern is presented. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="train_on_file/4">train_on_file(Ref, FileName, MaxEpochs, DesiredError) -&gt; term()
-</h3>
+<h3 id="train_on_data/1">train_on_data(Network::network_ref(), Train::train_ref(), MaxEpochs::non_neg_integer(), DesiredError::number()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#train_on_data_on/5" class="seealso">train_on_data_on(fannerl, Network, Train, MaxEpochs,
+		 DesiredError)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="train_on_file/5">train_on_file(Instance, Ref, FileName, MaxEpochs, DesiredError) -&gt; term()
-</h3>
+<h3 id="train_on_data_on/1">train_on_data_on(Instance::pid(), Network::network_ref(), Train::train_ref(), MaxEpochs::non_neg_integer(), DesiredError::number()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Trains on an entire dataset, for a chosen period of time. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train_on_data">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train_on_data</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="test/2">test(Ref, TrainRef) -&gt; term()
-</h3>
+<h3 id="train_on_file/1">train_on_file(Network::network_ref(), FileName::string(), MaxEpochs::non_neg_integer(), DesiredError::number()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#train_on_file_on/5" class="seealso">train_on_file_on(fannerl, Network, FileName, MaxEpochs,
+		 DesiredError)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="test/3">test(Instance, Ref, TrainRef) -&gt; term()
-</h3>
+<h3 id="train_on_file_on/1">train_on_file_on(Instance::pid(), Network::network_ref(), FileName::string(), MaxEpochs::non_neg_integer(), DesiredError::number()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Does the same as train_on_data_on/5, but reads the training data directly from a file. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train_on_file">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_train_on_file</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="test/4">test(Instance, Ref, Input, DesiredOutput) -&gt; term()
-</h3>
+<h3 id="test_data/1">test_data(Network::network_ref(), Train::train_ref()) -&gt; {ok, MeanSquareError::number()}</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#test_data/3" class="seealso">test_data(fannerl, Network, Train)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="read_train_from_file/1">read_train_from_file(FileName) -&gt; term()
-</h3>
+<h3 id="test_data_on/1">test_data_on(Instance::pid(), Network::network_ref(), Train::train_ref()) -&gt; {ok, MeanSquareError::number()}</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Test a set of training data and calculates the MSE for the training data. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_test_data">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_test_data</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="read_train_from_file/2">read_train_from_file(Instance, FileName) -&gt; term()
-</h3>
+<h3 id="test/1">test(Network::network_ref(), Input::tuple(), DesiredOutput::tuple()) -&gt; Output::tuple()</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#test_on/4" class="seealso">test_on(fannerl, Network, Input, DesiredOutput)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="shuffle_train/1">shuffle_train(TrainRef) -&gt; term()
-</h3>
+<h3 id="test_on/1">test_on(Instance::pid(), Network::network_ref(), Input::tuple(), DesiredOutput::tuple()) -&gt; Output::tuple()</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Test with a set of inputs, and a set of desired outputs.  This operation updates the mean square error, but does not change the network in any way. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_test">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_test</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="shuffle_train/2">shuffle_train(Instance, TrainRef) -&gt; term()
-</h3>
+<h3 id="read_train_from_file/1">read_train_from_file(Filename::string()) -&gt; train_ref()</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#read_train_from_file_on/2" class="seealso">read_train_from_file_on(fannerl, Filename)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="run/2">run(Ref, Input) -&gt; term()
-</h3>
+<h3 id="read_train_from_file_on/1">read_train_from_file_on(Instance::pid(), Filename::string()) -&gt; train_ref()</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Reads a file that stores training data. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_read_train_from_file">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_read_train_from_file</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="save/2">save(Ref, FileName) -&gt; term()
-</h3>
+<h3 id="shuffle_train/1">shuffle_train(Train::train_ref()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#shuffle_train_on/2" class="seealso">shuffle_train_on(fannerl, Train)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="save/3">save(Instance, Ref, FileName) -&gt; term()
-</h3>
+<h3 id="shuffle_train_on/1">shuffle_train_on(Instance::pid(), Train::train_ref()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Shuffles training data, randomizing the order.  This is recommended for incremental training, while it has no influence during batch training. See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_shuffle_train_data">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_shuffle_train_data</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="subset_train_data/3">subset_train_data(TrainRef, Pos, Length) -&gt; term()
-</h3>
+<h3 id="run/1">run(Network::network_ref(), Input::tuple()) -&gt; tuple()</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#run_on/3" class="seealso">run_on(fannerl, Network, Input)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="subset_train_data/4">subset_train_data(Instance, TrainRef, Pos, Length) -&gt; term()
-</h3>
+<h3 id="run_on/1">run_on(Instance::pid(), Network::network_ref(), Input::tuple()) -&gt; tuple()</h3>
 
 
 <div class="description">
- </div></div>
+
+<p>Will run input through the neural network, returning a tuple of outputs, the number of which being equal to the number of neurons in the output layer. See <url href="http://libfann.github.io/fann/docs/files/fann-h.html#fann_run">http://libfann.github.io/fann/docs/files/fann-h.html#fann_run</url>.</p>
+</div></div>
 <div class="function">
-<h3 id="get_params/1">get_params(Ref) -&gt; term()
-</h3>
+<h3 id="save/1">save(Network::network_ref(), FileName::string()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div>
+<p>Equivalent to <a href="#save_on/2" class="seealso">save_on(fannerl, FileName)</a>.</p>
+</div></div>
 <div class="function">
-<h3 id="get_params/2">get_params(Instance, Ref) -&gt; term()
-</h3>
+<h3 id="save_on/1">save_on(Instance::pid(), Network::network_ref(), FileName::string()) -&gt; ok</h3>
 
 
 <div class="description">
- </div></div></div>
+
+<p>Save the entire network to a configuration file.
+  See <url href="http://libfann.github.io/fann/docs/files/fann_io-h.html#fann_save">http://libfann.github.io/fann/docs/files/fann_io-h.html#fann_save</url>.</p>
+</div></div>
+<div class="function">
+<h3 id="subset_train_data/1">subset_train_data(Train::train_ref(), Pos::non_neg_integer(), Length::non_neg_integer()) -&gt; train_ref()</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#subset_train_data_on/4" class="seealso">subset_train_data_on(fannerl, Train, Pos, Length)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="subset_train_data_on/1">subset_train_data_on(Instance::pid(), Train::train_ref(), Pos::non_neg_integer(), Length::non_neg_integer()) -&gt; train_ref()</h3>
+
+
+<div class="description">
+
+<p>Returns an copy of a subset of the struct fann_train_data, starting
+  at position pos and length elements forward.
+  See <url href="http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_subset_train_data">http://libfann.github.io/fann/docs/files/fann_train-h.html#fann_subset_train_data</url>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_params/1">get_params(Network::network_ref()) -&gt; #{}</h3>
+
+
+<div class="description">
+<p>Equivalent to <a href="#get_params_on/2" class="seealso">get_params_on(fannerl, Network)</a>.</p>
+</div></div>
+<div class="function">
+<h3 id="get_params_on/1">get_params_on(Instance::pid(), Network::network_ref()) -&gt; #{}</h3>
+
+
+<div class="description">
+
+<p>Fetch all the parameters associated with the neural network.</p>
+</div></div></div>
 
 <authors>
 

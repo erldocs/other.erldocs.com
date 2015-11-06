@@ -1,1 +1,0 @@
-var index = [['app','emonk','emonk','[application]'],['mod','emonk','emonk',[]],['fun','emonk','emonk:call/3',[]],['fun','emonk','emonk:call/4',[]],['fun','emonk','emonk:create_ctx/0',[]],['fun','emonk','emonk:create_ctx/1',[]],['fun','emonk','emonk:eval/2',[]],['fun','emonk','emonk:eval/3',[]],['fun','emonk','emonk:send/3',[]],['fun','emonk','emonk:send/4',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','distributed','distributed','[application]'],['mod','distributed','key_value_node',[]],['mod','distributed','philosopher',[]],['fun','distributed','key_value_node:is_my_process/3',[]],['fun','distributed','key_value_node:main/1',[]],['fun','distributed','key_value_node:storage_process_init/3',[]],['fun','distributed','philosopher:main/1',[]]];

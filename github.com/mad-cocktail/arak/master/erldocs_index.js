@@ -1,1 +1,0 @@
-var index = [['app','arak','arak','[application]'],['mod','arak','arak',[]],['fun','arak','arak:parse_transform/2',[]]];

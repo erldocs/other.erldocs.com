@@ -1,1 +1,0 @@
-var index = [['app','gen_wx','gen_wx','[application]'],['mod','gen_wx','gen_wx',[]],['fun','gen_wx','gen_wx:go/0',[]],['fun','gen_wx','gen_wx:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erequest_id','erequest_id','[application]'],['mod','erequest_id','erequest_id',[]],['fun','erequest_id','erequest_id:create/0','Create a new Request ID.'],['fun','erequest_id','erequest_id:validate/2','  Validate that the request ID is valid, that mea']];

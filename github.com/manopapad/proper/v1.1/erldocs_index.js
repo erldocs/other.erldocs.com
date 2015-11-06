@@ -1,1 +1,0 @@
-var index = [['app','proper','proper','[application]'],['mod','proper','strip_types','A parse transform that removes all type-related an']];

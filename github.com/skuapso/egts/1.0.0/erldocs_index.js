@@ -1,1 +1,0 @@
-var index = [['app','egts','egts','[application]'],['mod','egts','egts_crc','.'],['mod','egts','egts_reg','.'],['fun','egts','egts_crc:crc16/1',[]],['fun','egts','egts_crc:crc8/1',[]],['fun','egts','egts_reg:pid/1',[]],['fun','egts','egts_reg:register/2',[]],['fun','egts','egts_reg:start_link/0','  Starts the server.']];

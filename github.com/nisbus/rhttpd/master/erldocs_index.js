@@ -1,1 +1,0 @@
-var index = [['app','rhttpd','rhttpd','[application]'],['mod','rhttpd','rhttpd',[]],['fun','rhttpd','rhttpd:get_version/0',[]],['fun','rhttpd','rhttpd:welcome/0',[]]];

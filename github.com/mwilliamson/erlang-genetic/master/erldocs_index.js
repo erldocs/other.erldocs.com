@@ -1,1 +1,0 @@
-var index = [['app','erlang-genetic','erlang-genetic','[application]'],['mod','erlang-genetic','genetic',[]]];

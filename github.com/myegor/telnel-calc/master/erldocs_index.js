@@ -1,1 +1,0 @@
-var index = [['app','telnel-calc','telnel-calc','[application]'],['mod','telnel-calc','netcalc_app',[]],['mod','telnel-calc','netcalc_sup',[]],['fun','telnel-calc','netcalc_app:start/2',[]],['fun','telnel-calc','netcalc_app:stop/1',[]],['fun','telnel-calc','netcalc_sup:init/1',[]],['fun','telnel-calc','netcalc_sup:start_link/0',[]]];

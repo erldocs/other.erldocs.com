@@ -1,1 +1,0 @@
-var index = [['app','erlang_irc_bot','erlang_irc_bot','[application]'],['mod','erlang_irc_bot','irc',[]],['fun','erlang_irc_bot','irc:connect/4',[]]];

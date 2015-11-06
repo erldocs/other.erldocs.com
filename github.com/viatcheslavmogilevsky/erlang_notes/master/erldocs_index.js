@@ -1,1 +1,0 @@
-var index = [['app','erlang_notes','erlang_notes','[application]'],['mod','erlang_notes','my_lists',[]],['fun','erlang_notes','my_lists:critical_path/1',[]],['fun','erlang_notes','my_lists:kth/2',[]],['fun','erlang_notes','my_lists:max/1',[]]];

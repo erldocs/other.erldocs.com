@@ -1,1 +1,0 @@
-var index = [['app','erl-dbmodel','erl-dbmodel','[application]'],['mod','erl-dbmodel','db',[]],['fun','erl-dbmodel','db:insert/1',[]],['fun','erl-dbmodel','db:select/1',[]],['fun','erl-dbmodel','db:select/2',[]],['fun','erl-dbmodel','db:select_one/1',[]],['fun','erl-dbmodel','db:select_one/2',[]],['fun','erl-dbmodel','db:set_db/1',[]],['fun','erl-dbmodel','db:update/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','rst','rst','[application]'],['mod','rst','rst',[]],['fun','rst','rst:config_to_string/1',[]],['fun','rst','rst:start_application/2',[]],['fun','rst','rst:start_node/3',[]],['fun','rst','rst:start_riak/1',[]]];

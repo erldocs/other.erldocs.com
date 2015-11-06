@@ -1,1 +1,0 @@
-var index = [['app','sql2erl','sql2erl','[application]'],['mod','sql2erl','sql2erl',[]],['mod','sql2erl','sql2erl_app',[]],['mod','sql2erl','sql2erl_sup',[]],['fun','sql2erl','sql2erl_app:start/2',[]],['fun','sql2erl','sql2erl_app:stop/1',[]],['fun','sql2erl','sql2erl_sup:init/1',[]],['fun','sql2erl','sql2erl_sup:start_link/0',[]]];

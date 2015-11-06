@@ -1,1 +1,0 @@
-var index = [['app','coding-game','coding-game','[application]'],['mod','coding-game','main',[]],['mod','coding-game','refactor_me',[]],['mod','coding-game','refactor_me_tests',[]],['fun','coding-game','main:run_tests/0',[]],['fun','coding-game','refactor_me:get_user_data/3',[]],['fun','coding-game','refactor_me:register_user/6',[]]];

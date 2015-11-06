@@ -1,1 +1,0 @@
-var index = [['app','emoize','emoize','[application]'],['mod','emoize','emo',[]],['mod','emoize','emoize_app',[]],['fun','emoize','emo:apply/3',[]],['fun','emoize','emo:get_members/0',[]],['fun','emoize','emo:start/0',[]],['fun','emoize','emo:stop/0',[]],['fun','emoize','emoize_app:start/2',[]],['fun','emoize','emoize_app:stop/1',[]]];

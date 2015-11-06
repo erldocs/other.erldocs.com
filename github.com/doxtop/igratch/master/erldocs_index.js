@@ -1,1 +1,0 @@
-var index = [['app','igratch','igratch','[application]'],['app','web','web','[application]'],['mod','web','gm',[]],['mod','web','web_app',[]],['fun','web','web_app:start/2',[]],['fun','web','web_app:stop/1',[]]];

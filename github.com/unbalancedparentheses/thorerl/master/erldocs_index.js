@@ -1,1 +1,0 @@
-var index = [['app','thorerl','thorerl','[application]'],['mod','thorerl','thorerl',[]],['fun','thorerl','thorerl:parse/3',[]]];

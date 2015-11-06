@@ -1,1 +1,0 @@
-var index = [['app','peerpresence','peerpresence','[application]'],['mod','peerpresence','peerpresence_app',[]],['mod','peerpresence','peerpresence_sup',[]],['fun','peerpresence','peerpresence_app:start/2',[]],['fun','peerpresence','peerpresence_app:stop/1',[]],['fun','peerpresence','peerpresence_sup:init/1',[]],['fun','peerpresence','peerpresence_sup:start_link/0',[]]];

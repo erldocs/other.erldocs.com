@@ -1,1 +1,0 @@
-var index = [['app','skerl','skerl','[application]'],['mod','skerl','skerl',[]],['fun','skerl','skerl:final/1',[]],['fun','skerl','skerl:hash/1',[]],['fun','skerl','skerl:hexhash/2',[]],['fun','skerl','skerl:init/0',[]],['fun','skerl','skerl:init/1',[]],['fun','skerl','skerl:update/2',[]]];

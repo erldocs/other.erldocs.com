@@ -1,1 +1,0 @@
-var index = [['app','ptrans','ptrans','[application]'],['mod','ptrans','gproc_pt',[]],['mod','ptrans','pl2rec',[]],['fun','ptrans','gproc_pt:parse_transform/2',[]],['fun','ptrans','pl2rec:parse_transform/2',[]]];

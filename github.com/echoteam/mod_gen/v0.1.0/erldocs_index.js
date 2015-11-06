@@ -1,1 +1,0 @@
-var index = [['app','mod_gen','mod_gen','[application]'],['mod','mod_gen','mod_gen',[]],['fun','mod_gen','mod_gen:go/1',[]]];

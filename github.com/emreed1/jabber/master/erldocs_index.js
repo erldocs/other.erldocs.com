@@ -1,1 +1,0 @@
-var index = [['app','jabber','jabber','[application]'],['mod','jabber','chat_server',[]],['fun','jabber','chat_server:listen/1',[]]];

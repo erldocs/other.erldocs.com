@@ -1,1 +1,0 @@
-var index = [['app','geoerl','geoerl','[application]'],['mod','geoerl','geo',[]],['fun','geoerl','geo:woeid/1',[]],['fun','geoerl','geo:woeid/2',[]],['fun','geoerl','geo:woeid_query/1',[]]];

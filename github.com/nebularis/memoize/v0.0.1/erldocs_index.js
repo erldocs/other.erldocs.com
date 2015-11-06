@@ -1,1 +1,0 @@
-var index = [['app','memoize','memoize','[application]'],['mod','memoize','memoize',[]],['fun','memoize','memoize:around_advice/4',[]],['fun','memoize','memoize:init/1',[]]];

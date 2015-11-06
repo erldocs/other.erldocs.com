@@ -1,1 +1,0 @@
-var index = [['app','ucpyrl','ucpyrl','[application]'],['mod','ucpyrl','ucpyrl',[]],['fun','ucpyrl','ucpyrl:init/1',[]],['fun','ucpyrl','ucpyrl:start/0',[]],['fun','ucpyrl','ucpyrl:start/2',[]],['fun','ucpyrl','ucpyrl:stop/0',[]],['fun','ucpyrl','ucpyrl:stop/1',[]],['fun','ucpyrl','ucpyrl:test/0',[]]];

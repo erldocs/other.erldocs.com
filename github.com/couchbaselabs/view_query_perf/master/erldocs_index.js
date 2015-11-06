@@ -1,1 +1,0 @@
-var index = [['app','view_query_perf','view_query_perf','[application]'],['mod','view_query_perf','view_query_perf',[]],['fun','view_query_perf','view_query_perf:main/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','tictactoe','tictactoe','[application]'],['mod','tictactoe','tictactoe',[]],['fun','tictactoe','tictactoe:client/2',[]],['fun','tictactoe','tictactoe:register_client/0',[]],['fun','tictactoe','tictactoe:start_server/0',[]]];

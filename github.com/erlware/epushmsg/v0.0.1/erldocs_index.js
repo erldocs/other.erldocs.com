@@ -1,1 +1,0 @@
-var index = [['app','epushmsg','epushmsg','[application]'],['mod','epushmsg','epushmsg','    An Erlang API for Urban Airship mobile push n'],['fun','epushmsg','epushmsg:new_params/0',[]],['fun','epushmsg','epushmsg:new_params/1',[]],['fun','epushmsg','epushmsg:new_params/1',[]],['fun','epushmsg','epushmsg:push/1',[]]];

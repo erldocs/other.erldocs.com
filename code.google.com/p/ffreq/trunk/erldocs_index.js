@@ -1,1 +1,0 @@
-var index = [['app','ffreq','ffreq','[application]'],['mod','ffreq','ffreq',[]],['fun','ffreq','ffreq:add_file/3',[]],['fun','ffreq','ffreq:get_dict/1',[]],['fun','ffreq','ffreq:print/2',[]],['fun','ffreq','ffreq:start/0',[]],['fun','ffreq','ffreq:wait_file/3',[]]];

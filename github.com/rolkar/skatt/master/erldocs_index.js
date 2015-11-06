@@ -1,1 +1,0 @@
-var index = [['app','skatt','skatt','[application]'],['mod','skatt','skatt',[]],['fun','skatt','skatt:skatt/1',[]]];

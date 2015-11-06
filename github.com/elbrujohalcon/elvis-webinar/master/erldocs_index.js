@@ -1,1 +1,0 @@
-var index = [['app','elvis-webinar','elvis-webinar','[application]'],['mod','elvis-webinar','webinar',[]],['fun','elvis-webinar','webinar:invitation/0',[]],['fun','elvis-webinar','webinar:name/0',[]],['fun','elvis-webinar','webinar:speaker/0',[]]];

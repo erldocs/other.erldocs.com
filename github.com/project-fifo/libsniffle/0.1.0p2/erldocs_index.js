@@ -1,1 +1,0 @@
-var index = [['app','libsniffle','libsniffle','[application]'],['mod','libsniffle','libsniffle_app',[]],['mod','libsniffle','libsniffle_sup',[]],['fun','libsniffle','libsniffle_app:start/2',[]],['fun','libsniffle','libsniffle_app:stop/1',[]],['fun','libsniffle','libsniffle_sup:init/1',[]],['fun','libsniffle','libsniffle_sup:start_link/0',[]]];

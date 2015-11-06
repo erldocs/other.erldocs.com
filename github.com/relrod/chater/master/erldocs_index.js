@@ -1,1 +1,0 @@
-var index = [['app','chater','chater','[application]'],['mod','chater','chatter_client',[]],['mod','chater','chatter_router',[]],['fun','chater','chatter_client:send_message/3',[]],['fun','chater','chatter_router:route_message/0',[]],['fun','chater','chatter_router:send_msg/3',[]],['fun','chater','chatter_router:start/0',[]],['fun','chater','chatter_router:stop/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlangdc-hacknight-jan2012','erlangdc-hacknight-jan2012','[application]'],['mod','erlangdc-hacknight-jan2012','client',[]],['mod','erlangdc-hacknight-jan2012','hub',[]],['fun','erlangdc-hacknight-jan2012','client:send_message/2',[]],['fun','erlangdc-hacknight-jan2012','client:start/1',[]],['fun','erlangdc-hacknight-jan2012','hub:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','blank_page','blank_page','[application]'],['mod','blank_page','blank_page',[]],['mod','blank_page','toppage_handler','Blank handler.'],['fun','blank_page','blank_page:start/0',[]],['fun','blank_page','toppage_handler:handle/2',[]],['fun','blank_page','toppage_handler:init/3',[]],['fun','blank_page','toppage_handler:terminate/3',[]]];

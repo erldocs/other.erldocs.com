@@ -1,1 +1,0 @@
-var index = [['app','spat','spat','[application]'],['mod','spat','dn',[]],['mod','spat','region',[]],['mod','spat','sad_forgotten_code',[]],['mod','spat','speck',[]]];

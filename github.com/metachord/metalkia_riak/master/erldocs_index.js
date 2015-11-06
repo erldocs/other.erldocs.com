@@ -1,1 +1,0 @@
-var index = [['app','metalkia_riak','metalkia_riak','[application]'],['mod','metalkia_riak','mtriak_app',[]],['fun','metalkia_riak','mtriak_app:get_env/2',[]],['fun','metalkia_riak','mtriak_app:start/2',[]],['fun','metalkia_riak','mtriak_app:stop/1',[]]];

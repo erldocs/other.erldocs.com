@@ -1,1 +1,0 @@
-var index = [['app','erlang_snmp_reduction_issue','erlang_snmp_reduction_issue','[application]'],['mod','erlang_snmp_reduction_issue','reds',[]]];

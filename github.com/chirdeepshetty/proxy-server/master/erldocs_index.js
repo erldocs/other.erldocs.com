@@ -1,1 +1,0 @@
-var index = [['app','proxy-server','proxy-server','[application]'],['mod','proxy-server','datetimeformat',[]],['mod','proxy-server','ipformat',[]],['mod','proxy-server','systeminfo',[]],['fun','proxy-server','datetimeformat:format/1',[]],['fun','proxy-server','ipformat:format/1',[]],['fun','proxy-server','systeminfo:getenv/1',[]]];

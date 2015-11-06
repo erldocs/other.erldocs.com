@@ -1,1 +1,0 @@
-var index = [['app','vs-a4','vs-a4','[application]'],['mod','vs-a4','coordinator',[]],['mod','vs-a4','dataqueue',[]],['mod','vs-a4','receiver',[]],['mod','vs-a4','sender',[]],['mod','vs-a4','utilities',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','elli_debug','elli_debug','[application]'],['mod','elli_debug','elli_debug',[]],['fun','elli_debug','elli_debug:access_log/1','Enable or disable a debug access log.'],['fun','elli_debug','elli_debug:handle/2',[]],['fun','elli_debug','elli_debug:handle_event/3',[]]];

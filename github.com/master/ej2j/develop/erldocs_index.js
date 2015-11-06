@@ -1,1 +1,0 @@
-var index = [['app','ej2j','ej2j','[application]'],['mod','ej2j','ej2j','Application.'],['fun','ej2j','ej2j:get_app_env/1',[]],['fun','ej2j','ej2j:init/1',[]],['fun','ej2j','ej2j:start/1',[]],['fun','ej2j','ej2j:stop/1',[]]];

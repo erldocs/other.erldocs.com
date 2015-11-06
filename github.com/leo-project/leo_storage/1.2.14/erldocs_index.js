@@ -1,1 +1,0 @@
-var index = [['app','leo_storage','leo_storage','[application]'],['mod','leo_storage','leo_storage_sup',[]],['fun','leo_storage','leo_storage_sup:start_link/0','start link...'],['fun','leo_storage','leo_storage_sup:stop/0','stop process.']];

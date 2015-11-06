@@ -1,1 +1,0 @@
-var index = [['app','kafka2file','kafka2file','[application]'],['mod','kafka2file','kafka2file',[]],['fun','kafka2file','kafka2file:aggregate_element/1',[]],['fun','kafka2file','kafka2file:handle_messages/3',[]],['fun','kafka2file','kafka2file:handle_periodic_aggregate/1',[]],['fun','kafka2file','kafka2file:init/2',[]]];

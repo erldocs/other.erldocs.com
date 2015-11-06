@@ -1,1 +1,0 @@
-var index = [['app','rebar3_protobuf','rebar3_protobuf','[application]'],['mod','rebar3_protobuf','protobuf',[]],['mod','rebar3_protobuf','protobuf_prv',[]],['fun','rebar3_protobuf','protobuf:init/1',[]],['fun','rebar3_protobuf','protobuf_prv:do/1',[]],['fun','rebar3_protobuf','protobuf_prv:format_error/1',[]],['fun','rebar3_protobuf','protobuf_prv:init/1',[]]];

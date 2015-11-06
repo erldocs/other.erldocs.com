@@ -1,1 +1,0 @@
-var index = [['app','cookie_session','cookie_session','[application]'],['mod','cookie_session','cowboy_cookie_session',[]],['fun','cookie_session','cowboy_cookie_session:execute/2',[]],['fun','cookie_session','cowboy_cookie_session:get_session/1',[]],['fun','cookie_session','cowboy_cookie_session:set_session/1',[]]];

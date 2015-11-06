@@ -1,1 +1,0 @@
-var index = [['app','pie','pie','[application]'],['mod','pie','pie',[]],['fun','pie','pie:gpio_init/2',[]],['fun','pie','pie:gpio_read/1',[]],['fun','pie','pie:gpio_release/1',[]],['fun','pie','pie:gpio_write/2',[]]];

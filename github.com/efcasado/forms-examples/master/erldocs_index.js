@@ -1,1 +1,0 @@
-var index = [['app','forms-examples','forms-examples','[application]'],['mod','forms-examples','censor',[]],['mod','forms-examples','speaker',[]],['fun','forms-examples','censor:parse_transform/2',[]],['fun','forms-examples','speaker:talk/0',[]]];

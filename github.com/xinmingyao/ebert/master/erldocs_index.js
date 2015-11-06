@@ -1,1 +1,0 @@
-var index = [['app','ebert','ebert','[application]'],['mod','ebert','ebert_app',[]],['mod','ebert','ebert_sup',[]],['fun','ebert','ebert_app:start/2',[]],['fun','ebert','ebert_app:stop/1',[]],['fun','ebert','ebert_sup:init/1',[]],['fun','ebert','ebert_sup:start_link/0',[]]];

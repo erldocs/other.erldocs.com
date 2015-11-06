@@ -1,1 +1,0 @@
-var index = [['app','smk_api_docs','smk_api_docs','[application]'],['mod','smk_api_docs','smk_docs',[]],['fun','smk_api_docs','smk_docs:build/1',[]],['fun','smk_api_docs','smk_docs:build_site/1',[]]];

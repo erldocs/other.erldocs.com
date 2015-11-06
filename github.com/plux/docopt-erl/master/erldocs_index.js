@@ -1,1 +1,0 @@
-var index = [['app','docopt-erl','docopt-erl','[application]'],['mod','docopt-erl','docopt','.']];

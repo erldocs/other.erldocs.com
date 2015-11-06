@@ -1,1 +1,0 @@
-var index = [['app','audience','audience','[application]'],['mod','audience','audience_config',[]],['mod','audience','config','Modul zawierajacy parametry algorytmu.'],['mod','audience','emas_config',[]]];

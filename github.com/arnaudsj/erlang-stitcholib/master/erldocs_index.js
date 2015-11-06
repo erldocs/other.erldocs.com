@@ -1,1 +1,0 @@
-var index = [['app','erlang-stitcholib','erlang-stitcholib','[application]'],['mod','erlang-stitcholib','stitcho_lib',[]],['fun','erlang-stitcholib','stitcho_lib:send/7',[]],['fun','erlang-stitcholib','stitcho_lib:signup/4',[]]];

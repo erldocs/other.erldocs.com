@@ -1,1 +1,0 @@
-var index = [['app','wx_erlang_parametrized','wx_erlang_parametrized','[application]'],['mod','wx_erlang_parametrized','wxp_gen',[]],['fun','wx_erlang_parametrized','wxp_gen:gen/0',[]],['fun','wx_erlang_parametrized','wxp_gen:gen/1',[]],['fun','wx_erlang_parametrized','wxp_gen:gen/2',[]]];

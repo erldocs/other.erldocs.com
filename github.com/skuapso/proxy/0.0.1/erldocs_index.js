@@ -1,1 +1,0 @@
-var index = [['app','proxy','proxy','[application]'],['mod','proxy','proxy_pool',[]],['fun','proxy','proxy_pool:add_port/2',[]],['fun','proxy','proxy_pool:add_protocol/2',[]],['fun','proxy','proxy_pool:rules/0',[]],['fun','proxy','proxy_pool:start_deliver/6',[]],['fun','proxy','proxy_pool:start_link/0','  Starts the server.'],['fun','proxy','proxy_pool:testlog/0',[]]];

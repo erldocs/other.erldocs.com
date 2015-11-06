@@ -1,1 +1,0 @@
-var index = [['app','stockappv1','stockappv1','[application]'],['mod','stockappv1','gen_tcp_server_test',[]],['mod','stockappv1','gen_tcp_test',[]],['mod','stockappv1','peer1',[]],['mod','stockappv1','peer2',[]]];

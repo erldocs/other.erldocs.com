@@ -1,1 +1,0 @@
-var index = [['app','ehttpx','ehttpx','[application]'],['mod','ehttpx','ehttpx_app',[]],['mod','ehttpx','ehttpx_sup',[]],['fun','ehttpx','ehttpx_app:start/2',[]],['fun','ehttpx','ehttpx_app:stop/1',[]],['fun','ehttpx','ehttpx_sup:init/1',[]],['fun','ehttpx','ehttpx_sup:start_link/0',[]]];

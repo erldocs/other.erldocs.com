@@ -1,1 +1,0 @@
-var index = [['app','openmail','openmail','[application]'],['mod','openmail','start','.'],['fun','openmail','start:start_link/0','  Starts the server.']];

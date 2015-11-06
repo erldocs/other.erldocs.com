@@ -1,1 +1,0 @@
-var index = [['app','parse_num','parse_num','[application]'],['mod','parse_num','parse_num','Parses atoms with a numeric representation into '],['fun','parse_num','parse_num:parse/1',[]]];

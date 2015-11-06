@@ -1,1 +1,0 @@
-var index = [['app','erlang-rpn','erlang-rpn','[application]'],['mod','erlang-rpn','calc',[]],['fun','erlang-rpn','calc:rpn/1',[]],['fun','erlang-rpn','calc:rpn_test/0',[]]];

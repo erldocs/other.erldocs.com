@@ -1,1 +1,0 @@
-var index = [['app','riakc_cluster','riakc_cluster','[application]'],['mod','riakc_cluster','riakc_cluster_tests',[]],['mod','riakc_cluster','riakc_pb_worker',[]],['fun','riakc_cluster','riakc_pb_worker:start_link/1',[]]];

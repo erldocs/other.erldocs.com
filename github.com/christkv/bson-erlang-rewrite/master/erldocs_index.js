@@ -1,1 +1,0 @@
-var index = [['app','bson-erlang-rewrite','bson-erlang-rewrite','[application]'],['mod','bson-erlang-rewrite','bson_tests',[]]];

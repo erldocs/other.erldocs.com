@@ -1,1 +1,0 @@
-var index = [['app','learn_erlang','learn_erlang','[application]'],['mod','learn_erlang','guardians','.'],['mod','learn_erlang','guardians2','.'],['mod','learn_erlang','mylists',' few simple exercises with lists.'],['fun','learn_erlang','guardians2:attack_mod/2',[]],['fun','learn_erlang','guardians:attack_mod/1',[]],['fun','learn_erlang','mylists:simpleList/0',[]]];

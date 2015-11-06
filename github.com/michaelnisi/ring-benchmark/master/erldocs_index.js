@@ -1,1 +1,0 @@
-var index = [['app','ring-benchmark','ring-benchmark','[application]'],['mod','ring-benchmark','ring',[]],['fun','ring-benchmark','ring:send/2','Send M messages through a ring of N processes.']];

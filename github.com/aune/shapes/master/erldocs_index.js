@@ -1,1 +1,0 @@
-var index = [['app','shapes','shapes','[application]'],['mod','shapes','shapes',[]],['fun','shapes','shapes:is_inside/2',[]],['fun','shapes','shapes:move/2',[]]];

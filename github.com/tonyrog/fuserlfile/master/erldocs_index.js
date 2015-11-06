@@ -1,1 +1,0 @@
-var index = [['app','fuserlfile','fuserlfile','[application]'],['mod','fuserlfile','fuserlfile',[]],['mod','fuserlfile','fuserlfilesup',[]],['fun','fuserlfile','fuserlfilesup:start_link/1',[]]];

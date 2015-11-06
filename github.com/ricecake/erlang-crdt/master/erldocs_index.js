@@ -1,1 +1,0 @@
-var index = [['app','erlang-crdt','erlang-crdt','[application]'],['mod','erlang-crdt','orSet',[]],['fun','erlang-crdt','orSet:add/2',[]],['fun','erlang-crdt','orSet:apply/2',[]],['fun','erlang-crdt','orSet:lookup/2',[]],['fun','erlang-crdt','orSet:merge/2',[]],['fun','erlang-crdt','orSet:new/0',[]],['fun','erlang-crdt','orSet:remove/2',[]]];

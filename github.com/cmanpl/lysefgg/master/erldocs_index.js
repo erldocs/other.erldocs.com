@@ -1,1 +1,0 @@
-var index = [['app','lysefgg','lysefgg','[application]'],['mod','lysefgg','dolphins',[]],['mod','lysefgg','event',[]],['mod','lysefgg','fromshell',[]],['mod','lysefgg','kitchen',[]],['mod','lysefgg','linkmon',[]],['mod','lysefgg','multiproc',[]],['mod','lysefgg','processes',[]],['mod','lysefgg','records',[]]];

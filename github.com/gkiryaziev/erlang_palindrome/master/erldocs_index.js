@@ -1,1 +1,0 @@
-var index = [['app','erlang_palindrome','erlang_palindrome','[application]'],['mod','erlang_palindrome','main',[]],['fun','erlang_palindrome','main:start/0',[]]];

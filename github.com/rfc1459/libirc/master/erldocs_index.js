@@ -1,1 +1,0 @@
-var index = [['app','libirc','libirc','[application]'],['mod','libirc','libirc','FIXME: write documentation.'],['fun','libirc','libirc:parse/1','FIXME: write documentation.'],['fun','libirc','libirc:to_rfc1459_lower/1','FIXME: write documentation.'],['fun','libirc','libirc:to_rfc1459_upper/1','FIXME: write documentation.']];

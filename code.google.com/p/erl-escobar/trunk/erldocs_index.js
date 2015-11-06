@@ -1,1 +1,0 @@
-var index = [['app','erl-escobar','erl-escobar','[application]'],['mod','erl-escobar','escobar',[]],['mod','erl-escobar','escobar_hilite',[]],['fun','erl-escobar','escobar:log/2',[]],['fun','erl-escobar','escobar_hilite:file/1',[]],['fun','erl-escobar','escobar_hilite:out/2',[]],['fun','erl-escobar','escobar_hilite:string/1',[]],['fun','erl-escobar','escobar_hilite:tree/1',[]]];

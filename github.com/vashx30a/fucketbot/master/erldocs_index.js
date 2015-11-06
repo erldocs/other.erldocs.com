@@ -1,1 +1,0 @@
-var index = [['app','fucketbot','fucketbot','[application]'],['mod','fucketbot','fucketBot',[]],['mod','fucketbot','keywords',[]],['fun','fucketbot','fucketBot:connect/2',[]],['fun','fucketbot','fucketBot:keyword/3',[]],['fun','fucketbot','fucketBot:recv_loop/4',[]],['fun','fucketbot','fucketBot:start/0',[]]];

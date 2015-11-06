@@ -1,1 +1,0 @@
-var index = [['app','fabric','fabric','[application]'],['mod','fabric','fabric_db_dump',[]],['mod','fabric','fabric_dict',[]],['fun','fabric','fabric_db_dump:go/4',[]]];

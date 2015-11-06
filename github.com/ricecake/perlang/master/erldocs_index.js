@@ -1,1 +1,0 @@
-var index = [['app','perlang','perlang','[application]'],['mod','perlang','perlang',[]],['fun','perlang','perlang:init/0',[]],['fun','perlang','perlang:perlCall/0',[]],['fun','perlang','perlang:perlInit/0',[]],['fun','perlang','perlang:perlUse/0',[]]];

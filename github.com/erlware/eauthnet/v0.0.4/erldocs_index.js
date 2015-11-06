@@ -1,1 +1,0 @@
-var index = [['app','eauthnet','eauthnet','[application]'],['mod','eauthnet','eauthnet','    An Erlang API for Authorize.net.'],['fun','eauthnet','eauthnet:charge/1',[]],['fun','eauthnet','eauthnet:charge/1',[]],['fun','eauthnet','eauthnet:new_params/0',[]],['fun','eauthnet','eauthnet:new_params/1',[]],['fun','eauthnet','eauthnet:new_params/1',[]]];

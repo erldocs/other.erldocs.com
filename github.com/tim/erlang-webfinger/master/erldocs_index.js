@@ -1,1 +1,0 @@
-var index = [['app','erlang-webfinger','erlang-webfinger','[application]'],['mod','erlang-webfinger','webfinger',[]],['fun','erlang-webfinger','webfinger:lookup/1',[]]];

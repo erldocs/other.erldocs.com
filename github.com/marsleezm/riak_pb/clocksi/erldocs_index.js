@@ -1,1 +1,0 @@
-var index = [['app','riak_pb','riak_pb','[application]'],['mod','riak_pb','riak_pb_messages','This module contains message code mappings generat'],['fun','riak_pb','riak_pb_messages:decoder_for/1',[]],['fun','riak_pb','riak_pb_messages:msg_code/1',[]],['fun','riak_pb','riak_pb_messages:msg_type/1',[]]];

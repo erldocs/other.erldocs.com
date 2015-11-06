@@ -1,1 +1,0 @@
-var index = [['app','gen_event_forwarder','gen_event_forwarder','[application]'],['mod','gen_event_forwarder','gen_event_forwarder',[]]];

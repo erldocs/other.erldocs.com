@@ -1,1 +1,0 @@
-var index = [['app','mapred_verify','mapred_verify','[application]'],['mod','mapred_verify','mapred_verifiers',[]],['mod','mapred_verify','mapred_verify',[]],['fun','mapred_verify','mapred_verify:do_verification/1',[]],['fun','mapred_verify','mapred_verify:main/1',[]]];

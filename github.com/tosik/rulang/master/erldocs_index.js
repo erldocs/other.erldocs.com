@@ -1,1 +1,0 @@
-var index = [['app','rulang','rulang','[application]'],['mod','rulang','rulang',[]],['fun','rulang','rulang:handle_connection/1',[]],['fun','rulang','rulang:loop/1',[]],['fun','rulang','rulang:main/1',[]],['fun','rulang','rulang:start_server/1',[]],['fun','rulang','rulang:stop_server/0',[]],['fun','rulang','rulang:usage/0',[]]];

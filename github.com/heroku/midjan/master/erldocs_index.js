@@ -1,1 +1,0 @@
-var index = [['app','midjan','midjan','[application]'],['mod','midjan','midjan_core','Midjan execution module.'],['mod','midjan','midjan_module','Callback / behaviour module.'],['mod','midjan','midjan_translator','Behaviour / Callback for a translator module   Th'],['fun','midjan','midjan_core:start/1','Run a set of modules and translators.']];

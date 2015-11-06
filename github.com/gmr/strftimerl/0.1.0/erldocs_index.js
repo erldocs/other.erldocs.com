@@ -1,1 +1,0 @@
-var index = [['app','strftimerl','strftimerl','[application]'],['mod','strftimerl','strftimerl',[]],['fun','strftimerl','strftimerl:format/2','Format a date and time.']];

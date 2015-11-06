@@ -1,1 +1,0 @@
-var index = [['app','dirsize','dirsize','[application]'],['mod','dirsize','dirsize',[]],['fun','dirsize','dirsize:basic_tree/1',[]],['fun','dirsize','dirsize:from/1',[]]];

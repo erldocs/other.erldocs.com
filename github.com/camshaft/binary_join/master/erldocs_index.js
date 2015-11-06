@@ -1,1 +1,0 @@
-var index = [['app','binary_join','binary_join','[application]'],['mod','binary_join','binary_join',[]],['fun','binary_join','binary_join:join/1',[]],['fun','binary_join','binary_join:join/2',[]]];

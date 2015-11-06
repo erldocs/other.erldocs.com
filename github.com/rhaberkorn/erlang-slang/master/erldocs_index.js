@@ -1,1 +1,0 @@
-var index = [['app','erlang-slang','erlang-slang','[application]'],['mod','erlang-slang','slang',[]],['mod','erlang-slang','slang_lib',[]]];

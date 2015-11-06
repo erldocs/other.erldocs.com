@@ -1,1 +1,0 @@
-var index = [['app','dmbot','dmbot','[application]'],['mod','dmbot','action',[]],['mod','dmbot','char',[]],['mod','dmbot','dmbot',[]],['mod','dmbot','event',[]],['mod','dmbot','state',[]],['mod','dmbot','world',[]],['fun','dmbot','dmbot:start/4',[]]];

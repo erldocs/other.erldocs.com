@@ -1,1 +1,0 @@
-var index = [['app','n2o-blog-example','n2o-blog-example','[application]'],['app','sample','sample','[application]']];

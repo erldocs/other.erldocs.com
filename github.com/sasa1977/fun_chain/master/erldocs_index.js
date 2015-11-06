@@ -1,1 +1,0 @@
-var index = [['app','fun_chain','fun_chain','[application]'],['mod','fun_chain','fun_chain',[]],['fun','fun_chain','fun_chain:parse_transform/2',[]]];

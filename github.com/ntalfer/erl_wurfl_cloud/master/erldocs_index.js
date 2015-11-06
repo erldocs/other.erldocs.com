@@ -1,1 +1,0 @@
-var index = [['app','erl_wurfl_cloud','erl_wurfl_cloud','[application]'],['mod','erl_wurfl_cloud','wurfl_cloud_client',[]],['fun','erl_wurfl_cloud','wurfl_cloud_client:get_device/1','  Get a list of capabilities available for a devi'],['fun','erl_wurfl_cloud','wurfl_cloud_client:get_device/1','  Get all capabilities available for a device giv']];

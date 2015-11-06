@@ -1,1 +1,0 @@
-var index = [['app','nfrtestlib','nfrtestlib','[application]'],['mod','nfrtestlib','fib','   Fibonacci module.']];

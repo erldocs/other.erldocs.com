@@ -1,1 +1,0 @@
-var index = [['app','adj-ihml','adj-ihml','[application]'],['mod','adj-ihml','aiml_app',[]],['mod','adj-ihml','aiml_sup',[]],['fun','adj-ihml','aiml_app:start/2',[]],['fun','adj-ihml','aiml_app:stop/1',[]],['fun','adj-ihml','aiml_sup:init/1',[]],['fun','adj-ihml','aiml_sup:start_link/0',[]]];

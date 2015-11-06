@@ -1,1 +1,0 @@
-var index = [['app','erlfiles','erlfiles','[application]'],['mod','erlfiles','euler001',[]],['fun','erlfiles','euler001:euler001/3',[]]];

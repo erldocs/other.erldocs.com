@@ -1,1 +1,0 @@
-var index = [['app','erlunk','erlunk','[application]'],['mod','erlunk','erlunk',[]],['fun','erlunk','erlunk:download_source/5',[]],['fun','erlunk','erlunk:extract_token/1',[]],['fun','erlunk','erlunk:get_job_status/3',[]],['fun','erlunk','erlunk:get_results/3',[]],['fun','erlunk','erlunk:login/3',[]],['fun','erlunk','erlunk:search/3',[]]];

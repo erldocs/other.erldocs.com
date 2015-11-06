@@ -1,1 +1,0 @@
-var index = [['app','erocco','erocco','[application]'],['mod','erocco','erocco',[]],['mod','erocco','erocco_main',[]],['fun','erocco','erocco:generate_documentation/1',[]],['fun','erocco','erocco_main:main/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ur-sat','ur-sat','[application]'],['mod','ur-sat','alex',[]],['mod','ur-sat','clause',[]],['mod','ur-sat','cnf',[]],['mod','ur-sat','driver',[]],['mod','ur-sat','literal',[]],['mod','ur-sat','solver',[]]];

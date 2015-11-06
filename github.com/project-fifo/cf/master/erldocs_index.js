@@ -1,1 +1,0 @@
-var index = [['app','cf','cf','[application]'],['mod','cf','cf_term',[]],['fun','cf','cf_term:has_color/1',[]]];

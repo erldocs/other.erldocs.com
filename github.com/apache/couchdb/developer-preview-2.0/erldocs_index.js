@@ -1,1 +1,0 @@
-var index = [['app','couchdb','couchdb','[application]'],['mod','couchdb','boot_node',[]],['mod','couchdb','eunit_plugin',[]],['fun','couchdb','boot_node:start/0',[]],['fun','couchdb','eunit_plugin:setup_eunit/2',[]]];

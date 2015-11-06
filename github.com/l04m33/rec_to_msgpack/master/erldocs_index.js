@@ -1,1 +1,0 @@
-var index = [['app','rec_to_msgpack','rec_to_msgpack','[application]'],['mod','rec_to_msgpack','rec_to_msgpack',[]],['fun','rec_to_msgpack','rec_to_msgpack:bin_list_to_rec_list/3',[]],['fun','rec_to_msgpack','rec_to_msgpack:parse_transform/2',[]],['fun','rec_to_msgpack','rec_to_msgpack:rec_list_to_bin_list/2',[]]];

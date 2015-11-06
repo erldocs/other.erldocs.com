@@ -1,1 +1,0 @@
-var index = [['app','spoj-intl','spoj-intl','[application]'],['mod','spoj-intl','addrev',[]],['mod','spoj-intl','test',[]],['fun','spoj-intl','addrev:main/0',[]],['fun','spoj-intl','test:main/0',[]],['fun','spoj-intl','test:test/1',[]]];

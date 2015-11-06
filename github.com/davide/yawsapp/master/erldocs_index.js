@@ -1,1 +1,0 @@
-var index = [['app','yawsapp','yawsapp','[application]'],['mod','yawsapp','yawsapp',[]],['mod','yawsapp','yawsapp_sup',[]],['fun','yawsapp','yawsapp:start/0',[]],['fun','yawsapp','yawsapp:start/2',[]],['fun','yawsapp','yawsapp:stop/1',[]],['fun','yawsapp','yawsapp_sup:init/1',[]],['fun','yawsapp','yawsapp_sup:start_link/1',[]]];

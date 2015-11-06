@@ -1,1 +1,0 @@
-var index = [['app','erma','erma','[application]'],['mod','erma','erma',[]],['mod','erma','erma_utils',[]],['fun','erma','erma:append/1',[]],['fun','erma','erma:build/1',[]],['fun','erma','erma_utils:format_date/1',[]],['fun','erma','erma_utils:format_datetime/1',[]],['fun','erma','erma_utils:format_time/1',[]]];

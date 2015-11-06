@@ -1,1 +1,0 @@
-var index = [['app','erl2latex','erl2latex','[application]'],['mod','erl2latex','erl2latex',[]],['mod','erl2latex','erl2pdf',[]],['fun','erl2latex','erl2latex:file/1',[]],['fun','erl2latex','erl2latex:file/1',[]],['fun','erl2latex','erl2pdf:file/1',[]],['fun','erl2latex','erl2pdf:file/2',[]]];

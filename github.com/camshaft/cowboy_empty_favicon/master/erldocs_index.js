@@ -1,1 +1,0 @@
-var index = [['app','cowboy_empty_favicon','cowboy_empty_favicon','[application]'],['mod','cowboy_empty_favicon','cowboy_empty_favicon',[]],['fun','cowboy_empty_favicon','cowboy_empty_favicon:execute/2',[]]];

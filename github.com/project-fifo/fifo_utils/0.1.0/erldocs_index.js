@@ -1,1 +1,0 @@
-var index = [['app','fifo_utils','fifo_utils','[application]'],['mod','fifo_utils','fifo_opt',[]],['fun','fifo_utils','fifo_opt:get/6',[]],['fun','fifo_utils','fifo_opt:set/3',[]]];

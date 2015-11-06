@@ -1,1 +1,0 @@
-var index = [['app','consensus','consensus','[application]'],['mod','consensus','consensus_custom_filters',[]],['mod','consensus','consensus_custom_tags',[]],['mod','consensus','consensus_greeting_controller',[]],['mod','consensus','consensus_incoming_mail_controller',[]],['mod','consensus','consensus_outgoing_mail_controller',[]]];

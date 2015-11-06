@@ -1,1 +1,0 @@
-var index = [['app','erljscon','erljscon','[application]'],['mod','erljscon','json',[]],['mod','erljscon','stdlib',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','base64',[]],['fun','erlang','base64:camera/0',[]],['fun','erlang','base64:client/0',[]],['fun','erlang','base64:run/0',[]],['fun','erlang','base64:server/0',[]]];

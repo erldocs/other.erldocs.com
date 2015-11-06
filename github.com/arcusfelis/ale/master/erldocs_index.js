@@ -1,1 +1,0 @@
-var index = [['app','ale','ale','[application]'],['mod','ale','ale',[]],['fun','ale','ale:parse_transform/2',[]]];

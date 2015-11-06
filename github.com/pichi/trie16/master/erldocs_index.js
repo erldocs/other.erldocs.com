@@ -1,1 +1,0 @@
-var index = [['app','trie16','trie16','[application]'],['mod','trie16','trie16','.'],['fun','trie16','trie16:get/2',[]],['fun','trie16','trie16:new/0',[]],['fun','trie16','trie16:set/3',[]]];

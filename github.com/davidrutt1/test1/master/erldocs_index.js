@@ -1,1 +1,0 @@
-var index = [['app','test1','test1','[application]'],['mod','test1','bertie',[]],['mod','test1','bertie_app',[]],['mod','test1','bertie_sup',[]],['fun','test1','bertie:start/0',[]],['fun','test1','bertie_app:start/2',[]],['fun','test1','bertie_app:stop/1',[]],['fun','test1','bertie_sup:init/1',[]],['fun','test1','bertie_sup:start_link/0',[]]];

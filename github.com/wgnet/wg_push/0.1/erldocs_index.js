@@ -1,1 +1,0 @@
-var index = [['app','wg_push','wg_push','[application]'],['mod','wg_push','wg_apns_push',[]],['fun','wg_push','wg_apns_push:get_feedback/1',[]],['fun','wg_push','wg_apns_push:get_feedback/1',[]],['fun','wg_push','wg_apns_push:send/1',[]],['fun','wg_push','wg_apns_push:send/1',[]]];

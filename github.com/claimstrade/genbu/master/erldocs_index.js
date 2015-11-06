@@ -1,1 +1,0 @@
-var index = [['app','genbu','genbu','[application]'],['mod','genbu','genbu_access_control_app',[]],['mod','genbu','genbu_access_control_sup',[]],['fun','genbu','genbu_access_control_sup:start_link/0',[]]];

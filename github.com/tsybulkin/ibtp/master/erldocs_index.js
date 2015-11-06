@@ -1,1 +1,0 @@
-var index = [['app','ibtp','ibtp','[application]'],['mod','ibtp','box',[]],['mod','ibtp','netw',[]],['fun','ibtp','box:new/2',[]],['fun','ibtp','netw:gen_rand_net/1',[]],['fun','ibtp','netw:setup/2',[]]];

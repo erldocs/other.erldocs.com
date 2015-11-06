@@ -1,1 +1,0 @@
-var index = [['app','rahm','rahm','[application]'],['mod','rahm','rahm_custom_filters',[]],['mod','rahm','rahm_custom_tags',[]],['mod','rahm','rahm_greeting_controller',[]],['mod','rahm','rahm_incoming_mail_controller',[]],['mod','rahm','rahm_outgoing_mail_controller',[]],['mod','rahm','rahm_test',[]]];

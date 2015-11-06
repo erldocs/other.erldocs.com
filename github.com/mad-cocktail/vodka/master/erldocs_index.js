@@ -1,1 +1,0 @@
-var index = [['app','vodka','vodka','[application]'],['mod','vodka','vodka',[]],['fun','vodka','vodka:parse_transform/2',[]]];

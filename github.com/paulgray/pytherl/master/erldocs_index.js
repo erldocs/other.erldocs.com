@@ -1,1 +1,0 @@
-var index = [['app','pytherl','pytherl','[application]'],['mod','pytherl','pytherl',[]],['fun','pytherl','pytherl:call/1',[]],['fun','pytherl','pytherl:call/1',[]],['fun','pytherl','pytherl:eval/1',[]],['fun','pytherl','pytherl:init/0',[]]];

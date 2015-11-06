@@ -1,1 +1,0 @@
-var index = [['app','99problems','99problems','[application]'],['mod','99problems','arithmetic',[]],['mod','99problems','logic',[]],['mod','99problems','prolists',[]],['mod','99problems','yuilop',[]]];

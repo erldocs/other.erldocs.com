@@ -1,1 +1,0 @@
-var index = [['app','emp','emp','[application]'],['mod','emp','emp_sup','   The primary supervisor of the EMP application '],['fun','emp','emp_sup:start_link/1','Start the supervisor, called from EMP application ']];

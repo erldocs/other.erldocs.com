@@ -1,1 +1,0 @@
-var index = [['app','ejabberd_tests','ejabberd_tests','[application]'],['mod','ejabberd_tests','run_common_test',[]],['fun','ejabberd_tests','run_common_test:ct/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','debbie','debbie','[application]'],['mod','debbie','debbie','   .DEB Built In Erlang.'],['fun','debbie','debbie:fy/1',[]]];

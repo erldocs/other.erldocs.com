@@ -1,1 +1,0 @@
-var index = [['app','twoorl','twoorl','[application]'],['mod','twoorl','twoorl_sup','Provide the supervisor tree structure for the appl'],['fun','twoorl','twoorl_sup:init/1',[]],['fun','twoorl','twoorl_sup:start_link/1',[]]];

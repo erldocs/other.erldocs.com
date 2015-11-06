@@ -1,1 +1,0 @@
-var index = [['app','rapidtips','rapidtips','[application]'],['mod','rapidtips','tips_custom_filters',[]],['mod','rapidtips','tips_custom_tags',[]],['mod','rapidtips','tips_incoming_mail_controller',[]],['mod','rapidtips','tips_online_controller',[]],['mod','rapidtips','tips_outgoing_mail_controller',[]]];

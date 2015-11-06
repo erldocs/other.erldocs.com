@@ -1,1 +1,0 @@
-var index = [['app','frappebot','frappebot','[application]'],['mod','frappebot','bot_core',[]],['mod','frappebot','msghandler',[]],['fun','frappebot','bot_core:start/0',[]],['fun','frappebot','bot_core:start/1',[]],['fun','frappebot','bot_core:start/2',[]],['fun','frappebot','msghandler:loop/1',[]]];

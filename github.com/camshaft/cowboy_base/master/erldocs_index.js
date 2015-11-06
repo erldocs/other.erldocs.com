@@ -1,1 +1,0 @@
-var index = [['app','cowboy_base','cowboy_base','[application]'],['mod','cowboy_base','cowboy_base',[]],['fun','cowboy_base','cowboy_base:execute/2',[]],['fun','cowboy_base','cowboy_base:init/0',[]],['fun','cowboy_base','cowboy_base:init/1',[]],['fun','cowboy_base','cowboy_base:resolve/2',[]]];

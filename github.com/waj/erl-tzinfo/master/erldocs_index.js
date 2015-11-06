@@ -1,1 +1,0 @@
-var index = [['app','erl-tzinfo','erl-tzinfo','[application]'],['mod','erl-tzinfo','tzdata_generator',[]],['mod','erl-tzinfo','tzdata_parser',[]],['fun','erl-tzinfo','tzdata_generator:generate/1',[]],['fun','erl-tzinfo','tzdata_parser:parse/1',[]],['fun','erl-tzinfo','tzdata_parser:parse_offset/1',[]]];

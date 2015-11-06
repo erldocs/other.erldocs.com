@@ -1,1 +1,0 @@
-var index = [['app','similarity','similarity','[application]'],['mod','similarity','similarity_jw','Implementation of the Jaro-Winkler similarity algo'],['fun','similarity','similarity_jw:distance/2',[]],['fun','similarity','similarity_jw:proximity/2',[]]];

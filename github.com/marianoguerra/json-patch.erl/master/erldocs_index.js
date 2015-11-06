@@ -1,1 +1,0 @@
-var index = [['app','json-patch.erl','json-patch.erl','[application]'],['mod','json-patch.erl','jsonpatch',[]],['fun','json-patch.erl','jsonpatch:parse/1',[]],['fun','json-patch.erl','jsonpatch:parse_path/1',[]],['fun','json-patch.erl','jsonpatch:patch/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','lager_erlbrake_backend','lager_erlbrake_backend','[application]'],['mod','lager_erlbrake_backend','lager_erlbrake_backend','Airbrake lager backend.']];

@@ -1,1 +1,0 @@
-var index = [['app','newton-s-forward-difference-formula','newton-s-forward-difference-formula','[application]'],['mod','newton-s-forward-difference-formula','newton',[]],['fun','newton-s-forward-difference-formula','newton:solve/1',[]]];

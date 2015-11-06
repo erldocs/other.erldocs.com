@@ -1,1 +1,0 @@
-var index = [['app','erlroute','erlroute','[application]'],['mod','erlroute','erlroute_app',[]],['mod','erlroute','erlroute_sup',[]],['fun','erlroute','erlroute_app:start/2',[]],['fun','erlroute','erlroute_app:stop/1',[]],['fun','erlroute','erlroute_sup:init/1',[]],['fun','erlroute','erlroute_sup:start_link/0',[]]];

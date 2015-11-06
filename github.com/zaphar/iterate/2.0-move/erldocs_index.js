@@ -1,1 +1,0 @@
-var index = [['app','iterate','iterate','[application]'],['mod','iterate','nitrogen_init',[]],['fun','iterate','nitrogen_init:init/0',[]]];

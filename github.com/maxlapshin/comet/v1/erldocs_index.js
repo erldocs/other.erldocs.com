@@ -1,1 +1,0 @@
-var index = [['app','comet','comet','[application]'],['app','comet','comet','[application]'],['mod','comet','comet_app',[]],['mod','comet','comet_sup',[]],['fun','comet','comet_app:start/2',[]],['fun','comet','comet_app:stop/1',[]],['fun','comet','comet_sup:init/1',[]],['fun','comet','comet_sup:start_link/0',[]]];

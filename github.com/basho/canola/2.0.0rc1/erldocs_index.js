@@ -1,1 +1,0 @@
-var index = [['app','canola','canola','[application]'],['mod','canola','canola',[]],['fun','canola','canola:auth/4',[]],['fun','canola','canola:close/1',[]],['fun','canola','canola:open/0',[]],['fun','canola','canola:open_debug/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','exomler','exomler','[application]'],['mod','exomler','exomler',[]],['mod','exomler','exomler_dom_decoder',[]],['mod','exomler','exomler_dom_encoder',[]],['fun','exomler','exomler:decode/1',[]],['fun','exomler','exomler:encode/1',[]],['fun','exomler','exomler_dom_decoder:start/1',[]],['fun','exomler','exomler_dom_encoder:start/1',[]]];

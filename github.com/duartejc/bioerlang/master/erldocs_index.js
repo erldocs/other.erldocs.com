@@ -1,1 +1,0 @@
-var index = [['app','bioerlang','bioerlang','[application]'],['mod','bioerlang','strings',[]],['fun','bioerlang','strings:dna/1',[]],['fun','bioerlang','strings:rna/1',[]]];

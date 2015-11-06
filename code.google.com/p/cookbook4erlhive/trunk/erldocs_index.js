@@ -1,1 +1,0 @@
-var index = [['app','cookbook4erlhive','cookbook4erlhive','[application]'],['mod','cookbook4erlhive','floater_proxy',[]],['mod','cookbook4erlhive','yawsinit',[]]];

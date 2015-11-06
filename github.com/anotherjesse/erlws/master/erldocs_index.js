@@ -1,1 +1,0 @@
-var index = [['app','erlws','erlws','[application]'],['mod','erlws','local_server',[]]];

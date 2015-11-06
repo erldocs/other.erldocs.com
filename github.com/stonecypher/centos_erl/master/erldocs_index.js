@@ -1,1 +1,0 @@
-var index = [['app','centos_erl','centos_erl','[application]'],['mod','centos_erl','centos_erl',[]],['fun','centos_erl','centos_erl:get_version/0',[]],['fun','centos_erl','centos_erl:has_root/0',[]]];

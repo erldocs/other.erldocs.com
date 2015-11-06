@@ -1,1 +1,0 @@
-var index = [['app','petra','petra','[application]'],['mod','petra','item',[]],['mod','petra','petra_api_controller',[]],['mod','petra','petra_incoming_mail_controller',[]],['mod','petra','petra_outgoing_mail_controller',[]],['mod','petra','service',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang-on-steroids','erlang-on-steroids','[application]'],['mod','erlang-on-steroids','test_controller',[]],['fun','erlang-on-steroids','test_controller:test/1',[]]];

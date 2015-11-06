@@ -1,1 +1,0 @@
-var index = [['app','erlangius_client','erlangius_client','[application]'],['mod','erlangius_client','erlangius_client_app',[]],['fun','erlangius_client','erlangius_client_app:start/2',[]],['fun','erlangius_client','erlangius_client_app:stop/1',[]]];

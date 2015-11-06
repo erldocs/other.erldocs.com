@@ -1,1 +1,0 @@
-var index = [['app','merlange','merlange','[application]'],['mod','merlange','fizzbuzz',[]],['mod','merlange','mr_simple',[]],['fun','merlange','fizzbuzz:fizz_buzz/0',[]],['fun','merlange','mr_simple:map_reduce/3',[]],['fun','merlange','mr_simple:test_mr/0',[]]];

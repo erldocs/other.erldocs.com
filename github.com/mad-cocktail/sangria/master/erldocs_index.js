@@ -1,1 +1,0 @@
-var index = [['app','sangria','sangria','[application]'],['mod','sangria','sangria',[]],['fun','sangria','sangria:parse_transform/2',[]]];

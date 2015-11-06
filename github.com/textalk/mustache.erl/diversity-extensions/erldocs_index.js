@@ -1,1 +1,0 @@
-var index = [['app','mustache.erl','mustache.erl','[application]'],['mod','mustache.erl','mustache',[]],['fun','mustache.erl','mustache:compile/1',[]],['fun','mustache.erl','mustache:render/2',[]]];

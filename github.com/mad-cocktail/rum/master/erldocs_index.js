@@ -1,1 +1,0 @@
-var index = [['app','rum','rum','[application]'],['mod','rum','rum',[]],['fun','rum','rum:parse_transform/2',[]]];

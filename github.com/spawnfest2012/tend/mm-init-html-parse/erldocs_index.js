@@ -1,1 +1,0 @@
-var index = [['app','tend','tend','[application]'],['mod','tend','tend',[]],['mod','tend','tend_loader',[]],['fun','tend','tend:clean_up/0',[]],['fun','tend','tend:get_dir/0',[]],['fun','tend','tend:load/1',[]],['fun','tend','tend:reload/0',[]],['fun','tend','tend:resume/0',[]],['fun','tend','tend:set_dir/1',[]],['fun','tend','tend_loader:load_url/2',[]]];

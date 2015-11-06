@@ -1,1 +1,0 @@
-var index = [['app','erlgs','erlgs','[application]'],['mod','erlgs','erlgs_app',[]],['mod','erlgs','erlgs_sup',[]],['mod','erlgs','mission',[]],['fun','erlgs','erlgs_app:start/2',[]],['fun','erlgs','erlgs_app:stop/1',[]],['fun','erlgs','erlgs_sup:init/1',[]],['fun','erlgs','erlgs_sup:start_link/0',[]]];

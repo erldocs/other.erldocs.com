@@ -1,1 +1,0 @@
-var index = [['app','erlzmq','erlzmq','[application]'],['mod','erlzmq','zmq_pubserver',[]],['mod','erlzmq','zmq_repserver',[]],['mod','erlzmq','zmq_reqclient',[]],['mod','erlzmq','zmq_subclient',[]],['fun','erlzmq','zmq_pubserver:run/0',[]],['fun','erlzmq','zmq_repserver:run/0',[]],['fun','erlzmq','zmq_reqclient:run/0',[]],['fun','erlzmq','zmq_subclient:run/0',[]]];

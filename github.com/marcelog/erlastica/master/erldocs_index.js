@@ -1,1 +1,0 @@
-var index = [['app','erlastica','erlastica','[application]'],['mod','erlastica','erlastica_app',[]],['mod','erlastica','erlastica_sup',[]],['fun','erlastica','erlastica_app:start/1',[]],['fun','erlastica','erlastica_app:stop/1',[]],['fun','erlastica','erlastica_sup:init/1',[]],['fun','erlastica','erlastica_sup:start_link/0',[]]];

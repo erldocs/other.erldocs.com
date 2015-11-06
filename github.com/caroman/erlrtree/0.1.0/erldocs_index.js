@@ -1,1 +1,0 @@
-var index = [['app','erlrtree','erlrtree','[application]'],['app','rtree','rtree','[application]'],['mod','rtree','rtree_app',[]],['mod','rtree','rtree_sup','Test.'],['fun','rtree','rtree_app:start/2',[]],['fun','rtree','rtree_app:stop/1',[]],['fun','rtree','rtree_sup:init/1',[]],['fun','rtree','rtree_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','lmud','lmud','[application]'],['mod','lmud','target_system',[]],['fun','lmud','target_system:create/1',[]],['fun','lmud','target_system:install/2',[]]];

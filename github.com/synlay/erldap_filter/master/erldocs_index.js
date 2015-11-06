@@ -1,1 +1,0 @@
-var index = [['app','erldap_filter','erldap_filter','[application]'],['mod','erldap_filter','erldap_filter',[]],['fun','erldap_filter','erldap_filter:hello/0',[]]];

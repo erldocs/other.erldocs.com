@@ -1,1 +1,0 @@
-var index = [['app','mypaxostests','mypaxostests','[application]'],['mod','mypaxostests','mntest',[]],['fun','mypaxostests','mntest:close/0',[]],['fun','mypaxostests','mntest:entry/1',[]],['fun','mypaxostests','mntest:get/1',[]],['fun','mypaxostests','mntest:init/0',[]],['fun','mypaxostests','mntest:put/1',[]],['fun','mypaxostests','mntest:rentry/1',[]]];

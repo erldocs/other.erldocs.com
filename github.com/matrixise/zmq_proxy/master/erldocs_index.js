@@ -1,1 +1,0 @@
-var index = [['app','zmq_proxy','zmq_proxy','[application]'],['mod','zmq_proxy','zmq_proxy',[]],['fun','zmq_proxy','zmq_proxy:proxy/1',[]],['fun','zmq_proxy','zmq_proxy:start/0',[]]];

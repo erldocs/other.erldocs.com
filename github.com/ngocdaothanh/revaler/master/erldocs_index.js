@@ -1,1 +1,0 @@
-var index = [['app','revaler','revaler','[application]'],['mod','revaler','erlang_client',[]],['fun','revaler','erlang_client:connect/2',[]],['fun','revaler','erlang_client:send_command/1',[]],['fun','revaler','erlang_client:start/2',[]]];

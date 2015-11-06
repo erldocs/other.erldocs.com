@@ -1,1 +1,0 @@
-var index = [['app','quickrel','quickrel','[application]'],['mod','quickrel','quickrel',[]],['fun','quickrel','quickrel:quickrel/2',[]]];

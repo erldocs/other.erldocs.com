@@ -1,1 +1,0 @@
-var index = [['app','thrift-nif-example','thrift-nif-example','[application]'],['mod','thrift-nif-example','packer',[]],['mod','thrift-nif-example','thrift_packer',[]],['fun','thrift-nif-example','packer:pack/2',[]],['fun','thrift-nif-example','packer:unpack/2',[]],['fun','thrift-nif-example','thrift_packer:pack/2',[]],['fun','thrift-nif-example','thrift_packer:unpack/2',[]]];

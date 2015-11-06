@@ -1,1 +1,0 @@
-var index = [['app','string_interpolation','string_interpolation','[application]'],['mod','string_interpolation','string_interpolation',[]],['fun','string_interpolation','string_interpolation:parse_transform/2',[]],['fun','string_interpolation','string_interpolation:pretty_print/1',[]]];

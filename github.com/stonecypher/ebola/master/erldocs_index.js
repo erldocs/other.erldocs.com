@@ -1,1 +1,0 @@
-var index = [['app','ebola','ebola','[application]'],['mod','ebola','ebola',[]],['fun','ebola','ebola:contagion/2',[]],['fun','ebola','ebola:contagion/3',[]],['fun','ebola','ebola:model/0',[]]];

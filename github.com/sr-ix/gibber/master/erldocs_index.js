@@ -1,1 +1,0 @@
-var index = [['app','gibber','gibber','[application]'],['mod','gibber','ws_handler',[]],['fun','gibber','ws_handler:init/3',[]],['fun','gibber','ws_handler:websocket_handle/3',[]],['fun','gibber','ws_handler:websocket_info/3',[]],['fun','gibber','ws_handler:websocket_init/3',[]],['fun','gibber','ws_handler:websocket_terminate/3',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','namcub','namcub','[application]'],['mod','namcub','i3span_editor',[]],['mod','namcub','listutils',[]],['fun','namcub','i3span_editor:display/5',[]],['fun','namcub','listutils:member/2',[]],['fun','namcub','listutils:slice/3',[]]];

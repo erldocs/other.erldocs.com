@@ -1,1 +1,0 @@
-var index = [['app','otp-release-process','otp-release-process','[application]'],['mod','otp-release-process','tiny',[]],['fun','otp-release-process','tiny:start/2',[]],['fun','otp-release-process','tiny:stop/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang_hgsvn','erlang_hgsvn','[application]'],['mod','erlang_hgsvn','hgsvn',[]],['mod','erlang_hgsvn','log',[]],['mod','erlang_hgsvn','svnlog',[]],['mod','erlang_hgsvn','util',[]],['fun','erlang_hgsvn','hgsvn:start/0',[]],['fun','erlang_hgsvn','log:start/1',[]],['fun','erlang_hgsvn','svnlog:repos/1',[]],['fun','erlang_hgsvn','svnlog:repos_full/1',[]]];

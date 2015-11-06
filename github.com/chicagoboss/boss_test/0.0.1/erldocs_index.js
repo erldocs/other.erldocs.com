@@ -1,1 +1,0 @@
-var index = [['app','boss_test','boss_test','[application]'],['mod','boss_test','boss_test',[]],['fun','boss_test','boss_test:process_assertions_and_continuations/3',[]],['fun','boss_test','boss_test:process_assertions_and_continuations/6',[]]];

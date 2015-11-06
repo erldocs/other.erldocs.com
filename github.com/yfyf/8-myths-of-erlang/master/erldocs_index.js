@@ -1,1 +1,0 @@
-var index = [['app','8-myths-of-erlang','8-myths-of-erlang','[application]'],['mod','8-myths-of-erlang','erl_myth_1_perf',[]],['mod','8-myths-of-erlang','erl_myth_2_perf',[]]];

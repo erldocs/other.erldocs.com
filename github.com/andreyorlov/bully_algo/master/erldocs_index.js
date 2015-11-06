@@ -1,1 +1,0 @@
-var index = [['app','bully_algo','bully_algo','[application]'],['mod','bully_algo','bully_algo',[]],['fun','bully_algo','bully_algo:run/2',[]],['fun','bully_algo','bully_algo:run_process/3',[]]];

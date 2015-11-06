@@ -1,1 +1,0 @@
-var index = [['app','rebar_joxa_plugin','rebar_joxa_plugin','[application]'],['mod','rebar_joxa_plugin','rebar_joxa_plugin',[]],['fun','rebar_joxa_plugin','rebar_joxa_plugin:compile/1',[]],['fun','rebar_joxa_plugin','rebar_joxa_plugin:pre_eunit/1',[]]];

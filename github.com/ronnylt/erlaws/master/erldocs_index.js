@@ -1,1 +1,0 @@
-var index = [['app','erlaws','erlaws','[application]'],['mod','erlaws','bowling',[]],['mod','erlaws','perms',[]],['mod','erlaws','pyth',[]],['mod','erlaws','quicksort',[]],['fun','erlaws','bowling:score/1',[]],['fun','erlaws','bowling:test/0',[]],['fun','erlaws','perms:perms/1',[]],['fun','erlaws','pyth:pyth/1',[]],['fun','erlaws','quicksort:sort/1',[]]];

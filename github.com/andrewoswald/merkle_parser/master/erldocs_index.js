@@ -1,1 +1,0 @@
-var index = [['app','merkle_parser','merkle_parser','[application]'],['mod','merkle_parser','merkle_parser','        Performs "allkeys" and "diff" operations '],['fun','merkle_parser','merkle_parser:allkeys/1','Given a merkle tree bitstring, provides all of its'],['fun','merkle_parser','merkle_parser:diff/2','Given two merkle tree bitstrings, provides their d']];

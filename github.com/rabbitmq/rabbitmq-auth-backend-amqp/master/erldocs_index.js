@@ -1,1 +1,0 @@
-var index = [['app','rabbitmq-auth-backend-amqp','rabbitmq-auth-backend-amqp','[application]'],['mod','rabbitmq-auth-backend-amqp','rabbit_auth_backend_amqp_app',[]],['fun','rabbitmq-auth-backend-amqp','rabbit_auth_backend_amqp_app:start/2',[]],['fun','rabbitmq-auth-backend-amqp','rabbit_auth_backend_amqp_app:stop/1',[]]];

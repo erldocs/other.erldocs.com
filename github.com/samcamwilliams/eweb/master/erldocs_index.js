@@ -1,1 +1,0 @@
-var index = [['app','eweb','eweb','[application]'],['mod','eweb','ejs',[]],['mod','eweb','etest',[]],['mod','eweb','web_ajax_exec',[]],['fun','eweb','ejs:e/1',[]],['fun','eweb','ejs:eval/1',[]],['fun','eweb','etest:run/0',[]],['fun','eweb','web_ajax_exec:process_fun/1',[]]];

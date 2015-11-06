@@ -1,1 +1,0 @@
-var index = [['app','reploy','reploy','[application]'],['mod','reploy','onan',[]],['mod','reploy','onan_bootstrap',[]],['mod','reploy','onan_file',[]],['fun','reploy','onan_bootstrap:bootstrap/1',[]],['fun','reploy','onan_file:join_paths/2',[]],['fun','reploy','onan_file:list_relevant_files/2',[]]];

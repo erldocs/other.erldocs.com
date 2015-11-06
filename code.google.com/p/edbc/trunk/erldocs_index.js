@@ -1,1 +1,0 @@
-var index = [['app','edbc','edbc','[application]'],['mod','edbc','edbc',[]],['fun','edbc','edbc:backend/3',[]],['fun','edbc','edbc:behaviour_info/1',[]],['fun','edbc','edbc:close/1',[]],['fun','edbc','edbc:connect/1',[]],['fun','edbc','edbc:execute/3',[]],['fun','edbc','edbc:execute_fold/5',[]],['fun','edbc','edbc:prepare/3',[]],['fun','edbc','edbc:transaction/2',[]]];

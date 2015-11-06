@@ -1,1 +1,0 @@
-var index = [['app','sudoku-grinder','sudoku-grinder','[application]'],['mod','sudoku-grinder','matrix',[]],['mod','sudoku-grinder','sudoku_tests',[]],['fun','sudoku-grinder','matrix:submatrix/5',[]],['fun','sudoku-grinder','matrix:transpose/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','fifo_lager','fifo_lager','[application]'],['mod','fifo_lager','fifo_lager',[]]];

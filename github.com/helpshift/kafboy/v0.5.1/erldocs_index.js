@@ -1,1 +1,0 @@
-var index = [['app','kafboy','kafboy','[application]'],['mod','kafboy','kafboy_disco_handler','/disco should return the current node.'],['fun','kafboy','kafboy_disco_handler:handle/2',[]],['fun','kafboy','kafboy_disco_handler:init/3',[]],['fun','kafboy','kafboy_disco_handler:terminate/3',[]]];

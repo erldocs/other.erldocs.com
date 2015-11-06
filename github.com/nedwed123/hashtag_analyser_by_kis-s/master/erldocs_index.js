@@ -1,1 +1,0 @@
-var index = [['app','hashtag_analyser_by_kis-s','hashtag_analyser_by_kis-s','[application]'],['mod','hashtag_analyser_by_kis-s','delete_keys',[]]];

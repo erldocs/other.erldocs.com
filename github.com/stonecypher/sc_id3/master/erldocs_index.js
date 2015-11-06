@@ -1,1 +1,0 @@
-var index = [['app','sc_id3','sc_id3','[application]'],['mod','sc_id3','sc_id3',[]],['fun','sc_id3','sc_id3:data_split/2',[]],['fun','sc_id3','sc_id3:entropy/1',[]],['fun','sc_id3','sc_id3:gen_tree/1',[]],['fun','sc_id3','sc_id3:information_gain/2',[]]];

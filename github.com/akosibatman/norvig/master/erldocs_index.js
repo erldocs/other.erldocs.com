@@ -1,1 +1,0 @@
-var index = [['app','norvig','norvig','[application]'],['mod','norvig','norvig_app',[]],['mod','norvig','norvig_sup',[]],['fun','norvig','norvig_app:start/2',[]],['fun','norvig','norvig_app:stop/1',[]],['fun','norvig','norvig_sup:init/1',[]],['fun','norvig','norvig_sup:start_link/0',[]]];

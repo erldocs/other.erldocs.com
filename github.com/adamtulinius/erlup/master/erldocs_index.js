@@ -1,1 +1,0 @@
-var index = [['app','erlup','erlup','[application]'],['mod','erlup','erlup',[]],['fun','erlup','erlup:render/1',[]]];

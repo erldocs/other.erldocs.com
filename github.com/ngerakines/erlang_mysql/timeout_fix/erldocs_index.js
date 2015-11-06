@@ -1,1 +1,0 @@
-var index = [['app','erlang_mysql','erlang_mysql','[application]'],['mod','erlang_mysql','mysql_recv',[]]];

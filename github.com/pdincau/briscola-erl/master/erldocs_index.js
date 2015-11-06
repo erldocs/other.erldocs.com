@@ -1,1 +1,0 @@
-var index = [['app','briscola-erl','briscola-erl','[application]'],['mod','briscola-erl','briscola_utility',[]],['mod','briscola-erl','chat','.'],['mod','briscola-erl','deck','.'],['fun','briscola-erl','briscola_utility:get_points/1',[]],['fun','briscola-erl','chat:start_link/0','  Starts the server.'],['fun','briscola-erl','deck:start_link/0','  Starts the server.']];

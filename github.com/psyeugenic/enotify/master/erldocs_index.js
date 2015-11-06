@@ -1,1 +1,0 @@
-var index = [['app','enotify','enotify','[application]'],['mod','enotify','enotify',[]],['fun','enotify','enotify:msg/0',[]],['fun','enotify','enotify:msg/3',[]],['fun','enotify','enotify:start/0',[]]];

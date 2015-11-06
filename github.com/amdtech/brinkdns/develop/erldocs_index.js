@@ -1,1 +1,0 @@
-var index = [['app','brinkdns','brinkdns','[application]'],['mod','brinkdns','brinkdns',[]],['fun','brinkdns','brinkdns:init/0',[]],['fun','brinkdns','brinkdns:insert/2',[]],['fun','brinkdns','brinkdns:start/0',[]]];

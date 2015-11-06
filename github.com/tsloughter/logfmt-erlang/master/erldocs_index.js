@@ -1,1 +1,0 @@
-var index = [['app','logfmt-erlang','logfmt-erlang','[application]'],['mod','logfmt-erlang','logfmt',[]],['fun','logfmt-erlang','logfmt:file/1',[]],['fun','logfmt-erlang','logfmt:parse/1',[]]];

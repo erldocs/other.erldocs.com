@@ -1,1 +1,0 @@
-var index = [['app','pfuns','pfuns','[application]'],['mod','pfuns','pfuns',[]],['mod','pfuns','pfuns_tests',[]],['fun','pfuns','pfuns:bmark/1',[]],['fun','pfuns','pfuns:pany/2',[]],['fun','pfuns','pfuns:pfilter/2',[]],['fun','pfuns','pfuns:pmap/2',[]]];

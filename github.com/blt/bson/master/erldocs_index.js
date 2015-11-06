@@ -1,1 +1,0 @@
-var index = [['app','bson','bson','[application]'],['mod','bson','bson',[]],['mod','bson','bson_validate',[]],['fun','bson','bson:decode/1',[]],['fun','bson','bson:encode/1',[]],['fun','bson','bson_validate:valid/1',[]]];

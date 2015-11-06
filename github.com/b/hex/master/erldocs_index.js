@@ -1,1 +1,0 @@
-var index = [['app','hex','hex','[application]'],['mod','hex','hex',[]],['fun','hex','hex:bin_to_hexstr/1',[]],['fun','hex','hex:hexstr_to_bin/1',[]]];

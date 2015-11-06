@@ -1,1 +1,0 @@
-var index = [['app','hellowworld','hellowworld','[application]'],['mod','hellowworld','hw','@todo Add description to hw.'],['fun','hellowworld','hw:printHelloWorld/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlog-server','erlog-server','[application]'],['mod','erlog-server','erlog_make_server',[]],['fun','erlog-server','erlog_make_server:compile_file/2',[]],['fun','erlog-server','erlog_make_server:erlog/2',[]]];

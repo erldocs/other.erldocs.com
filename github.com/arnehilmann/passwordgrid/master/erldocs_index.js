@@ -1,1 +1,0 @@
-var index = [['app','passwordgrid','passwordgrid','[application]'],['mod','passwordgrid','create_pwgrid',[]],['fun','passwordgrid','create_pwgrid:start/0',[]]];

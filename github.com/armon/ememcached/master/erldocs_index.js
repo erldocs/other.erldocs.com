@@ -1,1 +1,0 @@
-var index = [['app','ememcached','ememcached','[application]'],['mod','ememcached','ememcached',[]],['fun','ememcached','ememcached:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang_exercises','erlang_exercises','[application]'],['mod','erlang_exercises','read_card',[]],['fun','erlang_exercises','read_card:init/0',[]]];

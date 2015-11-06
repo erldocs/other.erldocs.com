@@ -1,1 +1,0 @@
-var index = [['app','sni_parser','sni_parser','[application]'],['mod','sni_parser','sni_demo',[]],['fun','sni_parser','sni_demo:create_server/1',[]],['fun','sni_parser','sni_demo:server/1',[]]];

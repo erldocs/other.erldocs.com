@@ -1,1 +1,0 @@
-var index = [['app','provider_asn1','provider_asn1','[application]'],['mod','provider_asn1','provider_asn1',[]],['fun','provider_asn1','provider_asn1:do/1',[]],['fun','provider_asn1','provider_asn1:format_error/1',[]],['fun','provider_asn1','provider_asn1:init/1',[]]];

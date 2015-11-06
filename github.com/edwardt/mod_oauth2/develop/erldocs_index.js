@@ -1,1 +1,0 @@
-var index = [['app','mod_oauth2','mod_oauth2','[application]'],['mod','mod_oauth2','mod_auth_spark',[]],['mod','mod_oauth2','mod_auth_spark_sup',[]],['fun','mod_oauth2','mod_auth_spark:start/2',[]],['fun','mod_oauth2','mod_auth_spark:stop/1',[]],['fun','mod_oauth2','mod_auth_spark_sup:init/1',[]],['fun','mod_oauth2','mod_auth_spark_sup:start_link/0',[]]];

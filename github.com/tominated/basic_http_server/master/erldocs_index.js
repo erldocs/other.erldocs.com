@@ -1,1 +1,0 @@
-var index = [['app','basic_http_server','basic_http_server','[application]'],['mod','basic_http_server','http',[]],['fun','basic_http_server','http:start/0',[]],['fun','basic_http_server','http:start/1',[]]];

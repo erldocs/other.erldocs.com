@@ -1,1 +1,0 @@
-var index = [['app','wkt','wkt','[application]'],['mod','wkt','wkt',[]],['fun','wkt','wkt:parse/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','cloudberry','cloudberry','[application]'],['mod','cloudberry','cloudberry_steps',[]],['mod','cloudberry','mysteps',[]],['mod','cloudberry','parameter_extractor',[]],['mod','cloudberry','scenario_extractor',[]],['mod','cloudberry','step_runner',[]],['mod','cloudberry','story_reader',[]],['mod','cloudberry','story_runner',[]]];

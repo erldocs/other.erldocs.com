@@ -1,1 +1,0 @@
-var index = [['app','kata-potter-erlang','kata-potter-erlang','[application]'],['mod','kata-potter-erlang','potter',[]],['fun','kata-potter-erlang','potter:price/1',[]]];

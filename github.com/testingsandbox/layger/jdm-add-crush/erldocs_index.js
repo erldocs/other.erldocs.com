@@ -1,1 +1,0 @@
-var index = [['app','layger','layger','[application]'],['mod','layger','can',[]],['fun','layger','can:crush/0',[]],['fun','layger','can:drink/0',[]],['fun','layger','can:open/0',[]],['fun','layger','can:recycle/0',[]]];

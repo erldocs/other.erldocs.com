@@ -1,1 +1,0 @@
-var index = [['app','disco-local-cluster','disco-local-cluster','[application]'],['mod','disco-local-cluster','dlc',[]],['fun','disco-local-cluster','dlc:add_a_new_blob/2',[]],['fun','disco-local-cluster','dlc:add_blobs_to_a_tag/2',[]],['fun','disco-local-cluster','dlc:delete_tag/1',[]],['fun','disco-local-cluster','dlc:gc/0',[]],['fun','disco-local-cluster','dlc:go/0',[]]];

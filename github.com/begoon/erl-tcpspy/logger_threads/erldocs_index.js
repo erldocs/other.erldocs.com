@@ -1,1 +1,0 @@
-var index = [['app','erl-tcpspy','erl-tcpspy','[application]'],['mod','erl-tcpspy','tcp_proxy',[]],['fun','erl-tcpspy','tcp_proxy:main/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','battlefleet','battlefleet','[application]'],['mod','battlefleet','battlefleet_app',[]],['mod','battlefleet','battlefleet_sup',[]],['fun','battlefleet','battlefleet_app:start/2',[]],['fun','battlefleet','battlefleet_app:stop/1',[]],['fun','battlefleet','battlefleet_sup:init/1',[]],['fun','battlefleet','battlefleet_sup:start_link/1',[]]];

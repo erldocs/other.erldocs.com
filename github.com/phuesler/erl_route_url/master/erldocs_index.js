@@ -1,1 +1,0 @@
-var index = [['app','erl_route_url','erl_route_url','[application]'],['mod','erl_route_url','erl_route_url',[]],['fun','erl_route_url','erl_route_url:match/2',[]]];

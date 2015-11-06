@@ -1,1 +1,0 @@
-var index = [['app','time_interval','time_interval','[application]'],['mod','time_interval','time_interval',[]],['fun','time_interval','time_interval:get_interval/1',[]]];

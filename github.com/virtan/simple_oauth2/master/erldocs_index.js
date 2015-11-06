@@ -1,1 +1,0 @@
-var index = [['app','simple_oauth2','simple_oauth2','[application]'],['mod','simple_oauth2','simple_oauth2',[]],['fun','simple_oauth2','simple_oauth2:customize_networks/2',[]],['fun','simple_oauth2','simple_oauth2:dispatcher/3',[]],['fun','simple_oauth2','simple_oauth2:gather_url_get/1',[]],['fun','simple_oauth2','simple_oauth2:predefined_networks/0',[]]];

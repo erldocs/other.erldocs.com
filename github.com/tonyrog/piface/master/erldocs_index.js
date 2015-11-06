@@ -1,1 +1,0 @@
-var index = [['app','piface','piface','[application]'],['mod','piface','piface_app','      Piface interface.'],['mod','piface','piface_sup','      Piface interface.'],['fun','piface','piface_app:start/2',[]],['fun','piface','piface_app:stop/1',[]],['fun','piface','piface_sup:start_link/0',[]]];

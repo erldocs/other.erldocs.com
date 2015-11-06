@@ -1,1 +1,0 @@
-var index = [['app','erl_aliases','erl_aliases','[application]'],['mod','erl_aliases','erl_aliases',[]],['fun','erl_aliases','erl_aliases:parse_transform/2',[]]];

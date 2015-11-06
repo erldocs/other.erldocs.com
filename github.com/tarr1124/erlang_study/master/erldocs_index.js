@@ -1,1 +1,0 @@
-var index = [['app','erlang_study','erlang_study','[application]'],['mod','erlang_study','primenum',[]],['fun','erlang_study','primenum:countprime/1',[]],['fun','erlang_study','primenum:primenum/1',[]],['fun','erlang_study','primenum:printnum/2',[]]];

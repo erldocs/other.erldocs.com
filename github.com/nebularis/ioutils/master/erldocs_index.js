@@ -1,1 +1,0 @@
-var index = [['app','ioutils','ioutils','[application]'],['mod','ioutils','ioutils',[]],['mod','ioutils','ioutils_resource_resolver','Provides a mechanism for resolving resources at va'],['fun','ioutils','ioutils_resource_resolver:application/1',[]],['fun','ioutils','ioutils_resource_resolver:resolve/2',[]]];

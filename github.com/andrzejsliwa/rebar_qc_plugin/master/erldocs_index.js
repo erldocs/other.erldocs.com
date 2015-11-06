@@ -1,1 +1,0 @@
-var index = [['app','rebar_qc_plugin','rebar_qc_plugin','[application]'],['mod','rebar_qc_plugin','rebar_qc_plugin',[]],['fun','rebar_qc_plugin','rebar_qc_plugin:check-all/1',[]],['fun','rebar_qc_plugin','rebar_qc_plugin:check-specs/1',[]],['fun','rebar_qc_plugin','rebar_qc_plugin:quickcheck/1',[]]];

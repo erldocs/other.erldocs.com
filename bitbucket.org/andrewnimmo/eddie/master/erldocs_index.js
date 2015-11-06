@@ -1,1 +1,0 @@
-var index = [['app','eddie','eddie','[application]'],['mod','eddie','eddie_rootdir',[]],['fun','eddie','eddie_rootdir:start/1',[]]];

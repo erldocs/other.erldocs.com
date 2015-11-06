@@ -1,1 +1,0 @@
-var index = [['app','n2o.logging','n2o.logging','[application]'],['mod','n2o.logging','n2o_lager',[]],['fun','n2o.logging','n2o_lager:error/3',[]],['fun','n2o.logging','n2o_lager:info/3',[]],['fun','n2o.logging','n2o_lager:warning/3',[]]];

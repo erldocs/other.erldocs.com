@@ -1,1 +1,0 @@
-var index = [['app','zhougame','zhougame','[application]'],['mod','zhougame','run_option',[]],['fun','zhougame','run_option:get_options/1',[]]];

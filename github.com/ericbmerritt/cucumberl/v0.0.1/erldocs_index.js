@@ -1,1 +1,0 @@
-var index = [['app','cucumberl','cucumberl','[application]'],['mod','cucumberl','cucumberl',[]],['mod','cucumberl','sample',[]],['mod','cucumberl','sample_more',[]],['mod','cucumberl','sample_table',[]]];

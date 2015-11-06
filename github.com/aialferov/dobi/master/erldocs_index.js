@@ -1,1 +1,0 @@
-var index = [['app','dobi','dobi','[application]'],['mod','dobi','dobi',[]],['fun','dobi','dobi:build/2',[]],['fun','dobi','dobi:build_parts/2',[]],['fun','dobi','dobi:start/0',[]],['fun','dobi','dobi:stop/0',[]]];

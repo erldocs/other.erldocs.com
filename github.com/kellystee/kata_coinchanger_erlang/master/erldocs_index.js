@@ -1,1 +1,0 @@
-var index = [['app','kata_coinchanger_erlang','kata_coinchanger_erlang','[application]'],['mod','kata_coinchanger_erlang','make_change',[]],['mod','kata_coinchanger_erlang','make_change_test',[]],['fun','kata_coinchanger_erlang','make_change:get/1',[]],['fun','kata_coinchanger_erlang','make_change:get/3',[]]];

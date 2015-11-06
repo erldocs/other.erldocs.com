@@ -1,1 +1,0 @@
-var index = [['app','erlang_git','erlang_git','[application]'],['mod','erlang_git','git',[]],['fun','erlang_git','git:head/0',[]],['fun','erlang_git','git:object/1',[]],['fun','erlang_git','git:ref_or_sha/1',[]],['fun','erlang_git','git:sha/1',[]]];

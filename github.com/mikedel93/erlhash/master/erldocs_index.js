@@ -1,1 +1,0 @@
-var index = [['app','erlhash','erlhash','[application]'],['mod','erlhash','hashTable',[]],['fun','erlhash','hashTable:main/0',[]]];

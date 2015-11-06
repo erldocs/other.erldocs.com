@@ -1,1 +1,0 @@
-var index = [['app','distributedmapreduce','distributedmapreduce','[application]'],['mod','distributedmapreduce','bootstrap',[]],['mod','distributedmapreduce','compute',[]],['mod','distributedmapreduce','mrs',[]],['mod','distributedmapreduce','worker',[]]];

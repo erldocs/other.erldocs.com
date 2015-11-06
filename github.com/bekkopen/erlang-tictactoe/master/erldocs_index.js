@@ -1,1 +1,0 @@
-var index = [['app','erlang-tictactoe','erlang-tictactoe','[application]'],['mod','erlang-tictactoe','gameclient',[]],['mod','erlang-tictactoe','gameserver',[]],['mod','erlang-tictactoe','server_util',[]],['mod','erlang-tictactoe','tictactoe',[]]];

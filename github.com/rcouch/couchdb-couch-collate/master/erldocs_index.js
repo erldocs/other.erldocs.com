@@ -1,1 +1,0 @@
-var index = [['app','couchdb-couch-collate','couchdb-couch-collate','[application]'],['mod','couchdb-couch-collate','couch_collate',[]],['fun','couchdb-couch-collate','couch_collate:collate/1',[]],['fun','couchdb-couch-collate','couch_collate:collate/1','compare 2 string, result is -1 for lt, 0 for eq an'],['fun','couchdb-couch-collate','couch_collate:init/0',[]]];

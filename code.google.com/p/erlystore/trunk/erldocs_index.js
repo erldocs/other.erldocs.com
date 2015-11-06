@@ -1,1 +1,0 @@
-var index = [['app','erlystore','erlystore','[application]'],['mod','erlystore','petstore_app_controller',[]],['fun','erlystore','petstore_app_controller:hook/1',[]]];

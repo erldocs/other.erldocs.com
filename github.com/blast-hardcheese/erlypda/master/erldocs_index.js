@@ -1,1 +1,0 @@
-var index = [['app','erlypda','erlypda','[application]'],['mod','erlypda','rules',[]],['fun','erlypda','rules:build_rules/1',[]],['fun','erlypda','rules:match/2',[]]];

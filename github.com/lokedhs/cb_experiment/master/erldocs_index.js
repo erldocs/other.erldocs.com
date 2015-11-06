@@ -1,1 +1,0 @@
-var index = [['app','cb_experiment','cb_experiment','[application]'],['mod','cb_experiment','cb_experiment_custom_filters',[]],['mod','cb_experiment','cb_experiment_custom_tags',[]],['mod','cb_experiment','cb_experiment_foo_controller',[]],['mod','cb_experiment','cb_experiment_incoming_mail_controller',[]],['mod','cb_experiment','cb_experiment_outgoing_mail_controller',[]]];

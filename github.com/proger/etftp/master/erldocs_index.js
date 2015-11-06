@@ -1,1 +1,0 @@
-var index = [['app','etftp','etftp','[application]'],['mod','etftp','etftp_app',[]],['mod','etftp','etftp_sup',[]],['fun','etftp','etftp_app:run/1',[]],['fun','etftp','etftp_app:start/2',[]],['fun','etftp','etftp_app:stop/1',[]],['fun','etftp','etftp_sup:init/1',[]],['fun','etftp','etftp_sup:start_link/0',[]]];

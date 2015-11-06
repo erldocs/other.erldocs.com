@@ -1,1 +1,0 @@
-var index = [['app','compendencies','compendencies','[application]'],['mod','compendencies','compendencies','Compendencies - Compilation dependencies, lists fi'],['fun','compendencies','compendencies:go/1','Find dependent files based on loaded module name.']];

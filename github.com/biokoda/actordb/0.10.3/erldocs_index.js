@@ -1,1 +1,0 @@
-var index = [['app','actordb','actordb','[application]'],['mod','actordb','actordb_console',[]],['fun','actordb','actordb_console:cmd/1',[]],['fun','actordb','actordb_console:main/1',[]],['fun','actordb','actordb_console:map_print/1',[]]];

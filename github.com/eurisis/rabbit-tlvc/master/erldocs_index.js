@@ -1,1 +1,0 @@
-var index = [['app','rabbit-tlvc','rabbit-tlvc','[application]'],['mod','rabbit-tlvc','rabbit_tlvc_plugin',[]],['fun','rabbit-tlvc','rabbit_tlvc_plugin:setup_schema/0',[]]];

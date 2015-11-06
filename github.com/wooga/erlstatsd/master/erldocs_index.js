@@ -1,1 +1,0 @@
-var index = [['app','erlstatsd','erlstatsd','[application]'],['mod','erlstatsd','erlstatsd_app',[]],['mod','erlstatsd','erlstatsd_sup',[]],['fun','erlstatsd','erlstatsd_app:start/2',[]],['fun','erlstatsd','erlstatsd_app:stop/1',[]],['fun','erlstatsd','erlstatsd_sup:init/1',[]],['fun','erlstatsd','erlstatsd_sup:start_link/0',[]]];

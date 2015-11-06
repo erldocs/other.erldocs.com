@@ -1,1 +1,0 @@
-var index = [['app','mouture','mouture','[application]'],['mod','mouture','mouture',[]],['fun','mouture','mouture:compare/1',[]],['fun','mouture','mouture:is_compatible/1',[]],['fun','mouture','mouture:parse/1',[]],['fun','mouture','mouture:unparse/1',[]]];

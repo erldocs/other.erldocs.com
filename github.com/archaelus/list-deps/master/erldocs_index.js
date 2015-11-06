@@ -1,1 +1,0 @@
-var index = [['app','list-deps','list-deps','[application]'],['mod','list-deps','list_deps',[]]];

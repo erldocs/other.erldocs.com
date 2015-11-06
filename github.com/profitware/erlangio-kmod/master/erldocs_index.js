@@ -1,1 +1,0 @@
-var index = [['app','erlangio-kmod','erlangio-kmod','[application]'],['mod','erlangio-kmod','erlangio_app','   ErlangIO application.'],['fun','erlangio-kmod','erlangio_app:start/2',[]],['fun','erlangio-kmod','erlangio_app:stop/1',[]]];

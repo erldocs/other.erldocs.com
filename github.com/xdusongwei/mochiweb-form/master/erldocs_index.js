@@ -1,1 +1,0 @@
-var index = [['app','mochiweb-form','mochiweb-form','[application]'],['mod','mochiweb-form','form',[]],['fun','mochiweb-form','form:max_length/1',[]],['fun','mochiweb-form','form:min_length/1',[]],['fun','mochiweb-form','form:range_length/2',[]],['fun','mochiweb-form','form:save_value/0',[]],['fun','mochiweb-form','form:valid_form/3',[]]];

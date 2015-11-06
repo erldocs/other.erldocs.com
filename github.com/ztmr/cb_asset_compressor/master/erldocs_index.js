@@ -1,1 +1,0 @@
-var index = [['app','cb_asset_compressor','cb_asset_compressor','[application]'],['mod','cb_asset_compressor','cb_asset_compressor',[]],['fun','cb_asset_compressor','cb_asset_compressor:process/1',[]],['fun','cb_asset_compressor','cb_asset_compressor:process/2',[]]];

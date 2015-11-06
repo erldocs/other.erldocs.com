@@ -1,1 +1,0 @@
-var index = [['app','best-before-puzzle','best-before-puzzle','[application]'],['mod','best-before-puzzle','best_before',[]]];

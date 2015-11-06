@@ -1,1 +1,0 @@
-var index = [['app','sew-wiki','sew-wiki','[application]'],['mod','sew-wiki','sew_app_controller',[]],['fun','sew-wiki','sew_app_controller:hook/1',[]]];

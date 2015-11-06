@@ -1,1 +1,0 @@
-var index = [['app','erl_db_ets','erl_db_ets','[application]'],['mod','erl_db_ets','erl_db_ets_app',[]],['mod','erl_db_ets','erl_db_ets_sup',[]],['fun','erl_db_ets','erl_db_ets_app:start/2',[]],['fun','erl_db_ets','erl_db_ets_app:stop/1',[]],['fun','erl_db_ets','erl_db_ets_sup:init/1',[]],['fun','erl_db_ets','erl_db_ets_sup:start_link/0',[]]];

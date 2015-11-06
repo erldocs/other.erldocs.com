@@ -1,1 +1,0 @@
-var index = [['app','learning','learning','[application]'],['mod','learning','elists',[]],['mod','learning','join',[]],['fun','learning','elists:insert/2','Insert Elem into a List sorted in ascending order'],['fun','learning','join:binaries/2',[]],['fun','learning','join:list/1',[]]];

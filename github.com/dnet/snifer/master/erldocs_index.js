@@ -1,1 +1,0 @@
-var index = [['app','snifer','snifer','[application]'],['mod','snifer','logger',[]],['mod','snifer','snifer',[]],['fun','snifer','logger:handle_cast/2',[]],['fun','snifer','logger:init/1',[]],['fun','snifer','logger:log/3',[]],['fun','snifer','logger:start/0',[]],['fun','snifer','snifer:acceptor/1',[]],['fun','snifer','snifer:start/0',[]]];

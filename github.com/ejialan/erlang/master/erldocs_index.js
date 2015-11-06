@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','matrix',[]],['mod','erlang','numplace',[]],['mod','erlang','test',[]],['fun','erlang','numplace:deduce/1',[]]];

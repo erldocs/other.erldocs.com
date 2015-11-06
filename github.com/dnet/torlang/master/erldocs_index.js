@@ -1,1 +1,0 @@
-var index = [['app','torlang','torlang','[application]'],['mod','torlang','hex',[]],['mod','torlang','trusted_authorities',[]],['fun','torlang','hex:bin_to_hexstr/1',[]],['fun','torlang','hex:hexstr_to_bin/1',[]]];

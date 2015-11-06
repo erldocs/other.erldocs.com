@@ -1,1 +1,0 @@
-var index = [['app','erlcount','erlcount','[application]'],['mod','erlcount','wordcount',[]],['fun','erlcount','wordcount:wordcount/1',[]]];

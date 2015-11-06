@@ -1,1 +1,0 @@
-var index = [['app','path','path','[application]'],['mod','path','path',[]],['mod','path','path_callbacks',[]],['mod','path','path_utils',[]],['fun','path','path:add_callback/1',[]],['fun','path','path:walk/1',[]],['fun','path','path_callbacks:add/1',[]],['fun','path','path_callbacks:run/1',[]],['fun','path','path_utils:spy/1',[]],['fun','path','path_utils:spy_walk/1',[]]];

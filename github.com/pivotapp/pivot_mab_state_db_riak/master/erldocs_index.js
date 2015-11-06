@@ -1,1 +1,0 @@
-var index = [['app','pivot_mab_state_db_riak','pivot_mab_state_db_riak','[application]'],['mod','pivot_mab_state_db_riak','pivot_mab_state_db_riak',[]],['fun','pivot_mab_state_db_riak','pivot_mab_state_db_riak:add_reward/5',[]]];

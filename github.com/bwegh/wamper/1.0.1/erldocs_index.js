@@ -1,1 +1,0 @@
-var index = [['app','wamper','wamper','[application]'],['mod','wamper','wamper_auth',[]],['fun','wamper','wamper_auth:create_wampcra_challenge/1',[]],['fun','wamper','wamper_auth:pbkdf2/1','calculates the derived key from secret key, using '],['fun','wamper','wamper_auth:wamp_cra/1','calculates the cryptographic hash of the challenge']];

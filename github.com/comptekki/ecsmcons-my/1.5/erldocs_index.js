@@ -1,1 +1,0 @@
-var index = [['app','ecsmcons-my','ecsmcons-my','[application]'],['mod','ecsmcons-my','ecomsrv',[]],['fun','ecsmcons-my','ecomsrv:send_com/2',[]],['fun','ecsmcons-my','ecomsrv:send_com/4',[]]];

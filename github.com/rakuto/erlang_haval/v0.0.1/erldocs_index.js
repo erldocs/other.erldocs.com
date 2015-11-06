@@ -1,1 +1,0 @@
-var index = [['app','erlang_haval','erlang_haval','[application]'],['mod','erlang_haval','haval',[]],['fun','erlang_haval','haval:haval_file/1',[]],['fun','erlang_haval','haval:haval_string/1',[]],['fun','erlang_haval','haval:info/0',[]],['fun','erlang_haval','haval:start/0',[]],['fun','erlang_haval','haval:stop/0',[]]];

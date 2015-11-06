@@ -1,1 +1,0 @@
-var index = [['app','hermod','hermod','[application]'],['mod','hermod','hermod_app',[]],['mod','hermod','hermod_sup',[]],['fun','hermod','hermod_app:start/2',[]],['fun','hermod','hermod_app:stop/1',[]],['fun','hermod','hermod_sup:init/1',[]],['fun','hermod','hermod_sup:start_link/0',[]]];

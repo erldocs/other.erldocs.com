@@ -1,1 +1,0 @@
-var index = [['app','coveralls-erl','coveralls-erl','[application]'],['mod','coveralls-erl','rebar_coveralls','coveralls plugin for rebar.'],['fun','coveralls-erl','rebar_coveralls:ct/2',[]],['fun','coveralls-erl','rebar_coveralls:eunit/2',[]]];

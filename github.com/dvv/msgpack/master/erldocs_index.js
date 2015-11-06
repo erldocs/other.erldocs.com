@@ -1,1 +1,0 @@
-var index = [['app','msgpack','msgpack','[application]'],['mod','msgpack','msgpack',[]],['fun','msgpack','msgpack:pack/1',[]],['fun','msgpack','msgpack:unpack/1',[]]];

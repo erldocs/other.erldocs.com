@@ -1,1 +1,0 @@
-var index = [['app','session_simulation','session_simulation','[application]'],['mod','session_simulation','session_simulation',[]],['fun','session_simulation','session_simulation:run_sim/0',[]],['fun','session_simulation','session_simulation:run_sim/3',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ifstring.erl','ifstring.erl','[application]'],['mod','ifstring.erl','ifstring',[]],['mod','ifstring.erl','ifstring_tests',[]],['fun','ifstring.erl','ifstring:is_numeric/1',[]],['fun','ifstring.erl','ifstring:is_numeric_or/1',[]],['fun','ifstring.erl','ifstring:is_numeric_or/1',[]],['fun','ifstring.erl','ifstring:not_numeric/1',[]]];

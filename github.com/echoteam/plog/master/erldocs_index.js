@@ -1,1 +1,0 @@
-var index = [['app','plog','plog','[application]'],['mod','plog','plog_app',[]],['mod','plog','plog_sup',[]],['fun','plog','plog_app:start/2',[]],['fun','plog','plog_app:stop/1',[]],['fun','plog','plog_sup:init/1',[]],['fun','plog','plog_sup:start_link/0',[]]];

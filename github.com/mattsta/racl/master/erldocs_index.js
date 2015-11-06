@@ -1,1 +1,0 @@
-var index = [['app','racl','racl','[application]'],['mod','racl','racl_mux',[]]];

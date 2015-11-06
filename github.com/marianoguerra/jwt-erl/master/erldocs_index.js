@@ -1,1 +1,0 @@
-var index = [['app','jwt-erl','jwt-erl','[application]'],['mod','jwt-erl','jwt',[]],['fun','jwt-erl','jwt:decode/2',[]],['fun','jwt-erl','jwt:encode/3',[]],['fun','jwt-erl','jwt:encode/4',[]],['fun','jwt-erl','jwt:now_secs/0',[]]];

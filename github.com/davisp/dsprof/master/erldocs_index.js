@@ -1,1 +1,0 @@
-var index = [['app','dsprof','dsprof','[application]'],['mod','dsprof','dsprof',[]],['fun','dsprof','dsprof:direct/0',[]],['fun','dsprof','dsprof:ds_cpu/0',[]],['fun','dsprof','dsprof:ds_io/0',[]],['fun','dsprof','dsprof:via_thread/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','funmacro','funmacro','[application]'],['mod','funmacro','fun_macro_pt',[]],['fun','funmacro','fun_macro_pt:parse_transform/2',[]]];

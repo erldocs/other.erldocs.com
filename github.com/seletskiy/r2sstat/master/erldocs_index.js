@@ -1,1 +1,0 @@
-var index = [['app','r2sstat','r2sstat','[application]'],['mod','r2sstat','r2sstat','Console viewer for R2S-UMB that display info like '],['fun','r2sstat','r2sstat:main/1','Main entry to script.']];

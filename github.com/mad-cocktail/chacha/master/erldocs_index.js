@@ -1,1 +1,0 @@
-var index = [['app','chacha','chacha','[application]'],['mod','chacha','chacha',[]],['fun','chacha','chacha:parse_transform/2',[]]];

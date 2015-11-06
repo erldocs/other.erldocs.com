@@ -1,1 +1,0 @@
-var index = [['app','kiichigo-communique','kiichigo-communique','[application]'],['mod','kiichigo-communique','agent',[]],['mod','kiichigo-communique','core',[]],['mod','kiichigo-communique','mas',[]],['fun','kiichigo-communique','agent:start/1',[]],['fun','kiichigo-communique','core:log/1',[]],['fun','kiichigo-communique','mas:create_agent/1',[]]];

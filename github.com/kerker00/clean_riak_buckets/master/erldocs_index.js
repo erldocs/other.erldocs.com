@@ -1,1 +1,0 @@
-var index = [['app','clean_riak_buckets','clean_riak_buckets','[application]'],['mod','clean_riak_buckets','clean_riak_buckets',[]],['fun','clean_riak_buckets','clean_riak_buckets:clean_buckets/2',[]]];

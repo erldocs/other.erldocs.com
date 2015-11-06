@@ -1,1 +1,0 @@
-var index = [['app','erlang-gtp','erlang-gtp','[application]'],['mod','erlang-gtp','gtp',[]],['mod','erlang-gtp','stones',[]],['mod','erlang-gtp','twod_array',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','cbase64-erlang-nif','cbase64-erlang-nif','[application]'],['mod','cbase64-erlang-nif','cbase64',[]],['fun','cbase64-erlang-nif','cbase64:decode/1',[]],['fun','cbase64-erlang-nif','cbase64:encode/1',[]]];

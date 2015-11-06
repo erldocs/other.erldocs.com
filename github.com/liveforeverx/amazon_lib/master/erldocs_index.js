@@ -1,1 +1,0 @@
-var index = [['app','amazon_lib','amazon_lib','[application]'],['mod','amazon_lib','amazon_lib_sdb',[]],['fun','amazon_lib','amazon_lib_sdb:delete/1',[]],['fun','amazon_lib','amazon_lib_sdb:get/1',[]],['fun','amazon_lib','amazon_lib_sdb:init/0',[]],['fun','amazon_lib','amazon_lib_sdb:lists/0',[]],['fun','amazon_lib','amazon_lib_sdb:put/2',[]]];

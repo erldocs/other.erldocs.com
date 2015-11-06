@@ -1,1 +1,0 @@
-var index = [['app','simplepatternmatching','simplepatternmatching','[application]'],['mod','simplepatternmatching','bool',[]],['fun','simplepatternmatching','bool:b_and/2',[]],['fun','simplepatternmatching','bool:b_nand/2',[]],['fun','simplepatternmatching','bool:b_not/1',[]],['fun','simplepatternmatching','bool:b_or/2',[]]];

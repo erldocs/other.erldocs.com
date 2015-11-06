@@ -1,1 +1,0 @@
-var index = [['app','learning_erlang','learning_erlang','[application]'],['mod','learning_erlang','imagine_app',[]],['mod','learning_erlang','imagine_sup',[]],['fun','learning_erlang','imagine_app:start/2',[]],['fun','learning_erlang','imagine_app:stop/1',[]],['fun','learning_erlang','imagine_sup:init/1',[]],['fun','learning_erlang','imagine_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','word-ladder','word-ladder','[application]'],['mod','word-ladder','word',[]],['mod','word-ladder','word_ladder_app',[]]];

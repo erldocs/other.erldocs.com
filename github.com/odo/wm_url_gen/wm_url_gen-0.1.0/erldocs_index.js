@@ -1,1 +1,0 @@
-var index = [['app','wm_url_gen','wm_url_gen','[application]'],['mod','wm_url_gen','wm_url_gen',[]],['fun','wm_url_gen','wm_url_gen:url_for/1',[]]];

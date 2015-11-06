@@ -1,1 +1,0 @@
-var index = [['app','erl_hacks','erl_hacks','[application]'],['mod','erl_hacks','levenshtein',[]],['fun','erl_hacks','levenshtein:distance/2',[]]];

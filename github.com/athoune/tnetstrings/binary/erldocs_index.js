@@ -1,1 +1,0 @@
-var index = [['app','tnetstrings','tnetstrings','[application]'],['mod','tnetstrings','tnetstrings',[]],['fun','tnetstrings','tnetstrings:decode/1',[]],['fun','tnetstrings','tnetstrings:encode/1',[]]];

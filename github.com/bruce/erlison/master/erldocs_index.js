@@ -1,1 +1,0 @@
-var index = [['app','erlison','erlison','[application]'],['mod','erlison','article',[]],['mod','erlison','uuencode',[]],['mod','erlison','yenc',[]],['fun','erlison','article:parse/1',[]],['fun','erlison','uuencode:dec/1',[]],['fun','erlison','yenc:dec/1',[]],['fun','erlison','yenc:parse_data/2',[]]];

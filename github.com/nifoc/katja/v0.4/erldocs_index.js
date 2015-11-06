@@ -1,1 +1,0 @@
-var index = [['app','katja','katja','[application]'],['mod','katja','katja_app','Module for the Katja application behaviour.'],['mod','katja','katja_sup','Supervisor of the Katja application.'],['fun','katja','katja_app:start/2',[]],['fun','katja','katja_app:stop/1',[]],['fun','katja','katja_sup:init/1',[]],['fun','katja','katja_sup:start_link/0',[]]];

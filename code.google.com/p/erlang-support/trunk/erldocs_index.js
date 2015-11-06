@@ -1,1 +1,0 @@
-var index = [['app','erlang-support','erlang-support','[application]'],['mod','erlang-support','big_dogs',[]],['fun','erlang-support','big_dogs:at/2',[]],['fun','erlang-support','big_dogs:ends_with/2',[]],['fun','erlang-support','big_dogs:from/2',[]],['fun','erlang-support','big_dogs:starts_with/2',[]],['fun','erlang-support','big_dogs:to/2',[]]];

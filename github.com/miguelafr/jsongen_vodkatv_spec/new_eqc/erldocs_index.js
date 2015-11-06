@@ -1,1 +1,0 @@
-var index = [['app','jsongen_vodkatv_spec','jsongen_vodkatv_spec','[application]'],['mod','jsongen_vodkatv_spec','test',[]],['mod','jsongen_vodkatv_spec','vodkatv',[]],['mod','jsongen_vodkatv_spec','vodkatv_generators',[]]];

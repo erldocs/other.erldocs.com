@@ -1,1 +1,0 @@
-var index = [['app','ggs','ggs','[application]'],['mod','ggs','ggs_vm_runner',[]],['fun','ggs','ggs_vm_runner:define/2',[]],['fun','ggs','ggs_vm_runner:start_link/0',[]],['fun','ggs','ggs_vm_runner:user_command/4',[]]];

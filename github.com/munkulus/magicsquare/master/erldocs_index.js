@@ -1,1 +1,0 @@
-var index = [['app','magicsquare','magicsquare','[application]'],['mod','magicsquare','magicSquare',[]],['mod','magicsquare','ms_tests',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erl-fib','erl-fib','[application]'],['mod','erl-fib','fibonacci',[]],['mod','erl-fib','hello',[]],['fun','erl-fib','fibonacci:main/0',[]],['fun','erl-fib','hello:main/0',[]]];

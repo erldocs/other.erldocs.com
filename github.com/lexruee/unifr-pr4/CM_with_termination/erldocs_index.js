@@ -1,1 +1,0 @@
-var index = [['app','unifr-pr4','unifr-pr4','[application]'],['mod','unifr-pr4','token_ring',[]],['fun','unifr-pr4','token_ring:loop/2',[]],['fun','unifr-pr4','token_ring:start/2',[]],['fun','unifr-pr4','token_ring:startRec/2',[]]];

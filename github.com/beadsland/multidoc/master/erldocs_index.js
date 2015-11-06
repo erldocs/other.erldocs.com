@@ -1,1 +1,0 @@
-var index = [['app','multidoc','multidoc','[application]'],['mod','multidoc','multi_doclet',[]],['fun','multidoc','multi_doclet:run/1','Main doclet entry point.']];

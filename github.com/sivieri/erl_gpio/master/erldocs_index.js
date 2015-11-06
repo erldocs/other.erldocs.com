@@ -1,1 +1,0 @@
-var index = [['app','erl_gpio','erl_gpio','[application]'],['mod','erl_gpio','gpio',[]],['fun','erl_gpio','gpio:analog_write/2',[]],['fun','erl_gpio','gpio:digital_read/1',[]],['fun','erl_gpio','gpio:digital_write/2',[]],['fun','erl_gpio','gpio:init/0',[]],['fun','erl_gpio','gpio:pin_mode/2',[]],['fun','erl_gpio','gpio:setup/0',[]]];

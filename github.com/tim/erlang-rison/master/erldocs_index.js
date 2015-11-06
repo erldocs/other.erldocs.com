@@ -1,1 +1,0 @@
-var index = [['app','erlang-rison','erlang-rison','[application]'],['mod','erlang-rison','rison',[]],['fun','erlang-rison','rison:decode/1',[]],['fun','erlang-rison','rison:dump/1',[]],['fun','erlang-rison','rison:encode/1',[]],['fun','erlang-rison','rison:load/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlover','erlover','[application]'],['mod','erlover','erlover','Basic library to send pushover.net notifications '],['fun','erlover','erlover:send/1','Sends a notification to Token for User.'],['fun','erlover','erlover:send/1','Sends a notification that is passed in as a propli']];

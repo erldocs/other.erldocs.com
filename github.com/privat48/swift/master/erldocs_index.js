@@ -1,1 +1,0 @@
-var index = [['app','swift','swift','[application]'],['mod','swift','iban',[]],['mod','swift','iban_server',[]],['fun','swift','iban:is_valid/1',[]]];

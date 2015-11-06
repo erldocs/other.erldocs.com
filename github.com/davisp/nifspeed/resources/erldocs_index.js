@@ -1,1 +1,0 @@
-var index = [['app','nifspeed','nifspeed','[application]'],['mod','nifspeed','couch_uca',[]],['mod','nifspeed','nif_uca',[]],['fun','nifspeed','couch_uca:collate/2',[]],['fun','nifspeed','couch_uca:start_driver/1',[]],['fun','nifspeed','nif_uca:collate/3',[]],['fun','nifspeed','nif_uca:open/0',[]]];

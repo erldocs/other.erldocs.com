@@ -1,1 +1,0 @@
-var index = [['app','memento','memento','[application]'],['mod','memento','m_mib_compiler',[]],['mod','memento','m_mib_info',[]],['mod','memento','m_snmp_utils',[]],['fun','memento','m_mib_compiler:mib_to_meta/1',[]],['fun','memento','m_snmp_utils:pretty_varbind/1',[]],['fun','memento','m_snmp_utils:walk/3',[]]];

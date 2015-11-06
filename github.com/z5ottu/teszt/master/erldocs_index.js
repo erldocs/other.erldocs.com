@@ -1,1 +1,0 @@
-var index = [['app','teszt','teszt','[application]'],['mod','teszt','sqlbase',[]],['mod','teszt','teszt',[]],['fun','teszt','sqlbase:getx/1',[]],['fun','teszt','sqlbase:loop/2',[]],['fun','teszt','sqlbase:sqlconnect/0',[]],['fun','teszt','sqlbase:start/0',[]],['fun','teszt','teszt:main/0',[]]];

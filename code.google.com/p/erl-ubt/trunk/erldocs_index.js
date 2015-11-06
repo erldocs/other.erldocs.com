@@ -1,1 +1,0 @@
-var index = [['app','erl-ubt','erl-ubt','[application]'],['mod','erl-ubt','jobs',[]],['mod','erl-ubt','test',[]],['fun','erl-ubt','test:code_change/3',[]],['fun','erl-ubt','test:handle_call/3',[]],['fun','erl-ubt','test:handle_cast/2',[]],['fun','erl-ubt','test:handle_info/2',[]],['fun','erl-ubt','test:init/1',[]],['fun','erl-ubt','test:terminate/2',[]]];

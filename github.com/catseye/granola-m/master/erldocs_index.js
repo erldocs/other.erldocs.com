@@ -1,1 +1,0 @@
-var index = [['app','granola-m','granola-m','[application]'],['mod','granola-m','granolam',[]],['fun','granola-m','granolam:interpret/1',[]],['fun','granola-m','granolam:main/1',[]],['fun','granola-m','granolam:parse/1',[]],['fun','granola-m','granolam:run/1',[]],['fun','granola-m','granolam:shell/0',[]],['fun','granola-m','granolam:test/1',[]]];

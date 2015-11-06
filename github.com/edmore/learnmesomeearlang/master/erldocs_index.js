@@ -1,1 +1,0 @@
-var index = [['app','learnmesomeearlang','learnmesomeearlang','[application]'],['mod','learnmesomeearlang','dolphins',[]],['mod','learnmesomeearlang','echo',[]],['fun','learnmesomeearlang','echo:test/0',[]]];

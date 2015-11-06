@@ -1,1 +1,0 @@
-var index = [['app','erlang-p2p','erlang-p2p','[application]'],['mod','erlang-p2p','node',[]],['mod','erlang-p2p','ring',[]],['fun','erlang-p2p','node:wait/6',[]],['fun','erlang-p2p','ring:aff/1',[]],['fun','erlang-p2p','ring:create/4',[]],['fun','erlang-p2p','ring:go/1',[]],['fun','erlang-p2p','ring:init/4',[]],['fun','erlang-p2p','ring:launch/3',[]]];

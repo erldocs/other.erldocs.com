@@ -1,1 +1,0 @@
-var index = [['app','pal-google-oauth2','pal-google-oauth2','[application]'],['mod','pal-google-oauth2','pal_google_oauth2_authcode',[]],['fun','pal-google-oauth2','pal_google_oauth2_authcode:credentials/1',[]],['fun','pal-google-oauth2','pal_google_oauth2_authcode:decl/0',[]]];

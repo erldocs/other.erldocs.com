@@ -1,1 +1,0 @@
-var index = [['app','rebar_edown_plugin','rebar_edown_plugin','[application]'],['mod','rebar_edown_plugin','rebar_edown_plugin',[]],['fun','rebar_edown_plugin','rebar_edown_plugin:do/1',[]],['fun','rebar_edown_plugin','rebar_edown_plugin:format_error/1',[]],['fun','rebar_edown_plugin','rebar_edown_plugin:init/1',[]]];

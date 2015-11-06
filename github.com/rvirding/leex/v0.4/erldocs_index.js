@@ -1,1 +1,0 @@
-var index = [['app','leex','leex','[application]'],['mod','leex','leex',[]],['fun','leex','leex:file/1',[]],['fun','leex','leex:file/2',[]],['fun','leex','leex:format_error/1',[]]];

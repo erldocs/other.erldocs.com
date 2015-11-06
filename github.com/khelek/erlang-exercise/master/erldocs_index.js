@@ -1,1 +1,0 @@
-var index = [['app','erlang-exercise','erlang-exercise','[application]'],['mod','erlang-exercise','my_list',[]]];

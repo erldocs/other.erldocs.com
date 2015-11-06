@@ -1,1 +1,0 @@
-var index = [['app','pfds_solutions','pfds_solutions','[application]'],['mod','pfds_solutions','exercise_2_1',[]],['fun','pfds_solutions','exercise_2_1:suffixes/1',[]]];

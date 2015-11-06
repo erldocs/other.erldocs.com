@@ -1,1 +1,0 @@
-var index = [['app','sha1-erlang','sha1-erlang','[application]'],['mod','sha1-erlang','sha1',[]],['fun','sha1-erlang','sha1:binfile/1',[]],['fun','sha1-erlang','sha1:binstring/1',[]],['fun','sha1-erlang','sha1:hexfile/1',[]],['fun','sha1-erlang','sha1:hexstring/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','edoc_rebar_frontend','edoc_rebar_frontend','[application]'],['mod','edoc_rebar_frontend','edoc_rebar_frontend',[]],['fun','edoc_rebar_frontend','edoc_rebar_frontend:module/2',[]],['fun','edoc_rebar_frontend','edoc_rebar_frontend:overview/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlhomework','erlhomework','[application]'],['mod','erlhomework','circle',[]],['mod','erlhomework','gen_area',[]],['mod','erlhomework','rectangle',[]],['fun','erlhomework','circle:evaluate/1',[]],['fun','erlhomework','gen_area:behaviour_info/1',[]],['fun','erlhomework','rectangle:evaluate/1',[]]];

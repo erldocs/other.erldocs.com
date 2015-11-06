@@ -1,1 +1,0 @@
-var index = [['app','dk_cxy','dk_cxy','[application]'],['mod','dk_cxy','batch_feeder','     Batches are often used as a way to increase '],['fun','dk_cxy','batch_feeder:get_next_batch_list/1',[]],['fun','dk_cxy','batch_feeder:process_data/1',[]]];

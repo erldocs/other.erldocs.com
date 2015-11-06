@@ -1,1 +1,0 @@
-var index = [['app','simple-smtp-sender','simple-smtp-sender','[application]'],['mod','simple-smtp-sender','simple_smtp_sender',[]],['fun','simple-smtp-sender','simple_smtp_sender:send/4',[]],['fun','simple-smtp-sender','simple_smtp_sender:send/5',[]],['fun','simple-smtp-sender','simple_smtp_sender:send/6',[]],['fun','simple-smtp-sender','simple_smtp_sender:send/7',[]]];

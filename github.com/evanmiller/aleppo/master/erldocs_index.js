@@ -1,1 +1,0 @@
-var index = [['app','aleppo','aleppo','[application]'],['mod','aleppo','aleppo',[]],['fun','aleppo','aleppo:process_file/1',[]],['fun','aleppo','aleppo:process_file/2',[]],['fun','aleppo','aleppo:process_tokens/1',[]],['fun','aleppo','aleppo:process_tokens/2',[]],['fun','aleppo','aleppo:scan_file/1',[]]];

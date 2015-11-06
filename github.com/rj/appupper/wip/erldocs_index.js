@@ -1,1 +1,0 @@
-var index = [['app','appupper','appupper','[application]'],['mod','appupper','appupper',[]],['mod','appupper','appupper_cli',[]],['mod','appupper','appupper_versionbumper',[]],['fun','appupper','appupper:main/1',[]],['fun','appupper','appupper_cli:parse_args/1',[]]];

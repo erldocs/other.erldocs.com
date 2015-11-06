@@ -1,1 +1,0 @@
-var index = [['app','code4fun','code4fun','[application]'],['mod','code4fun','edc_host_details',[]],['mod','code4fun','edc_job_scheduler',[]],['mod','code4fun','edc_job_submission',[]],['mod','code4fun','edc_node_specs',[]],['mod','code4fun','edc_worker',[]],['mod','code4fun','edc_worker_agent',[]],['mod','code4fun','test1',[]],['mod','code4fun','test2',[]]];

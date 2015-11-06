@@ -1,1 +1,0 @@
-var index = [['app','swarm','swarm','[application]'],['mod','swarm','test',[]],['fun','swarm','test:protect/3',[]]];

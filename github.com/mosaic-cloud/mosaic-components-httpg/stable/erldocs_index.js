@@ -1,1 +1,0 @@
-var index = [['app','mosaic-components-httpg','mosaic-components-httpg','[application]'],['app','mosaic-httpg','mosaic-httpg','[application]'],['app','rabbitmq-client','rabbitmq-client','[application]'],['app','vme','vme','[application]']];

@@ -1,1 +1,0 @@
-var index = [['app','erlang-uuid-v4','erlang-uuid-v4','[application]'],['mod','erlang-uuid-v4','uuid',[]],['fun','erlang-uuid-v4','uuid:generate/0',[]]];

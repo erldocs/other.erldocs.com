@@ -1,1 +1,0 @@
-var index = [['app','zucchini','zucchini','[application]'],['mod','zucchini','zucchini',[]],['fun','zucchini','zucchini:file/1',[]],['fun','zucchini','zucchini:parse/1',[]]];

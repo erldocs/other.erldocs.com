@@ -1,1 +1,0 @@
-var index = [['app','naututil','naututil','[application]'],['mod','naututil','naututil',[]],['mod','naututil','naututil_tests',[]]];

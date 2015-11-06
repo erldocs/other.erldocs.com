@@ -1,1 +1,0 @@
-var index = [['app','euler-erlang','euler-erlang','[application]'],['mod','euler-erlang','euler',[]],['fun','euler-erlang','euler:q1/0',[]],['fun','euler-erlang','euler:q2/0',[]],['fun','euler-erlang','euler:q5/0',[]],['fun','euler-erlang','euler:q6/0',[]],['fun','euler-erlang','euler:q7/0',[]]];

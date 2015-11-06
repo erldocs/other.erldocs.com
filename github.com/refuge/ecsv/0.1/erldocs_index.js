@@ -1,1 +1,0 @@
-var index = [['app','ecsv','ecsv','[application]'],['mod','ecsv','ecsv_parser',[]],['mod','ecsv','ecsv_reader',[]],['fun','ecsv','ecsv_parser:start_parsing/1',[]],['fun','ecsv','ecsv_reader:parse_from_io/2','parse using an io device such as file as the strin'],['fun','ecsv','ecsv_reader:parse_from_string/2','parse csv from a string.']];

@@ -1,1 +1,0 @@
-var index = [['app','epsd','epsd','[application]'],['mod','epsd','epsd',[]],['mod','epsd','epsd_color_data',[]],['mod','epsd','epsd_header',[]],['fun','epsd','epsd:epsd/1',[]],['fun','epsd','epsd_color_data:read_color_data/1',[]],['fun','epsd','epsd_header:read_header/1',[]]];

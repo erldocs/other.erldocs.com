@@ -1,1 +1,0 @@
-var index = [['app','the-first-erlang-mysql-driver','the-first-erlang-mysql-driver','[application]'],['mod','the-first-erlang-mysql-driver','mysql',[]],['fun','the-first-erlang-mysql-driver','mysql:fetch/1',[]],['fun','the-first-erlang-mysql-driver','mysql:start/4',[]]];

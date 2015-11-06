@@ -1,1 +1,0 @@
-var index = [['app','g3mails','g3mails','[application]'],['mod','g3mails','notify_test',[]],['fun','g3mails','notify_test:test/1',[]],['fun','g3mails','notify_test:test/2',[]]];

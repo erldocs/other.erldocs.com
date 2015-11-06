@@ -1,1 +1,0 @@
-var index = [['app','props','props','[application]'],['mod','props','props_path_parser',[]],['fun','props','props_path_parser:parse/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','cbosstest','cbosstest','[application]'],['mod','cbosstest','cbosstest_controller',[]],['mod','cbosstest','cbosstest_custom_filters',[]],['mod','cbosstest','cbosstest_custom_tags',[]],['mod','cbosstest','cbosstest_incoming_mail_controller',[]],['mod','cbosstest','cbosstest_outgoing_mail_controller',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','psykokwaks','psykokwaks','[application]'],['mod','psykokwaks','mascaron',[]],['mod','psykokwaks','mk_stats',[]],['fun','psykokwaks','mascaron:run/1',[]],['fun','psykokwaks','mk_stats:run/1',[]]];

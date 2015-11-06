@@ -1,1 +1,0 @@
-var index = [['app','nkdocker','nkdocker','[application]'],['mod','nkdocker','nkdocker_opts','NkDOCKER Options.'],['mod','nkdocker','nkdocker_sup',[]],['fun','nkdocker','nkdocker_opts:parse_text/0',[]]];

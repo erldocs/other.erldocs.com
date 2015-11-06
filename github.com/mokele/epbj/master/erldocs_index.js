@@ -1,1 +1,0 @@
-var index = [['app','epbj','epbj','[application]'],['mod','epbj','pbj',[]],['mod','epbj','pbj_app',[]],['mod','epbj','pbj_http',[]],['mod','epbj','pbj_sup',[]],['fun','epbj','pbj:start/0',[]],['fun','epbj','pbj_app:start/2',[]],['fun','epbj','pbj_app:stop/1',[]],['fun','epbj','pbj_http:start/0',[]],['fun','epbj','pbj_sup:init/1',[]],['fun','epbj','pbj_sup:start_link/0',[]]];

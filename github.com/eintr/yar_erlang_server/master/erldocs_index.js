@@ -1,1 +1,0 @@
-var index = [['app','yar_erlang_server','yar_erlang_server','[application]'],['mod','yar_erlang_server','yar_msg',[]],['mod','yar_erlang_server','yar_server',[]],['fun','yar_erlang_server','yar_msg:encode_send/2',[]],['fun','yar_erlang_server','yar_msg:recv_decode/1',[]],['fun','yar_erlang_server','yar_server:test_drive/1',[]]];

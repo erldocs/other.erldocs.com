@@ -1,1 +1,0 @@
-var index = [['app','dirble','dirble','[application]'],['mod','dirble','dirble_app',[]],['mod','dirble','dirble_sup',[]],['fun','dirble','dirble_app:start/2',[]],['fun','dirble','dirble_app:stop/1',[]],['fun','dirble','dirble_sup:init/1',[]],['fun','dirble','dirble_sup:start_link/0',[]]];

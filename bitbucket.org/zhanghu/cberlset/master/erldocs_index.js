@@ -1,1 +1,0 @@
-var index = [['app','cberlset','cberlset','[application]'],['mod','cberlset','cberlset_app',[]],['mod','cberlset','cberlset_sup',[]],['fun','cberlset','cberlset_app:start/2',[]],['fun','cberlset','cberlset_app:stop/1',[]],['fun','cberlset','cberlset_sup:init/1',[]],['fun','cberlset','cberlset_sup:start_link/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','bumperl','bumperl','[application]'],['mod','bumperl','bumperl',[]],['fun','bumperl','bumperl:main/1',[]]];

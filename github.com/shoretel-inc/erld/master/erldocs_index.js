@@ -1,1 +1,0 @@
-var index = [['app','erld','erld','[application]'],['mod','erld','erldapp',[]],['fun','erld','erldapp:bake_cookie/0',[]],['fun','erld','erldapp:init/1',[]],['fun','erld','erldapp:start/2',[]],['fun','erld','erldapp:stop/0',[]],['fun','erld','erldapp:stop/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','multilayer_perceptron_library','multilayer_perceptron_library','[application]'],['mod','multilayer_perceptron_library','cube',[]],['mod','multilayer_perceptron_library','matrix',[]],['mod','multilayer_perceptron_library','neuron',[]],['mod','multilayer_perceptron_library','trainer',[]],['mod','multilayer_perceptron_library','utils',[]]];

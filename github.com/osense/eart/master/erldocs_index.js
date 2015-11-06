@@ -1,1 +1,0 @@
-var index = [['app','eart','eart','[application]'],['mod','eart','eart',[]],['fun','eart','eart:insert/1',[]],['fun','eart','eart:lookup/1',[]],['fun','eart','eart:new/0',[]]];

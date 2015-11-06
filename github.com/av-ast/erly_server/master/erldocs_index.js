@@ -1,1 +1,0 @@
-var index = [['app','erly_server','erly_server','[application]'],['mod','erly_server','server',[]],['fun','erly_server','server:listen/1',[]]];

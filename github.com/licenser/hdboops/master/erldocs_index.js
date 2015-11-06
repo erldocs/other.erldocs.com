@@ -1,1 +1,0 @@
-var index = [['app','hdboops','hdboops','[application]'],['mod','hdboops','hdboops',[]],['mod','hdboops','hdboops_app',[]],['mod','hdboops','hdboops_sup',[]],['fun','hdboops','hdboops_app:start/2',[]],['fun','hdboops','hdboops_app:stop/1',[]],['fun','hdboops','hdboops_sup:init/1',[]],['fun','hdboops','hdboops_sup:start_link/0',[]]];

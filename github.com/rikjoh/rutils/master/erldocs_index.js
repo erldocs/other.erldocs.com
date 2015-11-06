@@ -1,1 +1,0 @@
-var index = [['app','rutils','rutils','[application]'],['mod','rutils','ecursed',[]],['mod','rutils','simple_read_cfg',[]],['fun','rutils','simple_read_cfg:pp_err/1',[]],['fun','rutils','simple_read_cfg:read/1',[]]];

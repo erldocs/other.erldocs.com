@@ -1,1 +1,0 @@
-var index = [['app','relio','relio','[application]'],['mod','relio','relio','     Simple functions for handling terminal input'],['mod','relio','relio_funs','.'],['fun','relio','relio:get_input/1',[]]];

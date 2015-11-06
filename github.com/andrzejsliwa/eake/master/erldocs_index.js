@@ -1,1 +1,0 @@
-var index = [['app','eake','eake','[application]'],['mod','eake','eake','eake - clone of rake for erlang.'],['fun','eake','eake:invoke_target/1',[]],['fun','eake','eake:main/1',[]],['fun','eake','eake:namespace/1',[]],['fun','eake','eake:task/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','hl7_types','hl7_types','[application]'],['mod','hl7_types','hl7_data_types',[]],['fun','hl7_types','hl7_data_types:all/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','herald','herald','[application]'],['mod','herald','herald',[]],['mod','herald','herald_app',[]],['fun','herald','herald:new_device/3',[]],['fun','herald','herald:push/2',[]],['fun','herald','herald:set_device_address/2',[]],['fun','herald','herald_app:start/0',[]],['fun','herald','herald_app:start/2',[]],['fun','herald','herald_app:stop/1',[]]];

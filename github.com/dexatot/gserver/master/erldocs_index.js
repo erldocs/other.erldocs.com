@@ -1,1 +1,0 @@
-var index = [['app','gserver','gserver','[application]'],['mod','gserver','gclient',[]],['mod','gserver','gserver',[]],['fun','gserver','gclient:client/2',[]],['fun','gserver','gclient:send/2',[]],['fun','gserver','gserver:get_request/3',[]],['fun','gserver','gserver:handle/2',[]],['fun','gserver','gserver:server/0',[]],['fun','gserver','gserver:wait_connect/2',[]]];

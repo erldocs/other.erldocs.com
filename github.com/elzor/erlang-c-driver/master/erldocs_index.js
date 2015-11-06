@@ -1,1 +1,0 @@
-var index = [['app','erlang-c-driver','erlang-c-driver','[application]'],['mod','erlang-c-driver','complex',[]],['fun','erlang-c-driver','complex:bar/1',[]],['fun','erlang-c-driver','complex:foo/1',[]],['fun','erlang-c-driver','complex:init/0',[]],['fun','erlang-c-driver','complex:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','smppsink','smppsink','[application]'],['mod','smppsink','smppsink_develop',[]],['mod','smppsink','smppsink_mnesia',[]],['fun','smppsink','smppsink_develop:init/0',[]],['fun','smppsink','smppsink_mnesia:ensure_schema/0',[]],['fun','smppsink','smppsink_mnesia:ensure_table/1',[]]];

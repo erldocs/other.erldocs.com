@@ -1,1 +1,0 @@
-var index = [['app','calculadora','calculadora','[application]'],['mod','calculadora','calculadora',[]],['fun','calculadora','calculadora:funcion/3',[]]];

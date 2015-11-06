@@ -1,1 +1,0 @@
-var index = [['app','benchmarks','benchmarks','[application]'],['mod','benchmarks','ets_lookup_vs_match',[]],['fun','benchmarks','ets_lookup_vs_match:start/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','ersync','ersync','[application]'],['mod','ersync','md4_interface',[]],['mod','ersync','server',[]],['fun','ersync','md4_interface:call/1',[]],['fun','ersync','md4_interface:start/0',[]],['fun','ersync','md4_interface:stop/0',[]]];

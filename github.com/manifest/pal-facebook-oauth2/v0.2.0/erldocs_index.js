@@ -1,1 +1,0 @@
-var index = [['app','pal-facebook-oauth2','pal-facebook-oauth2','[application]'],['mod','pal-facebook-oauth2','pal_facebook_oauth2_authcode',[]],['fun','pal-facebook-oauth2','pal_facebook_oauth2_authcode:access_token_request/1',[]],['fun','pal-facebook-oauth2','pal_facebook_oauth2_authcode:credentials/1',[]],['fun','pal-facebook-oauth2','pal_facebook_oauth2_authcode:decl/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','apptools','apptools','[application]'],['mod','apptools','apptools','   Simple tools for OTP application.'],['fun','apptools','apptools:ensure_started/1','  Starts the app and its dependencies.'],['fun','apptools','apptools:priv_dir/1','  Locates the priv dir of an app.']];

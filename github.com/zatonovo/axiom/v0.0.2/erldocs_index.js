@@ -1,1 +1,0 @@
-var index = [['app','axiom','axiom','[application]'],['mod','axiom','axiom',[]],['fun','axiom','axiom:dtl/2',[]],['fun','axiom','axiom:handle/2',[]],['fun','axiom','axiom:init/3',[]],['fun','axiom','axiom:start/1',[]],['fun','axiom','axiom:start/2',[]],['fun','axiom','axiom:stop/0',[]],['fun','axiom','axiom:terminate/2',[]]];

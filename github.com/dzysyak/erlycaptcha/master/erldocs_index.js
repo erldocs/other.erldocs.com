@@ -1,1 +1,0 @@
-var index = [['app','erlycaptcha','erlycaptcha','[application]'],['mod','erlycaptcha','erlycaptcha',[]]];

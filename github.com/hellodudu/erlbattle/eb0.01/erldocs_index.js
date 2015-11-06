@@ -1,1 +1,0 @@
-var index = [['app','erlbattle','erlbattle','[application]'],['mod','erlbattle','englandArmy',[]],['mod','erlbattle','erlbattle',[]],['mod','erlbattle','feardFarmers',[]],['fun','erlbattle','englandArmy:start/2',[]],['fun','erlbattle','erlbattle:start/0',[]],['fun','erlbattle','erlbattle:timer/3',[]],['fun','erlbattle','feardFarmers:start/2',[]]];

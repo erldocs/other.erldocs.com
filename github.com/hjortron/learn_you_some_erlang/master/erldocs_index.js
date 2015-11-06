@@ -1,1 +1,0 @@
-var index = [['app','learn_you_some_erlang','learn_you_some_erlang','[application]'],['mod','learn_you_some_erlang','routes','.'],['mod','learn_you_some_erlang','rpn_calculator','.'],['fun','learn_you_some_erlang','rpn_calculator:rpn/1',[]],['fun','learn_you_some_erlang','rpn_calculator:rpn_test/0',[]]];

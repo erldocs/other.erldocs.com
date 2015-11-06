@@ -1,1 +1,0 @@
-var index = [['app','erlanggui','erlanggui','[application]'],['mod','erlanggui','eClient',[]],['fun','erlanggui','eClient:start_link/0','  Starts the server.']];

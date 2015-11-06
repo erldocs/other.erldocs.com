@@ -1,1 +1,0 @@
-var index = [['app','fibonaccinumbers-in-erlang','fibonaccinumbers-in-erlang','[application]'],['mod','fibonaccinumbers-in-erlang','fibnacci',[]],['fun','fibonaccinumbers-in-erlang','fibnacci:calculate/1',[]]];

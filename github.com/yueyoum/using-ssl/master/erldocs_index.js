@@ -1,1 +1,0 @@
-var index = [['app','using-ssl','using-ssl','[application]'],['mod','using-ssl','erlang_client',[]],['mod','using-ssl','erlang_server',[]],['fun','using-ssl','erlang_client:connect/2',[]],['fun','using-ssl','erlang_client:start/0',[]],['fun','using-ssl','erlang_server:accept/1',[]],['fun','using-ssl','erlang_server:start/0',[]],['fun','using-ssl','erlang_server:start/1',[]]];

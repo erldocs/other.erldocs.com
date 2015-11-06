@@ -1,1 +1,0 @@
-var index = [['app','erlmultipart','erlmultipart','[application]'],['mod','erlmultipart','erlmultipart',[]],['fun','erlmultipart','erlmultipart:file_handler/3',[]],['fun','erlmultipart','erlmultipart:new/3',[]]];

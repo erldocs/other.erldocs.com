@@ -1,1 +1,0 @@
-var index = [['app','lolchord','lolchord','[application]'],['mod','lolchord','lolchord',[]],['mod','lolchord','lolchord_math',[]],['fun','lolchord','lolchord:server/1',[]],['fun','lolchord','lolchord_math:key_bits/0',[]],['fun','lolchord','lolchord_math:key_for/1',[]],['fun','lolchord','lolchord_math:key_in_interval/2',[]]];

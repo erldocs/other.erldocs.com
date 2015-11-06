@@ -1,1 +1,0 @@
-var index = [['app','relconfig','relconfig','[application]'],['mod','relconfig','relconfig_app',[]],['mod','relconfig','relconfig_sup',[]],['fun','relconfig','relconfig_app:start/2',[]],['fun','relconfig','relconfig_app:stop/1',[]],['fun','relconfig','relconfig_sup:init/1',[]],['fun','relconfig','relconfig_sup:start_link/0',[]]];

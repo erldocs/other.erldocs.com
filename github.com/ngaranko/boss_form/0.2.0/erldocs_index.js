@@ -1,1 +1,0 @@
-var index = [['app','boss_form','boss_form','[application]'],['mod','boss_form','boss_form',[]],['mod','boss_form','boss_form_fields',[]],['mod','boss_form','boss_form_widget',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','fast_key','fast_key','[application]'],['mod','fast_key','fast_key',[]],['fun','fast_key','fast_key:get/2',[]],['fun','fast_key','fast_key:get/3',[]],['fun','fast_key','fast_key:remove/2',[]],['fun','fast_key','fast_key:set/3',[]],['fun','fast_key','fast_key:size/1',[]]];

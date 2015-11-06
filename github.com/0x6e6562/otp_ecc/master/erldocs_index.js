@@ -1,1 +1,0 @@
-var index = [['app','otp_ecc','otp_ecc','[application]'],['mod','otp_ecc','otp_ecc',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','example_wiki','example_wiki','[application]'],['mod','example_wiki','example_wiki_incoming_mail_controller',[]],['mod','example_wiki','example_wiki_outgoing_mail_controller',[]],['mod','example_wiki','example_wiki_pages_controller',[]],['mod','example_wiki','page',[]],['mod','example_wiki','pages_helper',[]]];

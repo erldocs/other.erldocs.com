@@ -1,1 +1,0 @@
-var index = [['app','node-erlang-bridge','node-erlang-bridge','[application]'],['mod','node-erlang-bridge','enode',[]],['fun','node-erlang-bridge','enode:start/0',[]]];

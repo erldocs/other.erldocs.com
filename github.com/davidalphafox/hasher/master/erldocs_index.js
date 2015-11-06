@@ -1,1 +1,0 @@
-var index = [['app','hasher','hasher','[application]'],['mod','hasher','hasher',[]],['fun','hasher','hasher:fnv1_32/1',[]],['fun','hasher','hasher:fnv1_64/1',[]],['fun','hasher','hasher:fnv1a_32/1',[]],['fun','hasher','hasher:fnv1a_64/1',[]],['fun','hasher','hasher:murmur2/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','evmon','evmon','[application]'],['mod','evmon','evmon_app',[]],['mod','evmon','evmon_sup',[]],['fun','evmon','evmon_app:start/0',[]],['fun','evmon','evmon_app:start/2',[]],['fun','evmon','evmon_app:stop/1',[]],['fun','evmon','evmon_sup:init/1',[]],['fun','evmon','evmon_sup:start_link/0',[]]];

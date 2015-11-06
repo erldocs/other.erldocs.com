@@ -1,1 +1,0 @@
-var index = [['app','validaterl','validaterl','[application]'],['mod','validaterl','validaterl',[]],['fun','validaterl','validaterl:validate/1',[]],['fun','validaterl','validaterl:validate/2',[]]];

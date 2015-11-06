@@ -1,1 +1,0 @@
-var index = [['app','euc-2012-slides','euc-2012-slides','[application]'],['mod','euc-2012-slides','dialyzer_fail',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','msgqueued','msgqueued','[application]'],['mod','msgqueued','msgqueued',[]]];

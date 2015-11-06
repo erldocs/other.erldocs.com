@@ -1,1 +1,0 @@
-var index = [['app','sigma_erlang','sigma_erlang','[application]'],['mod','sigma_erlang','sigma',[]]];

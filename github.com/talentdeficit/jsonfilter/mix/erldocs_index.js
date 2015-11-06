@@ -1,1 +1,0 @@
-var index = [['app','jsonfilter','jsonfilter','[application]'],['mod','jsonfilter','jsonfilter',[]],['fun','jsonfilter','jsonfilter:filter/3',[]],['fun','jsonfilter','jsonfilter:handle_event/2',[]],['fun','jsonfilter','jsonfilter:init/1',[]]];

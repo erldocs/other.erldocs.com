@@ -1,1 +1,0 @@
-var index = [['app','pjm_jiffy','pjm_jiffy','[application]'],['mod','pjm_jiffy','pjm_jiffy',[]],['fun','pjm_jiffy','pjm_jiffy:from_json/1',[]],['fun','pjm_jiffy','pjm_jiffy:term_to_json/1',[]],['fun','pjm_jiffy','pjm_jiffy:to_json/1',[]]];

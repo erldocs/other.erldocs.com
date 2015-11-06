@@ -1,1 +1,0 @@
-var index = [['app','lfu','lfu','[application]'],['mod','lfu','lfu','O(1) LFU cache implementation.'],['fun','lfu','lfu:append/2',[]],['fun','lfu','lfu:head/1',[]],['fun','lfu','lfu:is_empty/1',[]],['fun','lfu','lfu:last/1',[]],['fun','lfu','lfu:length/1',[]],['fun','lfu','lfu:new/0',[]],['fun','lfu','lfu:nth/2',[]],['fun','lfu','lfu:tail/1',[]]];

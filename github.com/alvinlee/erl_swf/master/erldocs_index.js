@@ -1,1 +1,0 @@
-var index = [['app','erl_swf','erl_swf','[application]'],['mod','erl_swf','swf_file',[]],['mod','erl_swf','swf_lib',[]]];

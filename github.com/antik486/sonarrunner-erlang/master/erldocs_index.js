@@ -1,1 +1,0 @@
-var index = [['app','sonarrunner-erlang','sonarrunner-erlang','[application]'],['mod','sonarrunner-erlang','hello',[]],['fun','sonarrunner-erlang','hello:hello_world/0',[]]];

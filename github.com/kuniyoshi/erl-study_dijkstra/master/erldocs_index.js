@@ -1,1 +1,0 @@
-var index = [['app','erl-study_dijkstra','erl-study_dijkstra','[application]'],['mod','erl-study_dijkstra','study_dijkstra',[]],['fun','erl-study_dijkstra','study_dijkstra:find/3',[]],['fun','erl-study_dijkstra','study_dijkstra:read/1',[]]];

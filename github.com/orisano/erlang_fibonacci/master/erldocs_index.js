@@ -1,1 +1,0 @@
-var index = [['app','erlang_fibonacci','erlang_fibonacci','[application]'],['mod','erlang_fibonacci','prog',[]],['fun','erlang_fibonacci','prog:main/0',[]]];

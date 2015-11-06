@@ -1,1 +1,0 @@
-var index = [['app','jerg','jerg','[application]'],['mod','jerg','jerg',[]],['fun','jerg','jerg:main/1',[]]];

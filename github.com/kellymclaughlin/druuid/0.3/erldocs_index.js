@@ -1,1 +1,0 @@
-var index = [['app','druuid','druuid','[application]'],['mod','druuid','druuid',[]],['fun','druuid','druuid:v1/0',[]],['fun','druuid','druuid:v2/0',[]],['fun','druuid','druuid:v3/0',[]],['fun','druuid','druuid:v4/0',[]],['fun','druuid','druuid:v4_str/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','bloomerl','bloomerl','[application]'],['mod','bloomerl','bloomerl_hash',[]],['fun','bloomerl','bloomerl_hash:fnv_hash/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','hamming','hamming','[application]'],['mod','hamming','benchmark',[]],['mod','hamming','hamming',[]],['fun','hamming','benchmark:benchmark/0',[]],['fun','hamming','hamming:cweight/1',[]],['fun','hamming','hamming:weight/1',[]]];

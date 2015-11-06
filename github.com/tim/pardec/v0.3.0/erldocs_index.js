@@ -1,1 +1,0 @@
-var index = [['app','pardec','pardec','[application]'],['mod','pardec','pardec',[]],['fun','pardec','pardec:parse/2',[]],['fun','pardec','pardec:parse/3',[]]];

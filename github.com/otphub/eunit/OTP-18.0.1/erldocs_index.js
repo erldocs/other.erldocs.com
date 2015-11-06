@@ -1,1 +1,0 @@
-var index = [['app','eunit','eunit','[application]'],['mod','eunit','eunit_autoexport','Parse transform for automatic exporting of test fu'],['mod','eunit','eunit_striptests','Parse transform for stripping EUnit test functions'],['fun','eunit','eunit_autoexport:parse_transform/2',[]],['fun','eunit','eunit_striptests:parse_transform/2',[]]];

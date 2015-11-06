@@ -1,1 +1,0 @@
-var index = [['app','libsnarlmatch','libsnarlmatch','[application]'],['mod','libsnarlmatch','libsnarlmatch',[]],['fun','libsnarlmatch','libsnarlmatch:match/1',[]],['fun','libsnarlmatch','libsnarlmatch:test_perms/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlang-vanet-simulation','erlang-vanet-simulation','[application]'],['mod','erlang-vanet-simulation','display',[]],['mod','erlang-vanet-simulation','final',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','gossip','gossip','[application]'],['mod','gossip','digraph_example',[]],['fun','gossip','digraph_example:run/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','nifty-stuff','nifty-stuff','[application]'],['mod','nifty-stuff','runtime',[]],['fun','nifty-stuff','runtime:app_start/0',[]],['fun','nifty-stuff','runtime:readlines/0',[]],['fun','nifty-stuff','runtime:second_app_start/0',[]],['fun','nifty-stuff','runtime:time_check/1',[]]];

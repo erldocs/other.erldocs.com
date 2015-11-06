@@ -1,1 +1,0 @@
-var index = [['app','properties_pt','properties_pt','[application]'],['mod','properties_pt','properties_pt',[]],['fun','properties_pt','properties_pt:parse_transform/2',[]],['fun','properties_pt','properties_pt:reload/3',[]]];

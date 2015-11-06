@@ -1,1 +1,0 @@
-var index = [['app','sambot','sambot','[application]'],['mod','sambot','bot',[]],['fun','sambot','bot:connect/0',[]]];

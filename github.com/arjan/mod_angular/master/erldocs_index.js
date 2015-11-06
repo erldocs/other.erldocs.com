@@ -1,1 +1,0 @@
-var index = [['app','mod_angular','mod_angular','[application]'],['mod','mod_angular','mod_angular','Develop Angular JS applications with websocket com'],['fun','mod_angular','mod_angular:decode_callback/1',[]],['fun','mod_angular','mod_angular:observe_ng_rsc_props/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','tuenti_challenge_erlang','tuenti_challenge_erlang','[application]'],['mod','tuenti_challenge_erlang','solution',[]],['fun','tuenti_challenge_erlang','solution:start/0',[]]];

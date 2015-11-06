@@ -1,1 +1,0 @@
-var index = [['app','tedcosm','tedcosm','[application]'],['mod','tedcosm','tedcosm_sup',[]],['fun','tedcosm','tedcosm_sup:init/1',[]],['fun','tedcosm','tedcosm_sup:start_link/0',[]]];

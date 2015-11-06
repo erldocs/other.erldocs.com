@@ -1,1 +1,0 @@
-var index = [['app','erlang-markdown','erlang-markdown','[application]'],['mod','erlang-markdown','sum',[]],['fun','erlang-markdown','sum:binary_length/1',[]],['fun','erlang-markdown','sum:factorial/1',[]],['fun','erlang-markdown','sum:sum/2',[]],['fun','erlang-markdown','sum:to_string/1',[]]];

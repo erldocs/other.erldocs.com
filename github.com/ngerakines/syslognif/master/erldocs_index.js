@@ -1,1 +1,0 @@
-var index = [['app','syslognif','syslognif','[application]'],['mod','syslognif','syslog',[]],['fun','syslognif','syslog:close/0',[]],['fun','syslognif','syslog:facility/1',[]],['fun','syslognif','syslog:level/1',[]],['fun','syslognif','syslog:open/1',[]],['fun','syslognif','syslog:open/3',[]],['fun','syslognif','syslog:option/1',[]],['fun','syslognif','syslog:write/2',[]]];

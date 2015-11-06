@@ -1,1 +1,0 @@
-var index = [['app','practiceinerlang','practiceinerlang','[application]'],['mod','practiceinerlang','client',[]],['mod','practiceinerlang','router',[]]];

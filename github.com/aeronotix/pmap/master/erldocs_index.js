@@ -1,1 +1,0 @@
-var index = [['app','pmap','pmap','[application]'],['mod','pmap','pmap',[]],['fun','pmap','pmap:map/1',[]],['fun','pmap','pmap:map/1',[]],['fun','pmap','pmap:partition/2',[]]];

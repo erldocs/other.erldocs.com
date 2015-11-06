@@ -1,1 +1,0 @@
-var index = [['app','erlang_ale','erlang_ale','[application]'],['mod','erlang_ale','ale_util','   This file contains common code used throughout'],['fun','erlang_ale','ale_util:open_port/1',[]]];

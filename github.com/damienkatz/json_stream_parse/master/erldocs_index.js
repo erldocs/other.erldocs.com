@@ -1,1 +1,0 @@
-var index = [['app','json_stream_parse','json_stream_parse','[application]'],['mod','json_stream_parse','json_stream_parse',[]],['fun','json_stream_parse','json_stream_parse:collect_object/2',[]],['fun','json_stream_parse','json_stream_parse:events/2',[]],['fun','json_stream_parse','json_stream_parse:test_all/0',[]],['fun','json_stream_parse','json_stream_parse:to_ejson/1',[]]];

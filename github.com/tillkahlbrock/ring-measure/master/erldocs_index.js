@@ -1,1 +1,0 @@
-var index = [['app','ring-measure','ring-measure','[application]'],['mod','ring-measure','ering',[]],['fun','ring-measure','ering:measure/2',[]],['fun','ring-measure','ering:start/1',[]],['fun','ring-measure','ering:start_measure/2',[]]];

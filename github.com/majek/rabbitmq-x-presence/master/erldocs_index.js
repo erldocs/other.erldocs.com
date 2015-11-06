@@ -1,1 +1,0 @@
-var index = [['app','rabbitmq-x-presence','rabbitmq-x-presence','[application]'],['mod','rabbitmq-x-presence','rabbit_x_presence_app',[]],['fun','rabbitmq-x-presence','rabbit_x_presence_app:init/1',[]],['fun','rabbitmq-x-presence','rabbit_x_presence_app:start/2',[]],['fun','rabbitmq-x-presence','rabbit_x_presence_app:stop/1',[]]];

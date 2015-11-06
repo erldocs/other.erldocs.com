@@ -1,1 +1,0 @@
-var index = [['app','rest','rest','[application]'],['mod','rest','alumno',[]],['mod','rest','califica_rest_controler',[]],['mod','rest','nota',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erl-python','erl-python','[application]'],['mod','erl-python','bucket_filler',[]],['mod','erl-python','test_fds',[]],['fun','erl-python','bucket_filler:fill/1',[]],['fun','erl-python','bucket_filler:fill/2','fill N buckets with M msgs.']];

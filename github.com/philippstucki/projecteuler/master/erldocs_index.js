@@ -1,1 +1,0 @@
-var index = [['app','projecteuler','projecteuler','[application]'],['mod','projecteuler','p1',[]],['fun','projecteuler','p1:p1/1',[]]];

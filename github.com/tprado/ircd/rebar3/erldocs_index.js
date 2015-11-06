@@ -1,1 +1,0 @@
-var index = [['app','ircd','ircd','[application]'],['mod','ircd','ircd',[]],['mod','ircd','ircd_client_sup',[]],['mod','ircd','ircd_listener',[]],['fun','ircd','ircd_client_sup:new_conn/1',[]],['fun','ircd','ircd_client_sup:start_link/0','  Starts the supervisor.'],['fun','ircd','ircd_listener:start_link/0','  Starts the server.']];

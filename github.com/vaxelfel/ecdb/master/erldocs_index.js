@@ -1,1 +1,0 @@
-var index = [['app','ecdb','ecdb','[application]'],['mod','ecdb','ecdb',[]],['fun','ecdb','ecdb:cdbclose/1',[]],['fun','ecdb','ecdb:cdbget/1',[]],['fun','ecdb','ecdb:cdbopen/1',[]]];

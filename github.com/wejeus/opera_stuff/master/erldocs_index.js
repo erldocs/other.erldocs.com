@@ -1,1 +1,0 @@
-var index = [['app','opera_stuff','opera_stuff','[application]'],['mod','opera_stuff','f_server',[]],['mod','opera_stuff','hot_code',[]],['mod','opera_stuff','messages2',[]],['mod','opera_stuff','polymorph',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','eryaml','eryaml','[application]'],['mod','eryaml','yaml',[]],['fun','eryaml','yaml:children/1',[]],['fun','eryaml','yaml:find/2',[]],['fun','eryaml','yaml:find_by_path/2',[]],['fun','eryaml','yaml:key/1',[]],['fun','eryaml','yaml:parse_file/1',[]],['fun','eryaml','yaml:value/1',[]]];

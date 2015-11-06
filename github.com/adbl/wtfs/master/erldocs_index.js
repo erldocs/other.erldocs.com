@@ -1,1 +1,0 @@
-var index = [['app','wtfs','wtfs','[application]'],['mod','wtfs','wtfs',[]],['fun','wtfs','wtfs:init/1',[]],['fun','wtfs','wtfs:start/1',[]]];

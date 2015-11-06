@@ -1,1 +1,0 @@
-var index = [['app','pkgex','pkgex','[application]'],['mod','pkgex','pkgex_app',[]],['mod','pkgex','pkgex_sup',[]],['fun','pkgex','pkgex_app:start/2',[]],['fun','pkgex','pkgex_app:stop/1',[]],['fun','pkgex','pkgex_sup:init/1',[]],['fun','pkgex','pkgex_sup:start_link/0',[]]];

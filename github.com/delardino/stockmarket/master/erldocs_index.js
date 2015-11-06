@@ -1,1 +1,0 @@
-var index = [['app','stockmarket','stockmarket','[application]'],['mod','stockmarket','client',[]],['mod','stockmarket','db',[]]];

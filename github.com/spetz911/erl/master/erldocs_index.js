@@ -1,1 +1,0 @@
-var index = [['app','erl','erl','[application]'],['mod','erl','socket_examples',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','yubi','yubi','[application]'],['mod','yubi','yubi','Yubikey OTP verification functions.']];

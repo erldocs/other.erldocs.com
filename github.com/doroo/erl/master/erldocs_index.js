@@ -1,1 +1,0 @@
-var index = [['app','erl','erl','[application]'],['mod','erl','mp3_sync',[]],['fun','erl','mp3_sync:find_sync/2',[]]];

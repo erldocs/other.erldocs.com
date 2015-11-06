@@ -1,1 +1,0 @@
-var index = [['app','analysis_pats_erl','analysis_pats_erl','[application]'],['mod','analysis_pats_erl','lsp_contract',[]],['mod','analysis_pats_erl','party',[]],['mod','analysis_pats_erl','simple_contract',[]],['fun','analysis_pats_erl','party:new/1',[]],['fun','analysis_pats_erl','simple_contract:make_contract/5',[]]];

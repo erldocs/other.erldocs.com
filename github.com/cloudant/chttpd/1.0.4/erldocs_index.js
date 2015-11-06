@@ -1,1 +1,0 @@
-var index = [['app','chttpd','chttpd','[application]'],['mod','chttpd','chttpd_app',[]],['mod','chttpd','chttpd_sup',[]],['fun','chttpd','chttpd_app:start/2',[]],['fun','chttpd','chttpd_app:stop/1',[]],['fun','chttpd','chttpd_sup:init/1',[]],['fun','chttpd','chttpd_sup:start_link/1',[]]];

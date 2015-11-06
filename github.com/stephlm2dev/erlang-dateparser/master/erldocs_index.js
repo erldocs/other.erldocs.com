@@ -1,1 +1,0 @@
-var index = [['app','erlang-dateparser','erlang-dateparser','[application]'],['mod','erlang-dateparser','date_parser',[]],['mod','erlang-dateparser','date_parser_tests',[]],['fun','erlang-dateparser','date_parser:analyser/2',[]],['fun','erlang-dateparser','date_parser:start/2',[]],['fun','erlang-dateparser','date_parser:stop/1',[]]];

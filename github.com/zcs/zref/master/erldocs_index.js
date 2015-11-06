@@ -1,1 +1,0 @@
-var index = [['app','zref','zref','[application]'],['mod','zref','zref',[]],['fun','zref','zref:analyze_app/1',[]]];

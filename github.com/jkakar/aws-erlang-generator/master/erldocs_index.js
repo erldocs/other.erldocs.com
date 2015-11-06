@@ -1,1 +1,0 @@
-var index = [['app','aws-erlang-generator','aws-erlang-generator','[application]'],['mod','aws-erlang-generator','aws_gen',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','rets','rets','[application]'],['mod','rets','rets',[]],['mod','rets','rets_app',[]],['mod','rets','rets_nsync_callback',[]],['mod','rets','rets_sup',[]],['fun','rets','rets:start/0',[]],['fun','rets','rets_app:start/1',[]],['fun','rets','rets_app:stop/1',[]],['fun','rets','rets_sup:init/1',[]],['fun','rets','rets_sup:start_link/0',[]]];

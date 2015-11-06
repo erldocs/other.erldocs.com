@@ -1,1 +1,0 @@
-var index = [['app','bee_openid','bee_openid','[application]'],['mod','bee_openid','bee_openid_app',[]],['mod','bee_openid','bee_openid_sup',[]],['fun','bee_openid','bee_openid_app:start/2',[]],['fun','bee_openid','bee_openid_app:stop/1',[]],['fun','bee_openid','bee_openid_sup:init/1',[]],['fun','bee_openid','bee_openid_sup:start_link/0',[]]];

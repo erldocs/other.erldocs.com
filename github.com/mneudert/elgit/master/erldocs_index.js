@@ -1,1 +1,0 @@
-var index = [['app','elgit','elgit','[application]'],['mod','elgit','elgit_app',[]],['mod','elgit','elgit_db',[]],['fun','elgit','elgit_app:start/0',[]],['fun','elgit','elgit_db:repo_add/1',[]],['fun','elgit','elgit_db:repo_by_slug/1',[]]];

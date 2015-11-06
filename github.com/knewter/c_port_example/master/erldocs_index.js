@@ -1,1 +1,0 @@
-var index = [['app','c_port_example','c_port_example','[application]'],['mod','c_port_example','server',[]],['fun','c_port_example','server:start/1',[]]];

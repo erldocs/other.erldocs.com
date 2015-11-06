@@ -1,1 +1,0 @@
-var index = [['app','erlymatch','erlymatch','[application]'],['mod','erlymatch','erlymatch',[]],['mod','erlymatch','erlymatch_ignore',[]],['mod','erlymatch','erlymatch_parse',[]],['fun','erlymatch','erlymatch:print/2',[]],['fun','erlymatch','erlymatch:run/5',[]],['fun','erlymatch','erlymatch_ignore:fix/2',[]],['fun','erlymatch','erlymatch_parse:parse_transform/2',[]]];

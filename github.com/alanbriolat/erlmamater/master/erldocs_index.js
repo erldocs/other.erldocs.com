@@ -1,1 +1,0 @@
-var index = [['app','erlmamater','erlmamater','[application]'],['mod','erlmamater','erlmamater',[]],['fun','erlmamater','erlmamater:find_best/1',[]],['fun','erlmamater','erlmamater:hash/1',[]],['fun','erlmamater','erlmamater:random_string/2',[]],['fun','erlmamater','erlmamater:score/1',[]]];

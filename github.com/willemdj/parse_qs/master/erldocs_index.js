@@ -1,1 +1,0 @@
-var index = [['app','parse_qs','parse_qs','[application]'],['mod','parse_qs','parse_qs',[]],['fun','parse_qs','parse_qs:create_spec/2',[]],['fun','parse_qs','parse_qs:string/2',[]],['fun','parse_qs','parse_qs:test/0',[]]];

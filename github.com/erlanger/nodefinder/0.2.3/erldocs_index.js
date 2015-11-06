@@ -1,1 +1,0 @@
-var index = [['app','nodefinder','nodefinder','[application]'],['mod','nodefinder','nodefinder','Nodefinder service.'],['fun','nodefinder','nodefinder:discover/0','Initiate a discovery request.']];

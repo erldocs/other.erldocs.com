@@ -1,1 +1,0 @@
-var index = [['app','skerleton','skerleton','[application]']];

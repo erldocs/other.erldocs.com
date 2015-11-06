@@ -1,1 +1,0 @@
-var index = [['app','rabbitmq-lvc-plugin','rabbitmq-lvc-plugin','[application]'],['mod','rabbitmq-lvc-plugin','rabbit_lvc_plugin',[]],['fun','rabbitmq-lvc-plugin','rabbit_lvc_plugin:setup_schema/0',[]]];

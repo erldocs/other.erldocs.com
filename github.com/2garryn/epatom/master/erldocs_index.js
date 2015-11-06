@@ -1,1 +1,0 @@
-var index = [['app','epatom','epatom','[application]'],['mod','epatom','epatom','Module for converting Atom XML to erlang-friendly '],['mod','epatom','epatom_test','Tests for epatom.'],['fun','epatom','epatom:parse/1','Parse Atom Format string with filtering by       '],['fun','epatom','epatom:parse/1','Parse Atom Format string fully, without       fil']];

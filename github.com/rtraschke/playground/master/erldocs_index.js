@@ -1,1 +1,0 @@
-var index = [['app','playground','playground','[application]'],['mod','playground','ttq',[]],['fun','playground','ttq:add_offset/1',[]],['fun','playground','ttq:is_earlier_or_equal/1',[]]];

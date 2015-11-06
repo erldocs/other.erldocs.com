@@ -1,1 +1,0 @@
-var index = [['app','echat','echat','[application]'],['mod','echat','bench',[]],['mod','echat','echat',[]],['mod','echat','hello',[]],['fun','echat','echat:run/0',[]],['fun','echat','hello:hello_world/0',[]]];

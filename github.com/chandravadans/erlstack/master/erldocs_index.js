@@ -1,1 +1,0 @@
-var index = [['app','erlstack','erlstack','[application]'],['mod','erlstack','agents',[]],['mod','erlstack','management_process',[]]];

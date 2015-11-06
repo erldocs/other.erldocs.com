@@ -1,1 +1,0 @@
-var index = [['app','ejson','ejson','[application]'],['mod','ejson','demo',[]],['fun','ejson','demo:parse/1',[]]];

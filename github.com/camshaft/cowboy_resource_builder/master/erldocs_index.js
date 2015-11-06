@@ -1,1 +1,0 @@
-var index = [['app','cowboy_resource_builder','cowboy_resource_builder','[application]'],['mod','cowboy_resource_builder','cowboy_resource_builder',[]],['fun','cowboy_resource_builder','cowboy_resource_builder:authorize/4',[]],['fun','cowboy_resource_builder','cowboy_resource_builder:authorize/5',[]]];

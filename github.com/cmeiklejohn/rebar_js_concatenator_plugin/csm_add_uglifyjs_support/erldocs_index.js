@@ -1,1 +1,0 @@
-var index = [['app','rebar_js_concatenator_plugin','rebar_js_concatenator_plugin','[application]'],['mod','rebar_js_concatenator_plugin','rebar_js_concatenator_plugin',[]],['fun','rebar_js_concatenator_plugin','rebar_js_concatenator_plugin:clean/2',[]],['fun','rebar_js_concatenator_plugin','rebar_js_concatenator_plugin:compile/2',[]]];

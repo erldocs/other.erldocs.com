@@ -1,1 +1,0 @@
-var index = [['app','erlang-icmp-win','erlang-icmp-win','[application]'],['mod','erlang-icmp-win','icmp_win',[]]];

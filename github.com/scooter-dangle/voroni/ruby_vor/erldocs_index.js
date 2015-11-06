@@ -1,1 +1,0 @@
-var index = [['app','voroni','voroni','[application]'],['mod','voroni','img',[]],['mod','voroni','img_main',[]],['mod','voroni','util',[]]];

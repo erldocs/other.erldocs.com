@@ -1,1 +1,0 @@
-var index = [['app','rebar3_cuttlefish','rebar3_cuttlefish','[application]'],['mod','rebar3_cuttlefish','rebar3_cuttlefish',[]],['fun','rebar3_cuttlefish','rebar3_cuttlefish:do/1',[]],['fun','rebar3_cuttlefish','rebar3_cuttlefish:format_error/1',[]],['fun','rebar3_cuttlefish','rebar3_cuttlefish:init/1',[]]];

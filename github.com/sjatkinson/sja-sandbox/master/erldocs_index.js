@@ -1,1 +1,0 @@
-var index = [['app','sja-sandbox','sja-sandbox','[application]'],['mod','sja-sandbox','geometry',[]],['mod','sja-sandbox','shop',[]],['fun','sja-sandbox','geometry:area/1',[]],['fun','sja-sandbox','shop:cost/1',[]],['fun','sja-sandbox','shop:total/1',[]]];

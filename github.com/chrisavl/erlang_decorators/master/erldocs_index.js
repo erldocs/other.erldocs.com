@@ -1,1 +1,0 @@
-var index = [['app','erlang_decorators','erlang_decorators','[application]'],['mod','erlang_decorators','decorators',[]],['fun','erlang_decorators','decorators:parse_transform/2',[]],['fun','erlang_decorators','decorators:pretty_print/1',[]]];

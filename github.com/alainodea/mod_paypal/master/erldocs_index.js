@@ -1,1 +1,0 @@
-var index = [['app','mod_paypal','mod_paypal','[application]'],['mod','mod_paypal','mod_paypal','PayPal IPN Module.']];

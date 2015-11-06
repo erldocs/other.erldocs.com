@@ -1,1 +1,0 @@
-var index = [['app','type_check','type_check','[application]'],['mod','type_check','type_check','Ensures arguments are of the specified type, used '],['fun','type_check','type_check:validate/2',[]]];

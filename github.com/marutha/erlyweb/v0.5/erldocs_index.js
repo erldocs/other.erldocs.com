@@ -1,1 +1,0 @@
-var index = [['app','erlyweb','erlyweb','[application]'],['mod','erlyweb','make_erlyweb',[]],['fun','erlyweb','make_erlyweb:start/0',[]]];

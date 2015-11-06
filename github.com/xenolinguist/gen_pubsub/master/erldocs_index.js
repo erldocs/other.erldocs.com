@@ -1,1 +1,0 @@
-var index = [['app','gen_pubsub','gen_pubsub','[application]'],['mod','gen_pubsub','gen_pubsub',[]],['fun','gen_pubsub','gen_pubsub:notify/3',[]],['fun','gen_pubsub','gen_pubsub:publish/2',[]],['fun','gen_pubsub','gen_pubsub:request/3',[]],['fun','gen_pubsub','gen_pubsub:subscribe/2',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','emultiplex','emultiplex','[application]'],['mod','emultiplex','emultiplex',[]],['fun','emultiplex','emultiplex:launch/0',[]],['fun','emultiplex','emultiplex:launch/1',[]]];

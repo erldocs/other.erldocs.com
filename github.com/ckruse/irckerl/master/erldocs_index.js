@@ -1,1 +1,0 @@
-var index = [['app','irckerl','irckerl','[application]'],['mod','irckerl','irckerl_app',[]],['fun','irckerl','irckerl_app:start/0',[]],['fun','irckerl','irckerl_app:start/2',[]],['fun','irckerl','irckerl_app:stop/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','fibonacci_race','fibonacci_race','[application]'],['mod','fibonacci_race','fibonacci_race',[]],['fun','fibonacci_race','fibonacci_race:fib/1',[]],['fun','fibonacci_race','fibonacci_race:main/1',[]]];

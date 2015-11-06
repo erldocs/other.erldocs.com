@@ -1,1 +1,0 @@
-var index = [['app','coolcode','coolcode','[application]'],['mod','coolcode','kaprekar_constant',[]],['mod','coolcode','parallel_mergesort',[]],['mod','coolcode','parallel_processes',[]],['mod','coolcode','parallel_unsorted_bsearch',[]],['mod','coolcode','pi',[]]];

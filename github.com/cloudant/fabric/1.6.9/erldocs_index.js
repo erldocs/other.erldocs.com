@@ -1,1 +1,0 @@
-var index = [['app','fabric','fabric','[application]'],['mod','fabric','fabric_dict',[]]];

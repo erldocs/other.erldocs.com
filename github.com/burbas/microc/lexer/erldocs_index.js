@@ -1,1 +1,0 @@
-var index = [['app','microc','microc','[application]'],['mod','microc','microC_app',[]],['mod','microc','microC_sup',[]],['fun','microc','microC_app:start/2',[]],['fun','microc','microC_app:stop/1',[]],['fun','microc','microC_sup:init/1',[]],['fun','microc','microC_sup:start_link/0',[]]];

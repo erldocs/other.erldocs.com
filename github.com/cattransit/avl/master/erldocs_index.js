@@ -1,1 +1,0 @@
-var index = [['app','avl','avl','[application]'],['mod','avl','cat_avl',[]],['mod','avl','idis',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','fun-club-wordcount-erlang','fun-club-wordcount-erlang','[application]'],['mod','fun-club-wordcount-erlang','wordcount',[]],['fun','fun-club-wordcount-erlang','wordcount:main/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','mnesia-node-rename','mnesia-node-rename','[application]'],['mod','mnesia-node-rename','mnesia_node_rename',[]],['fun','mnesia-node-rename','mnesia_node_rename:start/3',[]],['fun','mnesia-node-rename','mnesia_node_rename:view/1',[]]];

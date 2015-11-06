@@ -1,1 +1,0 @@
-var index = [['app','emixins','emixins','[application]'],['mod','emixins','mixins_pt','Mixins Parse Transform.'],['fun','emixins','mixins_pt:parse_transform/1','Standard parse_transform function which compiles i']];

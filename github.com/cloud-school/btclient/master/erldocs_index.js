@@ -1,1 +1,0 @@
-var index = [['app','btclient','btclient','[application]'],['mod','btclient','btclient',[]],['fun','btclient','btclient:getinfo/0',[]],['fun','btclient','btclient:getnewaddress/1',[]],['fun','btclient','btclient:gettransaction/1',[]]];

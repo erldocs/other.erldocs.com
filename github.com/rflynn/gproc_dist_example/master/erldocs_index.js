@@ -1,1 +1,0 @@
-var index = [['app','gproc_dist_example','gproc_dist_example','[application]'],['mod','gproc_dist_example','node1',[]],['mod','gproc_dist_example','node2',[]],['fun','gproc_dist_example','node1:start/0',[]],['fun','gproc_dist_example','node2:start/0',[]]];

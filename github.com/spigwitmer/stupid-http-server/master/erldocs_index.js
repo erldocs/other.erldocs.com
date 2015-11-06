@@ -1,1 +1,0 @@
-var index = [['app','stupid-http-server','stupid-http-server','[application]'],['mod','stupid-http-server','http_start',[]],['mod','stupid-http-server','listen_http',[]],['fun','stupid-http-server','http_start:start/2',[]],['fun','stupid-http-server','http_start:stop/1',[]],['fun','stupid-http-server','listen_http:wait_for_request/2',[]]];

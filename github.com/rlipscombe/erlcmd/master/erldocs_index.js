@@ -1,1 +1,0 @@
-var index = [['app','erlcmd','erlcmd','[application]'],['mod','erlcmd','cmd',[]],['mod','erlcmd','cmd_app',[]],['mod','erlcmd','cmd_sup',[]],['fun','erlcmd','cmd:run/1',[]],['fun','erlcmd','cmd_app:start/2',[]],['fun','erlcmd','cmd_app:stop/1',[]],['fun','erlcmd','cmd_sup:init/1',[]],['fun','erlcmd','cmd_sup:start_link/0',[]]];

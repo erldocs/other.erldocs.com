@@ -1,1 +1,0 @@
-var index = [['app','math','math','[application]'],['mod','math','math_app','Empty hook module for rebar tests.'],['fun','math','math_app:does_nothing/0',[]]];

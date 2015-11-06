@@ -1,1 +1,0 @@
-var index = [['app','erlstats_web','erlstats_web','[application]'],['mod','erlstats_web','erlstats_web',[]],['mod','erlstats_web','erlstats_web_sup',[]],['fun','erlstats_web','erlstats_web:start/2',[]],['fun','erlstats_web','erlstats_web:stop/1',[]],['fun','erlstats_web','erlstats_web_sup:init/1',[]],['fun','erlstats_web','erlstats_web_sup:start_link/0',[]]];

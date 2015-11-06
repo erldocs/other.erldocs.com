@@ -1,1 +1,0 @@
-var index = [['app','twerl','twerl','[application]'],['mod','twerl','twerl',[]],['fun','twerl','twerl:code_change/3',[]],['fun','twerl','twerl:handle_call/3',[]],['fun','twerl','twerl:handle_cast/2',[]],['fun','twerl','twerl:handle_info/2',[]],['fun','twerl','twerl:init/1',[]],['fun','twerl','twerl:terminate/2',[]]];

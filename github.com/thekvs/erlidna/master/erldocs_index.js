@@ -1,1 +1,0 @@
-var index = [['app','erlidna','erlidna','[application]'],['mod','erlidna','erlidna','Implementation of the IDNA part of GNU libidn libr'],['fun','erlidna','erlidna:decode/1','Decode domain name from ASCII representation into '],['fun','erlidna','erlidna:encode/1','Encode domain name given in UTF-8 encoding into AS']];

@@ -1,1 +1,0 @@
-var index = [['app','appenv','appenv','[application]'],['mod','appenv','appenv','Module that helps to work with app.config valiable'],['fun','appenv','appenv:get/1','Get application environment value of Param from co'],['fun','appenv','appenv:get/1','Get application environment value of Param from co']];

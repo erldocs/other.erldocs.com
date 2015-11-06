@@ -1,1 +1,0 @@
-var index = [['app','kvs','kvs','[application]'],['mod','kvs','kvs_sup',[]],['fun','kvs','kvs_sup:init/1',[]],['fun','kvs','kvs_sup:start_link/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlmaster','erlmaster','[application]'],['mod','erlmaster','q3',[]],['fun','erlmaster','q3:start/1',[]]];

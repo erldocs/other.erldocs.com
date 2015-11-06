@@ -1,1 +1,0 @@
-var index = [['app','logic-puzzles','logic-puzzles','[application]'],['mod','logic-puzzles','queens',[]],['fun','logic-puzzles','queens:q/1',[]]];

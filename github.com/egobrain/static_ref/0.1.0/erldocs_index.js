@@ -1,1 +1,0 @@
-var index = [['app','static_ref','static_ref','[application]'],['mod','static_ref','static_ref',[]],['fun','static_ref','static_ref:compile/4',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','akismet-erlang','akismet-erlang','[application]'],['mod','akismet-erlang','akismet',[]],['fun','akismet-erlang','akismet:check/6',[]],['fun','akismet-erlang','akismet:ham/6',[]],['fun','akismet-erlang','akismet:selftest/0',[]],['fun','akismet-erlang','akismet:spam/6',[]],['fun','akismet-erlang','akismet:verify_key/2',[]]];

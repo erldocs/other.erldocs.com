@@ -1,1 +1,0 @@
-var index = [['app','sc_perceptron','sc_perceptron','[application]'],['mod','sc_perceptron','sc_perceptron',[]],['fun','sc_perceptron','sc_perceptron:result/3',[]]];

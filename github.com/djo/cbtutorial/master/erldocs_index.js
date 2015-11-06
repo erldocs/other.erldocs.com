@@ -1,1 +1,0 @@
-var index = [['app','cbtutorial','cbtutorial','[application]'],['mod','cbtutorial','cbtutorial_custom_filters',[]],['mod','cbtutorial','cbtutorial_custom_tags',[]],['mod','cbtutorial','cbtutorial_greeting_controller',[]],['mod','cbtutorial','cbtutorial_incoming_mail_controller',[]],['mod','cbtutorial','cbtutorial_outgoing_mail_controller',[]],['mod','cbtutorial','greeting',[]]];

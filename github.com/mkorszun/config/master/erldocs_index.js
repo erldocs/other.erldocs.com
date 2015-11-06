@@ -1,1 +1,0 @@
-var index = [['app','config','config','[application]'],['mod','config','config',[]],['fun','config','config:get_env/1',[]],['fun','config','config:get_env/1',[]]];

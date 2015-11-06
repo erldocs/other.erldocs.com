@@ -1,1 +1,0 @@
-var index = [['app','wkb_writer','wkb_writer','[application]'],['mod','wkb_writer','wkb_writer',[]],['fun','wkb_writer','wkb_writer:geojson_to_wkb/1',[]]];

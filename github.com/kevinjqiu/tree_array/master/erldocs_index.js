@@ -1,1 +1,0 @@
-var index = [['app','tree_array','tree_array','[application]'],['mod','tree_array','test_tree_array',[]],['mod','tree_array','tree_array',[]],['fun','tree_array','tree_array:get/2',[]],['fun','tree_array','tree_array:hirem/1',[]],['fun','tree_array','tree_array:new/0',[]],['fun','tree_array','tree_array:put/3',[]]];

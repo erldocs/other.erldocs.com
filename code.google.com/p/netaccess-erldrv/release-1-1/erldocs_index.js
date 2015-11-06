@@ -1,1 +1,0 @@
-var index = [['app','netaccess-erldrv','netaccess-erldrv','[application]'],['mod','netaccess-erldrv','netaccess_fsm','A gen_fsm based behaviour for users of the netacce']];

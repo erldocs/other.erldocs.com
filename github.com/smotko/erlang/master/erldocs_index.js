@@ -1,1 +1,0 @@
-var index = [['app','erlang','erlang','[application]'],['mod','erlang','division',[]],['mod','erlang','lib_misc',[]],['fun','erlang','division:d/2',[]],['fun','erlang','lib_misc:for/3',[]],['fun','erlang','lib_misc:perms/1',[]],['fun','erlang','lib_misc:pythag/1',[]],['fun','erlang','lib_misc:qsort/1',[]],['fun','erlang','lib_misc:sum/1',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','abm','abm','[application]'],['mod','abm','general_schelling',[]],['mod','abm','schelling',[]],['mod','abm','simplest_nn',[]]];

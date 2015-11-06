@@ -1,1 +1,0 @@
-var index = [['app','erlang-fun','erlang-fun','[application]'],['mod','erlang-fun','list_comprehensions',[]],['fun','erlang-fun','list_comprehensions:filter_out_evens/1',[]],['fun','erlang-fun','list_comprehensions:multiply_by_two/1',[]]];

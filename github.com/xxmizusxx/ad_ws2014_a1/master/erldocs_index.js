@@ -1,1 +1,0 @@
-var index = [['app','ad_ws2014_a1','ad_ws2014_a1','[application]'],['mod','ad_ws2014_a1','liste','.']];

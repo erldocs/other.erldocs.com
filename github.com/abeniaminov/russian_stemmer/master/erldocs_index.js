@@ -1,1 +1,0 @@
-var index = [['app','russian_stemmer','russian_stemmer','[application]'],['mod','russian_stemmer','russian_stemmer',[]],['fun','russian_stemmer','russian_stemmer:stem/1',[]]];

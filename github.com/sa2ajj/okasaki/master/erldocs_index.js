@@ -1,1 +1,0 @@
-var index = [['app','okasaki','okasaki','[application]'],['mod','okasaki','skew_heap',[]],['fun','okasaki','skew_heap:delete_min/1',[]],['fun','okasaki','skew_heap:empty/1',[]],['fun','okasaki','skew_heap:find_min/1',[]],['fun','okasaki','skew_heap:insert/2',[]],['fun','okasaki','skew_heap:merge/2',[]],['fun','okasaki','skew_heap:new/0',[]]];

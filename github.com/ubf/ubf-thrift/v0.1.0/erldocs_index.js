@@ -1,1 +1,0 @@
-var index = [['app','ubf-thrift','ubf-thrift','[application]'],['mod','ubf-thrift','tbf_driver','Protocol driver process for TBF (Thrift Binary For'],['fun','ubf-thrift','tbf_driver:decode/4',[]],['fun','ubf-thrift','tbf_driver:encode/2',[]],['fun','ubf-thrift','tbf_driver:init/1',[]],['fun','ubf-thrift','tbf_driver:start/1',[]]];

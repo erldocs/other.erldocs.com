@@ -1,1 +1,0 @@
-var index = [['app','tz_cache','tz_cache','[application]'],['mod','tz_cache','tz_cache_app',[]],['mod','tz_cache','tz_cache_sup',[]],['fun','tz_cache','tz_cache_app:start/2',[]],['fun','tz_cache','tz_cache_app:stop/1',[]],['fun','tz_cache','tz_cache_sup:init/1',[]],['fun','tz_cache','tz_cache_sup:start_link/0',[]]];

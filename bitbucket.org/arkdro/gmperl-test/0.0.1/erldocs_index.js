@@ -1,1 +1,0 @@
-var index = [['app','gmperl-test','gmperl-test','[application]'],['mod','gmperl-test','rgen',[]],['fun','gmperl-test','rgen:test1/0',[]],['fun','gmperl-test','rgen:test2_ok/0',[]]];

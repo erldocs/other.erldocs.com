@@ -1,1 +1,0 @@
-var index = [['app','cards','cards','[application]'],['mod','cards','emv',[]],['mod','cards','emv_server',[]],['mod','cards','emv_test',[]],['mod','cards','inn_electron',[]],['mod','cards','inn_maestro',[]],['mod','cards','inn_mastercard',[]],['mod','cards','inn_unionpay',[]],['mod','cards','inn_visa',[]],['fun','cards','emv:main/1',[]]];

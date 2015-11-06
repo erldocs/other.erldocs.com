@@ -1,1 +1,0 @@
-var index = [['app','fin_util','fin_util','[application]'],['mod','fin_util','fin_util','Utilities for the Finsignia platform.'],['fun','fin_util','fin_util:ensure_started/1','ensure the given application, App, is started  an'],['fun','fin_util','fin_util:generate_passphrase/0',[]],['fun','fin_util','fin_util:generate_passphrase/1',[]]];

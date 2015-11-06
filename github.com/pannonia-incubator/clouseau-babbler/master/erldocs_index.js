@@ -1,1 +1,0 @@
-var index = [['app','clouseau-babbler','clouseau-babbler','[application]'],['mod','clouseau-babbler','babbler_app',[]],['mod','clouseau-babbler','babbler_sup',[]],['fun','clouseau-babbler','babbler_app:start/2',[]],['fun','clouseau-babbler','babbler_app:stop/1',[]],['fun','clouseau-babbler','babbler_sup:init/1',[]],['fun','clouseau-babbler','babbler_sup:start_link/0',[]]];

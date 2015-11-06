@@ -1,1 +1,0 @@
-var index = [['app','wg_http_api','wg_http_api','[application]'],['mod','wg_http_api','rest_http_api',[]],['fun','wg_http_api','rest_http_api:filter_params/2',[]],['fun','wg_http_api','rest_http_api:param/2',[]],['fun','wg_http_api','rest_http_api:param/3',[]],['fun','wg_http_api','rest_http_api:upgrade/4',[]]];

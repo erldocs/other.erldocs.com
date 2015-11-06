@@ -1,1 +1,0 @@
-var index = [['app','tcp_echo','tcp_echo','[application]'],['mod','tcp_echo','tcp_echo',[]],['fun','tcp_echo','tcp_echo:init/1',[]],['fun','tcp_echo','tcp_echo:init/2',[]],['fun','tcp_echo','tcp_echo:start/2',[]],['fun','tcp_echo','tcp_echo:start_link/4',[]],['fun','tcp_echo','tcp_echo:stop/1',[]]];

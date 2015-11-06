@@ -1,1 +1,0 @@
-var index = [['app','bohemian.erl','bohemian.erl','[application]'],['mod','bohemian.erl','bohemian',[]],['fun','bohemian.erl','bohemian:object/1',[]],['fun','bohemian.erl','bohemian:state/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','erlspider','erlspider','[application]'],['mod','erlspider','spider','.'],['fun','erlspider','spider:dump_webcontent_to_file/2',[]],['fun','erlspider','spider:init/1',[]],['fun','erlspider','spider:main/2',[]],['fun','erlspider','spider:start/2',[]],['fun','erlspider','spider:stop/0',[]]];

@@ -1,1 +1,0 @@
-var index = [['app','sqor_msg_publisher','sqor_msg_publisher','[application]'],['mod','sqor_msg_publisher','sqor_msg_publisher_sup',[]],['fun','sqor_msg_publisher','sqor_msg_publisher_sup:init/1',[]],['fun','sqor_msg_publisher','sqor_msg_publisher_sup:start_link/0',[]]];

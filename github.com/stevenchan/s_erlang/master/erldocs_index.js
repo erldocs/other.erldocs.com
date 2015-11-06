@@ -1,1 +1,0 @@
-var index = [['app','s_erlang','s_erlang','[application]'],['mod','s_erlang','s_erlang',[]],['mod','s_erlang','s_lists',[]],['fun','s_erlang','s_erlang:start_apps/1',[]],['fun','s_erlang','s_erlang:uuid/0','UUID based on random numbers.'],['fun','s_erlang','s_lists:random/1','Return a random element.'],['fun','s_erlang','s_lists:shuffle/1',[]]];

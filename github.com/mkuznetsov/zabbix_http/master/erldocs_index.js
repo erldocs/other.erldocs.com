@@ -1,1 +1,0 @@
-var index = [['app','zabbix_http','zabbix_http','[application]'],['mod','zabbix_http','zabbix_sender_app',[]],['mod','zabbix_http','zabbix_sender_sup',[]],['fun','zabbix_http','zabbix_sender_app:start/2',[]],['fun','zabbix_http','zabbix_sender_app:stop/1',[]],['fun','zabbix_http','zabbix_sender_sup:init/1',[]],['fun','zabbix_http','zabbix_sender_sup:start_link/0',[]]];

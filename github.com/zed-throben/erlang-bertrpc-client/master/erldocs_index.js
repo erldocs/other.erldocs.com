@@ -1,1 +1,0 @@
-var index = [['app','erlang-bertrpc-client','erlang-bertrpc-client','[application]'],['mod','erlang-bertrpc-client','bert',[]],['fun','erlang-bertrpc-client','bert:decode/1',[]],['fun','erlang-bertrpc-client','bert:encode/1',[]]];
